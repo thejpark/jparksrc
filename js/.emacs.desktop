@@ -1,0 +1,94 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Mon Apr 29 16:20:37 2013
+;; Desktop file format version 206
+;; Emacs version 22.1.1
+
+;; Global section:
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '("t10" "7"))
+(setq regexp-search-ring nil)
+(setq register-alist nil)
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 206
+  "/Users/jpark/wrk/test/cpp/acpp.cpp"
+  "acpp.cpp"
+  'c++-mode
+  '(abbrev-mode)
+  5676
+  '(4608 t)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/Dropbox/Dropbox_wrk/docs/Resume/interview.txt"
+  "interview.txt"
+  'text-mode
+  nil
+  2020
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . mule-utf-8-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/wrk/test/java/test1.java"
+  "test1.java"
+  'java-mode
+  '(abbrev-mode)
+  863
+  '(844 t)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . mule-utf-8)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/bin/mongodb-osx-x86_64-2.4.2/README"
+  "README"
+  'fundamental-mode
+  nil
+  1014
+  '(nil nil)
+  nil
+  nil
+  '((buffer-file-coding-system . undecided-unix)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/wrk/test/js/javascript.js"
+  "javascript.js"
+  'java-mode
+  '(abbrev-mode)
+  1245
+  '(720 t)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . mule-utf-8)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/wrk/test/js/js.html"
+  "js.html"
+  'html-mode
+  nil
+  42
+  '(76 t)
+  nil
+  nil
+  '((buffer-file-coding-system . mule-utf-8)))
+
+(desktop-create-buffer 206
+  "/Users/jpark/wrk/test/js/program.js"
+  "program.js"
+  'java-mode
+  '(abbrev-mode)
+  36
+  '(nil nil)
+  nil
+  nil
+  '((tab-width . 8) (indent-tabs-mode) (buffer-file-coding-system . mule-utf-8)))
+

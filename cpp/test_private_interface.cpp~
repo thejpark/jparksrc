@@ -1,0 +1,15 @@
+#include <istream>
+
+
+class iface1 {
+public: 
+    foo() {
+        std::cout << "foo" << std::endl;
+    }
+};
+
+class iface2 {
+public:
+    bar() {
+        std::cout << "bar" << std::endl;
+    }

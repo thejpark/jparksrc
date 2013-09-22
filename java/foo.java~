@@ -1,0 +1,10 @@
+public class Foo
+{
+
+    public static synchronized void bar()
+    {
+
+        //do something
+    }
+
+}

@@ -1,0 +1,398 @@
+1. Some bit manipulation methods
+
+#define POWER_OF_2(x) (((x) != 0UL) && (((x) & ((x) - 1UL)) == 0UL))
+#define GET_LAST_BIT(x) ((x) & ((x) - 1UL)) ^ (x)
+#define POWER_TWO_MOD(x, y) ((x) & ((y) - 1UL))
+#define ROUND_UP(address, size) \
+	(((address) + ((size) - 1)) & ~((size) - 1))
+#define ROUND_DOWN(address, size) \
+	((address) & ~((size) - 1))
+#define GET_NUMBER_OF_BITS (x)
+#define ADD_WILL_OVERFLOW(a, b) ((a) > (~(b)))
+#define TOGGLE_BIT
+#define CLEAR_BIT
+#define SET_BIT
+#defint SET_BITS_FROM_A
+
+2. callback function
+
+struct b a;
+void f(int, struct b);
+typedef void  (*callback)(int , struct b *); /*declaration*/
+void foo(callback f, int b)
+ { /*use*/
+f(3, a);
+
+}
+foo(f, 3);
+----------------------------------------------
+
+int f(int x) { … }
+void bar(int  (*func)(int), int); /*definition or declaration*/
+bar(f, 3) /* use*/
+
+
+3. 
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+	int val;
+	struct node *next;
+};
+
+
+struct node *
+create_node(int val)
+{   
+	struct node * ret;
+	ret = malloc(sizeof(struct node));
+	if (ret == NULL)
+    	return ret;
+	ret->val = val;
+	ret->next = NULL;
+	return ret;
+}
+
+struct list {
+	struct node *first;
+};
+
+
+struct list *
+create_list()
+{
+	struct list *ret = malloc(sizeof(struct list));
+	if (ret == NULL)
+    	return ret;
+	ret->first = NULL;
+	return ret;
+}
+
+int
+is_element_at(struct list *l, int loc)
+{
+	struct node *t = l->first;
+
+	int i = 0;
+	for (;(i < loc) && (t != NULL); i++, t = t->next) ;
+
+	if (t == NULL)
+    	return 0;
+	return 1;
+}
+
+int
+element_at(struct list *l, int loc)
+{   
+	struct node *t = l->first;
+	int i = 0;
+	for (;(i < loc) && (t != NULL); i++, t = t->next) ;
+
+	return t->val;
+}
+
+void
+append(struct list *a, int val)
+{   
+	struct node *tmp = create_node(val);
+	if(a->first == NULL) {
+    	a->first = tmp;
+	} else {
+    	struct node *t = a->first;
+    	while (t->next) {
+        	t = t->next;
+    	}
+    	t->next = tmp;
+	}
+}
+
+void
+print_list(struct list *l)
+{   
+	struct node *t = l->first;
+	while(t) {
+    	printf(" [%d] ", t->val);
+    	t = t->next;
+	}
+	printf("\n");
+}
+
+
+void test_list()
+{
+	int i;
+
+	struct list *l = create_list();
+	for (i = 0; i < 10; i++) {
+    	append(l, i);
+	}
+
+   print_list(l);
+   if (is_element_at(l, 10)) {
+   	printf("element at 7 is %d\n", element_at(l, 7));
+   }
+}
+
+void test_swap_even_odd_bits()
+{
+	int a = 54;
+	printf("the value of a is %d\n", a);
+	int a1 = a << 1;
+	int a2 = a >> 1;
+	a = (a1 & 0xAAAAAAAA) |
+        	(a2 & 0x55555555);
+	printf("the value of new a is %d\n", a);
+}
+
+void get_number_of_bits()
+{
+   int a = 54;
+	printf("the value of a is %d\n", a);
+	int i = 0;
+	if (a != 0) i++;
+	while( (a = (a & (a - 1))) != 0) {
+    	i++;
+
+    	printf("[%d]the number of bits are %d\n", a, i);
+	}
+	printf("the number of bits are %d\n", i);
+
+}
+
+/* assume that array is sorted but rotated to the right, so left most element is bigger than right most element. If the array is not rotated, we do not need s and n but need just a middle index m.  */
+int is_left(int *a, int s, int n, int m, int k)
+{   
+    if (a[s] < a[m-1]) { /* s to m-1 is sorted */
+        if (a[s] < k && k < a[m-1])
+            return 1;
+        else return 0;
+    }
+    else /* if (a[m + 1] < a[n]) is sorted */{
+        if (a[m + 1] < k && k < a[n])
+            return 0;
+        else return 1;
+    }
+}
+
+int f(int *a, int s, int n, int k)
+{   
+    if (n < s) return -1;
+
+    int m = (s + n) / 2;
+    if (a[m] == k)
+        return m;
+    else if (is_left(a, s, n, m, k))
+        return f(a, s, m - 1, k);
+    else return f(a, m + 1, n, k);
+}   
+int find(int *a, int size, int k)
+{   
+    return f(a, 0, size - 1, k);
+}
+
+void bin_search_test_1()
+{
+    /* search a position of an element in a sorted and rotated array*/
+    int a[] = {8, 9, 10, 1, 2, 3, 4, 5, 6, 7};
+    int size = (int)(sizeof(a) / sizeof(int));
+    printf ("the sizeof a is %d\n", size);
+
+    printf("the index of 5 is %d\n", find(a, size, 5));
+}
+
+
+#if 0
+/*if a 2-dimensional array has column sorted and row sorted, then just follow from the 
+upper right coner, go down if the element is smaller than key, or go left is the element is bigger than key, found if the element if the key. loop over all the element of M by N array. */
+ 
+/* todo: I’ve tested with different approach by using binary search.  */
+
+int f1(int **a, int min_n, int max_n, int min_m, int max_m, k)
+{   
+    if (min_m > max_m)
+        printf("error 1\n");
+    int mid_m = (min_m + max_m);
+    int found = f(a, min_n, max_n, mid_m, k);
+    if (found) print mid_m, found
+        else
+
+
+            }
+}
+int find(int **a, int n, int m, int k)
+{   
+    int max_n = get_max_n(a[0], n, k);
+    int min_n = get_min_n(a[m], n, k);
+    int max_m = get_max_m(a, n, m, k);
+    int min_m = get_min_m(a, n, m, k);
+
+    return f1(a, min_n, max_n, min_m, max_m, k);
+}
+
+void bin_search_test_2()
+{   
+    int a[][3] = {{1,4,7}, {2,5,8}, {3,6,9}};
+    int m = (int)(sizeof(a) / sizeof(a[0]));
+    int n = (int)((sizeof(a[0]) / sizeof(int)));
+    printf ("the sizeof n and m is (%d, %d)\n", n, m);
+    find(a, n - 1, m - 1, 5);
+}
+
+#endif
+
+void
+merge(int *a, int sa,  int *b, int sb, int *res)
+{
+
+ int size  = sa + sb;
+ int i, j, k;
+
+ i = sa - 1;
+ j = sb - 1;
+ k = size - 1;
+ while (k >= 0) {
+   if (i >= 0 && j >= 0) {
+  	if (a[i] > b[j]) {
+    	res[k--] = a[i--];
+  	} else {
+    	res[k--] = b[j--];
+  	}
+   } else if (i >= 0) {
+  	res[k--] = a[i--];
+   } else {
+  	res[k--] = b[j--];
+   }
+ }	 
+   
+ return; 	 
+}
+
+#if 0
+
+
+
+void
+merge_run(file f1, file f2, file g1, file g2, int k)
+{
+  bool switch = false;
+  while(not_eof(f1) or not_eof(f2)) {
+	int size_l1 = get_record(f1, k, l1);
+	int size_l2 = get_record(f2, k, l2);
+	int size_l3 = size_l1 + size_l2;
+            l3 = malloc(sizeof(size_l3) * sizeof(key));
+	merge (l1, size_l1, l2, size_l2, l3);    
+	if (switch)
+  	put_record(g2, l3, size_l3);
+	else
+  	put_record(g1, l3, size_l3);
+	switch = not switch;
+  }
+ /* how to handle remaining  record if one of the file reaches eof?  just put it as a tail to one of g1/g2*/
+}
+
+void
+merge_file(file f)
+{
+  int k = 1;
+  bool switch = false;
+  distribute(f, f1, f2, k);
+  while (k < sizeof(file)) {
+	if(switch)
+  	merge_run(f1, f2, g1, g2, k);
+	else
+  	merge_run(g1, g2, f1, f2, k);
+	k = k * 2;
+	switch = not switch;
+
+  }
+
+}
+
+
+#endif
+
+void test_merge()
+{
+
+ int *res;
+ int a[] = {1, 2, 5, 6, 9};
+ int b[] = {3, 4, 7, 8};
+ int i = 0;
+ res = merge(a, 5, b, 4);
+
+
+ for (i = 0; i < 9; i++) {
+   printf("...%d ", res[i]);
+ }
+
+}
+
+/* graph */
+#if 0
+struct edge_node {
+  struct graph_node *gnode;
+  struct edge_node *next;
+};
+
+struct graph_node {
+    struct edge_node *enode; 
+    struct graph_node *next; 
+   int val;
+   bool is_visited; /* optional */
+};
+
+/* how to iterate adjacent node in graph? */
+void dfs(struct graph_node *g)
+{
+g->is_visited = true; 
+edge_node *edge = node->enode;
+while (edge) {
+    if(edge->gnode.visit != true) 
+          dfs(edge->gnode); 
+   edge = edge->next;
+}
+
+#endif
+
+
+/* gomp barrier in gcc/libgomp/config/posix/bar.c 
+* check in team.c, bar.h, parallel.c for more detail of how to workshare
+*/
+#if 0
+void
+gomp_barrier_wait_end (gomp_barrier_t *bar, gomp_barrier_state_t state)
+{
+  unsigned int n;
+
+  if (state & 1)
+    {
+      n = --bar->arrived;
+      if (n > 0)
+        {
+          do
+            gomp_sem_post (&bar->sem1);
+          while (--n != 0);
+          gomp_sem_wait (&bar->sem2);
+        }
+      gomp_mutex_unlock (&bar->mutex1);
+    }
+  else
+    {
+      gomp_mutex_unlock (&bar->mutex1);
+      gomp_sem_wait (&bar->sem1);
+
+#ifdef HAVE_SYNC_BUILTINS
+      n = __sync_add_and_fetch (&bar->arrived, -1);
+#else
+      gomp_mutex_lock (&bar->mutex2);
+      n = --bar->arrived;
+      gomp_mutex_unlock (&bar->mutex2);
+#endif
+
+      if (n == 0)
+        gomp_sem_post (&bar->sem2);
+    }
+}
+#endif
+
