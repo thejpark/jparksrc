@@ -159,10 +159,16 @@ int t8()
     cout << "What is your name? ";
     cin >> name;
 
+
     double midterm, final;
 
     cout << "Enter your midterm grade ";
+    // if I enter non-number, it will 
+    // be an error. and cin will not work after that, so you probably
+    // need to clear the stream.
     cin >> midterm;
+
+
     cout << "Enter your final term grade ";
     cin >> final;
 
@@ -174,6 +180,7 @@ int t8()
     while (cin >> x) {
         count++;
         sum += x;
+        // C-d means end of stream
     }
 
     streamsize prec = cout.precision();
@@ -470,7 +477,7 @@ struct student_info
 };
 
 
-istream& read(istream& is, struct student_info& s)
+istream& read(istream& is, student_info& s)
 {
     is >> s.name >> s.midterm >> s.final;
 
@@ -1437,7 +1444,7 @@ int t29()
     cout << ret << endl;
 }
 
-// vector<int>::size_type i;
+// vector<inxt>::size_type i;
 // i = 0; i--;
 // cout << i
 // print very big number.
@@ -2316,6 +2323,7 @@ int t41()
 // update iterator if you use erase.
 // insert is more problematic. It does not return iterator but iterator after this might be invalidated. So..
 // enough space should be reserved before. ctci 1.5
+//  check out http://www.cplusplus.com/reference/vector/vector/insert/
 
 
 
@@ -3938,7 +3946,8 @@ int t65()
 
 int main(int argc, char * argv[])
 {
-	t59(); 
+	t41(); 
 }
+
 
 

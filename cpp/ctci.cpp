@@ -275,7 +275,6 @@ int t13_2()
 // this version needs copying elements for every insert.
 void replace(string &s, string r)
 {
-
     // which data structure we are using?
     // check if we need to reserve first. string needs reserve. so 
     // first step (first scan) would be to find out the size to reserve.
