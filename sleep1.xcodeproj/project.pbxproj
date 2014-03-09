@@ -12,13 +12,18 @@
 		C068D4DC1870050E00323D15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068D4DB1870050E00323D15 /* UIKit.framework */; };
 		C068D4E21870050E00323D15 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C068D4E01870050E00323D15 /* InfoPlist.strings */; };
 		C068D4E41870050E00323D15 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C068D4E31870050E00323D15 /* main.m */; };
-		C068D4E81870050E00323D15 /* test1AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C068D4E71870050E00323D15 /* test1AppDelegate.m */; };
+		C068D4E81870050E00323D15 /* sleep1AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C068D4E71870050E00323D15 /* sleep1AppDelegate.m */; };
 		C068D4EA1870050E00323D15 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C068D4E91870050E00323D15 /* Images.xcassets */; };
 		C068D4F11870050E00323D15 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068D4F01870050E00323D15 /* XCTest.framework */; };
 		C068D4F21870050E00323D15 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068D4D71870050E00323D15 /* Foundation.framework */; };
 		C068D4F31870050E00323D15 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068D4DB1870050E00323D15 /* UIKit.framework */; };
 		C068D4FB1870050E00323D15 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C068D4F91870050E00323D15 /* InfoPlist.strings */; };
 		C068D4FD1870050E00323D15 /* sleep1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C068D4FC1870050E00323D15 /* sleep1Tests.m */; };
+		C07312D218B9A84D00094562 /* sleepViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C07312D118B9A84D00094562 /* sleepViewController.xib */; };
+		C0B9FA4B18C9E3C700A600D2 /* sample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA4A18C9E3C700A600D2 /* sample.m4a */; };
+		C0B9FA4D18CB386B00A600D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B9FA4C18CB386B00A600D2 /* AVFoundation.framework */; };
+		C0B9FA5218CC7FE700A600D2 /* kmkim.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA5118CC7FE700A600D2 /* kmkim.mp3 */; };
+		C0C3FAB618B211A20057087E /* sleepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C3FAB518B211A20057087E /* sleepViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,14 +45,20 @@
 		C068D4E11870050E00323D15 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C068D4E31870050E00323D15 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C068D4E51870050E00323D15 /* sleep1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sleep1-Prefix.pch"; sourceTree = "<group>"; };
-		C068D4E61870050E00323D15 /* test1AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test1AppDelegate.h; sourceTree = "<group>"; };
-		C068D4E71870050E00323D15 /* test1AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test1AppDelegate.m; sourceTree = "<group>"; };
+		C068D4E61870050E00323D15 /* sleep1AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sleep1AppDelegate.h; sourceTree = "<group>"; };
+		C068D4E71870050E00323D15 /* sleep1AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sleep1AppDelegate.m; sourceTree = "<group>"; };
 		C068D4E91870050E00323D15 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C068D4EF1870050E00323D15 /* sleep1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sleep1Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C068D4F01870050E00323D15 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C068D4F81870050E00323D15 /* sleep1Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sleep1Tests-Info.plist"; sourceTree = "<group>"; };
 		C068D4FA1870050E00323D15 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C068D4FC1870050E00323D15 /* sleep1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sleep1Tests.m; sourceTree = "<group>"; };
+		C07312D118B9A84D00094562 /* sleepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sleepViewController.xib; sourceTree = "<group>"; };
+		C0B9FA4A18C9E3C700A600D2 /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
+		C0B9FA4C18CB386B00A600D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C0B9FA5118CC7FE700A600D2 /* kmkim.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kmkim.mp3; sourceTree = "<group>"; };
+		C0C3FAB418B211A20057087E /* sleepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sleepViewController.h; sourceTree = "<group>"; };
+		C0C3FAB518B211A20057087E /* sleepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sleepViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0B9FA4D18CB386B00A600D2 /* AVFoundation.framework in Frameworks */,
 				C068D4DA1870050E00323D15 /* CoreGraphics.framework in Frameworks */,
 				C068D4DC1870050E00323D15 /* UIKit.framework in Frameworks */,
 				C068D4D81870050E00323D15 /* Foundation.framework in Frameworks */,
@@ -78,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				C068D4DD1870050E00323D15 /* sleep1 */,
+				C0B9FA4718C9E26200A600D2 /* Resource */,
 				C068D4F61870050E00323D15 /* sleep1Tests */,
 				C068D4D61870050E00323D15 /* Frameworks */,
 				C068D4D51870050E00323D15 /* Products */,
@@ -96,6 +109,7 @@
 		C068D4D61870050E00323D15 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0B9FA4C18CB386B00A600D2 /* AVFoundation.framework */,
 				C068D4D71870050E00323D15 /* Foundation.framework */,
 				C068D4D91870050E00323D15 /* CoreGraphics.framework */,
 				C068D4DB1870050E00323D15 /* UIKit.framework */,
@@ -107,8 +121,11 @@
 		C068D4DD1870050E00323D15 /* sleep1 */ = {
 			isa = PBXGroup;
 			children = (
-				C068D4E61870050E00323D15 /* test1AppDelegate.h */,
-				C068D4E71870050E00323D15 /* test1AppDelegate.m */,
+				C068D4E61870050E00323D15 /* sleep1AppDelegate.h */,
+				C068D4E71870050E00323D15 /* sleep1AppDelegate.m */,
+				C0C3FAB418B211A20057087E /* sleepViewController.h */,
+				C07312D118B9A84D00094562 /* sleepViewController.xib */,
+				C0C3FAB518B211A20057087E /* sleepViewController.m */,
 				C068D4E91870050E00323D15 /* Images.xcassets */,
 				C068D4DE1870050E00323D15 /* Supporting Files */,
 			);
@@ -142,6 +159,31 @@
 				C068D4F91870050E00323D15 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C0B9FA4718C9E26200A600D2 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				C0B9FA4918C9E2C400A600D2 /* Image */,
+				C0B9FA4818C9E2BB00A600D2 /* Audio */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		C0B9FA4818C9E2BB00A600D2 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				C0B9FA5118CC7FE700A600D2 /* kmkim.mp3 */,
+				C0B9FA4A18C9E3C700A600D2 /* sample.m4a */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		C0B9FA4918C9E2C400A600D2 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +262,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0B9FA4B18C9E3C700A600D2 /* sample.m4a in Resources */,
+				C07312D218B9A84D00094562 /* sleepViewController.xib in Resources */,
+				C0B9FA5218CC7FE700A600D2 /* kmkim.mp3 in Resources */,
 				C068D4E21870050E00323D15 /* InfoPlist.strings in Resources */,
 				C068D4EA1870050E00323D15 /* Images.xcassets in Resources */,
 			);
@@ -240,7 +285,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C068D4E81870050E00323D15 /* test1AppDelegate.m in Sources */,
+				C0C3FAB618B211A20057087E /* sleepViewController.m in Sources */,
+				C068D4E81870050E00323D15 /* sleep1AppDelegate.m in Sources */,
 				C068D4E41870050E00323D15 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,6 +488,7 @@
 				C068D5021870050E00323D15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C068D5031870050E00323D15 /* Build configuration list for PBXNativeTarget "sleep1Tests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +497,7 @@
 				C068D5051870050E00323D15 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

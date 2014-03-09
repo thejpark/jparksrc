@@ -6,14 +6,18 @@
 //  Copyright (c) 2013 pyfamily. All rights reserved.
 //
 
-#import "test1AppDelegate.h"
+#import "sleep1AppDelegate.h"
+#import "sleepViewController.h"
 
-@implementation test1AppDelegate
+@implementation sleep1AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+
+    sleepViewController *svc = [[sleepViewController alloc] init];
+    [[self window] setRootViewController:svc];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

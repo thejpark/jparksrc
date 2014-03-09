@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface test1AppDelegate : UIResponder <UIApplicationDelegate>
+@interface sleep1AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
