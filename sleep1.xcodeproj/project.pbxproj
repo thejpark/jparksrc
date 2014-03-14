@@ -23,6 +23,9 @@
 		C0B9FA4B18C9E3C700A600D2 /* sample.m4a in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA4A18C9E3C700A600D2 /* sample.m4a */; };
 		C0B9FA4D18CB386B00A600D2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B9FA4C18CB386B00A600D2 /* AVFoundation.framework */; };
 		C0B9FA5218CC7FE700A600D2 /* kmkim.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA5118CC7FE700A600D2 /* kmkim.mp3 */; };
+		C0B9FA5518CDDFF100A600D2 /* helpViewContrller.m in Sources */ = {isa = PBXBuildFile; fileRef = C0B9FA5418CDDFF100A600D2 /* helpViewContrller.m */; };
+		C0B9FA5718CDE21400A600D2 /* helpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA5618CDE21400A600D2 /* helpViewController.xib */; };
+		C0B9FA5918D0819500A600D2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C0B9FA5818D0819500A600D2 /* icon.png */; };
 		C0C3FAB618B211A20057087E /* sleepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C3FAB518B211A20057087E /* sleepViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -53,10 +56,14 @@
 		C068D4F81870050E00323D15 /* sleep1Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sleep1Tests-Info.plist"; sourceTree = "<group>"; };
 		C068D4FA1870050E00323D15 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C068D4FC1870050E00323D15 /* sleep1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sleep1Tests.m; sourceTree = "<group>"; };
-		C07312D118B9A84D00094562 /* sleepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sleepViewController.xib; sourceTree = "<group>"; };
+		C07312D118B9A84D00094562 /* sleepViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = sleepViewController.xib; path = sleep1/sleepViewController.xib; sourceTree = "<group>"; };
 		C0B9FA4A18C9E3C700A600D2 /* sample.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample.m4a; sourceTree = "<group>"; };
 		C0B9FA4C18CB386B00A600D2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C0B9FA5118CC7FE700A600D2 /* kmkim.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = kmkim.mp3; sourceTree = "<group>"; };
+		C0B9FA5318CDDFF100A600D2 /* helpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helpViewController.h; sourceTree = "<group>"; };
+		C0B9FA5418CDDFF100A600D2 /* helpViewContrller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = helpViewContrller.m; sourceTree = "<group>"; };
+		C0B9FA5618CDE21400A600D2 /* helpViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = helpViewController.xib; sourceTree = "<group>"; };
+		C0B9FA5818D0819500A600D2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		C0C3FAB418B211A20057087E /* sleepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sleepViewController.h; sourceTree = "<group>"; };
 		C0C3FAB518B211A20057087E /* sleepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sleepViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				C068D4DD1870050E00323D15 /* sleep1 */,
-				C0B9FA4718C9E26200A600D2 /* Resource */,
+				C0B9FA4718C9E26200A600D2 /* Resources */,
 				C068D4F61870050E00323D15 /* sleep1Tests */,
 				C068D4D61870050E00323D15 /* Frameworks */,
 				C068D4D51870050E00323D15 /* Products */,
@@ -124,8 +131,9 @@
 				C068D4E61870050E00323D15 /* sleep1AppDelegate.h */,
 				C068D4E71870050E00323D15 /* sleep1AppDelegate.m */,
 				C0C3FAB418B211A20057087E /* sleepViewController.h */,
-				C07312D118B9A84D00094562 /* sleepViewController.xib */,
 				C0C3FAB518B211A20057087E /* sleepViewController.m */,
+				C0B9FA5318CDDFF100A600D2 /* helpViewController.h */,
+				C0B9FA5418CDDFF100A600D2 /* helpViewContrller.m */,
 				C068D4E91870050E00323D15 /* Images.xcassets */,
 				C068D4DE1870050E00323D15 /* Supporting Files */,
 			);
@@ -161,13 +169,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C0B9FA4718C9E26200A600D2 /* Resource */ = {
+		C0B9FA4718C9E26200A600D2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C07312D118B9A84D00094562 /* sleepViewController.xib */,
+				C0B9FA5618CDE21400A600D2 /* helpViewController.xib */,
 				C0B9FA4918C9E2C400A600D2 /* Image */,
 				C0B9FA4818C9E2BB00A600D2 /* Audio */,
 			);
-			name = Resource;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		C0B9FA4818C9E2BB00A600D2 /* Audio */ = {
@@ -182,6 +192,7 @@
 		C0B9FA4918C9E2C400A600D2 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				C0B9FA5818D0819500A600D2 /* icon.png */,
 			);
 			name = Image;
 			sourceTree = "<group>";
@@ -263,8 +274,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0B9FA4B18C9E3C700A600D2 /* sample.m4a in Resources */,
+				C0B9FA5918D0819500A600D2 /* icon.png in Resources */,
 				C07312D218B9A84D00094562 /* sleepViewController.xib in Resources */,
 				C0B9FA5218CC7FE700A600D2 /* kmkim.mp3 in Resources */,
+				C0B9FA5718CDE21400A600D2 /* helpViewController.xib in Resources */,
 				C068D4E21870050E00323D15 /* InfoPlist.strings in Resources */,
 				C068D4EA1870050E00323D15 /* Images.xcassets in Resources */,
 			);
@@ -286,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0C3FAB618B211A20057087E /* sleepViewController.m in Sources */,
+				C0B9FA5518CDDFF100A600D2 /* helpViewContrller.m in Sources */,
 				C068D4E81870050E00323D15 /* sleep1AppDelegate.m in Sources */,
 				C068D4E41870050E00323D15 /* main.m in Sources */,
 			);

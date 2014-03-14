@@ -67,6 +67,19 @@
 		NSLog(@"Could not play %@\n", p.url);
 }
 
-
-
+-(id)initWithNibName:(NSString *)nibName bundle:(NSBundle *) bundle
+{
+    // call super class
+    self = [super initWithNibName:nil
+                           bundle:nil];
+    if (self) {
+        // get the tab bar item
+        UITabBarItem *tbi = [self tabBarItem];
+        
+        // give it a label
+        [tbi setTitle:@"play"];
+    }
+    
+    return self;
+}
 @end

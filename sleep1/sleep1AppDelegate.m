@@ -8,6 +8,7 @@
 
 #import "sleep1AppDelegate.h"
 #import "sleepViewController.h"
+#import "helpViewController.h"
 
 @implementation sleep1AppDelegate
 
@@ -17,7 +18,12 @@
     // Override point for customization after application launch.
 
     sleepViewController *svc = [[sleepViewController alloc] init];
-    [[self window] setRootViewController:svc];
+    helpViewController *hvc = [[helpViewController alloc] init];
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    NSArray *viewControllers = [NSArray arrayWithObjects: svc, hvc, nil];
+    [tabBarController setViewControllers: viewControllers];
+    [[self window] setRootViewController: tabBarController];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

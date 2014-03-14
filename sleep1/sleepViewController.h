@@ -12,7 +12,7 @@
 
 @interface sleepViewController : UIViewController <UIPickerViewDelegate, AVAudioPlayerDelegate>
 {
-    IBOutlet UILabel *tLabel;
+    __weak IBOutlet UILabel *tLabel;
 }
 
 @property (nonatomic)	AVAudioPlayer	*player;
