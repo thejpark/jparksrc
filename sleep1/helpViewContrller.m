@@ -20,13 +20,20 @@
         UITabBarItem *tbi = [self tabBarItem];
         
         // give it an image
-        UIImage *img = [UIImage imageNamed:@"icon.png"];
-        [tbi setImage:img];
-        
-        
+        UIImage *i = [UIImage imageNamed:@"Time.png"];
+        [tbi setImage:i];
     }
     
     return self;
 }
+
+//// Do we need this? As this does not make any difference
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    //    return (toInterfaceOrientation == UIInterfaceOrientationPortrait) ||
+    //    UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 
 @end

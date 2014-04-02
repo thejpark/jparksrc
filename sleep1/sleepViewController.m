@@ -44,7 +44,7 @@
     NSError *setCategoryError = nil;
 	
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryError];
-	if (setCategoryError) NSLog(@"Error setting category! %d", setCategoryError.code);
+	if (setCategoryError) NSLog(@"Error setting category!");
     
 	fileURL = nil;
 }
@@ -82,4 +82,13 @@
     
     return self;
 }
+
+//// Do we need this? As this does not make any difference
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+//    return (toInterfaceOrientation == UIInterfaceOrientationPortrait) ||
+//    UIInterfaceOrientationIsLandscape(toInterfaceOrientation);
+    return (toInterfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 @end
