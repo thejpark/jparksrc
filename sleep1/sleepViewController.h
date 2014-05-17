@@ -18,4 +18,5 @@
 @property (nonatomic)	AVAudioPlayer	*player;
 
 - (IBAction)showCurrentT:(id)sender;
+- (IBAction)itemAction:(id)sender;
 @end

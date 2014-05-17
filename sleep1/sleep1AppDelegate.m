@@ -8,8 +8,8 @@
 
 #import "sleep1AppDelegate.h"
 #import "sleepViewController.h"
-#import "helpViewController.h"
-#import "HeavyViewController.h"
+//#import "helpViewController.h"
+//#import "HeavyViewController.h"
 
 @implementation sleep1AppDelegate
 
@@ -19,13 +19,17 @@
     // Override point for customization after application launch.
 
     sleepViewController *svc = [[sleepViewController alloc] init];
-    helpViewController *hvc = [[helpViewController alloc] init];
-    HeavyViewController *hhvc = [[HeavyViewController alloc] init];
+//    helpViewController *hvc = [[helpViewController alloc] init];
+//    HeavyViewController *hhvc = [[HeavyViewController alloc] init];
     
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    NSArray *viewControllers = [NSArray arrayWithObjects: svc, hvc, hhvc, nil];
-    [tabBarController setViewControllers: viewControllers];
-    [[self window] setRootViewController: tabBarController];
+//    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+    UINavigationController *navController = [[UINavigationController alloc]
+                                             initWithRootViewController:svc];
+    
+//    NSArray *viewControllers = [NSArray arrayWithObjects: svc, hvc, hhvc, nil];
+//    [tabBarController setViewControllers: viewControllers];
+    [[self window] setRootViewController: navController];
   
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

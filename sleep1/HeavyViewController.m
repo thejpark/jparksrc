@@ -28,10 +28,10 @@
     if (self) {
         // Custom initialization
         // get the tab bar item
-        UITabBarItem *tbi = [self tabBarItem];
-        
-        // give it a label
-        [tbi setTitle:@"test"];
+//        UITabBarItem *tbi = [self tabBarItem];
+//        
+//        // give it a label
+//        [tbi setTitle:@"test"];
     }
     return self;
 }

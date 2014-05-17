@@ -8,6 +8,8 @@
 
 #import "sleepViewController.h"
 
+#import "HeavyViewController.h"
+
 @implementation sleepViewController
 
 @synthesize player;
@@ -23,6 +25,15 @@
 		[self pausePlaybackForPlayer: player];
 	else
 		[self startPlaybackForPlayer: player];
+    
+    HeavyViewController *hhvc = [[HeavyViewController alloc] init];
+    [[self navigationController] pushViewController:hhvc
+                                           animated:YES];
+}
+
+-(IBAction)itemAction:(id)sender
+{
+    
 }
 
 - (void)viewDidLoad
@@ -74,10 +85,24 @@
                            bundle:nil];
     if (self) {
         // get the tab bar item
-        UITabBarItem *tbi = [self tabBarItem];
+//        UITabBarItem *tbi = [self tabBarItem];
+//        
+//        // give it a label
+//        [tbi setTitle:@"play"];
+    }
+    
+    if (self)
+    {
+        UINavigationItem *n = [self navigationItem];
+        [n setTitle:@"Home"];
         
-        // give it a label
-        [tbi setTitle:@"play"];
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]
+                                initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                target:self
+                                action:@selector(itemAction:)];
+        [n setRightBarButtonItem: bbi];
+        [n setLeftBarButtonItem: [self editButtonItem]];
+    
     }
     
     return self;

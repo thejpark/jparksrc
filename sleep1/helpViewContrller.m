@@ -17,11 +17,11 @@
                            bundle:nil];
     if (self) {
         // get the tab bar item
-        UITabBarItem *tbi = [self tabBarItem];
-        
-        // give it an image
-        UIImage *i = [UIImage imageNamed:@"Time.png"];
-        [tbi setImage:i];
+//        UITabBarItem *tbi = [self tabBarItem];
+//        
+//        // give it an image
+//        UIImage *i = [UIImage imageNamed:@"Time.png"];
+//        [tbi setImage:i];
     }
     
     return self;
