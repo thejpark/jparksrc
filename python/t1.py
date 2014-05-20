@@ -85,11 +85,6 @@ def unicodetest():
     print x
     print ord('A')
     print chr(65)
-    h =  '한글과 세종대왕'
-    print h, len(h)
-
-
-    
     
 def splittest1():
     n = 'this/is/a/directory'
@@ -132,3 +127,99 @@ def slowconcattest():
     for k in range(100000):
         s += 'spam'
 
+
+def badorgood():
+    # bad
+    my_container = ['Larry', 'Moe', 'Curly']
+    index = 0
+    for element in my_container:
+        print ('{} {}'.format(index, element))
+        index += 1
+    # good
+    my_container = ['Larry', 'Moe', 'Curly']
+    for index, element in enumerate(my_container):
+        print ('{} {}'.format(index, element))
+
+    foo, bar = (1, 2)
+    # bad
+    temp = foo
+    foo = bar
+    bar = temp
+
+    #good
+    (foo, bar) = (bar, foo)
+
+    #bad
+    list_from_comma_separated_value_file = ['dog', 'Fido', 10] 
+    animal = list_from_comma_separated_value_file[0]
+    name = list_from_comma_separated_value_file[1]
+    age = list_from_comma_separated_value_file[2]
+
+    #good
+    list_from_comma_separated_value_file = ['dog', 'Fido', 10] 
+    (animal, name, age) = list_from_comma_separated_value_file
+
+    #bad
+    result_list = ['True', 'False', 'File not found']
+    result_string = ''
+    for result in result_list:
+        result_string += result
+
+    #good
+    result_list = ['True', 'False', 'File not found']
+    result_string = ''.join(result_list)
+
+    #bad
+    # log_severity = None
+    # if 'severity' in configuration:
+    #     log_severity = configuration['severity']
+    # else:
+    #     log_severity = log.Info
+
+    #good
+    # log_severity = configuration.get('severity', log.Info)
+
+    #bad
+    # file_handle = open(path_to_file, 'r')
+    # for line in file_handle.readlines():
+    #     if some_function_that_throws_exceptions(line):
+    #         # do something
+    # file_handle.close()
+
+    #good
+    # with open(path_to_file, 'r') as file_handle:
+    #     for line in file_handle:
+    #         if some_function_that_throws_exceptions(line):
+    #             # do something
+    # No need to explicitly call 'close'. Handled by the File context manager
+
+    #bad
+    if name == 'Tom' or name == 'Dick' or name == 'Harry':
+        is_generic_name = True
+
+    #good
+    if name in ('Tom', 'Dick', 'Harry'):
+        is_generic_name = True
+
+    #bad
+    some_other_list = range(1, 100)
+    my_weird_list_of_numbers = list()
+    for element in some_other_list:
+        if (element % 3) == 0:
+            my_weird_list_of_numbers.append(element+5)
+
+    #good
+    some_other_list = range(1, 100)
+    my_weird_list_of_numbers = [element + 5 for element in some_other_list if (element % 3) == 0]
+
+    #bad
+    my_list = ['Larry', 'Moe', 'Curly']
+    index = 0
+    while index < len(my_list):
+        print (my_list[index])
+        index+=1
+
+    #good
+    my_list = ['Larry', 'Moe', 'Curly']
+    for element in my_list:
+        print element

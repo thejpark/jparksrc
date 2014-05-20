@@ -1,3 +1,4 @@
+#include <iostream>
 #include <stdio.h>
  
 char str[][10] = { "abc", "defg", "h", "ijklmn"};
@@ -6,24 +7,25 @@ char str[][10] = { "abc", "defg", "h", "ijklmn"};
 	if ((x) == true) printf("This is false\n");
 
 
+
+class A
+{
+public:
+    A()
+    {
+        std::cout << "this is world" << std::endl;
+    }
+
+private:
+
+    int b[10];
+};
+
 int main ()
 
 {
-    int len = sizeof(str[0], b, c);
-    printf("the result is %d\n", len);
- 
-	STEP(foo(1));
-    unsigned long xxx = 810;
-    float yyy = 50;
+    A a;
 
-    float zzz = xxx / yyy;
-    char str[20];
-    sprintf(str, "%2.1f", zzz);
-    printf("%s\n",str);
-    printf("------\n");
-
-    while (1)
-    {
-    }
+    int bb[100] = {0};
 }
 
