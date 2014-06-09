@@ -5,10 +5,25 @@ def dept(source, interest, momths):
 def dept_year(source, interest):
     return dept(source, interest, 12)
 
-def compound(base, interest, months):
+def compound(base, interest, months, contribution = 0):
     for i in range(months):
         base = base * (1.0 + interest)
+        base = base + contribution
     return base
+
+
+def get_comp_month(base, target, interest):
+    i = 0
+    while base < target :
+        base = base * (1.0 + interest)
+        i += 1
+    return (i, base)
+
+
+# much complicated.
+# 
+# def get_comp_interest(base, target, months):
+#     return
 
 def reverse_compound(target, interest, months):
     for i in range(months):
