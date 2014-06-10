@@ -1,0 +1,475 @@
+0. http://lxr.linux.no/linux/
+1. linux minimal
+  - linux system does not use any resource except serial (via vserial) and timer (via vtimer with virq)
+  - if this is working fine, we know that linux kernel is working and basic virtualization is working, so we can extend or add more device or resources
+
+
+2. hybrid system
+ - basically we should use device driver in userland, but sometimes we should you device drivers in native linux, which is hybrid system.
+-
+
+3. git
+
+- reference: http://gitref.org/basic/#diff
+- files are staged by using git add. 
+- if you commit, then files you added by 'git add' will be committed. 
+- if you checkout to previous commit, new no name branch is created and you are working on that branch.
+- how to check difference between reference linux kernel and our modification?
+  a) check whether there is a tag on the log with this command:
+     git log  --decorate --graph | less
+  b) if the name of tag just before our modification is v.2.6.34.1 then do the following
+     git diff refs/tags/v2.6.34.1
+
+ if you do not have tag, you can just get the commit value of the latest linux kernel (just before our modification), then git diff <commit> will 
+  give you the same diff (this diff gives the diff from the HEAD to that commit)
+
+-oklinux
+ex) git clone --reference /scratch/oklinux ssh://repo.ok-labs.com//git/oklinux.git oklinux-2.6.29
+ex) git clone ssh://repo.ok-labs.com//git/oklinux-2.6.35.git oklinux-2.6.35
+
+4. benchmark test (lmbench) on versatile 
+4.1. linux-minimal runing lmmehcn
+   > clone okl4-mainline
+   > clone oklinux-2.6.29
+   > build linux-minimal by runing the following buildline
+         tools/vulcan/vulcan -f vulcfile system:versatile:versatile-ab:okl4microvisor:linux-minimal       # (this is before adit was merged) 
+      or 
+         tools/vulcan/vulcan -v -f sdk_vulcfile SDK:internal
+   > if error occurs, please check whether the combination of okl4-mainline and oklinux-2.6.29 is working. 
+      The working version for me was  okl4-mainline:commit 46046 (Feb.24.2011) and oklinux-2.6.29: commit  682cc9816ae4415574ed6c62379e0d744ca365f3
+      (Feb.24.2011).  
+      !HEADS UP: in this  version, the name of vserial should be changed to 'vtty0' in the xml file like this:
+      (check in the oklinux-2.6.29/drivers/char/okl4_vtty.c)
+
+--- a/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Wed Apr 13 15:29:03 2011 +1000
++++ b/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Thu Apr 21 10:00:24 2011 +1000
+@@ -44,12 +44,12 @@
+     </stdc_cell>
+ 
+     <linux_cell name="linux" file="oklinux/oklinux-2.6.29/examples/versatile_minimal" kernel_heap="3M" physpool="p-linux">
+         <ramdisk file="okinitramfs/examples/minimal/initramfslist"/>
+         <atags>
+             <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff"/>
+             <!-- for simulator/no timer ticks <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff lpj=10000"/> -->
+ 
+-            <vclient server="vserial" name="vserial" source="/serial/serial"/>
++            <vclient server="vserial" name="vtty0" source="/serial/serial"/>
+ 
+             <virq name="vtimer" source="/vtimer/tick0"/>
+             <vclient server="vtimer" name="linux" source="/vtimer/timer" client_id="0" />
+
+    !!HEADS UP: in this version, the oklinux/okl4vm_versatile_minimal_defconfig file (config file for linux) does not set serial console which cause 
+      the linux kernel warning about the creating initial console. You have to set it by runing menu config or something like this. 
+
+    (by Carl)
+   1297  cd oklinux-2.6.29
+   1298  cp ../new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config ../config.old
+   1299  make ARCH=arm O=/home/junggyu/wrk/okl4-mainline/new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/ menuconfig
+   1300  cd ../
+   1301  diff -u new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config oklinux/okl4vm_versatile_minimal_defconfig 
+   1302* cp oklinux/okl4vm_versatile_minimal_defconfig new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config
+   1303  cp new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config oklinux/okl4vm_versatile_minimal_defconfig 
+
+   or you can just do it by other ways also.
+
+    
+   > if needed (if the build process complains it), clone  oklinux-2.6.34.adit also
+   > you have done build now
+   > open 4 terminals for 3 cells and one okl4 kernel
+   > run serial_demux by running the following command line
+     ./new_build/SDK/okl4microvisor/bin/ok serial_demux -i hwrun -m versatileab -f ./new_build/systems/linux-minimal/okl4microvisor/versatile-ab/linux-minimal.boot -c 3
+   > read the port number, and then in one of the terminal you have created, run 
+       ./new_build/SDK/okl4microvisor/bin/ok serial_console -p 1999
+      the first port number is usually 1999. Then until other port number is printed back by by serial_demux, do the some in different terminal.
+   > you will get a prompt from a termial, which is the initial console the minimal-linux. 
+   > you can change the root file system of minimal-linux by  
+--- a/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Wed Apr 13 15:29:03 2011 +1000
++++ b/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Thu Apr 21 09:59:17 2011 +1000
+@@ -44,12 +44,12 @@
+     </stdc_cell>
+ 
+     <linux_cell name="linux" file="oklinux/oklinux-2.6.29/examples/versatile_minimal" kernel_heap="3M" physpool="p-linux">
+-        <ramdisk file="okinitramfs/examples/minimal/initramfslist"/>
++        <ramdisk file="okinitramfs/examples/lmbench/initramfslist"/>
+         <atags>
+             <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff"/>
+             <!-- for simulator/no timer ticks <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff lpj=10000"/> -->
+
+    > after build again and run serial_demux, in the initial of linux, go to the directory containing lmbench program, and run it, get the result.
+   
+4.2. how to make native linux kernel 
+   > find out which directory has initramfs in the linux-minimal (having lmbench). Maybe it is in the 
+      new_build/initramfs/lmbench. You can find install folder (which has root file system) and  initramfslist which has the list of install files.
+   > get linux kernel (wget  http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.29.tar.bz2)
+   > copy the install directory of the initramfslist file into the linux kernel root direcotry. 
+   > configure it (make ARCH=arm versatile_defconfig) to obtain .config file. 
+   > configure again ( make menuconfig ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- uImage 
+
+      enable AEABI
+      dissable  VFP
+      set CONFIG_INITRAMFS_SOURCE to point the the initramfslist.
+   > build done.
+   >  copy the uImage to vb:/tftpboot by 
+
+    scp arch/arm/boot/ 
+    uImage vb:/tftpboot/jpark
+   > connect to versatile board using 
+ 
+      console versatile2 (you can use versatile1 also. The same command would be "console -M consoles versatile2)
+   > in other terminal, enter "power-ctl -b versatile2" to reboot the versatile2.
+   > in the versatile2 console, enter following 
+        flash run u-boot [enter]
+        [enter if you see something counting]
+        dhcp 0x4200000 jpark/uImage
+        printenv (if you like to check environment)
+        setenv (if you set enviroment such as bootargs)
+        bootm 0x4200000
+    > you get the linux kernel up and run, and input in the linux console.
+  
+5. how to hack printk of linux kernel?
+
+ you can hack the printk of linux kernel by changing kernel/printk.c:emit_log_char function like
+
+static void emit_log_char(char c)
+{
+#if 0
+#if defined(CONFIG_OKL4_EARLY_DEBUG)
+        okl4_console_putc(c);
+#else
+        LOG_BUF(log_end) = c;
+        log_end++;
+        if (log_end - log_start > log_buf_len)
+                log_start = log_end - log_buf_len;
+        if (log_end - con_start > log_buf_len)
+                con_start = log_end - log_buf_len;
+        if (logged_chars < log_buf_len)
+                logged_chars++;
+#endif
+#else
+        _okl4_sys_priority_waive(c);
+#endif
+}
+
+and change the _okl4_sys_priority_waive syscall to print something using TRACEF. 
+
+6. sd card format for Panda (maybe applicable to other board also)
+ http://omappedia.org/wiki/Minimal-FS_SD_Configuration
+ following manual configuration
+ formating sdc2 does not work in my environment.
+ 
+6.5 minicom
+
+how to setup minicom? run minicom -s tty
+and set the tty (if the cable is serial-to-USB, then ttyUSB0, or if it is a serial just set 
+ttyS0)
+then either save it as (i.e., USB0) or just run it as it is (if saving is not possible)
+
+7. How to run an image on Panda board
+
+refer to pandaboard.org
+especially http://omappedia.org/wiki/Minimal-FS_SD_Configuration
+
+
+run minicom: > minicom USB0
+after copying image to sd card, insert it to the board, connect power cable, then uboot command will come up. Yout command to run the image is
+> mmcinfo  (without any argument, with one argument of 0 or 1. This seems to initialize mmc) 
+>fatload mmc 0 0x80000000 linux-hybrid-2.6.35.boot (this is the name of image0
+>go 0x80000000
+
+8. how to make our kernel for debug build?
+ex) 
+-    <kernel physpool="p-kernel" virtpool="v-normal">
++    <kernel physpool="p-kernel" virtpool="v-normal" debug="True">
+ 
+9. new build command
+
+./build.py -j8 -z internal-hybrid-panda
+
+10. ok tools to run an image
+
+ok serial_demux  -f /dev/ttyUSB0 -c3
+ok serial_console -p 1999
+
+11. failure on an assembly language: check privilege of the instruction. If it gives undefined behavior in user mode, then may have problem with virtualization.
+
+12. debug linux kernel: check which line causes abort (including unmapped memory access)
+ex) 0xc0006234 is the PC in linux kernel crash (from backtrace)
+>addr2line -e build/okl4sdk-internal-hybrid-panda-resources/build/linux/panda/hybrid_panda_2.6.35/production/vmlinux 0xc0006234
+
+13. kernel debugging example: mmc support
+
+Q: added storage (sdcard, mmc, hsmmc... ) to hybrid linux. but ‘mdev -s’ does not bring up the mmc* device.  how to debug?
+
+A: 
+> dmesg | grep -i -C 3 mmc [enter]
+
+i2c /dev entries driver
+sdhci: Secure Digital Host Controller Interface driver
+sdhci: Copyright(c) Pierre Ossman
+mmci-omap-hs mmci-omap-hs.0: mmc_fclk: enabled
+mmci-omap-hs mmci-omap-hs.0: Unable to grab HSMMC IRQ
+omap_hsmmc_probe:2149 ret = -22
+mmci-omap-hs mmci-omap-hs.0: mmc_fclk: disabled
+mmci-omap-hs: probe of mmci-omap-hs.0 failed with error -22
+VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 1
+Freeing init memory: 80K
+
+looks like mmci-omap-hs device is not loaded. check the device name (by using grep) then
+you can find that omap_hsmmc.c fine has #define DRIVER_NAME             "mmci-omap-hs".
+probe (platform_device_probe function in the bottom of the file) is registering the mmc driver.
+For every error return place in omap_hsmmc_probe function, add printk to check which failed.
+And finally, we realized that device driver is missing.
+
+
+14. if Kconfig file is changed, then need to do make config again. Check whether your change is updated.
+
+15. to enable printk, add ‘#define DEBUG’ at the top of the file.
+
+16. if toolchain has changed, then it may change the sequence of instructions  which cause
+runtime error. (i.e.,  page unmap and page map should be done and no memory reference should be between them. But compiler may put some instruction between them)
+
+17. irq setup (virq)
+   
+kernel/irq/chip.c:set_irq_chip setups irq and chip
+virq.c sestup virq using set_irq_chip
+omap_init_irq setups irq using set_irq_chip
+
+18. errno 
+/usr/include/asm-generic/errno-base.h
+
+19. if virtualised linux has problem and you don’t know why it is, you need to check that with native linux. If native linux has the same problem, you don’t need to worry.
+20. review board does not accept my diff file, with message like ‘short SHA …’, then use --full-index to git diff.
+
+20. git: how to add other repository into my remote
+
+  git clone ssh://repo//git/oklinux-2.6.38
+  cd oklinux-2.6.38
+  git remote add tilt ssh://repo//git/oklinux-2.6.38.tilt
+  git fetch tilt
+  git diff origin/core-virt tilt/core-virt--ok-android-rc1 -- `git diff linaro-11.05-2.6.38 core-virt --name-only`
+
+This will shows differences in the core-virt branches for your changes and the vanilla 2.6.38 kernel for only the files in 2.6.38 which were modified for virtualisation in the vanilla 2.6.38 kernel.
+
+21. replay feature of repo A in another repo b
+
+ For changes like this Matt's tool is complete overkill. For example if a
+developer creates a feature branch on 2.6.38, called core-virt--foo
+(pushed to server), and wants to replay it on 2.6.38.flt for example,
+then they can do:
+
+  # Add 2.6.38 as a remote to the flt tree
+  cd oklinux-2.6.38.flt
+  git remote vanilla add ssh://repo//git/oklinux-2.6.38
+  git fetch vanilla
+
+  # Create the core-virt--foo branch for the flt tree
+  git checkout -b core-virt--foo
+
+  # Merge the core-virt--foo branch from the 2.6.38 tree
+  git merge vanilla/core-virt--foo
+ 
+  # If there is a conflict here, git mergetool can be used to fix it
+ 
+  # Commit the replayed work and push to the server
+  git commit -a
+  git push origin core-virt--foo:core-virt--foo
+
+Matt's tool is more useful when seeding new repositories from a
+repository which has a large number of commits and merges. From memory,
+Matt's tool requires you to setup the remotes and checkout the local
+branches, so the only real difference is doing a git merge instead of
+running the tool. The above could even be wrapped in a simple bash script.
+
+   On second thought, I think my version below might merge in all
+differences between the branches, not just they ones on the feature
+branch. You might get away with this is the remote is an ancestor of the
+tree you are pulling into (i.e. there are no other changes).
+
+What is the rationale in wanting to keep the development history (as in
+the developers internal commits for a feature branch) between trees? Why
+can't the replay's be done by applying the reviewboard patch to the
+other tree, massaging it as necessary and doing a single commit?
+
+22. in vmmu_armv67.py file, it defines mmu attribute for vmmu which is used to porting guest operating system. This may be different from the arm reference architecture, for example
+caceh buffer attributes of vmmu is defined in the file something like 
+“vpt_l2.add_element_field("page_4KB", "cache", 8, 4, doc=doc)” which sayd that cache attributes (writethrough, writeback, writecombine...) is 4 bits from 8th bit. So, 
+in oklinux/arch/arm/include/asm/okl4-microvisor/pgtable.h, V_CACHE_SHIFT is 8.
+
+23. git rebase
+
+if you have a feature branch foo, which is branched off from master, and you pushed it to origin.
+But you have to branched off from something other than master (i.e., core-virt). 
+You have to do is,,
+
+git checkout foo
+git -b checkout tmp
+git merge core-virt
+git merge master
+git rebase --onto core-virt master tmp
+if there is a merge error:
+    git mergetool
+git diff core-virt (check whether your changes are correct)
+git branch -D foo
+git push --force origin tmp:foo (now origin/foo and tmp are same)
+git branch -m tmp foo
+The END!!
+
+and how to replay it to other repo? for example, your repo is oklinux-2.6.38.tilt and you want to replay the changes in oklinux-2.6.38?
+
+cd oklinux-2.6.38.tilt
+git remote add mainline ssh://repo//git/oklinux-2.6.38 (add remote)
+git remote update
+git checkout --track -b  foo mainline/foo
+git rebase --onto origin/core-virt mainline/core-virt foo
+git diff origin/foo (check it  is correct)
+git push --force origin foo
+---- The END
+
+
+24. clocksource and schedclock
+
+http://lwn.net/Articles/415470/
+
+
+25. hg out ssh://hg//hg/okl4-mainline : shows changes that are in the current branch but not yet merged to the mainline
+
+26. how to remove added file in git?
+
+git rm --cached file_name
+
+
+git rm -r --cached > this deletes  all files. don’t do this.
+
+Okay, now I'm back to where I started. Next time I'm going to use -n to do a dry run and see what will be added:
+
+git add -n .
+
+27. emacs whitespace cleanup
+in case you are stuck in the 8 white spaces that need to be replaced to tab
+
+http://batsov.com/articles/2011/11/25/emacs-tip-number-3-whitespace-cleanup/
+
+28. vservice loopback session
+
+# mount -t debugfs none /sys/kernel/debug
+# echo test > /sys/kernel/debug/vservices_loopback/create_loopback 
+# ls /sys/bus/vservices-session/devices/
+vservice:0  vservice:1
+
+now you have two sessions for loopback
+
+
+29. Mercurial 3-way merge
+
+hgrdiff . ssh://hg//hg/okl4-vservices-gpio-protocol > .dd
+
+30. linux kernel booting for arm: kernel/Documentation/arm/Booting
+
+
+31. Example T32 setting for android
+
+http://omappedia.org/wiki/Android_Debugging#Lauterbach_TRACE32
+
+32. view coprocessor c15:
+
+d.V c15:000000 
+
+33. how to hack the kernel so that it prints boot log?
+
+in init/main.c, do the following. Also config_earlyprintk should be turned on.
+
+/* test begin: jpark */
+        char *s = "loglevel=8 earlyprintk";
+        int size = strlen(s);
+        
+        strncpy(tmp_cmdline + (COMMAND_LINE_SIZE - size - 1), s, size);
+/* test end: jpark */
+
+34. how to check uart working in microvisor kernel?
+
+ find out the serial_dev memory address (virtual address)
+ write some ascii character in the address (i.e., 41 is A)
+ if it does not print on the screen, maybe you are using wrong serial_dev. So
+ You need to change the device (i.e,. serial3_dev) in the microvisor kernel such as 
+<use device name=”serial3_dev” key=”serial_dev”/>
+you can find the address of serial_memory by adding --map option to the merge command.
+
+35.  git reset
+# git reset --hard HEAD
+# git clean -fd
+
+35. some useful linux command
+
+* check the result of the previous command. if it was no error, it returns 0, otherwise return error value
+ 
+> echo $?                 
+
+* the script need an argument. if not, return 1 
+>#!/bin/sh
+>test -z "$1" && echo "Usage $0 arg" && exit 1
+
+
+36. boot args (for example, DSS) for omap
+http://omappedia.org/wiki/Bootargs_for_enabling_display#DSS_specific_bootargs
+
+
+37. android, if your command is in the busybox, then you should run something like this to use command (such as grep);
+
+mkdir /bin
+export PATH=$PATH:/bin
+/system/xbin/busybox --install -s
+
+38. force module load regardless version difference
+
+defconfig 에서 아래 옵션 y 로 고친 후 사용.
+MODULE_FORCE_LOAD [=n]
+
+
+39. how to add or remove files in *.img?
+
+mkdir tmp
+sudo mount -o loop system.img tmp
+cd tmp
+# do add or remove
+sudo umount tmp
+
+40. ip address for veth0 in driver cell: ifconfig veth0 192.168.0.1. 
+I tried 10.0.10.1 but it does not work.
+
+41. how to make system image for the OK android for LG devices?
+
+after build okandroid, then
+go to the directory which has ok android system image (ok-rootfs-1.img)
+sudo mount -o loop ok-rootfs-1.img mnt
+cd mnt
+sudo rm -rf *
+sudo cp -r /home/junggyu/wrk/okandroid-ics/out/target/product/okl4_cx2/root/* .
+sudo cp -r /home/junggyu/wrk/okandroid-ics/out/target/product/okl4_cx2/system .
+sudo cp -r /home/junggyu/wrk/okandroid-ics/out/target/product/okl4_cx2/data .
+cd ..
+sudo umount mnt
+
+then you have new system image.
+
+42. rsync to copy remote somthing (for example, build env from bbo21:/opt/okl)
+
+rsync -aO -i --delete --rsh=ssh bob2:/opt/okl /opt
+
+43. cgroup: when you want to use your computer while build,
+
+# Install cgroup bin tools
+apt-get install cgroup-bin
+
+# Add memory cgroup (Ubuntu doesn't have it by default)
+sudo mkdir /mnt/cgroups/memory
+sudo mount -o memory -t cgroup group:memory /mnt/cgroups/memory
+
+# Create cgroup for SDK build
+sudo cgcreate -a $USER -g memory,cpu:sdk_build
+
+# Limit to memory and CPU usage (CPU usage is /1024)
+echo 2G > /mnt/cgroups/memory/sdk_build/memory.limit_in_bytes
+echo 800 > /mnt/cgroups/cpu/sdk_build/cpu.shares
+
+# Run SDK build under the cgroup
+cgexec -g memory,cpu:sdk_build ./build.py -j20 -u internal-oklinux-2.6.38
