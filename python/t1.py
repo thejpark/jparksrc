@@ -223,3 +223,14 @@ def badorgood():
     my_list = ['Larry', 'Moe', 'Curly']
     for element in my_list:
         print element
+
+
+# Use subprocess module instead of os wrapper (fork, etc) because it is much simpler.
+# The child process receives the same SIGINT as your parent process because it's in the same process group. You can put the child in its own process group by calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
+
+# subprocess.Popen(['nohup', 'my_command'],
+#                  stdout=open('/dev/null', 'w'),
+#                  stderr=open('logfile.log', 'a'),
+#                  preexec_fn=os.setpgrp
+#                  )
+# (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
