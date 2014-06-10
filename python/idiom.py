@@ -225,6 +225,7 @@ def badorgood():
         print element
 
 
+# https://docs.python.org/2/library/subprocess.html
 # Use subprocess module instead of os wrapper (fork, etc) because it is much simpler.
 # The child process receives the same SIGINT as your parent process because it's in the same process group. You can put the child in its own process group by calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
 
