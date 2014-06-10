@@ -1,0 +1,823 @@
+OK-Labs
+
+
+1. Build Server
+
+ssh vulture
+
+2. Getting source code
+
+2.1 in the working folder, do this first.
+hg clone ssh://hg.ok-labs.com//hg/okl4-marvin okl4-marvin
+2.2 in the okl4-marvin folder, do this.
+git clone --reference /scratch/oklinux ssh://repo.ok-labs.com//git/oklinux.git oklinux-2.6.29
+
+
+3. Build image (vulcan)
+
+./tools/vulcan/vulcan -t system:omap3:*
+; shows a list of systems start with omap3
+./tools/vulcan/vulcan system:omap3:beagleboard-c3:okl4microvisor:linux-minimal
+; linux minimal, beagle board
+./tools/vulcan/vulcan system:omap3:beagleboard-c3:okl4microvisor:hello-linux
+; linux minimal
+
+; in case of hello-linux, the final image is stored in
+okl4-marvin/new_build/hello-linux/okl4microvisor/beagleboard-c3
+
+for simulator, use *.sim
+for hardware, use *.boot
+
+4. Configure Host (for openocd) : search with keyword flyswatter or openocd in https://portal.ok-labs.com/okl/FrontPage then you can find something.
+
+4.1 install macport, xcode, mercurial (and git if not already there) in iMac. You need xcode installation CD. macport installation from the internet (?).
+4.2 sudo port upgrade; sudo port upgrade outdated
+4.3 sudo port install libftdi
+
+5. ssh
+
+ssh-keygen to generate public key.
+then copy the public key(*.pub) to the file .ssh/authorized_keys.
+
+
+6. OCD (https://portal.ok-labs.com/okl/Projects/Marvin/FlyswatterJTAG)
+
+; using lg phone
+sudo src/openocd -f tcl/interface/flyswatter.cfg -f tcl/board/lg_ln510.cfg
+
+; telnet localhost to consol out
+telnet localhost 2222
+; telnet localhost to control from the different terminal
+telnet localhost 4444
+; load image then run
+reset init
+load_image
+resume 0x00100000
+
+
+
+7. change passwd
+7.1 ssh to vulture, then change passwd. If I change passwd here, then most passwd changed (including wiki). Exceptions are
+7.2 email. change in the web exchange (https://owa.postoffice.net/owa), then passwd in your local exchange client. Passwd in the web exchange is real, and the passwd in
+the local exchange client is used to access the web exchange.
+7.3 local machine. change by yourself.
+
+
+8. screen
+
+screen -x, screen -ls, ctrl-t-t, ctrl-t-c, ctrl-t-num, ctrl-t-d, ctrl-t-ESC (edit or copy mode)
+use this in the server, detatch it before leave, then attach it before start working
+
+9. python
+
+9.1 Run python in emacs
+M-x run-python
+goto source window
+C-c C-c
+
+10. python
+
+10.1 foo (a=3, b=4) this case happens when the 'foo is applied with 3 and 4, but the 'foo is defined like foo (a=0, b=0, c=0).
+In this case, if we do not specify like foo (3, 4) we do not know which variable has the value of 3 and 4.
+
+10.2 import sys then sys.path, you can get the path for python search. Or you can check it in the env variable PYTHONPATH.
+10.3 in emacs, M-x pdb makes pdb on the current buffer.
+
+10.4 check attribute in a class: hasattr (obj, "field") -> true/false.
+
+11. Reporting progress (https://portal.ok-labs.com/okl/Engineering/Process/ReportingWork)
+
+11.1 Example.
+
+file name: junggyu1910.csv (for 10-14 May 2010)
+time table: eagle--development--realview-a9mp-microvisor,30:00
+other--orientation,
+
+12. debugging or tracing on the target
+
+12.1 make symbols available
+
+diff -r 4f05f3e43a26 okl4_build/util.py
+--- a/okl4_build/util.py Thu May 06 16:00:43 2010 +1000
++++ b/okl4_build/util.py Mon May 10 14:51:09 2010 +1000
+@@ -155,7 +155,7 @@
+# Should use gcc -print-libgcc-file-name to find this
+libgcc = "%s/lib/gcc/arm-none-eabi/4.3.3/thumb/libgcc.a" % toolchain_root
+
+- return CG("link:%s" % outfile, "%(ld)s -N --strip-debug -r %(objfiles)s %(ld_path)s --start-group %(libgcc)s %(libraries)s --end-group -o %(outfile)s" % {"ld": ld, "objfiles"\
+: objfiles, "outfile": outfile, "ld_path": ld_path, "libgcc" : libgcc, "libraries": libraries})
++ return CG("link:%s" % outfile, "%(ld)s -N -r %(objfiles)s %(ld_path)s --start-group %(libgcc)s %(libraries)s --end-group -o %(outfile)s" % {"ld": ld, "objfiles": objfiles, "o\
+utfile": outfile, "ld_path": ld_path, "libgcc" : libgcc, "libraries": libraries})
+
+def get_basenames(filenames):
+return [os.path.splitext(os.path.split(filename)[1])[0] for
+
+12.2 run build which create image.elf file and object files with symbol.
+If you are trying to debug okl4test, then find the text, data, and bss address
+using readelf or objdump like this.
+>arm-none-eabi-readelf -all build/images/image.elf |less
+then find okl4test.text, okl4test.data, okl4test.bss
+[ 9] okl4test.text PROGBITS 90000000 00d000 014c28 00 WAXo 0 0 8
+[12] okl4test.data PROGBITS 90026000 033000 001010 00 WA 0 0 4
+[36] okl4test.bss NOBITS 90027098 034098 02a6cc 00 WAo 0 0 8
+
+you also need to keep some address of a variable or function (such as
+okl4test-MAIN-main so that you can check whether it is correct or not)
+
+12.3 run gdb (arm-none-eabi-gdb)
+don't forget --annotate=3
+in gdb run like this:
+>add-symbol-file ./build/okl4test/bin/okl4test 0x90000000 -s .data 0x90026000 -s .bss 0x90027098
+
+12.4 target
+
+run the image in the target siimulator
+> qemu-system-okl -M beagle -kernel image.boot -nographic -s -S
+
+and then command in the client like this
+
+>target remote bob3:1234
+
+12.5 b main
+then run
+
+
+13. WIFI: 
+SSID:  popsicle
+Password:  fr3sh^n0v3l (That's: fresh^novel with e->3 (three), and o->0 (zero), (lowercase 'L')
+
+
+
+14. mercurial (http://mercurial.selenic.com/guide/)
+14.1 after adding some file (hg add) or change some files, you can do like:
+'hg diff > review.patch'
+then send the review.patch file for reviewing.
+14.2 revert (수정사항 버리기)
+hg st (check status of repository. 어떤 파일이 수정 되었는지 보여줌)
+hg diff filename (filename의 변경 사항을 보여줌)
+hg revert filename (수정 사항 버리기)
+14.3Create a project and commit$ hg init (project-directory)
+$ cd (project-directory)
+$ (add some files)
+$ hg add
+$ hg commit -m 'Initial commit'
+
+14.4
+pull and push: get and put change sets. It does not change the contents of files, but it just get and put change sets.
+If somebody push, you can pull it which addes the changeset to your local repo but files are not changed. You can run
+'hg update' to reflect the changes. This also changes parent changeset of the next commint.
+
+14.5 diff between different revisions.
+hg diff -r 37359 -r 37361 * 이렇게 하면 앞의 것과 뒤의 것 (뒤의 것이 더 최신것임) 사이의 diff를 보여줌. * 를 함으로써 전부 보여줌.
+
+14.5 you can push your change. But if there are another push, you can get error such as 'new remote head'.
+In this case, you should pull, merge, commit, then push again.
+
+15. leave form
+
+https://portal.ok-labs.com/okl/PoliciesAndProcedures
+
+16. Mercurial: Branch creation and working with it
+16.1 run create_branch in vb, then do what is required (input required). When finished, it shows the branch name so that you can clone it on your
+working machine. For example, it shows like "hg clone ssh://hg.ok-labs.com//hg/okl4-posix-mutex-attrs" for my posix-mutex-attrs.
+16.2 clone that branch to my working host (vulture), then work here. For example, "hg clone ssh://hg.ok-labs.com//hg/okl4-posix-mutex-attrs".
+- If you worked it on other branch (i.e., main branch), you need to add that result to the local copy of your branch.
+- you first create a diff for it like "cd okl4-mainline" "hg diff >/tmp/posix.diff", then "cd ../okl4-posix-mutex-attrs", then "patch -p1 < /tmp/posix.diff", then
+see that happens by "hg st"
+16.3 run a simple test by "./tools/unittest/quick_test.py -j 4"
+16.4 run a simple style test by "./tools/unittest/stylechecker.py all"
+16.5 'hg commit -m "blah blah" '
+16.6 push modification so that others can review it. "hg push"
+
+17. code review
+
+171. code review를 위한 diff 만드는 방법
+hg_diff_against_head > code_review
+
+18. exiting qemu
+
+C-a c
+
+19. elfweaver
+
+19.1 elfweaver 실행
+./tools/pyelf/elfweaver.py merge -o foo.elf build/images/weaver.xml
+
+19.2
+./tools/pyelf/weaver/okl4_cell_environment_elf.py file is related with weaving out elf file.
+class CellEnvSection(BinaryWriter) is related with the elf section related with cell environment,
+and you can find def write_environment which actually writes cell environment section.
+You can modify some of the code here to check what kind of symbols are weaved out.
+
+19.3 traceback option (디버깅에 사용)
+
+--traceback
+ex)
+OKL4_SDK=/tmp/tmp2n7BuI/sdk /tmp/tmp2n7BuI/sdk/bin/elfweaver merge -o build.okl4pico-debug/images/image.elf build.okl4pico-debug/image.xml --traceback
+
+
+
+20. regression and merge with mainline
+While in regression a branch should be updated to mainline daily and the review updated if any major changes occur, particularly those requiring manual intervention.
+
+20. merge if conflict occurs
+20.1 step
+hg pull mainline (hg pull ssh://hg//hg/okl4-mainline)
+hg merge
+hg resolve --all (if merge fails because of conflict)
+hg commit
+hg push
+
+
+
+21. mainline fix
+
+clone, pull and update mainline, fix problem, send diff to philip.
+
+22. quicktest
+
+./tools/build.py machine=versatile_uboot project=okl4test product=okl4extras okl4test.TOOLCHAIN=rvct_toolchain build_dir=build.qt1 TESTING.TIMEOUT=200 simulate_test -j 4
+./tools/build.py machine=beagle project=okl4test product=okl4nano build_dir=build.qt2 TESTING.TIMEOUT=200 simulate_test -j 4
+./tools/build.py machine=kzm_arm11 project=okl4test product=okl4extras ENABLE_DEBUG=False build_dir=build.qt3 TESTING.TIMEOUT=800 simulate_test -j 4
+
+beagle is armv7 model
+kzm_arm11 is armv6 model
+
+
+23. qemu debugging log
+
+> qemu-system-okl -M beagle -kernel image.boot -nographic -logfile qemu.log -d exec
+> less qemu.log
+
+24. specify the testing cases (OKL4TESTS='PTHRD_MUTEX*')
+
+KZM=kzm1 ./tools/build.py machine=kzm_arm11 project=okl4test product=okl4extras PYFREEZE=False OKL4TESTS='PTHRD_MUTEX*' simulate
+PTHRD_MUTEX is the test name in pthread_mutex.c file (find it!), and the final result runs on the simulator (with 'simulate option at the end), so run it on
+where there is a simulator. Or you can just copy it to a host which have a simulator.
+
+25. if the product us okl4nano, then mmu_dynamic is not defined. choose okl4_extras instead.
+
+26. using local beagle board
+
+
+> sudo dfu-util -a 0 -R -D image.beagle.boot
+
+
+27. regression test에선 어떤 테스트를 하나?
+
+projects/okl4test/ut_run.py -n machine=beagle 이렇게하면 beagle보드에서 테스트 할 것들이 리스트 된다.
+
+projects/okl4test/ut_run.py -oplain -minline machine=kzm_arm11 run=qemu
+projects/okl4test/ut_run.py -oplain -minline machine=kzm_arm11 run=hardware
+projects/okl4test/ut_run.py -oplain -minline machine=realview_a9mp product=okl4smp run=aem
+projects/okl4test/ut_run.py -oplain -minline machine=versatile_uboot run=qemu
+projects/okl4test/ut_run.py -oplain -minline machine=realview_a9mp product=okl4smpaffinity run=aem
+projects/okl4test/ut_run.py -oplain -minline machine=realview_a9mp product=okl4smporange run=aem
+projects/okl4test/ut_run.py -oplain -minline machine=beagle run=qemu
+
+
+
+또한 vulcan이 경우 아래와 같이 하면 된다.
+./tools/vulcan/vulcan -f qct_vulcfile -j 2 RELEASE
+./tools/vulcan/vulcan -f qct_vulcfile -j 2 test_okl4bench:beagleboard-c3:okl4nano
+
+
+./tools/vulcan/vulcan -t -f qct_vulcfile system:imx31:kzm-arm11-01:*
+this command prints back all available cases. you can find that examples/tls are also there. other
+test cases in examples are there also.
+
+projects/okl4test/ut_run.py -n product=okl4orange 이렇게 하면 orange product에 대해서 테스트 할 것이 리스트 된다.
+
+
+28. how to make reference manual?
+
+./doc-src/okl4-ref-man$ okl4Product=okl4extras make
+
+라고 치면 okl4extras 관련 reference manual이 나온다. 면
+
+
+29. verbose mode
+Verbose mode?
+
+add option 'VERBOSE_STR=True' at build command like
+KZM=kzm1 ./tools/build.py machine=kzm_arm11 project=okl4test product=okl4extras PYFREEZE=False OKL4TESTS='PTHRD_MUTEX*' simulate VERBOSE_STR=True
+
+30. FLINT
+
+a) 안하게하는 법:  local flint를 만든 후, 이것이 항상 true 로.
+ 
+ ln -s /bin/true flint
+ PATH=.:$PATH ./build.py -j8 -u -z internal
+
+b) 일정 코드 영역에서만 특정 Flint error를 글로벌하게 disable한 후 다시 enable (example: info 764, warning 527)
+
+/*lint -save -e764 -e527*/
+#include "event/ipi.h"
+/*lint -restore*/
+
+
+31. syscalls
+
+build/kernel/object/kernel/kernel/kernel_base/src/auto/syscalls.c
+kernel/scheduler_standard/src/syscall.c (find SYSCALL(xxx))
+
+
+32. hg에서 내가 고친 것
+hg log -u 'JungGyu Park<junggyu@ok-lbs.com>'
+
+33. SCons와 비교할 수 있는 것이 vulcan인데, SConscript/Sconstruct 대신 config.py 를 볼 것.
+
+34. 두 개의 tree (branch)의 ordering을 해서 merge 하려고 할 때 무엇을 해야 할까?
+머지를 이용함.
+
+35. vulcan에서 테스트 할 때 buildline의 예
+
+tools/vulcan/vulcan -f qct_vulcfile install_system:omap3:beagleboard-c3:okl4nano:okl4test
+이 때 시뮬레이터용 이미지는
+build/SDK/okl4nano/boards/beagleboard-c3/examples/build/okl4test/okl4nano/beagleboard-c3/okl4test.sim
+이것이고, 아래의 명령으로 하드웨어에서 실행 가능.
+hwrun -m beagle build/okl4test/okl4nano/beagleboard-c3/okl4test.boot
+
+36. vulcan에서 verbose mode ?
+
+> vulcan .... -v
+
+37. support vulcan debug symbol
+after doing 36, check build line for ok merge, than add -r for ok merge
+
+> ok merge ... -r
+
+38. test case 내부에서 너무 큰 data 를 local로 잡아서 사용하니까 page fault 가 발생했다. 그냥 array같은 large data 사용하지 말고 간단한 것 사용하자.
+
+39. beagle에서는 멈춰 있던 test case 가 kzm_arm11에서는 page fault에서 exception handler가 없다고 나왔다. 이런 상황동 있으니 주의!
+
+40. gnu로 빌드해 보니 main 이 있는 page가 r/w인데, rvct로 하니 r 이었고 w는 아니었다. 재밌네
+
+41. return 하기 전에 혹시 free하거나 clear해야 할 resource가 있는지 늘 확인할 것.
+
+42. skyeye debugging
+
+If you open the file tools/sim_config/lpc2294.skyeye and uncomment the last line in the file, skyeye will generate an instruction trace for you
+이렇게 pc 값을 따라가다가 어느 순간부터 이상해 지는 현상을 찾으면 됨. 예를 들어서, arm mode로 실행 하다가 thumb mode code를 실행하게 되는데, 그 때
+mode를 변환하지 않아서 생기는 문제가 있었음.
+
+43. accessing company web page from home
+
+at home,
+> ssh -L 8089:localhost:443 vb.ok-labs.com
+그리고 나서 web browser 에서 https://localhost:8089 라고 하면
+local 8089 port가 remote 의 443 포트로 forwarding.
+
+44. pyfreeze=False for vulcan?
+
+add -z option. like
+./tools/vulcan/vulcan -z -f qct_vulcfile -v -j 2 RELEASE
+
+45. qemu debug
+
+qemu-system-okl -M kzm -nographic -kernel ./image.boot -logfile qemulog -d exec,cpu,in_asm -singlestep
+
+46. function type
+
+in assembly, use .type
+
+
+#define BEGIN_PROC(name) \
+.global name; \
+.align; \
+.type name, #function; \
+name:
+
+
+47. runnung okl4bench in vulcan
+
+47.1. run okl4bench.
+/tools/vulcan/vulcan -f qct_vulcfile system:imx31:kzm-arm11-01:okl4extras:okl4bench > xxx.xml (should remove before xml header and after xml footer)
+47.2 unfrozen the parse_okl4bench
+Here is the patch that will let you run the unfrozen parse_okbench script.
+
+diff -r 0f6bb35cb24c tools/pyelf/weaver/parse_okbench.py
+--- a/tools/pyelf/weaver/parse_okbench.py Wed Feb 09 17:17:27 2011 +1100
++++ b/tools/pyelf/weaver/parse_okbench.py Fri Feb 11 16:15:12 2011 +1100
+@@ -14,7 +14,7 @@
+from optparse import OptionParser
+from subprocess import Popen
+
+-from weaver.subcommand import register_subcommand
++#from weaver.subcommand import register_subcommand
+
+# Import the scipy package, which is optional.
+# scipy 0.7.0 under Python 2.6.2 produces warnings, which get mixed up
+@@ -1736,9 +1736,9 @@
+
+return run(reporttype, report_format, counter, files, outputfile, dtd)
+
+-register_subcommand('parse_okbench', parse_okbench_cmd,
+- usage = "Report on okbench output",
+- is_hidden = True)
++#register_subcommand('parse_okbench', parse_okbench_cmd,
++# usage = "Report on okbench output",
++# is_hidden = True)
+
+if __name__ == '__main__':
+sys.exit(parse_okbench_cmd(sys.argv[1:]))
+
+47.3. run parse_okl4bench
+./build/SDK/okl4extras/bin/elfweaver parse_okbench xxx.xml > xxx.txt [done !]
+
+47.4 use spread sheet or chart for fancy rendering
+
+48. how to print memory map using elfweaver?
+
+./tools/pyelf/elfweaver.py merge --elf build.ot_kzm_arm11_okl4extras/images/weaver.xml -o build.ot_kzm_arm11_okl4extras/images/image.elf --traceback --map
+
+
+49. debugging exceptions
+
+49.1 locate which instruction causes exception (ex, data abort or mmu exception...)
+49.2 break point at abort handler in the kernel
+in gdb, you can find some of the handlers by
+(gdb) b arm_[enter space here, then gdb will show you possible symbols like arm_mmu_excpetion_abort or arm_data_abort]
+49.3 continue until you get hit the break point just set
+49.4 check what causes the exception by checking the fault_status value (reference ARM manual what this fault_status means)
+
+(handler sometimes just change the pc value stored in kernel_saved_registers[15] by adding or removing some offset value
+like 4, that location has a jump instruction to error handling routine. see some source code like
+arch/armv6/kernel/useraccess_dynamic/src/{copy_out_buf.spp:arch_copy_out_buf, exxception.c}
+arch/armv6/kernel/exception/src/exception.c:arm_mmu_exception_abort.
+
+
+50. merging with other than mainline
+ex) merging with okl4-qct branch
+
+
+hgrdiff . ssh://hg//hg/okl4-qct > .d
+
+
+51. effective priority change (from low to high)
+
+. mutex: high priority thread is waiting to a mutex hold by low priority thread
+. ipc : sending ipc call from high priority thread to low priority
+
+
+52. If casting from void * to specific pointer is not allowed, then use something like this
+
+
+static inline struct thread *
+get_token_object(struct object_token *token)
+{
+assert(token != NULL);
+return token->object; /* object is type (void *) */
+}
+53. how to make the debug build of kernel using xml?
+
+
+like this
+
+diff -r 4e9c50d9cd82 platform/versatile/xml/sdk/linux-minimal.xml
+--- a/platform/versatile/xml/sdk/linux-minimal.xml Wed Apr 13 15:29:03 2011 +1000
++++ b/platform/versatile/xml/sdk/linux-minimal.xml Thu Apr 14 11:45:26 2011 +1000
+@@ -19,7 +19,7 @@
+<physical_pool name="p-timer"><memory base="0x4600000" size="1M"/></physical_pool>
+<physical_pool name="p-linux"><memory base="0x4700000" size="20M"/></physical_pool>
+
+- <kernel physpool="p-kernel" virtpool="v-normal">
++ <kernel physpool="p-kernel" virtpool="v-normal" debug="True">
+<use_device name="serial_dev"/>
+<use_device name="versatilesys_dev"/>
+<use_device name="kvinterrupt_dev"/>
+
+
+54. how to make elf file using elfweaver?
+
+
+like this (using --elf option)
+
+OKL4_SDK=/home/junggyu/wrk/okl4-mainline/tuza_build/SDK/internal /home/junggyu/wrk/okl4-mainline/tuza_build/SDK/internal/bin/ok merge --elf tuza_build/SDK/internal/boards/versatile-ab/systems/linux-minimal.xml -o tuza_build/SDK/internal/prebuilt/systems/versatile-ab/linux-minimal.elf
+
+55. how to use serial_demux for hwrun?first, you need to build it. Then in the build directory (in the following case, new_build), find ok.
+
+55.1. run hwrun with serial demux. It will print port number which can be used to connect using serial console.
+./new_build/SDK/okl4microvisor/bin/ok serial_demux -i hwrun -m versatileab -f ./tuza_build/SDK/internal/prebuilt/systems/versatile-ab/linux-minimal.boot -c 3
+
+55.2 run serial_console at the other terminals. If you have 3 cells, then you need 4 terminals (3 cell + 1 for kernel). ./new_build/SDK/okl4microvisor/bin/ok serial_console -p 1999
+
+
+
+56. benchmark test (lmbench) on versatile
+56.1. linux-minimal runing lmmehcn
+> clone okl4-mainline
+> clone oklinux-2.6.29
+> build linux-minimal by runing the following buildline
+tools/vulcan/vulcan -f vulcfile system:versatile:versatile-ab:okl4microvisor:linux-minimal # (this is before adit was merged)
+or
+tools/vulcan/vulcan -v -f sdk_vulcfile SDK:internal > if error occurs, please check whether the combination of okl4-mainline and oklinux-2.6.29 is working.
+The working version for me was okl4-mainline:commit 46046 (Feb.24.2011) and oklinux-2.6.29: commit 682cc9816ae4415574ed6c62379e0d744ca365f3
+(Feb.24.2011).
+!HEADS UP: in this version, the name of vserial should be changed to 'vtty0' in the xml file like this: (check in the oklinux-2.6.29/drivers/char/okl4_vtty.c)
+
+
+--- a/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Wed Apr 13 15:29:03 2011 +1000
++++ b/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Thu Apr 21 10:00:24 2011 +1000
+@@ -44,12 +44,12 @@
+</stdc_cell>
+
+<linux_cell name="linux" file="oklinux/oklinux-2.6.29/examples/versatile_minimal" kernel_heap="3M" physpool="p-linux">
+<ramdisk file="okinitramfs/examples/minimal/initramfslist"/>
+<atags>
+<cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff"/>
+<!-- for simulator/no timer ticks <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff lpj=10000"/> -->
+
+- <vclient server="vserial" name="vserial" source="/serial/serial"/>
++ <vclient server="vserial" name="vtty0" source="/serial/serial"/>
+
+<virq name="vtimer" source="/vtimer/tick0"/>
+<vclient server="vtimer" name="linux" source="/vtimer/timer" client_id="0" />
+
+!!HEADS UP: in this version, the oklinux/okl4vm_versatile_minimal_defconfig file (config file for linux) does not set serial console which cause
+
+the linux kernel warning about the creating initial console. You have to set it by runing menu config or something like this.
+
+(by Carl)
+1297 cd oklinux-2.6.29
+1298 cp ../new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config ../config.old
+1299 make ARCH=arm O=/home/junggyu/wrk/okl4-mainline/new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/ menuconfig
+1300 cd ../
+1301 diff -u new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config oklinux/okl4vm_versatile_minimal_defconfig
+1302* cp oklinux/okl4vm_versatile_minimal_defconfig new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config
+1303 cp new_build/linux/okl4vm_versatile_minimal_defconfig_versatile-ab/.config oklinux/okl4vm_versatile_minimal_defconfig
+or you can just do it by other ways also.
+
+
+
+
+> if needed (if the build process complains it), clone oklinux-2.6.34.adit also
+> you have done build now
+> open 4 terminals for 3 cells and one okl4 kernel
+> run serial_demux by running the following command line
+./new_build/SDK/okl4microvisor/bin/ok serial_demux -i hwrun -m versatileab -f ./new_build/systems/linux-minimal/okl4microvisor/versatile-ab/linux-minimal.boot -c 3
+> read the port number, and then in one of the terminal you have created, run
+./new_build/SDK/okl4microvisor/bin/ok serial_console -p 1999
+the first port number is usually 1999. Then until other port number is printed back by by serial_demux, do the some in different terminal.
+> you will get a prompt from a termial, which is the initial console the minimal-linux.
+> you can change the root file system of minimal-linux by
+--- a/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Wed Apr 13 15:29:03 2011 +1000
++++ b/platform/versatile/xml/sdk/linux-minimal_versatile-ab.xml Thu Apr 21 09:59:17 2011 +1000
+@@ -44,12 +44,12 @@
+</stdc_cell>
+
+<linux_cell name="linux" file="oklinux/oklinux-2.6.29/examples/versatile_minimal" kernel_heap="3M" physpool="p-linux">
+- <ramdisk file="okinitramfs/examples/minimal/initramfslist"/>
++ <ramdisk file="okinitramfs/examples/lmbench/initramfslist"/>
+<atags>
+<cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff"/>
+<!-- for simulator/no timer ticks <cmdline value="androidboot.console=ttyV0 console=vcon0,38400n8 user_debug=0xffffffff lpj=10000"/> -->
+> after build again and run serial_demux, in the initial of linux, go to the directory containing lmbench program, and run it, get the result.
+
+
+
+56.2. how to make native linux kernel
+> find out which directory has initramfs in the linux-minimal (having lmbench). Maybe it is in the
+new_build/initramfs/lmbench. You can find install folder (which has root file system) and initramfslist which has the list of install files.
+
+> get linux kernel (wget http://www.kernel.org/pub/linux/kernel/v2.6/linux-2.6.29.tar.bz2)
+> copy the install directory the initramfslist file into the linux kernel root direcotry.
+> configure it (make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- versatile_defconfig) to obtain .config file.
+> configure again ( make ARCH=arm CROSS_COMPILE=arm-none-linux-gnueabi- versatile_defconfig
+enable AEABI
+dissable VFP
+set CONFIG_INITRAMFS_SOURCE to point the the initramfslist.
+> build done. > copy the uImage to vb:/tftpboot by
+
+
+scp arch/arm/boot/
+uImage vb:/tftpboot/jpark > connect to versatile board using
+
+console versatile2 (you can use versatile1 also. The same command would be "console -M consoles versatile2)
+> in other terminal, enter "power-ctl -b versatile2" to reboot the versatile2.
+> in the versatile2 console, enter following
+flash run u-boot [enter]
+[enter if you see something counting]
+dhcp 0x4200000 jpark/uImage
+printenv (if you like to check environment)
+setenv (if you set enviroment such as bootargs)
+bootm 0x4200000
+> you get the linux kernel up and run, and input in the linux console.
+57. how to hack printk of linux kernel?
+
+you can hack the printk of linux kernel by changing kernel/printk.c:emit_log_char function like
+
+static void emit_log_char(char c)
+{
+#if 0
+#if defined(CONFIG_OKL4_EARLY_DEBUG)
+okl4_console_putc(c);
+#else
+LOG_BUF(log_end) = c;
+log_end++;
+if (log_end - log_start > log_buf_len)
+log_start = log_end - log_buf_len;
+if (log_end - con_start > log_buf_len)
+con_start = log_end - log_buf_len;
+if (logged_chars < log_buf_len)
+logged_chars++;
+#endif
+#else
+_okl4_sys_priority_waive(c);
+#endif
+}
+
+and change the _okl4_sys_priority_waive syscall to print something using TRACEF.
+
+   
+#if 0
+    /* Priority cannot be raised. */
+    if (reduced_priority > current_thread->waive_priority.base_priority) {
+        set_priority_waive_return(ERROR_INVALID_ARGUMENT);
+        TAILCALL(syscall_return());
+    }
+#endif
+    TRACEF("%c", (char)reduced_priority);
+
+    /* If there are any waiting interrupts, do nothing. */
+    if (!interrupt_no_next_pending(current_thread)) {
+        set_priority_waive_return(ERROR_OK);
+        TAILCALL(syscall_return());
+    }
+#if 0
+    scheduler_change_effective_priority(current_thread, reduced_priority);
+#endif
+    set_priority_waive_return(ERROR_OK);
+    TAILCALL(yield(syscall_return_restart_fn));
+}
+
+
+
+
+58. Techdoc
+
+
+front->engineering->TechDocs->many documents there including hardware specs.
+
+
+59. how to remove a branch if you mistakenly made it and want to remove it?
+visit the following link, edit the ticket, set state as depricate.
+https://portal.ok-labs.com/okl/sdlc/branches/
+
+
+60. sample build line for 2.0
+
+./tools/build.py project=l4bench machine=kzm_arm11_qct cust=qct
+./tools/build.py project=l4test machine=kzm_arm11_qct cust=qct
+
+
+
+61. Open Kernel Labs messenger ids
+
+https://portal.ok-labs.com/okl/IT/Messaging
+
+
+62. connect to STE u8500 board by using ok tools
+ok serial_demux -i tty -f /dev/ttyUSB0 -p 1999 -c2
+(check serial device you use for this connection)
+if you do not have ok, you can use elfweaver like
+tools/pyelf/elfweaver.py serial_demux -i tty -f /dev/ttyUSB0 -p 1999 -c3
+
+63. "no targets found" 등의 에러메시지를 발견할 경우 (vulcan 등에서)
+check tools/autogen/modules/compositions
+and find whether their is valid composition there, and add one if needed.
+
+그래도 고쳐지지 않았을 경우, py 파일들을 모두 찾아볼 것 (find and grep). okrtx에 smp
+를 추가하려고 했을때, 이런 문제가 있었음. 그래서 okl4_buidl/config에서 okrtx에 smp추가함.
+그렇게 한 이유는, sdk_build와 같은 new build system still uses okl4_build for building.
+64. make_consistent
+
+
+well, it's a signalling mechanism
+allows a CPU running kernel code to ask other CPUs to perform some operation
+it works by setting a nonzero value in the remote cpu's cpu_local->make_consistent variable, sending an IPI to the remote CPU, and waiting for the make_consistent variable to change back to 0
+when the remote CPU receives the IPI, it reads cpu_local->make_consistent (while waiting to acquire the global lock), and if it's not zero, it performs the requested operation and sets it back to zero
+this is done while spinning on acquire_global_lock because the originating CPU is holding the global lock, so the target CPU can't acquire it
+65. git
+
+
+- reference: http://gitref.org/basic/#diff
+- files are staged by using git add.
+- if you commit, then files you added by 'git add' will be committed.
+- if you checkout to previous commit, new no name branch is created and you are working on that branch.
+- how to check difference between reference linux kernel and our modification?
+a) check whether there is a tag on the log with this command:
+git log --decorate --graph | less
+b) if the name of tag just before our modification is v.2.6.34.1 then do the following
+git diff refs/tags/v2.6.34.1
+
+if you do not have tag, you can just get the commit value of the latest linux kernel (just before our modification), then git diff <commit> will
+give you the same diff (this diff gives the diff from the HEAD to that commit)
+
+
+66. new build system
+ex) internal SDK install and build
+install: tools/vulcan/vulcan -f vulcfile_install_sdk -j8 SDK:internal
+
+build: tools/vulcan/vulcan -f vulcfile_build_sdk SDK:internal -j15
+
+ex) unittest build and run python tools/unittest/unittest.py -m kzm -s internal
+
+
+67. reverse patch
+
+patch -p1 -R
+
+68. sshfs
+
+sshfs bob21:/home/junggyu/wrk wrk
+
+
+69. http://en.wikipedia.org/wiki/Memory_type_range_registers
+
+writecombine
+writethrough
+etc
+
+70. how to use mill
+
+* generate xml file
+ 
+tools/ok/ok.py mill --vs-to-xml tools/ok/tests/data/vservices/gpio.vs --output vservices/gpio.xml
+
+* generate source file from the xml file
+
+tools/ok/ok.py mill -b vservices/gpio.xml -D ~/tmp/gpio
+
+71. hwrun for test
+ 
+/* -p portnum*/
+
+ ./tools/ok/ok.py  serial_demux -i hwrun -p 2850 -c 2 -m sabre -f ../linux-test/linux-hybrid-virtual-platform-sabre-2.6.38.flt.boot
+ ./tools/ok/ok.py serial_console -p 2850
+ ./tools/ok/ok.py serial_console -p 2851
+ ./tools/ok/ok.py serial_console -p 2852
+
+72. run test script
+
+
+ ./tools/unittest/test.py -s internal-test -i rtx-prio-sched-test  panda
+                                     (sdk name)     (image name)       (board name)              
+
+
+
+73. Example merge command
+
+OKL4_SDK=/home/junggyu/wrk/okl4-cx2-virtual-platform/build/okl4sdk-internal-test build/okl4sdk-internal-test/bin/ok merge -e -o cx2.boot ./build/okl4sdk-internal-test/boards/cx2/systems/linux-virtual-platform-cx2-2.6.38.xml
+
+(you can add --map option to get a map of the boot image)
+
+74. generate elf file from ok merge and use it to debug (instead of binary)?
+
+OKL4_SDK=/home/junggyu/wrk/okl4-cx2-virtual-platform/build/okl4sdk-internal-test build/okl4sdk-internal-test/bin/ok merge --elf -o cx2.load ./build/okl4sdk-internal-test/boards/cx2/systems/serial-echo-cx2.xml --remove_nobits --physical
+ 
+75. build system tries to rebuild everytime. How to avoid this?
+build command is now
+>./ko -v build -j4 lg-cx2
+Ryan said:
+>vulture:/scratch/ryan/apply_support_package.patch
+apply this patch to the build system and 
+>export OKL4_DEVELOPER=true
+
+76. T32 load symbol:
+
+how to add debug symbol?
+in OKL wiki, search for t32.(might be files in tools/sdk_build/{toolchain.py, kernel.py, etc}
+
+make an relocation symbol file from ok weave hybrid.xml -e 
+make an elf file from ok weave hybrid.xml --elf -o hybrid.elf
+in t32, after the binary is loaded and run,
+in command line, 
+d.load.elf /home/junggyu/wrk/U2/serial-server.reloc [addr] /nocode /noclear /cpp
+where [addr] should be the address you need for the relocation starting address. Otherwise you might end up with the symbol address starting at 0x0.
+
+d.LOAD.ELF /home/junggyu/wrk/U2/hybrid.elf /nocode /NOCLEAR /cpp
+
+
+Image can be loaded by  d.load.b /home/junggyu/wrk/U2/hybrid.boot a:0x80000000
+
+do ***.cmm : run cmm file.
+r.s.pc addr: set pc to addr.
+
+
+mmu.dump
+mmu.scan
+mmu.reset
+v.view ((struct serial_omap*)0xfff01000).thr
+d.dump 0xfff01000
+d.l core/ 1
+
+
+also, in the menu, 0map4430 (or other hw dependent menu) can show many hw features
+including uart or timer registers...
+
+77. QA tool for setup repo
+
+git clone ssh://repo.ok-labs.com/git/qa-tools
+cd qa-tools
+zclone -b vmmu-pte-swap-fix
