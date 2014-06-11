@@ -1,0 +1,88 @@
+
+
+./bin/Hub.exe -FG Serial:COM4,57000,n,8,1 -basePort 12340
+
+HAT does not need to use baseport in Hub.exe
+When using HAT, check port number and URL, and other related stuff
+
+./bin/CommRelay.exe -A File: i wrk/debug_purge/Build/RxDebug/Cam.ufb -B Client: localhost 12346
+
+>svn co  https://subversionau/svnpd/DataConnectivity/main
+> svn diff -c revision == git show
+
+> in the channel 7, enter 'TAIL[enter' shows last debug message
+
+> commit comment example for automatic update to review:
+ NDC-173: Implemented new integ test. +review CR-NDC-135
+
+> upgrade file
+ scons target=rx upgrade-file
+
+> how to run a scenario from the integtest
+ex: Too	./run.py -t STR-Scenario1 .
+
+> unittest case name
+ They must be: <class><method><Situation><expectation> 
+ eg:
+ HttpStream_Put_NullStringResultsInNoAction
+ HttpStream_Put_NegativeLenResultsInNoAction
+						
+
+Phantom_logging.cfg: change the level of logger_data_module to DEBUG to see more detail information.
+
+Server namel: AU3RDCMOD01
+Server URL and Port is 203.15.64.66:31621 (port number may change)
+
+
+how to run fgsim? 
+./fgsim  ../../IntegTests/fg_data/default
+
+how to run ecpsh on fgsim?
+
+1. run fgsim (port A)
+2. run ecpsh with some port (port B)
+3. commreplay with A and B (both client)
+ex:  ./bin/CommRelay.exe -A Client: localhost 5770 -B Client: localhost 1111
+
+pyhton debug: add --no-capture at the end. 
+
+-----------
+S10 model
+http://confluence.corp.resmed.org/download/attachments/6521655/S10+Models.txt
+------------
+
+manufacturing setup
+
+URL=203.15.64.66
+PORT=31623
+APN=internet.gdsp
+
+ex) how to do commrelay?
+
+ ./CommRelay.exe -A Serial: COM6,57600,n,8,1 -B Serial: COM5,57600,n,8,1
+
+resetprg.c:PowerON_Reset_PC()
+
+stuck at healthy check? set APN
+xhash error? AUTH
+after setup FG serial number, you should reboot FG
+
+
+eLB: how to create new one?
+
+ - go to the parent directory for the eLB
+ - find a template
+ - duplicate
+ - edit
+ - exit and release
+
+how to use ssh to redirecting connection?
+
+>> ssh -R 31635:wres24057:8899 au3rdcmod01
+
+will ssh to au3rdcmod01, and connection to 31635 will be redirected to the wres24057:8899.So that you can make your own web browser on wres24057.
+
+
+
+
+
