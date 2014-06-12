@@ -300,3 +300,6 @@ if __name__ == '__main__':
 
 
 
+
+# python book: dive into python
+# http://getpython3.com/diveintopython3/your-first-python-program.html
