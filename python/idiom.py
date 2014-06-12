@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+
+# the above makes python script
+
 #file t1.py
 '''
 Module __doc__ string
@@ -235,3 +239,64 @@ def badorgood():
 #                  preexec_fn=os.setpgrp
 #                  )
 # (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
+
+# subprocess.check_output provide output of the program in string format.
+
+
+# example of using pexpect
+# # This connects to the openbsd ftp site and
+# # downloads the recursive directory listing.
+# import pexpect
+# child = pexpect.spawn('ftp ftp.openbsd.org')
+# child.expect('Name .*: ')
+# child.sendline('anonymous')
+# child.expect('Password:')
+# child.sendline('noah@example.com')
+# child.expect('ftp> ')
+# child.sendline('lcd /tmp')
+# child.expect('ftp> ')
+# child.sendline('cd pub')
+# child.expect('ftp> ')
+# child.sendline('get README')
+# child.expect('ftp> ')
+# child.sendline('bye')
+
+
+# main and argument. sys.argv also provides access to arguments of the python script
+
+def main():
+    return 0
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description="A tool",
+        epilog="EX: A -cp COM5 cam.ufb",
+        formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    parser.add_argument("-cp", dest="num_port",
+                        default="4",
+                        help="port number (defaults to 4)")
+
+    parser.add_argument("-ft", dest="file_type",
+                        default="0",
+                        help="Not used on CAM upgrade utility")
+
+    parser.add_argument("-fgt", dest="fg_type",
+                        default="0",
+                        help="Not used on CAM upgrade utility")
+
+    parser.add_argument("-r", "--data-rate", dest="data_rate",
+                        default=DEFAULT_TX_RATE_BYTES_PER_SECOND, type=int,
+                        help="TX data rates in bytes per second")
+
+    parser.add_argument("-v", "--verbose", dest="verbose", action="store_true",
+                        help="Show debug information")
+
+    parser.add_argument("upgrade_file_name")
+
+    main_args = parser.parse_args()
+    # you can call main directly. or do this to check return code using 'echo $?'
+    sys.exit(main())
+
+
+
