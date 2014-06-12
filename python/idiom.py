@@ -303,3 +303,10 @@ if __name__ == '__main__':
 
 # python book: dive into python
 # http://getpython3.com/diveintopython3/your-first-python-program.html
+
+
+
+# how to add python module search path?
+
+# sys.path shows current search path in list, and
+# sys.path.insert(0, some_path) will insert a new one
