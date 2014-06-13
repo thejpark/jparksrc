@@ -132,6 +132,12 @@ def slowconcattest():
         s += 'spam'
 
 
+# generator
+# http://www.jeffknupp.com/blog/2013/04/07/improve-your-python-yield-and-generators-explained/
+
+#decorator
+#http://www.jeffknupp.com/blog/2013/11/29/improve-your-python-decorators-explained/
+
 def badorgood():
     # bad
     my_container = ['Larry', 'Moe', 'Curly']
@@ -300,6 +306,35 @@ if __name__ == '__main__':
 
 
 
+# list also have count method to get the number of elements in the list.
+a = [1, 2, 3]
+b = [e * 2 for e in a]
+
+# set can be created using list. a = {} makes a as a dictionary type not set.
+a_set = set([1, 2, 3])
+a_set = set()
+# set has add and update method to add elements. remove , discard, pop, and clear will delete elements in the set
+# set has union, intersection, difference, symmetric_difference
+# issubset and issuperset check subset
+
+# construct a path name
+import os
+x = os.path.join(os.path.expanduser('~'), 'a', 'b', 'c.txt')
+dirname, file = os.path.split(x)
+name, ext = os.path.splitext(file)
+
+# get directory list or file list
+import glob
+glob.glob('*')
+
+# find all files (absolute path) having .txt extensin.
+[os.path.realpath(e) for e in glob.glob('*.txt')]
+
+# find file with ext and size
+[f for f in glob.glob('*.py') if os.stat(f).st_size > 6000]
+
+#os.path.realpath(filename) gives absolute path (with  filemame)
+
 
 # python book: dive into python
 # http://getpython3.com/diveintopython3/your-first-python-program.html
@@ -310,3 +345,4 @@ if __name__ == '__main__':
 
 # sys.path shows current search path in list, and
 # sys.path.insert(0, some_path) will insert a new one
+
