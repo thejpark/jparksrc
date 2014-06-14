@@ -310,6 +310,18 @@ if __name__ == '__main__':
 a = [1, 2, 3]
 b = [e * 2 for e in a]
 
+isinstance(1, int)
+type(1)
+int(1.0)
+ 
+#list operations
+# extend, append, +, index, del, insert, remove, pop
+# ... or you can use 'in' to check 
+# whether item is in the list
+
+# string, tuple are not mutable. So if you need constant than you can use
+# tuple
+
 # set can be created using list. a = {} makes a as a dictionary type not set.
 a_set = set([1, 2, 3])
 a_set = set()
