@@ -5,6 +5,11 @@
 HAT does not need to use baseport in Hub.exe
 When using HAT, check port number and URL, and other related stuff
 
+To run hat integ test, 
+in HwTest, open 2 terminal and 
+>./hat_integ_test
+>./run.py -t xxx . -- --with-sim (where xxx is the tag name of the scenario)
+
 ./bin/CommRelay.exe -A File: i wrk/debug_purge/Build/RxDebug/Cam.ufb -B Client: localhost 12346
 
 >svn co  https://subversionau/svnpd/DataConnectivity/main
@@ -81,6 +86,11 @@ how to use ssh to redirecting connection?
 >> ssh -R 31635:wres24057:8899 au3rdcmod01
 
 will ssh to au3rdcmod01, and connection to 31635 will be redirected to the wres24057:8899.So that you can make your own web browser on wres24057.
+
+
+you can use this ssh redirecting connection to just use a port for both HAT and Apache.
+As port open for public may be running out, we need to share public port for Apachea and HAT
+
 
 
 

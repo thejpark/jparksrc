@@ -358,3 +358,19 @@ glob.glob('*')
 # sys.path shows current search path in list, and
 # sys.path.insert(0, some_path) will insert a new one
 
+
+# ''' is for multiline string
+s = '한글'
+len(s)
+# in python3 it will return 2, but in 2.7 it will return 6 
+
+
+# PEP 3101: Advanced String Formatting, “The rules for parsing an item key are 
+# very simple. If it starts with a digit, then it is treated as a number,
+# otherwise it is used as a string.
+s = ['a', 'b']
+x = {'key', 'val'}
+'sample test {0[0]} and {1[key]}'.format(s, x)
+
+# string related methods: split, splitlines. split('=', 1) means use '=' for split,
+# but split only once.
