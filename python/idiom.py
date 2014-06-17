@@ -374,3 +374,35 @@ x = {'key', 'val'}
 
 # string related methods: split, splitlines. split('=', 1) means use '=' for split,
 # but split only once.
+
+
+# if you want mutable string, use bytearray method (similar to stringbuffer)
+s = 'abc'
+b = bytearray(s)
+b[0] = 'c'
+
+# bytes objects have a decode() method that takes a character encoding 
+# and returns a string, and strings have an encode() method that takes
+# a character encoding and returns a bytes object
+
+
+# using re
+import re
+
+s = 'U72 8-10 Boundary ROAD'
+re.sub('ROAD$', 'RD', s)
+# \b means word boundary. So the following is much stronger as it just replace
+# ROAD regardless of its position (only if it is its own)
+re.sub(r'\bROAD\b', 'RD.', s)
+# r prefix before string makes raw sring.
+# python need to escape the escape character itself, so it is
+re.sub('\\bROAD\\b', 'RD.', s)
+
+#when working with re, use raw string. It is simpler
+
+s = r'\bWord\b'
+>>> s
+'\\bWord\\b'
+>>> repr(s)
+"'\\\\bWord\\\\b'"
+
