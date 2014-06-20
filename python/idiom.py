@@ -406,3 +406,26 @@ s = r'\bWord\b'
 >>> repr(s)
 "'\\\\bWord\\\\b'"
 
+pattern = '^(a? | b)$'
+# a? means optionally match single a.
+re.search(pattern, 'abc')
+
+# The followgin patter, {0, 3}  means 0 ~ 3 Ms 
+pattern = '^M{0,3}$'
+# equal to ^M?M?M?$
+
+# \d means digit, \d{3} is any 3 digits
+# phonePattern = re.compile(r'^(\d{3})-(\d{3})-(\d{4})$') 
+# phonePattern.search('800-555-1212').groups()        
+# ('800', '555', '1212')
+
+def plural(noun):          
+    if re.search('[sxz]$', noun):
+        return re.sub('$', 'es', noun)
+    elif re.search('[^aeioudgkprt]h$', noun):
+        return re.sub('$', 'es', noun)       
+    elif re.search('[^aeiou]y$', noun):      
+        return re.sub('y$', 'ies', noun)     
+    else:
+        return noun + 's'
+
