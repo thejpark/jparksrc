@@ -95,3 +95,29 @@ As port open for public may be running out, we need to share public port for Apa
 
 
 
+Software release
+
+1. checkout mainline
+2. step_all
+3. copy the result of step all and put it in the related Jira card
+4. in the explorer, select the folder, right click mouse, 
+   then TortoiseSVN, select Branch / Tag, 
+   select a directory to make a branch
+4. checkout the branch that I created just before
+5. change source code version, and stel_all.
+   also scons target=rx upgrade-file to make a Cam.bin file.
+6. Checkout booloader branch if needed (if we do not release
+   bootloader, but is going to use previously released one)
+  
+6.1 run 'scons target=rx no-app-image=true'
+6.2 copy Cam.bin from 5 to Build/RxDebug/
+6.3 scons target=rx
+    will give you combined .mot file having both bootloader and application
+6.4 copy that mot file to the Build/RxDebug of the release folder
+7. commit source code change (version related) and binary file (including mot).
+   The commit comment should starts with Jira card number for this release.
+
+8. svn up to check whether it is fine
+9. step_all again
+
+   
