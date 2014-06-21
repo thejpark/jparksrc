@@ -419,6 +419,12 @@ pattern = '^M{0,3}$'
 # phonePattern.search('800-555-1212').groups()        
 # ('800', '555', '1212')
 
+
+# The square brackets mean “match exactly one of these characters.
+# So [sxz] means “s, or x, or z”, but only one of them.
+
+# The ^ as the first character inside the square brackets means
+# something special: negation. [^abc] means “any single character except a, b, or c
 def plural(noun):          
     if re.search('[sxz]$', noun):
         return re.sub('$', 'es', noun)
