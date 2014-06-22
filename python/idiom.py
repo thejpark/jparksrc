@@ -406,3 +406,34 @@ s = r'\bWord\b'
 >>> repr(s)
 "'\\\\bWord\\\\b'"
 
+pattern = '^(a? | b)$'
+# a? means optionally match single a.
+re.search(pattern, 'abc')
+
+# The followgin patter, {0, 3}  means 0 ~ 3 Ms 
+pattern = '^M{0,3}$'
+# equal to ^M?M?M?$
+
+# \d means digit, \d{3} is any 3 digits
+# phonePattern = re.compile(r'^(\d{3})-(\d{3})-(\d{4})$') 
+# phonePattern.search('800-555-1212').groups()        
+# ('800', '555', '1212')
+
+
+# The square brackets mean “match exactly one of these characters.
+# So [sxz] means “s, or x, or z”, but only one of them.
+
+# The ^ as the first character inside the square brackets means
+# something special: negation. [^abc] means “any single character except a, b, or c
+def plural(noun):          
+    if re.search('[sxz]$', noun):
+        return re.sub('$', 'es', noun)
+    elif re.search('[^aeioudgkprt]h$', noun):
+        return re.sub('$', 'es', noun)       
+    elif re.search('[^aeiou]y$', noun):      
+        return re.sub('y$', 'ies', noun)     
+    else:
+        return noun + 's'
+
+# import matplotlib.pyplot as plt
+# plt.plot([1,2,3,4,3,2,1]) plt.show()

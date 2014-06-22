@@ -1,0 +1,28 @@
+- Eleven SSH Tricks
+ :http://www.linuxjournal.com/article/6602
+
+ :ssh -X host
+  this is same with adding 'ForwardX11 yes' in .ssh/config file
+- SSH Tunneling - Poor Techie's VPN
+ :http://www.linuxjournal.com/content/ssh-tunneling-poor-techies-vpn
+
+ :command
+  ssh -N -p 22 bob@mylinuxserver.xxx -L 2110:localhost:110
+  Where:
+  -N
+  = Do not execute a remote command
+  -p 22
+  = External SSH port 22. I tend to use other external SSH ports to keep skript kiddies from hitting my home SSH server. It seems not necessary.
+  bob@mylinuxserver.xxx
+  = username@hostname(or ip address)
+  -L 2110/localhost/110
+  = Bind information. Broken down as such: client-port:hostname:hostport - In this example your binding POP3 on the server to your localhost port 2110
+
+- quick and dirty ssh tunneling
+ :http://www.linuxjournal.com/video/quick-and-dirty-ssh-tunneling
+
+- use ssh to create http proxy
+ :Use SSH to Create an HTTP Proxy
+
+- Linux and ssh tunneling
+ :http://www.superb.net/blog/2013/05/10/linux-ssh-tunneling-what-it-is-how-to-do-it/
