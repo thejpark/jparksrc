@@ -97,14 +97,15 @@ As port open for public may be running out, we need to share public port for Apa
 
 Software release
 
-1. checkout mainline
-2. step_all
-3. copy the result of step all and put it in the related Jira card
+1. tell than I will cut so do not check in
+2. checkout mainline
+3. step_all
 4. in the explorer, select the folder, right click mouse, 
    then TortoiseSVN, select Branch / Tag, 
    select a directory to make a branch
-4. checkout the branch that I created just before
-5. change source code version, and stel_all.
+   (make sure that externals are all in)
+5. checkout the branch that I created just before
+   change source code version, and step_all.
    also scons target=rx upgrade-file to make a Cam.bin file.
 6. Checkout booloader branch if needed (if we do not release
    bootloader, but is going to use previously released one)
@@ -119,5 +120,6 @@ Software release
 
 8. svn up to check whether it is fine
 9. step_all again
+10. copy the result and put it in the Jira card as a comment
 
    
