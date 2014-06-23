@@ -119,7 +119,7 @@ Software release
    The commit comment should starts with Jira card number for this release.
 
 8. svn up to check whether it is fine
-9. step_all again
+9. step_all --midnight
 10. copy the result and put it in the Jira card as a comment
 
    

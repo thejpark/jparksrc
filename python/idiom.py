@@ -537,3 +537,8 @@ def fib(max):
     while a < max:
         yield a          
         a, b = b, a + b  
+
+
+# how to use?
+for n in fib(1000):
+    print(n, end=' ')
