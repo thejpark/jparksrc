@@ -18,7 +18,7 @@ def bar(c):
 class base:
     def foo(self, a):
         return a + 2
-        
+
 
 def print10():
     for i in range(10):
@@ -89,7 +89,7 @@ def unicodetest():
     print x
     print ord('A')
     print chr(65)
-    
+
 def splittest1():
     n = 'this/is/a/directory'
     s = n.split('/')
@@ -160,13 +160,13 @@ def badorgood():
     (foo, bar) = (bar, foo)
 
     #bad
-    list_from_comma_separated_value_file = ['dog', 'Fido', 10] 
+    list_from_comma_separated_value_file = ['dog', 'Fido', 10]
     animal = list_from_comma_separated_value_file[0]
     name = list_from_comma_separated_value_file[1]
     age = list_from_comma_separated_value_file[2]
 
     #good
-    list_from_comma_separated_value_file = ['dog', 'Fido', 10] 
+    list_from_comma_separated_value_file = ['dog', 'Fido', 10]
     (animal, name, age) = list_from_comma_separated_value_file
 
     #bad
@@ -305,6 +305,10 @@ if __name__ == '__main__':
     sys.exit(main())
 
 
+# python args (list arguments) and kwargs(dictionary arguments) are always used
+# in callee/caller as *args and **kwargs.
+
+
 
 # list also have count method to get the number of elements in the list.
 a = [1, 2, 3]
@@ -313,10 +317,10 @@ b = [e * 2 for e in a]
 isinstance(1, int)
 type(1)
 int(1.0)
- 
+
 #list operations
 # extend, append, +, index, del, insert, remove, pop
-# ... or you can use 'in' to check 
+# ... or you can use 'in' to check
 # whether item is in the list
 
 # string, tuple are not mutable. So if you need constant than you can use
@@ -362,10 +366,10 @@ glob.glob('*')
 # ''' is for multiline string
 s = '한글'
 len(s)
-# in python3 it will return 2, but in 2.7 it will return 6 
+# in python3 it will return 2, but in 2.7 it will return 6
 
 
-# PEP 3101: Advanced String Formatting, “The rules for parsing an item key are 
+# PEP 3101: Advanced String Formatting, “The rules for parsing an item key are
 # very simple. If it starts with a digit, then it is treated as a number,
 # otherwise it is used as a string.
 s = ['a', 'b']
@@ -381,12 +385,22 @@ s = 'abc'
 b = bytearray(s)
 b[0] = 'c'
 
-# bytes objects have a decode() method that takes a character encoding 
+# bytes objects have a decode() method that takes a character encoding
 # and returns a string, and strings have an encode() method that takes
 # a character encoding and returns a bytes object
 
 
+# print key/value of dictionary
+x = {'a': 1, 'b': 2}
+for k, v in x.iteritems():
+    print k, v
+
+#
+#
 # using re
+#
+#
+#
 import re
 
 s = 'U72 8-10 Boundary ROAD'
@@ -410,13 +424,13 @@ pattern = '^(a? | b)$'
 # a? means optionally match single a.
 re.search(pattern, 'abc')
 
-# The followgin patter, {0, 3}  means 0 ~ 3 Ms 
+# The followgin patter, {0, 3}  means 0 ~ 3 Ms
 pattern = '^M{0,3}$'
 # equal to ^M?M?M?$
 
 # \d means digit, \d{3} is any 3 digits
-# phonePattern = re.compile(r'^(\d{3})-(\d{3})-(\d{4})$') 
-# phonePattern.search('800-555-1212').groups()        
+# phonePattern = re.compile(r'^(\d{3})-(\d{3})-(\d{4})$')
+# phonePattern.search('800-555-1212').groups()
 # ('800', '555', '1212')
 
 
@@ -425,15 +439,101 @@ pattern = '^M{0,3}$'
 
 # The ^ as the first character inside the square brackets means
 # something special: negation. [^abc] means “any single character except a, b, or c
-def plural(noun):          
+def plural(noun):
     if re.search('[sxz]$', noun):
         return re.sub('$', 'es', noun)
     elif re.search('[^aeioudgkprt]h$', noun):
-        return re.sub('$', 'es', noun)       
-    elif re.search('[^aeiou]y$', noun):      
-        return re.sub('y$', 'ies', noun)     
+        return re.sub('$', 'es', noun)
+    elif re.search('[^aeiou]y$', noun):
+        return re.sub('y$', 'ies', noun)
     else:
         return noun + 's'
 
 # import matplotlib.pyplot as plt
 # plt.plot([1,2,3,4,3,2,1]) plt.show()
+
+
+# match and apply method hand in hand
+def match_sxz(noun):
+    return re.search('[sxz]$', noun)
+
+def apply_sxz(noun):
+    return re.sub('$', 'es', noun)
+
+def match_h(noun):
+    return re.search('[^aeioudgkprt]h$', noun)
+
+def apply_h(noun):
+    return re.sub('$', 'es', noun)
+
+def match_y(noun):
+    return re.search('[^aeiou]y$', noun)
+
+def apply_y(noun):
+    return re.sub('y$', 'ies', noun)
+
+def match_default(noun):
+    return True
+
+def apply_default(noun):
+    return noun + 's'
+
+rules = ((match_sxz, apply_sxz),
+         (match_h, apply_h),
+         (match_y, apply_y),
+         (match_default, apply_default)
+         )
+
+#plural function is now simplified. more extensible.
+
+def plural(noun):
+    for matches_rule, apply_rule in rules:
+        if matches_rule(noun):
+            return apply_rule(noun)
+
+
+
+# a solution to create rules using pattern list
+patterns = \
+  (
+    ('[sxz]$',           '$',  'es'),
+    ('[^aeioudgkprt]h$', '$',  'es'),
+    ('(qu|[^aeiou])y$',  'y$', 'ies'),
+    ('$',                '$',  's')
+  )
+rules = [build_match_and_apply_functions(pattern, search, replace)
+         for (pattern, search, replace) in patterns]
+
+def build_match_and_apply_functions(pattern, search, replace):
+    def matches_rule(word):
+        return re.search(pattern, word)
+    def apply_rule(word):
+        return re.sub(search, replace, word)
+    return (matches_rule, apply_rule)
+
+# we can use the same plural functgion
+#
+# def plural(noun):
+#     for matches_rule, apply_rule in rules:
+#         if matches_rule(noun):
+#             return apply_rule(noun)
+
+
+# use a file to store pattern
+with open('plural4-rules.txt', encoding='utf-8') as pattern_file:
+    for line in pattern_file:
+        pattern, search, replace = line.split(None, 3)
+        rules.append(build_match_and_apply_functions(
+                pattern, search, replace))
+
+
+#
+#
+# A fibonacci generator
+#
+#
+def fib(max):
+    a, b = 0, 1          
+    while a < max:
+        yield a          
+        a, b = b, a + b  
