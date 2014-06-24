@@ -542,3 +542,71 @@ def fib(max):
 # how to use?
 for n in fib(1000):
     print(n, end=' ')
+
+
+
+# Fib class implemented as an iterator
+class Fib:                  
+    def __init__(self, max):
+        self.max = max
+
+    # this initialises iteration, when someone calls iter() method (i.e., for loop)
+    def __iter__(self):     
+        self.a = 0
+        self.b = 1
+        return self
+
+    # this is called for every loop, when someone calls next() method
+    def __next__(self):     
+        fib = self.a
+        if fib > self.max:
+            raise StopIteration                  
+        self.a, self.b = self.b, self.a + self.b
+        return fib   
+
+for n in Fib(1000):
+    print(n, end=' ')
+
+
+# class variable and instance varialbe
+
+class A:
+    name = 'A'
+    def __init__(self):
+        pass
+    def foo(self, x):
+        return x + 1
+
+a = A()
+a.name   ---> 'A'
+
+# add instance variable 'name' to a. This is differnt from class variable.
+a.name = 'a'
+
+>>> a.name
+>>> 'a'
+
+# why? lexical scoping. 
+# when we read a variable, if there is no instance variable, then python will 
+# look up the name in the class level. This is same as function or method. 
+# if we define a method in a class, that method is defined in a class level.
+# so, if we call a method in an instance, because there is no such method for
+# the instance, python look up the method in the class level.
+# in the class level, we should use 'self' to access instances. So python
+# probably replace that instance.func(x) with func(instance, x) defined in the
+# class. But you can add func (just a normal function not accessing self 
+# like this:
+
+
+>>> a.foo(1)
+>>> 2
+# add a method to a
+a.foo =  lambda x: x + 2
+
+>>> a.foo(1) 
+>>> 3
+
+
+# you can change the definition of foo in the class level:
+a.__class__.foo = lambda self, x: x  + 10
+
