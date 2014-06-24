@@ -1,1 +1,6 @@
+Javascript path in MAC OS:
 /System/Library/Frameworks/JavaScriptCore.framework/Resources/jsc
+
+
+JavaScript standard definition:
+http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf
