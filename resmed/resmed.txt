@@ -10,6 +10,10 @@ in HwTest, open 2 terminal and
 >./hat_integ_test
 >./run.py -t xxx . -- --with-sim (where xxx is the tag name of the scenario)
 
+
+to run a feature file, find a tag that is global to that feature file and run with
+that tag. probably it would be the Jira card name
+
 ./bin/CommRelay.exe -A File: i wrk/debug_purge/Build/RxDebug/Cam.ufb -B Client: localhost 12346
 
 >svn co  https://subversionau/svnpd/DataConnectivity/main
@@ -93,6 +97,10 @@ As port open for public may be running out, we need to share public port for Apa
 
 
 
+
+# svn checkout to a specific revision
+
+svn up -rXXXX
 
 
 Software release
