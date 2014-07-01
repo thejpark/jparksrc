@@ -625,3 +625,18 @@ N = reduce(lambda x, y: x+y, L)
 # N == 12
 # Or, if we want to be fancy and do it in one line
 N = reduce(lambda x, y: x+y, map(lambda x:len(x), [a, b, c]))
+
+
+# sorted
+student_objects = [
+        Student('john', 'A', 15),
+        Student('jane', 'B', 12),
+        Student('dave', 'B', 10),
+]
+>>> sorted(student_objects, key=lambda student: student.age)   # sort by age
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+
+# sort works for list, but sorted works other container (i.e., dictionary) as well.
+# sort mutate, but sorted create a new 
+# use can add comparer like list.sort(comparer) 
