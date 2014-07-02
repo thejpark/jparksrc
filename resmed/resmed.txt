@@ -111,7 +111,7 @@ Software release
 4. in the explorer, select the folder, right click mouse, 
    then TortoiseSVN, select Branch / Tag, 
    select a directory to make a branch
-   (make sure that externals are all in)
+   (make sure that externals are all not checked)
 5. checkout the branch that I created just before
    change source code version, and step_all.
    also scons target=rx upgrade-file to make a Cam.bin file.
