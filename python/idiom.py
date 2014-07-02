@@ -625,3 +625,13 @@ N = reduce(lambda x, y: x+y, L)
 # N == 12
 # Or, if we want to be fancy and do it in one line
 N = reduce(lambda x, y: x+y, map(lambda x:len(x), [a, b, c]))
+
+
+
+# decorator
+# @decorator
+# def foo():
+#    pass
+# 
+# is equal to foo = decorator(foo)
+
