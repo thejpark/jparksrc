@@ -66,6 +66,16 @@ def striptest():
     print 'before: ', n
     print 'after : ', n.strip()
 
+
+# string.lstrip deletes left most delimeter
+# string.rstrip deletes right most delimeter
+>>> s = 'this is \n'
+>>> s.rstrip()
+'this is'
+>>> s = 'this is'
+>>> s.rstrip()
+'this is'
+
 def splittest():
     s = '''
     first line
@@ -533,10 +543,10 @@ with open('plural4-rules.txt', encoding='utf-8') as pattern_file:
 #
 #
 def fib(max):
-    a, b = 0, 1          
+    a, b = 0, 1
     while a < max:
-        yield a          
-        a, b = b, a + b  
+        yield a
+        a, b = b, a + b
 
 
 # how to use?
@@ -546,23 +556,23 @@ for n in fib(1000):
 
 
 # Fib class implemented as an iterator
-class Fib:                  
+class Fib:
     def __init__(self, max):
         self.max = max
 
     # this initialises iteration, when someone calls iter() method (i.e., for loop)
-    def __iter__(self):     
+    def __iter__(self):
         self.a = 0
         self.b = 1
         return self
 
     # this is called for every loop, when someone calls next() method
-    def __next__(self):     
+    def __next__(self):
         fib = self.a
         if fib > self.max:
-            raise StopIteration                  
+            raise StopIteration
         self.a, self.b = self.b, self.a + self.b
-        return fib   
+        return fib
 
 for n in Fib(1000):
     print(n, end=' ')
@@ -586,15 +596,15 @@ a.name = 'a'
 >>> a.name
 >>> 'a'
 
-# why? lexical scoping. 
-# when we read a variable, if there is no instance variable, then python will 
-# look up the name in the class level. This is same as function or method. 
+# why? lexical scoping.
+# when we read a variable, if there is no instance variable, then python will
+# look up the name in the class level. This is same as function or method.
 # if we define a method in a class, that method is defined in a class level.
 # so, if we call a method in an instance, because there is no such method for
 # the instance, python look up the method in the class level.
 # in the class level, we should use 'self' to access instances. So python
 # probably replace that instance.func(x) with func(instance, x) defined in the
-# class. But you can add func (just a normal function not accessing self 
+# class. But you can add func (just a normal function not accessing self
 # like this:
 
 
@@ -603,7 +613,7 @@ a.name = 'a'
 # add a method to a
 a.foo =  lambda x: x + 2
 
->>> a.foo(1) 
+>>> a.foo(1)
 >>> 3
 
 
@@ -619,7 +629,7 @@ a = [1, 2, 3]
 b = [4, 5, 6, 7]
 c = [8, 9, 1, 2, 3]
 L = map(lambda x:len(x), [a, b, c])
- 
+
 # L == [3, 4, 5]
 N = reduce(lambda x, y: x+y, L)
 # N == 12
@@ -638,5 +648,103 @@ student_objects = [
 
 
 # sort works for list, but sorted works other container (i.e., dictionary) as well.
-# sort mutate, but sorted create a new 
-# use can add comparer like list.sort(comparer) 
+# sort mutate, but sorted create a new
+# use can add comparer like list.sort(comparer)
+
+
+# assert len(unique_characters) <= 10, 'Too many letters'
+#
+# is equivalent to
+#
+# if len(unique_characters) > 10:
+#    raise AssertionError('Too many letters')
+
+
+>>> [chr(c) for c in [69, 70, 71]]
+['E', 'F', 'G']
+>>> g = chr(c) for c in [69, 70, 71]
+#generator expression. This is more compact than generator function.
+>>> g = (chr(c) for c in [69, 70, 71])
+>>> g
+<generator object <genexpr> at 0xffee1234>
+>>> next(g)
+'E'
+>>> next(g)
+'F'
+>>> next(g)
+'G'
+
+
+# using generator function
+>>> def chr_map(a):
+...     for c in a:
+...         yield chr(c)
+...
+>>> chr_map([69, 70, 71])
+<generator object chr_map at 0xffee11e4>
+>>> g = chr_map([69, 70, 71])
+>>> next(g)
+'E'
+>>> next(g)
+'F'
+
+
+# permutation tool
+>>> import itertools
+>>> perms = itertools.permutations([1, 2, 3], 2)
+>>> next(perms)
+(1, 2)
+>>> next(perms)
+(1, 3)
+>>> next(perms)
+(2, 1)
+>>> next(perms)
+(2, 3)
+>>> next(perms)
+(3, 1)
+>>> next(perms)
+(3, 2)
+>>> next(perms)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+
+# try this
+>>> list(itertools.permutations('ABC', 3))
+>>> list(itertools.product('ABC', '123'))
+
+
+>>> names = ['Alex', 'Anne', 'Chris', 'Dora', 'Ethan']
+>>> for length, iter in groups:
+...     print('names with {0:d} letters:'.format(length))
+...     for name in iter:
+...         print name
+...
+names with 5 letters:
+Chris
+names with 4 letters:
+Dora
+names with 5 letters:
+Ethan
+
+# The itertools.chain() function takes two iterators and returns an
+# iterator that contains all the items from the first iterator, followed
+# by all the items from the second iterator.
+
+>>> list(zip(range(0, 3), range(10, 13)))
+[(0, 10), (1, 11), (2, 12)]
+>>> list(zip(range(0, 3), range(10, 14)))
+[(0, 10), (1, 11), (2, 12)]
+>>> list(itertools.zip_longest(range(0, 3), range(10, 14)))
+[(0, 10), (1, 11), (2, 12), (None, 13)]
+>>> list(zip([1, 2, 3], ['a', 'b', 'c']))
+[(1, 'a'), (2, 'b'), (3, 'c')]
+>>> dict(zip([1, 2, 3], ['a', 'b', 'c']))
+{1: 'a', 2: 'b', 3: 'c'}
+
+
+# another way of replace in string
+>>> translation_table
+{65: 79}
+>>> 'MARK'.translate(translation_table)
+'MORK'
