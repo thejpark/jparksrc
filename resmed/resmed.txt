@@ -114,7 +114,8 @@ Software release
    (make sure that externals are all not checked)
 5. checkout the branch that I created just before
    change source code version, and step_all.
-   also scons target=rx upgrade-file to make a Cam.bin file.
+
+   ** MEMO CRC, SIZE, ETC ***
 6. Checkout booloader branch if needed (if we do not release
    bootloader, but is going to use previously released one)
   
