@@ -636,6 +636,10 @@ N = reduce(lambda x, y: x+y, L)
 # Or, if we want to be fancy and do it in one line
 N = reduce(lambda x, y: x+y, map(lambda x:len(x), [a, b, c]))
 
+
+# an empty class
+class a: pass
+
 # decorator
 # @decorator
 # def foo():
