@@ -754,3 +754,15 @@ Ethan
 >>> 'MARK'.translate(translation_table)
 'MORK'
 
+
+
+# how to implement unittest case?
+
+import unittest
+class ToRomanBadInput(unittest.TestCase):
+    def test_too_large(self):
+        '''to_roman should fail with large input'''
+        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 4000)  ①
+
+# there is more assert methods like assertEqual(a, b)
+
