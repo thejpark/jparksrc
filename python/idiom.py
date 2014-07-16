@@ -770,3 +770,5 @@ class ToRomanBadInput(unittest.TestCase):
 
 # there is more assert methods like assertEqual(a, b)
 
+# pickle is python serialization module. pickle.dump, pickle.load, etc.
+# pickle has a method to store python object in json format.
