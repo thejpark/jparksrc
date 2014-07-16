@@ -772,3 +772,6 @@ class ToRomanBadInput(unittest.TestCase):
 
 # pickle is python serialization module. pickle.dump, pickle.load, etc.
 # pickle has a method to store python object in json format.
+# if the python object does not transformed to json, we need to define a method
+# to do it.
+# http://getpython3.com/diveintopython3/serializing.html
