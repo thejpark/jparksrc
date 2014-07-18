@@ -247,14 +247,17 @@ def badorgood():
 
 # https://docs.python.org/2/library/subprocess.html
 # Use subprocess module instead of os wrapper (fork, etc) because it is much simpler.
-# The child process receives the same SIGINT as your parent process because it's in the same process group. You can put the child in its own process group by calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
+# The child process receives the same SIGINT as your parent process because it's
+# in the same process group. You can put the child in its own process group by
+# calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
 
 # subprocess.Popen(['nohup', 'my_command'],
 #                  stdout=open('/dev/null', 'w'),
 #                  stderr=open('logfile.log', 'a'),
 #                  preexec_fn=os.setpgrp
 #                  )
-# (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
+# (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for
+# Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
 
 # subprocess.check_output provide output of the program in string format.
 
@@ -636,6 +639,10 @@ N = reduce(lambda x, y: x+y, L)
 # Or, if we want to be fancy and do it in one line
 N = reduce(lambda x, y: x+y, map(lambda x:len(x), [a, b, c]))
 
+
+# an empty class
+class a: pass
+
 # decorator
 # @decorator
 # def foo():
@@ -766,6 +773,7 @@ class ToRomanBadInput(unittest.TestCase):
 
 # there is more assert methods like assertEqual(a, b)
 
+<<<<<<< HEAD
 line_number = 0
 with open('examples/favorite-people.txt', encoding='utf-8') as a_file:
     for a_line in a_file:
@@ -791,3 +799,38 @@ print('A')
 with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
     print('B')
 print('C')
+=======
+# pickle is python serialization module. pickle.dump, pickle.load, etc.
+# pickle has a method to store python object in json format.
+# if the python object does not transformed to json, we need to define a method
+# to do it.
+# http://getpython3.com/diveintopython3/serializing.html
+
+# why inherit object? such as 'class Studeny(object):'
+# http://stackoverflow.com/questions/4015417/python-class-inherits-object
+# Python 3.x:
+# class MyClass(object): = new-style class
+# class MyClass: = new-style class (implicitly inherits from object)
+
+# Python 2.x:
+# class MyClass(object): = new-style class
+# class MyClass: = OLD-STYLE CLASS
+
+# Explanation:
+
+# When defining base classes in Python 3.x, you’re allowed to drop the object from
+# the definition. However, this can open the door for a seriously hard to track problem…
+
+# Python introduced new-style classes back in Python 2.2, and by now old-style
+# classes are really quite old. Discussion of old-style classes is buried in the
+# 2.x docs, and non-existent in the 3.x docs.
+
+# The problem is, the syntax for old-style classes in Python 2.x is the same as
+# the alternative syntax for new-style classes in Python 3.x. Python 2.x is still
+# very widely used (e.g. GAE, Web2Py), and any code (or coder) unwittingly bringing
+# 3.x-style class definitions into 2.x code is going to end up with some seriously
+# outdated base objects. And because old-style classes aren’t on anyone’s radar,
+# they likely won’t know what hit them.
+
+# So just spell it out the long way and save some 2.x developer the tears.
+
