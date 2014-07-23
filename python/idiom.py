@@ -247,14 +247,17 @@ def badorgood():
 
 # https://docs.python.org/2/library/subprocess.html
 # Use subprocess module instead of os wrapper (fork, etc) because it is much simpler.
-# The child process receives the same SIGINT as your parent process because it's in the same process group. You can put the child in its own process group by calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
+# The child process receives the same SIGINT as your parent process because it's
+# in the same process group. You can put the child in its own process group by
+# calling os.setpgrp() in the child process. Popen's preexec_fn argument is useful here:
 
 # subprocess.Popen(['nohup', 'my_command'],
 #                  stdout=open('/dev/null', 'w'),
 #                  stderr=open('logfile.log', 'a'),
 #                  preexec_fn=os.setpgrp
 #                  )
-# (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
+# (preexec_fn is for un*x-oids only. There appears to be a rough equivalent for
+# Windows "creationflags=CREATE_NEW_PROCESS_GROUP", but I've never tried it.)
 
 # subprocess.check_output provide output of the program in string format.
 
@@ -543,10 +546,10 @@ with open('plural4-rules.txt', encoding='utf-8') as pattern_file:
 #
 #
 def fib(max):
-    a, b = 0, 1          
+    a, b = 0, 1
     while a < max:
-        yield a          
-        a, b = b, a + b  
+        yield a
+        a, b = b, a + b
 
 
 # how to use?
@@ -556,23 +559,23 @@ for n in fib(1000):
 
 
 # Fib class implemented as an iterator
-class Fib:                  
+class Fib:
     def __init__(self, max):
         self.max = max
 
     # this initialises iteration, when someone calls iter() method (i.e., for loop)
-    def __iter__(self):     
+    def __iter__(self):
         self.a = 0
         self.b = 1
         return self
 
     # this is called for every loop, when someone calls next() method
-    def __next__(self):     
+    def __next__(self):
         fib = self.a
         if fib > self.max:
-            raise StopIteration                  
+            raise StopIteration
         self.a, self.b = self.b, self.a + self.b
-        return fib   
+        return fib
 
 for n in Fib(1000):
     print(n, end=' ')
@@ -596,15 +599,15 @@ a.name = 'a'
 >>> a.name
 >>> 'a'
 
-# why? lexical scoping. 
-# when we read a variable, if there is no instance variable, then python will 
-# look up the name in the class level. This is same as function or method. 
+# why? lexical scoping.
+# when we read a variable, if there is no instance variable, then python will
+# look up the name in the class level. This is same as function or method.
 # if we define a method in a class, that method is defined in a class level.
 # so, if we call a method in an instance, because there is no such method for
 # the instance, python look up the method in the class level.
 # in the class level, we should use 'self' to access instances. So python
 # probably replace that instance.func(x) with func(instance, x) defined in the
-# class. But you can add func (just a normal function not accessing self 
+# class. But you can add func (just a normal function not accessing self
 # like this:
 
 
@@ -613,7 +616,7 @@ a.name = 'a'
 # add a method to a
 a.foo =  lambda x: x + 2
 
->>> a.foo(1) 
+>>> a.foo(1)
 >>> 3
 
 
@@ -629,7 +632,7 @@ a = [1, 2, 3]
 b = [4, 5, 6, 7]
 c = [8, 9, 1, 2, 3]
 L = map(lambda x:len(x), [a, b, c])
- 
+
 # L == [3, 4, 5]
 N = reduce(lambda x, y: x+y, L)
 # N == 12
@@ -644,7 +647,7 @@ class a: pass
 # @decorator
 # def foo():
 #    pass
-# 
+#
 # is equal to foo = decorator(foo)
 # sorted
 student_objects = [
@@ -766,10 +769,37 @@ import unittest
 class ToRomanBadInput(unittest.TestCase):
     def test_too_large(self):
         '''to_roman should fail with large input'''
-        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 4000)  ①
+        self.assertRaises(roman3.OutOfRangeError, roman3.to_roman, 4000)
 
 # there is more assert methods like assertEqual(a, b)
 
+<<<<<<< HEAD
+line_number = 0
+with open('examples/favorite-people.txt', encoding='utf-8') as a_file:
+    for a_line in a_file:
+        line_number += 1
+        # The format specifier {:>4} means “print this argument right-justified
+        # within 4 spaces.
+        print('{:>4} {}'.format(line_number, a_line.rstrip()))
+
+# io redirect emample
+
+class RedirectStdoutTo:
+    def __init__(self, out_new):
+        self.out_new = out_new
+
+    def __enter__(self):
+        self.out_old = sys.stdout
+        sys.stdout = self.out_new
+
+    def __exit__(self, *args):
+        sys.stdout = self.out_old
+
+print('A')
+with open('out.log', mode='w', encoding='utf-8') as a_file, RedirectStdoutTo(a_file):
+    print('B')
+print('C')
+=======
 # pickle is python serialization module. pickle.dump, pickle.load, etc.
 # pickle has a method to store python object in json format.
 # if the python object does not transformed to json, we need to define a method
@@ -788,10 +818,19 @@ class ToRomanBadInput(unittest.TestCase):
 
 # Explanation:
 
-# When defining base classes in Python 3.x, you’re allowed to drop the object from the definition. However, this can open the door for a seriously hard to track problem…
+# When defining base classes in Python 3.x, you’re allowed to drop the object from
+# the definition. However, this can open the door for a seriously hard to track problem…
 
-# Python introduced new-style classes back in Python 2.2, and by now old-style classes are really quite old. Discussion of old-style classes is buried in the 2.x docs, and non-existent in the 3.x docs.
+# Python introduced new-style classes back in Python 2.2, and by now old-style
+# classes are really quite old. Discussion of old-style classes is buried in the
+# 2.x docs, and non-existent in the 3.x docs.
 
-# The problem is, the syntax for old-style classes in Python 2.x is the same as the alternative syntax for new-style classes in Python 3.x. Python 2.x is still very widely used (e.g. GAE, Web2Py), and any code (or coder) unwittingly bringing 3.x-style class definitions into 2.x code is going to end up with some seriously outdated base objects. And because old-style classes aren’t on anyone’s radar, they likely won’t know what hit them.
+# The problem is, the syntax for old-style classes in Python 2.x is the same as
+# the alternative syntax for new-style classes in Python 3.x. Python 2.x is still
+# very widely used (e.g. GAE, Web2Py), and any code (or coder) unwittingly bringing
+# 3.x-style class definitions into 2.x code is going to end up with some seriously
+# outdated base objects. And because old-style classes aren’t on anyone’s radar,
+# they likely won’t know what hit them.
 
 # So just spell it out the long way and save some 2.x developer the tears.
+
