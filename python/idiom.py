@@ -408,6 +408,13 @@ x = {'a': 1, 'b': 2}
 for k, v in x.iteritems():
     print k, v
 
+#other way
+
+for e in x:
+    print e, x[e]
+
+
+
 #
 #
 # using re
@@ -834,3 +841,35 @@ print('C')
 
 # So just spell it out the long way and save some 2.x developer the tears.
 
+# how to use filter
+
+>>> def odd(n):                 1
+...     return n % 2
+...     
+>>> li = [1, 2, 3, 5, 9, 10, 256, -3]
+>>> filter(odd, li)             2
+[1, 3, 5, 9, -3]
+>>> [e for e in li if odd(e)]   3
+>>> filteredList = []
+>>> for n in li:                4
+...     if odd(n):
+...         filteredList.append(n)
+...     
+>>> filteredList
+[1, 3, 5, 9, -3]
+
+
+>>> def double(n):
+...     return n*2
+...     
+>>> li = [1, 2, 3, 5, 9, 10, 256, -3]
+>>> map(double, li)                       1
+[2, 4, 6, 10, 18, 20, 512, -6]
+>>> [double(n) for n in li]               2
+[2, 4, 6, 10, 18, 20, 512, -6]
+>>> newlist = []
+>>> for n in li:                          3
+...     newlist.append(double(n))
+...     
+>>> newlist
+[2, 4, 6, 10, 18, 20, 512, -6]
