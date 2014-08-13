@@ -1,0 +1,103 @@
+Optiver
+(9:00 - 10:30)
+
+map/hash 비교 설명
+Hash table can be very fast but have disadvantages: for each key type, someone mush supply hash function. Hash table's performance is determined by the details of of the hash function, finally hash function does not provide easy way to retrieve elements in a useful order.
+C++ associate containers are hard to implement in terms of hash table. The key type needs only the < operator or equivalent comparison function, the time to access an associative container element with given key is logarithmic in the total number of elements in that the container, regardless of the key value. Elements are always sorted by th key.
+In other words, although c++ assoc-containter is a bit slower than hash table, they perform much better than naive data structure, their performance does not require users to to design good hash function, and more convenient by automatic ordering.  
+queue를 primitive한 data structure로 어떻게 효과적으로 구현할 수 있을까?
+binary search tree (숫자로 구성) 에서 어떤 숫자 a보다 큰 모든 숫자들 중에서 가장 작은 것을 찾을 것: is it just an in-order traversal?
+string a와  b에서 공통된 char들을 찾아서 그것의 스트링을 return
+date (day, month, year) +  xxx days -> new date 계산 하는 프로그램 작성. getDay(month, year) 함수 제공.
+11:00 - 12:00  HR  인터뷰. 가장 재미있게 한 것을 무엇인가? 혼자 재미로 하는 일이 있나? 심심한 일을 계속 하라고 하면 하겠나? 좋은 엔지니어는 어떤건가? 회사에서 재미없을 일 계속 하라고 하면 어떻게 할까? 의견 충돌시 어떻게 할까? 그리고 어떤 일을 하고싶은가 하면, 지금 뽑는 그 포지션이 하고싶다고 말을 할 것. 일 하고 싶은 의사를 명백하게 보일 것.
+
+왜 회사를 옮기려고 하나? Resmed is a good company, location is good, company is generous, people as well. Some of my colleague team members are almost 60, so I thought I can retire at Resmed. But on second thought, I think I am still hungry about learning new technology. I learned TDD, mock, python based integtest, but still...
+
+비록 내가 embedded system 해지만, 이것도 또한 어려운 분야라는 것을 말할 것. 그러니까 이것이 서버는 아니지만 더 세세한 복잡함이 있다는 것, 여러가지 어려운 점이 있다고 말할것. 쉽다고 말하지 말것. 바보같은 말이었음.  단순히 관리 하는 일이라면 하기 싫다는 배부른 말도 하지 말 것. 건방지게 보임. 3개월 동안 해 보니 다 알겠더라는 그런 말도 건방진 말 인거같음.
+
+계속 테스트 어떻게 할 것인지 물어보았음. 그 사람들에게는 테스트를 어떻게 하는지가 중요한 요소임.  TDD로 unittist/integtest를 한다고 할 것. 좀 더 자세히 설명해도 될 것.
+
+12:00 - 2:30: 아마존 할때도 느낀 것이지만 (그래프 관련해서), 아키텍쳐 설명하거나 할 때에는 자세히 알려주지 않는다. 인터뷰 당하는 사람이 자세히 질문 하기를 원하므로, 늘 이런 것에 주의 해서 질문을 잘 하도록 하자. 결국 영어로 발목잡힐 수 있음. 그리고 인터뷰어가 계속 질문하면 (예를 들어, PMS에있는 정보는 어떤 것들인가? 단지 볼륨인가?) 이러면 생각을 할 것.
+
+       
+      +-------------------- exchange ------------------------+  
+     broker1                         		                          broker2
+       |             + F1                                                   |          + F1
+    market link + PMS                                         market link + PMS
+       |                                                                      |
+       +--------------- trading system ---------------------+ 
+  
+volume trading. trader can do buy (bid) or sell (ask). Trader and put a buy request to either of broker through market link. This is a table for the buy or sell
+in the exchange. We expect this is a table for a kind of item
+
+--------------------------------------------------------------------
+ buy price     quantity        sell price       quantity    ----> buy/sell request
+    30             50                                             : buy req from trader 1
+    20             100                                            : buy req from trader 2
+                                        20              50        : sell req from trader                                                                    this matches with (buy, 20, 100)                so (buy, 20, 100) is now going to be (buy, 20, 50).
+                                                        selling/buying done for this amount. 
+ broker and market link stays in the same site.
+We have 2 brokers. Each broker does not exchange their information. They can sell or buy items.
+The exchange does allow selling done if the amount to sell is really available.
+So we need a system PMS which can tell whether volumes are available for
+the trader across broker 1 and broker 2. We need some kind of map
+map<trader id, volume> and the map should work in concurrent access.
+
+ F1 is an automatic trading system.
+ PMS is a validation system which can tell whether the sell is valid or not.
+
+( by the way, do we need to maintain broker id as well?)
+
+Let's assume market link has
+  MLbuy (trader id, price, amount)
+  MLsell (trader id, price, amount)
+  MLfeed(trader id, price, amount) ---> feedback from the broker when trade occurs in the exchange
+
+and they should consult to PMS whether  sell or feed
+
+bool MLSell(trader id, price, amount)
+{
+   if (PMS->availableThenUpdate(id, amount))
+      return true;
+  else 
+      return false;
+}
+
+bool MLbuy(trader id, price, amount)
+{
+ send info to broker;
+ return true;
+}
+void MLFeed(trader id, price, amount)
+{
+  if (amount > 0) // we only consider buy (not sell)
+  {
+     PMS->update(trader id, amount)
+  }
+}
+
+PMS::update(trader id, amount, price)
+{
+
+}
+bool PMS::availableThenUpdate(trader, amount)
+  {
+    get_global_lock();
+    
+
+  }
+
+if brker 1 is in melbourn and broker 2 is in hobart, then global lock will be very slow. How do you implement global lock? message?
+
+then if two of them assess the same record, then how do you handle this? by giving priority to melbourne that, if melbourne sent a message for global lock and until wait for the reply it also received a request from hobart, then it will give melbourn a priority.
+
+But global lock for every access will take time. How can we optimise this? 
+we can probably give some priority that, for example, Melbourn can use normal synchronisation primitive (i.e., mutex, spin lock, etc) and Hobart can use message passing (how?)
+하지만 이 경우, consistency를 어떻게 guarantee하나?
+
+Do you want to implement it using process or thread? probably thread would be better as it is light weight.
+
+How many thread can there? it depends on how fast trader can make a request. If F1 (automatic trader system) is 10 times faster then the time to take process the request, we need 10 threads in general. If the latency time is 3 times longer than the time taken to process request, then the request queue for a thread can be 3 items. If F1 will generate the request for a very long time then we need we need 10 threads, but if it is not and if we can keep the request in the queue of the threads then we might need less number of threads. 여기에는 문제가 있을 수 있음. 멀티쓰레드를 쓰는 것은 각각의 쓰레드가 cpu operation만을 하고 io가 없으면 별로 도움이 안됨. 또한, 만약 cpu가 한 개라고 하면, 하나의 cpu가 어떻게 서비스를 하는지도 알아야 함. 볼륨을 처리한다고 하면, 맨 마지막에 보내진 job은 이전의 모든  job들이 다 처리된 후에야 처리될 수 있으므로 결과적으로 마지막 task에 대한 latency 는 길어질 수 있음. 이 경우 우리는 여러대의 머신이 필요할 수 있음.
+
+Design: where do you want to keep the PMS? near broker probably? why? for performance?
+

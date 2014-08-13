@@ -1,0 +1,19 @@
+ResMed
+
+UML: more on sequence diagram, class diagram
+C++: quick look, virtual function table: how?
+Open Kernel Labs: more on virtualisation, device driver, vservices, etc, channel
+interrupt, mmu, dma, rs-232
+factory, observer (event), singleton,  picture of them
+
+paul, mark, dawn churchill
+
+7/June/2013 with Dawn and Jackie
+
+2 weeks later, Monday 24/June 
+
+amelia  send to visa copy (right away)
+permanent role
+senior software engineer
+base: 105K    super: +    bonus: 10% comonent
+Monday 24 June 2013
