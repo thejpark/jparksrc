@@ -112,3 +112,16 @@ public static <T extends Comparable<T>> int countGreaterThan(T[] anArray, T elem
     return count;
 }
 
+// wildcard as an argument 1
+
+public static double sumOfList(List<? extends Number> list) {
+    double s = 0.0;
+    for (Number n : list)
+        s += n.doubleValue();
+    return s;
+}
+
+// wildcard as an argument 2
+if (ls instanceof ArrayList<?>)
+    System.out.println("ls is string arraylist");
+
