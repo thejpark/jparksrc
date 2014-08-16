@@ -106,3 +106,50 @@ class NutritionFacts {
         carbohydrate = builder.carbohydrate;
     }
  }
+
+
+// Singleton with public final field
+class Elvis {
+    public static final Elvis INSTANCE = new Elvis();
+    private Elvis() { }
+    public void leaveTheBuilding() {}
+}
+
+// To make a singleton class that is implemented using either of the
+// previous approaches serializable (Chapter 11), it is not sufficient 
+// merely to add imple- ments Serializable to its declaration. 
+// To maintain the singleton guarantee, you have to declare all
+// instance fields transient and provide a readResolve method. 
+// Otherwise, each time a serialized instance is deserialized, a new 
+// instance will be created, leading, in the case of our example, to 
+// spurious Elvis sightings. To prevent this, add this readResolve 
+// method to the Elvis class:
+   // readResolve method to preserve singleton property
+   // private Object readResolve() {
+   //      // Return the one true Elvis and let the garbage collector
+   //      // take care of the Elvis impersonator.
+   //     return INSTANCE;
+   // }
+
+// Singleton with static factory part 2
+class Elvis2 {
+    private static final Elvis2 INSTANCE = new Elvis2(); 
+    private Elvis2() { d }
+    public static Elvis2 getInstance() { return INSTANCE; }
+    public void leaveTheBuilding() {}
+}
+
+
+// Singleton with static factory part 3 (from Java 1.5)
+// Enum singleton - the preferred approach.
+// This approach is functionally equivalent to the public 
+// field approach, except that it is more concise, provides
+// the serialization machinery for free, and provides an ironclad
+// guarantee against multiple instantiation, even in the face of
+// sophisticated serialization or reflection attacks.
+// Single-element enum type
+public enum Elvis3 {
+    INSTANCE;
+    public void leaveTheBuilding() {}
+}
+
