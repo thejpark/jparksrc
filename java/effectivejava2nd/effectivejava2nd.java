@@ -6,11 +6,16 @@
 
 package effectivejava2nd;
 
+import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
+
 class effectivejava2nd {
     public static void main(String[] args) {
 	System.out.println("Hello World");
 	System.out.println(factory.valueOf(true));
-	
+
+	// finally?
 	if (isConfusing())
 	    System.out.println(factory.valueOf(true));
 	else
@@ -134,7 +139,7 @@ class Elvis {
 // Singleton with static factory part 2
 class Elvis2 {
     private static final Elvis2 INSTANCE = new Elvis2(); 
-    private Elvis2() { d }
+    private Elvis2() {  }
     public static Elvis2 getInstance() { return INSTANCE; }
     public void leaveTheBuilding() {}
 }
@@ -148,8 +153,65 @@ class Elvis2 {
 // guarantee against multiple instantiation, even in the face of
 // sophisticated serialization or reflection attacks.
 // Single-element enum type
-public enum Elvis3 {
+enum Elvis3 {
     INSTANCE;
     public void leaveTheBuilding() {}
 }
 
+
+class Person {
+    private final Date birthDate;
+    // Other fields, methods, and constructor omitted
+    /**
+     * The starting and ending dates of the baby boom.
+     */
+    private static final Date BOOM_START;
+    private static final Date BOOM_END;
+
+    static {
+	// avoid creating unnecessary object. Instead of creating it
+	// in the isBabyBoomer method, create it in static 
+	Calendar gmtCal =
+	    Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+	gmtCal.set(1946, Calendar.JANUARY, 1, 0, 0, 0);
+	BOOM_START = gmtCal.getTime();
+	gmtCal.set(1965, Calendar.JANUARY, 1, 0, 0, 0);
+	BOOM_END = gmtCal.getTime();
+    }
+    
+    private Person(Date date)
+    {
+	birthDate = date;
+    }
+
+    public boolean isBabyBoomer() {
+	return birthDate.compareTo(BOOM_START) >= 0 &&
+	    birthDate.compareTo(BOOM_END)   <  0;
+    } 
+}
+
+// avoid creating unnecessary object, such as adapter in adapter
+// pattern. every call to keySet on a given Map object may return
+// the same Set instance.
+
+
+// 7. Avoid finalizer. If terminating upon exception is required, then
+// do t explicitly.
+// try-finally block guarantees execution of termination method
+   // Foo foo = new Foo(...);
+   // try {
+   //     // Do what must be done with foo
+   //     ...
+   // } finally {
+   //     foo.terminate();  // Explicit termination method
+   // }
+
+// Manual finalizer chaining.
+// It is important to note that finalizer chaining is not performed automatically.
+// @Override protected void finalize() throws Throwable {
+//     try {
+// 	... // Finalize subclass state
+//     } finally {
+// 	super.finalize();
+//     }
+//  }
