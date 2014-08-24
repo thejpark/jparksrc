@@ -565,6 +565,8 @@ for n in fib(1000):
 
 
 
+# implement __str__ to give something like toString in Java
+
 # Fib class implemented as an iterator
 class Fib:
     def __init__(self, max):
@@ -873,3 +875,21 @@ print('C')
 ...     
 >>> newlist
 [2, 4, 6, 10, 18, 20, 512, -6]
+
+
+# python equality comparison
+>>> s1 = 'public'
+>>> s2 = 'public'
+>>> s2 is s1
+True
+>>> a = 'pub'
+>>> b = ''.join(['p', 'u', 'b'])
+>>> a == b
+True
+>>> a is b
+False
+
+# is is the id(a) == id(b)
+# s is used for identity comparison, while == is used for equality comparison
+# If you use is, the result will be true if and only if the object is the same
+# object. However, == will be true any time the values of the object are the same.

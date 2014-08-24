@@ -1,8 +1,5 @@
 Amazon
 
-mail reply
-cici
-
 map-reduce
 
 프로그램 작성하기 전에

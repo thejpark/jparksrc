@@ -16,6 +16,10 @@ bool foo(int y)
     }
 }
 
+enum  xxx {
+    a, b, c, 
+};
+
 int main ()
 {
     /* int len = sizeof(str[0]); */
