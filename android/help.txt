@@ -1,0 +1,29 @@
+1. create project
+
+android create project --target 1 --name GeoQuiz --path ~/wrk/eclipse/workspace/GeoQuiz --activity QuizActivity --package com.example.geoquiz
+
+2. list target
+
+android list target
+
+3. build
+move to work directory
+
+ant debug
+
+4. run simulator
+
+android avd
+
+5. install
+move to work directory
+adb install bin/MyFirstApp-debug.apk 
+
+6. uninstall
+adb uninstall [package name]
+ex) adb uninstall com.example.geoquiz
+
+7. logcat
+
+adb logcat
+
