@@ -1,0 +1,56 @@
+
+1. what is interrupts? how it works? what is exception? trap? how they works?
+interrupt is asynchronnous, 
+exception is synchronous (page fault, div by zero)
+2. concurreny can be test with what? irq is one, event is the other, what else?
+
+
+3. signal? what kind? when we press ctrl^c?
+
+ > http://en.wikipedia.org/wiki/Unix_signal
+ > man signal
+ > http://www.thegeekstuff.com/2012/03/linux-signals-fundamentals/         
+ > http://en.wikipedia.org/wiki/Segmentation_fault
+
+ signals are a way to deliver asynchronous notification to the application.
+If the process has previously registered a signal handler, that routine is executed.
+Otherwise the default signal handler is executed.
+
+ A SIGINT signal that is generated when a user presses ctrl+c. This is the way to terminate programs from terminal.
+ A SIGALRM  is generated when the timer set by alarm function goes off.
+ A SIGABRT signal is generated when a process calls the abort function.
+ Exceptions such as division by zero or a segmentation violation will generate signals 
+ (here, SIGFPE and SIGSEGV respectively, which both by default cause a core dump and a program exit)
+ A SIGSEGV (abbreviated from segmentation violation) is sent to a process that accesses an invalid memory address such as
+  write to read-only memory or to overwrite part of operating system or outside of processes address space. 
+ A SIGBUS is generated when trying to do unaligned access or trying to access non exisent physical memory. 
+ Ctrl-Z sends a TSTP signal (SIGTSTP); by default, this causes the process to suspend execution.
+ 
+ Except for the SIGKILL and SIGSTOP signals, the signal() function allows for a signal to be caught, to be ignored, or to generate an interrupt.
+
+ These default key combinations with modern operating systems can be changed with the stty command.
+
+4. page fault flow? how it works
+> http://en.wikipedia.org/wiki/Page_table#The_translation_process
+
+What is page table entry?
+The page table holds the mapping between a virtual address of a page and the address of a physical frame. There is also auxiliary information about the page such as a present bit, a dirty or modified bit, address space or process ID information, amongst others.
+
+5. tcp/ip basics. which system calls are involved?
+socket - bind - listen - accept - read/write (server)
+socket - connect - read/write (client), sometimes do select syscall to take both user interaction and network input
+
+tcp: stateful, flow contol, slower than udp
+http: stateless, on top of tcp
+udp: stateless
+
+
+6. db concepts
+ - normalization (remove redundancy and unnecessary dependency, for integraty in data update and space reduction)
+ - denormalization (for query performance), 
+ - projection
+ - select
+ - join
+
+7. JSON
+
