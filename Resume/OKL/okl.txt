@@ -1,0 +1,283 @@
+<android-stride-fix>
+<lg-u2-android-bringup>
+<lg-u2-sdk>
+
+<vmmu-pte-swap-fix>
+This is a generic fix but took places in LG U2 (oklinux-3.0.21.lg).
+
+
+arch/arm/include/asm/okl4-microvisor/pgtable.h file, 
+combinations of following defintions: 
+
+#define V_PTE_FILE (1 << 2) 
+#define __SWP_TYPE_SHIFT 2 
+#define __SWP_TYPE_BITS 5 
+
+makes system to hit bug_on() in include/linux/swapops.h:75 in oklinux-3.0.21.lg when system 
+free memory is too low and need to swap pages.
+
+The value of V_PTE_FILE is same as V_PTE_WRITE, and __SWP_TYPE_BITS/__SWP_TYPE_SHIFT are not correct.
+
+This ticket fixed them.
+
+<omap4-timer-uart-idle>
+On OMAP4, the kernel and serial_server have drivers for the timer and uart respectively, but do not configure those devices' power management registers. They are left at the defaults, which allow the devices to go idle whenever their clock domain requests it, and prevent them from waking the clock domain up again. This is probably also the case for OMAP3.
+
+This ticket fixed the problem by setting up register value for the idle and wakeup of the timer and uart. 
+
+<cx2-virtual-platform>
+
+<interleave-sched-test>
+apply interleave-sched-test in ste m3 to mainline.
+ 
+- in sched_test_common.c file, path to wakeup is changed to work with microvisor_bus.
+- test script and system files for panda board (Adam C: ADIT shouldn't get RTX, maynbe it should wait until imx6 goes in internal SDK)
+- The result is a bit different with described in ste m3 release note (ex: some workload should 100% but sometimes it is 99 or 98%). So
+  testing script only includes whether the testing actually run without failure.
+
+
+Applied core-virt part of interleave-sched-test in ste m3.
+
+Microvisor_timer (except timer_microvisor_timer and timer*_microvisor_timer)
+is added to microvisor_bus to support user interface of wakeup attribute.
+
+virq device for micorovisor_timer device are removed from microvisor_bus.  
+vservices part of interleave-sched-test in ste m3.
+
+microvisor_timer is added to microvisor_bus (not as platform device).
+
+buildroot changes to add sched_test_client and sched_test_server.
+
+<adjust-vmalloc-end>
+provided adjustable VMALLOC_END by adding a macro for platform mapping area.
+
+VMALLOC_END is just below platform mapping area, and just below DMA in virtual platform.
+
+(Hybrid platform may define the size of platform mapping area in arch/arm/Kconfig file, then use it for VMALLOC_END)
+
+<fake-local-timer>
+Support for fake local timers on SMP platforms
+(oklinux-2.6.38), rather then the legacy IPI broadcast method. Fake local
+timers use multiple global timers emulate local timers. Local timers allows
+the system accounting to spread across the timer interval, preventing a
+"thundering herd" every timer tick.
+
+STE project (oklinux 2.6.35.ste) has a support for fake local timer. This is
+needed for the performance (avoiding too much IPI) and power management. STE
+project has used hardware timer for fake local timer, but this project uses
+microvisor timer.
+
+Also fixed microvisor timer bugs on cell reboot (SDK-2561).
+at proc/interrupts shows that each vcpu has its own local timer, and they increase over t
+
+<virq-affinity>
+apply virq affinity patch in oklinux-2.6.35.ste.
+cd proc/irq
+go to one of irq numbered directory
+cat smp_affinity (assume it prints 3) 
+calculate the cpu mask (1 means affinity set to vcpu0, 3 means affinity set to vcpu0 and vcpu1, 
+each bit means affinity for a particular vcpu). 
+modify affinity by doing
+echo 1 > smp_affinity
+cat smp_affinity (will print 1) 
+
+cat proc/interrupts to check the result
+
+<fix-smp-support>
+support smp for 2.6.38.
+
+LOCAL_TIMERS and SMP_ON_UP in defconfig file is not set. 
+
+<microvisor-timer-sched-clock-support>
+sched clock support for microvisor time.
+Tried to mimic native linux to support sched clock (timer-gp.c file) if not using 32k timer.
+
+<fix-vpt-cache-attr>
+The definition of pgprot_writecombine to be V_CACHE_WRITETHROUGH (rather than WRITECOMBINE) is a workaround (SDK-1849).
+As it was microvisor bug, this should be reverted back.
+
+
+<ok-android-rc1>
+Android on Panda
+
+<fix-osp-microvisor-timer>
+
+microvsior_timer.c has been moved from core-virt tree into vservices tree and it should be moved back. 
+
+Ticket may require the driver to be relocated in Linux's directory structure, also possibly requires the OSP checker script's grey/black listings to be updated (tools/osp-generate-patches.py) 
+
+As a side check ensure any references to vtimer have been removed from OK:Linux.
+
+Moved microvisor-timer from vservices tree to core-virt tree.
+Also make sure remove vtimer related stuff (including vtimer_irq).
+
+The development tree is branched of from core-virt (not master), so it should be merged to core-virt.
+osp patch generation tool does not apply (it assumes branching from master branch). 
+
+Remove vtimer related stuff from vservices tree.
+Merge with core-virt--fix-osp-microvisor-timer tree and fix merge conflict.
+This tree is branched off from vservices tree (not master), so it should be merged to vservices tree.
+osp patch generation tool does not apply as it requires branching from master.
+
+
+<okl4-unittest-irq-callback>
+
+unittest case for irq-callback.
+
+* irq-callback is only tested by using virtual interrupt in a test-cell (issuing and receiving in the same cell). 
+  If we need to check with real irq (such as timer), we need to add a cell to the unittest system layout file.
+* test_irq.c file is in the lib/src, so a part of irq library now. As that file is using a symbol defined in the 
+  cell of the system layout file, it may cause error when weaving other cells (such as serial-server) that use the 
+  irq-callback library. For quick solution, the symbol was added for all the other cells which use the irq-call 
+  library. But eventually the test_irq.c file (test source file) should only be compiled and linked for unit test 
+  cell. 
+
+<okl4-unittest-even>
+unittest cases for event library.
+
+-------------------------------------------------------------------------
+ps: some library functions needs investigation 
+
+* okl4_event_register function does not perform error handling for its argument.
+  For example, it takes event type of local or global, but does not handling wrong 
+  type. Also, it does not check handler or callback if they are null (instead uses assert
+  though handler or callback are user level argument)
+  Unit test cases for them are temporarily out of test spec file.
+* EVEN100 test performs unittest case for local event by 
+  register -> trigger -> enter_event_loop -> check triggered -> deregister.
+  Actually the callback is called which means event is triggered,
+  (though it is called before enter_event_loop, which is necessary as it is local event test)
+  checking event triggered was failed. Is it bug? 
+
+
+<rtx-add-global-lock>
+add global lock for rtx, and guard make_consistent as rtx does not need make_consistent.
+
+class SchedulerRTXSMPModule is added to add cpu_id variable.
+
+<resume-tokens-for-exception-notify>
+Implementation takes after reply_cap. 
+
+* Token support is added in objmanager modules (token.c, token.h).
+ - allocate/lookup/release token in kernel (token belongs to a domain)
+ - user token (such as reply_cap) to be used in in okl4_exception_resume function and 
+   _okl4_sys_release_token system call (defined in this tree to release token).
+
+* Domain 
+  - related syscalls (create, attribute) and APIs are modified to have one more
+    argument: max_tokens 
+  - initialize token related data structure when initializing domain (also in elfweaver)
+
+* Exception handling to work with it (exception_notify).
+ - exception_get_data and restart (exception.c)
+ - exception_thread_abort and exception_thread_delete
+
+* xml support
+
+* Uses cases modified to work with it
+ - okl4test, examples, etc.  
+
+<okl4-libokl4-for-exception-notify>
+Design and implement a libokl4 API for handling exceptions, that wraps the exception_notify syscalls.
+
+<okl4-non-1M-aligned-pools>
+Realms model currently stipulates that pools must be 1M aligned. Qualcomm has RAM starting from 0, and want to be able to use most of the first megabyte as a direct (1 to 1) mapping region, leaving only a 4k hole for NULL pointer dereferences. But elfweaver crashes when 'priming' the offending pool. A short term hack to address the immediate problem is in tools/pyelf/weaver/allocator.py, but this should be solved in a generic manner and the hack removed. 
+
+If the pool that contains the direct memsection is not aligned in 1M, priming returns error as the pool does not contain 1M-aligned chunk for
+the direct memsection. So the difference (chunk range - pool range) should also be considered when priming.
+
+<okl4-gcc-4.4.1>
+Due to compiler errors in GCC 4.2.1 and Qualcomm's need for Cortex-A5 support, move to GCC 4.4.1 as the default compiler.
+
+<okl4-kernel-16MB-superpage>
+Qualcomms system performance is somewhat TLB limited. In order to reduce the number of TLB entries the kernel uses (on systems without separate lockdown TLB regions, although the change should be applied universally) we will change the kernels virtual address to 0xfe000000 so that we can use a single 16MB superpage to map the kernel and kernel heap, and thus use a single TLB entry rather than the 3-4 currently in use.
+
+<okl4-remove-libgcc>
+libgcc is GPL licensed, and there is concern from Qualcomm lawyers that statically linking against it may mean the the OKL4 kernel would be subject to GPL. This feature is to remove libgcc from being statically linked with the kernel and either remove any dependencies we have on it or replace it with a custom library written to the same interface.
+
+Qualcomm asks us to use compiler-rt (from llvm) if possible. But compiler-rt library does not support ARM specific code at this moment. So we tried to make a replacement of libgcc by using general part of compiler-rt and adding some interfacing code for ARM (interfacing compiler-rt library and gcc).
+<okl4-extras-footprint>
+This is the tree that introduces the okl4orange product.  okl4orange  
+is a reduced footprint product compared to okl4extras, but still  
+retains functionality for multiple address spaces and cap security.   
+Specifically it was defined by removing all of the functionality not  
+required to support a particular one of Qualcomms products.  (not sure  
+exactly which product this is, but functionality to be removed was  
+determined by consultation with them).
+
+The majority of changes to support the orange product were merged in  
+previous trees, largely removing mutexes to use critsects instead, and  
+introducing exception delivery via notify.  Some exception notify  
+changes are present in this tree as the exception notify module was  
+not tested in final regression in the tree it was merged so certain  
+fixes needed to be made to get the module working with Orange.
+
+This tree largely consists of changes to make our various test  
+frameworks not depend on IPC, but to use notify instead.  This is  
+necessary as okl4orange does not include an IPC module.  This is a  
+_lot_ of changes.
+
+There are two other footprint reducing features in this tree, the  
+first is splitting the segment module into segment_static and  
+segment_dynamic.  this is because okl4orange does not support  
+splitting and joining segments at runtime.  The second is a change to  
+the autogeneration of code in the object manager to save ~1k of code  
+that was repeated needlessly for each object type.
+
+<okl4-cache-invalidate>
+Implement a cache API (invalidate by range) and check it with test cases. Test includes security of one address space invalidating data at same address used in another address space.
+
+<okl4-nano-realms-reworking>
+This branch reduces the elfweaver environment size from 8K to 4K for nano.
+Elfweaver weaves out mapping information into environment section, 
+but some of which are not necessary for nano. For example, address_space object
+in the environment section has an arrays, pds, for protection domains. 
+The length of pds array is now 96, but the number of protection domain is 1 in nano. 
+As 1 element is 4Byte, removing 95 elements for nano saves 380 Bytes.
+To address this, a guard is added to set the length of pds array to 1 for nano.
+
+The address_space object has another array, chunks, for 1MB chunk of allocation. 
+If the size of address_space is large, then the chunks can the biggest data 
+in the environment section. For example, in the image built by the following command,
+"./tools/build.py machine=beagle project=okl4test product=okl4nano  PYFREEZE=False"   
+the cell environment section is 8KB, 6KB in it is used for chunks (1536MB address
+space requires 1536 chunks, each chunk is 4Byte). But usually address space is not that large 
+in nano (max 32MB), so chunks do not take up much spaces. 
+
+<okl4-nano-tracebuffer-removal>
+Objective: To save memory, use tracebuffer_null in nano. 
+
+Design: Change tracebuffer to tracebuffer_null in product_okl4nano.py, then resolve errors
+        in .c, .h, and .py files (grep MODULE_TRACEBUFFER). 
+
+
+
+<okl4-posix-mutex-attrs>
+The pthread_mutexattr_* functions create, set, get, and destroy
+pthread_mutexattr_t type object which can be used to initialize
+mutex. Implementation includes:
+
+int pthread_mutexattr_init(pthread_mutexattr_t *attr);
+int pthread_mutexattr_destroy(pthread_mutexattr_t *attr);
+int pthread_mutexattr_gettype(const pthread_mutexattr_t *restrict, int
+*restrict);
+int pthread_mutexattr_settype(pthread_mutexattr_t *attr, int type);
+int pthread_mutexattr_getprotocol(const pthread_mutexattr_t *restrict,
+int *restrict);
+int pthread_mutexattr_setprotocol(pthread_mutexattr_t *attr, int
+protocol);
+int pthread_mutexattr_getpshared(const pthread_mutexattr_t *restrict,
+int *restrict);
+int pthread_mutexattr_setpshared(pthread_mutexattr_t *, int);
+
+priority ceiling is not yet implemented. 
+
+Because the pthread_mutexattr_t object created can be used to initialize
+mutex, pthread_mutex_init and _okl4_mutex_create are modified to work
+with the mutexattr object.
+
+Initializing, locking, and unlocking of mutex can be affected by the use of
+mutexattr (i.e., recursive locking can be allowed if the mutex is counted,
+priority can be inherit to the owner of the thread). So some functions in
+./kernel/mutex_dynamic/src/mutex.c for creating, deleting, and releasing of
+mutex, and some priority inheriting functions are modified for that.
