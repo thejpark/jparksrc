@@ -27,3 +27,12 @@ ex) adb uninstall com.example.geoquiz
 
 adb logcat
 
+8. eclipse for MAC
+
+adt-bundle-mac-x86_64-20140624/eclipse/Eclipse.app/Contents/MacOS/eclipse
+
+9. Do not create Android project file under eclipse workspace. Eclipse workspace is for eclipse project, so when you create a project using command tool, create it under other directory.
+
+10. Android version
+
+http://developer.android.com/about/dashboards/index.html
