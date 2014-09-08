@@ -2175,6 +2175,11 @@ search2(FwdInIter1 first1, FwdInIter1 last1, FwdInIter2 first2, FwdInIter2 last2
     return first1;
 }
 
+// there are also methods like:
+// count, count_if
+//
+
+
 template <class InIter, class Pred>
 InIter
 find_if2(InIter first, InIter last, Pred op)
@@ -2243,12 +2248,12 @@ int t49()
     int x[] = {1, 5, 2, 4, 3};
     median2(x, x + 5);
 
-    vector<int> xv;
-    xv.push_back(1);
-    xv.push_back(5);
-    xv.push_back(2);
-    xv.push_back(4);
-    xv.push_back(3);
+    vector<int> xv(x, x + 5);
+    // xv.push_back(1);
+    // xv.push_back(5);
+    // xv.push_back(2);
+    // xv.push_back(4);
+    // xv.push_back(3);
     median2(xv.begin(), xv.end());
 }
 
@@ -3946,7 +3951,7 @@ int t65()
 
 int main(int argc, char * argv[])
 {
-	t41(); 
+	t61(); 
 }
 
 

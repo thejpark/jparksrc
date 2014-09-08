@@ -4,7 +4,9 @@ map-reduce
 
 프로그램 작성하기 전에
 좀 생각하고 하자. 자료구조는 어떻게 할 것인지, 자료구조가
-링크트리스트 같이 수정이 가능한 것이면 어떻게 되는지..
+링크트리스트 같이 수정이 가능한 것이면 어떻게 되는지.. 항상 질문을 하자. 어떻게 질문할 지에 대해서도 미리 생각해 보자.
+어떤 restriction이나 acceptance criteria가 있는지, 어떤 api가 있는지, 추가/삭제가 빈번한 것인지 등.
+
 
 특히, 잘 모를 경우에 인터뷰어에게 게속 물어보도록 하고,
 또한 말로만 설명하지 말고 간단한 스도코드라도 작성하자.
@@ -20,9 +22,10 @@ map-reduce
 간단한 자료구조는 하나 기억하고있자. 특히 링크트리스트 이용한 것.
 
 문제: 
-단어가 나왔을때 단어 count 하기. map을 사용할 때 complexity. hash. vs. map. map을 사용하지 않을 경우 어떻게 간단하게 계산할 수 있나? 수백만개일때에는 어떻게? bloom filter 사용
+단어가 나왔을때 단어 count 하기. map을 사용할 때 complexity. redundancy 제거 하는 방법 (string의 경우 resize해야). hash. vs. map. map을 사용하지 않을 경우 어떻게 간단하게 계산할 수 있나? 수백만개일때에는 어떻게? bloom filter 사용
 교차로에서 신호등이 계속 연결되어 있는 것을 어떻게 모델링 할 수 있을까? 그래프 이용
 특정한 ip에서 서버에 접근을 하는 것이 너무 많은 경우, 즉 헤킹 하는 경우와 같을 때 이것을 어떻게 처리할 수 있을까? server에 접근할 경우  map<string, int> 이용해서 ip count함.  그런데 일정 시간이 지나면  count를 clear해야함 (일정 시간 동안 max 갯수만큼 hit하면 문제임). 그런데 서버가 한개가 아니라 1000개 일경우 각각 이것들을 count 수행함. 그리고 일정 시간이 지나면  map reduce를 통해서 전체 서버들에서의 결과를 summary.
-set을 만드는데, set의lookup시 그리고 추가/삭제시 시간을최소화 함. 어떻게 할까? map으로 element들을 다 가지고 있고, 또한 linked list로 element들을 가지고 있음. (결국, 인덱스를 이용해야 빠른 접근이 가능하고, 추가/삭제가 가능하려면 링크트 리스트를 사용해야함)
+set을 만드는데, set의lookup시 그리고 추가/삭제시 시간을최소화 함. 어떻게 할까? map으로 element들을 다 가지고 있고, 또한 linked list로 element들을 가지고 있음. (결국, 인덱스를 이용해야 빠른 접근이 가능하고, 추가/삭제가 가능하려면 링크트 리스트를 사용해야함). So, some kind of B tree? we have a linked-list, and fast search to the element?
+어떤 data structure를 사용할 지에 대해서 의견을 나누어야 함. 추가/삭제가 빈번한 것인지 아닌지 등 (빈번한 경우에는 vector 보다는 linked list)
 
 

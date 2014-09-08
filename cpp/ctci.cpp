@@ -67,9 +67,9 @@ bool unique_str2(string &s)
             return false;
 
         w |= 1 << (c - 'a');
-        
     }
     
+    return true;
 }
 
 
@@ -201,7 +201,7 @@ void remove_dup2(string &s)
 // much faster than list search.
 void remove_dup3(string &s)
 {
-    bool chars[256];
+    bool chars[256] = {false, };
 
     if (s.empty())
         return;
@@ -229,10 +229,23 @@ void remove_dup3(string &s)
 }
 
 
+int resize_test()
+{
+    int myints[] = {10,20,20,20,30,30,20,20,10};           // 10 20 20 20 30 30 20 20 10
+    std::vector<int> myvector (myints,myints+9);
+
+    // using default comparison:
+    std::vector<int>::iterator it;
+    it = std::unique (myvector.begin(), myvector.end());   // 10 20 30 20 10 ?  ?  ?  ?
+    //                ^
+
+    myvector.resize( std::distance(myvector.begin(),it) ); // 10 20 30 20 10
+}
+
 int t13()
 {
 
-    string s("abcd");
+    string s("abcdab");
     cout << "string is " << s << endl;
     remove_dup(s);
     cout << "string is " << s << endl;    
@@ -822,7 +835,7 @@ int t_thread_2()
     if (err)
         cout << " error in creating thread 1 " << endl;
 
-        err = pthread_create(&t2, NULL, threadFunc2, &local);
+    err = pthread_create(&t2, NULL, threadFunc2, &local);
     if (err)
         cout << " error in creating thread 1 " << endl;
     
@@ -927,7 +940,6 @@ int t_thread_3()
     }
 
 }
-
 
 void test_swap_even_odd_bits()
 {
@@ -1959,11 +1971,13 @@ int test_inherit()
 }
 
 
+
+
     
     
 
 int main()
 {
-    test_inherit();
+    t13();
 }
 
