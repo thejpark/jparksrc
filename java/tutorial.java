@@ -112,6 +112,41 @@ public static <T extends Comparable<T>> int countGreaterThan(T[] anArray, T elem
     return count;
 }
 
+
+
+// Assume a class Box, and its instantiation of  Box<Number> and Box<Integer>.
+// Though Integer is subtype of NUmber, Box<Integer> is not a subtype of Box<Nu
+// Although Integer is a subtype of Number, List<Integer> is not a subtype of
+// List<Number> and, in fact, these two types are not related. The common paren
+// List<Number> and List<Integer> is List<?>.
+
+// upper bounded wildcard
+//The following code adds the numbers 1 through 10 to the end of a list:
+
+public static void addNumbers(List<? super Integer> list) {
+    for (int i = 1; i <= 10; i++) {
+        list.add(i);
+    }
+}
+
+// unbounded wildcard
+public static void printList(List<?> list) {
+    for (Object elem: list)
+        System.out.print(elem + " ");
+    System.out.println();
+}
+
+
+
+// lower bound wildcard
+// The following code adds the numbers 1 through 10 to the end of a list:
+
+public static void addNumbers(List<? super Integer> list) {
+    for (int i = 1; i <= 10; i++) {
+        list.add(i);
+    }
+}
+
 // wildcard as an argument 1
 
 public static double sumOfList(List<? extends Number> list) {
