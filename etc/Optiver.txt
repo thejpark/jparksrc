@@ -2,7 +2,7 @@ Optiver
 (9:00 - 10:30)
 
 map/hash 비교 설명
-Hash table can be very fast but have disadvantages: for each key type, someone mush supply hash function. Hash table's performance is determined by the details of of the hash function, finally hash function does not provide easy way to retrieve elements in a useful order.
+Hash table can be very fast but have disadvantages: for each key type, someone must supply hash function. Hash table's performance is determined by the details of of the hash function, finally hash function does not provide easy way to retrieve elements in a useful order.
 C++ associate containers are hard to implement in terms of hash table. The key type needs only the < operator or equivalent comparison function, the time to access an associative container element with given key is logarithmic in the total number of elements in that the container, regardless of the key value. Elements are always sorted by th key.
 In other words, although c++ assoc-containter is a bit slower than hash table, they perform much better than naive data structure, their performance does not require users to to design good hash function, and more convenient by automatic ordering.  
 queue를 primitive한 data structure로 어떻게 효과적으로 구현할 수 있을까?

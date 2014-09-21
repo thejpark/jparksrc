@@ -56,6 +56,7 @@ create_node(int val)
 
 struct list {
 	struct node *first;
+	// struct node *last;
 };
 
 
@@ -78,8 +79,10 @@ is_element_at(struct list *l, int loc)
 	for (;(i < loc) && (t != NULL); i++, t = t->next) ;
 
 	if (t == NULL)
-    	return 0;
+    	   return 0;
 	return 1;
+
+	// if you want to fast access, you need to have map or index
 }
 
 int
@@ -346,7 +349,7 @@ struct graph_node {
 void dfs(struct graph_node *g)
 {
 g->is_visited = true; 
-edge_node *edge = node->enode;
+edge_node *edge = g->enode;
 while (edge) {
     if(edge->gnode.visit != true) 
           dfs(edge->gnode); 

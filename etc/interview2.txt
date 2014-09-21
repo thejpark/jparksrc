@@ -17,15 +17,34 @@ Questions:
  
  - name:, job:software engineer, living in Sydney. I was born in Korea, and graduated Korea University, earned Bacheler/MS/Ph.D
  all from CS. I have started working for Samsung from Sep 2002, stayed there until I left for Australia in May 2010. And until the
-end of this March, I have been software engineer in OKL (a.k.a GDB). I am a father of 2, I like swimming and soccer, watching baseball.
+end of this March, I have been software engineer in OKL (a.k.a GDB). and now I am working for ResMed.
+I am a father of 3, I like swimming and soccer, watching baseball.
 
 
 
 
 2. Why you quit your previous job?
+
+2.Resmed
+
+Resmed is one of the biggest manufacture of a sleep device for treating  sleep apnea with nasal air supply. 
+The company is good and generous, people are very nice. As it belongs to the medical business, it focuses heavily on testing
+and I learned many new ideas such as test-driven development, scrum, testing framework (such as google mock and python behave).
+But the device is very small (such as, no OS), so it is a bit boaring, and I am still hungry for the new challenge.
+And I like to have an experience in the domain of distributed system and 
+cloud system, So I long been hopeing to work for the company like Amazon.   
+
+Tell me more about what you are doing in ResMed:
+I am involved in implementing software for the sleep device. The sleep device is for treating sleep apnea with nasal air supply.
+It has two hardware moduls, FG and CAM. FG is the main provides therapy, and CAM provides patient information to the cloud,
+and interact with cloud for the therapy or analysis purpose. I am involved in implementing CAM software. We used web interface
+to access cloud, such as HTTP GET/POST/PUT method.
+
+So far, the most proud of project was mobile virtualization of Android smartphone in OK labs.
+
 2.OKL
  - OKL was a good company with good software development cycle, and one of the leader in mobile virtualization.
- - I cound't use my full potential.
+ - I cound't use my full potential. I was supposed to do the same thing more than, like, 2 years.
  - for example, omap4 -> lg smart phone -> samsung tablet
  - it was good : family, good with childern and wife, doing exercise and meet old friends, etc.
  - how about the dark side? yes it have dark side as well. Some of my friends was 
@@ -45,6 +64,11 @@ ResMed:
 as I also had similar problem before, my father also have. I heard from my friends that he learned new technology I think I can learn much nut just embedded system area but also 
 medical area. I heard from my friends that environment is very nice, like a university campus, and soccer every week,
 that sounds like fantastic for me.
+
+
+Amazon: 
+
+
 
 2.4 What kind of company do you like?
 
@@ -78,10 +102,10 @@ focus my strenth.
 >>I have experienced almost all aspects of software development from the low level of operating system kernel, software platform (c++ native platform and Java) and application framework (libraries), toolchains, and QA software. And I have Ph. D degree in CS, published a number research papers in top conferences from ACM and IEEE. The experiences from academia and industry allows me very strong problem analysis and solving
 skills, as well as an ability to learn new technology very quickly. And I love to learn new technology. I am sure that my ability, skills, and passion for the new technology will bring to Atlassian with more energy to grow.  
 
-My biggest achievement.. hm.. my latest achievement is virtualization of LG Android smartphone, because this is the first Android smartphone with OKL4 hypervisor, and
-as far as I know, the only mobile phone with OKL4 hypervisor in last 3 years. I leaded technically in porting OKL4 hypervisor on LG smartphone, porting and
+
+
+My biggest achievement.. hm.. my latest achievement is virtualization of LG Android smartphone, because this is the first Android smartphone with OKL4 hypervisor. I leaded technically in porting OKL4 hypervisor on LG smartphone, porting and
 initial bringup of Android, and taught LG engineers to do their bit. But as I look back more, there are a number of achievements including my first mobile phone product in Samsung, and  ph. D degree. And I am not sure which one is the biggest achievement, perhaps the biggest achivement was yet to come.
-But in my personal life, the biggest achievement is my family
 
 What I am most proud of..?  same as above...
 
@@ -91,10 +115,6 @@ What makes you different? hm..
 
 
 And what is it that you can bring to the company to make a difference?
-
-
-
-
 
 
 2.10 What is virtualisation?
