@@ -36,3 +36,6 @@ adt-bundle-mac-x86_64-20140624/eclipse/Eclipse.app/Contents/MacOS/eclipse
 10. Android version
 
 http://developer.android.com/about/dashboards/index.html
+
+11. For the life cycle of the android application, take a look at
+    Activity class in the android developer page
