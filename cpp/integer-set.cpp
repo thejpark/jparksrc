@@ -100,3 +100,9 @@ int mySet::size()
 {
     return count;
 }
+
+
+int main(int argc, char * argv[])
+{
+
+}
