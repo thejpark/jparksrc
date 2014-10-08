@@ -29,9 +29,12 @@ private:
 
 bool mySet::add(int x)
 {
+    if (mc[x])
+        return false;
+
     node n = new node(x);
     if (!n)
-        return false;
+        throw domain_error("student has done no homework");
 
     if (head == NULL)
         head = tail = n; 
