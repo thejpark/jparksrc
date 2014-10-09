@@ -16,6 +16,7 @@ public:
     bool remove(int x);
     bool contains(int  x);
     int size();
+    void removeAll();
 
 private:
     class node {
@@ -91,6 +92,21 @@ bool mySet::remove(int x)
     return true;
 }
 
+
+void mySet::removeAll()
+{
+    while (head)
+    {
+        node* h = head;
+        head = head->next;
+        mc[h->data] = NULL;
+        delete h;
+    }
+    head = tail = NULL;
+    count = 0;
+}
+
+
 bool mySet::contains(int x)
 {
     if (mc[x])
@@ -124,4 +140,13 @@ int main(int argc, char * argv[])
     cout << ms.add(1) << endl;
     cout << ms.size() << endl;
     cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
+
+    ms.removeAll();
+    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
+
+    cout << ms.remove(3) << endl;
+    cout << ms.add(1) << endl;
+    cout << ms.size() << endl;
+    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
+
  }
