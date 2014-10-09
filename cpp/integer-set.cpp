@@ -48,7 +48,6 @@ bool mySet::add(int x)
         tail->next = n;
         n->prev = tail;
         tail = n;
-        n->next = NULL;
     }
 
     mc[x] = n;
