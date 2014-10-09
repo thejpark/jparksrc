@@ -2,11 +2,14 @@
 // can we use map only? ( that means, add will take more than O(1).
 
 #include <map>
+#include <iostream>
+#include <stdexcept>
 
+using namespace std;
 class mySet {
 
 public:
-    mySet() : head(NULL), tail(NULL)
+    mySet() : head(NULL), tail(NULL), count(0)
     {
     }
     bool add(int x);
@@ -25,6 +28,7 @@ private:
     node* head;
     node* tail;
     map<int, node*> mc;
+    int count;
 };
 
 bool mySet::add(int x)
@@ -32,7 +36,7 @@ bool mySet::add(int x)
     if (mc[x])
         return false;
 
-    node n = new node(x);
+    node* n = new node(x);
     if (!n)
         throw domain_error("student has done no homework");
 
@@ -104,5 +108,20 @@ int mySet::size()
 
 int main(int argc, char * argv[])
 {
+    mySet ms;
+    ms.add(1);
+    ms.add(2);
+    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.size() << endl;
+    cout << ms.remove(2) << endl;
+    cout << ms.remove(1) << endl;
+    cout << ms.size() << endl;
 
-}
+    ms.add(1);
+    ms.add(2);
+    ms.add(3);
+    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
+    cout << ms.remove(3) << endl;
+    cout << ms.add(1) << endl;
+    cout << ms.size() << endl;
+    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
+ }
