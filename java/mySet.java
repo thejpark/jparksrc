@@ -7,7 +7,7 @@ import java.util.Map;
 
 class mySet<T extends Number> {
 
-    class node {
+    private class node {
 	node(T x) 
 	{
 	    data = x;
