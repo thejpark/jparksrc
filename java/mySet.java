@@ -61,13 +61,13 @@ class mySet {
     
     boolean add(int i)
     {
-	Integer x = new Integer(i);
-	node n = mc.get(x);
+	// implicit type conversion of int to Integer
+	node n = mc.get(i);
 
 	if (n != null)
 	    return false;
 
-	n = new node(x);
+	n = new node(i);
 
 	if (head == null)
 	    head = tail = n; 
@@ -78,20 +78,19 @@ class mySet {
 		tail = n;
 	    }
 
-	mc.put(x, n);
+	mc.put(i, n);
 	count++;
 	return true;
     }
  
     boolean remove(int i)
     {
-	Integer x = new Integer(i);
-	node n = mc.get(x);
+	node n = mc.get(i);
 
 	if (n == null)
 	    return false;
 
-	mc.put(x, null);
+	mc.put(i, null);
 	count--;
 
 	if (n == head && n == tail)
@@ -137,8 +136,7 @@ class mySet {
 
     boolean contains(int i)
     {
-	Integer x = new Integer(i);
-	if (mc.get(x) != null)
+	if (mc.get(i) != null)
 	    return true;
 
 	return false;
