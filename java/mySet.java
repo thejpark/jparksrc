@@ -5,27 +5,27 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class mySet {
+class mySet<T extends Number> {
 
     class node {
-	node(int x) 
+	node(T x) 
 	{
-	    data = new Integer(x);
+	    data = x;
 	    prev = next = null;
 	}
-        Integer data;
+        T data;
         node prev;
         node next;
     }
 
     private node head;
     private node tail;
-    private Map<Integer, node> mc;
+    private Map<T, node> mc;
     private int count;
     
     public static void main(String[] args)
     {
-	mySet ms = new mySet();
+	mySet ms = new mySet<Integer>();
 	ms.add(1);
 	ms.add(2);
 	System.out.println(ms.contains(1) + " " + ms.contains(2) + " " + ms.size()) ;
@@ -54,14 +54,13 @@ class mySet {
 
     mySet()
     {
-	mc = new HashMap<Integer, node>();
+	mc = new HashMap<T, node>();
 	head = tail = null;
 	count = 0;
     }
     
-    boolean add(int i)
+    boolean add(T i)
     {
-	// implicit type conversion of int to Integer
 	node n = mc.get(i);
 
 	if (n != null)
@@ -83,7 +82,7 @@ class mySet {
 	return true;
     }
  
-    boolean remove(int i)
+    boolean remove(T i)
     {
 	node n = mc.get(i);
 
@@ -134,7 +133,7 @@ class mySet {
     }
 
 
-    boolean contains(int i)
+    boolean contains(T i)
     {
 	if (mc.get(i) != null)
 	    return true;
