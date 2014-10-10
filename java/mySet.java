@@ -3,40 +3,71 @@
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 class mySet {
 
     class node {
 	node(int x) 
 	{
-	    data = x;
+	    data = new Integer(x);
 	    prev = next = null;
 	}
-        int data;
+        Integer data;
         node prev;
         node next;
     }
+
+    private node head;
+    private node tail;
+    private Map<Integer, node> mc;
+    private int count;
     
     public static void main(String[] args)
     {
+	mySet ms = new mySet();
+	ms.add(1);
+	ms.add(2);
+	System.out.println(ms.contains(1) + " " + ms.contains(2) + " " + ms.size()) ;
+	System.out.println(ms.remove(2)); 
+	System.out.println(ms.remove(1));
+	System.out.println(ms.size());
+
+	ms.add(1);
+	ms.add(2);
+	ms.add(3);
+	System.out.println(ms.contains(1) +  "  " +  ms.contains(2) + "  " + ms.contains(3)  + "  "  + ms.size());
+	System.out.println(ms.remove(3) );
+	System.out.println(ms.add(1) );
+	System.out.println(ms.size() );
+	System.out.println(ms.contains(1) + "  " + ms.contains(2) + " " + ms.contains(3)  + "  " + ms.size() );
+
+	ms.removeAll();
+	System.out.println(ms.contains(1) + "  " +  ms.contains(2) + "  " + ms.contains(3) + "  " + ms.size() );
+
+	System.out.println(ms.remove(3) );
+	System.out.println(ms.add(1) );
+	System.out.println(ms.size() );
+	System.out.println(ms.contains(1) + "  " + ms.contains(2) + "  " + ms.contains(3)  + "  " + ms.size() );
 
     }
 
-public:
     mySet()
     {
+	mc = new HashMap<Integer, node>();
 	head = tail = null;
 	count = 0;
     }
     
-    boolean add(int x)
+    boolean add(int i)
     {
-	if (mc[x])
+	Integer x = new Integer(i);
+	node n = mc.get(x);
+
+	if (n != null)
 	    return false;
 
-	node n = new node(x);
-	if (!n)
-	   throw domain_error("student has done no homework");
+	n = new node(x);
 
 	if (head == null)
 	    head = tail = n; 
@@ -47,109 +78,77 @@ public:
 		tail = n;
 	    }
 
-	mc[x] = n;
+	mc.put(x, n);
 	count++;
 	return true;
     }
  
-    boolean remove(int x)
+    boolean remove(int i)
     {
-{
-    node n = mc[x];
-    if (!n)
-        return false;
+	Integer x = new Integer(i);
+	node n = mc.get(x);
 
-    mc[x] = null;
-    count--;
+	if (n == null)
+	    return false;
 
-    if (n == head && n == tail)
-    {
-        head = tail = null;
-        delete n;
-    }
-    else if (n == head)
-    {
-        head = head.next;
-        head.prev = null;
-        delete n;
-    }
-    else if (n == tail)
-    {
-        tail = tail.prev;
-        tail.next = null;
-        delete n;
-    }
-    else
-    {
-        n.prev.next = n.next;
-        n.next.prev = n.prev;
-        delete n;
+	mc.put(x, null);
+	count--;
+
+	if (n == head && n == tail)
+	{
+	    head = tail = null;
+	    n = null;
+	}
+	else if (n == head)
+	{
+	    head = head.next;
+	    head.prev = null;
+	    n = null;
+	}
+	else if (n == tail)
+	{
+	    tail = tail.prev;
+	    tail.next = null;
+	    n = null;
+	}
+	else
+	{
+	    n.prev.next = n.next;
+	    n.next.prev = n.prev;
+	    n = null;
+	}
+
+	return true;
     }
 
-    return true;
+    void removeAll()
+    {
+	while (head != null)
+	{
+	    node h = head;
+	    head = head.next;
+	    mc.put(h.data, null);
+	    h = null;
+	}
+	head = tail = null;
+	count = 0;
+    }
+
+
+    boolean contains(int i)
+    {
+	Integer x = new Integer(i);
+	if (mc.get(x) != null)
+	    return true;
+
+	return false;
+    }
+
+
+    int size()
+    {
+	return count;
+    }
+
 }
 
-void removeAll()
-{
-    while (head)
-    {
-        node h = head;
-        head = head.next;
-        mc[h.data] = null;
-	h = null;
-    }
-    head = tail = null;
-    count = 0;
-}
-
-
-boolean contains(int x)
-{
-    if (mc[x])
-        return true;
-
-    return false;
-}
-
-
-int size()
-{
-    return count;
-}
-
-    private node head;
-    private node tail;
-    private HashMap<int, node> mc;
-    private int count;
-};
-
-
-
-int main(int argc, char * argv[])
-{
-    mySet ms;
-    ms.add(1);
-    ms.add(2);
-    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.size() << endl;
-    cout << ms.remove(2) << endl;
-    cout << ms.remove(1) << endl;
-    cout << ms.size() << endl;
-
-    ms.add(1);
-    ms.add(2);
-    ms.add(3);
-    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
-    cout << ms.remove(3) << endl;
-    cout << ms.add(1) << endl;
-    cout << ms.size() << endl;
-    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
-
-    ms.removeAll();
-    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
-
-    cout << ms.remove(3) << endl;
-    cout << ms.add(1) << endl;
-    cout << ms.size() << endl;
-    cout << ms.contains(1) << " " << ms.contains(2) << " " << ms.contains(3) <<  " " << ms.size() << endl;
-
- }
