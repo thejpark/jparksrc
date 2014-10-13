@@ -1,6 +1,7 @@
 package com.example.criminalintent;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import android.content.Context;
 
@@ -28,6 +29,14 @@ public class CrimeLab {
         return sCrimeLab;
     }
 
+    public Crime getCrime(UUID id) {
+        for (Crime c : mCrimes) {
+            if (c.getId().equals(id))
+                return c;
+        }
+        return null;
+    }
+    
     public ArrayList<Crime> getCrimes() {
         return mCrimes;
     }
