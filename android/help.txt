@@ -11,6 +11,11 @@ move to work directory
 
 ant debug
 
+3.1 how to install ant?
+>brew update
+>brew install ant
+
+
 4. run simulator
 
 android avd
@@ -39,3 +44,5 @@ http://developer.android.com/about/dashboards/index.html
 
 11. For the life cycle of the android application, take a look at
     Activity class in the android developer page
+
+    create -> start -> resume -> pause -> stop -> destroy 
