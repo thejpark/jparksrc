@@ -1,0 +1,30 @@
+
+/Users/jpark/wrk/jparksrc/android/projects/HelloMoon//gen/com/bignerdranch/android/hellomoon/BuildConfig.java,37
+public final class BuildConfig 4,96
+
+/Users/jpark/wrk/jparksrc/android/projects/HelloMoon//gen/com/bignerdranch/android/hellomoon/R.java,458
+public final class R BuildConfig.R10,227
+    public static final class attr R.attr11,250
+    public static final class drawable R.drawable13,293
+    public static final class id R.id17,458
+    public static final class layout R.layout23,749
+    public static final class menu R.menu27,922
+    public static final class raw R.raw30,1029
+    public static final class string R.string34,1191
+    public static final class style R.style42,1593
+
+/Users/jpark/wrk/jparksrc/android/projects/HelloMoon//src/com/example/hellomoon/AudioPlayer.java,183
+public class AudioPlayer 6,112
+    public void stop(AudioPlayer.stop10,178
+    public void play(AudioPlayer.play17,310
+    public boolean isPlaying(AudioPlayer.isPlaying32,665
+
+/Users/jpark/wrk/jparksrc/android/projects/HelloMoon//src/com/example/hellomoon/HelloMoonActivity.java,97
+public class HelloMoonActivity 6,120
+    public void onCreate(HelloMoonActivity.onCreate9,246
+
+/Users/jpark/wrk/jparksrc/android/projects/HelloMoon//src/com/example/hellomoon/HelloMoonFragment.java,232
+public class HelloMoonFragment 10,235
+    void updateButtons(HelloMoonFragment.updateButtons16,414
+    public void onDestroy(HelloMoonFragment.onDestroy22,559
+    public View onCreateView(HelloMoonFragment.onCreateView28,665
