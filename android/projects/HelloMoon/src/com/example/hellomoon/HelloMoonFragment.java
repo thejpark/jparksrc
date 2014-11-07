@@ -17,6 +17,13 @@ public class HelloMoonFragment extends Fragment {
         boolean isEnabled = !mPlayer.isPlaying();
         mPlayButton.setEnabled(isEnabled);
     }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+
+    }
     
     @Override
     public void onDestroy() {
@@ -30,7 +37,9 @@ public class HelloMoonFragment extends Fragment {
 
         mPlayButton = (Button)v.findViewById(R.id.hellomoon_playButton);
         mStopButton = (Button)v.findViewById(R.id.hellomoon_stopButton);
-                
+        
+        updateButtons();
+        
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mPlayer.play(getActivity());
