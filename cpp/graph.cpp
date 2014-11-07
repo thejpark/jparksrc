@@ -23,48 +23,52 @@ void list_subtract(list<int> a, list<int> b)
 }
 
 
+template<class T>
 class graph 
 {
 
 public:
-    graph(int n) : node(n + 1) // node name start from 1
+    typedef typename list<pair<T, int> >::iterator iter;
+
+    graph()
     {
     }
-    
-    void push(int from, int to, int arg)
+    void push(T from, T to, int arg)
     {
-        node[from].push_back(pair<int, int>(to, arg)); // pair(to, arg) does not work as pair is template type. We have to use template type to create
+        r[from] = r[to] = 100000;
+        node[from].push_back(pair<T, int>(to, arg)); // pair(to, arg) does not work as pair is template type. We have to use template type to create
         // an instance of it.
     }
 
-    list<pair<int, int> >
-    adj(int from) 
+    list<pair<T, int> >
+    adj(T from) 
     {
         return node[from];
     }
 
-    vector<int>
-    dijkstra(int from) 
+    map<T, int>
+    dijkstra(T from) 
     {
         // initial distance
-        vector<int> r(node.size(), 100000);
-        list<pair<int, int> > adjlist = adj(from);
-        for (list<pair<int, int> >::iterator it = adjlist.begin();
+        list<pair<T, int> > adjlist = adj(from);
+        for (iter it = adjlist.begin();
              it != adjlist.end(); ++it) {
             r[it->first] = it->second;
         }
 
-        list<int> s, v;
+        list<T> s, v;
         s.push_back(from);        
-        for (int i = 1; i < node.size(); i++)
-            if (i != from)
-                v.push_back(i);
+        for (typename map<T, int>::iterator it = r.begin();
+             it != r.end();
+             ++it)
+            if (it->first != from)
+                v.push_back(it->first);
         // done initialiation. node 0 is not added as it is just for easy of use.
 
         while (!v.empty()) {
 
-            int m = 0; //r[0]  has 100000 which means max
-            for (list<int>::iterator i = v.begin(); i != v.end(); ++i) {
+            T m = from; //r[from]  has 100000 which means max
+            for (typename list<T>::iterator i = v.begin(); i != v.end(); ++i) {
                 if (r[*i] < r[m])
                     m = *i;
             } // how can we reduce this? priority queue? 
@@ -74,8 +78,8 @@ public:
             s.push_back(m);
             v.erase(remove(v.begin(), v.end(), m), v.end());
 
-            list<pair<int, int> > adj_m = adj(m);
-            for(list<pair<int, int> >::iterator it = adj_m.begin();
+            list<pair<T, int> > adj_m = adj(m);
+            for(iter it = adj_m.begin();
                     it != adj_m.end(); ++it) {
 
                     r[it->first] = min(r[it->first], r[m] + it->second);
@@ -85,8 +89,9 @@ public:
         return r;
     }
 
-private:
-    vector<list<pair<int, int> > > node;
+    private:
+    map<T, int> r;
+    map<T, list<pair<T, int> > > node;
 };
 
 
@@ -113,7 +118,7 @@ int t1()
 
 int t2()
 {
-    graph g(5);
+    graph<int>  g;
     g.push(1, 2, 10);
     g.push(1, 4, 30);
     g.push(1, 5, 100);
@@ -122,12 +127,14 @@ int t2()
     g.push(4, 3, 20);
     g.push(4, 5, 60);
 
-    vector<int> r = g.dijkstra(1);
+    map<int, int> r = g.dijkstra(1);
         
-    for (int i = 1; i < r.size(); ++i)
-        cout << ' ' << r[i];
-
-    cout << endl;
+    for (map<int, int>::iterator it = r.begin();
+         it != r.end();
+         ++it)
+    {
+        cout << it->first << " : " << it->second << endl;
+    }
 }
 
 // async access to the graph (tree) structure.
@@ -139,7 +146,7 @@ static int numTerm;
 struct thread_bfs 
 {
     list<int> *pfnode;
-    graph *pg;
+    graph<int> *pg;
     int node;
     map<int,int> *pmap;
     
@@ -184,7 +191,7 @@ int t_thread_bfs_1()
 {
     // setup graph
     static list<int> fnode;
-    static graph g(5);
+    static graph<int> g;
     static map<int, int> xmap;
     struct thread_bfs *thr_bfs;
 
@@ -256,9 +263,7 @@ int t_thread_bfs_1()
 
 int main()
 {
-
-    t_thread_bfs_1();
-
+    t2();    
 }
 
 
