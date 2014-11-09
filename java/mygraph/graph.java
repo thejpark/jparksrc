@@ -1,26 +1,10 @@
+package mygraph;
+
 import java.util.Map;
 import java.lang.Math;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-
-class Pair<K, V> {
-
-    private K key;
-    private V value;
-
-    // Generic constructor
-    public Pair(K key, V value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    // Generic methods
-    public void setKey(K key) { this.key = key; }
-    public void setValue(V value) { this.value = value; }
-    public K getKey()   { return key; }
-    public V getValue() { return value; }
-}
 
 class graph <T>
 {
@@ -128,4 +112,4 @@ class graph <T>
 	g.add(4, 5, 60);
 	g.dijkstra(1);
     }
-}
+}		
