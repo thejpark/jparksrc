@@ -33,7 +33,6 @@ public class MyFindCommonAncestor implements FindCommonAncestor
 	if (null == ph[k])
 	    return r;
 
-	// if s is null the nullpointer exception here
 	for (String s: ph[k]) {
 		r.add(s);
 		Set<String> x = findParent(s, ch, ph);
