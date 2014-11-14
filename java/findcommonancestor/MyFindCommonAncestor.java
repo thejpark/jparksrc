@@ -1,4 +1,6 @@
 package findcommonancestor;
+import java.lang.Math;
+import java.util.*;
 
 
 public class MyFindCommonAncestor implements FindCommonAncestor
@@ -7,36 +9,40 @@ public class MyFindCommonAncestor implements FindCommonAncestor
     public String findCommmonAncestor(String[] commitHashes,
             String[][] parentHashes, String commitHash1, String commitHash2)
     {
-        int idx1, idx2;
-
-        idx1 = find (commitHashes, commitHash1);
-        idx2 = find (commitHashes, commitHash2);
-
-        int min = Min (idx1, idx2);
-        int max = Max (idx1, idx2);
-        
-        int idx = findMinParent(min, max, commitHashes, parentHashes);
-        
-        return commitHashes[idx];
+	Set<String> s1 = findParent(commitHash1, commitHashes, parentHashes);
+	Set<String> s2 = findParent(commitHash2, commitHashes, parentHashes);
+	s1.retainAll(s2);
+	return findMin(s1, commitHashes);
     }
 
-    private int findMinParent(int idx, int max, String[] ch, String[][] ph)
+    String findMin(Set<String> s, String[] commitHashes)
     {
-        if (idx >= max) // which is end condition?
-            return idx;
-        
-        int min = ch.length; // which is max value?
-
-        for (int i = 0; i < ph[idx].length; ++i) {
-            String e = ph[idx][i];
-            int tidx = find(ch, e);
-            int tidx2 = findMinParent(tidx, max, ch, ph);
-            min = Min (min, tidx2);
-        }
-        
-        return min;
+	int min = commitHashes.length;
+	for (String x: s) {
+	    int k = find(commitHashes, x);
+	    min = Math.min(min, k);
+	}
+	return commitHashes[min];
     }
-    
+
+    Set<String> findParent(String a, String[] ch, String[][] ph)
+    {
+	int k = find(ch, a);
+	Set<String> r = new HashSet<String>();
+
+	if (null == ph[k])
+	    return r;
+
+	// if s is null the nullpointer exception here
+	for (String s: ph[k]) {
+		r.add(s);
+		Set<String> x = findParent(s, ch, ph);
+		r.addAll(x);
+	}
+
+	return r;
+    }
+
     private int find (String[] ch, String ch1)
     {
         for (int i = 0; i < ch.length; i++) {
@@ -45,20 +51,4 @@ public class MyFindCommonAncestor implements FindCommonAncestor
         }
         return -1;
     }
-
-    private int Max (int a, int b)
-    {
-        if (a > b)
-            return a;
-        else return b;
-    }
-    
-    private int Min (int a, int b)
-    {
-        if (a > b)
-            return b;
-        else return a;
-    }
-    
 }
-
