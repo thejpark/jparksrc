@@ -16,7 +16,6 @@ import flatten.Tree;
 import flatten.MyFlattenTree;
 import flatten.Either;
 import flatten.Triple;
-import findcommonancestor.MyFindCommonAncestor;
 
 class A 
 {
@@ -265,32 +264,6 @@ class test1
     }
     
     
-    public static void commonAncestor()
-    {
-        String[] commits = {"G", "F", "E", "D", "C", "B", "A"
-        };
-        String[][] parents ={
-            {
-                "F","D"
-            },{"E"
-            }, {"B"
-            }, {"C"
-            }, {"B"
-            }, {"A"
-            }, null
-        };
-        String commit1 = "D";
-        String commit2 = "F";
-        MyFindCommonAncestor finder = new MyFindCommonAncestor();
-        
-        System.out.println(finder.findCommmonAncestor(commits, parents, commit1, commit2));
-        System.out.println(finder.findCommmonAncestor(commits, parents, "A", "B"));
-        System.out.println(finder.findCommmonAncestor(commits, parents, "E", "G"));
-        System.out.println(finder.findCommmonAncestor(commits, parents, "E", "D"));
-        System.out.println(finder.findCommmonAncestor(commits, parents, "B", "F"));
-    }
-    
-
     public static void flatten()
     {
 
