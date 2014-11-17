@@ -17,7 +17,7 @@ public class FooTest {
 
     @Test
     public void test1() {
-        Queue<Integer> x = new LinkedList<Integer>();
+        Queue<Integer> x = new LinkedList();
         MyFolder<Integer, Integer> mf = new MyFolder();
         x.add(1);
         x.add(2);
@@ -30,7 +30,7 @@ public class FooTest {
     
     @Test
     public void test2() {
-        Queue<Integer> x = new LinkedList<Integer>();
+        Queue<Integer> x = new LinkedList();
         MyFolder<Integer, Integer> mf = new MyFolder();
         x.add(1);
         x.add(2);
@@ -43,7 +43,7 @@ public class FooTest {
 
     @Test
     public void test3() {
-        Queue<Integer> x = new LinkedList<Integer>();
+        Queue<Integer> x = new LinkedList();
         MyFolder<Integer, List> mf = new MyFolder<Integer, List>();
         x.add(1);
         x.add(2);
@@ -59,7 +59,7 @@ public class FooTest {
 
     @Test
     public void checkQueueEmpty() {
-	Queue<Integer> x = new LinkedList<Integer>();
+	Queue<Integer> x = new LinkedList();
         MyFolder<Integer, Integer> mf = new MyFolder();
         x.add(1);
         x.add(2);
