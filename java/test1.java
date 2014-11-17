@@ -8,15 +8,6 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.HashMap;
 
-// test for Atlatian
-import findarray.MyFindArray;
-import iteration.MyFolder;
-import iteration.Function2;
-import flatten.Tree;
-import flatten.MyFlattenTree;
-import flatten.Either;
-import flatten.Triple;
-
 class A 
 {
 
@@ -139,42 +130,6 @@ class Gingleton
 
 }
 
-
-
-//parameterized
-class MyFunc2<T extends Integer, U extends Integer, R extends Integer > implements Function2<T, U, R>
-{
-    public R apply(T t, U u) 
-    {
-        int x = u.intValue() + t.intValue();
-        Integer i = new Integer(x);
-        return (R)i;
-        
-    }
-}
-
-class MyFunc3 implements Function2<Integer, Integer, Integer>
-{
-    public Integer apply(Integer t, Integer u) 
-    {
-        int x = u.intValue() + t.intValue();
-        Integer i = new Integer(x);
-        return i;
-        
-    }
-}
-
-class myfunc4 implements Function2<Integer, List, List>
-{
-    public List apply(Integer t, List u)
-    {
-        u.add(t);
-        return u;
-    }
-}
-
-
-
 class test1 
 {
     public static void main(String args[])
@@ -190,12 +145,7 @@ class test1
         }
         int[] b = new int[3];
         System.out.println("the size is " + b.length); // java has no size()
-        
 
-        flatten();
-
-        System.out.println("test folder");
-        folder4();
     }
 
     public static void maptest(String args[])
@@ -264,84 +214,8 @@ class test1
     }
     
     
-    public static void flatten()
-    {
-
-        Tree<Integer> n = Tree.Node.tree(new Integer(5), new Integer(4), new Integer(9));  // static method does not need type parameter? ^^;
-        Tree<Integer> l1 = Tree.Leaf.leaf(new Integer(1));
-        Tree<Integer> l2 = Tree.Leaf.leaf(new Integer(6));
-        Tree<Integer> t = new Tree.Node(l1, n, l2);
-        MyFlattenTree<Integer> mt = new MyFlattenTree<Integer>();
-        List<Integer> l = mt.flattenInOrder(t);
-        Iterator<Integer> it = l.iterator();
-        //ListIterator<Integer> it = l.listIterator()
-        while(it.hasNext()) {
-            int p = it.next();
-            System.out.println(p + " " );
-            
-        }
-        
-    }
-    
-    public static void flatten2()
-    {
-        MyFlattenTree<Integer> mt = new MyFlattenTree<Integer>();
-        List<Integer> l = mt.flattenInOrder(null);
-        ListIterator<Integer> it = l.listIterator();
-        while(it.hasNext()) {
-            int p = it.next();
-            System.out.println(p + " " );
-            
-        }
-        
-    }
-    
-    
-    public static void folder()
-    {
-                
-        Queue<java.lang.Integer> x = new LinkedList<java.lang.Integer>();
-        MyFolder<Integer, Integer> mf = new MyFolder<Integer, Integer>();
-        x.add(1);
-        x.add(2);
-        x.add(3);
-        MyFunc2<Integer, Integer, Integer> mf2 = new MyFunc2<Integer, Integer, Integer>();
-        
-        Integer r = mf.fold(new Integer(0), x, mf2);
-        System.out.println(r);
-    }
-
-    public static void folder3()
-    {
-                
-        Queue<java.lang.Integer> x = new LinkedList<java.lang.Integer>();
-        MyFolder<Integer, Integer> mf = new MyFolder<Integer, Integer>();
-        x.add(1);
-        x.add(2);
-        x.add(3);
-        MyFunc3 mf2 = new MyFunc3();
-        
-        Integer r = mf.fold(new Integer(0), x, mf2);
-        System.out.println(r);
-    }
-
-    public static void folder4()
-    {
-                
-        Queue<java.lang.Integer> x = new LinkedList<java.lang.Integer>();
-        MyFolder<Integer, List> mf = new MyFolder<Integer, List>();
-        x.add(1);
-        x.add(2);
-        x.add(3);
-        
-        myfunc4 mf2 = new myfunc4();
-        List r = mf.fold(new ArrayList<Integer>(), x, mf2);
-        Iterator<Integer> it = r.iterator();
-        while(it.hasNext())
-            System.out.println(it.next());
-    }
-
-    // this function is declared as static, as non-static function cannot be called in static function.
+   
+       // this function is declared as static, as non-static function cannot be called in static function.
     public static void test2() 
     {
         Gingleton a = Gingleton.getInstance();
@@ -478,63 +352,5 @@ class test1
 
     }
 
-    
-    static void findarray()
-    {
-        int a[] = {4, 9, 3, 7, 8
-        };
-        int b[] = {3, 7
-        };
-
-        int a1[] = {1, 3, 5
-        };
-        int b1[] = {1
-        };
-
-        int a2[] = {7, 8, 9
-        };
-        int b2[] = {8, 9, 10
-        };
-
-        int a3[] = {7, 8
-        };
-        int b3[] = {8, 9, 10
-        };
-
-        int a4[] = {7, 8, 9
-        };
-        int b4[] = {7, 8, 9
-        };
-
-        int a5[] = {
-        };
-        int b5[] = {
-        };
-
-
-        int a6[] = {7, 8, 9
-        };
-        int b6[] = {
-        };
-
-        int a7[] = {
-        };
-        int b7[] = {7, 8, 9
-        };
-
-
-        
-        MyFindArray fa = new MyFindArray();
-        
-        System.out.println(fa.findArray(a, b));
-        System.out.println(fa.findArray(a1, b1));
-        System.out.println(fa.findArray(a2, b2));
-        
-        System.out.println(fa.findArray(a3, b3));
-        System.out.println(fa.findArray(a4, b4));
-        System.out.println(fa.findArray(a5, b5));
-        System.out.println(fa.findArray(a6, b6));
-        System.out.println(fa.findArray(a7, b7));
-    }
     
 }
