@@ -1,3 +1,16 @@
+;;http://stackoverflow.com/questions/9942675/in-elisp-how-do-i-put-a-function-in
+; Note that in Emacs Lisp, symbols have a value cell and a function cell, which
+
+;; Most kinds of assignment will set the value (e.g. let, setq, defvar, defcusto
+
+;; (fset 'my-function 'dumb-f)
+;; (my-function)
+;; In your case I would use ryuslash's answer (except you need to use defcustom
+
+;; Also, regarding "I'm having a hard time googling for it"; always remember tha
+
+
+
 (flyspell-prog-mode)
 
 
