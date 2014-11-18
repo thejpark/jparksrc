@@ -89,6 +89,19 @@ class C
  *
  *
  */ 
+// Nested classes are divided into two categories: static and non-static.
+// Nested lasses that are declared static are simply called static nested
+// classes. Non-static nested classes are called inner classes.
+// Static nested classes are accessed using the enclosing class name:
+// OuterClass.StaticNestedClass
+// OuterClass.StaticNestedClass nestedObject = new OuterClass.StaticNestedClass();
+
+// An instance of InnerClass can exist only within an instance of OuterClass and has
+// direct access to the methods and fields of its enclosing instance.
+// To instantiate an inner class, you must first instantiate the outer class.
+// Then, create the inner object within the outer object with this syntax:
+
+// OuterClass.InnerClass innerObject = outerObject.new InnerClass();
 
 
 // this class cannot be public class, as public class should be in the same file name (Gingleton.java)
