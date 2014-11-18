@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 class A 
 {
-
     public A () 
     {
         System.out.println("A is created");
@@ -23,7 +22,6 @@ class B extends A
     {
         System.out.println("B is created");
     }   
-
 }
 
 
@@ -37,8 +35,6 @@ class C
         n = new String("this is instance initializer");
         System.out.println(n);
         System.out.println("x is " + x);
-        
-
     }
 
     static String name;
@@ -49,7 +45,6 @@ class C
         System.out.println(name);
         System.out.println("y is " + y);
     }
-    
     
     C() 
     {
@@ -64,27 +59,20 @@ class C
     int get()
     {
         return _a;
-
     }
 
     public boolean isConfusing() 
     {
-
         try {
 
             return true;
-
         }
         finally {
 
             return false;
         }
-
     }
-    
     protected int _a;
-    
-
 }
 
 
@@ -106,26 +94,18 @@ class C
 // this class cannot be public class, as public class should be in the same file name (Gingleton.java)
 class Gingleton 
 {
-
     private static Gingleton INSTANCE = null;
-
-
     public static Gingleton getInstance()
     {
-
         if ( INSTANCE == null )
         {
-
             INSTANCE = new Gingleton();
-
         }
 
         return INSTANCE;
-
     }
     private Gingleton() 
     {
-
     }
 
 }
@@ -145,83 +125,76 @@ class test1
         }
         int[] b = new int[3];
         System.out.println("the size is " + b.length); // java has no size()
-
     }
 
     public static void maptest(String args[])
     {
+	Map<String, Integer> m = new HashMap<String, Integer>();
 
+	// Initialize frequency table from command line
+	for (String a : args) {
 
-            Map<String, Integer> m = new HashMap<String, Integer>();
+	    Integer freq = m.get(a);
 
-            // Initialize frequency table from command line
-            for (String a : args) {
+	    m.put(a, (freq == null) ? 1 : freq + 1);
 
-                Integer freq = m.get(a);
+	}
 
-                m.put(a, (freq == null) ? 1 : freq + 1);
+	System.out.println(m.size() + " distinct words:");
+	System.out.println(m);
 
-            }
+	for (Map.Entry e : m.entrySet()) // there are keySet() and valueSet() as well.
+	    System.out.println(e.getKey() + " : " + e.getValue());
 
-            System.out.println(m.size() + " distinct words:");
-
-            System.out.println(m);
-
-            for (Map.Entry e : m.entrySet()) // there are keySet() and valueSet() as well.
-                System.out.println(e.getKey() + " : " + e.getValue());
-
-            // same
-            System.out.println("****************************1");
+	// same
+	System.out.println("****************************1");
             
-            for (Map.Entry<String, Integer> e : m.entrySet()) // Map.Entry<..>
-                System.out.println(e.getKey() + " : " + e.getValue());
+	for (Map.Entry<String, Integer> e : m.entrySet()) // Map.Entry<..>
+	    System.out.println(e.getKey() + " : " + e.getValue());
 
-            System.out.println("****************************2");
+	System.out.println("****************************2");
 
-            for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
-                Map.Entry e = it.next(); // works fine
-                System.out.println(e.getKey() + " : " + e.getValue());
-            }
+	for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
+	    Map.Entry e = it.next(); // works fine
+	    System.out.println(e.getKey() + " : " + e.getValue());
+	}
 
-            System.out.println("****************************3");
+	System.out.println("****************************3");
 
-            for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
-                Map.Entry<String, Integer>  e = it.next(); // works fine a well
-                System.out.println(e.getKey() + " : " + e.getValue());
-            }
+	for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
+	    Map.Entry<String, Integer>  e = it.next(); // works fine a well
+	    System.out.println(e.getKey() + " : " + e.getValue());
+	}
 
-            System.out.println("****************************4");
+	System.out.println("****************************4");
 
-            /*
-            for (Iterator it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error. Iterator is Object type.
-                                                                         // but m.entrySet.iterator() is Map.Entry<String, Integer> type
-                Map.Entry<String, Integer>  e = it.next(); // works fine a well
-                System.out.println(e.getKey() + " : " + e.getValue());
-            }
-            */
+	/*
+	  for (Iterator it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error. Iterator is Object type.
+	  // but m.entrySet.iterator() is Map.Entry<String, Integer> type
+	  Map.Entry<String, Integer>  e = it.next(); // works fine a well
+	  System.out.println(e.getKey() + " : " + e.getValue());
+	  }
+	*/
 
-            Map<String, Integer> m2 = new HashMap<String, Integer>(m);
+	Map<String, Integer> m2 = new HashMap<String, Integer>(m);
 
-            m2.put("test", 1);
+	m2.put("test", 1);
 
-            if(m2.keySet().equals(m.keySet()))
-                System.out.println("m and m2 has same keyset");
+	if(m2.keySet().equals(m.keySet()))
+	    System.out.println("m and m2 has same keyset");
             
 
-            if(m2.keySet().containsAll(m.keySet()))
-                System.out.println("m2 contains m");
+	if(m2.keySet().containsAll(m.keySet()))
+	    System.out.println("m2 contains m");
             
     }
-    
-    
    
-       // this function is declared as static, as non-static function cannot be called in static function.
+    // this function is declared as static, as non-static function cannot be called in static function.
     public static void test2() 
     {
         Gingleton a = Gingleton.getInstance();
         System.out.println(a);
     }
-    
     
     public static void test1() 
     {
@@ -241,7 +214,6 @@ class test1
             System.out.println("C is instance of Object");
         
         System.out.println("c.isConfusing() is " + c.isConfusing());
-        
     }
 
     /*
@@ -300,7 +272,6 @@ class test1
             System.out.println("ls is string list");
         else
             System.out.println("NO!!");
-        
     }
 
     public static void stringTest()
@@ -313,27 +284,18 @@ class test1
 
         System.out.println(" " + a + " " + b + " " + c);
         
-
         if (a.equals(b)) {
 
             if (a == b) {
-
                 System.out.println("1");
-
             } else if (a == c) {
-
                 System.out.println("2");
-
             } else {
-
                 System.out.println("3");
-
             }
 
         } else {
-
             System.out.println("4");
-
         }
         
         System.out.println("abc");
@@ -348,9 +310,5 @@ class test1
 
         System.out.println(e);
         System.out.println(f);
-
-
     }
-
-    
 }

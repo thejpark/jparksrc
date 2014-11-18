@@ -28,7 +28,7 @@ public class MyFindCommonAncestor implements FindCommonAncestor
     Set<String> findParent(String a, String[] ch, String[][] ph)
     {
 	int k = find(ch, a);
-	Set<String> r = new HashSet<String>();
+	Set<String> r = new HashSet();
 
 	if (null == ph[k])
 	    return r;
