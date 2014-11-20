@@ -14,7 +14,7 @@ public class MyFlattenTree<T> implements FlattenTree<T>
         
         public List<T> apply(T p) 
         {
-            List<T> r = new ArrayList();
+	    List<T> r = new ArrayList();
             r.add(p);
             return r;
         }
@@ -44,7 +44,7 @@ public class MyFlattenTree<T> implements FlattenTree<T>
     public List<T> flattenInOrder(Tree<T> tree) 
     {
         if (tree == null)
-            throw new java.lang.IllegalArgumentException();
+	    return new ArrayList<T>();
         
         Either<T, Triple<Tree<T>>> n =  tree.get();
 

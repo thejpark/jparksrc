@@ -30,7 +30,8 @@ public class FooTest {
             int p = it.next();
 	    org.junit.Assert.assertEquals("failure - not equal", a[i++], p);
         }
-
+    }
+    
     @Test
     public void test2() {
 	int[] a = {1, 5, 4, 9, 6, 3};
@@ -38,7 +39,7 @@ public class FooTest {
         Tree<Integer> l1 = Tree.Leaf.leaf(a[0]);
         Tree<Integer> l2 = Tree.Leaf.leaf(a[4]);
         Tree<Integer> t = new Tree.Node(l1, n, l2);
-        Tree<Integer> t = new Tree.Node(it, Tree.Leaf.leaf(a[5], null));
+        t = new Tree.Node(t, Tree.Leaf.leaf(a[5]), null);
         MyFlattenTree<Integer> mt = new MyFlattenTree<Integer>();
         List<Integer> l = mt.flattenInOrder(t);
         Iterator<Integer> it = l.iterator();
