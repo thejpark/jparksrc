@@ -138,6 +138,9 @@ class test1
         }
         int[] b = new int[3];
         System.out.println("the size is " + b.length); // java has no size()
+	String ss = new String("Hello World !!!");
+	for (String s: ss.split(" "))
+	    System.out.println(s);
     }
 
     public static void maptest(String args[])
