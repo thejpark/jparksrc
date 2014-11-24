@@ -126,7 +126,8 @@ Software release
 6.4 copy that mot file to the Build/RxDebug of the release folder
 7. commit source code change (version related) and binary file (including mot).
    The commit comment should starts with Jira card number for this release.
-
+7.1 add binary for the Hat Upgrade as well.
+7.2 change HwTest/config.py old nad new version.
 8. svn up to check whether it is fine
 9. step_all --midnight
 10. copy the result and put it in the Jira card as a comment
