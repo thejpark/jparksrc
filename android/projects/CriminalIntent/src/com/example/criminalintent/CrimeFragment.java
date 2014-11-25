@@ -63,7 +63,11 @@ public class CrimeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, parent, false);
-  
+        
+        if (mCrime.getTitle() != null) {
+            getActivity().setTitle(mCrime.getTitle());
+        }
+        
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 	    if (NavUtils.getParentActivityName(getActivity()) != null)
 		if (getActivity().getActionBar() != null)
@@ -75,6 +79,7 @@ public class CrimeFragment extends Fragment {
         mTitleField.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence c, int start, int before, int count) {
                 mCrime.setTitle(c.toString());
+                getActivity().setTitle(mCrime.getTitle());
             }
 
             public void beforeTextChanged(CharSequence c, int start, int count, int after) {
@@ -119,6 +124,12 @@ public class CrimeFragment extends Fragment {
             mCrime.setDate(date);
             updateDate();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CrimeLab.get(getActivity()).saveCrimes();
     }
 
     @Override
