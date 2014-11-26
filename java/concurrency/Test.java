@@ -19,8 +19,9 @@ public class Test {
     public void test1() {
     }
 
-    public static void assertConcurrent(final String message, final List<? extends Runnable> runnables,
-					final int maxTimeoutSeconds) throws InterruptedException {
+    public static void assertConcurrent(final String message,
+		final List<? extends Runnable> runnables,
+		final int maxTimeoutSeconds) throws InterruptedException {
 	final int numThreads = runnables.size();
 	final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<Throwable>());
 	final ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
