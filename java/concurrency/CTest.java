@@ -1,4 +1,4 @@
-packae concurrency;
+package concurrency;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import java.lang.*;
  *
  * @author user@example.com (Jung Gyu Park)
  */
-public class Test {
+public class CTest {
 
     @Test
     public void test1() {
@@ -24,11 +24,11 @@ public class Test {
 		final int maxTimeoutSeconds) throws InterruptedException {
 	final int numThreads = runnables.size();
 	final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<Throwable>());
-	final ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
+	final java.util.concurrent.ExecutorService threadPool = java.util.concurrent.Executors.newFixedThreadPool(numThreads);
 	try {
-            final CountDownLatch allExecutorThreadsReady = new CountDownLatch(numThreads);
-            final CountDownLatch afterInitBlocker = new CountDownLatch(1);
-            final CountDownLatch allDone = new CountDownLatch(numThreads);
+            final java.util.concurrent.CountDownLatch allExecutorThreadsReady = new java.util.concurrent.CountDownLatch(numThreads);
+            final java.util.concurrent.CountDownLatch afterInitBlocker = new java.util.concurrent.CountDownLatch(1);
+            final java.util.concurrent.CountDownLatch allDone = new java.util.concurrent.CountDownLatch(numThreads);
             for (final Runnable submittedTestRunnable : runnables) {
 		threadPool.submit(new Runnable() {
 			public void run() {
@@ -45,14 +45,14 @@ public class Test {
 		    });
             }
             // wait until all threads are ready
-            assertTrue("Timeout initializing threads! Perform long lasting initializations before passing runnables to assertConcurrent",
-		       allExecutorThreadsReady.await(runnables.size() * 10, TimeUnit.MILLISECONDS));
+            org.junit.Assert.assertTrue("Timeout initializing threads! Perform long lasting initializations before passing runnables to assertConcurrent",
+		       allExecutorThreadsReady.await(runnables.size() * 10, java.util.concurrent.TimeUnit.MILLISECONDS));
             // start all test runners
             afterInitBlocker.countDown();
-            assertTrue(message +" timeout! More than" + maxTimeoutSeconds + "seconds", allDone.await(maxTimeoutSeconds, TimeUnit.SECONDS));
+            org.junit.Assert.assertTrue(message +" timeout! More than" + maxTimeoutSeconds + "seconds", allDone.await(maxTimeoutSeconds, java.util.concurrent.TimeUnit.SECONDS));
 	} finally {
             threadPool.shutdownNow();
 	}
-	assertTrue(message + "failed with exception(s)" + exceptions, exceptions.isEmpty());
+	org.junit.Assert.assertTrue(message + "failed with exception(s)" + exceptions, exceptions.isEmpty());
     }
 }
