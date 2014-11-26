@@ -26,3 +26,6 @@
 
 - Linux and ssh tunneling
  :http://www.superb.net/blog/2013/05/10/linux-ssh-tunneling-what-it-is-how-to-do-it/
+
+ 
+- to ssh without passwd: add public key (id_rsa.pub) to .ssh/authorized_keys of the target (remote) machine.
