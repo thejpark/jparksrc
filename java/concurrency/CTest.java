@@ -22,26 +22,22 @@ class IntData
     }
 
     void inc() {
-	count++;
+	for (int i = 0; i < 100; ++i)
+	    count++;
     }
 
-    boolean equals(int x)
-    {
-	return x == count;
-    }
-    
-    private int count;
+    int count;
 }
 
 
 public class CTest {
 
-    @Test
+    @Ignore
     public void test1() {
 	final IntData count = new IntData();
 	
 	List<Runnable> r = new ArrayList();
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 1000; ++i) {
 	    r.add(new Runnable() {
 		    public void run() {
 			count.inc();
@@ -50,11 +46,10 @@ public class CTest {
 	}
 	try {
 	    assertConcurrent("failed to run concurrently", r, 5);
-	    assertEquals("count should be 100", count.equals(100));
 	} catch (final Throwable e) {
-
-	    System.out.println("Error failed");
+	    System.out.println("Error failed" + e);
 	}
+	assertEquals("count should be 100000", 100000, count.count);
     }
 
     @Test
