@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 import java.util.*;
 import java.util.concurrent.*;
 import java.lang.*;
-
+import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Tests for {@link Foo}.
  *
@@ -27,6 +27,21 @@ class UnsafeIntData
     }
 
     int count;
+}
+
+class AtomicIntData
+{
+    AtomicIntData()
+    {
+	count = new AtomicInteger(0);
+    }
+
+    void inc() {
+	for (int i = 0; i < 100; ++i)
+	    count.incrementAndGet();
+    }
+
+    AtomicInteger count;
 }
 
 class SafeIntData
@@ -68,7 +83,7 @@ public class CTest {
     }
 
     @Test
-    public void test2() {
+     public void test2() {
 	final SafeIntData count = new SafeIntData();
 	
 	List<Runnable> r = new ArrayList();
@@ -85,6 +100,26 @@ public class CTest {
 	    System.out.println("Error failed" + e);
 	}
 	assertEquals("count should be 100000", 100000, count.count);
+    }
+
+   @Test
+   public void test3() {
+	final AtomicIntData count = new AtomicIntData();
+	
+	List<Runnable> r = new ArrayList();
+	for (int i = 0; i < 1000; ++i) {
+	    r.add(new Runnable() {
+		    public void run() {
+			count.inc();
+		    }
+		});
+	}
+	try {
+	    assertConcurrent("failed to run concurrently", r, 5);
+	} catch (final Throwable e) {
+	    System.out.println("Error failed" + e);
+	}
+	assertEquals("count should be 100000", 100000, count.count.get());
     }
 
     public static void assertConcurrent(final String message,
