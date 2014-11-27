@@ -8,7 +8,9 @@ import org.junit.runners.JUnit4;
 import java.util.*;
 import java.util.concurrent.*;
 import java.lang.*;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.*;
+import java.math.BigInteger;
+
 /**
  * Tests for {@link Foo}.
  *
@@ -59,6 +61,15 @@ class SafeIntData
     int count;
 }
 
+
+class UnsafeFactorizesss
+{
+    private final AtomicReference<BigInteger> lastNumber =
+	new AtomicReference();
+    private final AtomicReference<BigInteger[]> lastFactors =
+	new AtomicReference();
+
+}
 
 public class CTest {
 
