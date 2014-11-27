@@ -14,11 +14,47 @@ import java.lang.*;
  *
  * @author user@example.com (Jung Gyu Park)
  */
+class IntData
+{
+    IntData()
+    {
+	count = 0;
+    }
+
+    void inc() {
+	count++;
+    }
+
+    boolean equals(int x)
+    {
+	return x == count;
+    }
+    
+    private int count;
+}
+
+
 public class CTest {
 
     @Test
     public void test1() {
+	final IntData count = new IntData();
+	
+	List<Runnable> r = new ArrayList();
+	for (int i = 0; i < 100; ++i) {
+	    r.add(new Runnable() {
+		    public void run() {
+			count.inc();
+		    }
+		});
+	}
+	try {
+	    assertConcurrent("failed to run concurrently", r, 5);
+	    assertEquals("count should be 100", count.equals(100));
+	} catch (final Throwable e) {
 
+	    System.out.println("Error failed");
+	}
     }
 
     @Test
