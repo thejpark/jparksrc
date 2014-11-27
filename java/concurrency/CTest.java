@@ -14,9 +14,9 @@ import java.lang.*;
  *
  * @author user@example.com (Jung Gyu Park)
  */
-class IntData
+class UnsafeIntData
 {
-    IntData()
+    UnsafeIntData()
     {
 	count = 0;
     }
@@ -29,12 +29,27 @@ class IntData
     int count;
 }
 
+class SafeIntData
+{
+    SafeIntData()
+    {
+	count = 0;
+    }
+
+    synchronized void inc() {
+	for (int i = 0; i < 100; ++i)
+	    count++;
+    }
+
+    int count;
+}
+
 
 public class CTest {
 
     @Ignore
     public void test1() {
-	final IntData count = new IntData();
+	final UnsafeIntData count = new UnsafeIntData();
 	
 	List<Runnable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
@@ -54,7 +69,22 @@ public class CTest {
 
     @Test
     public void test2() {
-
+	final SafeIntData count = new SafeIntData();
+	
+	List<Runnable> r = new ArrayList();
+	for (int i = 0; i < 1000; ++i) {
+	    r.add(new Runnable() {
+		    public void run() {
+			count.inc();
+		    }
+		});
+	}
+	try {
+	    assertConcurrent("failed to run concurrently", r, 5);
+	} catch (final Throwable e) {
+	    System.out.println("Error failed" + e);
+	}
+	assertEquals("count should be 100000", 100000, count.count);
     }
 
     public static void assertConcurrent(final String message,
