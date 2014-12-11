@@ -172,6 +172,9 @@ public class CTest {
 	} catch (final Throwable e) {
 	    System.out.println("Error failed" + e);
 	}
+	assertEquals("the size of vm should be the same with the number of tasks", r.size(), vm.size());
+	int[] res = new int[3];
+
     }
 
     public static void assertConcurrent(final String message,
