@@ -156,18 +156,22 @@ public class CTest {
 
 	List<String> ls = new ArrayList();
 	String[] s = {"163.152", "123.456", "192.111"};
+	int[] ai = new int[3];
 	// populate ls (input data) here
 	Random ran = new Random();
 	int size = s.length;
 	for (int i = 0; i < 10000; ++i) {
-	    ls.add(s[ran.nextInt(size)]);
+	    int index = ran.nextInt(size);
+	    ls.add(s[index]);
+	    ai[index]++;
 	}
+	assertEquals("total number of items shouls be same", size, ai[0] + ai[1] + ai[2]);
+
 	try {
 	    assertConcurrent2("failed to run concurrently", r, 5, ls, vm);
 	} catch (final Throwable e) {
 	    System.out.println("Error failed" + e);
 	}
-	assertEquals("count should be 3", 100000, count.count.get());
     }
 
     public static void assertConcurrent(final String message,
