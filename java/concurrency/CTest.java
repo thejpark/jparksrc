@@ -165,7 +165,7 @@ public class CTest {
 	    ls.add(s[index]);
 	    ai[index]++;
 	}
-	assertEquals("total number of items shouls be same", size, ai[0] + ai[1] + ai[2]);
+	assertEquals("total number of items shouls be same", 10000, ai[0] + ai[1] + ai[2]);
 
 	try {
 	    assertConcurrent2("failed to run concurrently", r, 5, ls, vm);
