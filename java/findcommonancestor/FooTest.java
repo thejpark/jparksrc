@@ -1,5 +1,8 @@
 //export CLASSPATH=~/wrk/jparksrc/java/hamcrest-core-1.3.jar:~/wrk/jparksrc/java/junit-4.12-beta-3.jar:$CLASSPATH
 //java -cp .:./junit-4.12-beta-3.jar:./hamcrest-core-1.3.jar  org.junit.runner.JUnitCore findcommonancestor.FooTest
+// how to run in windows cygwin?
+ // java -classpath `cygpath -wp "/cygdrive/c/home/junggyup/wrk/jparksrc/java:/cygdrive/c/home/junggyup/wrk/jparksrc/java/hamcrest-core-1.3.jar:/cygdrive/c/home/junggyup/wrk/jparksrc/java/junit-4.12-beta-3.jar"` org.junit.runner.JUnitCore concurrency.CTestpackage concurrency;
+
 
 package findcommonancestor;
 
