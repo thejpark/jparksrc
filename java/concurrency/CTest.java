@@ -121,7 +121,7 @@ public class CTest {
     }
 
     @Test
-     public void test2() {
+     public void test2() throws InterruptedException {
 	final SafeIntData count = new SafeIntData();
 	
 	List<Runnable> r = new ArrayList();
@@ -132,11 +132,7 @@ public class CTest {
 		    }
 		});
 	}
-	try {
-	    assertConcurrent("failed to run concurrently", r, 5);
-	} catch (final Throwable e) {
-	    System.out.println("Error failed" + e);
-	}
+	assertConcurrent("failed to run concurrently", r, 5);
 	assertEquals("count should be 100000", 100000, count.count);
     }
 
@@ -168,14 +164,28 @@ public class CTest {
 	}
 	
 	Vector<Map<String, Integer> > vm = new Vector<Map<String, Integer> >();
-	
+
 	List<String> ls = new ArrayList();
+	String[] s = {"163.152", "123.456", "192.111"};
+	int[] ai = new int[3];
+	// populate ls (input data) here
+	Random ran = new Random();
+	int size = s.length;
+	for (int i = 0; i < 10000; ++i) {
+	    int index = ran.nextInt(size);
+	    ls.add(s[index]);
+	    ai[index]++;
+	}
+	assertEquals("total number of items shouls be same", 10000, ai[0] + ai[1] + ai[2]);
+
 	try {
 	    assertConcurrent2("failed to run concurrently", r, 5, ls, vm);
 	} catch (final Throwable e) {
 	    System.out.println("Error failed" + e);
 	}
-	// assertEquals("count should be 100000", 100000, count.count.get());
+	assertEquals("the size of vm should be the same with the number of tasks", r.size(), vm.size());
+	int[] res = new int[3];
+
     }
 
     public static void assertConcurrent(final String message,
@@ -240,6 +250,7 @@ public class CTest {
 				    i = index.incrementAndGet();
 				}
 				submittedTestRunnable.emit(output);
+				submittedTestRunnable.clear();
 			    } catch (final Throwable e) {
 				exceptions.add(e);
 			    } finally {
