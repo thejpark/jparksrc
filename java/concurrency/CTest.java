@@ -30,10 +30,11 @@ class CheckIp implements Runnable1 {
     public void run(String s) {
 	Integer count = m.get(s);
 	m.put(s, (count == null) ? 1 : count + 1);
+	// System.out.println(s + " " + m.get(s));
     }
 
     public void emit(Vector<Map<String, Integer> > vm) {
-	vm.add(m);
+	vm.add(new HashMap(m));
     }
 
     public void clear() {
@@ -177,6 +178,7 @@ public class CTest {
 	    ai[index]++;
 	}
 	assertEquals("total number of items shouls be same", 10000, ai[0] + ai[1] + ai[2]);
+	assertEquals("total number of items shouls be same", 10000, ls.size());
 
 	try {
 	    assertConcurrent2("failed to run concurrently", r, 5, ls, vm);
@@ -184,8 +186,36 @@ public class CTest {
 	    System.out.println("Error failed" + e);
 	}
 	assertEquals("the size of vm should be the same with the number of tasks", r.size(), vm.size());
-	int[] res = new int[3];
 
+	Map<String, Integer> result = new HashMap<String, Integer>();
+	Map<String, Integer> exp = new HashMap<String, Integer>();
+	for (int i = 0; i < s.length; ++i) {
+	    result.put(s[i], 0);
+	    exp.put(s[i], ai[i]);
+	}
+	
+	int count = 0;
+	for (Map<String, Integer> m : vm) {
+	    for (Map.Entry<String, Integer> e : m.entrySet()) {
+		count += e.getValue();
+	    }
+	}
+
+	assertEquals("the size of elements should be the same with the number of result", 10000, count);
+	
+	for (Map<String, Integer> m : vm) {
+	    for (Map.Entry<String, Integer> e : m.entrySet()) {
+		Integer i = result.get(e.getKey());
+		result.put(e.getKey(), i + e.getValue());
+	    }
+	}
+	
+	assertEquals("the size of s should be the same with the number of result", exp.size(), result.size());
+
+	for (String si: s) {
+	    assertEquals("the number of occurences should be same", result.get(si), exp.get(si));
+	    System.out.println("the result is " + si + " : " + result.get(si));
+	}
     }
 
     public static void assertConcurrent(final String message,
@@ -237,7 +267,7 @@ public class CTest {
             final CountDownLatch allExecutorThreadsReady = new CountDownLatch(numThreads);
             final CountDownLatch afterInitBlocker = new CountDownLatch(1);
             final CountDownLatch allDone = new CountDownLatch(numThreads);
-	    final AtomicInteger index = new AtomicInteger(0);
+	    final AtomicInteger index = new AtomicInteger(-1);
             for (final Runnable1 submittedTestRunnable : runnables) {
 		threadPool.submit(new Runnable() {
 			public void run() {
@@ -250,7 +280,7 @@ public class CTest {
 				    i = index.incrementAndGet();
 				}
 				submittedTestRunnable.emit(output);
-				submittedTestRunnable.clear();
+				// submittedTestRunnable.clear();
 			    } catch (final Throwable e) {
 				exceptions.add(e);
 			    } finally {
