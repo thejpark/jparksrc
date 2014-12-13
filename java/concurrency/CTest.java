@@ -26,7 +26,7 @@ class CheckIp implements Runnable1 {
     CheckIp() {
 	m = new HashMap();
     }
-	    
+
     public void run(String s) {
 	Integer count = m.get(s);
 	m.put(s, (count == null) ? 1 : count + 1);
@@ -40,7 +40,7 @@ class CheckIp implements Runnable1 {
     public void clear() {
 	m.clear();
     }
-    
+
     Map<String, Integer> m;
 }
 
@@ -104,7 +104,7 @@ public class CTest {
     @Ignore
     public void test1() {
 	final UnsafeIntData count = new UnsafeIntData();
-	
+
 	List<Runnable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new Runnable() {
@@ -124,7 +124,7 @@ public class CTest {
     @Test
      public void test2() throws InterruptedException {
 	final SafeIntData count = new SafeIntData();
-	
+
 	List<Runnable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new Runnable() {
@@ -140,7 +140,7 @@ public class CTest {
    @Test
    public void test3() {
 	final AtomicIntData count = new AtomicIntData();
-	
+
 	List<Runnable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new Runnable() {
@@ -163,7 +163,7 @@ public class CTest {
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new CheckIp());
 	}
-	
+
 	Vector<Map<String, Integer> > vm = new Vector<Map<String, Integer> >();
 
 	List<String> ls = new ArrayList();
@@ -193,24 +193,17 @@ public class CTest {
 	    result.put(s[i], 0);
 	    exp.put(s[i], ai[i]);
 	}
-	
+
 	int count = 0;
 	for (Map<String, Integer> m : vm) {
 	    for (Map.Entry<String, Integer> e : m.entrySet()) {
+		Integer i = result.get(e.getKey());
+		result.put(e.getKey(), i + e.getValue());
 		count += e.getValue();
 	    }
 	}
 
 	assertEquals("the size of elements should be the same with the number of result", 10000, count);
-	
-	for (Map<String, Integer> m : vm) {
-	    for (Map.Entry<String, Integer> e : m.entrySet()) {
-		Integer i = result.get(e.getKey());
-		result.put(e.getKey(), i + e.getValue());
-	    }
-	}
-	
-	assertEquals("the size of s should be the same with the number of result", exp.size(), result.size());
 
 	for (String si: s) {
 	    assertEquals("the number of occurences should be same", result.get(si), exp.get(si));
@@ -254,7 +247,7 @@ public class CTest {
 	}
 	assertTrue(message + "failed with exception(s)" + exceptions, exceptions.isEmpty());
     }
-    
+
     public static void assertConcurrent2(final String message,
 					 final List<? extends Runnable1> runnables,
 					 final int maxTimeoutSeconds,
