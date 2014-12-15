@@ -211,6 +211,13 @@ public class CTest {
 	}
     }
 
+    @Test
+    public void test5()
+    {
+	// cache hit test with big synchronized block, fine grained synchronized block, and read-write lock.
+
+    }
+
     public static void assertConcurrent(final String message,
 		final List<? extends Runnable> runnables,
 		final int maxTimeoutSeconds) throws InterruptedException {
