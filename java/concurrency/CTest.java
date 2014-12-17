@@ -16,34 +16,6 @@ import java.math.BigInteger;
  *
  * @author user@example.com (Jung Gyu Park)
  */
-interface Runnable1 {
-    public void run(String s);
-    public void emit(Vector<Map<String, Integer> > vm);
-    public void clear();
-}
-
-class CheckIp implements Runnable1 {
-    CheckIp() {
-	m = new HashMap();
-    }
-
-    public void run(String s) {
-	Integer count = m.get(s);
-	m.put(s, (count == null) ? 1 : count + 1);
-	// System.out.println(s + " " + m.get(s));
-    }
-
-    public void emit(Vector<Map<String, Integer> > vm) {
-	vm.add(new HashMap(m));
-    }
-
-    public void clear() {
-	m.clear();
-    }
-
-    Map<String, Integer> m;
-}
-
 class UnsafeIntData
 {
     UnsafeIntData()
@@ -159,7 +131,7 @@ public class CTest {
 
    @Test
    public void test4() {
-	List<Runnable1> r = new ArrayList();
+	List<IpCheckable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new CheckIp());
 	}
@@ -256,7 +228,7 @@ public class CTest {
     }
 
     public static void assertConcurrent2(final String message,
-					 final List<? extends Runnable1> runnables,
+					 final List<? extends IpCheckable> runnables,
 					 final int maxTimeoutSeconds,
 					 final List<String> data,
 					 final Vector<Map<String, Integer> > output) throws InterruptedException {
@@ -268,7 +240,7 @@ public class CTest {
             final CountDownLatch afterInitBlocker = new CountDownLatch(1);
             final CountDownLatch allDone = new CountDownLatch(numThreads);
 	    final AtomicInteger index = new AtomicInteger(-1);
-            for (final Runnable1 submittedTestRunnable : runnables) {
+            for (final IpCheckable submittedTestRunnable : runnables) {
 		threadPool.submit(new Runnable() {
 			public void run() {
 			    allExecutorThreadsReady.countDown();
@@ -276,7 +248,7 @@ public class CTest {
 				afterInitBlocker.await();
 				int i = index.incrementAndGet();
 				while (i < data.size()) {
-				    submittedTestRunnable.run(data.get(i));
+				    submittedTestRunnable.check(data.get(i));
 				    i = index.incrementAndGet();
 				}
 				submittedTestRunnable.emit(output);
