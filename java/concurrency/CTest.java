@@ -280,7 +280,7 @@ public class CTest {
 				    i = index.incrementAndGet();
 				}
 				submittedTestRunnable.emit(output);
-				// submittedTestRunnable.clear();
+				submittedTestRunnable.clear();
 			    } catch (final Throwable e) {
 				exceptions.add(e);
 			    } finally {
