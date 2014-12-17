@@ -62,15 +62,6 @@ class SafeIntData
 }
 
 
-class UnsafeFactorizesss
-{
-    private final AtomicReference<BigInteger> lastNumber =
-	new AtomicReference();
-    private final AtomicReference<BigInteger[]> lastFactors =
-	new AtomicReference();
-
-}
-
 public class CTest {
 
     @Ignore
