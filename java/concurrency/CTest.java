@@ -170,7 +170,7 @@ public class CTest {
 
 	for (String si: s) {
 	    assertEquals("the number of occurences should be same", result.get(si), exp.get(si));
-	    System.out.println("the result is " + si + " : " + result.get(si));
+	    // System.out.println("the result is " + si + " : " + result.get(si));
 	}
     }
 
