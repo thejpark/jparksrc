@@ -85,7 +85,7 @@ public class CTest {
     }
 
     @Test
-     public void test2() throws InterruptedException {
+    public void test2() throws InterruptedException {
 	final SafeIntData count = new SafeIntData();
 
 	List<Runnable> r = new ArrayList();
@@ -100,8 +100,8 @@ public class CTest {
 	assertEquals("count should be 100000", 100000, count.count);
     }
 
-   @Test
-   public void test3() {
+    @Test
+    public void test3() {
 	final AtomicIntData count = new AtomicIntData();
 
 	List<Runnable> r = new ArrayList();
@@ -120,8 +120,9 @@ public class CTest {
 	assertEquals("count should be 100000", 100000, count.count.get());
     }
 
-   @Test
-   public void test4() {
+    @Test
+    public void test4() {
+	long startTime = System.nanoTime();
 	List<IpCheckable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new CheckIp());
@@ -172,6 +173,8 @@ public class CTest {
 	    assertEquals("the number of occurences should be same", result.get(si), exp.get(si));
 	    // System.out.println("the result is " + si + " : " + result.get(si));
 	}
+	long endTime = System.nanoTime();
+	System.out.println("Time spend in test 4 is " + (endTime - startTime));
     }
 
     @Test
@@ -182,8 +185,8 @@ public class CTest {
     }
 
     public static void assertConcurrent(final String message,
-		final List<? extends Runnable> runnables,
-		final int maxTimeoutSeconds) throws InterruptedException {
+					final List<? extends Runnable> runnables,
+					final int maxTimeoutSeconds) throws InterruptedException {
 	final int numThreads = runnables.size();
 	final List<Throwable> exceptions = Collections.synchronizedList(new ArrayList<Throwable>());
 	final ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
