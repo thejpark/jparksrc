@@ -49,11 +49,11 @@ public class MyFlattenTree<T> implements FlattenTree<T>
         Either<T, Triple<Tree<T>>> n =  tree.get();
 
         if (n.isLeft()) {
-            List<T> l = n.ifLeft(new myfunc(this)); // I have to use singletone
+            List<T> l = n.ifLeft(new myfunc(this)); 
             return l;
         } else {
 
-            List<T> l = n.ifRight(new myfunc2(this)); // I have to use singletone
+            List<T> l = n.ifRight(new myfunc2(this));
             return l;
         }
 

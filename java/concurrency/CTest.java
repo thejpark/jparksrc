@@ -181,7 +181,10 @@ public class CTest {
     public void test5()
     {
 	// cache hit test with big synchronized block, fine grained synchronized block, and read-write lock.
-
+	// add sortedset x = new treeset to test1.java file or here.
+	// Hashtable, synchronizedMap, concurrentMap
+	// vector, copyonwritearraylist, copyonwritearrayset, synchronizedlist, synchronizedset
+	// blockingqueue, concurrentlinkedqueue
     }
 
     public static void assertConcurrent(final String message,

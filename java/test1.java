@@ -90,7 +90,7 @@ class C
  *
  */ 
 // Nested classes are divided into two categories: static and non-static.
-// Nested lasses that are declared static are simply called static nested
+// Nested classes that are declared static are simply called static nested
 // classes. Non-static nested classes are called inner classes.
 // Static nested classes are accessed using the enclosing class name:
 // OuterClass.StaticNestedClass
@@ -141,7 +141,17 @@ class test1
 	String ss = new String("Hello World !!!");
 	for (String s: ss.split(" "))
 	    System.out.println(s);
+	argtest(ss);
+	System.out.println(ss);
+	String x[] = {"this", "is", "this"};
+	maptest(x);
     }
+
+    static void argtest(String s)
+    {
+	s = new String("this is old world");
+    }
+
 
     public static void maptest(String args[])
     {
