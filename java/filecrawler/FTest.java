@@ -30,14 +30,11 @@ public class FTest {
 		}
 	    };
 
-	File roots[] = (new File("/Users/jpark/wrk/jparksrc")).listFiles(ft);
-	for (File root : roots)
-	    System.out.println(root);
+	File roots[] = (new File("/Users/jpark/wrk/jparksrc/java")).listFiles(ft);
 	for (File root : roots)
 	    new Thread(new FileCrawler(queue, ft, root)).start();
 	for (int i = 0; i < N_CONSUMERS; ++i)
 	    new Thread(new Indexer(queue)).start();
-	// assertEquals("count should be 100000", 100000, count.count);
     }
 
 }

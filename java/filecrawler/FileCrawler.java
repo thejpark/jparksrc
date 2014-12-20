@@ -28,7 +28,7 @@ class FileCrawler implements Runnable {
 	File[] entries = root.listFiles(fileFilter);
 	if (entries != null) {
 	    for (File entry : entries) {
-		if (file.isDirectory())
+		if (entry.isDirectory())
 		    crawl(entry);
 		else if (!alreadyIndexed(entry)) {
 		    fileQueue.put(entry);
