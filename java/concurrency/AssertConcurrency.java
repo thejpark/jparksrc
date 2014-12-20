@@ -83,9 +83,11 @@ class AssertConcurrency {
             assertTrue("Timeout initializing threads! Perform long lasting initializations before passing runnables to assertConcurrent",
 		       allExecutorThreadsReady.await(runnables.size() * 10, TimeUnit.MILLISECONDS));
             // start all test runners
+	    // start timer here if you want to get time spent for processing
             afterInitBlocker.countDown();
 	    // process data
             assertTrue(message +" timeout! More than" + maxTimeoutSeconds + "seconds", allDone.await(maxTimeoutSeconds, TimeUnit.SECONDS));
+	    // get time here if you want to get time spent for processing
 	} finally {
             threadPool.shutdownNow();
 	}
