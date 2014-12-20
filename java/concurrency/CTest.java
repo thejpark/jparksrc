@@ -122,7 +122,6 @@ public class CTest {
 
     @Test
     public void test4() {
-	long startTime = System.nanoTime();
 	List<IpCheckable> r = new ArrayList();
 	for (int i = 0; i < 1000; ++i) {
 	    r.add(new CheckIp());
@@ -173,18 +172,20 @@ public class CTest {
 	    assertEquals("the number of occurences should be same", result.get(si), exp.get(si));
 	    // System.out.println("the result is " + si + " : " + result.get(si));
 	}
-	long endTime = System.nanoTime();
 	System.out.println("Time spend in test 4 is " + (endTime - startTime));
     }
 
+    // cache hit test with big synchronized block, fine grained synchronized block, and read-write lock.
+    // add sortedset x = new treeset to test1.java file or here.
+    // Hashtable, synchronizedMap, concurrentMap, concurrentHashMap
+    // vector, copyonwritearraylist, copyonwritearrayset, synchronizedlist, synchronizedset
+    // blockingqueue, concurrentlinkedqueue, priorityqueue
+    // set, synchronizedSet, copyonwritearrayset
+    // item tracker
+    // file crawler
     @Test
     public void test5()
     {
-	// cache hit test with big synchronized block, fine grained synchronized block, and read-write lock.
-	// add sortedset x = new treeset to test1.java file or here.
-	// Hashtable, synchronizedMap, concurrentMap
-	// vector, copyonwritearraylist, copyonwritearrayset, synchronizedlist, synchronizedset
-	// blockingqueue, concurrentlinkedqueue
     }
 
 }
