@@ -95,16 +95,18 @@ class ConcurrentPuzzleSolver<P, M> {
     private final Puzzle<P, M> puzzle;
     private final ExecutorService exec;
     private final ConcurrentMap<P, Boolean> seen;
-    final ValueLatch<Node<P, M>> solution = new ValueLatch();
+    private final ValueLatch<Node<P, M>> solution;
 
     ConcurrentPuzzleSolver() {
 	exec = Executors.newCachedThreadPool();
+	seen = new ConcurrentHashMap();
+	solution = new ValueLatch();
     }
 
     List<M> solve() throws InterruptedException {
 	try {
 	    P pos = puzzle.initialPosition();
-	    exec.execute(newTaskp, null, null);
+	    exec.execute(newTaskp(p, null, null));
 	    // block until solution found
 	    Node<P, M> solnNode = solution.getValue();
 	    return (solnNode == null)? null:solnNode.asMoveList();
@@ -121,7 +123,7 @@ class ConcurrentPuzzleSolver<P, M> {
 	public void run() {
 	    if (solution.isSet() ||
 		seen.putIfAbsent(pos, true) != null)
-		return;
+		return;// already solved or seen this position
 	    
 	    if (puzzle.isGoal(pos)) {
 		solution.setValue(this);
