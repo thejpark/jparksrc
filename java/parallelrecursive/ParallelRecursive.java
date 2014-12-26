@@ -16,8 +16,8 @@ public<T> void parallelRecursive(final Executor exec, List<Node<T>> nodes, final
     }
 }
 
-public<T> Collection<T> getParallelResults(List<Node<T>> nodes)j
-    throws InterruptedException {
+public<T> Collection<T> getParallelResults(List<Node<T>> nodes)
+        throws InterruptedException {
     ExecutorService exec = Executors.newCachedThreadPool();
     Queue<T> resultQueue = new ConcurrentLinkedQueue();
     parallelRecursive(exec, nodes, resultQueue);
@@ -28,7 +28,7 @@ public<T> Collection<T> getParallelResults(List<Node<T>> nodes)j
 
 
 	    
-interface Pizzle<P, M> {
+interface Puzzle<P, M> {
     P initialPosition();
     boolean isGoal(P position);
     Set<M> legalMoves(P position);
@@ -96,6 +96,10 @@ class ConcurrentPuzzleSolver<P, M> {
     private final ExecutorService exec;
     private final ConcurrentMap<P, Boolean> seen;
     final ValueLatch<Node<P, M>> solution = new ValueLatch();
+
+    ConcurrentPuzzleSolver() {
+	exec = Executors.newCachedThreadPool();
+    }
 
     List<M> solve() throws InterruptedException {
 	try {
