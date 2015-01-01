@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 class A 
 {
@@ -143,7 +144,7 @@ class test1
 	    System.out.println(s);
 	argtest(ss);
 	System.out.println(ss);
-	String x[] = {"this", "is", "this"};
+	String x[] = {"a", "this", "is", "this", "b"};
 	maptest(x);
     }
 
@@ -192,15 +193,12 @@ class test1
 	    System.out.println(e.getKey() + " : " + e.getValue());
 	}
 
-	System.out.println("****************************4");
+	System.out.println("sorted map");
 
-	/*
-	  for (Iterator it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error. Iterator is Object type.
-	  // but m.entrySet.iterator() is Map.Entry<String, Integer> type
-	  Map.Entry<String, Integer>  e = it.next(); // works fine a well
-	  System.out.println(e.getKey() + " : " + e.getValue());
-	  }
-	*/
+	Map<String, Integer> sm = new TreeMap<String, Integer>(m);
+	for (Map.Entry<String, Integer> e : sm.entrySet()) {
+	    System.out.println(e.getKey());
+	}
 
 	Map<String, Integer> m2 = new HashMap<String, Integer>(m);
 
