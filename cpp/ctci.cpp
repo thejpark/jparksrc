@@ -1546,8 +1546,7 @@ int t_test_set()
 
 
 // how to partition if the size of data is too big?
-// we can perform sampling, find the value for partitioning (i.e., mid),  then do partitioning
-// hash(str) mod r is another way. Get hash value, mod r where r is the number of partitions
+// hash(str) mod r. Get hash value, mod r where r is the number of partitions
 
 //todo: 1.6, 3.1
 
