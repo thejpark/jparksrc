@@ -41,3 +41,10 @@ class FileCrawler implements Runnable {
 	return fileQueue.contains(entry);
     }
 }
+
+
+
+// file crawling request to server, and server respondes asynch, then how it will be?
+// 1) single request and single response, with queue, after processing response and q is empty then it is done.
+// 2) if single request thread and multiple response, then a blocking queue will be fine
+// 3) if multiple request thread and multiple response, then deq and work stealing queue

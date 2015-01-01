@@ -1,5 +1,6 @@
 package webserver;
 
+import java.util.concurrent.*;
 
 class WebServer {
     // single thread
@@ -46,9 +47,11 @@ class WebServer {
 
 class WebServer2 {
 
+    final int NTHREADS;
+    final ExecutorService ex;
     WebServer2() {
-	final int NTHREADS = 10;
-	ExecutorService ex = Executors.newFixedThreadPool(NTHREADS);
+	NTHREADS = 10;
+	ex = Executors.newFixedThreadPool(NTHREADS);
     }
 
     // thread pool
@@ -62,6 +65,7 @@ class WebServer2 {
 		}
 	    };
 	    ex.submit(task);
+	    // ex.execute(task);
 	}
     }
 

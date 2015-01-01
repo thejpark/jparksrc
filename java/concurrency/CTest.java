@@ -183,6 +183,8 @@ public class CTest {
     // set, synchronizedSet, copyonwritearrayset
     // item tracker
     // file crawler
+    // for producer/consumer pattern, work stealing (using deque) is a way to improve.
+    // lock striping for concurrentMap
     @Test
     public void test5()
     {
