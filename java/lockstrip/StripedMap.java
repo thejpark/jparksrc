@@ -1,14 +1,20 @@
 package lockstrip;
 
 
-class StripedMap {
+class StripedMap<K, V> {
     // Synchronization policy: buckets[n] guarded by locks[n%N_LOCKS]
-    private static finnal int N_LOCKS = 16;
+    private static final int N_LOCKS = 16;
     private final Node[] buckets;
     private final Object[] locks;
 
-    private static class Node {
-	private int n;
+    private class Node {
+	private int n
+        private v data;
+        private Node next;
+	Node() 
+	{
+	    next = null;
+	}
     }
 
     StripedMap(int numBuckets) {
@@ -18,11 +24,11 @@ class StripedMap {
 	    locks[i] = new Object();
     }
 
-    private final int hash(Object key) {
+    private final int hash(K key) {
 	return Math.abs(key.hashCode() % buckets.length);
     }
 
-    Object get(Object key) {
+    V get(K key) {
 	int hash = hash(key);
 	synchronized (locks[hash % N_LOCKS]) {
 	    for (Node m = buckets[hash]; m != null; m = m.next)
@@ -40,4 +46,3 @@ class StripedMap {
 	}
     }
 }
-	   
