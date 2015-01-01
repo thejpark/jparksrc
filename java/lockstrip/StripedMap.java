@@ -8,12 +8,14 @@ class StripedMap<K, V> {
     private final Object[] locks;
 
     private class Node {
-	private int n
-        private v data;
-        private Node next;
-	Node() 
+	K key;
+        V value;
+        Node next;
+	Node(K key, V value) 
 	{
 	    next = null;
+	    this.key = key;
+	    this.value = value;
 	}
     }
 
@@ -34,6 +36,29 @@ class StripedMap<K, V> {
 	    for (Node m = buckets[hash]; m != null; m = m.next)
 		if (m.key.equals(key))
 		    return m.value;
+	}
+	return null;
+    }
+
+    V put(K key, V value) {
+	int hash = hash(key);
+	synchronized (locks[hash % N_LOCKS]) {
+	    Node tail;
+	    for (Node m = buckets[hash]; m != null; m = m.next)
+		tail = m;
+		if (m.key.equals(key)) {
+		    V old = m.value;
+		    m.value = value;
+		    return old;
+		}
+
+	    Node n = new Node(key, value);
+	    if (tail == null) {
+		bucket[hash] = n;
+	    } else {
+		tail->next = n;
+		tail = n;
+	    }
 	}
 	return null;
     }
