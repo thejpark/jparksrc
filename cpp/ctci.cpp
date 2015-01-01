@@ -21,7 +21,6 @@
 #include <map>
 #include <stack>
 #include <memory> // auto_ptr
-#include <tr1/memory> // shared_ptr
 #include <typeinfo>
 
 using namespace std;
@@ -1085,8 +1084,7 @@ int t_thread_4()
 
 int t_shared_ptr()
 {
-
-    tr1::shared_ptr<myq2> Ptr(new myq2);
+    shared_ptr<myq2> Ptr(new myq2);
     Ptr->enq(1);
     Ptr->enq(2);
     cout << endl << "  " << Ptr->deq() <<  " " << Ptr->deq() << " " << Ptr->size() <<  endl;
@@ -1972,11 +1970,26 @@ int test_inherit()
 
 
 
-    
+ // hash example
+void hashTest ()
+{
+  char nts1[] = "Test";
+  char nts2[] = "Test";
+  std::string str1 (nts1);
+  std::string str2 (nts2);
+
+  std::hash<char*> ptr_hash;
+  std::hash<std::string> str_hash;
+
+  std::cout << "same hashes:\n" << std::boolalpha;
+  std::cout << "nts1 and nts2: " << (ptr_hash(nts1)==ptr_hash(nts2)) << '\n';
+  std::cout << "str1 and str2: " << (str_hash(str1)==str_hash(str2)) << '\n';
+
+}   
     
 
 int main()
 {
-    t13();
+    hashTest();
 }
 
