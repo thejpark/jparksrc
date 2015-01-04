@@ -61,6 +61,11 @@ class SafeIntData
     int count;
 }
 
+// for singleton implementation we can either use synchronized getInstance() method
+// or use double locking. double locking is to implement getInstance method as
+// normal method, check if instance is null, the enter synchronized block and then
+// check if the instance is still null (as the privous value of instance may be stale)
+// then do create the instance. But the instance may be still stale if it is not volatile (am I right?), so you should either use volatile or create the instance in the static initialization code (static code is thread safe). Please take a look at effective java.
 
 public class CTest {
 
