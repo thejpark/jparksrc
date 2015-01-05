@@ -166,7 +166,9 @@ class Elvis2 {
 // the serialization machinery for free, and provides an ironclad
 // guarantee against multiple instantiation, even in the face of
 // sophisticated serialization or reflection attacks.
-// Single-element enum type
+// Single-element enum type. Examples of enum is in
+// http://docs.oracle.com/javase/tutorial/java/javaOO/enum.html
+
 enum Elvis3 {
     INSTANCE;
     public void leaveTheBuilding() {}
