@@ -18,27 +18,24 @@ Questions:
  - name:, job:software engineer, living in Sydney. I was born in Korea, and graduated Korea University, earned Bacheler/MS/Ph.D
  all from CS. I have started working for Samsung from Sep 2002, stayed there until I left for Australia in May 2010. And until the
 end of this March, I have been software engineer in OKL (a.k.a GDB). and now I am working for ResMed.
-I am a father of 3, I like swimming and soccer, watching baseball.
-
-
 
 
 2. Why you quit your previous job?
 
 2.Resmed
 
-Resmed is one of the biggest manufacture of a sleep device for treating  sleep apnea with nasal air supply. 
-The company is good and generous, people are very nice. As it belongs to the medical business, it focuses heavily on testing
+Resmed is a manufacturer of sleep devices for treating sleep apnea with nasal air supply. 
+As it belongs to the medical business, it focuses heavily on testing
 and I learned many new ideas such as test-driven development, scrum, testing framework (such as google mock and python behave).
 But the device is very small (such as, no OS), so it is a bit boaring, and I am still hungry for the new challenge.
 And I like to have an experience in the domain of distributed system and 
-cloud system, So I long been hopeing to work for the company like Amazon.   
+cloud system, So I long been hopeing to work for the company like yours.
 
 Tell me more about what you are doing in ResMed:
 I am involved in implementing software for the sleep device. The sleep device is for treating sleep apnea with nasal air supply.
 It has two hardware moduls, FG and CAM. FG is the main provides therapy, and CAM provides patient information to the cloud,
-and interact with cloud for the therapy or analysis purpose. I am involved in implementing CAM software. We used web interface
-to access cloud, such as HTTP GET/POST/PUT method.
+and interact with cloud for the therapy or analysis purpose. I am involved in implementing CAM software.
+We used web interface to access cloud, such as HTTP GET/POST/PUT method.
 
 So far, the most proud of project was mobile virtualization of Android smartphone in OK labs.
 
