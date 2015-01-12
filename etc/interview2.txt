@@ -62,17 +62,13 @@ as I also had similar problem before, my father also have. I heard from my frien
 medical area. I heard from my friends that environment is very nice, like a university campus, and soccer every week,
 that sounds like fantastic for me.
 
-
 Amazon: 
-
-
 
 2.4 What kind of company do you like?
 
  - good technology and interesting work
- - people I work with is good team mate, soccer
+ - people I work with is good team mate
  - I heard that balanced life at work and life at home
- - and close from home
 
 2.5 tell me about what you did for performance optimization
  opeformance optimization was always part of my job.
@@ -106,13 +102,9 @@ initial bringup of Android, and taught LG engineers to do their bit. But as I lo
 
 What I am most proud of..?  same as above...
 
-
-
 What makes you different? hm.. 
 
-
 And what is it that you can bring to the company to make a difference?
-
 
 2.10 What is virtualisation?
 
@@ -144,7 +136,6 @@ devics from the rest of the virtualizatio system. Other isolation was going on w
 
 The theory is relatively simple, but it requires lots of engineering efforts, like a debugging
 to make it stable with separated device drivers.
-
 
 3. Describe your previous job (what you learned, most interesting, achievement, 
    	    hardest bug, enjoyed most, team work)
