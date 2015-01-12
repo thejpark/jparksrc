@@ -15,7 +15,7 @@ Questions:
 
 1. Tell me about yourself
  
- - name:, job:software engineer, living in Sydney. I was born in Korea, and graduated Korea University, earned Bacheler/MS/Ph.D
+ - name: job:software engineer, living in Sydney. I was born in Korea, and graduated Korea University, earned Bacheler/MS/Ph.D
  all from CS. I have started working for Samsung from Sep 2002, stayed there until I left for Australia in May 2010. And until the
 end of this March, I have been software engineer in OKL (a.k.a GDB). and now I am working for ResMed.
 
@@ -36,6 +36,9 @@ I am involved in implementing software for the sleep device. The sleep device is
 It has two hardware moduls, FG and CAM. FG is the main provides therapy, and CAM provides patient information to the cloud,
 and interact with cloud for the therapy or analysis purpose. I am involved in implementing CAM software.
 We used web interface to access cloud, such as HTTP GET/POST/PUT method.
+
+The command from the server is about how to collect patient information, which information to collect, when to collect, etc. The command
+also includes upgrade firmware, or upload log message in the system for analysis of the system itself.
 
 So far, the most proud of project was mobile virtualization of Android smartphone in OK labs.
 
