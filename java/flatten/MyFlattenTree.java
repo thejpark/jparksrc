@@ -52,7 +52,6 @@ public class MyFlattenTree<T> implements FlattenTree<T>
             List<T> l = n.ifLeft(new myfunc(this)); 
             return l;
         } else {
-
             List<T> l = n.ifRight(new myfunc2(this));
             return l;
         }

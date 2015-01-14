@@ -9,6 +9,7 @@ public class Either<A,B> {
 	/**
 	 * Constructs a left-type Either
 	 */
+        // static factory method in effective java
 	public static <A> Either left(A a) {
 		if (a == null) throw new IllegalArgumentException();
 		return new Either(a, null);
@@ -34,6 +35,7 @@ public class Either<A,B> {
 	/**
 	 * Applies function f to the contained value if it is a left-type and returns the result. Throws an IllegalStateException if this is a right-type Either.
 	 */
+	// is it adapter? item22 in effective java? or visitor?
 	public<T> T ifLeft(Function<A,T> f) {
 		if (!this.isLeft()) {
 			throw new IllegalStateException();
