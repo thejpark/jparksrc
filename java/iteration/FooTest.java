@@ -35,7 +35,7 @@ public class FooTest {
         x.add(1);
         x.add(2);
         x.add(3);
-        MyFunc3 mf3 = new MyFunc3();
+        MyFunc3 mf3 = MyFunc3.INSTANCE;
         
         Integer r = mf.fold(new Integer(0), x, mf3);
 	org.junit.Assert.assertEquals("failure - not equal", 6, r.intValue());
@@ -56,6 +56,26 @@ public class FooTest {
         while(it.hasNext())
 	    org.junit.Assert.assertEquals("failure - not equal", it.next().intValue(), i++);
     }
+
+    @Test
+    public void test4() {
+        Queue<Integer> x = new LinkedList();
+        MyFolder<Integer, Integer> mf = new MyFolder();
+        x.add(1);
+        x.add(2);
+        x.add(3);
+        
+	// function object can be anonmous class
+        Integer r = mf.fold(new Integer(0), x, new Function2<Integer, Integer, Integer>() {
+	    public Integer apply(Integer t, Integer u) {
+		    int x = u.intValue() + t.intValue();
+		    Integer i = new Integer(x);
+		    return i;
+	    }
+	    });
+	org.junit.Assert.assertEquals("failure - not equal", 6, r.intValue());
+    }
+
 
     @Test
     public void checkQueueEmpty() {
@@ -87,17 +107,6 @@ public class FooTest {
 	}
     }
 
-    class MyFunc3 implements Function2<Integer, Integer, Integer>
-    {
-	public Integer apply(Integer t, Integer u) 
-	{
-	    int x = u.intValue() + t.intValue();
-	    Integer i = new Integer(x);
-	    return i;
-        
-	}
-    }
-
     class myfunc4 implements Function2<Integer, List, List>
     {
 	public List apply(Integer t, List u)
@@ -108,3 +117,17 @@ public class FooTest {
     }
 
 }
+
+class MyFunc3 implements Function2<Integer, Integer, Integer>
+    {
+	// function object is stateless, so should be singleton.
+	private MyFunc3() {};
+	public static final MyFunc3 INSTANCE = new MyFunc3();
+	public Integer apply(Integer t, Integer u) 
+	{
+	    int x = u.intValue() + t.intValue();
+	    Integer i = new Integer(x);
+	    return i;
+	}
+    }
+
