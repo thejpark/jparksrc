@@ -32,6 +32,14 @@ public class MyFlattenTree<T> implements FlattenTree<T>
         }
     }
     
+    private myfunc f1;
+    private myfunc2 f2;
+
+    MyFlattenTree() {
+	f1 = new myfunc();
+	f2 = new myfunc2();
+    }
+
     public List<T> flattenInOrder(Tree<T> tree) 
     {
         if (tree == null)
@@ -40,13 +48,11 @@ public class MyFlattenTree<T> implements FlattenTree<T>
         Either<T, Triple<Tree<T>>> n =  tree.get();
 
         if (n.isLeft()) {
-            List<T> l = n.ifLeft(new myfunc()); 
+            List<T> l = n.ifLeft(f1); 
             return l;
         } else {
-            List<T> l = n.ifRight(new myfunc2());
+            List<T> l = n.ifRight(f2);
             return l;
         }
-
     }
-
 }
