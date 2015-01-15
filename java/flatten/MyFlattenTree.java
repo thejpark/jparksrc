@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class MyFlattenTree<T> implements FlattenTree<T>
 {
-    // replace this with enum class? or singletone? this needs to be static class?
-    class myfunc implements Function<T, List<T>>
+    private class myfunc implements Function<T, List<T>>
     {
         public myfunc() {}
         public List<T> apply(T p) 
@@ -17,7 +16,7 @@ public class MyFlattenTree<T> implements FlattenTree<T>
         }
     }
 
-    class myfunc2 implements Function<Triple<Tree<T>>, List<T>>
+    private class myfunc2 implements Function<Triple<Tree<T>>, List<T>>
     {
         public myfunc2() {}
         
