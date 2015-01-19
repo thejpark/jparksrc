@@ -126,6 +126,14 @@ class Gingleton
 
 class test1 
 {
+    static class StaticNested {
+
+	public static void foo() {
+	    System.out.println("inner::foo");
+	    test1();
+	}
+    }
+
     public static void main(String args[])
     {
         ArrayList<Integer> a = new ArrayList<Integer>();
@@ -146,6 +154,8 @@ class test1
 	System.out.println(ss);
 	String x[] = {"a", "this", "is", "this", "b"};
 	maptest(x);
+	StaticNested ix = new StaticNested();
+	ix.foo();
     }
 
     static void argtest(String s)
