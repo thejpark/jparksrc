@@ -124,16 +124,42 @@ class Gingleton
 
 }
 
+
+class Outer {
+
+   class Inner {
+       // inner class cannot have static methodd
+	public void bar() {
+	    System.out.println("Inner::foo");
+	    foo();
+	}
+
+       Inner() {
+	   System.out.println("Inner");
+       }
+    }
+    static {
+	System.out.println("outer static");
+    }
+    public Inner ix = new Inner();
+
+    Outer() {
+	System.out.println("outer");
+    }
+    static void foo() {
+	System.out.println("Outer::foo");
+    }
+}
+
+
 class test1 
 {
     static class StaticNested {
-
 	public static void foo() {
-	    System.out.println("inner::foo");
+	    System.out.println("Inner::foo");
 	    test1();
 	}
     }
-
     public static void main(String args[])
     {
         ArrayList<Integer> a = new ArrayList<Integer>();
@@ -156,6 +182,9 @@ class test1
 	maptest(x);
 	StaticNested ix = new StaticNested();
 	ix.foo();
+	Outer ox = new Outer();
+	ox.ix.bar();
+	ox = new Outer();
     }
 
     static void argtest(String s)
