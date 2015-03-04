@@ -13,7 +13,7 @@ public interface Tree<T> {
 		
 		private final T t;
 		
-		public Leaf(T t) {
+		private Leaf(T t) {
 			this.t = t;
 		}
 		
@@ -24,13 +24,13 @@ public interface Tree<T> {
 	}
 		
 	static final class Node<T> implements Tree<T> {
-		public static <T> Tree<T> tree (T left, T middle, T right) {
-			return new Node<T>(Leaf.leaf(left), Leaf.leaf(middle), Leaf.leaf(right));
+		public static <T> Tree<T> tree (Tree<T> left, Tree<T> middle, Tree<T> right) {
+		    return new Node<T>(left, middle, right);
 		}
 
 		private final Triple<Tree<T>> branches;
 
-		public Node(Tree<T> left, Tree<T> middle, Tree<T> right) {
+		private Node(Tree<T> left, Tree<T> middle, Tree<T> right) {
 			this.branches = new Triple<Tree<T>>(left, middle, right);
 		}
 	
