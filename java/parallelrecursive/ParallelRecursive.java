@@ -106,7 +106,7 @@ class ConcurrentPuzzleSolver<P, M> {
     List<M> solve() throws InterruptedException {
 	try {
 	    P pos = puzzle.initialPosition();
-	    exec.execute(newTaskp(p, null, null));
+	    exec.execute(newTask(p, null, null));
 	    // block until solution found
 	    Node<P, M> solnNode = solution.getValue();
 	    return (solnNode == null)? null:solnNode.asMoveList();
