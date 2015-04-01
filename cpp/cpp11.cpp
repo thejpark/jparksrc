@@ -22,9 +22,15 @@ int t1()
         cout << i;
     cout << endl;
     
+    // copy elements to i
     for (auto i : {1, 2, 3})
         cout << i;
 
+    // do not copy elements of x to i, but use reference
+    for (auto& i: x)
+        cout << i;
+    cout << endl;
+ 
     cout << endl;
     return 0;
 }
