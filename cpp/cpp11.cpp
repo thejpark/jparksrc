@@ -17,6 +17,15 @@ int t1()
     for(auto it = x.begin(); it != x.end(); ++it)
         cout << *it;
     cout << endl;
+
+    for (auto i: x)
+        cout << i;
+    cout << endl;
+    
+    for (auto i : {1, 2, 3})
+        cout << i;
+
+    cout << endl;
     return 0;
 }
 
@@ -107,7 +116,7 @@ void t3()
 
 int main(int argc, char * argv[])
 {
-	t3(); 
+	t1(); 
 }
 
 
