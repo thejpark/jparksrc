@@ -4,7 +4,7 @@
 #include <future>
 #include <thread>
 #include <mutex>
-
+#include <stdexcept>
 
 using namespace std;
 
@@ -123,8 +123,21 @@ void t3()
 class Vector
 {
 public:
-    Vector(int s) : elem{new double[s]}, sz{s} {}
-    double& operator[](int i) { return elem[i];}
+    Vector() : elem{new double[10]}, sz{10} {}
+    Vector(int s)
+    {
+        if (s < 0)
+            throw length_error{"length error"};
+        elem = new double[s];
+        sz = s;
+    }
+
+    double& operator[](int i) {
+        if (i < 0 || size() <= i)
+            // out_of_range is in <stdexcept>
+            throw out_of_range{"Vector::operator[]"};
+        return elem[i];
+    }
     int size() { return sz;}
 private:
     double* elem;
