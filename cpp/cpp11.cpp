@@ -120,9 +120,46 @@ void t3()
     // c.join();
 }
 
+class Vector
+{
+public:
+    Vector(int s) : elem{new double[s]}, sz{s} {}
+    double& operator[](int i) { return elem[i];}
+    int size() { return sz;}
+private:
+    double* elem;
+    int sz;
+};
+
+// So, enum can be used to create singleton pattern?
+enum class Color {red, blue, green};
+enum class TrafficLight {green, yellow, red};
+// enum has initialization, assignment, and comparison, and also
+// allow adding new method
+TrafficLight& operator++(TrafficLight & t)
+{
+    switch(t) {
+    case TrafficLight::green: return t=TrafficLight::yellow;
+    case TrafficLight::yellow: return t=TrafficLight::red;
+    case TrafficLight::red: return t=TrafficLight::green;
+    }
+}
+
+void t4()
+{
+    Color c = Color::red;
+    TrafficLight t = TrafficLight::red;
+    // the following line is error, is Color is not int type
+    // int i = Color::red;
+    // Color c = 2;
+    TrafficLight next = ++t;
+    if (next == TrafficLight::green)
+        cout << "next is green" << endl;
+}
+
 int main(int argc, char * argv[])
 {
-	t1(); 
+	t4(); 
 }
 
 
