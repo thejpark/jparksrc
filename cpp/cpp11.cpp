@@ -120,6 +120,8 @@ void t3()
     // c.join();
 }
 
+// RAII (vector, string, etc which hides nakid new/delete with handle class.
+
 class Vector
 {
 public:
@@ -130,6 +132,36 @@ public:
             throw length_error{"length error"};
         elem = new double[s];
         sz = s;
+    }
+
+    Vector(std::initializer_list<double> lst) :
+        elem{new double[lst.size()]},
+        sz{static_cast<int>(lst.size())}
+    {
+        copy(lst.begin(), lst.end(), elem);
+    }
+
+    Vector(const Vector& a):
+        elem{new double[a.sz]}, sz{a.sz}
+    {
+        for (int i = 0; i != sz; ++i)
+            elem[i] = a.elem[i];
+    }
+
+    Vector& operator=(const Vector& a)
+    {
+        double*p = new double[a.sz];
+        for (int i = 0; i != a.sz; ++i)
+            p[i] = a.elem[i];
+        delete[] elem;
+        elem = p;
+        sz = a.sz;
+        return *this;
+    }
+    
+    ~Vector()
+    {
+        delete[] elem;
     }
 
     double& operator[](int i) {
