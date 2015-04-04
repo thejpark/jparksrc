@@ -148,6 +148,23 @@ public:
             elem[i] = a.elem[i];
     }
 
+    // move constructor
+    // && is rvalue reference. As it changes the value of a, a should not be
+    // const
+    Vector(Vector&& a): elem{a.elem}, sz{a.sz}
+    {
+        a.elem = nullptr;
+        a.sz = 0;
+    }
+    // move assignment
+    Vector& operator=(Vector&& a)
+    {
+        elem = a.elem;
+        sz = a.sz;
+        a.elem = nullptr;
+        a.sz = 0;
+        return *this;
+    }
     Vector& operator=(const Vector& a)
     {
         double*p = new double[a.sz];
@@ -200,6 +217,19 @@ void t4()
     TrafficLight next = ++t;
     if (next == TrafficLight::green)
         cout << "next is green" << endl;
+}
+
+Vector t5()
+{
+    Vector x(1000);
+    Vector y(1000);
+    Vector z(1000);
+    // copy
+    z = x;
+    // move
+    y = std::move(x);
+    // move
+    return z;
 }
 
 int main(int argc, char * argv[])
