@@ -254,9 +254,25 @@ public:
     ~Shape();
 };
 
+
+template<typename T>
+class LessThan {
+    const T val;
+public:
+    LessThan(const T& v) : val(v) {}
+    bool operator()(const T& x) const {return x < val;}
+};
+
+void t6()
+{
+    LessThan<int> lti {44};
+    LessThan<string> lts {"the"};
+    cout << "1: " << lti(43) << " and 2: " << lts("then") << endl;
+}
+
 int main(int argc, char * argv[])
 {
-	t4(); 
+	t6(); 
 }
 
 
