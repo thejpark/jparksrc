@@ -122,27 +122,28 @@ void t3()
 
 // RAII (vector, string, etc which hides nakid new/delete with handle class.
 
+template<typename T>
 class Vector
 {
 public:
-    Vector() : elem{new double[10]}, sz{10} {}
+    Vector() : elem{new T[10]}, sz{10} {}
     Vector(int s)
     {
         if (s < 0)
             throw length_error{"length error"};
-        elem = new double[s];
+        elem = new T[s];
         sz = s;
     }
 
-    Vector(std::initializer_list<double> lst) :
-        elem{new double[lst.size()]},
+    Vector(std::initializer_list<T> lst) :
+        elem{new T[lst.size()]},
         sz{static_cast<int>(lst.size())}
     {
         copy(lst.begin(), lst.end(), elem);
     }
 
     Vector(const Vector& a):
-        elem{new double[a.sz]}, sz{a.sz}
+        elem{new T[a.sz]}, sz{a.sz}
     {
         for (int i = 0; i != sz; ++i)
             elem[i] = a.elem[i];
@@ -165,9 +166,20 @@ public:
         a.sz = 0;
         return *this;
     }
+    
+    T* begin()
+    {
+        return sz? &elem[0] : nullptr;
+    }
+
+    T* end()
+    {
+        return begin() + sz;
+    }
+
     Vector& operator=(const Vector& a)
     {
-        double*p = new double[a.sz];
+        T* p = new T[a.sz];
         for (int i = 0; i != a.sz; ++i)
             p[i] = a.elem[i];
         delete[] elem;
@@ -181,7 +193,7 @@ public:
         delete[] elem;
     }
 
-    double& operator[](int i) {
+    T& operator[](int i) {
         if (i < 0 || size() <= i)
             // out_of_range is in <stdexcept>
             throw out_of_range{"Vector::operator[]"};
@@ -189,7 +201,7 @@ public:
     }
     int size() { return sz;}
 private:
-    double* elem;
+    T* elem;
     int sz;
 };
 
@@ -219,11 +231,11 @@ void t4()
         cout << "next is green" << endl;
 }
 
-Vector t5()
+Vector<double> t5()
 {
-    Vector x(1000);
-    Vector y(1000);
-    Vector z(1000);
+    Vector<double> x(1000);
+    Vector<double> y(1000);
+    Vector<double> z(1000);
     // copy
     z = x;
     // move
@@ -231,6 +243,16 @@ Vector t5()
     // move
     return z;
 }
+
+
+// how to supress operations?
+class Shape {
+public:
+    Shape(const Shape&)=delete; // no copy operation
+    Shape& operator=(const Shape&)=delete;
+    Shape(Shape&&)=delete; // no move operation
+    ~Shape();
+};
 
 int main(int argc, char * argv[])
 {
