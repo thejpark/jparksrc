@@ -265,9 +265,12 @@ public:
 
 void t6()
 {
-    LessThan<int> lti {44};
+    const int num = 44;
+    LessThan<int> lti {num};
     LessThan<string> lts {"the"};
     cout << "1: " << lti(43) << " and 2: " << lts("then") << endl;
+    // lambda expression is just like a function object but has no name
+    cout << "3: " << [&](int a){return a < num;}(43) << endl;
 }
 
 int main(int argc, char * argv[])
