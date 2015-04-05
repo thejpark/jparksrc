@@ -248,12 +248,42 @@ Vector<double> t5()
 // how to supress operations?
 class Shape {
 public:
+    Shape(){}
     Shape(const Shape&)=delete; // no copy operation
     Shape& operator=(const Shape&)=delete;
     Shape(Shape&&)=delete; // no move operation
-    ~Shape();
+    virtual ~Shape(){};
+    virtual void draw() = 0;
 };
 
+class Circle : public Shape
+{
+public:
+    Circle() {}
+    void draw()
+    {
+        cout << "Circle" << endl;
+    }
+};
+
+class Smiley : public Circle
+{
+public:
+    void draw()
+    {
+        cout << "Smiley" << endl;
+    }
+};
+
+// unique_ptr hides naked new/delete.
+unique_ptr<Shape> ReadShape(istream& is)
+{
+// read shape header from is and find its kind k
+    // switch (k) {
+    // case Kind::circle:
+    //     // read circle data
+    return unique_ptr<Shape>(new Circle());
+}
 
 template<typename T>
 class LessThan {
@@ -271,6 +301,21 @@ void t6()
     cout << "1: " << lti(43) << " and 2: " << lts("then") << endl;
     // lambda expression is just like a function object but has no name
     cout << "3: " << [&](int a){return a < num;}(43) << endl;
+}
+
+template <typename T, typename O>
+void for_all(T& t, O o)
+{
+    for (auto& v: t)
+        o(*v);
+}
+
+void t7()
+{
+    vector<unique_ptr<Shape>> v;
+    while(cin)
+        v.push_back(ReadShape(cin));
+    for_all(v, [](Shape& s){s.draw();});
 }
 
 int main(int argc, char * argv[])
