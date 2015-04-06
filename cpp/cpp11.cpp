@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <string>
 #include <vector>
 #include <future>
@@ -340,9 +341,19 @@ void t8()
     cout << "\n";
 }
 
+template<typename V>
+using StringMap = map<string, V>;
+void t9()
+{
+    StringMap<int> m;
+    m["this"] = 1;
+    for (auto c = m.begin(); c != m.end(); ++c)
+        cout << c->first << " " << c->second << endl;
+}
+
 int main(int argc, char * argv[])
 {
-	t8(); 
+	t9(); 
 }
 
 
