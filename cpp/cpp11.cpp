@@ -235,17 +235,23 @@ void t4()
         cout << "next is green" << endl;
 }
 
-Vector<double> t5()
+void t5()
 {
-    Vector<double> x(1000);
-    Vector<double> y(1000);
-    Vector<double> z(1000);
-    // copy
-    z = x;
-    // move
-    y = std::move(x);
-    // move
-    return z;
+    try {
+        Vector<double> x(1000);
+        Vector<double> y(1000);
+        Vector<double> z(1000);
+        // copy
+        z = x;
+        // move
+        y = std::move(x);
+        // move at return statement
+        // return z;
+    } catch (length_error e) {
+        cout << "length error" << endl;
+    } catch (...) {
+        cout << " unknown error" << endl;
+    }
 }
 
 
