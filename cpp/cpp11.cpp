@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include <future>
@@ -357,9 +358,26 @@ void t9()
         cout << c.first << " " << c.second << endl;
 }
 
+// Unless you have a reason not to, use a vector. A vector performs better
+// for traversal (i.e., find() and count()), and fo sorting and searching
+// (sort() and binary_search()).
+
+
+void t10()
+{
+    unordered_map<string, int> PhoneBook = {
+        {"david k", 123},
+        {"william d", 456},
+        {"james j", 789}
+    };
+
+    cout << PhoneBook["david k"] << endl;
+
+}
+    
 int main(int argc, char * argv[])
 {
-	t9(); 
+	t10(); 
 }
 
 
