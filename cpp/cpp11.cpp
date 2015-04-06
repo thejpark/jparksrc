@@ -1,8 +1,12 @@
 #include <iostream>
+#include <iterator>
 #include <map>
+#include <algorithm>
 #include <unordered_map>
 #include <string>
 #include <vector>
+#include <list>
+#include <set>
 #include <future>
 #include <thread>
 #include <mutex>
@@ -23,7 +27,7 @@ int t1()
     for (auto i: x)
         cout << i;
     cout << endl;
-    
+
     // copy elements to i
     for (auto i : {1, 2, 3})
         cout << i;
@@ -32,7 +36,7 @@ int t1()
     for (auto& i: x)
         cout << i;
     cout << endl;
- 
+
     cout << endl;
     return 0;
 }
@@ -171,7 +175,7 @@ public:
         a.sz = 0;
         return *this;
     }
-    
+
     T* begin()
     {
         return sz? &elem[0] : nullptr;
@@ -192,7 +196,7 @@ public:
         sz = a.sz;
         return *this;
     }
-    
+
     ~Vector()
     {
         delete[] elem;
@@ -377,11 +381,46 @@ void t10()
     for (auto& v : PhoneBook)
         cout << v.first << " : " << v.second << endl;
 }
-    
-int main(int argc, char * argv[])
+
+
+struct Entry {
+    string name;
+    int number;
+};
+
+bool operator<(const Entry&x, const Entry& y)
 {
-	t10(); 
+    return x.name < y.name;
 }
 
+// unique element using sort
+// list<Entry> get_unique_copy(vector<Entry>& v)
+// {
+//     list<Entry> ll;
+//     sort(v.begin(), v.end());
+//     unique_copy(v.begin(), v.end(), back_inserter(ll));
+//     return ll;
+// }
 
+void t11()
+{
+    vector<Entry> PhoneBook = {
+        {"david k", 123},
+        {"david k", 123},
+        {"william d", 456},
+        {"james j", 789}
+    };
 
+    // list<Entry> l;
+    // unique_copy(PhoneBook.begin(), PhoneBook.end(),
+    //             back_inserter(l));
+
+    set<Entry> s{PhoneBook.begin(), PhoneBook.end()};
+    for (auto& e : s)
+        cout << e.name << " : " << e.number << endl;
+}
+
+int main(int argc, char * argv[])
+{
+	t11();
+}
