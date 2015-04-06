@@ -347,8 +347,8 @@ void t9()
 {
     StringMap<int> m;
     m["this"] = 1;
-    for (auto c = m.begin(); c != m.end(); ++c)
-        cout << c->first << " " << c->second << endl;
+    for (auto c : m)
+        cout << c.first << " " << c.second << endl;
 }
 
 int main(int argc, char * argv[])
