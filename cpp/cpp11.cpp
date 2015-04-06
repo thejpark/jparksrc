@@ -126,6 +126,9 @@ template<typename T>
 class Vector
 {
 public:
+    using value_type = T;
+    using size_type = unsigned int;
+
     Vector() : elem{new T[10]}, sz{10} {}
     Vector(int s)
     {
