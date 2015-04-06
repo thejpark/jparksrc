@@ -318,9 +318,28 @@ void t7()
     for_all(v, [](Shape& s){s.draw();});
 }
 
+
+void f() {}
+
+template<typename T, typename... Tail>
+void f(T head, Tail... tail)
+{
+    [](T& h){ cout << h << " "; }(head);
+    f(tail...);
+}
+
+void t8()
+{
+    cout << "first: ";
+    f(1, 2.2, "hello");
+    cout << "\nsecond: ";
+    f(0.2, 'c', "yuck!", 0, 1, 2);
+    cout << "\n";
+}
+
 int main(int argc, char * argv[])
 {
-	t6(); 
+	t8(); 
 }
 
 
