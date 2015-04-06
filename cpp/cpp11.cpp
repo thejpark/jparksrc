@@ -373,6 +373,9 @@ void t10()
 
     cout << PhoneBook["david k"] << endl;
 
+    // please make sure that as it is actually hash, it is not ordered
+    for (auto& v : PhoneBook)
+        cout << v.first << " : " << v.second << endl;
 }
     
 int main(int argc, char * argv[])
