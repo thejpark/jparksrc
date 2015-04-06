@@ -393,6 +393,22 @@ bool operator<(const Entry&x, const Entry& y)
     return x.name < y.name;
 }
 
+// for some reason, unique_copy gives compile error.
+template <class InputIterator, class OutputIterator>
+  OutputIterator unique_copy1 (InputIterator first, InputIterator last,
+                              OutputIterator result)
+{
+  if (first==last) return result;
+
+  *result = *first;
+  while (++first != last) {
+    typename iterator_traits<InputIterator>::value_type val = *first;
+    if (!(*result == val))   // or: if (!pred(*result,val)) for version (2)
+      *(++result)=val;
+  }
+  return ++result;
+}
+
 // unique element using sort
 // list<Entry> get_unique_copy(vector<Entry>& v)
 // {
