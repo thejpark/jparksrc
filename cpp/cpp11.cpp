@@ -479,7 +479,8 @@ void t13()
     // sort all the string in the file
     sort(b.begin(), b.end());
     unique_copy(b.begin(), b.end(), oo);
-    cout << !is.eof() || !os;
+    // print error status
+    cout << endl << !is.eof() || !os << endl
 }
 
 int main(int argc, char * argv[])
