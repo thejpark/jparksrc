@@ -436,7 +436,33 @@ void t11()
         cout << e.name << " : " << e.number << endl;
 }
 
+void t12()
+{
+    string s{"this"};
+    // string iterator
+    auto p = find(s.begin(), s.end(), 't');
+    if (p == s.end())
+        cout << "error" << endl;
+    else
+        cout << "pass" << endl;
+}
+
+// using typename to define a type inside template definition
+template<typename T>
+using Iterator = typename T::iterator;
+
+template<typename C, typename V>
+vector<Iterator<C>> find_all(C& c, V v)
+{
+    vector<Iterator<C>> res;
+    for (auto p = c.begin; p != c.end(); ++c)
+        if (*p == v)
+            res.push_back(p);
+    return res;
+}   
+
+
 int main(int argc, char * argv[])
 {
-	t11();
+	t12();
 }
