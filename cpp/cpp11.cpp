@@ -480,10 +480,35 @@ void t13()
     sort(b.begin(), b.end());
     unique_copy(b.begin(), b.end(), oo);
     // print error status
-    cout << endl << !is.eof() || !os << endl
+    cout << endl << !is.eof() || !os;
 }
+
+
+template <class InputIterator1, class InputIterator2, class OutputIterator>
+  OutputIterator merge1 (InputIterator1 first1, InputIterator1 last1,
+                        InputIterator2 first2, InputIterator2 last2,
+                        OutputIterator result)
+{
+  while (true) {
+    if (first1==last1) return std::copy(first2,last2,result);
+    if (first2==last2) return std::copy(first1,last1,result);
+    *result++ = (*first2<*first1)? *first2++ : *first1++;
+  }
+}
+
+
+void t14()
+{
+    string res;
+    string s{"acfg"};
+    string t{"bdeh"};
+    merge1(s.begin(), s.end(), t.begin(), t.end(), back_inserter(res));
+
+    cout << s << " : " << t << " : " << res << endl;
+}
+
 
 int main(int argc, char * argv[])
 {
-	t13();
+	t14();
 }
