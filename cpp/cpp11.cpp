@@ -476,6 +476,7 @@ void t13()
     ostream_iterator<string> oo {os, "\n"};
 
     vector<string> b {ii, eos};
+    // sort all the string in the file
     sort(b.begin(), b.end());
     unique_copy(b.begin(), b.end(), oo);
     cout << !is.eof() || !os;
