@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <iterator>
 #include <map>
 #include <algorithm>
@@ -462,7 +463,25 @@ vector<Iterator<C>> find_all(C& c, V v)
 }   
 
 
+void t13()
+{
+    string from, to;
+    cin >> from >> to;
+
+    ifstream is{from};
+    istream_iterator<string> ii {is};
+    istream_iterator<string> eos {};
+    
+    ofstream os{to};
+    ostream_iterator<string> oo {os, "\n"};
+
+    vector<string> b {ii, eos};
+    sort(b.begin(), b.end());
+    unique_copy(b.begin(), b.end(), oo);
+    cout << !is.eof() || !os;
+}
+
 int main(int argc, char * argv[])
 {
-	t12();
+	t13();
 }
