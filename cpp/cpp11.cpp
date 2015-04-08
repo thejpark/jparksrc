@@ -507,8 +507,48 @@ void t14()
     cout << s << " : " << t << " : " << res << endl;
 }
 
+void f15()
+{
+    cout << "hello";
+}
+
+struct F15 {
+    void operator()() { cout << "parallel world" ;}
+};
+
+void t15()
+{
+    thread t1 {f15};
+    thread t2 {F15()};
+    t1.join();
+    t2.join();
+
+}
+
+void f16(vector<double>& v)
+{
+    cout << "hello";
+}
+
+struct F16 {
+    vector<double>& v; 
+    F16(vector<double>& vv) : v{vv} {}
+    void operator()() { cout << "parallel world" ;}
+};
+
+void t16()
+{
+    vector<double> sv {1, 2, 3};
+    vector<double> tv {3, 2, 1};
+    thread t1 {f16, ref(sv)};
+    thread t2 {F16(tv)};
+    t1.join();
+    t2.join();
+
+}
+
 
 int main(int argc, char * argv[])
 {
-	t14();
+	t16();
 }
