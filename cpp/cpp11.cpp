@@ -525,6 +525,7 @@ void t15()
 
 }
 
+// if we need to return result, we should use out-param
 void f16(vector<double>& v)
 {
     cout << "hello";
@@ -540,13 +541,23 @@ void t16()
 {
     vector<double> sv {1, 2, 3};
     vector<double> tv {3, 2, 1};
+// we need ref() to tell variadic template 'sv' is reference not object
     thread t1 {f16, ref(sv)};
     thread t2 {F16(tv)};
     t1.join();
     t2.join();
-
 }
 
+
+void t17()
+{
+    mutex m1, m2;
+
+    unique_lock<mutex> lck1{m1, defer_lock};
+    unique_lock<mutex> lck2{m2, defer_lock};
+
+    lock(lck1, lck2);
+}
 
 int main(int argc, char * argv[])
 {
