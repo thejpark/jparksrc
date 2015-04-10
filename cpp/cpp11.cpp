@@ -404,9 +404,10 @@ template <class InputIterator, class OutputIterator>
 
   *result = *first;
   while (++first != last) {
-    typename iterator_traits<InputIterator>::value_type val = *first;
-    if (!(*result == val))   // or: if (!pred(*result,val)) for version (2)
-      *(++result)=val;
+      // Traits class defining properties of iterators
+      typename iterator_traits<InputIterator>::value_type val = *first;
+      if (!(*result == val))   // or: if (!pred(*result,val)) for version (2)
+          *(++result)=val;
   }
   return ++result;
 }
