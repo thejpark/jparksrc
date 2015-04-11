@@ -577,7 +577,10 @@ double comp2(vector<double>& v)
     future<double> f1 {pt1.get_future()};
 
     double* first = &v[0];
-    thread t1 {move(pt0), first, first + v.size() / 2, 0.0};
+    // difference between async and packaged_task is that, package_task should
+    // explicitly start task. if you do not start thread the it will start in
+    // the current thread.
+    thread t1 {move(pt0), first, first + v.size() / 2, 0.0}; // start task
     thread t2 {move(pt1), first + v.size() / 2, first + v.size(), 0.0};
     return f0.get() + f1.get();
 }
