@@ -569,7 +569,7 @@ int int_width(int x)
 {
     int len = 0;
 
-    while (x > 0) {
+    while (x >= 1) {
         x = x / 10;
         ++len;
     }
@@ -599,7 +599,7 @@ int double_width(double x, int n)
 {
     int len = n; // decimal places sosujeom 
 
-    while (x > 1) { // it should not be ' > 0' as double 0.32  > 0.
+    while (x >= 1) { // it should not be ' > 0' as double 0.32  > 0.
         x = x / 10;
         ++len;
     }
