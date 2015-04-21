@@ -731,6 +731,20 @@ int t19()
     
 }
 
+/*
+begin = x.begin();
+for(auto i = x.begin(); i != x.end(); ++i)
+ {
+     if (*i == *begin)
+         ++count;
+     else
+     {
+         cout << *begin << " : " << count;
+         begin = i;
+     }
+ }
+*/
+
 //chap5
 
 bool fgrade(const student_info& s)
