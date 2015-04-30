@@ -1895,6 +1895,7 @@ int
 nrand2(int n)
 {
     if (n <= RAND_MAX) {
+        // 
         return nrand(n);
     } else {
         int bucket_number = n / RAND_MAX;
@@ -1912,6 +1913,7 @@ nrand2(int n)
         return r;
     }    
 }
+
 
 //chap 8
 
@@ -3963,10 +3965,29 @@ int t65()
 // median: how can we find median if the size of data is too big? 1) check all elem 2) random sampling
 
 
-int main(int argc, char * argv[])
+
+
+void test_vector()
 {
-	t61(); 
+    int a[] = {1, 2, 3};
+    vector<int> vi(a, a + 3);
+ 
+    for (int i = 0; i < vi.size(); ++i)
+        cout << vi[i] << endl;
 }
 
+void test_array()
+{
+    // only first one is 3, the rest of them are 0
+    int x[5] = {3,};
 
+    for (int i = 0; i < 5; ++i)
+        cout << " " << x[i];
 
+    cout << endl;
+}
+
+int main(int argc, char * argv[])
+{
+    test_array();
+}
