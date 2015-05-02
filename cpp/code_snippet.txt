@@ -204,6 +204,8 @@ void bin_search_test_1()
     printf("the index of 5 is %d\n", find(a, size, 5));
 }
 
+// actually, it may be handled by 1) find how many times shifted, then 2) try binsearch for left part and the right part.
+
 
 #if 0
 /*if a 2-dimensional array has column sorted and row sorted, then just follow from the 
