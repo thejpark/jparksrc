@@ -1517,7 +1517,7 @@ int t_test_set()
 
     std::set<int> x(a, a + count);
 
-    std::cout << x.size();
+    std::cout << x.size() << std::endl;
 
     std::set<int, CC> y(x.begin(), x.end());
 
@@ -1990,6 +1990,6 @@ void hashTest ()
 
 int main()
 {
-    hashTest();
+    t_test_set();
 }
 
