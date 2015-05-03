@@ -6,23 +6,6 @@
 
 using namespace std;
 
-
-// a = a - b
-void list_subtract(list<int> a, list<int> b)
-{
-    typedef list<int>::iterator iter;
-
-    iter it = a.begin();
-    
-    while (it != a.end()) {
-        if (find(b.begin(), b.end(), *it) != b.end())
-            it = a.erase(it);
-        else
-            ++it;
-    }
-}
-
-
 template<class T>
 class graph 
 {
