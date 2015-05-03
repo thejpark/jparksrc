@@ -135,6 +135,7 @@ template<typename T>
 class Vector
 {
 public:
+    // alias
     using value_type = T;
     using size_type = unsigned int;
 
