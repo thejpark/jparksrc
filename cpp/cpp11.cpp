@@ -17,7 +17,7 @@
 using namespace std;
 
 // clang++ -std=c++11 -stdlib=libc++ cpp11.cpp
-// g++4.9
+// g++-4.9
 
 int t1()
 {
@@ -589,5 +589,5 @@ double comp2(vector<double>& v)
 
 int main(int argc, char * argv[])
 {
-	t16();
+	t7();
 }
