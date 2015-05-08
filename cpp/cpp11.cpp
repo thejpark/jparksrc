@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <iterator>
@@ -587,6 +588,35 @@ double comp2(vector<double>& v)
     return f0.get() + f1.get();
 }
 
+
+class my_countdown_latch {
+public:
+    my_countdown_latch(int n) 
+    {
+        if (n <= 0)
+            throw length_error("length error");
+        count = n;
+    }
+
+    void countDown()
+    {
+        unique_lock<mutex> l{mmutex};
+        if (--count == 0)
+            mcond.notify_one();
+    }
+
+    void wait()
+    {
+        unique_lock<mutex> l{mmutex};
+        mcond.wait(l);
+    }
+
+private:
+    condition_variable mcond;
+    int count;
+    mutex mmutex;
+
+};
 int main(int argc, char * argv[])
 {
 	t7();
