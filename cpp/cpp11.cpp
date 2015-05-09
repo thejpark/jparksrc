@@ -128,6 +128,7 @@ private:
 void t3()
 {
     test3 t;
+    // first argument of the method is a reference(or pointer) to an object
     thread a(&test3::task3a, ref(t));
     thread b(&test3::task3a, ref(t));
     // thread c(task3b);
