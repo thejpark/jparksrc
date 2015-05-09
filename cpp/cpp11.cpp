@@ -97,8 +97,8 @@ private:
 };
 
 
-struct test3 {
-
+class test3 {
+public:
     test3() : mycount{0}, sem{100} {}
     void task3a()
     {
@@ -118,7 +118,7 @@ struct test3 {
             sem.release();
         }
     }
-
+private:
     int mycount;
     mutex m;
     mysem sem;
