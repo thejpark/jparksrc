@@ -97,33 +97,39 @@ private:
 };
 
 
-static int mycount = 0;
-static mutex m;
-static mysem sem(100);
+struct test3 {
 
-void task3a()
-{
-    while (true)
+    test3() : mycount{0}, sem{100} {}
+    void task3a()
     {
-        sem.acquire();
-        unique_lock<mutex> lck{m};
-        ++mycount;
-        cout << this_thread::get_id() << " : " << mycount << endl;
+        while (true)
+        {
+            sem.acquire();
+            unique_lock<mutex> lck{m};
+            ++mycount;
+            cout << this_thread::get_id() << " : " << mycount << endl;
+        }
     }
-}
 
-void task3b()
-{
-    while (true)
+    void task3b()
     {
-        sem.release();
+        while (true)
+        {
+            sem.release();
+        }
     }
-}
+
+    int mycount;
+    mutex m;
+    mysem sem;
+};
+
 
 void t3()
 {
-    thread a(task3a);
-    thread b(task3a);
+    test3 t;
+    thread a(&test3::task3a, ref(t));
+    thread b(&test3::task3a, ref(t));
     // thread c(task3b);
     a.join();
     b.join();
@@ -617,7 +623,9 @@ private:
     mutex mmutex;
 
 };
+
+
 int main(int argc, char * argv[])
 {
-	t7();
+	t3();
 }
