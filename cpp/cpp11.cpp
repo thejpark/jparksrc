@@ -609,7 +609,7 @@ public:
     {
         unique_lock<mutex> l{mmutex};
         if (--count == 0)
-            mcond.notify_one();
+            mcond.notify_all();
     }
 
     void wait()
@@ -622,11 +622,35 @@ private:
     condition_variable mcond;
     int count;
     mutex mmutex;
-
 };
+
+
+void task18(my_countdown_latch& mcl,
+            my_countdown_latch& mcl2)
+{
+    mcl.wait();
+    cout << " a " << endl;
+    mcl2.countDown();
+}
+
+
+void t18()
+{
+    my_countdown_latch mcl(1);
+    my_countdown_latch mcl2(5);
+    vector<thread> threads;
+    for (int i = 0; i < 5; ++i)
+        threads.push_back(thread(task18, ref(mcl), ref(mcl2)));
+    cout << "test started" << endl;
+    mcl.countDown();
+    mcl2.wait();
+    cout << "test ended" << endl;
+    for (auto& v : threads)
+        v.join();
+}
 
 
 int main(int argc, char * argv[])
 {
-	t3();
+	t18();
 }
