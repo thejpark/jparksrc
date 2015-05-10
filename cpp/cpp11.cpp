@@ -650,6 +650,36 @@ void t18()
 }
 
 
+class my_barrier {
+public:
+    my_barrier(int n) 
+    {
+        if (n <= 0)
+            throw length_error("length error");
+        size = count = n;
+    }
+
+    void await()
+    {
+        unique_lock<mutex> l{mmutex};
+        if (--count == 0)
+        {
+            mcond.notify_all();
+            count = size;
+        }
+        else
+        {
+            mcond.wait(l);
+        }
+    }
+
+private:
+    condition_variable mcond;
+    int count;
+    int size;
+    mutex mmutex;
+};
+
 int main(int argc, char * argv[])
 {
 	t18();
