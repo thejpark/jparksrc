@@ -1,4 +1,4 @@
-
+#include <assert.h>
 #include <iostream>
 #include <fstream>
 #include <iterator>
@@ -731,7 +731,7 @@ T my_blocking_queue<T>::take()
     unique_lock<mutex> lck{mmutex};
     
     elem* p = head;
-    head = head.next;
+    head = head->next;
     
     auto it = mc.find(p->data);
     mc.erase(it);
@@ -749,7 +749,23 @@ bool my_blocking_queue<T>::contains(T t)
     return false;
 }
 
+void t19()
+{
+    my_blocking_queue<int> mbi;
+    bool r = mbi.contains(1);
+    assert(r == false);
+
+    mbi.put(1);
+    r = mbi.contains(1);
+    assert(r == true);
+
+    int x = mbi.take();
+    r = mbi.contains(1);
+    assert(r == false);
+    assert(x == 1);
+
+}
 int main(int argc, char * argv[])
 {
-	t18();
+	t19();
 }
