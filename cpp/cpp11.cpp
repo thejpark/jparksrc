@@ -680,6 +680,75 @@ private:
     mutex mmutex;
 };
 
+
+template <typename T>
+class my_blocking_queue {
+    class elem {
+    public:
+        elem(T t) : data{t}, prev{nullptr}, next{nullptr} {}
+        elem* prev;
+        elem* next;
+        T data;
+    };
+public:
+    my_blocking_queue() : availItems{0} {}
+    void put(T t);
+    T take();
+    bool contains(T t);
+   
+private:
+    elem* head;
+    elem* tail;
+    map<T, elem*> mc;
+    mutex mmutex;
+    mysem availItems;
+};
+
+template <typename T>
+void my_blocking_queue<T>::put(T t)
+{
+    elem* p = new elem(t);
+
+    unique_lock<mutex> lck{mmutex};
+    if (tail == nullptr)
+    {
+        tail = head = p;
+    }
+    else
+    {
+        tail->next = p;
+        p->prev = tail;
+        tail = p;
+    }
+    mc[t] = p;
+    availItems.release();
+}
+
+template<typename T>
+T my_blocking_queue<T>::take()
+{
+    availItems.acquire();
+    unique_lock<mutex> lck{mmutex};
+    
+    elem* p = head;
+    head = head.next;
+    
+    auto it = mc.find(p->data);
+    mc.erase(it);
+    delete p;
+    return p->data;
+}
+
+template<typename T>
+bool my_blocking_queue<T>::contains(T t)
+{
+    auto it = mc.find(t);
+    if (it != mc.end())
+        return true;
+
+    return false;
+}
+
 int main(int argc, char * argv[])
 {
 	t18();
