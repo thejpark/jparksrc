@@ -70,18 +70,11 @@ public:
     void acquire()
     {
         unique_lock<mutex> lck{mmutex}; // acquire mmutex
-        while (true) {
-            if (avail > 0)
-            {
-                --avail;
-                return;
-            }
-            else
-            {
+        while (!avail) {
                 mcond.wait(lck); // release lck and wait
                 // reacquire lck upon wake up
-            }
         }
+        --avail;
     }
     void release()
     {
@@ -691,14 +684,20 @@ class my_blocking_queue {
         T data;
     };
 public:
-    my_blocking_queue() : availItems{0} {}
+    my_blocking_queue() : count{0}, availItems{0} {}
     void put(T t);
     T take();
     bool contains(T t);
+    int size() 
+    {
+        unique_lock<mutex> lck{mmutex};
+        return count; 
+    }
    
 private:
     elem* head;
     elem* tail;
+    int count;
     map<T, elem*> mc;
     mutex mmutex;
     mysem availItems;
@@ -721,6 +720,7 @@ void my_blocking_queue<T>::put(T t)
         tail = p;
     }
     mc[t] = p;
+    ++count;
     availItems.release();
 }
 
@@ -729,14 +729,19 @@ T my_blocking_queue<T>::take()
 {
     availItems.acquire();
     unique_lock<mutex> lck{mmutex};
+    assert(head != nullptr);
     
     elem* p = head;
     head = head->next;
+    if (head == nullptr)
+        tail = nullptr;
     
     auto it = mc.find(p->data);
     mc.erase(it);
+    --count;
+    T data = p->data;
     delete p;
-    return p->data;
+    return data;
 }
 
 template<typename T>
@@ -763,9 +768,53 @@ void t19()
     r = mbi.contains(1);
     assert(r == false);
     assert(x == 1);
-
 }
+
+void client(my_blocking_queue<int>& qi,
+            my_blocking_queue<int>& qo)
+{
+    int i;
+    while (i = qi.take())
+    {
+        if (i == -1 && qi.size() == 0)
+        {
+            qo.put(i);
+            return;
+        }
+        cout << "in:" << i << endl;
+        qo.put(i);
+    }
+}
+
+void t20()
+{
+    my_blocking_queue<int> mbi;
+    my_blocking_queue<int> mbo;
+
+    map<int, vector<int>> mc;
+
+    mc[1] = vector<int>{2, 3, 4};
+    mc[2] = vector<int>{21, 22, 23};
+    mc[3] = vector<int>{31, 32, 33};
+    mc[4] = vector<int>{41, 42, 43};
+
+    mbi.put(1);
+    thread t1(client, ref(mbi), ref(mbo));
+
+    int i;
+    while(i = mbo.take())
+    {
+        if (i == -1)
+            break;
+        cout << "out:" << i << endl;
+        for (auto e : mc[i])
+            mbi.put(e);
+        mbi.put(-1);
+    }
+     t1.join();
+}
+
 int main(int argc, char * argv[])
 {
-	t19();
+	t20();
 }
