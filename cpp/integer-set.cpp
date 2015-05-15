@@ -34,7 +34,7 @@ private:
 
 bool mySet::add(int x)
 {
-    if (mc[x])
+    if (mc.find(x) != mc.end())
         return false;
 
     node* n = new node(x);
@@ -57,11 +57,12 @@ bool mySet::add(int x)
 
 bool mySet::remove(int x)
 {
-    node* n = mc[x];
-    if (!n)
+    auto it = mc.find(x);
+    if (it == mc.end())
         return false;
 
-    mc[x] = NULL;
+    node* n = it->second;
+    mc.erase(it);
     count--;
 
     if (n == head && n == tail)
@@ -98,20 +99,20 @@ void mySet::removeAll()
     {
         node* h = head;
         head = head->next;
-        mc[h->data] = NULL;
         delete h;
     }
+    
     head = tail = NULL;
     count = 0;
+    mc.erase(mc.begin(), mc.end());   
 }
 
 
 bool mySet::contains(int x)
 {
-    if (mc[x])
-        return true;
-
-    return false;
+    if(mc.find(x) == mc.end())
+        return false;
+    return true;
 }
 
 
