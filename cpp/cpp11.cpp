@@ -465,7 +465,7 @@ vector<Iterator<C>> find_all(C& c, V v)
         if (*p == v)
             res.push_back(p);
     return res;
-}   
+}
 
 
 void t13()
@@ -476,7 +476,7 @@ void t13()
     ifstream is{from};
     istream_iterator<string> ii {is};
     istream_iterator<string> eos {};
-    
+
     ofstream os{to};
     ostream_iterator<string> oo {os, "\n"};
 
@@ -537,7 +537,7 @@ void f16(vector<double>& v)
 }
 
 struct F16 {
-    vector<double>& v; 
+    vector<double>& v;
     F16(vector<double>& vv) : v{vv} {}
     void operator()() { cout << "parallel world" ;}
 };
@@ -591,7 +591,7 @@ double comp2(vector<double>& v)
 
 class my_countdown_latch {
 public:
-    my_countdown_latch(int n) 
+    my_countdown_latch(int n)
     {
         if (n <= 0)
             throw length_error("length error");
@@ -645,7 +645,7 @@ void t18()
 
 class my_barrier {
 public:
-    my_barrier(int n) 
+    my_barrier(int n)
     {
         if (n <= 0)
             throw length_error("length error");
@@ -684,22 +684,23 @@ class my_blocking_queue {
         T data;
     };
 public:
-    my_blocking_queue() : count{0}, availItems{0} {}
+    my_blocking_queue(string s="") : name{s}, count{0}, availItems{0} {}
     void put(T t);
     T take();
     bool contains(T t);
-    int size() 
+    int size()
     {
         unique_lock<mutex> lck{mmutex};
-        return count; 
+        return count;
     }
-   
+
 private:
     elem* head;
     elem* tail;
     int count;
     map<T, elem*> mc;
     mutex mmutex;
+    string name;
     mysem availItems;
 };
 
@@ -730,14 +731,16 @@ T my_blocking_queue<T>::take()
     availItems.acquire();
     unique_lock<mutex> lck{mmutex};
     assert(head != nullptr);
-    
+
     elem* p = head;
     head = head->next;
     if (head == nullptr)
         tail = nullptr;
-    
+
     auto it = mc.find(p->data);
-    mc.erase(it);
+    if (it != mc.end())
+        mc.erase(it);
+
     --count;
     T data = p->data;
     delete p;
@@ -774,22 +777,32 @@ void client(my_blocking_queue<int>& qi,
             my_blocking_queue<int>& qo)
 {
     int i;
+    int count = 0;
     while (i = qi.take())
     {
-        if (i == -1 && qi.size() == 0)
+        // cout << "in:" << i << endl;
+        if (i == -1)
+        {
+            --count;
+            if (count == 0 && (qi.size() == 0))
+            {
+                cout << "client is done!" << endl;
+                qo.put(-1);
+                return;
+            }
+        }
+        else
         {
             qo.put(i);
-            return;
+            ++count;
         }
-        cout << "in:" << i << endl;
-        qo.put(i);
     }
 }
 
 void t20()
 {
-    my_blocking_queue<int> mbi;
-    my_blocking_queue<int> mbo;
+    my_blocking_queue<int> mbi{"a"};
+    my_blocking_queue<int> mbo{"b"};
 
     map<int, vector<int>> mc;
 
@@ -802,16 +815,16 @@ void t20()
     thread t1(client, ref(mbi), ref(mbo));
 
     int i;
-    while(i = mbo.take())
+    while (i = mbo.take())
     {
+        // cout << "out:" << i << endl;
         if (i == -1)
             break;
-        cout << "out:" << i << endl;
         for (auto e : mc[i])
             mbi.put(e);
         mbi.put(-1);
     }
-     t1.join();
+    t1.join();
 }
 
 int main(int argc, char * argv[])
