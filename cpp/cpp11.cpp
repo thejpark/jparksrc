@@ -852,7 +852,16 @@ void t21()
         if (e.second > min)
         {
             vs[0] = e;
-            sort(vs, vs + 10, comp21);
+            // same as sort, but vector is already sorted.
+            // so better not use sort() method.
+            // sort(vs, vs + 10, comp21);
+            for (int i = 0; i < 9; ++i)
+            {
+                if (vs[i].second > vs[i + 1].second)
+                    swap(vs[i], vs[i + 1]);
+                else
+                    break;
+            }
             min = vs[0].second;
         }
     }
@@ -861,7 +870,7 @@ void t21()
         cout << vs[i].first << " : " << vs[i].second << endl;
 }
 
-
+// Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
 	t21();
