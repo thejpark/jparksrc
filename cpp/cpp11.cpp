@@ -875,8 +875,43 @@ void t21()
         cout << vs[i].first << " : " << vs[i].second << endl;
 }
 
+bool  comp22(pair<string, int>& p1, pair<string, int>& p2)
+{
+    return p1.second > p2.second;
+}
+
+void t22()
+{
+// find top 10 most occured word in the list
+    string s;
+    map<string, int> mc;
+    while(cin >> s)
+    {
+        mc[s]++;
+    }
+
+    int min = 0;
+    pair<string, int> vs[10];
+    
+    make_heap(vs, vs + 10);
+    
+    for (auto e: mc)
+    {
+        if (e.second > min)
+        {
+            pop_heap(vs, vs + 10);
+            vs[0] = e;
+            push_heap(vs, vs + 10);
+            min = vs[0].second;
+        }
+    }
+
+    for (int i = 9; i != -1; --i)
+        cout << vs[i].first << " : " << vs[i].second << endl;
+}
+
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t21();
+	t22();
 }
