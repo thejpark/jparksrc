@@ -827,7 +827,42 @@ void t20()
     t1.join();
 }
 
+
+bool  comp21(pair<string, int>& p1, pair<string, int>& p2)
+{
+    return p1.second < p2.second;
+}
+
+
+void t21()
+{
+// find top 10 most occured word in the list
+    string s;
+    map<string, int> mc;
+    while(cin >> s)
+    {
+        mc[s]++;
+    }
+
+    int min = 0;
+    pair<string, int> vs[10];
+    
+    for (auto e: mc)
+    {
+        if (e.second > min)
+        {
+            vs[0] = e;
+            sort(vs, vs + 10, comp21);
+            min = vs[0].second;
+        }
+    }
+
+    for (int i = 9; i != -1; --i)
+        cout << vs[i].first << " : " << vs[i].second << endl;
+}
+
+
 int main(int argc, char * argv[])
 {
-	t20();
+	t21();
 }
