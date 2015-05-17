@@ -891,23 +891,27 @@ void t22()
     }
 
     int min = 0;
-    pair<string, int> vs[10];
+    vector<pair<string, int>> vs;
+    vs.resize(10);
     
-    make_heap(vs, vs + 10);
+    make_heap(vs.begin(), vs.end(), comp22);
     
     for (auto e: mc)
     {
         if (e.second > min)
         {
-            pop_heap(vs, vs + 10);
-            vs[0] = e;
-            push_heap(vs, vs + 10);
+            pop_heap(vs.begin(), vs.end(), comp22);
+            vs.pop_back();
+            vs.push_back(e);
+            push_heap(vs.begin(), vs.end(), comp22);
             min = vs[0].second;
         }
     }
 
-    for (int i = 9; i != -1; --i)
-        cout << vs[i].first << " : " << vs[i].second << endl;
+    sort_heap(vs.begin(), vs.end(), comp22);
+    
+    for (auto it = vs.begin(); it != vs.end(); ++it)
+        cout << it->first << " : " << it->second << endl;
 }
 
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
