@@ -853,8 +853,11 @@ void t21()
         {
             vs[0] = e;
             // same as sort, but vector is already sorted.
-            // so better not use sort() method.
+            // so better not use stl sort() method.
             // sort(vs, vs + 10, comp21);
+            // But if the size of top x is bigger, than
+            // probably the best way would be to use
+            // heap structure.
             for (int i = 0; i < 9; ++i)
             {
                 if (vs[i].second > vs[i + 1].second)
