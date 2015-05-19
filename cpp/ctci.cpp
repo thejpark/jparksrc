@@ -232,7 +232,7 @@ void remove_dup3(string &s)
 
 void remove_dup4(string& s)
 {
-    if (s.size() <= 1)
+    if (s.size() == 0)
         return;
 
     string::iterator ret = s.begin() + 1;
@@ -639,6 +639,77 @@ int t17_1()
 
 }
 
+// remove duplicate for a linked list and map
+struct node {
+    node(int d) : data(d), next(NULL) {};
+    int data;
+    node* next;
+};
+
+
+void remove_dup5(node* n)
+{
+    if (n == NULL)
+        return;
+    
+    map<int, int> mc;
+    node* end = n;
+    mc[n->data]++;
+
+    n = n->next;
+    while (n != NULL)
+    {
+        mc[n->data]++;
+
+        if (mc[n->data] == 1)
+        {
+            end->next = n;
+            end = n;
+        }
+
+        n = n->next;
+    }
+    end->next = NULL;
+}
+
+// remove duplicate in linked list
+void t21()
+{
+
+    node* head = new node(2);
+    node* end = head;
+    end->next = new node(1);
+    end = end->next;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(1);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+
+    node* n = head;
+    while (n)
+    {
+        cout << n->data << endl;
+        n = n ->next;
+    }
+
+    cout << "after" << endl;
+
+    n = head;
+    remove_dup5(n);
+    while (n)
+    {
+        cout << n->data << endl;
+        n = n ->next;
+    }
+
+    
+}
 
 class myq {
 public:
@@ -2027,6 +2098,6 @@ void hashTest ()
 
 int main()
 {
-    t13_3();
+    t21();
 }
 
