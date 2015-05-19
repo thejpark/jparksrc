@@ -21,6 +21,9 @@
 #include <map>
 #include <stack>
 #include <memory> // auto_ptr
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include <typeinfo>
 
 using namespace std;
@@ -195,7 +198,6 @@ void remove_dup2(string &s)
     
 }
 
-
 // using additional info, which char has not unique.
 // much faster than list search.
 void remove_dup3(string &s)
@@ -225,6 +227,22 @@ void remove_dup3(string &s)
         }
     }
     s.resize(ret);
+}
+
+
+void remove_dup4(string& s)
+{
+    if (s.size() <= 1)
+        return;
+
+    string::iterator ret = s.begin() + 1;
+
+    for (string::iterator it = s.begin() + 1; it != s.end(); ++it)
+    {
+        if (find(s.begin(), ret, *it) == ret)
+            *ret++ = *it;
+    }
+    s.erase(ret, s.end());
 }
 
 
@@ -279,6 +297,25 @@ int t13_2()
     remove_dup3(ss);
     cout << "string is " << ss << endl;
     
+}
+
+int t13_3()
+{
+
+    string s("abcdaaaabbbb");
+    cout << "string is " << s << endl;
+    remove_dup4(s);
+    cout << "string is " << s << endl;
+
+    string ss("");
+    cout << "string is " << ss << endl;
+    remove_dup4(ss);
+    cout << "string is " << ss << endl;
+    
+    string s3("abcdab");
+    cout << "string is " << s3 << endl;
+    remove_dup3(s3);
+    cout << "string is " << s3 << endl;    
 }
 
 
@@ -1990,6 +2027,6 @@ void hashTest ()
 
 int main()
 {
-    t_test_set();
+    t13_3();
 }
 
