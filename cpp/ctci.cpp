@@ -1173,6 +1173,15 @@ int t1911_1()
 
     sort(vi.begin(), vi.end());
     
+    i = 0; j = vi.size() - 1;
+    while (i < j)
+    {
+        while ((vi[i] + vi[j]) > 25)
+            --j;
+        if ((vi[i] + vi[j]) == 25)
+            cout << vi[i] << " + " << vi[j] << " == 25" << endl;
+        ++i;
+    }
 
 }
 
@@ -2098,6 +2107,6 @@ void hashTest ()
 
 int main()
 {
-    t21();
+    t1911_1();
 }
 
