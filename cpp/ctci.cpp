@@ -10,6 +10,7 @@
  */ 
 
 
+#include <assert.h>
 #include <vector>
 #include <list>
 #include <set>
@@ -782,7 +783,53 @@ private:
 
     
 
+// implement stack. pop, push, and min. all in O(1).
+class minstack
+{
+public:
+    void push(int a)
+    {
+        int m;
+        if (v.empty())
+            m = 100000; // some max value. INT_MAX?
+        else
+            m = imin();
+        m = min(a, m);
+        v.push_back(pair<int, int>(a, m));
+    }
 
+    int pop()
+    {
+        int r = v[v.size() - 1].first;
+        v.pop_back();
+        return r;
+    }
+
+    int imin()
+    {
+        return v[v.size() - 1].second;
+    }
+private:
+    // value, min
+    vector<pair<int, int>> v;
+    };
+    
+void t31()
+{
+    minstack ms;
+    ms.push(3);
+    ms.push(7);
+    ms.push(1);
+    ms.push(4);
+
+    assert(1 == ms.imin());
+    ms.pop();
+    assert(1 == ms.imin());
+    ms.pop();
+    assert(3 == ms.imin());
+    ms.pop();
+    assert(3 == ms.imin());
+}
 
 int t35()
 {
@@ -2107,6 +2154,6 @@ void hashTest ()
 
 int main()
 {
-    t1911_1();
+    t31();
 }
 
