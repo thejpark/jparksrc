@@ -2201,9 +2201,27 @@ void t45()
 // ancestor of two nodes in a binary tree Avoid storing 
 //additional nodes in a data structure NOTE: This is not 
 // necessarily a binary search tree
+void cover(tree*n, tree*a, tree*b)
+{
+b1 = search(n->left, a);
+b2 = search(n->left, b);
+b3 = search(n->right, a);
+b4 = search(n->right, b);
+
+if (b1 && b2)
+    return cover(n->left, a, b);
+
+if (b3 && b4)
+    return cover(n->right, a, b);
+
+if ((b1 && b4) || (b2 && b3))
+    return n;
+
+return NULL;
+}
+
 void t46()
 {
-
 }
 
 
