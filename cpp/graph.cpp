@@ -279,6 +279,14 @@ int t3()
     g.sort(1);
 }
 
+// how can we handle graph with cycle?
+// how can we handle graph with extremely large nodes?
+// which data structure or algorithm to use?
+int t4()
+{
+}
+
+
 int main()
 {
     t3();    
