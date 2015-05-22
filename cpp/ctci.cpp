@@ -2162,6 +2162,36 @@ void t43()
 
 // find next node in binary search tree (in order successor) where
 // each node has pointer to its parent
+#if 0
+
+int search_min(tree* n)
+{
+if (n->left)
+    return search_min(n->left);
+
+return n->data;
+}
+
+int search_next(tree* n)
+{
+    int k = n->data;
+    if (n->right)
+        return search_min(n->right);
+    else
+    {
+        while (n->data <= k)
+        {
+            n = n->parent;
+            if (n == null)
+            {
+                cout << "the last element";
+                return -1;
+            }
+        }
+        return n->data;
+    }
+}
+#endif
 void t45()
 {
 
