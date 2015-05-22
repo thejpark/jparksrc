@@ -72,9 +72,30 @@ public:
         return r;
     }
 
+    void sort(T t)
+    {
+
+        resolved[t] = true;
+
+        if (node[t].empty())
+        {
+            cout << t << endl;
+            return;
+        }
+        for (typename list<pair<T, int> >::iterator it = node[t].begin();
+             it != node[t].end();
+             ++it)
+        {
+            if (!resolved[it->first])
+                sort(it->first);
+        }
+        cout << t << endl;
+    }
+
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
+    map<T, bool> resolved;
 };
 
 
@@ -244,9 +265,23 @@ int t_thread_bfs_1()
 }
 
 
+int t3()
+{
+    graph<int>  g;
+    g.push(1, 2, 10);
+    g.push(1, 4, 30);
+    g.push(1, 5, 100);
+    g.push(2, 3, 50);
+    g.push(3, 5, 10);
+    g.push(4, 3, 20);
+    g.push(4, 5, 60);
+
+    g.sort(1);
+}
+
 int main()
 {
-    t2();    
+    t3();    
 }
 
 
