@@ -98,6 +98,11 @@ public:
         if (visited[t] > 1)
         {
             cout << "cycle found" << endl;
+            // Head up!!!
+            // this only prints visited node sorted by map.
+            // Acutally what I need is print by visited order.
+            // So, probably we need a map that just iterated as a list,
+            // and also privide fast access to element
             for (typename map<T, int>::iterator it = visited.begin();
                  it != visited.end();
                  ++it)
