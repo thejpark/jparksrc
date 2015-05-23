@@ -74,11 +74,11 @@ public:
 
     void sort(T t)
     {
-
-        resolved[t] = true;
-
+        resolved[t] = true; // we now can work with cycle.
         if (node[t].empty())
         {
+            // actually visited can be here if there is no cycle
+            // resolved[t] = true; 
             cout << t << endl;
             return;
         }
@@ -89,6 +89,9 @@ public:
             if (!resolved[it->first])
                 sort(it->first);
         }
+
+        // actually visited can be here if there is no cycle
+        // resolved[t] = true;
         cout << t << endl;
     }
 
@@ -275,6 +278,7 @@ int t3()
     g.push(3, 5, 10);
     g.push(4, 3, 20);
     g.push(4, 5, 60);
+    g.push(5, 2, 30); // add cycle
 
     g.sort(1);
 }
