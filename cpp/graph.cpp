@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <set>
 
 using namespace std;
 
@@ -75,30 +76,60 @@ public:
     void sort(T t)
     {
         resolved[t] = true; // we now can work with cycle.
-        if (node[t].empty())
-        {
-            // actually visited can be here if there is no cycle
-            // resolved[t] = true; 
-            cout << t << endl;
-            return;
-        }
-        for (typename list<pair<T, int> >::iterator it = node[t].begin();
-             it != node[t].end();
-             ++it)
-        {
-            if (!resolved[it->first])
-                sort(it->first);
-        }
 
+        if (!node[t].empty())
+        {
+            for (typename list<pair<T, int> >::iterator it = node[t].begin();
+                 it != node[t].end();
+                 ++it)
+            {
+                if (!resolved[it->first])
+                    sort(it->first);
+            }
+        }
         // actually visited can be here if there is no cycle
         // resolved[t] = true;
         cout << t << endl;
+    }
+
+    void sortFindCycle(T t)
+    {
+        visited[t]++;
+        if (visited[t] > 1)
+        {
+            cout << "cycle found" << endl;
+            for (typename map<T, int>::iterator it = visited.begin();
+                 it != visited.end();
+                 ++it)
+            {
+                cout << it->first << " ";
+            }
+
+            cout << t << endl;
+            visited[t]--;
+            return;
+        }
+        
+        if (!node[t].empty())
+        {
+            for (typename list<pair<T, int> >::iterator it = node[t].begin();
+                 it != node[t].end();
+                 ++it)
+            {
+                if (!resolved[it->first])
+                    sortFindCycle(it->first);
+            }
+        }
+       
+        cout << t << endl;
+        resolved[t] = true;
     }
 
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
     map<T, bool> resolved;
+    map<T, int> visited;
 };
 
 
@@ -283,17 +314,28 @@ int t3()
     g.sort(1);
 }
 
-// how can we handle graph with cycle?
-// how can we handle graph with extremely large nodes?
-// which data structure or algorithm to use?
+// how can we find cycle?
 int t4()
 {
+    graph<int>  g;
+    g.push(1, 2, 10);
+    g.push(1, 4, 30);
+    g.push(1, 5, 100);
+    g.push(2, 3, 50);
+    g.push(3, 5, 10);
+    g.push(4, 3, 20);
+    g.push(4, 5, 60);
+    g.push(5, 2, 30); // add cycle
+
+    g.sortFindCycle(1);
 }
 
+// how can we handle graph with extremely large nodes?
+// which data structure or algorithm to use?
 
 int main()
 {
-    t3();    
+    t4();    
 }
 
 
