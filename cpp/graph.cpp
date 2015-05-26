@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <unordered_map>
 #include <set>
 
 using namespace std;
@@ -133,7 +134,8 @@ public:
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
-    map<T, bool> resolved;
+    // unordered_map is faster.
+    unordered_map<T, bool> resolved;
     map<T, int> visited;
 };
 
@@ -340,7 +342,7 @@ int t4()
 
 int main()
 {
-    t4();    
+    t3();    
 }
 
 
