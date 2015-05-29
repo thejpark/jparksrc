@@ -5,6 +5,7 @@
 #include <map>
 #include <unordered_map>
 #include <set>
+#include <memory>
 
 using namespace std;
 
@@ -335,6 +336,81 @@ int t4()
     g.push(5, 2, 30); // add cycle
 
     g.sortFindCycle(1);
+}
+
+class trie {
+public:
+    trie(): root{new node()} {}
+    void add(string s);
+    void remove(string s);
+    bool find(string s);
+
+private:
+    class node {
+    public:
+        node():complete{false} {}
+        unordered_map<char, shared_ptr<node> > ms; // use pointer? unique_ptr? shared_ptr?
+        bool complete;
+    };
+    shared_ptr<node> root;
+};
+
+
+void trie::add(string s)
+{
+    int i = 0;
+    int len = s.size();
+    // 
+    shared_ptr<node> n = root;
+    while(i < len)
+    {
+        auto it = n->ms.find(s[i]);
+        if (it == n->ms.end())
+            break;
+        n = it->second;
+        ++i;
+    }
+
+    //
+    while(i < len)
+    {
+        shared_ptr<node> temp{new node()};
+        n->ms[s[i]] = temp;
+        n = temp;
+    }
+
+    n->complete = true;
+}
+
+void trie::remove(string s)
+{
+    
+}
+
+bool trie::find(string s)
+{
+    int len = s.size();
+    int i = 0;
+
+    shared_ptr<node> n = root;
+    while (i < len)
+    {
+        auto it = n->ms.find(s[i]);
+        if (it == n->ms.end())
+            return false;
+        n = it->second;
+    }
+    
+    return n->complete;
+}
+
+
+void t5()
+{
+    trie t;
+    t.add("this");
+    t.add("that");
+    t.add("they");
 }
 
 // how can we handle graph with extremely large nodes?
