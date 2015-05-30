@@ -350,7 +350,7 @@ private:
     class node {
     public:
         node():complete{false} {}
-        unordered_map<char, shared_ptr<node> > ms; // use pointer? unique_ptr? shared_ptr?
+        unordered_map<char, shared_ptr<node> > ms;
         bool complete;
         ~node() { cout << "deleted" << endl; }
     };
