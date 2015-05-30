@@ -352,6 +352,7 @@ private:
         node():complete{false} {}
         unordered_map<char, shared_ptr<node> > ms; // use pointer? unique_ptr? shared_ptr?
         bool complete;
+        ~node() { cout << "deleted" << endl; }
     };
     shared_ptr<node> root;
 };
@@ -386,7 +387,49 @@ void trie::add(string s)
 
 void trie::remove(string s)
 {
+    int i = 0;
+    int len = s.size();
     
+    // 
+    shared_ptr<node> n = root;
+    shared_ptr<node> prev_n = root;
+    char prev_ch;
+    bool begin = false;
+    while(i < len)
+    {
+        auto it = n->ms.find(s[i]);
+        if (it == n->ms.end())
+            return;
+
+        if (it->second->ms.size() <= 1)
+        {
+            if (!begin)
+            {
+                prev_ch = s[i];
+                prev_n = n;
+                begin = true;
+            }
+        }
+        else
+        {
+            begin = false;
+            prev_n = n;
+            prev_ch = s[i];
+        }
+
+        n = it->second;
+        ++i;
+    }
+
+    if (n->ms.empty())
+    {
+        auto it = prev_n->ms.find(prev_ch);
+        prev_n->ms.erase(it);
+    }
+    else
+    {
+        n->complete = false;
+    }
 }
 
 bool trie::find(string s)
@@ -411,14 +454,37 @@ bool trie::find(string s)
 void t5()
 {
     trie t;
+    string s;
+
     t.add("this");
     t.add("that");
     t.add("they");
+    t.add("the");
 
     assert(true == t.find("they"));
     assert(true == t.find("this"));
     assert(true == t.find("that"));
+    assert(true == t.find("the"));
+
+    t.remove("the");
     assert(false == t.find("the"));
+    cout << "delete the" << endl;
+    getline(cin, s);
+
+    t.remove("they");
+    assert(false == t.find("they"));
+    cout << "delete they" << endl;
+    getline(cin, s);
+
+    t.remove("this");
+    assert(false == t.find("this"));
+    cout << "delete this" << endl;
+    getline(cin, s);
+
+    t.remove("that");
+    assert(false == t.find("that"));
+    cout << "delete that" << endl;
+    getline(cin, s);
 }
 
 // how can we handle graph with extremely large nodes?
