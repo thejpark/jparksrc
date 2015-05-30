@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <vector>
 #include <list>
 #include <iostream>
@@ -377,6 +378,7 @@ void trie::add(string s)
         shared_ptr<node> temp{new node()};
         n->ms[s[i]] = temp;
         n = temp;
+        ++i;
     }
 
     n->complete = true;
@@ -399,6 +401,7 @@ bool trie::find(string s)
         if (it == n->ms.end())
             return false;
         n = it->second;
+        ++i;
     }
     
     return n->complete;
@@ -411,6 +414,11 @@ void t5()
     t.add("this");
     t.add("that");
     t.add("they");
+
+    assert(true == t.find("they"));
+    assert(true == t.find("this"));
+    assert(true == t.find("that"));
+    assert(false == t.find("the"));
 }
 
 // how can we handle graph with extremely large nodes?
@@ -418,7 +426,7 @@ void t5()
 
 int main()
 {
-    t3();    
+    t5();    
 }
 
 
