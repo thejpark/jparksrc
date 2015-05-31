@@ -340,12 +340,6 @@ int t4()
 }
 
 class trie {
-public:
-    trie(): root{new node()} {}
-    void add(string s);
-    void remove(string s);
-    bool find(string s);
-
 private:
     class node {
     public:
@@ -355,6 +349,15 @@ private:
         ~node() { cout << "deleted" << endl; }
     };
     shared_ptr<node> root;
+
+public:
+    trie(): root{new node()} {}
+    void add(string s);
+    void remove(string s);
+    bool find(string s);
+    vector<string> fuzzy_find(string s);
+    void visit_all(vector<string> &vs, vector<char> &vc, shared_ptr<node>& n);
+
 };
 
 
@@ -451,6 +454,42 @@ bool trie::find(string s)
 }
 
 
+void trie::visit_all(vector<string> &vs, vector<char> &vc, shared_ptr<node>& n)
+{
+    if (n->complete)
+        vs.push_back(string(vc.begin(), vc.end()));
+
+    for (auto it = n->ms.begin(); it != n->ms.end(); ++it)
+    {
+        vc.push_back(it->first);
+        visit_all(vs, vc, it->second);
+        vc.pop_back();
+    }
+}
+
+vector<string> trie::fuzzy_find(string s)
+{
+    int len = s.size();
+    int i = 0;
+
+    vector<char> vc;
+    vector<string> vs;
+    shared_ptr<node> n = root;
+    while (i < len)
+    {
+        auto it = n->ms.find(s[i]);
+        if (it == n->ms.end())
+            return vs;
+        vc.push_back(s[i]);
+        n = it->second;
+        ++i;
+    }
+
+    visit_all(vs, vc, n);
+    return vs;
+}
+
+
 void t5()
 {
     trie t;
@@ -487,12 +526,27 @@ void t5()
     getline(cin, s);
 }
 
+
+void t6()
+{
+    trie t;
+    string s;
+
+    t.add("this");
+    t.add("that");
+    t.add("they");
+    t.add("the");
+    auto vs = t.fuzzy_find("the");
+    for (auto it = vs.begin(); it != vs.end(); ++it)
+        cout << *it << endl;
+}
+ 
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
 
 int main()
 {
-    t5();    
+    t6();    
 }
 
 
