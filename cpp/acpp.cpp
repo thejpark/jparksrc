@@ -3987,7 +3987,22 @@ void test_array()
     cout << endl;
 }
 
+template <int T>
+class static_array{
+public:
+    int array[T];
+};
+
+void test_template()
+{
+    static_array<10> a;
+
+    for (int i = 0; i < 10; ++i)
+        cout << a.array[i] << endl;
+
+}
+
 int main(int argc, char * argv[])
 {
-    test_array();
+    test_template();
 }
