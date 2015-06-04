@@ -133,6 +133,32 @@ public:
         resolved[t] = true;
     }
 
+    void sortBfs(T t)
+    {
+        resolved[t] = true; // we now can work with cycle.
+        list<T> vt;
+        vt.push_back(t);
+
+        while (!vt.empty())
+        {
+            T e = vt.front();
+            vt.pop_front();
+            // actually visited can be here if there is no cycle
+            // resolved[t] = true;
+            cout << e << endl;
+            for (typename list<pair<T, int> >::iterator it = node[e].begin();
+                 it != node[e].end();
+                 ++it)
+            {
+                if (!resolved[it->first])
+                {
+                    resolved[it->first] = true;
+                    vt.push_back(it->first);
+                }
+            }
+        }
+    }
+
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
@@ -337,6 +363,21 @@ int t4()
     g.push(5, 2, 30); // add cycle
 
     g.sortFindCycle(1);
+}
+
+int t3_1()
+{
+    graph<int>  g;
+    g.push(1, 2, 10);
+    g.push(1, 4, 30);
+    g.push(1, 5, 100);
+    g.push(2, 3, 50);
+    g.push(3, 5, 10);
+    g.push(4, 3, 20);
+    g.push(4, 5, 60);
+    g.push(5, 2, 30); // add cycle
+
+    g.sortBfs(1);
 }
 
 class trie {
@@ -546,7 +587,5 @@ void t6()
 
 int main()
 {
-    t6();    
+    t3_1();    
 }
-
-
