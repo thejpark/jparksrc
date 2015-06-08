@@ -582,6 +582,19 @@ void t6()
         cout << *it << endl;
 }
  
+
+// given a weighted grath, find a max flow path from source to dest
+void t7()
+{
+// find parent for each node
+
+// find min(node->capa, parent_capa)
+
+// find max of all sibling
+
+}
+
+
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
 
