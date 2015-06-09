@@ -720,6 +720,13 @@ void t7_1()
         cout << e << " ";
 
     cout << endl;
+    tl.clear();
+    cout << g.findMaxFlow(1, 3, tl) << endl;
+
+    for (auto e : tl)
+        cout << e << " ";
+
+    cout << endl;
 }
 
 
