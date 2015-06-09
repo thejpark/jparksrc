@@ -159,12 +159,58 @@ public:
         }
     }
 
+    void findParent(T t)
+    {
+        resolved[t] = true; // we now can work with cycle.
+        list<T> vt;
+        vt.push_back(t);
+
+        while (!vt.empty())
+        {
+            T e = vt.front();
+            vt.pop_front();
+            // actually visited can be here if there is no cycle
+            // resolved[t] = true;
+            // cout << e << endl;
+            for (typename list<pair<T, int> >::iterator it = node[e].begin();
+                 it != node[e].end();
+                 ++it)
+            {
+                if (!resolved[it->first])
+                {
+                    resolved[it->first] = true;
+                    vt.push_back(it->first);
+                }
+                parents[it->first].push_back(pair<T, int>(e, it->second));
+            }
+        }
+}
+
+    int findMaxFlow(T s, T d)
+    {
+        int tmax = -1;
+        for (auto e : parents[d])
+        {
+            int r;
+            if (e.first == s)
+                r = e.second;
+            else 
+                r = min(e.second, findMaxFlow(s, e.first));
+
+            if (tmax < r)
+                tmax = r;
+        }
+
+        return tmax;
+    }
+
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
     // unordered_map is faster.
     unordered_map<T, bool> resolved;
     map<T, int> visited;
+    map<T, vector<pair<T, int>> > parents;
 };
 
 
@@ -586,12 +632,19 @@ void t6()
 // given a weighted grath, find a max flow path from source to dest
 void t7()
 {
-// find parent for each node
+    graph<int>  g;
+    g.push(1, 2, 25);
+    g.push(1, 4, 30);
+    // g.push(1, 5, 100);
+    g.push(2, 3, 50);
+    g.push(3, 5, 10);
+    g.push(4, 3, 20);
+    g.push(4, 5, 60);
+    // g.push(5, 2, 30); // add cycle
 
-// find min(node->capa, parent_capa)
-
-// find max of all sibling
-
+    g.findParent(1);
+    cout << g.findMaxFlow(1, 5) << endl;
+    cout << g.findMaxFlow(1, 3) << endl;
 }
 
 
@@ -600,5 +653,5 @@ void t7()
 
 int main()
 {
-    t3_1();    
+    t7();    
 }
