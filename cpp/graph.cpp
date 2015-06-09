@@ -188,6 +188,10 @@ public:
 
     int findMaxFlow(T s, T d)
     {
+        // actually this check is useless.
+        // if (parents.find(d) == parents.end())
+        //     return 0;
+
         int tmax = -1;
         for (auto e : parents[d])
         {
@@ -201,6 +205,54 @@ public:
                 tmax = r;
         }
 
+        return tmax;
+    }
+
+    int findMaxFlow(T s, T d, list<T>& l)
+    {
+        // actually this check is useless.
+        // if (parents.find(d) == parents.end())
+        //     return 0;
+        // if (s == d)
+        //     return 0;
+
+        int tmax = -1;
+        list<T> tlmax;
+        for (auto e : parents[d])
+        {
+            int r;
+            list<T> tl;
+                
+            if (e.first == s)
+            {
+                r = e.second;
+                tl.push_back(e.first);
+            }
+            else 
+            {
+                list<T> tt;
+                int t = findMaxFlow(s, e.first, tt);
+                tl.push_back(e.first);
+                if (e.second < t)
+                {
+                    r = e.second;
+                }
+                else
+                {
+                    r = t;
+                    copy(tt.begin(), tt.end(), back_inserter(tl));
+                }
+            }
+
+            if (tmax < r)
+            {
+                tmax = r;
+                tlmax = tl;
+            }
+
+        }
+
+        copy(tlmax.begin(), tlmax.end(), back_inserter(l));
         return tmax;
     }
 
@@ -648,10 +700,34 @@ void t7()
 }
 
 
+void t7_1()
+{
+    graph<int>  g;
+    g.push(1, 2, 25);
+    g.push(1, 4, 30);
+    // g.push(1, 5, 100);
+    g.push(2, 3, 50);
+    g.push(3, 5, 10);
+    g.push(4, 3, 20);
+    g.push(4, 5, 60);
+    // g.push(5, 2, 30); // add cycle
+
+    g.findParent(1);
+    list<int> tl;
+    cout << g.findMaxFlow(1, 5, tl) << endl;
+
+    for (auto e : tl)
+        cout << e << " ";
+
+    cout << endl;
+}
+
+
+
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
 
 int main()
 {
-    t7();    
+    t7_1();    
 }
