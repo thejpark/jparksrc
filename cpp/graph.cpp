@@ -43,7 +43,8 @@ public:
             r[it->first] = it->second;
         }
 
-        list<T> s, v;
+        list<T> s;
+        vector<T> v;
         s.push_back(from);        
         for (typename map<T, int>::iterator it = r.begin();
              it != r.end();
@@ -52,18 +53,15 @@ public:
                 v.push_back(it->first);
         // done initialiation. node 0 is not added as it is just for easy of use.
 
+        make_heap(v.begin(), v.end(), [&](T a, T b){ return r[a] > r[b];});
         while (!v.empty()) {
 
-            T m = from; //r[from]  has 100000 which means max
-            for (typename list<T>::iterator i = v.begin(); i != v.end(); ++i) {
-                if (r[*i] < r[m])
-                    m = *i;
-            } // how can we reduce this? priority queue? 
-
+            T m = v[0];
             cout << " process node "  << m << endl;
 
             s.push_back(m);
-            v.erase(remove(v.begin(), v.end(), m), v.end());
+            pop_heap(v.begin(), v.end(), [&](T a, T b){ return r[a] > r[b];});
+            v.pop_back();
 
             list<pair<T, int> > adj_m = adj(m);
             for(iter it = adj_m.begin();
@@ -736,5 +734,5 @@ void t7_1()
 
 int main()
 {
-    t7_1();    
+    t2();
 }
