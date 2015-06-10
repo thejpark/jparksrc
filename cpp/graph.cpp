@@ -36,6 +36,7 @@ public:
     map<T, int>
     dijkstra(T from) 
     {
+        auto c1 = [&](T a, T b){ return r[a] > r[b];};
         // initial distance
         list<pair<T, int> > adjlist = adj(from);
         for (iter it = adjlist.begin();
@@ -53,14 +54,14 @@ public:
                 v.push_back(it->first);
         // done initialiation. node 0 is not added as it is just for easy of use.
 
-        make_heap(v.begin(), v.end(), [&](T a, T b){ return r[a] > r[b];});
+        make_heap(v.begin(), v.end(), c1);
         while (!v.empty()) {
 
             T m = v.front();
             cout << " process node "  << m << endl;
 
             s.push_back(m);
-            pop_heap(v.begin(), v.end(), [&](T a, T b){ return r[a] > r[b];});
+            pop_heap(v.begin(), v.end(), c1);
             v.pop_back();
 
             list<pair<T, int> > adj_m = adj(m);
