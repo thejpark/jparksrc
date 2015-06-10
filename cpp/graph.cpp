@@ -56,7 +56,7 @@ public:
         make_heap(v.begin(), v.end(), [&](T a, T b){ return r[a] > r[b];});
         while (!v.empty()) {
 
-            T m = v[0];
+            T m = v.front();
             cout << " process node "  << m << endl;
 
             s.push_back(m);
