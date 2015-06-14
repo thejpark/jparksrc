@@ -737,6 +737,18 @@ int Find(int x) {
 void Union(int x, int y) {
     L[Find(x)] = Find(y);
 }
+
+
+// path compression 
+int Find(int x) {
+    if(x == L[x]) return x;
+    int root = Find(L[x]);
+    L[x] = root;
+    return root;
+}
+int Find(int x) {
+    return x == L[x] ? x : L[x] = Find(L[x]);
+}
 #endif
 
 // how can we handle graph with extremely large nodes?
