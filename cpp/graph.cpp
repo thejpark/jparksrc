@@ -728,7 +728,16 @@ void t7_1()
     cout << endl;
 }
 
-
+#if 0
+ // union find
+int Find(int x) {
+     while(x != L[x]) x = L[x];
+     return x;
+ }
+void Union(int x, int y) {
+    L[Find(x)] = Find(y);
+}
+#endif
 
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
