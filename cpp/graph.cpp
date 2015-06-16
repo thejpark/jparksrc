@@ -272,13 +272,11 @@ public:
     {
         for (auto e : l)
         {
-            // cout << " 1 " << e << endl;
             for (auto it = parents[t].begin(); it != parents[t].end(); ++it)
             {
                 if (it->first == e)
                 {
                     it->second -= d;
-                    // cout << " 2 " << t << " " << it->second << endl;
                     t = e;
                     break;
                 }
@@ -290,7 +288,6 @@ public:
             if (it->first == s)
             {
                 it->second -= d;
-                // cout << " 2 " << t << " " << it->second << endl;
                 break;
             }
         }
