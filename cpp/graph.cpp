@@ -183,7 +183,21 @@ public:
                 parents[it->first].push_back(pair<T, int>(e, it->second));
             }
         }
-}
+    }
+
+    void printParent()
+    {
+
+        for (auto i : parents)
+        {
+            cout << "node is " << i.first << " and parent is ";
+            for (auto e: i.second)
+            {
+                cout << e.first << " ";
+            }
+            cout << endl;
+        }
+    }
 
     int findMaxFlow(T s, T d)
     {
@@ -222,25 +236,24 @@ public:
             int r;
             list<T> tl;
                 
+            tl.push_back(e.first);
             if (e.first == s)
             {
                 r = e.second;
-                tl.push_back(e.first);
             }
             else 
             {
                 list<T> tt;
                 int t = findMaxFlow(s, e.first, tt);
-                tl.push_back(e.first);
-                if (e.second < t)
+                if (e.second <= t)
                 {
                     r = e.second;
                 }
                 else
                 {
                     r = t;
-                    copy(tt.begin(), tt.end(), back_inserter(tl));
                 }
+                copy(tt.begin(), tt.end(), back_inserter(tl));
             }
 
             if (tmax < r)
@@ -255,6 +268,34 @@ public:
         return tmax;
     }
 
+    void update(T s, T t, list<T> l, int d)
+    {
+        for (auto e : l)
+        {
+            // cout << " 1 " << e << endl;
+            for (auto it = parents[t].begin(); it != parents[t].end(); ++it)
+            {
+                if (it->first == e)
+                {
+                    it->second -= d;
+                    // cout << " 2 " << t << " " << it->second << endl;
+                    t = e;
+                    break;
+                }
+            }
+        }
+
+        for (auto it = parents[t].begin(); it != parents[t].end(); ++it)
+        {
+            if (it->first == s)
+            {
+                it->second -= d;
+                // cout << " 2 " << t << " " << it->second << endl;
+                break;
+            }
+        }
+    }
+        
     private:
     map<T, int> r;
     map<T, list<pair<T, int> > > node;
@@ -728,6 +769,41 @@ void t7_1()
     cout << endl;
 }
 
+void t7_2()
+{
+    graph<int>  g;
+    g.push(1, 2, 16);
+    g.push(1, 3, 13);
+    // g.push(2, 3, 10);
+    g.push(2, 4, 12);
+    g.push(3, 2, 4);
+    g.push(3, 5, 14);
+    // g.push(4, 3, 9);
+    g.push(4, 6, 20);
+    g.push(5, 4, 7);
+    g.push(5, 6, 4);
+    // g.push(5, 2, 30); // add cycle
+
+    g.findParent(1);
+    cout << "parent found" << endl;
+    // g.printParent();
+    list<int> tl;
+    int tmax = g.findMaxFlow(1, 6, tl);;
+    while (tmax != 0)
+    {
+        cout << tmax << endl;
+
+        for (auto e : tl)
+            cout << e << " ";
+
+        cout << endl;
+        g.update(1, 6, tl, tmax); 
+        tl.clear();
+
+        tmax = g.findMaxFlow(1, 6, tl);
+    }
+}
+
 #if 0
  // union find
 int Find(int x) {
@@ -756,5 +832,5 @@ int Find(int x) {
 
 int main()
 {
-    t2();
+    t7_2();
 }
