@@ -244,15 +244,7 @@ public:
             else 
             {
                 list<T> tt;
-                int t = findMaxFlow(s, e.first, tt);
-                if (e.second <= t)
-                {
-                    r = e.second;
-                }
-                else
-                {
-                    r = t;
-                }
+                r = min(e.second, findMaxFlow(s, e.first, tt));
                 copy(tt.begin(), tt.end(), back_inserter(tl));
             }
 
