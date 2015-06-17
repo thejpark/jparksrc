@@ -98,6 +98,7 @@ void mySet::removeAll()
     {
         node* h = head;
         head = head->next;
+        h->next = h->prev = NULL;
         delete h;
     }
     
