@@ -103,7 +103,8 @@ void mySet::removeAll()
     
     head = tail = NULL;
     count = 0;
-    mc.erase(mc.begin(), mc.end());   
+    mc.clear();
+    // mc.erase(mc.begin(), mc.end());   
 }
 
 
