@@ -14,6 +14,7 @@
 #include <mutex>
 #include <stdexcept>
 #include <numeric>
+#include <memory>
 
 using namespace std;
 
@@ -679,8 +680,9 @@ class my_blocking_queue {
     class elem {
     public:
         elem(T t) : data{t}, prev{nullptr}, next{nullptr} {}
-        elem* prev;
-        elem* next;
+        ~elem() { cout << "deleted" << endl; }
+        shared_ptr<elem> prev;
+        shared_ptr<elem> next;
         T data;
     };
 public:
@@ -695,10 +697,10 @@ public:
     }
 
 private:
-    elem* head;
-    elem* tail;
+    shared_ptr<elem> head;
+    shared_ptr<elem> tail;
     int count;
-    map<T, elem*> mc;
+    map<T, shared_ptr<elem>> mc;
     mutex mmutex;
     string name;
     mysem availItems;
@@ -707,7 +709,7 @@ private:
 template <typename T>
 void my_blocking_queue<T>::put(T t)
 {
-    elem* p = new elem(t);
+    shared_ptr<elem> p{new elem(t)};
 
     unique_lock<mutex> lck{mmutex};
     if (tail == nullptr)
@@ -732,7 +734,7 @@ T my_blocking_queue<T>::take()
     unique_lock<mutex> lck{mmutex};
     assert(head != nullptr);
 
-    elem* p = head;
+    shared_ptr<elem> p = head;
     head = head->next;
     if (head == nullptr)
         tail = nullptr;
@@ -743,7 +745,6 @@ T my_blocking_queue<T>::take()
 
     --count;
     T data = p->data;
-    delete p;
     return data;
 }
 
@@ -768,6 +769,7 @@ void t19()
     assert(r == true);
 
     int x = mbi.take();
+    cout << "done" << endl;
     r = mbi.contains(1);
     assert(r == false);
     assert(x == 1);
@@ -917,5 +919,5 @@ void t22()
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t22();
+	t19();
 }
