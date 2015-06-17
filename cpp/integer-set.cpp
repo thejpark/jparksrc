@@ -68,27 +68,26 @@ bool mySet::remove(int x)
     if (n == head && n == tail)
     {
         head = tail = NULL;
-        delete n;
     }
     else if (n == head)
     {
         head = head->next;
         head->prev = NULL;
-        delete n;
     }
     else if (n == tail)
     {
         tail = tail->prev;
         tail->next = NULL;
-        delete n;
     }
     else
     {
         n->prev->next = n->next;
         n->next->prev = n->prev;
-        delete n;
     }
 
+    n->next = NULL;
+    n->prev = NULL;
+    delete n;
     return true;
 }
 
