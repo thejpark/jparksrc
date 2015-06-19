@@ -537,22 +537,22 @@ void f16(vector<double>& v)
     cout << "hello";
 }
 
-struct F16 {
-    vector<double>& v;
-    F16(vector<double>& vv) : v{vv} {}
-    void operator()() { cout << "parallel world" ;}
-};
+// struct F16 {
+//     vector<double>& v;
+//     F16(vector<double>& vv) : v{vv} {}
+//     void operator()() { cout << "parallel world" ;}
+// };
 
-void t16()
-{
-    vector<double> sv {1, 2, 3};
-    vector<double> tv {3, 2, 1};
-// we need ref() to tell variadic template 'sv' is reference not object
-    thread t1 {f16, ref(sv)};
-    thread t2 {F16(tv)};
-    t1.join();
-    t2.join();
-}
+// void t16()
+// {
+//     vector<double> sv {1, 2, 3};
+//     vector<double> tv {3, 2, 1};
+// // we need ref() to tell variadic template 'sv' is reference not object
+//     thread t1 {f16, ref(sv)};
+//     thread t2 {F16(tv)};
+//     t1.join();
+//     t2.join();
+// }
 
 
 void t17()
@@ -679,9 +679,8 @@ template <typename T>
 class my_blocking_queue {
     class elem {
     public:
-        elem(T t) : data{t}, prev{nullptr}, next{nullptr} {}
-        ~elem() { cout << "deleted" << endl; }
-        shared_ptr<elem> prev;
+        elem(T t) : data{t}, next{nullptr} {}
+        ~elem() { cout << data << " deleted" << endl; }
         shared_ptr<elem> next;
         T data;
     };
@@ -719,7 +718,6 @@ void my_blocking_queue<T>::put(T t)
     else
     {
         tail->next = p;
-        p->prev = tail;
         tail = p;
     }
     mc[t] = p;
@@ -745,6 +743,7 @@ T my_blocking_queue<T>::take()
 
     --count;
     T data = p->data;
+    p->next = nullptr;
     return data;
 }
 
@@ -782,7 +781,7 @@ void client(my_blocking_queue<int>& qi,
     int count = 0;
     while (i = qi.take())
     {
-        // cout << "in:" << i << endl;
+        cout << "in:" << i << endl;
         if (i == -1)
         {
             --count;
@@ -919,5 +918,5 @@ void t22()
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t19();
+	t20();
 }
