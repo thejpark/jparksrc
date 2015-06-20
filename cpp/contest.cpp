@@ -2,7 +2,6 @@
 http://web.stanford.edu/class/cs97si/
 */
 
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,6 +9,7 @@ http://web.stanford.edu/class/cs97si/
 #include <string.h>
 #include <stdio.h>
 #include <map>
+#include <list>
 #include <set>
 #include <algorithm>
 using namespace std;
@@ -1647,10 +1647,66 @@ void hay2()
 
 }
 
+void hay3()
+{
+  int n, m;
+  cin >> n >> m;
+  auto min_comp = [&](pair<int, int>& a, pair<int, int>& b)
+      {
+          return a.second > b.second;
+      };
+
+  map<int, list<pair<int, int> > > mm;
+  set<int> s, v;
+
+  for (int i = 0; i < m; i++) {
+
+    int a, b, len;
+    cin >> a >> b >> len;
+
+    mm[a].push_back(pair<int, int>(b, len));
+    mm[b].push_back(pair<int, int>(a, len));
+    v.insert(a);
+    v.insert(b);
+  }
+
+  /* minimal spanning tree */
+  int x = *(v.begin());
+  cout << "first is " << x << " and the size of v is " << v.size() << endl;
+  s.insert(x);
+  v.erase(x);
+
+  vector<pair<int, int> > vd{mm[x].begin(), mm[x].end()};
+  make_heap(vd.begin(), vd.end(), min_comp);
+
+  int t_max = -1;
+  
+  while (v.size() > 0) {
+      auto w = vd.front();
+      s.insert(w.first);
+      v.erase(w.first);
+      cout << w.first << " and distance is " << w.second << endl;
+
+      t_max = max(t_max, w.second);
+      pop_heap(vd.begin(), vd.end(), min_comp);
+      vd.pop_back();
+
+      for (auto e: mm[w.first])
+      {
+          if (s.find(e.first) != s.end())
+              continue;
+          vd.push_back(e);
+          push_heap(vd.begin(), vd.end(), min_comp);
+      }
+  }
+
+  cout << t_max << endl;
+}
+
 
 int main()
 {
-  hay2();
+  hay3();
 }
 
 
