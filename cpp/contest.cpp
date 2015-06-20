@@ -439,7 +439,7 @@ void ride()
 }
 
 
-void clock()
+void test_clock()
 {
 
   int hour, min;
@@ -1587,9 +1587,9 @@ int min_elem2(vector<vector<int> > &vi, set<int> &s, set<int> &v, int *r)
   for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
     for (set<int>::const_iterator iit = v.begin(); iit != v.end(); iit++) {
       if (min > vi[*it][*iit]) {
-	min = vi[*it][*iit];
-	*r = min;
-	res= *iit;
+          min = vi[*it][*iit];
+          *r = min;
+          res= *iit;
       }
     }
   }
@@ -1643,20 +1643,17 @@ void hay2()
       max = res;
   }
 
-  cout << res << endl;
+  cout << max << endl;
 
 }
 
 
 int main()
 {
-  
   hay2();
-
 }
 
 
 /*
 start: get an idea by examples, design, implement next, optimize or debug last
-
 */
