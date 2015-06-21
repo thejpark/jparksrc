@@ -1704,9 +1704,25 @@ void hay3()
 }
 
 
+void test_vector()
+{
+    vector<vector<int>> va(3);
+    // it should be & as it copies otherwise. Always remember to use reference
+    for (auto& k : va)
+        k.resize(3);
+    
+    for (int i = 0; i < 3; ++i)
+    {
+        for(int j = 0; j < 3; ++j)
+        {
+            cout << i << "," << j << " is " << va[i][j] << endl;
+        }
+    }
+}
+
 int main()
 {
-  hay3();
+    test_vector();
 }
 
 
