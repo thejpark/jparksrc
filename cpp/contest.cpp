@@ -1307,195 +1307,6 @@ void alphacode()
 
 }
 
-
-
-void get_child(vector<int> &vr, vector<int> &vc, int r, int c, vector<vector<bool> > &vbb)
-{
-  int h = vbb.size();
-  int w = vbb[0].size();
-
-  if ((r - 2) >= 0 && (c - 1) >= 0) {
-    vr.push_back(r - 2);
-    vc.push_back(c - 1);
-  }
-
-  if ((r - 2) >= 0 && (c + 1) < w) {
-    vr.push_back(r - 2);
-    vc.push_back(c + 1);
-  }
- 
-  if ((c + 2) < w && (r - 1) >= 0) {
-    vr.push_back(r - 1);
-    vc.push_back(c + 2);
-  }
-
-  if ((c + 2) < w && (r + 1) < h) {
-    vr.push_back(r + 1);
-    vc.push_back(c + 2);
-  }
-
-  if ((c - 2) >= 0 && (r + 1) < h) {
-    vr.push_back(r + 1);
-    vc.push_back(c - 2);
-  }
-
-  if ((c - 2) >= 0 && (r - 1) >= 0) {
-    vr.push_back(r - 1);
-    vc.push_back(c - 2);
-  }
-
-  if ((r + 2) < h && (c - 1) >= 0) {
-    vr.push_back(r + 2);
-    vc.push_back(c - 1);
-  }
-
-  if ((r + 2) < h && (c + 1) < w) {
-    vr.push_back(r + 2);
-    vc.push_back(c + 1);
-  }
-}
-
-void mark_path(int r, int c, int r1, int c1, vector<vector<bool> > &vbb)
-{
-  int h = vbb.size();
-  int w = vbb[0].size();
-
-  if ((r - 2) == r1 && (c - 1) == c1) {
-    vbb[r - 1][c] = true;
-    vbb[r - 2][c] = true;
-    vbb[r - 2][c - 1] = true;
-  }
-
-  if ((r - 2) == r1 && (c + 1) == c1) {
-    vbb[r - 1][c] = true;
-    vbb[r - 2][c] = true;
-    vbb[r - 2][c + 1] = true;
-  }
- 
-  if ((c + 2) == c1 && (r - 1) == r1) {
-    vbb[r][c + 1] = true;
-    vbb[r][c + 2] = true;
-    vbb[r - 1][c + 2] = true;
-  }
-
-  if ((c + 2) == c1 && (r + 1) == r1) {
-
-    vbb[r][c + 1] = true;
-    vbb[r][c + 2] = true;
-    vbb[r + 1][c + 2] = true;
-
-  }
-
-  if ((c - 2) == c1 && (r + 1) == r1) {
-
-    vbb[r][c - 1] = true;
-    vbb[r][c - 2] = true;
-    vbb[r + 1][c - 2] = true;
-
-
-  }
-
-  if ((c - 2) == c1 && (r - 1) == r1) {
-
-    vbb[r][c - 1] = true;
-    vbb[r][c - 2] = true;
-    vbb[r - 1][c - 2] = true;
-
-
-  }
-
-  if ((r + 2) == r1 && (c - 1) == c1) {
-
-    vbb[r + 1][c] = true;
-    vbb[r + 2][c] = true;
-    vbb[r + 2][c - 1] = true;
-
-  }
-
-  if ((r + 2) == r1 && (c + 1) == c1) {
-
-    vbb[r + 1][c] = true;
-    vbb[r + 2][c] = true;
-    vbb[r + 2][c + 1] = true;
-
-  }
-
-}
-
-
-bool visit_all(vector<vector<bool> > vbb)
-{
-  for (int i = 0; i < vbb.size(); i++) {
-    for (int j = 0; j <vbb[0].size(); j++) {
-      if (!vbb[i][j])
-	return false;
-    }
-  }
-  return true;
-}
-
-void dfs(int r, int c, vector<vector<bool> > &vbb, vector<vector<bool> > &vbb2, string &s)
-{
-  vbb[r][c] = true;
-  vbb2[r][c] = true;
-  
-  char rr = 'A' + r;
-  char cc = c + '1';
-
-  s.append(1, rr);
-  s.append(1, cc);
-
-  if(visit_all(vbb2)) {
-    cout << s << endl;
-    exit(0);
-  }
-
-  vector<int> vc;
-  vector<int> vr;
-  
-  get_child(vr, vc, r, c, vbb);
-
-  int i = 0;
-  while (i < vr.size()) {
-    int r1 = vr[i];
-    int c1 = vc[i];
-
-
-    if (!vbb[r1][c1]) {
-
-      mark_path(r, c, r1, c1, vbb2);
-      dfs(r1, c1, vbb, vbb2, s);
-
-    }
-    i++;
-  }
-  
-}
-
-void king_move()
-{
-  int c, r;
-  string s;
-
-  cin >> r >> c;
-
-  vector<vector<bool> > vbb;
-  vbb.resize(r);
-  for (int i = 0; i < vbb.size(); i++)
-    vbb[i].resize(c);
-
-  vector<vector<bool> > vbb2;
-  vbb2.resize(r);
-  for (int i = 0; i < vbb2.size(); i++)
-    vbb2[i].resize(c);
-
-  dfs (0, 0, vbb, vbb2, s);
-  
-  cout << "impossible" << endl;
-
-}
-
-
 int min_elem(vector<int> &vi, set<int> &s)
 {
   int min = 100000000;
@@ -1720,9 +1531,96 @@ void test_vector()
     }
 }
 
+list<string> kdfs(pair<int, int> e, map<pair<int,int>, bool>& visited,
+         map<pair<int, int>, list<pair<int, int> > >& adj)
+{
+    list<pair<int, int>> adjl = adj[e];
+    visited[e] = true;
+    list<string> r;
+    for (auto& a : adjl)
+    {
+        if (!visited[a])
+        {
+            auto rr = kdfs(a, visited, adj);
+            for (auto& rrr : rr)
+                r.push_back(rrr);
+        }
+    }
+
+    char ss[2];
+    ss[0] = 'A' + e.second;
+    ss[1] = '1' + e.first;
+    r.push_back(string(ss, ss + 2));
+    return r;
+}
+
+void knight_move()
+{
+    int n, m;
+    using elem = pair<int, int>;
+    cin >> n >> m ;
+
+    auto h = [&](int x) { return (x >= 0) && (x < n);};
+    auto l = [&](int y) { return (y >= 0) && (y < m);};
+    // find parent
+
+    map<elem, list<elem>> adj;
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            if (h(i - 2))
+            {
+                if (l(j - 1))
+                    adj[elem(i, j)].push_back(elem(i - 2, j - 1));
+                if (l(j + 1))
+                    adj[elem(i, j)].push_back(elem(i - 2, j + 1));
+            }
+
+            if (h(i + 2))
+            {
+                if (l(j - 1))
+                    adj[elem(i, j)].push_back(elem(i + 2, j - 1));
+                if (l(j + 1))
+                    adj[elem(i, j)].push_back(elem(i + 2, j + 1));
+            }
+             if (l(j - 2))
+            {
+                if (h(i - 1))
+                    adj[elem(i, j)].push_back(elem(i - 1, j - 2));
+                if (h(i + 1))
+                    adj[elem(i, j)].push_back(elem(i + 1, j - 2));
+            }
+
+            if (l(j + 2))
+            {
+                if (h(i - 1))
+                    adj[elem(i, j)].push_back(elem(i - 1, j + 2));
+                if (h(i + 1))
+                    adj[elem(i, j)].push_back(elem(i + 1, j + 2));
+            }
+        }
+    }
+    
+    // dfs
+    map<pair<int, int>, bool> visited;
+    list<string> r = kdfs(elem(0, 0), visited, adj);
+
+    if (r.size() < n * m)
+        cout << "impossible" << endl;
+
+    else
+        for (auto it = r.rbegin(); it != r.rend(); ++it)
+            cout << *it;
+
+    cout << endl;
+}
+
+
 int main()
 {
-    test_vector();
+    knight_move();
 }
 
 
