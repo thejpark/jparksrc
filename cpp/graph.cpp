@@ -134,6 +134,7 @@ public:
        
         cout << t << endl;
         resolved[t] = true;
+        visited[t]--;
     }
 
     void sortBfs(T t)
@@ -233,6 +234,7 @@ public:
         // if (s == d)
         //     return 0;
 
+        visited[d]++;
         int tmax = -1;
         list<T> tlmax;
         for (auto e : parents[d])
@@ -247,9 +249,13 @@ public:
             }
             else 
             {
-                list<T> tt;
-                r = min(e.second, findMaxFlow(s, e.first, tt));
-                copy(tt.begin(), tt.end(), back_inserter(tl));
+                // cycle should not allowd here
+                if (visited[e.first] == 0)
+                {
+                    list<T> tt;
+                    r = min(e.second, findMaxFlow(s, e.first, tt));
+                    copy(tt.begin(), tt.end(), back_inserter(tl));
+                }
             }
 
             if (tmax < r)
@@ -260,6 +266,7 @@ public:
 
         }
 
+        visited[d]--;
         copy(tlmax.begin(), tlmax.end(), back_inserter(l));
         return tmax;
     }
@@ -767,15 +774,15 @@ void t7_2()
     graph<int>  g;
     g.push(1, 2, 16);
     g.push(1, 3, 13);
-    // g.push(2, 3, 10);
+    g.push(2, 3, 10); // add cycle
     g.push(2, 4, 12);
     g.push(3, 2, 4);
     g.push(3, 5, 14);
-    // g.push(4, 3, 9);
+    g.push(4, 3, 9); // add cycle
     g.push(4, 6, 20);
     g.push(5, 4, 7);
     g.push(5, 6, 4);
-    // g.push(5, 2, 30); // add cycle
+    g.push(5, 2, 30); // add cycle
 
     g.findParent(1);
     cout << "parent found" << endl;
@@ -825,5 +832,5 @@ int Find(int x) {
 
 int main()
 {
-    t2();
+    t4();
 }
