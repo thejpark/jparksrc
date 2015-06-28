@@ -1637,6 +1637,11 @@ void knight_move()
 // k. so, the problem is to construct a graph, and dfs to find the depth, search for the min depth. each node is a pair of integer.
 
  
+// http://poj.org/problem?id=3169
+// layout.
+
+
+
 int main()
 {
     alphacode();
