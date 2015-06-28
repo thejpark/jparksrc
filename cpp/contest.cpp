@@ -1642,6 +1642,8 @@ void knight_move()
 
 
 
+// perfect stall
+
 int main()
 {
     alphacode();
