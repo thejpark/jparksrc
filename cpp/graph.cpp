@@ -830,6 +830,9 @@ int Find(int x) {
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
 
+// suffix trie
+//http://www.geeksforgeeks.org/pattern-searching-set-8-suffix-tree-introduction/
+
 int main()
 {
     t4();
