@@ -36,7 +36,6 @@ public:
     map<T, int>
     dijkstra(T from) 
     {
-        auto c1 = [&](T a, T b){ return r[a] > r[b];};
         // initial distance
         list<pair<T, int> > adjlist = adj(from);
         for (iter it = adjlist.begin();
@@ -45,7 +44,7 @@ public:
         }
 
         list<T> s;
-        vector<T> v;
+        list<T> v;
         s.push_back(from);        
         for (typename map<T, int>::iterator it = r.begin();
              it != r.end();
@@ -53,17 +52,22 @@ public:
             if (it->first != from)
                 v.push_back(it->first);
         // done initialiation. node 0 is not added as it is just for easy of use.
-
-        make_heap(v.begin(), v.end(), c1);
         while (!v.empty()) {
 
-            T m = v.front();
+            T m = from; //r[from]  has 100000 which means max
+            for (typename list<T>::iterator i = v.begin(); i != v.end(); ++i) {
+                if (r[*i] < r[m])
+                    m = *i;
+            } // how can we reduce this? priority queue?
+            // but as r[] is changed at the end, heap could not be just
+            // used. Do we have a better priority queue for this?
+            // Or just checking with all is better?
+
             cout << " process node "  << m << endl;
 
             s.push_back(m);
-            pop_heap(v.begin(), v.end(), c1);
-            v.pop_back();
-
+            v.erase(find(v.begin(), v.end(), m));
+                    
             list<pair<T, int> > adj_m = adj(m);
             for(iter it = adj_m.begin();
                     it != adj_m.end(); ++it) {
@@ -130,6 +134,7 @@ public:
        
         cout << t << endl;
         resolved[t] = true;
+        visited[t]--;
     }
 
     void sortBfs(T t)
@@ -229,6 +234,7 @@ public:
         // if (s == d)
         //     return 0;
 
+        visited[d]++;
         int tmax = -1;
         list<T> tlmax;
         for (auto e : parents[d])
@@ -243,9 +249,13 @@ public:
             }
             else 
             {
-                list<T> tt;
-                r = min(e.second, findMaxFlow(s, e.first, tt));
-                copy(tt.begin(), tt.end(), back_inserter(tl));
+                // cycle should not allowd here
+                if (visited[e.first] == 0)
+                {
+                    list<T> tt;
+                    r = min(e.second, findMaxFlow(s, e.first, tt));
+                    copy(tt.begin(), tt.end(), back_inserter(tl));
+                }
             }
 
             if (tmax < r)
@@ -256,6 +266,7 @@ public:
 
         }
 
+        visited[d]--;
         copy(tlmax.begin(), tlmax.end(), back_inserter(l));
         return tmax;
     }
@@ -763,15 +774,15 @@ void t7_2()
     graph<int>  g;
     g.push(1, 2, 16);
     g.push(1, 3, 13);
-    // g.push(2, 3, 10);
+    g.push(2, 3, 10); // add cycle
     g.push(2, 4, 12);
     g.push(3, 2, 4);
     g.push(3, 5, 14);
-    // g.push(4, 3, 9);
+    g.push(4, 3, 9); // add cycle
     g.push(4, 6, 20);
     g.push(5, 4, 7);
     g.push(5, 6, 4);
-    // g.push(5, 2, 30); // add cycle
+    g.push(5, 2, 30); // add cycle
 
     g.findParent(1);
     cout << "parent found" << endl;
@@ -819,7 +830,10 @@ int Find(int x) {
 // how can we handle graph with extremely large nodes?
 // which data structure or algorithm to use?
 
+// suffix trie
+//http://www.geeksforgeeks.org/pattern-searching-set-8-suffix-tree-introduction/
+
 int main()
 {
-    t7_2();
+    t4();
 }
