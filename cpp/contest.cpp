@@ -1554,6 +1554,8 @@ list<string> kdfs(pair<int, int> e, map<pair<int,int>, bool>& visited,
     return r;
 }
 
+// in the graph problem, node may be a compount value.
+
 void knight_move()
 {
     int n, m;
