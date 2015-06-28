@@ -1618,9 +1618,26 @@ void knight_move()
 }
 
 
+
+// worm hole seems to be just a shortest path starting from itself. Or a network
+// flow from source to dest?
+// http://poj.org/problem?id=3259
+
+
+// http://poj.org/problem?id=1945
+// single line with a single integer that is the minimum number of operations it requires to compute the power.
+// given two variables (or store) to save temporary variable 
+// for example, for input 31, output is 6
+// we can either multiply or divide.
+// (x, 1), (x, x^2), ..., (x, x^32), (x, x^31)
+// (1, 0), (1, 2),   ..., (1, 32), (1, 31).
+// so, input is (1, 0), and output is either should (31, k) or (k, 31) for some
+// k. so, the problem is to construct a graph, and dfs to find the depth, search for the min depth. each node is a pair of integer.
+
+ 
 int main()
 {
-    knight_move();
+    alphacode();
 }
 
 
