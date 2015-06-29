@@ -1642,11 +1642,68 @@ void knight_move()
 
 
 
+
 // perfect stall
+
+
+int find_perfect_stall(map<int, int>& allocated,
+                       map<int, int>& visited,
+                       map<int, list<int>>& cow)
+{
+    int m = 0;
+
+    for (auto a : cow)
+    {
+        if (visited[a.first])
+            continue;
+
+        visited[a.first]++;
+        int r = 0;
+        for (auto e: a.second)
+        {
+            if (!allocated[e])
+            {
+                allocated[e]++;
+                r = max(r, 1 + find_perfect_stall(allocated, visited, cow));
+                allocated[e]--;
+            }
+        }
+        m = max(m, r);
+        visited[a.first]--;
+    }
+
+    return m;
+}
+
+void perfect_stall()
+{
+    int n, m;
+    cin >> n >> m;
+
+    map<int, list<int>> cow;
+    for (int i = 1; i <= n; ++i)
+    {
+        int k;
+        cin >> k;
+        for (int j = 0; j < k; ++j)
+        {
+            int l;
+            cin >> l;
+            cow[i].push_back(l);
+        }
+    }
+            
+    cout << "input done" << endl;
+    map<int, int> allocated;
+    map<int, int> visited;
+    int r = find_perfect_stall(allocated, visited, cow);
+
+    cout << r;
+}
 
 int main()
 {
-    alphacode();
+    perfect_stall();
 }
 
 
