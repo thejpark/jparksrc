@@ -804,6 +804,35 @@ void t7_2()
     }
 }
 
+void t7_3()
+{
+    graph<int>  g;
+    g.push(1, 2, 40);
+    g.push(1, 4, 20);
+    g.push(2, 4, 20);
+    g.push(2, 3, 30);
+    g.push(3, 4, 10);
+
+    g.findParent(1);
+    cout << "parent found" << endl;
+    // g.printParent();
+    list<int> tl;
+    int tmax = g.findMaxFlow(1, 4, tl);;
+    while (tmax != 0)
+    {
+        cout << tmax << endl;
+
+        for (auto e : tl)
+            cout << e << " ";
+
+        cout << endl;
+        g.update(1, 4, tl, tmax); 
+        tl.clear();
+
+        tmax = g.findMaxFlow(1, 4, tl);
+    }
+}
+
 #if 0
  // union find
 int Find(int x) {
@@ -835,5 +864,5 @@ int Find(int x) {
 
 int main()
 {
-    t4();
+    t7_3();
 }
