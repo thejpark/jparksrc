@@ -462,7 +462,7 @@ template<typename C, typename V>
 vector<Iterator<C>> find_all(C& c, V v)
 {
     vector<Iterator<C>> res;
-    for (auto p = c.begin; p != c.end(); ++c)
+    for (auto p = c.begin(); p != c.end(); ++p)
         if (*p == v)
             res.push_back(p);
     return res;
