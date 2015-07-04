@@ -2245,8 +2245,7 @@ Worst case runtime is at most O(n * m), where n and m are the sizes of trees
 T1 and T2, respectively If k is the number of occurrences of T2s root in T1, 
 the worst case runtime can be characterized as O(n + k * m)
 
-
-     Another alternative is using parallelism. async is a way.
+Another alternative is using parallelism. async is a way.
     
 #endif
     
