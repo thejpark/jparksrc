@@ -62,6 +62,19 @@ void t2()
     cout << myfib(6) << endl;
 }
 
+int plus2(int *i)
+{
+    return *i + 2;
+}
+
+
+void t2_1()
+{
+    int i = 3;
+    auto r = async(plus2, &i);
+    cout << r.get() << endl;
+}
+
 
 class mysem {
 public:
@@ -919,5 +932,5 @@ void t22()
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t19();
+	t2_1();
 }
