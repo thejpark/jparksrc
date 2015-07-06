@@ -2249,6 +2249,8 @@ Another alternative is using parallelism. async is a way.
     
 #endif
     
+
+// https://en.wikipedia.org/wiki/Suffix_array
 void t47()
 {
 
