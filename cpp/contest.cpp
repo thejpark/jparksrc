@@ -1701,9 +1701,39 @@ void perfect_stall()
     cout << r;
 }
 
+
+bool aia(string s, string t)
+{
+    if (s.size() == 0)
+        return true;
+
+    if (t.size() == 0)
+        return false;
+
+    int index = 0;
+    for (auto i = t.begin(); i != t.end(); ++i, index++)
+    {
+        if ((*i == s[0]) && aia(s.substr(1), t.substr(index + 1)))
+            return true;
+    }
+
+    return false;
+}
+
+void all_in_all()
+{
+    string s, t;
+    cin >> s >> t;
+
+    if (aia(s, t))
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
+
+}
 int main()
 {
-    perfect_stall();
+    all_in_all();
 }
 
 
