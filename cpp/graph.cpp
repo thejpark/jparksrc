@@ -43,19 +43,19 @@ public:
             r[it->first] = it->second;
         }
 
-        list<T> s;
-        list<T> v;
-        s.push_back(from);        
+        set<T> s;
+        set<T> v;
+        s.insert(from);        
         for (typename map<T, int>::iterator it = r.begin();
              it != r.end();
              ++it)
             if (it->first != from)
-                v.push_back(it->first);
+                v.insert(it->first);
         // done initialiation. node 0 is not added as it is just for easy of use.
         while (!v.empty()) {
 
             T m = from; //r[from]  has 100000 which means max
-            for (typename list<T>::iterator i = v.begin(); i != v.end(); ++i) {
+            for (typename set<T>::iterator i = v.begin(); i != v.end(); ++i) {
                 if (r[*i] < r[m])
                     m = *i;
             } // how can we reduce this? priority queue?
@@ -65,8 +65,8 @@ public:
 
             cout << " process node "  << m << endl;
 
-            s.push_back(m);
-            v.erase(find(v.begin(), v.end(), m));
+            s.insert(m);
+            v.erase(m);
                     
             list<pair<T, int> > adj_m = adj(m);
             for(iter it = adj_m.begin();
@@ -864,5 +864,5 @@ int Find(int x) {
 
 int main()
 {
-    t7_3();
+    t2();
 }
