@@ -20,7 +20,6 @@ class ReadWriteMap<K, V> {
 	}
     }
     
-    public V put(K key) {
 	r.lock();
 	try {
 	    return map.get(key);
