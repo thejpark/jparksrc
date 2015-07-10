@@ -1731,9 +1731,45 @@ void all_in_all()
         cout << "No" << endl;
 
 }
+
+
+int get_large(vector<int> vi, int i)
+{
+    if (vi.size() == (i + 1))
+        return vi[i];
+
+    return max(vi[i], vi[i] + get_large(vi, i + 1));
+}
+
+void largest_sum()
+{
+    vector<int> vi;
+    int t;
+    int size;
+
+    cin >> size;
+
+    for (int i = 0; i < size; ++i)
+    {
+        cin >> t;
+        vi.push_back(t);
+        cout << t << " ";
+    }
+    int max_x = -1000;
+
+    for (int i = 0; i < vi.size(); ++i)
+    {
+        max_x = max(max_x, get_large(vi, i));
+    }
+            
+    cout << "the result is " << max_x << endl;
+}
+
+
+
 int main()
 {
-    all_in_all();
+    largest_sum();
 }
 
 
