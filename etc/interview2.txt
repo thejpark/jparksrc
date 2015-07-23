@@ -6,6 +6,9 @@ Attitude:
  Be positive and show enthuasm
  show your knowledge
  don't just say yes/no
+ don't try to make things up. if there is nothing to say, then say no and give interviewer to proceed. English is not my mother language.
+ "do you have experience in improving process? or customer?" then if there is no experience then say "no I don't".
+ I think trying to make up a story in English make interviewer confused about me.
 
 YOU SHOULD PREPARE COMPUTER AND NOTE/PEN.
 You can use python for just simple computation.
