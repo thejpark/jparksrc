@@ -2273,11 +2273,11 @@ public:
            availitem(0), 
            head(0), 
            tail(0), 
-           data{new int[10]}
+           data{new char[10]}
     {
     }
     
-    int put(int* vi, int len)
+    int put(char* vi, int len)
     {
         int bytes_written = (len > availspace)? availspace : len;
         availspace -= bytes_written;
@@ -2288,14 +2288,14 @@ public:
         return bytes_written;
     }
 
-    void putitem(int x)
+    void putitem(char x)
     {
         int i = tail;
         data[i] = x;
         tail = (++i == capacity)? 0 : i;
     }
     
-    int get(int* vo, int len)
+    int get(char* vo, int len)
     {
         int bytes_read = (len > availitem)? availitem : len;
         availitem -= bytes_read;
@@ -2307,10 +2307,10 @@ public:
         return bytes_read;
     }
     
-    int getitem()
+    char getitem()
     {
         int i = head;
-        int x = data[i];
+        char x = data[i];
         head = (++i == capacity)? 0 : i;
         return x;
     }
@@ -2321,11 +2321,41 @@ private:
     int capacity;
     int head;
     int tail;
-    int* data;
+    char* data;
 };
 
-int main()
+
+
+void t131()
 {
-    t31();
+    cb c;
+    char ca[] = "1234567890abcdefgh";
+    char ra[20];
+
+    memset(ra, 0, 20);
+
+    ra[1] = 0;
+    int r = c.put(ca, 8);
+    cout << r << endl;
+
+    r = c.get(ra, 2);
+    cout << r << endl;
+    
+    r = c.put(ca, 8);
+    cout << r << endl;
+
+    r = c.get(ra + 2, 2);
+    cout << r << endl;
+
+    r = c.get(ra + 4, 9);
+    cout << r << endl;
+
+
+    cout << ra << endl;
+}
+
+ int main()
+{
+    t131();
 }
 
