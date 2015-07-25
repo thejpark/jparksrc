@@ -2191,7 +2191,6 @@ int search_next(tree* n)
         return n->data;
     }
 }
-#endif
 void t45()
 {
 
@@ -2221,9 +2220,10 @@ return NULL;
 }
 
 void t46()
-{
+
 }
 
+endif
 
 // You have two very large binary trees: T1, with millions of nodes, and T2, 
 // with hun- dreds of nodes Create an algorithm to decide if T2 is a subtree of T1
@@ -2264,6 +2264,65 @@ void t48()
 {
 
 }
+
+
+class cb {
+public:
+    cb() : availspace(10), 
+           capacity(10), 
+           availitem(0), 
+           head(0), 
+           tail(0), 
+           data{new int[10]}
+    {
+    }
+    
+    int put(int* vi, int len)
+    {
+        int bytes_written = (len > availspace)? availspace : len;
+        availspace -= bytes_written;
+        availitem += bytes_written;
+        for (int i = 0; i < bytes_written; ++i)
+            putitem(vi[i]);
+            
+        return bytes_written;
+    }
+
+    void putitem(int x)
+    {
+        int i = tail;
+        data[i] = x;
+        tail = (++i == capacity)? 0 : i;
+    }
+    
+    int get(int* vo, int len)
+    {
+        int bytes_read = (len > availitem)? availitem : len;
+        availitem -= bytes_read;
+        availspace += bytes_read;
+
+        for (int i = 0; i < bytes_read; ++i)
+            vo[i] = getitem();
+            
+        return bytes_read;
+    }
+    
+    int getitem()
+    {
+        int i = head;
+        int x = data[i];
+        head = (++i == capacity)? 0 : i;
+        return x;
+    }
+
+private:
+    int availspace;
+    int availitem;
+    int capacity;
+    int head;
+    int tail;
+    int* data;
+};
 
 int main()
 {
