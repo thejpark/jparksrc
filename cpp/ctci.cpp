@@ -2354,6 +2354,14 @@ void t131()
     cout << ra << endl;
 }
 
+// find the last N lines in a file
+
+void t132()
+{
+    // use array in a circular way
+}
+
+
  int main()
 {
     t131();
