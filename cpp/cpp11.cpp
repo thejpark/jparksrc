@@ -674,6 +674,69 @@ private:
     mutex mmutex;
 };
 
+template <typename T>
+class my_bounded_blocking_queue {
+public:
+    my_bounded_blocking_queue(string s="", int size=10) :
+        name{s}, 
+        head{0},
+        tail{0},
+        capacity{size}, 
+        data{new T[size]},
+        availSpace{size},
+        availItems{0} {}
+    void put(T t);
+    T take();
+
+private:
+    void putItem(T t);
+    T getItem();
+    int head;
+    int tail;
+    int capacity;
+    mutex mmutex;
+    string name;
+    mysem availItems;
+    mysem availSpace;
+    T* data;
+};
+
+template <typename T>
+void my_bounded_blocking_queue<T>::put(T t)
+{
+    availSpace.acquire();
+    putItem(t);
+    availItems.release();
+}
+
+template <typename T>
+void my_bounded_blocking_queue<T>::putItem(T t)
+{
+    unique_lock<mutex> lck{mmutex};
+    int i = tail;
+    data[i] = t;
+    tail = (++i > capacity)? 0 : i;
+}
+
+template<typename T>
+T my_bounded_blocking_queue<T>::take()
+{
+    availItems.acquire();
+    T data = getItem();
+    availSpace.release();
+    return data;
+}
+
+template <typename T>
+T my_bounded_blocking_queue<T>::getItem()
+{
+    unique_lock<mutex> lck{mmutex};
+    int i = head;
+    T r = data[i];
+    head = (++i > capacity)? 0 : i;
+    return r;
+}
+
 
 template <typename T>
 class my_blocking_queue {

@@ -2191,7 +2191,6 @@ int search_next(tree* n)
         return n->data;
     }
 }
-#endif
 void t45()
 {
 
@@ -2224,6 +2223,7 @@ void t46()
 {
 }
 
+#endif
 
 // You have two very large binary trees: T1, with millions of nodes, and T2, 
 // with hun- dreds of nodes Create an algorithm to decide if T2 is a subtree of T1
@@ -2241,8 +2241,97 @@ void t48()
 
 }
 
-int main()
+
+class cb {
+public:
+    cb() : availspace(10), 
+           capacity(10), 
+           availitem(0), 
+           head(0), 
+           tail(0), 
+           data{new char[10]}
+    {
+    }
+    
+    int put(char* vi, int len)
+    {
+        int bytes_written = (len > availspace)? availspace : len;
+        availspace -= bytes_written;
+        availitem += bytes_written;
+        for (int i = 0; i < bytes_written; ++i)
+            putitem(vi[i]);
+            
+        return bytes_written;
+    }
+
+    void putitem(char x)
+    {
+        int i = tail;
+        data[i] = x;
+        tail = (++i == capacity)? 0 : i;
+    }
+    
+    int get(char* vo, int len)
+    {
+        int bytes_read = (len > availitem)? availitem : len;
+        availitem -= bytes_read;
+        availspace += bytes_read;
+
+        for (int i = 0; i < bytes_read; ++i)
+            vo[i] = getitem();
+            
+        return bytes_read;
+    }
+    
+    char getitem()
+    {
+        int i = head;
+        char x = data[i];
+        head = (++i == capacity)? 0 : i;
+        return x;
+    }
+
+private:
+    int availspace;
+    int availitem;
+    int capacity;
+    int head;
+    int tail;
+    char* data;
+};
+
+
+
+void t131()
 {
-    t31();
+    cb c;
+    char ca[] = "1234567890abcdefgh";
+    char ra[20];
+
+    memset(ra, 0, 20);
+
+    ra[1] = 0;
+    int r = c.put(ca, 8);
+    cout << r << endl;
+
+    r = c.get(ra, 2);
+    cout << r << endl;
+    
+    r = c.put(ca, 8);
+    cout << r << endl;
+
+    r = c.get(ra + 2, 2);
+    cout << r << endl;
+
+    r = c.get(ra + 4, 9);
+    cout << r << endl;
+
+
+    cout << ra << endl;
+}
+
+ int main()
+{
+    t131();
 }
 

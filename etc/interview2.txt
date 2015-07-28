@@ -6,6 +6,9 @@ Attitude:
  Be positive and show enthuasm
  show your knowledge
  don't just say yes/no
+ don't try to make things up. if there is nothing to say, then say no and give interviewer to proceed. English is not my mother language.
+ "do you have experience in improving process? or customer?" then if there is no experience then say "no I don't".
+ I think trying to make up a story in English make interviewer confused about me.
 
 YOU SHOULD PREPARE COMPUTER AND NOTE/PEN.
 You can use python for just simple computation.
@@ -16,8 +19,7 @@ Questions:
 1. Tell me about yourself
  
  - name: job:software engineer, living in Sydney. I was born in Korea, and graduated Korea University, earned Bacheler/MS/Ph.D
- all from CS. I have started working for Samsung from Sep 2002, stayed there until I left for Australia in May 2010. And until the
-end of this March, I have been software engineer in OKL (a.k.a GDB). and now I am working for ResMed.
+ all from CS. I have started working for Samsung from Sep 2002, stayed there until I left for Australia in May 2010. And worked for OKL, specializing in the operatin system kernel and virtualization. From Jun 2013 till now, I am with ResMed.
 
 
 2. Why you quit your previous job?
@@ -32,7 +34,7 @@ And I like to have an experience in the domain of distributed system and
 cloud system, So I long been hopeing to work for the company like yours.
 
 Tell me more about what you are doing in ResMed:
-I am involved in implementing software for the sleep device. The sleep device is for treating sleep apnea with nasal air supply.
+I am involved in implementing software for the sleep device. The sleep device is for treating sleep apnea with nasal air supply. It is similar to respirator.
 It has two hardware moduls, FG and CAM. FG is the main provides therapy, and CAM provides patient information to the cloud,
 and interact with cloud for the therapy or analysis purpose. I am involved in implementing CAM software.
 We used web interface to access cloud, such as HTTP GET/POST/PUT method.
@@ -40,10 +42,13 @@ We used web interface to access cloud, such as HTTP GET/POST/PUT method.
 The command from the server is about how to collect patient information, which information to collect, when to collect, etc. The command
 also includes upgrade firmware, or upload log message in the system for analysis of the system itself.
 
+from low-level up to application level.
+
 So far, the most proud of project was mobile virtualization of Android smartphone in OK labs.
 
 2.OKL
  - OKL was a good company with good software development cycle, and one of the leader in mobile virtualization.
+ - it was too far from my home, one way is 1:30, sometimes 2 hrs.
  - I cound't use my full potential. I was supposed to do the same thing more than, like, 2 years.
  - for example, omap4 -> lg smart phone -> samsung tablet
  - it was good : family, good with childern and wife, doing exercise and meet old friends, etc.
@@ -99,9 +104,7 @@ focus my strenth.
 skills, as well as an ability to learn new technology very quickly. And I love to learn new technology. I am sure that my ability, skills, and passion for the new technology will bring to Atlassian with more energy to grow.  
 
 
-
-My biggest achievement.. hm.. my latest achievement is virtualization of LG Android smartphone, because this is the first Android smartphone with OKL4 hypervisor. I leaded technically in porting OKL4 hypervisor on LG smartphone, porting and
-initial bringup of Android, and taught LG engineers to do their bit. But as I look back more, there are a number of achievements including my first mobile phone product in Samsung, and  ph. D degree. And I am not sure which one is the biggest achievement, perhaps the biggest achivement was yet to come.
+My biggest achievement.. seems to be two things. The first thing is my work at OKL, and the other is Ph.D. For a very long time, I wanted to go into OS kernel and understand how OS and hw works in the low level. This is the reason why I choosed to work for OK Labs, and I think I achieved the goal I wanted.  In the last project at OKL, I technically leaded the virtualization of LG Android smartphone with the help of architect. It was the first Android smartphone with OKL4 hypervisor. I leaded technically in porting OKL4 hypervisor on LG smartphone, porting and initial bringup of Android, and taught LG engineers to do their bit. But as I look back more, there are a number of achievements including my first mobile phone product in Samsung, and  ph. D degree. And I am not sure which one is the biggest achievement, perhaps the biggest achivement was yet to come.
 
 What I am most proud of..?  same as above...
 
