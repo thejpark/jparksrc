@@ -1766,6 +1766,14 @@ void largest_sum()
 }
 
 
+// find sequences in an array which matches to a number
+// [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
+
+void match_sum()
+{
+
+}
+
 
 int main()
 {
