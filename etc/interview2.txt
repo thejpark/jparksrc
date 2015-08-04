@@ -13,6 +13,8 @@ Attitude:
 YOU SHOULD PREPARE COMPUTER AND NOTE/PEN.
 You can use python for just simple computation.
 
+*** read the red signal: if an interviewer askes same question twice, that is red
+signal. ex: what is the data structure for this (optiver), do you have any question? (facebook)
 
 Questions:
 
