@@ -9,6 +9,7 @@ http://web.stanford.edu/class/cs97si/
 #include <string.h>
 #include <stdio.h>
 #include <map>
+#include <unordered_map>
 #include <list>
 #include <set>
 #include <algorithm>
@@ -1768,16 +1769,62 @@ void largest_sum()
 
 // find sequences in an array which matches to a number
 // [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
+// in linear time (O(n))
 
 void match_sum()
 {
+    vector<int> vi;
+    int t;
+    int size;
 
+    cin >> size;
+
+    for (int i = 0; i < size; ++i)
+    {
+        cin >> t;
+        vi.push_back(t);
+        cout << t << " ";
+    }
+
+    cout << "the number to match is\n";
+
+    int mmatch;
+    cin >> mmatch;
+
+    vector<int> vi2(vi.size());
+
+    vi2[0] = vi[0];
+    for (int i = 1; i < vi2.size(); ++i)
+    {
+        vi2[i] = vi2[i - 1] + vi[i];
+        cout << vi2[i] << " ";
+    }
+    cout << endl;
+
+    
+    unordered_map<int, int> mi;
+    mi[0]++;
+    for (int i = 0; i < vi2.size(); ++i)
+    {
+        mi[vi2[i]]++;
+        mi[vi2[i] - mmatch]++;
+    }
+
+    for (int i = 0; i < vi2.size(); ++i)
+    {
+        if (mi[vi2[i] - mmatch] == 2)
+        {
+            cout << "Found item at " << i << endl;
+            return;
+        }
+    }
+    cout << "no sequences found" << endl;
 }
 
 
 int main()
 {
-    largest_sum();
+    match_sum();
 }
 
 
