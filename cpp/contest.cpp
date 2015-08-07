@@ -783,20 +783,48 @@ void nearest_common_ancestor()
     find_parent(a, pairtree, first);
     find_parent(b, pairtree, second);
 
+#if 0
+// method 1. compare all parents to all parents
     for (int k = 0; k < a.size(); k++) {
 
       if (is_in(a[k], b)) {
-	res.push_back(a[k]);
-	break;
+          res.push_back(a[k]);
+          break;
       }
     }
 
+
+#endif
+#if 1
+// method 2. compare at the same level.
+  if (a.size() > b.size())
+  {
+      int diff = a.size() - b.size();
+      a = vector<int>(a.begin() + diff, a.end());
+  }
+  else
+  {
+      int diff = b.size() - a.size();
+      b = vector<int>(b.begin() + diff, b.end());
   }
 
+  for (int i = 0; i < a.size(); ++i)
+  {
+      if (a[i] == b[i])
+      {
+          res.push_back(a[i]);
+          break;
+      }
+  }
+  
+
+#endif
   for (int i = 0; i < res.size(); i++) {
     cout << res[i] << endl;
 
   }
+
+ }
 
 }
 
@@ -1824,7 +1852,7 @@ void match_sum()
 
 int main()
 {
-    match_sum();
+    nearest_common_ancestor();
 }
 
 
