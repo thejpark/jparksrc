@@ -231,6 +231,16 @@ void herd_sum()
 
 }
 
+// each cow in the herd is numbered from 1 to N. find
+// how many sequences are (there sum should match to a target
+// number. For example, if N is 10 and target number is 10,
+// there are 2 sequences (1,2,3,4 and the other is 10).
+
+// linear time search of the herd sum with some preprocessing
+void herd_sum2()
+{
+
+}
 
 
 
