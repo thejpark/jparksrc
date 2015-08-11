@@ -240,7 +240,47 @@ void herd_sum()
 // linear time search of the herd sum with some preprocessing
 void herd_sum2()
 {
+    vector<int> vi;
+    int t;
+    int size;
 
+    cin >> size;
+
+    for (int i = 1; i <= size; ++i)
+    {
+        vi.push_back(i);
+    }
+
+    int mmatch = size;
+
+    vector<int> vi2(vi.size());
+
+    vi2[0] = vi[0];
+    for (int i = 1; i < vi2.size(); ++i)
+    {
+        vi2[i] = vi2[i - 1] + vi[i];
+    }
+
+    
+    unordered_map<int, int> mi;
+    mi[0]++;
+    for (int i = 0; i < vi2.size(); ++i)
+    {
+        mi[vi2[i]]++;
+        mi[vi2[i] - mmatch]++;
+    }
+
+    int r = 0;
+    for (int i = 0; i < vi2.size(); ++i)
+    {
+        if (mi[vi2[i] - mmatch] == 2)
+        {
+            ++r;
+        }
+    }
+    if (r == 0)
+        cout << "no sequences found" << endl;
+    cout << r << endl;
 }
 
 
@@ -1863,7 +1903,7 @@ void match_sum()
 
 int main()
 {
-    nearest_common_ancestor();
+    herd_sum2();
 }
 
 
