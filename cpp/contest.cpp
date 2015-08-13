@@ -146,6 +146,12 @@ void dna_sorting()
 }
 
 
+void dna_sorting2()
+{
+
+}
+
+
 void vertical_histo()
 {
 
