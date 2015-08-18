@@ -148,7 +148,32 @@ void dna_sorting()
 
 void dna_sorting2()
 {
+    int str_len, num_str;
+    string str;
+    vector<string> vs;
 
+    cin >> str_len >> num_str;
+
+    for (int i = 0; i < num_str;i++) {
+        cin >> str;
+        if (str.size() != str_len) {
+            cout << "string size not match" << endl;
+            return;
+        }
+        vs.push_back(str);
+    }
+    
+
+    // compute indexes of unordered item 
+    vector<vector<int>> vi(vs.size());
+    for (int i = 0; i < vs.size(); ++i)
+    {
+        for (int j = 1; j < vs[i].size(); ++j)
+        {
+            if (vs[i][j] < vs[i][j - 1])
+                vi[i].push_back(j);
+        }
+    }
 }
 
 
