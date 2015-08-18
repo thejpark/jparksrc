@@ -1934,7 +1934,7 @@ void match_sum()
 
 int main()
 {
-    herd_sum2();
+    dna_sorting2();
 }
 
 
