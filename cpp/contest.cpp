@@ -174,6 +174,25 @@ void dna_sorting2()
                 vi[i].push_back(j);
         }
     }
+    
+
+    vector<int> vr;
+
+    for (int i = 0; i < vs.size(); ++i)
+    {
+        int k = 0;
+        int r = 0;
+        int size = vi[i].size();
+        for (int j = 0; j < vs[i].size(); ++j)
+        {
+            if (j > vi[i][k])
+                ++k;
+
+            r +=  size - k - 1;
+        }
+
+        vr.push_back(r);
+    }
 }
 
 
