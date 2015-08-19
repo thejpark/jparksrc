@@ -174,7 +174,6 @@ void dna_sorting2()
                 vi[i].push_back(j);
         }
     }
-    
 
     vector<int> vr;
 
@@ -183,12 +182,10 @@ void dna_sorting2()
         int k = 0;
         int r = 0;
         int size = vi[i].size();
-        for (int j = 0; j < vs[i].size(); ++j)
+        for (int j = 0; j < vs[i].size(); )
         {
-            if (j > vi[i][k])
-                ++k;
-
-            r +=  size - k - 1;
+            // instead of incrementaly increasing j, it can be incremented
+            // using the value in vi.
         }
 
         vr.push_back(r);
