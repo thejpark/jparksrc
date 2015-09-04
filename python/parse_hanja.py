@@ -54,7 +54,7 @@ class MyHTMLParser(HTMLParser):
         print data
 
     def get_stroke(self, data):
-        print data[-8:-6]
+        print int(data[-8:-6])
 
 
 def process_file(file_name):
