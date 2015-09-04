@@ -9,12 +9,17 @@ class MyHTMLParser(HTMLParser):
         HTMLParser.__init__(self)
         self.script_found = False
         self.hanja_found = False
+        self.um_found = False
+        self.start_hanja = False
 
     def handle_starttag(self, tag, attrs):
         if tag == 'script':
             self.script_found = True
         elif tag == 'dt' and attrs != []:
             self.hanja_found = True
+            self.start_hanja = True
+        elif tag == 'span' and self.start_hanja:
+            self.um_found = True
 
     def handle_endtag(self, tag):
         pass
@@ -26,6 +31,10 @@ class MyHTMLParser(HTMLParser):
         elif self.hanja_found:
             self.get_hanja(data)
             self.hanja_found = False
+        elif self.um_found:
+            self.get_um(data)
+            self.um_found = False
+            self.start_hanja = False
 
     def get_hangul(self, data):
         index = data.find('value:')
@@ -33,6 +42,9 @@ class MyHTMLParser(HTMLParser):
         print hangul
 
     def get_hanja(self, data):
+        print data
+
+    def get_um(self, data):
         print data
 
 
