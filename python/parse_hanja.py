@@ -7,6 +7,8 @@ from HTMLParser import HTMLParser
 class MyHTMLParser(HTMLParser):
     def __init__(self):
         HTMLParser.__init__(self)
+        self.mc = {}
+        self.mv = []
         self.script_found = False
         self.hanja_found = False
         self.um_found = False
@@ -16,9 +18,7 @@ class MyHTMLParser(HTMLParser):
         self.hanja = ""
         self.um = ""
         self.stroke = ""
-        self.mc = {}
-        self.mv = []
-
+ 
     def handle_starttag(self, tag, attrs):
         if tag == 'script':
             self.script_found = True
@@ -71,11 +71,10 @@ class MyHTMLParser(HTMLParser):
         self.stroke = r
 
 
-def process_file(file_name):
-    
-    # instantiate the parser and fed it some HTML
-    parser = MyHTMLParser()
+# instantiate the parser and fed it some HTML
+parser = MyHTMLParser()
 
+def process_file(file_name):
     s = ''
     with open(file_name, "r") as rf:
         s = rf.read()
@@ -88,6 +87,7 @@ def process_file(file_name):
 
 if __name__ == '__main__':
     process_file('9.txt')
+    process_file('7.txt')
     print 'Done'
 
 
