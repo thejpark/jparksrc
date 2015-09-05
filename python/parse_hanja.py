@@ -58,7 +58,10 @@ class MyHTMLParser(HTMLParser):
         self.hangul = hangul
 
     def get_hanja(self, data):
-        self.hanja =  data
+        if (len(data) != 3):
+            self.hanja = ""
+        else:
+            self.hanja =  data
 
     def get_um(self, data):
         self.um =  data
@@ -79,7 +82,9 @@ def process_file(file_name):
 
     parser.feed(s);
     parser.mc[parser.hangul] = parser.mv
-    print parser.mc
+    print parser.hangul
+    for e in parser.mv:
+        print "%s:%s:%s" %e
 
 if __name__ == '__main__':
     process_file('9.txt')
