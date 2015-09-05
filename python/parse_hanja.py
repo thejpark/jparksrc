@@ -12,7 +12,12 @@ class MyHTMLParser(HTMLParser):
         self.um_found = False
         self.start_hanja = False
         self.stroke_found = False
-        self.result = ""
+        self.hangul = ""
+        self.hanja = ""
+        self.um = ""
+        self.stroke = ""
+        self.mc = {}
+        self.mv = []
 
     def handle_starttag(self, tag, attrs):
         if tag == 'script':
@@ -42,6 +47,7 @@ class MyHTMLParser(HTMLParser):
             self.get_stroke(data)
             self.start_hanja = False
             self.stroke_found = False
+            self.mv.append((self.hanja, self.um, self.stroke))
 
     def get_hangul(self, data):
         index = data.find('value:')
@@ -49,21 +55,17 @@ class MyHTMLParser(HTMLParser):
         if (len(hangul) != 3):
             return
         
-        self.result += hangul + ":"
+        self.hangul = hangul
 
     def get_hanja(self, data):
-        if (len(data) != 3):
-            data = "NA"
-        self.result +=  data + ":"
+        self.hanja =  data
 
     def get_um(self, data):
-        self.result +=  data + ":"
+        self.um =  data
 
     def get_stroke(self, data):
         r = str(int(data[-8:-6]))
-        if (len(r) == 0):
-            return
-        self.result += r + ":"
+        self.stroke = r
 
 
 def process_file(file_name):
@@ -76,7 +78,8 @@ def process_file(file_name):
         s = rf.read()
 
     parser.feed(s);
-    print parser.result
+    parser.mc[parser.hangul] = parser.mv
+    print parser.mc
 
 if __name__ == '__main__':
     process_file('9.txt')
