@@ -104,7 +104,11 @@ def process_file(file_name):
 
 if __name__ == '__main__':
     for i in range (555):
+        print "**********************" + str(i) + "**************"
         process_file(str(i) + '.txt')
+    for i in range (45):
+        print "**********************" + str(i) + "**************"
+        process_file('a-' + str(i) + '.html')
     print 'Done'
 
 
