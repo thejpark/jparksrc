@@ -107,6 +107,8 @@ if __name__ == '__main__':
         print "**********************" + str(i) + "**************"
         process_file(str(i) + '.txt')
     for i in range (45):
+        if i == 0 or i == 9:
+            continue
         print "**********************" + str(i) + "**************"
         process_file('a-' + str(i) + '.html')
     print 'Done'
