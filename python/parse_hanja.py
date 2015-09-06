@@ -98,19 +98,18 @@ def process_file(file_name):
         parser.mc[parser.hangul] =  parser.mv
     else:
         parser.mc[parser.hangul] = m + parser.mv
-    print parser.hangul
-    for e in parser.mv:
-        print "%s:%s:%s" %e
 
 if __name__ == '__main__':
     for i in range (555):
-        print "**********************" + str(i) + "**************"
         process_file(str(i) + '.txt')
     for i in range (45):
         if i == 0 or i == 9:
             continue
-        print "**********************" + str(i) + "**************"
         process_file('a-' + str(i) + '.html')
+    for k in parser.mc:
+        print "***" + k
+        for e in parser.mc[k]:
+            print "%s:%s:%s" %e
     print 'Done'
 
 
