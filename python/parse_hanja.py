@@ -19,6 +19,18 @@ class MyHTMLParser(HTMLParser):
         self.um = ""
         self.stroke = ""
  
+    def reset_flags(self):
+        self.script_found = False
+        self.hanja_found = False
+        self.um_found = False
+        self.start_hanja = False
+        self.stroke_found = False
+        self.hangul = ""
+        self.hanja = ""
+        self.um = ""
+        self.stroke = ""
+        self.mv = []
+  
     def handle_starttag(self, tag, attrs):
         if tag == 'script':
             self.script_found = True
@@ -59,7 +71,7 @@ class MyHTMLParser(HTMLParser):
 
     def get_hanja(self, data):
         if (len(data) != 3):
-            self.hanja = ""
+            self.hanja = "NA"
         else:
             self.hanja =  data
 
@@ -75,19 +87,24 @@ class MyHTMLParser(HTMLParser):
 parser = MyHTMLParser()
 
 def process_file(file_name):
+    parser.reset_flags()
     s = ''
     with open(file_name, "r") as rf:
         s = rf.read()
 
     parser.feed(s);
-    parser.mc[parser.hangul] = parser.mv
+    m = parser.mc.get(parser.hangul)
+    if m is None:
+        parser.mc[parser.hangul] =  parser.mv
+    else:
+        parser.mc[parser.hangul] = m + parser.mv
     print parser.hangul
     for e in parser.mv:
         print "%s:%s:%s" %e
 
 if __name__ == '__main__':
-    process_file('9.txt')
-    process_file('7.txt')
+    for i in range (555):
+        process_file(str(i) + '.txt')
     print 'Done'
 
 
