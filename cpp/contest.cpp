@@ -1856,6 +1856,28 @@ void match_sum()
     cout << "no sequences found" << endl;
 }
 
+bool find_match_sum(vector<int>& vi, int i, int target) // i ==0 -> size -1
+{
+    int sum = 0;
+    for (int j = i; j != vi.size(); ++j)
+    {
+        sum += vi[j];
+        if (sum == target)
+            return true;
+    }
+    return false;
+}
+
+bool match_sum_case1(vector<int>& vi, int x)
+{
+    for (int i = 0; i < vi.size(); ++i)
+    {
+        if (find_match_sum(vi, i, x))
+            return true;
+    }
+
+    return false;
+}
 
 int main()
 {
