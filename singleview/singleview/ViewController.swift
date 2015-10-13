@@ -20,23 +20,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    let q = ["capital?", "best?"]
-    let a = ["canbarra", "Sydney"]
-
-    var index = 0
+    @IBOutlet weak var a: UILabel?
+    @IBOutlet weak var b: UILabel?
+    @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var firstName: UITextField!
     
-    @IBOutlet weak var qButton: UILabel?
-    @IBOutlet weak var aButton: UILabel?
-    
-    @IBAction func showQuestion(sender: UIButton) {
-        index += 1
-        if index == 2 {
-            index = 0
-        }
-        qButton?.text = q[index]
-    }
     @IBAction func showAnswer(sender: UIButton) {
-        aButton?.text = a[index]
+        a?.text = lastName.text
+        b?.text = firstName.text
     }
 }
 
