@@ -20,14 +20,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBOutlet weak var a: UILabel?
-    @IBOutlet weak var b: UILabel?
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
     
-    @IBAction func showAnswer(sender: UIButton) {
-        a?.text = lastName.text
-        b?.text = firstName.text
+    // MARK: - Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showList" {
+  
+          
+        }
     }
+
 }
 
