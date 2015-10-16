@@ -8,6 +8,18 @@
 
 import UIKit
 
+class Elem {
+    var surName : String
+    var givenName : String
+    init (sname:String, gname:String) {
+        surName = sname;
+        givenName = gname
+    }
+    func desc() -> String {
+        return surName + givenName
+    }
+}
+
 class MasterViewController: UITableViewController {
     
     var objects = [AnyObject]()
@@ -18,11 +30,6 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         self.navigationItem.leftItemsSupplementBackButton = true
-
-        // add element here for initial list. Now I have one element at start up
-        objects.insert(NSDate(), atIndex: 0)
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -34,8 +41,9 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func insertNewObject(sender: AnyObject) {
-        objects.insert(NSDate(), atIndex: 0)
+    func insertNewObject(surName: String, givenName: String) {
+        let elem = Elem(sname: surName, gname: givenName)
+        objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
@@ -54,8 +62,8 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
-        let object = objects[indexPath.row] as! NSDate
-        cell.textLabel!.text = object.description
+        let object = objects[indexPath.row] as! Elem
+        cell.textLabel!.text = object.desc()
         return cell
     }
     

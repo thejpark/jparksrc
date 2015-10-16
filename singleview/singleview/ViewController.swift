@@ -27,7 +27,9 @@ class ViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showList" {
-  
+
+            let controller = segue.destinationViewController as! MasterViewController
+            controller.insertNewObject(lastName.text!, givenName: firstName.text!)
           
         }
     }
