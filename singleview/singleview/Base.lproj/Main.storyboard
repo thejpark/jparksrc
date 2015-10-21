@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
         </scene>
-        <!--View Controller-->
+        <!--Enter Name-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,7 +64,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zxj-uQ-tnE"/>
+                    <navigationItem key="navigationItem" title="Enter Name" id="zxj-uQ-tnE"/>
                     <connections>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
                         <outlet property="lastName" destination="4AG-8a-SLi" id="xKo-4d-B8W"/>
@@ -74,7 +74,7 @@
             </objects>
             <point key="canvasLocation" x="245" y="312"/>
         </scene>
-        <!--Master View Controller-->
+        <!--Matching Names-->
         <scene sceneID="74h-Ic-uOO">
             <objects>
                 <tableViewController id="LCm-aK-E4l" customClass="MasterViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
@@ -100,7 +100,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Oq1-7N-IQv" kind="showDetail" id="Uof-UI-zeA"/>
+                                    <segue destination="Oq1-7N-IQv" kind="show" identifier="showDetail" id="rZq-wP-0Fh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -109,15 +109,16 @@
                             <outlet property="delegate" destination="LCm-aK-E4l" id="Mkb-Np-phx"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Matching Names" id="MF0-nL-BEn"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BAV-42-vDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="134" y="1097"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Detail-->
         <scene sceneID="nwi-a4-UUJ">
             <objects>
-                <viewController id="Oq1-7N-IQv" customClass="DetailViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="Oq1-7N-IQv" customClass="DetailViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xd2-hN-QHH"/>
                         <viewControllerLayoutGuide type="bottom" id="Rq4-dt-vJK"/>
