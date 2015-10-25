@@ -14,7 +14,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        pickerData = ["I1", "I2", "I3", "I4", "I5", "I6"]
+        pickerData = getHanjaFromHangul("병")
     }
 
     override func didReceiveMemoryWarning() {
