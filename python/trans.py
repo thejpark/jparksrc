@@ -10,7 +10,8 @@ def load():
     with open('final.txt', 'r') as rf:
         for line in rf:
             if line[:3] == '***':
-                r += '"' + line[3:-1] + '":'
+                r += ']\n'
+                r += '"' + line[3:-1] + '":['
             else:
                 s = line.split(':')
                 if len(s) == 3:
