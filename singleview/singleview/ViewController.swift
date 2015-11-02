@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +26,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var picker: UIPickerView!
     
+    
+    @IBAction func textFieldEdited(sender: UITextField) {
+        self.pickerData = getHanjaFromHangul(lastName.text!)
+        self.picker.reloadAllComponents()
+    }
+    
     var pickerData: [String] = [String]()
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -39,15 +45,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row]
     }
-    
-    // textfield 
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        self.pickerData = getHanjaFromHangul(lastName.text!)
-        self.picker.reloadAllComponents()
-        return true
-    }
-
     
     // MARK: - Segues
     
