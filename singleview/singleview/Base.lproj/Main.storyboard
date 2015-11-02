@@ -42,6 +42,9 @@
                                 <rect key="frame" x="109" y="122" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="5tw-aL-0zr"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vUn-au-ZWa">
                                 <rect key="frame" x="109" y="195" width="97" height="30"/>
@@ -93,6 +96,7 @@
                     <connections>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
                         <outlet property="lastName" destination="4AG-8a-SLi" id="xKo-4d-B8W"/>
+                        <outlet property="picker" destination="afa-Aq-1cY" id="wRh-5W-I71"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -11,15 +11,17 @@ typealias HanjaDict = [String:[Hanja]]
 
 func getHanjaFromHangul(hangul: String) -> [String]{
     
-    let ll = hanjaData[hangul]
+    if let ll = hanjaData[hangul] {
     
-    var p: [String] = [String]()
+        var p: [String] = [String]()
     
-    for e in ll! {
-        p.append(e.0)
+        for e in ll {
+            p.append(e.0)
+        }
+    
+        return p
     }
-    
-    return p
+    return ["丙"]
 }
 
 

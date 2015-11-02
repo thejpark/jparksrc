@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[row]
     }
+    
+    // textfield 
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        self.pickerData = getHanjaFromHangul(lastName.text!)
+        self.picker.reloadAllComponents()
+        return true
+    }
+
     
     // MARK: - Segues
     
