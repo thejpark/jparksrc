@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -32,7 +31,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.picker.reloadAllComponents()
     }
     
+    // keyboard should disappear
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
     var pickerData: [String] = [String]()
+    var currData: String = "병"
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -43,6 +50,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        currData = pickerData[row]
         return pickerData[row]
     }
     
@@ -52,7 +60,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if segue.identifier == "showList" {
 
             let controller = segue.destinationViewController as! MasterViewController
-            controller.insertNewObject(lastName.text!, givenName: firstName.text!)
+            controller.insertNewObject(lastName.text!, surNameH: currData, givenName: firstName.text!)
           
         }
     }
