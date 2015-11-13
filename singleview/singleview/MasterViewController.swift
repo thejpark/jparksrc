@@ -39,13 +39,16 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func insertNewObject(surName: String, surNameH: String, givenName: String) {
-        let elem = Elem(sname: surNameH, gname: givenName)
+    func search(surName: String, surNameH: String, givenName: String) {
+        insertNewObject(surNameH, givenName: givenName)
+    }
+    
+    func insertNewObject(surName: String, givenName: String) {
+        let elem = Elem(sname: surName, gname: givenName)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
-    
     
     // MARK: - Table View
     

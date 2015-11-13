@@ -60,7 +60,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if segue.identifier == "showList" {
 
             let controller = segue.destinationViewController as! MasterViewController
-            controller.insertNewObject(lastName.text!, surNameH: currData, givenName: firstName.text!)
+            controller.search(lastName.text!, surNameH: currData, givenName: firstName.text!)
           
         }
     }
