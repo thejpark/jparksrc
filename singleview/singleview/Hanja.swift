@@ -10,7 +10,6 @@ typealias Hanja = (String, String, Int)
 typealias HanjaDict = [String:[Hanja]]
 
 func getHanjaFromHangul(hangul: String) -> [String]{
-    
     if let ll = hanjaData[hangul] {
     
         var p: [String] = [String]()
@@ -24,6 +23,19 @@ func getHanjaFromHangul(hangul: String) -> [String]{
     return ["丙"]
 }
 
+func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
+
+    var p: [Hanja] = [Hanja]()
+
+    if let ll = hanjaData[hangul] {
+        
+        for e in ll {
+            p.append(e)
+        }
+        
+    }
+    return p
+}
 
 let hanjaData: HanjaDict = [
 "병":[("丙","셋째천간 병",5),
