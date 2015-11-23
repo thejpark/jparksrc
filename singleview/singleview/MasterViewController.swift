@@ -40,7 +40,20 @@ class MasterViewController: UITableViewController {
     }
     
     func search(surName: String, surNameH: String, givenName: String) {
-        insertNewObject(surNameH, givenName: givenName)
+        var gname: [String] = [String]()
+        
+        for var i = 0; i < givenName.characters.count; ++i {
+            let index = givenName.startIndex.advancedBy(i)
+            var hanja : [String] = getHanjaFromHangul(String(givenName[index]))
+            gname.append(hanja[0])
+        }
+        
+        var r : String = ""
+        for var i = 0; i < gname.count; ++i {
+            r += gname[i]
+        }
+        
+        insertNewObject(surNameH, givenName: r)
     }
     
     func insertNewObject(surName: String, givenName: String) {
