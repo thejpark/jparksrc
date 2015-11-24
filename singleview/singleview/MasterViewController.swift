@@ -104,6 +104,16 @@ class MasterViewController: UITableViewController {
         }
     }
     
+    // MARK: - Segues
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let obj = objects[indexPath.row] as! Elem
+                let controller = segue.destinationViewController as! DetailViewController
+                controller.detailItem = obj
+            }
+        }
+    }
 }
 
