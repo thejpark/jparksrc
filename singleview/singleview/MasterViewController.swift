@@ -9,22 +9,35 @@
 import UIKit
 
 class Elem {
-    var surName : String
-    var givenName : String
-    init (sname:String, gname:String) {
-        surName = sname;
+    var surName : Hanja
+    var givenName : [Hanja]
+    init (sname:Hanja, gname:[Hanja]) {
+        surName = sname
         givenName = gname
     }
     func desc() -> String {
-        return surName + givenName
+        var r: String
+        r = surName.0
+        for e in givenName {
+            r += e.0
+        }
+        r += " ("
+        for var i = 0; i < givenName.count; ++i {
+            r += givenName[i].1
+            if (i != givenName.count - 1) {
+                r += ", "
+            }
+        }
+        r += ")"
+        
+        return r
     }
 }
 
 class MasterViewController: UITableViewController {
     
     var objects = [AnyObject]()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -40,23 +53,19 @@ class MasterViewController: UITableViewController {
     }
     
     func search(surName: String, surNameH: String, givenName: String) {
-        var gname: [String] = [String]()
+        var gname: [Hanja] = [Hanja]()
         
         for var i = 0; i < givenName.characters.count; ++i {
             let index = givenName.startIndex.advancedBy(i)
-            var hanja : [String] = getHanjaFromHangul(String(givenName[index]))
+            var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
             gname.append(hanja[0])
         }
         
-        var r : String = ""
-        for var i = 0; i < gname.count; ++i {
-            r += gname[i]
-        }
-        
-        insertNewObject(surNameH, givenName: r)
+        let sname = getHanjaData(surName, hanja: surNameH)
+        insertNewObject(sname, givenName: gname)
     }
     
-    func insertNewObject(surName: String, givenName: String) {
+    func insertNewObject(surName: Hanja, givenName: [Hanja]) {
         let elem = Elem(sname: surName, gname: givenName)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)

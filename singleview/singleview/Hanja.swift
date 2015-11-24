@@ -37,6 +37,20 @@ func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
     return p
 }
 
+func getHanjaData(hangul: String, hanja:String) -> Hanja {
+    
+    var p: [Hanja] = getHanjaDataFromHangul(hangul)
+    
+    for e in p {
+        if (e.0 == hanja) {
+            return e
+        }
+    }
+    
+    return p[0]
+}
+
+
 let hanjaData: HanjaDict = [
 "병":[("丙","셋째천간 병",5),
 ("病","병 병",10),
