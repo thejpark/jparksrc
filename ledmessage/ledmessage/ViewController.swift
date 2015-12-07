@@ -19,7 +19,19 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+//    @IBOutlet weak var start: UIButton!
+//    @IBOutlet weak var stop: UIButton!
+    @IBOutlet weak var message: UILabel!
+    
+    
+    @IBAction func startCamera(sender: AnyObject?) {
+        self.message.text = "Start"
+    }
 
-
+    @IBAction func stopCamera(sender: AnyObject?) {
+        self.message.text = "Stop"
+    }
 }
 
