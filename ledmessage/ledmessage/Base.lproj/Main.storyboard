@@ -37,13 +37,14 @@
                                     <action selector="stopCamera:" destination="BYZ-38-t0r" eventType="touchDown" id="28Z-O7-jSi"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwB-VN-KQG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dwB-VN-KQG">
                                 <rect key="frame" x="67" y="28" width="398" height="373"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="imageView" destination="dwB-VN-KQG" id="YW5-1R-9T3"/>
                         <outlet property="message" destination="hhq-HB-xDW" id="EwP-3I-xpC"/>
                     </connections>
                 </viewController>
