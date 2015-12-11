@@ -14,6 +14,8 @@
 		C0220E271C15881900D21337 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0220E251C15881900D21337 /* LaunchScreen.storyboard */; };
 		C0220E321C15881900D21337 /* ledmessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E311C15881900D21337 /* ledmessageTests.swift */; };
 		C0220E3D1C15881900D21337 /* ledmessageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E3C1C15881900D21337 /* ledmessageUITests.swift */; };
+		C068F7C31C1A2D2100A4831A /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068F7C21C1A2D2100A4831A /* opencv2.framework */; };
+		C068F7C71C1A63E700A4831A /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		C0220E381C15881900D21337 /* ledmessageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ledmessageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0220E3C1C15881900D21337 /* ledmessageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ledmessageUITests.swift; sourceTree = "<group>"; };
 		C0220E3E1C15881900D21337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C068F7C21C1A2D2100A4831A /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		C068F7C41C1A3AB900A4831A /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVWrapper.h; path = ../OpenCVWrapper.h; sourceTree = "<group>"; };
+		C068F7C51C1A63E700A4831A /* OpenCV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OpenCV-Bridging-Header.h"; path = "../OpenCV-Bridging-Header.h"; sourceTree = "<group>"; };
+		C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVWrapper.mm; path = ../OpenCVWrapper.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C068F7C31C1A2D2100A4831A /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +84,7 @@
 		C0220E101C15881900D21337 = {
 			isa = PBXGroup;
 			children = (
+				C068F7C11C1A2BA200A4831A /* Frameworks */,
 				C0220E1B1C15881900D21337 /* ledmessage */,
 				C0220E301C15881900D21337 /* ledmessageTests */,
 				C0220E3B1C15881900D21337 /* ledmessageUITests */,
@@ -97,6 +105,9 @@
 		C0220E1B1C15881900D21337 /* ledmessage */ = {
 			isa = PBXGroup;
 			children = (
+				C068F7C41C1A3AB900A4831A /* OpenCVWrapper.h */,
+				C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */,
+				C068F7C51C1A63E700A4831A /* OpenCV-Bridging-Header.h */,
 				C0220E1C1C15881900D21337 /* AppDelegate.swift */,
 				C0220E1E1C15881900D21337 /* ViewController.swift */,
 				C0220E201C15881900D21337 /* Main.storyboard */,
@@ -123,6 +134,14 @@
 				C0220E3E1C15881900D21337 /* Info.plist */,
 			);
 			path = ledmessageUITests;
+			sourceTree = "<group>";
+		};
+		C068F7C11C1A2BA200A4831A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C068F7C21C1A2D2100A4831A /* opencv2.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,7 +206,7 @@
 		C0220E111C15881900D21337 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = pyfamily;
 				TargetAttributes = {
@@ -258,6 +277,7 @@
 			files = (
 				C0220E1F1C15881900D21337 /* ViewController.swift in Sources */,
 				C0220E1D1C15881900D21337 /* AppDelegate.swift in Sources */,
+				C068F7C71C1A63E700A4831A /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,10 +417,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ledmessage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.ledmessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCV-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -408,10 +436,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ledmessage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.ledmessage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCV-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -482,6 +517,7 @@
 				C0220E431C15881900D21337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C0220E441C15881900D21337 /* Build configuration list for PBXNativeTarget "ledmessageTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +526,7 @@
 				C0220E461C15881900D21337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C0220E471C15881900D21337 /* Build configuration list for PBXNativeTarget "ledmessageUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +535,7 @@
 				C0220E491C15881900D21337 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

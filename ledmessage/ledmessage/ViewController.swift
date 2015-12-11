@@ -15,6 +15,11 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront
+        videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset352x288
+        videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait
+        videoCamera.defaultFPS = 30
+        videoCamera.grayscale = NO
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +34,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var imageView: UIImageView!
     var imagePicker: UIImagePickerController!
     var newMedia: Bool?
+    var videoCamera: CvVideoCamera!
     
     
    // @IBAction func startCamera(sender: AnyObject?) {
