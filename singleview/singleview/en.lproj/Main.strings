@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "이름"; ObjectID = "IIe-sZ-XX2"; */
+"IIe-sZ-XX2.text" = "이름";
+
+/* Class = "UINavigationItem"; title = "Matching Names"; ObjectID = "MF0-nL-BEn"; */
+"MF0-nL-BEn.title" = "Matching Names";
+
+/* Class = "UILabel"; text = "Detail Description Label"; ObjectID = "NbQ-DG-rRk"; */
+"NbQ-DG-rRk.text" = "Detail Description Label";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "O9p-CA-lkY"; */
+"O9p-CA-lkY.text" = "Title";
+
+/* Class = "UIViewController"; title = "Detail"; ObjectID = "Oq1-7N-IQv"; */
+"Oq1-7N-IQv.title" = "Detail";
+
+/* Class = "UIButton"; normalTitle = "검색"; ObjectID = "Xcc-Ey-VlO"; */
+"Xcc-Ey-VlO.normalTitle" = "검색";
+
+/* Class = "UILabel"; text = "성 (한자)"; ObjectID = "ZEO-yN-Oc9"; */
+"ZEO-yN-Oc9.text" = "성 (한자)";
+
+/* Class = "UILabel"; text = "생년월일"; ObjectID = "faQ-YZ-04Y"; */
+"faQ-YZ-04Y.text" = "생년월일";
+
+/* Class = "UILabel"; text = "성 (음)"; ObjectID = "yDo-j0-h4G"; */
+"yDo-j0-h4G.text" = "성 (음)";
+
+/* Class = "UINavigationItem"; title = "Enter Name"; ObjectID = "zxj-uQ-tnE"; */
+"zxj-uQ-tnE.title" = "Enter Name";

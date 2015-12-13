@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00CB6FA1C1D024B00330DDF /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C00CB6F91C1D024B00330DDF /* OpenCVWrapper.mm */; };
 		C0220E1D1C15881900D21337 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E1C1C15881900D21337 /* AppDelegate.swift */; };
 		C0220E1F1C15881900D21337 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E1E1C15881900D21337 /* ViewController.swift */; };
 		C0220E221C15881900D21337 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0220E201C15881900D21337 /* Main.storyboard */; };
@@ -15,7 +16,6 @@
 		C0220E321C15881900D21337 /* ledmessageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E311C15881900D21337 /* ledmessageTests.swift */; };
 		C0220E3D1C15881900D21337 /* ledmessageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0220E3C1C15881900D21337 /* ledmessageUITests.swift */; };
 		C068F7C31C1A2D2100A4831A /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C068F7C21C1A2D2100A4831A /* opencv2.framework */; };
-		C068F7C71C1A63E700A4831A /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C00CB6F81C1CFDE100330DDF /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		C00CB6F91C1D024B00330DDF /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		C0220E191C15881900D21337 /* ledmessage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ledmessage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0220E1C1C15881900D21337 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0220E1E1C15881900D21337 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -50,9 +52,7 @@
 		C0220E3C1C15881900D21337 /* ledmessageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ledmessageUITests.swift; sourceTree = "<group>"; };
 		C0220E3E1C15881900D21337 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C068F7C21C1A2D2100A4831A /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		C068F7C41C1A3AB900A4831A /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OpenCVWrapper.h; path = ../OpenCVWrapper.h; sourceTree = "<group>"; };
 		C068F7C51C1A63E700A4831A /* OpenCV-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OpenCV-Bridging-Header.h"; path = "../OpenCV-Bridging-Header.h"; sourceTree = "<group>"; };
-		C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVWrapper.mm; path = ../OpenCVWrapper.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,15 +105,15 @@
 		C0220E1B1C15881900D21337 /* ledmessage */ = {
 			isa = PBXGroup;
 			children = (
-				C068F7C41C1A3AB900A4831A /* OpenCVWrapper.h */,
-				C068F7C61C1A63E700A4831A /* OpenCVWrapper.mm */,
-				C068F7C51C1A63E700A4831A /* OpenCV-Bridging-Header.h */,
 				C0220E1C1C15881900D21337 /* AppDelegate.swift */,
 				C0220E1E1C15881900D21337 /* ViewController.swift */,
 				C0220E201C15881900D21337 /* Main.storyboard */,
 				C0220E231C15881900D21337 /* Assets.xcassets */,
 				C0220E251C15881900D21337 /* LaunchScreen.storyboard */,
 				C0220E281C15881900D21337 /* Info.plist */,
+				C068F7C51C1A63E700A4831A /* OpenCV-Bridging-Header.h */,
+				C00CB6F81C1CFDE100330DDF /* OpenCVWrapper.h */,
+				C00CB6F91C1D024B00330DDF /* OpenCVWrapper.mm */,
 			);
 			path = ledmessage;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 			files = (
 				C0220E1F1C15881900D21337 /* ViewController.swift in Sources */,
 				C0220E1D1C15881900D21337 /* AppDelegate.swift in Sources */,
-				C068F7C71C1A63E700A4831A /* OpenCVWrapper.mm in Sources */,
+				C00CB6FA1C1D024B00330DDF /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
