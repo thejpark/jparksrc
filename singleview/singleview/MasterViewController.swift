@@ -11,9 +11,12 @@ import UIKit
 class Elem {
     var surName : Hanja
     var givenName : [Hanja]
-    init (sname:Hanja, gname:[Hanja]) {
-        surName = sname
-        givenName = gname
+    init (name:[Hanja]) {
+        surName = name[0]
+        givenName = [Hanja]()
+        for var i = 1; i < name.count; ++i {
+            givenName.append(name[i])
+        }
     }
     func desc() -> String {
         var r: String
@@ -54,19 +57,21 @@ class MasterViewController: UITableViewController {
     
     func search(surName: String, surNameH: String, givenName: String) {
         var gname: [Hanja] = [Hanja]()
-        
+      
         for var i = 0; i < givenName.characters.count; ++i {
             let index = givenName.startIndex.advancedBy(i)
             var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
             gname.append(hanja[0])
         }
-        
-        let sname = getHanjaData(surName, hanja: surNameH)
-        insertNewObject(sname, givenName: gname)
+      
+        var name: [Hanja] = [Hanja]()
+        name.append(getHanjaData(surName, hanja: surNameH))
+        name += gname
+        insertNewObject(name)
     }
     
-    func insertNewObject(surName: Hanja, givenName: [Hanja]) {
-        let elem = Elem(sname: surName, gname: givenName)
+    func insertNewObject(name: [Hanja]) {
+        let elem = Elem(name: name)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
