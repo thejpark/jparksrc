@@ -58,19 +58,49 @@ class MasterViewController: UITableViewController {
     func search(surName: String, surNameH: String, givenName: String) {
         var gname: [Hanja] = [Hanja]()
       
-        for var i = 0; i < givenName.characters.count; ++i {
-            let index = givenName.startIndex.advancedBy(i)
-            var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
-            gname.append(hanja[0])
+      //  for var i = 0; i < givenName.characters.count; ++i {
+      //      let index = givenName.startIndex.advancedBy(i)
+      //      var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
+      //      gname.append(hanja[0])
+      //  }
+        
+        let index = givenName.startIndex.advancedBy(0)
+        gname = getHanjaDataFromHangul(String(givenName[index]))
+        
+        for g in gname {
+            var name: [Hanja] = [Hanja]()
+            name.append(getHanjaData(surName, hanja: surNameH))
+            name.append(g)
+            findAndInsert(name, givenName: givenName, idx: 1)
         }
-      
-        var name: [Hanja] = [Hanja]()
-        name.append(getHanjaData(surName, hanja: surNameH))
-        name += gname
-        insertNewObject(name)
+        
+    }
+    
+    func findAndInsert(name: [Hanja], givenName: String, idx : Int) {
+        
+        if (idx == givenName.characters.count) {
+            insertNewObject(name)
+            return
+        }
+        
+        var gname: [Hanja] = [Hanja]()
+        let index = givenName.startIndex.advancedBy(idx)
+        gname = getHanjaDataFromHangul(String(givenName[index]))
+        
+        for g in gname {
+            var n = name
+            n.append(g)
+            findAndInsert(n, givenName: givenName, idx: idx + 1)
+        }
+
     }
     
     func insertNewObject(name: [Hanja]) {
+        //at most one given name
+        if name.count < 2 {
+            return
+        }
+        
         let elem = Elem(name: name)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
