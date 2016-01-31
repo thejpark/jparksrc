@@ -96,11 +96,24 @@ class MasterViewController: UITableViewController {
     }
     
     func insertNewObject(name: [Hanja]) {
-        //at most one given name
+        // at most one given name
         if name.count < 2 {
             return
         }
         
+        // filter out all even number or all odd number hanja
+        let k = name[0].2 % 2
+        var count = 0
+        for n in name {
+            if ((n.2 % 2) == k) {
+                count++
+            }
+        }
+        if count == name.count {
+            return
+        }
+        
+        // add name
         let elem = Elem(name: name)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
