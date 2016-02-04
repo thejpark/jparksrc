@@ -1017,6 +1017,7 @@ void uunion(vector<struct farm> &vi, int x, int y)
   vi[x].y += findy(vi, y);
 }
 
+// http://poj.org/problem?id=1984
 void navi()
 {
 
