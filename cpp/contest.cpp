@@ -1145,6 +1145,15 @@ int d(vector<vector<int> > &a, int r, int c)
 }
 
 
+// http://poj.org/problem?id=1785
+void binary_search_heap_construction()
+{
+
+}
+
+
+
+
 /*
 
 Do not keep the sum in the tree node, as the modified value in the left tree can affects 
