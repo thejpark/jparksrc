@@ -70,6 +70,8 @@ ex) how to do commrelay?
 
  ./CommRelay.exe -A Serial: COM6,57600,n,8,1 -B Serial: COM5,57600,n,8,1
 
+head up for commrelay: server does not have 'locahost, but client has
+
 resetprg.c:PowerON_Reset_PC()
 
 stuck at healthy check? set APN
