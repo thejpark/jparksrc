@@ -1017,6 +1017,7 @@ void uunion(vector<struct farm> &vi, int x, int y)
   vi[x].y += findy(vi, y);
 }
 
+// http://poj.org/problem?id=1984
 void navi()
 {
 
@@ -1142,6 +1143,15 @@ int d(vector<vector<int> > &a, int r, int c)
   }
 
 }
+
+
+// http://poj.org/problem?id=1785
+void binary_search_heap_construction()
+{
+
+}
+
+
 
 
 /*
