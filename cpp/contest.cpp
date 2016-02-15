@@ -1893,6 +1893,7 @@ bool match_sum_case1(vector<int>& vi, int x)
 class bin_search_heap_node
 {
 public:
+    bin_search_heap_node() {}
     bin_search_heap_node(string s, string n)
     {
         label = s;
@@ -1906,7 +1907,78 @@ public:
     string label;
     int number;
 };
-    
+
+
+bin_search_heap_node find_max(vector<bin_search_heap_node>& v)
+{
+    bin_search_heap_node r;
+    r.number = -1000;
+    for (auto& e : v)
+    {
+        if (e.number > r.number)
+        {
+            r = e;
+        }
+    }
+
+    return r;
+}
+
+vector<bin_search_heap_node> find_left(vector<bin_search_heap_node>& v,
+                                       bin_search_heap_node& n)
+{
+    vector<bin_search_heap_node> ret;
+
+    auto isleft = [&](bin_search_heap_node& e)
+      {
+          return e.label < n.label;
+      };
+
+    copy_if(v.begin(), v.end(), back_inserter(ret), isleft); 
+    return ret;
+}
+
+vector<bin_search_heap_node> find_right(vector<bin_search_heap_node>& v,
+                                        bin_search_heap_node& n)
+{
+    vector<bin_search_heap_node> ret;
+
+    auto is_right = [&](bin_search_heap_node& e)
+      {
+          return e.label > n.label;
+      };
+
+    copy_if(v.begin(), v.end(), back_inserter(ret), is_right); 
+    return ret;
+}
+
+
+string construct(vector<bin_search_heap_node>& v)
+{
+    string ret;
+    ret = "(";
+
+    bin_search_heap_node n = find_max(v);
+    vector<bin_search_heap_node> vl = find_left(v, n);
+    vector<bin_search_heap_node> vr = find_right(v, n);
+ 
+    if (vl.size() > 0)
+    {
+        string left = construct(vl);
+        ret += left;
+    }
+    ret += n.label + "/" + to_string(n.number);
+    if (vr.size() > 0)
+    {
+        string right = construct(vr);
+        ret += right;
+    }
+
+    ret += ")";
+    return ret;
+}
+
+   
 void test_bin_search_heap()
 {
     /*************
@@ -1935,20 +2007,9 @@ void test_bin_search_heap()
         --num;
     }
 
-
-    for (auto& e : v)
-    {
-        e.print();
-    }
-
-    construct(v);
+    cout << construct(v) << endl;
 }
 
-
-void construct(vector<bin_search_heap_node>& v)
-{
-
-}
 
 int main()
 {
