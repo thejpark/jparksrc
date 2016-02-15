@@ -1890,6 +1890,23 @@ bool match_sum_case1(vector<int>& vi, int x)
 }
 
 
+class bin_search_heap_node
+{
+public:
+    bin_search_heap_node(string s, string n)
+    {
+        label = s;
+        number = atoi(n.c_str());
+    };
+    
+    void print()
+    {
+        cout << "node is " << label << " " << number << endl;
+    }
+    string label;
+    int number;
+};
+    
 void test_bin_search_heap()
 {
     /*************
@@ -1904,6 +1921,7 @@ void test_bin_search_heap()
     (((a/3)b/6(c/4))d/7((e/2)f/5(g/1)))
     ****************/
 
+    vector<bin_search_heap_node> v;
     int num;
     cin >> num;
     while (num != 0)
@@ -1912,8 +1930,15 @@ void test_bin_search_heap()
         cin >> str; 
         auto i = find(str.begin(), str.end(), '/');
         
-        cout << string(str.begin(), i) << string(i, str.end()) << endl;
-            
+        v.push_back(bin_search_heap_node(string(str.begin(), i), 
+                                         string(i + 1, str.end())));
+        --num;
+    }
+
+
+    for (auto e : v)
+    {
+        e.print();
     }
 }
 
