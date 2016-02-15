@@ -1936,13 +1936,19 @@ void test_bin_search_heap()
     }
 
 
-    for (auto e : v)
+    for (auto& e : v)
     {
         e.print();
     }
+
+    construct(v);
 }
 
 
+void construct(vector<bin_search_heap_node>& v)
+{
+
+}
 
 int main()
 {
