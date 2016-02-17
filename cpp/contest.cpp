@@ -1889,7 +1889,7 @@ bool match_sum_case1(vector<int>& vi, int x)
     return false;
 }
 
-
+// http://poj.org/problem?id=1785
 class bin_search_heap_node
 {
 public:
@@ -2011,10 +2011,88 @@ void test_bin_search_heap()
 }
 
 
+// cube stacking
+// http://poj.org/problem?id=1988
+
+struct cube_stack {
+    int grp; // grp initially should point to itself
+    int leaf; // leaf initially should point to itself
+};
+
+int find(vector<cube_stack> &vi, int x)
+{
+  while(vi[x].grp != x)
+    x = vi[x].grp;
+
+  return x;
+}
+
+int find_leaf(vector<cube_stack> &vi, int x)
+{
+    return vi[find(vi, x)].leaf;
+}
+
+int find_below(vector<cube_stack> &vi, int x)
+{
+    int count = 0;
+    while(vi[x].grp != x)
+    {
+        x = vi[x].grp;
+        ++count;
+    }
+
+    return count;
+}
+
+void uunion(vector<cube_stack> &vi, int x, int y)
+{
+    int leaf = find_leaf(vi, x);
+    vi[find(vi, x)].grp = find_leaf(vi, y);
+    vi[find(vi, y)].leaf = leaf;
+}
+
+void test_cube_stack()
+{
+    int num_line, num_cube;
+    string s;
+    cin >> num_cube >> num_line;
+
+    vector<cube_stack> vc;
+    vc.resize(num_cube);
+
+    for (int i = 0; i != vc.size(); ++i)
+    {
+        vc[i].grp = i;
+        vc[i].leaf = i;
+    }
+    
+    while (num_line > 0)
+    {
+        cin >> s;
+        if (s == "M")
+        {
+            int first, second;
+            cin >> first >> second;
+            uunion(vc, first, second);
+    //  for (int i = 0; i < num_cube; ++i)
+    // {
+    //     cout << vc[i].grp << " " << vc[i].leaf << endl;
+    // }
+       }
+        else if (s == "C")
+        {
+            int first;
+            cin >> first;
+            cout << find_below(vc, first) << endl;
+        }
+
+        --num_line;
+    }
+}
+
 int main()
 {
-
-    test_bin_search_heap();
+    test_cube_stack();
 }
 
 
