@@ -5,7 +5,9 @@
  */
 
 #include <iostream>
+#include <iterator>
 #include <string>
+#include <cstring>
 #include <iomanip>
 #include <ios>
 #include <algorithm>
