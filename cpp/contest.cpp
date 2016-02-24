@@ -2090,9 +2090,76 @@ void test_cube_stack()
     }
 }
 
+
+// find and catch
+// http://poj.org/problem?id=1703
+struct gang {
+    int grp1;
+    int grp2;
+};
+
+int find(vector<gang> vi, int x)
+{
+    while ((vi[x].grp1 != x) && (vi[x].grp1 != 0))
+    {
+        x = vi[x].grp1;
+    }
+
+    return vi[x].grp1;
+}
+
+void uunion(vector<gang> vi, int x, int y)
+{
+    if (y == 0)
+    {
+        vi[x].grp1 = x;
+    }
+    else
+    {
+        vi[x].grp1 = find(vi, y);
+    }
+}
+
+
+void test_find_and_catch()
+{
+    int m;
+    cin >> m;
+
+    vector<gang> vi;
+    vi.resize(100); // assume that at most 99 gangs
+
+    for (int i = 0; i < m; ++i)
+    {
+        char c;
+        int x, y;
+        cin >> c >> x >> y;
+
+        if (c == 'D')
+        {
+            uunion(vi, x, vi[y].grp2);
+            uunion(vi, y, vi[x].grp2);
+            vi[y].grp2 = x;
+            vi[x].grp2 = y;
+        }
+        else if (c == 'A')
+        {
+            int grpx = find(vi, x);
+            int grpy = find(vi, y);
+            cout << "result is :" << grpx << " " << grpy << endl;
+            if (grpx == 0 || grpy == 0)
+                cout << "not yet" << endl;
+            else if (grpx == grpy)
+                cout << "same gang" << endl;
+            else
+                cout << "different gang" << endl;
+        }
+    }
+}
+
 int main()
 {
-    test_cube_stack();
+    test_find_and_catch();
 }
 
 
