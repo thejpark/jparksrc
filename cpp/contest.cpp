@@ -981,7 +981,7 @@ int find(vector<struct farm> &vi, int x)
   while(vi[x].grp != 0)
     x = vi[x].grp;
 
-  return x;
+  return x; // if grp is 0, then this method returns x instead of 0.
 }
 
 int findx(vector<struct farm> &vi, int x)
@@ -2098,7 +2098,7 @@ struct gang {
     int grp2;
 };
 
-int find(vector<gang> vi, int x)
+int find(vector<gang>& vi, int x)
 {
     while ((vi[x].grp1 != x) && (vi[x].grp1 != 0))
     {
@@ -2108,7 +2108,7 @@ int find(vector<gang> vi, int x)
     return vi[x].grp1;
 }
 
-void uunion(vector<gang> vi, int x, int y)
+void uunion(vector<gang>& vi, int x, int y)
 {
     if (y == 0)
     {
@@ -2145,8 +2145,8 @@ void test_find_and_catch()
         else if (c == 'A')
         {
             int grpx = find(vi, x);
+
             int grpy = find(vi, y);
-            cout << "result is :" << grpx << " " << grpy << endl;
             if (grpx == 0 || grpy == 0)
                 cout << "not yet" << endl;
             else if (grpx == grpy)
