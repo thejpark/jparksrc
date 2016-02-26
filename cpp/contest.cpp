@@ -2157,6 +2157,72 @@ void test_find_and_catch()
     }
 }
 
+// https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/
+class BIT
+{
+public:
+    BIT() 
+    { 
+    }
+
+    void push_back(int x)
+    {
+        leaf.push_back(x);
+        
+        // x -= (x & -x); // clear left most 1 
+        // so, (x & -x) is right most bit
+
+        int size = leaf.size();
+        int ssum = 0;
+        for (int i = size - (size & -size); i < size; ++i)
+        {
+            ssum += leaf[i];
+        }
+
+        inner.push_back(ssum);
+        // cout << ">> " << ssum << endl;
+    }
+
+    void update(int i, int x)
+    {
+        leaf[i] += x;
+
+        int size = leaf.size();
+        while (i <= size){
+            inner[i - 1] += x;
+            i += (i & -i);
+        }
+    }
+
+    int sum(int i)
+    {
+        int ssum = 0;
+        while (i > 0){
+            ssum += inner[i - 1];
+            i -= (i & -i);
+        }
+        return ssum;
+    }
+
+private:
+    vector<int> leaf;
+    vector<int> inner;
+};
+
+
+void test_bit()
+{
+    BIT b;
+    for (int i = 1; i <= 10; ++i)
+        b.push_back(i);
+
+    b.update(2, -1);
+
+    cout << " the result should be 55 and " << b.sum(3) << " " << b.sum(10) << endl;
+    // assert(b.sum(10) == 55);
+    cout << "test_bit passed" << endl;
+}
+
 int main()
 {
     test_find_and_catch();
