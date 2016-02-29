@@ -246,6 +246,7 @@ void remove_dup4(string& s)
     s.erase(ret, s.end());
 }
 
+// void remove_dup5(string& s) { use map<char, int> and iterate. it is sorted though.. 
 
 int resize_test()
 {
