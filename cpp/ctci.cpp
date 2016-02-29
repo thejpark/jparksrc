@@ -551,6 +551,13 @@ col_row2(vector<vector<int> > &m)
     
 }
 
+// how to create 2 dimensional vector?
+//
+// vector< vector<int> > vec(4, vector<int>(4));
+//
+//
+
+
 
 // when it comes to a matrix, it would be better to use array instead of vector.
 // as we have to resize.
