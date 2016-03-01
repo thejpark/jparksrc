@@ -1866,6 +1866,68 @@ void match_sum()
     cout << "no sequences found" << endl;
 }
 
+
+
+// match sum, same with the above but without using map
+// find sequences in an array which matches to a number
+// [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
+// in linear time (O(n))
+
+void match_sum2()
+{
+    vector<int> vi;
+    int t;
+    int size;
+
+    cin >> size;
+
+    for (int i = 0; i < size; ++i)
+    {
+        cin >> t;
+        vi.push_back(t);
+        cout << t << " ";
+    }
+
+    cout << "the number to match is\n";
+
+    int mmatch;
+    cin >> mmatch;
+
+    vector<int> vi2(vi.size());
+
+    vi2[0] = vi[0];
+    for (int i = 1; i < vi2.size(); ++i)
+    {
+        vi2[i] = vi2[i - 1] + vi[i];
+        cout << vi2[i] << " ";
+    }
+    cout << endl;
+
+    int i = 0; int j = vi2.size() - 1;
+
+    while ((vi2[j] - vi2[i]) > mmatch)
+        --j;
+
+    while (i < j)
+    {
+
+        if (((vi2[j] - vi2[i]) == mmatch)
+            || (vi2[j] == mmatch)
+            || (vi[i] == mmatch))
+        {
+            cout << "Found item at " << i << endl;
+            return;
+        }
+
+        ++i;
+
+        while ((vi2[j] - vi2[i]) < mmatch)
+            ++j;
+    }
+    cout << "no more sequences found" << endl;
+}
+
+
 bool find_match_sum(vector<int>& vi, int i, int target) // i ==0 -> size -1
 {
     int sum = 0;
@@ -2159,7 +2221,7 @@ void test_find_and_catch()
 
 int main()
 {
-    test_find_and_catch();
+    match_sum2();
 }
 
 
