@@ -2255,6 +2255,8 @@ the worst case runtime can be characterized as O(n + k * m)
 
 Another alternative is using parallelism. async is a way.
     
+Or let each node have a hash (or similar) value which can represent
+nodes under the root node
 #endif
     
 
