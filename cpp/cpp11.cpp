@@ -806,6 +806,7 @@ void my_blocking_queue<T>::put(T t)
 template<typename T>
 T my_blocking_queue<T>::take()
 {
+    // assuming that take is a blocking method
     availItems.acquire();
     unique_lock<mutex> lck{mmutex};
     assert(head != nullptr);
