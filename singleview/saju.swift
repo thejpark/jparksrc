@@ -102,6 +102,157 @@ func getDays(y1: Int, m1: Int, d1: Int, y2: Int, m2: Int, d2: Int) -> Int {
 }
 
 
+
+/*
+2016년 양력 입춘(立春)02월 04일 18시 48분 (음력 입춘(立春)2015년 12월 26일)
+2017년 양력 입춘(立春)02월 04일 00시 34분 (음력 입춘(立春)2017년 01월 08일)
+2018년 양력 입춘(立春)02월 04일 06시 24분 (음력 입춘(立春)2017년 12월 19일)
+2019년 양력 입춘(立春)02월 04일 12시 13분 (음력 입춘(立春)2018년 12월 30일)
+2020년 양력 입춘(立春)02월 04일 18시 07분 (음력 입춘(立春)2020년 01월 21일)
+*/
+
+/*
+365.2422
+360
+*/
+
+
+/*
+gongjeonjoogi 365.2422
+360
+let x = 0.2422 * 60.0 * 24.0
+let h = Int(x / 60.0)
+let m = Int (x - Double(h * 60))
+5h.48m
+*/
+
+// month, day, hour, minute
+typealias Nalja = (Int, Int, Int, Int)
+// 2016 jolgi, from sohan
+let Jolgi : [Nalja] = [(1, 6, 7, 8), (2,4,18,46), (3,5,12,43),(4,4,17,27), (5, 5, 10, 42), (6, 5, 14, 48),
+    (7, 7, 1, 3), (8, 7, 10, 53), (9,7,13,51), (10,8,5,33), (11,7,8,48), (12,7,1,41)]
+
+func compareNalja(a:Nalja, b:Nalja) -> Bool {
+    
+    if (b.0 > a.0) {
+        return true
+    }
+    else if (b.0 < a.0) {
+        return false
+    }
+    
+    if (b.1 > a.1) {
+        return true
+    }
+    else if (b.1 < a.1) {
+        return false
+    }
+    
+    if (b.2 > a.2) {
+        return true
+    }
+    else if (b.2 < a.2) {
+        return false
+    }
+    
+    if (b.3 > a.3) {
+        return true
+    }
+    else if (b.3 < a.3) {
+        return false
+    }
+    
+    return false
+}
+
+let base_year = 2016
+func getJolgi(year: Int) -> [Nalja] {
+    
+    var r : [Nalja] = Jolgi
+
+    if year == base_year {
+        return r
+    }
+    
+    for y in base_year + 1...year {
+        for i in 0..<Jolgi.count {
+            let m = r[i].3 + 48
+            if m >= 60 {
+                r[i].2 += 1
+            }
+            r[i].3 = m % 60
+            
+            let h = r[i].2 + 5
+            if h >= 24 {
+                r[i].1 += 1
+            }
+            r[i].2 = h % 24
+            
+            if IsLeapyear(y - 1) && i == 0 {
+                r[i].1 -= 1
+            }
+            if IsLeapyear(y - 1) && i == 1 {
+                r[i].1 -= 1
+            }
+            if IsLeapyear(y) {
+                if !(i == 0 || i == 1) {
+                    r[i].1 -= 1
+                }
+            }
+            
+        }
+    }
+    
+    return r
+}
+
+func getNyonju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String {
+    
+    let g = gan[(year - 2014) % 10]
+    let j = ji[(year - 2008) % 12]
+    let g1 = gan[(year - 2015) % 10]
+    let j1 = ji[(year - 2009) % 12]
+    
+    let jg = getJolgi(year)
+    let n : Nalja = (month, day, hour, minute)
+    
+    if compareNalja(n, b:jg[1]) {
+        
+        return g1 + j1
+    }
+    
+    return g + j
+}
+
+func getWorju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String{
+    let d: Nalja = (month, day, hour, minute)
+    let jolgi = getJolgi(year)
+    
+    var index = 0 // or 12?
+    for i in 0..<jolgi.count {
+        if compareNalja(d, b: jolgi[i]) {
+            index = i
+            break
+        }
+    }
+    
+    var count = 0
+    // 2016.1.5 乙未년 戊子월
+    
+    var diff = year - base_year
+    while (diff > 0) {
+        count += 12
+        diff -= 1
+    }
+
+    count += index
+    let g = gan[(4 + count) % 10]
+    let j = ji[count % 12]
+    
+    return g + j
+}
+
+
 func getIlju(y: Int, m: Int, d: Int) -> String {
     
     
@@ -115,7 +266,32 @@ func getIlju(y: Int, m: Int, d: Int) -> String {
 }
 
 
-
-
-
-
+func getSiju(ilju: Int, hour: Int, minute: Int) -> String {
+    let g1 = (ilju % 5) * 2
+    let t = hour * 60 + minute
+    var h = [30, 90]
+    for i in 1...11 {
+        h.append(90 + i * 120)
+    }
+    h.append(24 * 60)
+    
+    var index = 0
+    for i in 0...(h.count - 1) {
+        if t < h[i] {
+            index = i
+            break
+        }
+    }
+    
+    if index == 0 {
+        let g = gan[(g1 + index + 2) % 10]
+        let j = ji[0]
+        return g + j
+        
+    }
+    else {
+        let g = gan[(g1 + index - 1) % 10]
+        let j = ji[(index - 1) % 12]
+        return g + j
+    }
+}
