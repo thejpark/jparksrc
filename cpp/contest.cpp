@@ -263,6 +263,7 @@ int herd(int n, int num)
   return -1;
 
 }
+// http://poj.org/problem?id=2140
 
 void herd_sum()
 {
@@ -1144,424 +1145,416 @@ int d(vector<vector<int> > &a, int r, int c)
 
 }
 
+// /*
 
-// http://poj.org/problem?id=1785
-void binary_search_heap_construction()
-{
+// Do not keep the sum in the tree node, as the modified value in the left tree can affects 
+// the values in the right. So, in level 3 from the top, the node in the middle is updated twice,
+// first for the first node in level two, second for the second node in level two.
 
-}
-
-
-
-
-/*
-
-Do not keep the sum in the tree node, as the modified value in the left tree can affects 
-the values in the right. So, in level 3 from the top, the node in the middle is updated twice,
-first for the first node in level two, second for the second node in level two.
-
-*/
+// */
 
 
 
-/*
+// /*
   
- Instead of function call, store the computed value to an array will be better for
-dynamic programming.
+//  Instead of function call, store the computed value to an array will be better for
+// dynamic programming.
 
-*/
+// */
+// // http://poj.org/problem?id=1163
+// void tri_sum()
+// {
 
-void tri_sum()
-{
-
-  int n, r;
-  cin >> n;
+//   int n, r;
+//   cin >> n;
   
-  vector<vector<int> > a;
-  a.resize(n);
+//   vector<vector<int> > a;
+//   a.resize(n);
 
-  for (int i = 0; i < n; i++) {
+//   for (int i = 0; i < n; i++) {
   
-    for (int j = 0; j < i + 1; j++) {
+//     for (int j = 0; j < i + 1; j++) {
 
-      int k;
-      cin >> k;
-      a[i].push_back(k);
+//       int k;
+//       cin >> k;
+//       a[i].push_back(k);
 
-    }
+//     }
 
-  }
+//   }
 
-  r = d(a, 0, 0);
+//   r = d(a, 0, 0);
 
-  cout << "the result is " << r << endl;
+//   cout << "the result is " << r << endl;
 
-}
+// }
 
 
-void init_combination(vector<int> &vi, int n, int k)
-{
-  for (int i = 0; i < k; i++)
-    vi.push_back(i);
+// void init_combination(vector<int> &vi, int n, int k)
+// {
+//   for (int i = 0; i < k; i++)
+//     vi.push_back(i);
   
-}
+// }
 
 
-int get_next_combination(vector<int> &vi, int n, int k)
-{
-  int size = vi.size();
-  int i = 1;
+// int get_next_combination(vector<int> &vi, int n, int k)
+// {
+//   int size = vi.size();
+//   int i = 1;
 
-  while (i > 0) {
+//   while (i > 0) {
 
-    if (vi[size - i] >= n - i) {
-      vi[size - i] = 0;
-      i++;
-      if (i > k) break;
+//     if (vi[size - i] >= n - i) {
+//       vi[size - i] = 0;
+//       i++;
+//       if (i > k) break;
       
-    } else {
+//     } else {
 
-      if (i < k)
-	if (vi[size - i] < vi[size - i - 1])
-	  vi[size - i] = vi[size - i - 1];
+//       if (i < k)
+// 	if (vi[size - i] < vi[size - i - 1])
+// 	  vi[size - i] = vi[size - i - 1];
 
-      vi[size - i]++;
-      i--;
-    }
+//       vi[size - i]++;
+//       i--;
+//     }
     
-  }
+//   }
 
-  if (i > k)
-    return 0;
+//   if (i > k)
+//     return 0;
 
-  return 1;
-}
-
-
-
-void compute_matrix(vector<vector<int> > &vii, vector<int> &vi)
-{
-
-  int n = vi.size();
-  vii.resize(vi.size());
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-
-      vii[i].push_back(abs(vi[i] - vi[j]));
-
-    }
-  }
-
-}
+//   return 1;
+// }
 
 
-int dp_post_office(vector<vector<int> > &vii, vector<int> &vi)
-{
 
-  int r = 0;
-  int idx = 0;
-  int i = 0;
+// void compute_matrix(vector<vector<int> > &vii, vector<int> &vi)
+// {
 
-  while (i <= vi[idx])
-    r += vii[i++][vi[idx]];
+//   int n = vi.size();
+//   vii.resize(vi.size());
+
+//   for (int i = 0; i < n; i++) {
+//     for (int j = 0; j < n; j++) {
+
+//       vii[i].push_back(abs(vi[i] - vi[j]));
+
+//     }
+//   }
+
+// }
+
+
+// int dp_post_office(vector<vector<int> > &vii, vector<int> &vi)
+// {
+
+//   int r = 0;
+//   int idx = 0;
+//   int i = 0;
+
+//   while (i <= vi[idx])
+//     r += vii[i++][vi[idx]];
     
-  while (i <= vi[vi.size() - 1])  {
+//   while (i <= vi[vi.size() - 1])  {
 
-    r += min(vii[i][vi[idx]], vii[i][vi[idx + 1]]);
-    i++;
-    if (i > vi[idx + 1])
-      ++idx;
-  }
+//     r += min(vii[i][vi[idx]], vii[i][vi[idx + 1]]);
+//     i++;
+//     if (i > vi[idx + 1])
+//       ++idx;
+//   }
 
-  while (i < vii.size())
-    r += vii[i++][vi[idx]];
+//   while (i < vii.size())
+//     r += vii[i++][vi[idx]];
 
-  return r;
+//   return r;
     
-}
+// }
+
+// // http://poj.org/problem?id=1160
+// void post_office()
+// {
+
+//   int num_v, num_p;
+//   vector<int> vi;
+//   int t, min_t, r;
+//   vector<vector<int> > vii;
+//   vector<int> vi2;
+
+//   cin >> num_v >> num_p;
 
 
+//   for(int i = 0; i < num_v; i++) {
+//     cin >> t;
+//     vi.push_back(t);
+//   }
 
+//   compute_matrix(vii, vi);
 
-void post_office()
-{
+//   init_combination(vi2, num_v, num_p);
 
-  int num_v, num_p;
-  vector<int> vi;
-  int t, min_t, r;
-  vector<vector<int> > vii;
-  vector<int> vi2;
+//   min_t = - 1;
+//   while (1) {
 
-  cin >> num_v >> num_p;
+//     t = dp_post_office(vii, vi2);
+//     if (min_t == -1)
+//       min_t = t;
+//     else if (min_t > t)
+//       min_t = t;
 
+//     r = get_next_combination(vi2, num_v, num_p);
+//     if (!r) break;
+//   }
 
-  for(int i = 0; i < num_v; i++) {
-    cin >> t;
-    vi.push_back(t);
-  }
+//   cout <<  "the result is " << min_t << endl;
 
-  compute_matrix(vii, vi);
+// }
 
-  init_combination(vi2, num_v, num_p);
-
-  min_t = - 1;
-  while (1) {
-
-    t = dp_post_office(vii, vi2);
-    if (min_t == -1)
-      min_t = t;
-    else if (min_t > t)
-      min_t = t;
-
-    r = get_next_combination(vi2, num_v, num_p);
-    if (!r) break;
-  }
-
-  cout <<  "the result is " << min_t << endl;
-
-}
-
-void alphacode()
-{
+// // http://poj.org/problem?id=2033
+// void alphacode()
+// {
   
-  string s;
-  vector<int> vi, d;
+//   string s;
+//   vector<int> vi, d;
   
-  cin >> s;
-  int size = s.size() + 1;
+//   cin >> s;
+//   int size = s.size() + 1;
 
-  vi.push_back(0);
-  for (int i = 0; i < size; i++)
-    vi.push_back(s[i] - '0');
+//   vi.push_back(0);
+//   for (int i = 0; i < size; i++)
+//     vi.push_back(s[i] - '0');
 
-  d.resize(size + 1);
+//   d.resize(size + 1);
 
 
-  d[0] = 1;
-  d[1] = 1;
+//   d[0] = 1;
+//   d[1] = 1;
 
-  for (int i = 2; i <= size; i++) {
-    if (vi[i] < 7 && (vi[i - 1] == 1 || vi[i - 1] == 2))
-      d[i] = d[i - 1] + d[i - 2];
-    else 
-      d[i] = d[i - 1];
+//   for (int i = 2; i <= size; i++) {
+//     if (vi[i] < 7 && (vi[i - 1] == 1 || vi[i - 1] == 2))
+//       d[i] = d[i - 1] + d[i - 2];
+//     else 
+//       d[i] = d[i - 1];
 
-  }
+//   }
 
-  cout << "the result is " << d[size - 1] << endl;
+//   cout << "the result is " << d[size - 1] << endl;
 
-}
+// }
 
-int min_elem(vector<int> &vi, set<int> &s)
-{
-  int min = 100000000;
-  int ret = 0;
+// int min_elem(vector<int> &vi, set<int> &s)
+// {
+//   int min = 100000000;
+//   int ret = 0;
 
-  for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
-    if (min > vi[*it]) {
-	min = vi[*it];
-	ret = *it;
-    }
-  }
-  return ret;
-}
+//   for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
+//     if (min > vi[*it]) {
+// 	min = vi[*it];
+// 	ret = *it;
+//     }
+//   }
+//   return ret;
+// }
 
-void hay()
-{
 
-  int n, m;
-  cin >> n >> m;
+// // http://poj.org/problem?id=2395
+// void hay()
+// {
 
-  vector<vector<int> > vt;
+//   int n, m;
+//   cin >> n >> m;
 
-  vt.resize(n + 1);
-  for (int i = 0; i < vt.size(); i++) {
-    vt[i].resize(n + 1);
+//   vector<vector<int> > vt;
 
-  }
+//   vt.resize(n + 1);
+//   for (int i = 0; i < vt.size(); i++) {
+//     vt[i].resize(n + 1);
 
-  for (int i = 1; i <= n; i++)
-    for (int j = 1; j <= n; j++)
-      vt[i][j] = 10000000;
+//   }
+
+//   for (int i = 1; i <= n; i++)
+//     for (int j = 1; j <= n; j++)
+//       vt[i][j] = 10000000;
   
-  for (int i = 0; i < m; i++) {
+//   for (int i = 0; i < m; i++) {
 
-    int a, b, len;
-    cin >> a >> b >> len;
+//     int a, b, len;
+//     cin >> a >> b >> len;
     
-    vt[a][b] = len;
-  }
+//     vt[a][b] = len;
+//   }
 
-  /* shortest path algorithm by Dikstra */
+//   /* shortest path algorithm by Dikstra */
 
-  vector<int> d;
+//   vector<int> d;
 
-  d.resize(n + 1);
-  for (int i = 1; i <= n; i++)
-    d[i] = 10000000;
+//   d.resize(n + 1);
+//   for (int i = 1; i <= n; i++)
+//     d[i] = 10000000;
   
-  for (int j = 0; j < vt[1].size(); j++) {
-    d[j] = vt[1][j];
+//   for (int j = 0; j < vt[1].size(); j++) {
+//     d[j] = vt[1][j];
 
-  }
+//   }
 
-  set<int> s, v;
-  s.insert(1);
+//   set<int> s, v;
+//   s.insert(1);
 
-  for (int i = 2; i <= n; i++) {
-    v.insert(i);
-  }
+//   for (int i = 2; i <= n; i++) {
+//     v.insert(i);
+//   }
   
-  while (v.size() > 0) {
+//   while (v.size() > 0) {
     
-    int w = min_elem(d, v);
-    s.insert(w);
-    v.erase(w);
+//     int w = min_elem(d, v);
+//     s.insert(w);
+//     v.erase(w);
 
-    cout << "w is " << w << endl;
-    for (set<int>::const_iterator it = v.begin(); it != v.end(); it++) {
-      d[*it] = min(d[*it], d[w] + vt[w][*it]);
+//     cout << "w is " << w << endl;
+//     for (set<int>::const_iterator it = v.begin(); it != v.end(); it++) {
+//       d[*it] = min(d[*it], d[w] + vt[w][*it]);
 
-      cout << *it << " is " << d[*it] << endl;
-    }
+//       cout << *it << " is " << d[*it] << endl;
+//     }
     
     
-  }
+//   }
   
-  for (int i = 2; i <= n; i++)
-    cout << "to " << i << " is " << d[i];
+//   for (int i = 2; i <= n; i++)
+//     cout << "to " << i << " is " << d[i];
 
-}
+// }
 
 
 
-int min_elem2(vector<vector<int> > &vi, set<int> &s, set<int> &v, int *r)
-{
-  int min = 10000000;
-  int res = 0;
+// int min_elem2(vector<vector<int> > &vi, set<int> &s, set<int> &v, int *r)
+// {
+//   int min = 10000000;
+//   int res = 0;
  
-  for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
-    for (set<int>::const_iterator iit = v.begin(); iit != v.end(); iit++) {
-      if (min > vi[*it][*iit]) {
-          min = vi[*it][*iit];
-          *r = min;
-          res= *iit;
-      }
-    }
-  }
+//   for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
+//     for (set<int>::const_iterator iit = v.begin(); iit != v.end(); iit++) {
+//       if (min > vi[*it][*iit]) {
+//           min = vi[*it][*iit];
+//           *r = min;
+//           res= *iit;
+//       }
+//     }
+//   }
   
-  return res;
-}
+//   return res;
+// }
 
-void hay2()
-{
-  int n, m;
-  cin >> n >> m;
+// void hay2()
+// {
+//   int n, m;
+//   cin >> n >> m;
 
-  vector<vector<int> > vt;
+//   vector<vector<int> > vt;
 
-  vt.resize(n + 1);
-  for (int i = 0; i < vt.size(); i++) {
-    vt[i].resize(n + 1);
+//   vt.resize(n + 1);
+//   for (int i = 0; i < vt.size(); i++) {
+//     vt[i].resize(n + 1);
 
-  }
+//   }
 
-  for (int i = 1; i <= n; i++)
-    for (int j = 1; j <= n; j++)
-      vt[i][j] = 10000000;
+//   for (int i = 1; i <= n; i++)
+//     for (int j = 1; j <= n; j++)
+//       vt[i][j] = 10000000;
   
-  for (int i = 0; i < m; i++) {
+//   for (int i = 0; i < m; i++) {
 
-    int a, b, len;
-    cin >> a >> b >> len;
+//     int a, b, len;
+//     cin >> a >> b >> len;
     
-    vt[a][b] = len;
-    vt[b][a] = len;
+//     vt[a][b] = len;
+//     vt[b][a] = len;
 
-  }
+//   }
 
-  /* minimal spanning tree */
+//   /* minimal spanning tree */
 
-  set<int> s, v;
-  s.insert(1);
+//   set<int> s, v;
+//   s.insert(1);
 
-  for (int i = 2; i <= n; i++) {
-    v.insert(i);
-  }
+//   for (int i = 2; i <= n; i++) {
+//     v.insert(i);
+//   }
   
-  int res, max = -1;
-  while (v.size() > 0) {
-    int w = min_elem2(vt, s, v, &res);
-    s.insert(w);
-    v.erase(w);
-    cout << w << " and distance is " << res << endl;
-    if (max < res)
-      max = res;
-  }
+//   int res, max = -1;
+//   while (v.size() > 0) {
+//     int w = min_elem2(vt, s, v, &res);
+//     s.insert(w);
+//     v.erase(w);
+//     cout << w << " and distance is " << res << endl;
+//     if (max < res)
+//       max = res;
+//   }
 
-  cout << max << endl;
+//   cout << max << endl;
 
-}
+// }
 
-void hay3()
-{
-  int n, m;
-  cin >> n >> m;
-  auto min_comp = [&](pair<int, int>& a, pair<int, int>& b)
-      {
-          return a.second > b.second;
-      };
+// void hay3()
+// {
+//   int n, m;
+//   cin >> n >> m;
+//   auto min_comp = [&](pair<int, int>& a, pair<int, int>& b)
+//       {
+//           return a.second > b.second;
+//       };
 
-  map<int, list<pair<int, int> > > mm;
-  set<int> s, v;
+//   map<int, list<pair<int, int> > > mm;
+//   set<int> s, v;
 
-  for (int i = 0; i < m; i++) {
+//   for (int i = 0; i < m; i++) {
 
-    int a, b, len;
-    cin >> a >> b >> len;
+//     int a, b, len;
+//     cin >> a >> b >> len;
 
-    mm[a].push_back(pair<int, int>(b, len));
-    mm[b].push_back(pair<int, int>(a, len));
-    v.insert(a);
-    v.insert(b);
-  }
+//     mm[a].push_back(pair<int, int>(b, len));
+//     mm[b].push_back(pair<int, int>(a, len));
+//     v.insert(a);
+//     v.insert(b);
+//   }
 
-  /* minimal spanning tree */
-  int x = *(v.begin());
-  cout << "first is " << x << " and the size of v is " << v.size() << endl;
-  s.insert(x);
-  v.erase(x);
+//   /* minimal spanning tree */
+//   int x = *(v.begin());
+//   cout << "first is " << x << " and the size of v is " << v.size() << endl;
+//   s.insert(x);
+//   v.erase(x);
 
-  vector<pair<int, int> > vd{mm[x].begin(), mm[x].end()};
-  make_heap(vd.begin(), vd.end(), min_comp);
+//   vector<pair<int, int> > vd{mm[x].begin(), mm[x].end()};
+//   make_heap(vd.begin(), vd.end(), min_comp);
 
-  int t_max = -1;
+//   int t_max = -1;
   
-  while (v.size() > 0) {
-      auto w = vd.front();
-      s.insert(w.first);
-      v.erase(w.first);
-      cout << w.first << " and distance is " << w.second << endl;
+//   while (v.size() > 0) {
+//       auto w = vd.front();
+//       s.insert(w.first);
+//       v.erase(w.first);
+//       cout << w.first << " and distance is " << w.second << endl;
 
-      t_max = max(t_max, w.second);
-      pop_heap(vd.begin(), vd.end(), min_comp);
-      vd.pop_back();
+//       t_max = max(t_max, w.second);
+//       pop_heap(vd.begin(), vd.end(), min_comp);
+//       vd.pop_back();
 
-      for (auto e: mm[w.first])
-      {
-          if (s.find(e.first) != s.end())
-              continue;
-          vd.push_back(e);
-          push_heap(vd.begin(), vd.end(), min_comp);
-      }
-  }
+//       for (auto e: mm[w.first])
+//       {
+//           if (s.find(e.first) != s.end())
+//               continue;
+//           vd.push_back(e);
+//           push_heap(vd.begin(), vd.end(), min_comp);
+//       }
+//   }
 
-  cout << t_max << endl;
-}
+//   cout << t_max << endl;
+// }
 
 
-void test_vector()
+// void 
+test_vector()
 {
     vector<vector<int>> va(3);
     // it should be & as it copies otherwise. Always remember to use reference
@@ -1690,7 +1683,7 @@ void knight_move()
 
 
 // perfect stall
-
+// http://poj.org/problem?id=1274
 
 int find_perfect_stall(map<int, int>& allocated,
                        map<int, int>& visited,
@@ -1765,7 +1758,7 @@ bool aia(string s, string t)
 
     return false;
 }
-
+// http://poj.org/problem?id=1936
 void all_in_all()
 {
     string s, t;
@@ -2287,7 +2280,7 @@ void test_bit()
 
 int main()
 {
-    match_sum2();
+    alphacode();
 }
 
 
