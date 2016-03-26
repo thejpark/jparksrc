@@ -266,8 +266,8 @@ func getIlju(y: Int, m: Int, d: Int) -> String {
 }
 
 
-func getSiju(ilju: Int, hour: Int, minute: Int) -> String {
-    let g1 = (ilju % 5) * 2
+func getSiju(ilgan: Int, hour: Int, minute: Int) -> String {
+    let g1 = (ilgan % 5) * 2
     let t = hour * 60 + minute
     var h = [30, 90]
     for i in 1...11 {
@@ -295,3 +295,87 @@ func getSiju(ilju: Int, hour: Int, minute: Int) -> String {
         return g + j
     }
 }
+
+func getGan(ilju: String) -> Int {
+    let i1 = ilju.startIndex
+    for i in 0 ... gan.count - 1 {
+        let i2 = gan[i].startIndex
+        if gan[i].characters[i2] == ilju.characters[i1] {
+            return i
+        }
+    }
+    
+    return -1
+}
+
+
+func getSaju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
+{
+    let ilju = getIlju(year, m:month, d:day)
+    let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
+    let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
+    let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
+    
+    return nyonju + worju + ilju + siju
+}
+
+
+let ganjiohang = ["甲":1, "乙":1, "丙":2, "丁":2, "戊":3, "己":3, "庚":4, "辛":4, "壬":5, "癸":5, "子":5, "丑":3, "寅":1, "卯":1, "辰":3, "巳":2, "午":2, "未":3, "申":4, "酉":4, "戌":3, "亥":5]
+
+let helpohang = [1:(1, 5), 2:(1, 2), 3:(2, 3), 4:(3, 4), 5:(4, 5)]
+
+
+func getJi(j: String) -> Int {
+    let j1 = j.startIndex.advancedBy(1)
+    for i in 0 ... ji.count - 1 {
+        let j2 = ji[i].startIndex
+        if ji[i].characters[j2] == j.characters[j1] {
+            return i
+        }
+    }
+    
+    return -1
+}
+
+
+func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
+{
+    let ilju = getIlju(year, m:month, d:day)
+    let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
+    let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
+    let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
+    
+    let base = ganjiohang[gan[getGan(ilju)]]
+    var sum: Double = 0
+    
+    if base == ganjiohang[ji[getJi(ilju)]] {
+        sum += 1.2
+    }
+    
+    if base == ganjiohang[ji[getJi(siju)]] {
+        sum += 1.2
+    }
+    
+    if base == ganjiohang[ji[getJi(worju)]] {
+        sum += 3
+    }
+    
+    if base == ganjiohang[ji[getJi(nyonju)]] {
+        sum += 1
+    }
+    
+    if base == ganjiohang[gan[getGan(siju)]] {
+        sum += 0.8
+    }
+    
+    if base == ganjiohang[gan[getGan(worju)]] {
+        sum += 1
+    }
+    
+    if base == ganjiohang[gan[getGan(nyonju)]] {
+        sum += 0.8
+    }
+    
+    return sum
+}
+
