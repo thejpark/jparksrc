@@ -24,11 +24,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var myDatePicker: UIDatePicker!
+
+    var selectedDate: String = ""
     
     
     @IBAction func textFieldEdited(sender: UITextField) {
         self.pickerData = getHanjaFromHangul(lastName.text!)
         self.picker.reloadAllComponents()
+    }
+    
+    @IBAction func datePickerAction(sender: AnyObject) {
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd MM yyyy HH mm"
+        self.selectedDate = dateFormatter.stringFromDate(self.myDatePicker.date)
     }
     
     // keyboard should disappear
@@ -60,7 +69,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         if segue.identifier == "showList" {
 
             let controller = segue.destinationViewController as! MasterViewController
-            controller.search(lastName.text!, surNameH: currData, givenName: firstName.text!)
+            controller.search(lastName.text!, surNameH: currData, givenName: firstName.text!, selectedDate: self.selectedDate)
           
         }
     }

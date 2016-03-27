@@ -11,6 +11,7 @@ import UIKit
 class Elem {
     var surName : Hanja
     var givenName : [Hanja]
+    var saju: String = ""
     init (name:[Hanja]) {
         surName = name[0]
         givenName = [Hanja]()
@@ -20,7 +21,9 @@ class Elem {
     }
     func desc() -> String {
         var r: String
-        r = surName.0
+        r = self.saju
+        r += " "
+        r += surName.0
         for e in givenName {
             r += e.0
         }
@@ -41,6 +44,13 @@ class MasterViewController: UITableViewController {
     
     var objects = [AnyObject]()
 
+    var day: Int = 0
+    var month: Int = 0
+    var year: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
+    var hy: [Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -55,7 +65,7 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func search(surName: String, surNameH: String, givenName: String) {
+    func search(surName: String, surNameH: String, givenName: String, selectedDate: String) {
         var gname: [Hanja] = [Hanja]()
       
       //  for var i = 0; i < givenName.characters.count; ++i {
@@ -63,7 +73,19 @@ class MasterViewController: UITableViewController {
       //      var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
       //      gname.append(hanja[0])
       //  }
+
+        // set date and time of birth
+        var str = selectedDate.componentsSeparatedByString(" ")
         
+        self.day = Int(str[0])!
+        self.month = Int(str[1])!
+        self.year = Int(str[2])!
+        self.hour = Int(str[3])!
+        self.minute = Int(str[4])!
+        self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)
+
+        
+
         let index = givenName.startIndex.advancedBy(0)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
@@ -113,8 +135,17 @@ class MasterViewController: UITableViewController {
             return
         }
         
+        //filter out by jawon ohang
+        
+        for i in 1 ... name.count - 1 {
+            if self.hy.contains(name[i].3) == false {
+                return
+            }
+        }
+        
         // add name
         let elem = Elem(name: name)
+        elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
         objects.insert(elem, atIndex: 0)
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)

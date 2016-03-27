@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LCo-r8-A1y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LCo-r8-A1y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -23,7 +23,7 @@
         <!--Enter Name-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -66,6 +66,9 @@
                                 <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
                                     <!--2015-10-24 21:22:00 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="datePickerAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="5e4-tz-2ov"/>
+                                </connections>
                             </datePicker>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afa-Aq-1cY">
                                 <rect key="frame" x="238" y="103" width="80" height="122"/>
@@ -100,6 +103,7 @@
                     <connections>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
                         <outlet property="lastName" destination="4AG-8a-SLi" id="xKo-4d-B8W"/>
+                        <outlet property="myDatePicker" destination="vJb-nj-E2j" id="qn1-Dv-s2x"/>
                         <outlet property="picker" destination="afa-Aq-1cY" id="wRh-5W-I71"/>
                     </connections>
                 </viewController>
@@ -110,7 +114,7 @@
         <!--Matching Names-->
         <scene sceneID="74h-Ic-uOO">
             <objects>
-                <tableViewController id="LCm-aK-E4l" customClass="MasterViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iUI-fF-lSU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,7 +155,7 @@
         <!--Detail-->
         <scene sceneID="nwi-a4-UUJ">
             <objects>
-                <viewController title="Detail" id="Oq1-7N-IQv" customClass="DetailViewController" customModule="singleview" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="Oq1-7N-IQv" customClass="DetailViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xd2-hN-QHH"/>
                         <viewControllerLayoutGuide type="bottom" id="Rq4-dt-vJK"/>

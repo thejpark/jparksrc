@@ -89,7 +89,7 @@ func getDays(y1: Int, m1: Int, d1: Int, y2: Int, m2: Int, d2: Int) -> Int {
     var m = m1
     var d = d1
     
-    for i in 0...diff_y {
+    for _ in 0...diff_y {
         sum += getDaysLeft(d, month: m, year: y)
         y = y + 1
         d = 0
@@ -322,7 +322,8 @@ func getSaju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
 
 let ganjiohang = ["甲":1, "乙":1, "丙":2, "丁":2, "戊":3, "己":3, "庚":4, "辛":4, "壬":5, "癸":5, "子":5, "丑":3, "寅":1, "卯":1, "辰":3, "巳":2, "午":2, "未":3, "申":4, "酉":4, "戌":3, "亥":5]
 
-let helpohang = [1:(1, 5), 2:(1, 2), 3:(2, 3), 4:(3, 4), 5:(4, 5)]
+// 오행과 그 오행을 돕는 오행들
+let helpohang = [1:[1, 5], 2:[1, 2], 3:[2, 3], 4:[3, 4], 5:[4, 5]]
 
 
 func getJi(j: String) -> Int {
@@ -346,36 +347,122 @@ func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Doub
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
     
     let base = ganjiohang[gan[getGan(ilju)]]
-    var sum: Double = 0
+    var sum: Double = 1.0
     
-    if base == ganjiohang[ji[getJi(ilju)]] {
+    if  helpohang[base!]!.contains(ganjiohang[ji[getJi(ilju)]]!) {
         sum += 1.2
     }
     
-    if base == ganjiohang[ji[getJi(siju)]] {
+    if helpohang[base!]!.contains(ganjiohang[ji[getJi(siju)]]!) {
         sum += 1.2
     }
     
-    if base == ganjiohang[ji[getJi(worju)]] {
+    if helpohang[base!]!.contains(ganjiohang[ji[getJi(worju)]]!) {
         sum += 3
     }
     
-    if base == ganjiohang[ji[getJi(nyonju)]] {
+    if helpohang[base!]!.contains(ganjiohang[ji[getJi(nyonju)]]!) {
         sum += 1
     }
     
-    if base == ganjiohang[gan[getGan(siju)]] {
+    if helpohang[base!]!.contains(ganjiohang[gan[getGan(siju)]]!) {
         sum += 0.8
     }
     
-    if base == ganjiohang[gan[getGan(worju)]] {
+    if helpohang[base!]!.contains(ganjiohang[gan[getGan(worju)]]!) {
         sum += 1
     }
     
-    if base == ganjiohang[gan[getGan(nyonju)]] {
+    if helpohang[base!]!.contains(ganjiohang[gan[getGan(nyonju)]]!) {
         sum += 0.8
     }
     
     return sum
 }
+
+// 일간을 극 하는 오행
+let antiohang = [1:4, 2:5, 3:1, 4:2, 5:3]
+
+//(일간이) 생 하는 오행, 즉 오행과 그 오행이 돕는 오행
+let liveohang = [1:2, 2:3, 3:4, 4:5, 5:1]
+
+func getAntiIlgan(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
+{
+    let ilju = getIlju(year, m:month, d:day)
+    let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
+    let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
+    let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
+    
+    let base = ganjiohang[gan[getGan(ilju)]]
+    var sum: Double = 0.0
+    
+    if  antiohang[base!] == ganjiohang[ji[getJi(ilju)]]! {
+        sum += 1.2
+    }
+    
+    if antiohang[base!] == ganjiohang[ji[getJi(siju)]]! {
+        sum += 1.2
+    }
+    
+    if antiohang[base!] == ganjiohang[ji[getJi(worju)]]! {
+        sum += 3
+    }
+    
+    if antiohang[base!] == ganjiohang[ji[getJi(nyonju)]]! {
+        sum += 1
+    }
+    
+    if antiohang[base!] == ganjiohang[gan[getGan(siju)]]! {
+        sum += 0.8
+    }
+    
+    if antiohang[base!] == ganjiohang[gan[getGan(worju)]]! {
+        sum += 1
+    }
+    
+    if antiohang[base!] == ganjiohang[gan[getGan(nyonju)]]! {
+        sum += 0.8
+    }
+    
+    return sum
+}
+
+func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int]
+{
+    let ilju = getIlju(year, m:month, d:day)
+    let base = ganjiohang[gan[getGan(ilju)]]
+    let strength = getGangYag(year, month: month, day: day, hour: hour, minute: minute)
+    let anti = getAntiIlgan(year, month: month, day: day, hour: hour, minute: minute)
+    
+    if strength < 5 {
+        
+        if (anti > 5) {
+            var t = base! + 1
+            if t > 5 {
+                t = 1
+            }
+            var r: [Int] = helpohang[base!]!
+            r.append(t)
+            return r
+        }
+        else {
+            return helpohang[base!]!
+        }
+    }
+    else {
+        if [4, 5].contains(base!) {
+            return [1, 2]
+        }
+        else if [1, 2].contains(base!) {
+            return [4, 5]
+        }
+        else {
+            return [1]
+        }
+    }
+    
+}
+
+
+
 
