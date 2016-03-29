@@ -13,20 +13,53 @@ func getHanjaFromHangul(hangul: String) -> [String]{
     if let ll = hanjaData[hangul] {
     
         var p: [String] = [String]()
+        
+        if  hangul == "이" {
+            p.append("李")
+        }
+        else if  hangul == "임" {
+            p.append("林")
+        }
+        else if hangul == "육" {
+            p.append("陸")
+        }
+        else if hangul == "유" {
+            p.append("柳")
+            p.append("劉")
+        }
+        else if hangul == "여" {
+            p.append("呂")
+        }
+        else if hangul == "양" {
+            p.append("梁")
+        }
+        else if hangul == "노" {
+            p.append("盧")
+            p.append("魯")
+        }
+        else if hangul == "나" {
+            p.append("羅")
+        }
+        else if hangul == "염" {
+            p.append("廉")
+        }
+        
     
         for e in ll {
-            p.append(e.0)
+            if e.3 != 0 {
+                p.append(e.0)
+            }
         }
     
         return p
     }
-    return ["丙"]
+    return ["李"]
 }
 
 func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
 
     var p: [Hanja] = [Hanja]()
-
+    
     if let ll = hanjaData[hangul] {
         
         for e in ll {
@@ -40,6 +73,34 @@ func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
 func getHanjaData(hangul: String, hanja:String) -> Hanja {
     
     var p: [Hanja] = getHanjaDataFromHangul(hangul)
+
+    if  hangul == "이" {
+        p = p + getHanjaDataFromHangul("리")
+    }
+    else if  hangul == "임" {
+        p = p + getHanjaDataFromHangul("림")
+    }
+    else if hangul == "육" {
+        p = p + getHanjaDataFromHangul("륙")
+    }
+    else if hangul == "유" {
+        p = p + getHanjaDataFromHangul("류")
+    }
+    else if hangul == "여" {
+        p = p + getHanjaDataFromHangul("려")
+    }
+    else if hangul == "양" {
+        p = p + getHanjaDataFromHangul("량")
+    }
+    else if hangul == "노" {
+        p = p + getHanjaDataFromHangul("로")
+    }
+    else if hangul == "나" {
+        p = p + getHanjaDataFromHangul("라")
+    }
+    else if hangul == "염" {
+        p = p + getHanjaDataFromHangul("렴")
+    }
     
     for e in p {
         if (e.0 == hanja) {
