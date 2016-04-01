@@ -21,9 +21,7 @@ class Elem {
     }
     func desc() -> String {
         var r: String
-        r = self.saju
-        r += " "
-        r += surName.0
+        r = surName.0
         for e in givenName {
             r += e.0
         }

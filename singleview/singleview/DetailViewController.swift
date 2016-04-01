@@ -11,6 +11,7 @@ import UIKit
 class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var saju: UILabel!
     
     
     var detailItem: Elem?
@@ -21,6 +22,11 @@ class DetailViewController: UIViewController {
             if let label = self.detailDescriptionLabel {
                 label.text = detail.desc()
             }
+            if let saju = self.saju {
+                saju.text = detail.saju
+            }
+
+        
         }
     }
     
