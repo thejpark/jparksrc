@@ -48,6 +48,7 @@ class MasterViewController: UITableViewController {
     var hour: Int = 0
     var minute: Int = 0
     var hy: [Int] = []
+    var numSelected: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,7 +145,8 @@ class MasterViewController: UITableViewController {
         // add name
         let elem = Elem(name: name)
         elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
-        objects.insert(elem, atIndex: 0)
+        objects.insert(elem, atIndex: numSelected)
+        numSelected += 1
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
