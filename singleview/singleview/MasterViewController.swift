@@ -15,7 +15,7 @@ class Elem {
     init (name:[Hanja]) {
         surName = name[0]
         givenName = [Hanja]()
-        for var i = 1; i < name.count; ++i {
+        for i in 1...(name.count - 1) {
             givenName.append(name[i])
         }
     }
@@ -26,7 +26,7 @@ class Elem {
             r += e.0
         }
         r += " ("
-        for var i = 0; i < givenName.count; ++i {
+        for i  in 0...(givenName.count - 1) {
             r += givenName[i].1
             if (i != givenName.count - 1) {
                 r += ", "
@@ -127,7 +127,7 @@ class MasterViewController: UITableViewController {
         var count = 0
         for n in name {
             if ((n.2 % 2) == k) {
-                count++
+                count += 1
             }
         }
         if count == name.count {

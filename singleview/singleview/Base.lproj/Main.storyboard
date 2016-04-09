@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LCo-r8-A1y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LCo-r8-A1y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -13,12 +13,76 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xUf-Ze-ATG"/>
+                        <segue destination="FDT-xE-FeJ" kind="relationship" relationship="rootViewController" id="4bI-g0-OQT"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nll-8p-suK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
+        </scene>
+        <!--Enter Info-->
+        <scene sceneID="zBw-Ux-CN3">
+            <objects>
+                <viewController id="FDT-xE-FeJ" customClass="RegisterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J7h-lQ-nio"/>
+                        <viewControllerLayoutGuide type="bottom" id="LaT-hc-M1E"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rXj-Da-G2D">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성 (음)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-pQ-H3h">
+                                <rect key="frame" x="28" y="113" width="50" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APE-ku-Yig" userLabel="Last Name">
+                                <rect key="frame" x="78" y="122" width="73" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldEdited:" destination="FDT-xE-FeJ" eventType="editingChanged" id="PDN-ea-uES"/>
+                                    <outlet property="delegate" destination="FDT-xE-FeJ" id="TId-UU-rys"/>
+                                </connections>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKb-an-PT2">
+                                <rect key="frame" x="194" y="88" width="80" height="122"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FDT-xE-FeJ" id="Hit-Ji-o0M"/>
+                                    <outlet property="delegate" destination="FDT-xE-FeJ" id="6Nc-cb-Ggf"/>
+                                </connections>
+                            </pickerView>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
+                                <rect key="frame" x="28" y="228" width="290" height="124"/>
+                                <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
+                                    <!--2015-10-24 21:22:00 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="RG6-Cy-458"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C">
+                                <rect key="frame" x="155" y="381" width="37" height="30"/>
+                                <state key="normal" title="입력"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="enterName" id="6dA-Q8-E2i"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Enter Info" id="hz8-8L-wzS"/>
+                    <connections>
+                        <outlet property="lastName" destination="APE-ku-Yig" id="x6U-8w-gom"/>
+                        <outlet property="myDatePicker" destination="XwB-GO-MWu" id="Fko-bq-LJD"/>
+                        <outlet property="picker" destination="fKb-an-PT2" id="1sR-ld-L2l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v5i-Im-PGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="233" y="-453"/>
         </scene>
         <!--Enter Name-->
         <scene sceneID="tne-QT-ifu">
@@ -32,23 +96,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성 (음)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDo-j0-h4G">
-                                <rect key="frame" x="13" y="117" width="50" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDo-j0-h4G">
+                                <rect key="frame" x="13" y="117" width="228" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4AG-8a-SLi">
-                                <rect key="frame" x="83" y="124" width="73" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="textFieldEdited:" destination="BYZ-38-t0r" eventType="editingChanged" id="1uR-T7-m0n"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="T7z-9i-7sO"/>
-                                </connections>
-                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vUn-au-ZWa">
-                                <rect key="frame" x="83" y="187" width="73" height="30"/>
+                                <rect key="frame" x="82" y="228" width="73" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -56,55 +111,32 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIe-sZ-XX2">
-                                <rect key="frame" x="13" y="187" width="40" height="37"/>
+                                <rect key="frame" x="13" y="224" width="40" height="37"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="vJb-nj-E2j">
-                                <rect key="frame" x="20" y="276" width="290" height="124"/>
-                                <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
-                                    <!--2015-10-24 21:22:00 +0000-->
-                                </date>
-                                <connections>
-                                    <action selector="datePickerAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="5e4-tz-2ov"/>
-                                </connections>
-                            </datePicker>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afa-Aq-1cY">
-                                <rect key="frame" x="238" y="103" width="80" height="122"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="6Kd-bC-s4p"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Sug-ZZ-5Ms"/>
-                                </connections>
-                            </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성 (한자)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEO-yN-Oc9">
-                                <rect key="frame" x="179" y="126" width="67" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-Sd-ueI">
+                                <rect key="frame" x="10" y="165" width="235" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO">
-                                <rect key="frame" x="147" y="408" width="37" height="30"/>
+                                <rect key="frame" x="109" y="361" width="37" height="30"/>
                                 <state key="normal" title="검색"/>
                                 <connections>
                                     <segue destination="LCm-aK-E4l" kind="show" identifier="showList" id="V0q-SE-69T"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일 (양력)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faQ-YZ-04Y">
-                                <rect key="frame" x="105" y="247" width="148" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Enter Name" id="zxj-uQ-tnE"/>
                     <connections>
+                        <outlet property="DOB" destination="pMT-Sd-ueI" id="pe5-xE-kpS"/>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
-                        <outlet property="lastName" destination="4AG-8a-SLi" id="xKo-4d-B8W"/>
-                        <outlet property="myDatePicker" destination="vJb-nj-E2j" id="qn1-Dv-s2x"/>
-                        <outlet property="picker" destination="afa-Aq-1cY" id="wRh-5W-I71"/>
+                        <outlet property="lastName" destination="yDo-j0-h4G" id="c7f-yG-HYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
