@@ -14,7 +14,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         lastName.text = "성: " + self.surName + "(" + self.surNameH + ")"
-        DOB.text = "생년월일: " + self.selectedDate
+        
+        
+        // set date and time of birth
+        var str = self.selectedDate.componentsSeparatedByString(" ")
+        
+        DOB.text = "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
     }
 
     override func didReceiveMemoryWarning() {
