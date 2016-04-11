@@ -13,12 +13,47 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="FDT-xE-FeJ" kind="relationship" relationship="rootViewController" id="4bI-g0-OQT"/>
+                        <segue destination="sgv-xB-FRN" kind="relationship" relationship="rootViewController" id="X80-lE-RKl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nll-8p-suK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="PuC-gx-OWy">
+            <objects>
+                <viewController id="sgv-xB-FRN" customClass="MainViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4dl-lP-5Oe"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Tn-mK-eCF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EJG-B4-pIn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE">
+                                <rect key="frame" x="137" y="199" width="136" height="30"/>
+                                <state key="normal" title="정보 입력"/>
+                                <connections>
+                                    <segue destination="FDT-xE-FeJ" kind="show" identifier="enterInfo" id="mQ2-G8-cCW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U">
+                                <rect key="frame" x="177" y="274" width="56" height="30"/>
+                                <state key="normal" title="이름 검색"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="enterName" id="v5g-51-5if"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eDg-Gu-2JI"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="223" y="-1449"/>
         </scene>
         <!--Enter Info-->
         <scene sceneID="zBw-Ux-CN3">
@@ -67,7 +102,7 @@
                                 <rect key="frame" x="155" y="381" width="37" height="30"/>
                                 <state key="normal" title="입력"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="enterName" id="6dA-Q8-E2i"/>
+                                    <action selector="storeInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="eEv-nC-f3K"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -196,14 +231,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail Description Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NbQ-DG-rRk">
-                                <rect key="frame" x="136" y="159" width="182" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Saju" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlR-aq-m62">
+                                <rect key="frame" x="69" y="130" width="182" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Saju" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlR-aq-m62">
-                                <rect key="frame" x="136" y="124" width="182" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail Description Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NbQ-DG-rRk">
+                                <rect key="frame" x="69" y="177" width="182" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

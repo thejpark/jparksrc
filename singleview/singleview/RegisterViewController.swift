@@ -9,6 +9,7 @@
 import UIKit
 
 class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,8 +27,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var myDatePicker: UIDatePicker!
     
     var selectedDate: String = ""
+    weak var m_parent: MainViewController?
     
-    
+
     @IBAction func textFieldEdited(sender: UITextField) {
         self.pickerData = getHanjaFromHangul(lastName.text!)
         self.picker.reloadAllComponents()
@@ -45,7 +47,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return true
     }
     
-    
     var pickerData: [String] = [String]()
     var currData: String = "이"
     
@@ -62,15 +63,12 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return pickerData[row]
     }
     
-    // MARK: - Segues
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "enterName" {
-            let controller = segue.destinationViewController as! ViewController
-            controller.surName = lastName.text!
-            controller.surNameH = currData
-            controller.selectedDate =  self.selectedDate
-        }
+    @IBAction func storeInfo(sender: UIButton)
+    {
+        self.m_parent!.surName = lastName.text!
+        self.m_parent!.surNameH = currData
+        self.m_parent!.dob =  self.selectedDate
+        navigationController?.popViewControllerAnimated(true)
     }
     
 }
