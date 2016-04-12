@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct RegisterInfoKeys {
+    static let surName = "surName"
+    static let surNameH = "surNameH"
+    static let dob = "dob"
+}
+
 class MainViewController: UIViewController {
     
     var surName: String = ""
@@ -17,6 +23,19 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // load register info
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+            self.surName = str
+        }
+        if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+            self.surNameH = str1
+        }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+            self.dob = str2
+        }
     }
     
     override func didReceiveMemoryWarning() {

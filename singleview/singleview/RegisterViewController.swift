@@ -63,11 +63,20 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return pickerData[row]
     }
     
+    
     @IBAction func storeInfo(sender: UIButton)
     {
         self.m_parent!.surName = lastName.text!
         self.m_parent!.surNameH = currData
         self.m_parent!.dob =  self.selectedDate
+        
+        // store info
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(self.m_parent!.surName, forKey: RegisterInfoKeys.surName)
+        defaults.setValue(self.m_parent!.surNameH, forKey: RegisterInfoKeys.surNameH)
+        defaults.setValue(self.m_parent!.dob, forKey: RegisterInfoKeys.dob)
+        defaults.synchronize()
+        
         navigationController?.popViewControllerAnimated(true)
     }
     
