@@ -102,7 +102,7 @@
                                 <rect key="frame" x="155" y="381" width="37" height="30"/>
                                 <state key="normal" title="입력"/>
                                 <connections>
-                                    <action selector="storeInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="eEv-nC-f3K"/>
+                                    <segue destination="j8Z-OK-IPT" kind="show" identifier="confirmInfo" id="wWd-EQ-ffe"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -117,7 +117,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v5i-Im-PGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="233" y="-453"/>
+            <point key="canvasLocation" x="925" y="-669"/>
+        </scene>
+        <!--Register Confirm View Controller-->
+        <scene sceneID="pH6-hp-8eq">
+            <objects>
+                <viewController id="j8Z-OK-IPT" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WIG-nf-6o9"/>
+                        <viewControllerLayoutGuide type="bottom" id="GV2-nh-Hvr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qC2-ov-6QI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="dob" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEh-FQ-43R">
+                                <rect key="frame" x="28" y="183" width="307" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-rC-xid">
+                                <rect key="frame" x="99" y="372" width="30" height="30"/>
+                                <state key="normal" title="다시"/>
+                                <connections>
+                                    <action selector="goback:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="hwe-iw-0nP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go2-S7-APd">
+                                <rect key="frame" x="229" y="377" width="30" height="30"/>
+                                <state key="normal" title="저장"/>
+                                <connections>
+                                    <action selector="storeInfo:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="Kdg-Vh-igg"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtj-a4-Di9">
+                                <rect key="frame" x="28" y="132" width="173" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="DOB" destination="TEh-FQ-43R" id="Z5q-T9-cd7"/>
+                        <outlet property="lastName" destination="Gtj-a4-Di9" id="gaE-Ld-aIG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1rG-wU-eag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="935" y="194"/>
         </scene>
         <!--Enter Name-->
         <scene sceneID="tne-QT-ifu">
@@ -152,7 +202,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-Sd-ueI">
-                                <rect key="frame" x="10" y="165" width="235" height="40"/>
+                                <rect key="frame" x="10" y="165" width="353" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -176,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245" y="312"/>
+            <point key="canvasLocation" x="37" y="332"/>
         </scene>
         <!--Matching Names-->
         <scene sceneID="74h-Ic-uOO">

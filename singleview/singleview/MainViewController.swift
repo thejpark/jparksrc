@@ -53,6 +53,20 @@ class MainViewController: UIViewController {
             controller.m_parent = self
         }
         else if segue.identifier == "enterName" {
+            
+            // load register info
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+                self.surName = str
+            }
+            if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+                self.surNameH = str1
+            }
+            if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+                self.dob = str2
+            }
+
             let controller = segue.destinationViewController as! ViewController
             controller.surName = self.surName
             controller.surNameH = self.surNameH
