@@ -44,15 +44,30 @@ class MainViewController: UIViewController {
     }
     
     
+    @IBAction func enterInfo(sender: UIButton)
+    {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+            // popup window
+            
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            vc.showInView("이미 등록하셨습니다.",  animated: true)
+           
+        }
+        else {
+            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterView")
+            self.showViewController(vc as! UIViewController, sender: vc)
+        }
+    }
+    
+    
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "enterInfo" {
-            
-            let controller = segue.destinationViewController as! RegisterViewController
-            controller.m_parent = self
-        }
-        else if segue.identifier == "enterName" {
+        if segue.identifier == "enterName" {
             
             // load register info
             let defaults = NSUserDefaults.standardUserDefaults()

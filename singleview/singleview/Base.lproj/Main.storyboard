@@ -36,7 +36,7 @@
                                 <rect key="frame" x="137" y="199" width="136" height="30"/>
                                 <state key="normal" title="정보 입력"/>
                                 <connections>
-                                    <segue destination="FDT-xE-FeJ" kind="show" identifier="enterInfo" id="mQ2-G8-cCW"/>
+                                    <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U">
@@ -55,10 +55,60 @@
             </objects>
             <point key="canvasLocation" x="223" y="-1449"/>
         </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="nJ1-FU-vuG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hMv-2c-86m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="PopUpView" id="DMd-mL-rIG" customClass="PopUpViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5ig-DB-awc"/>
+                        <viewControllerLayoutGuide type="bottom" id="aSQ-4U-V98"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KwR-k7-GlC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
+                                <rect key="frame" x="42" y="213" width="240" height="174"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc2-oh-IcO">
+                                        <rect key="frame" x="27" y="14" width="205" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK">
+                                        <rect key="frame" x="27" y="99" width="47" height="31"/>
+                                        <state key="normal" title="확인"/>
+                                        <connections>
+                                            <action selector="closePopup:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="SdP-PC-NY8"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY">
+                                        <rect key="frame" x="134" y="100" width="30" height="30"/>
+                                        <state key="normal" title="수정"/>
+                                        <connections>
+                                            <action selector="registerNewInfo:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="pnH-Zl-Qco"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="Nc2-oh-IcO" id="PK6-az-mGY"/>
+                        <outlet property="popUpView" destination="nNR-dl-UfI" id="QVl-PL-cHD"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1059" y="-1436"/>
+        </scene>
         <!--Enter Info-->
         <scene sceneID="zBw-Ux-CN3">
             <objects>
-                <viewController id="FDT-xE-FeJ" customClass="RegisterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterView" id="FDT-xE-FeJ" customClass="RegisterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J7h-lQ-nio"/>
                         <viewControllerLayoutGuide type="bottom" id="LaT-hc-M1E"/>
