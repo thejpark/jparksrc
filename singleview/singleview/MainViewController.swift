@@ -97,5 +97,12 @@ class MainViewController: UIViewController {
         self.showViewController(vc as UIViewController, sender: vc)
   
     }
+    
+    @IBAction func clearInfo(sender: UIButton) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.removeObjectForKey(RegisterInfoKeys.surName)
+        defaults.synchronize()
+    }
+
 }
 

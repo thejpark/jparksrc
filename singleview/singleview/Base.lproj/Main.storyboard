@@ -33,18 +33,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE">
-                                <rect key="frame" x="137" y="199" width="136" height="30"/>
+                                <rect key="frame" x="132" y="207" width="136" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="정보 입력"/>
                                 <connections>
                                     <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U">
-                                <rect key="frame" x="177" y="274" width="56" height="30"/>
+                                <rect key="frame" x="157" y="270" width="86" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="이름 검색"/>
                                 <connections>
                                     <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5O-aX-zYJ">
+                                <rect key="frame" x="172" y="335" width="56" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="clear"/>
+                                <connections>
+                                    <action selector="clearInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="DUh-rb-4mJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF">
+                                <rect key="frame" x="166" y="140" width="62" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="도움말"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
