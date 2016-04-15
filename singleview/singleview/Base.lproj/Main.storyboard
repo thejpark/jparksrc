@@ -43,7 +43,7 @@
                                 <rect key="frame" x="177" y="274" width="56" height="30"/>
                                 <state key="normal" title="이름 검색"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="enterName" id="v5g-51-5if"/>
+                                    <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,8 +85,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY">
-                                        <rect key="frame" x="134" y="100" width="30" height="30"/>
-                                        <state key="normal" title="수정"/>
+                                        <rect key="frame" x="124" y="100" width="61" height="30"/>
+                                        <state key="normal" title="정보입력"/>
                                         <connections>
                                             <action selector="registerNewInfo:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="pnH-Zl-Qco"/>
                                         </connections>
@@ -222,7 +222,7 @@
         <!--Enter Name-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterNameView" id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -288,7 +288,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="O9p-CA-lkY" style="IBUITableViewCellStyleDefault" id="MQd-vJ-uLX">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MQd-vJ-uLX" id="ipJ-I3-qc8">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
