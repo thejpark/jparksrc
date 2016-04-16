@@ -53,6 +53,32 @@ class ViewController: UIViewController {
           
         }
     }
+    
+    
+    @IBAction func checkName(sender: UIButton)
+    {
+        // check if name is valid or not
+        var givenName: String
+        
+        if let s = firstName.text {
+            
+            givenName = s
+            
+            if givenName.characters.count > 0 {
+                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("CandidateView") as!
+                MasterViewController
 
+                vc.search(surName, surNameH: surNameH, givenName: givenName, selectedDate: self.selectedDate)
+                self.showViewController(vc as MasterViewController, sender: vc)
+                return
+            }
+        }
+
+        let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            
+        self.addChildViewController(vc2)
+        self.view.addSubview(vc2.view)
+        vc2.showInView("이름을 입력하세요",  animated: true)
+
+    }
 }
-

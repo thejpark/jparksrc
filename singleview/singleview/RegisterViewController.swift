@@ -72,5 +72,49 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             controller.selectedDate = self.selectedDate
         }
     }
+    
+    @IBAction func checkInfo(sender: UIButton)
+    {
+        // check if some info is nil
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterConfirmView") as!
+        RegisterConfirmViewController
+
+        if let s = lastName.text {
+            vc.surName = s
+        }
+        else {
+            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+
+            self.addChildViewController(vc2)
+            self.view.addSubview(vc2.view)
+            vc2.showInView("성을 입력하세요",  animated: true)
+            return
+        }
+        
+        if self.currData.characters.count > 0 {
+            vc.surNameH = self.currData
+        }
+        else {
+            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+
+            self.addChildViewController(vc2)
+            self.view.addSubview(vc2.view)
+            vc2.showInView("성을 입력하세요",  animated: true)
+            return
+        }
+        if self.selectedDate.characters.count > 0 {
+            vc.selectedDate = self.selectedDate
+        }
+        else {
+            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+
+            self.addChildViewController(vc2)
+            self.view.addSubview(vc2.view)
+            vc2.showInView("생일을 입력하세요",  animated: true)
+            return
+        }
+        
+        self.showViewController(vc as RegisterConfirmViewController, sender: vc)
+    }
 }
 

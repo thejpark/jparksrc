@@ -33,9 +33,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="132" y="270" width="111" height="30"/>
+                                <rect key="frame" x="132" y="267" width="111" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="이름 검색"/>
+                                <state key="normal" title="작명"/>
                                 <connections>
                                     <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
@@ -91,15 +91,15 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK">
-                                        <rect key="frame" x="27" y="99" width="47" height="31"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="99" width="56" height="31"/>
                                         <state key="normal" title="확인"/>
                                         <connections>
                                             <action selector="closePopup:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="SdP-PC-NY8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY">
-                                        <rect key="frame" x="124" y="100" width="61" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="95" y="100" width="76" height="29"/>
                                         <state key="normal" title="정보입력"/>
                                         <connections>
                                             <action selector="registerNewInfo:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="pnH-Zl-Qco"/>
@@ -119,6 +119,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMv-2c-86m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1059" y="-1436"/>
+        </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="ZFc-jp-dmN">
+            <objects>
+                <viewController storyboardIdentifier="PopUpEmpty" id="dP5-WD-8ac" customClass="PopUpViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mW2-SN-PTH"/>
+                        <viewControllerLayoutGuide type="bottom" id="hkL-N0-GfU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8NA-lx-O4y">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-D7-UHL">
+                                <rect key="frame" x="62" y="108" width="240" height="174"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SS-Hk-sCV">
+                                        <rect key="frame" x="27" y="14" width="205" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-c6-Nzh" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="92" y="101" width="56" height="31"/>
+                                        <state key="normal" title="확인"/>
+                                        <connections>
+                                            <action selector="closePopup:" destination="dP5-WD-8ac" eventType="primaryActionTriggered" id="zOu-o1-RjL"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="3SS-Hk-sCV" id="adp-jU-dOz"/>
+                        <outlet property="popUpView" destination="BRd-D7-UHL" id="7tf-Eg-06R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xmT-UM-BiL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1755" y="-1430"/>
         </scene>
         <!--Enter Info-->
         <scene sceneID="zBw-Ux-CN3">
@@ -159,15 +202,18 @@
                                 <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
                                     <!--2015-10-24 21:22:00 +0000-->
                                 </date>
+                                <date key="minimumDate" timeIntervalSinceReferenceDate="479296800">
+                                    <!--2016-03-10 10:00:00 +0000-->
+                                </date>
                                 <connections>
                                     <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="RG6-Cy-458"/>
                                 </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C">
-                                <rect key="frame" x="155" y="381" width="37" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="146" y="381" width="56" height="31"/>
                                 <state key="normal" title="입력"/>
                                 <connections>
-                                    <segue destination="j8Z-OK-IPT" kind="show" identifier="confirmInfo" id="wWd-EQ-ffe"/>
+                                    <action selector="checkInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="oC8-MF-z4C"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -187,7 +233,7 @@
         <!--Register Confirm View Controller-->
         <scene sceneID="pH6-hp-8eq">
             <objects>
-                <viewController id="j8Z-OK-IPT" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterConfirmView" id="j8Z-OK-IPT" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WIG-nf-6o9"/>
                         <viewControllerLayoutGuide type="bottom" id="GV2-nh-Hvr"/>
@@ -202,15 +248,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-rC-xid">
-                                <rect key="frame" x="99" y="372" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-rC-xid" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="83" y="372" width="58" height="30"/>
                                 <state key="normal" title="다시"/>
                                 <connections>
                                     <action selector="goback:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="hwe-iw-0nP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go2-S7-APd">
-                                <rect key="frame" x="229" y="377" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go2-S7-APd" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="205" y="377" width="54" height="30"/>
                                 <state key="normal" title="저장"/>
                                 <connections>
                                     <action selector="storeInfo:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="Kdg-Vh-igg"/>
@@ -272,11 +318,11 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO">
-                                <rect key="frame" x="109" y="361" width="37" height="30"/>
-                                <state key="normal" title="검색"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="109" y="361" width="60" height="30"/>
+                                <state key="normal" title="확인"/>
                                 <connections>
-                                    <segue destination="LCm-aK-E4l" kind="show" identifier="showList" id="V0q-SE-69T"/>
+                                    <action selector="checkName:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="7dD-Wd-cPT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -296,7 +342,7 @@
         <!--Matching Names-->
         <scene sceneID="74h-Ic-uOO">
             <objects>
-                <tableViewController id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CandidateView" id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iUI-fF-lSU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
