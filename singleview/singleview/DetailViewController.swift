@@ -12,6 +12,12 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var saju: UILabel!
+    @IBOutlet weak var dob: UILabel!
+    @IBOutlet weak var ilgangangyag: UILabel!
+    @IBOutlet weak var jawonohang: UILabel!
+    @IBOutlet weak var heeyong: UILabel!
+    @IBOutlet weak var helpohang: UILabel!
+    
     
     
     var detailItem: Elem?
@@ -23,9 +29,23 @@ class DetailViewController: UIViewController {
                 label.text = detail.desc()
             }
             if let saju = self.saju {
-                saju.text = detail.saju
+                saju.text = detail.getSaju()
             }
-
+            if let dob = self.dob {
+                dob.text = detail.getDob()
+            }
+            if let ilgangangyag = self.ilgangangyag {
+                ilgangangyag.text = detail.getIlganGangYag()
+            }
+            if let jawonohang = self.jawonohang {
+                jawonohang.text = detail.getJaWonOHang()
+            }
+            if let heeyong = self.heeyong {
+                heeyong.text = detail.getHeeYong()
+            }
+            if let helpohang = self.helpohang {
+                helpohang.text = detail.getHelpOhang()
+            }
         
         }
     }

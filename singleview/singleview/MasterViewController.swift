@@ -10,15 +10,28 @@ import UIKit
 
 class Elem {
     var surName : Hanja
+    var surName1: String // hangul
     var givenName : [Hanja]
-    var saju: String = ""
+    var givenName1: String // hangul
+    var saju: String
+    var dob: String
+    var ilganGangYag: (Int, Double)
+    var hy: [Int]
+
     init (name:[Hanja]) {
         surName = name[0]
         givenName = [Hanja]()
         for i in 1...(name.count - 1) {
             givenName.append(name[i])
         }
+        saju = ""
+        dob = ""
+        surName1 = ""
+        givenName1 = ""
+        ilganGangYag = (0,0)
+        hy = [Int]()
     }
+    
     func desc() -> String {
         var r: String
         r = surName.0
@@ -28,6 +41,7 @@ class Elem {
         r += " ("
         for i  in 0...(givenName.count - 1) {
             r += givenName[i].1
+            r += "(" + String(givenName[i].2) + "획)"
             if (i != givenName.count - 1) {
                 r += ", "
             }
@@ -36,6 +50,54 @@ class Elem {
         
         return r
     }
+    
+    func getSaju() -> String {
+        var r: String = "사주: "
+        r += saju
+        return r
+    }
+    
+    func getDob() -> String {
+        var str = self.dob.componentsSeparatedByString(" ")
+        return "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
+    }
+    
+    func getJaWonOHang() -> String {
+        var r: String = "자원오행: "
+        r += ohangHanja[surName.3]!
+        
+        for i  in 0...(givenName.count - 1) {
+            r += " " + ohangHanja[givenName[i].3]!
+        }
+        
+        return r
+    }
+    
+    func getIlganGangYag() -> String {
+        var r: String = "일간: "
+        r += gan[self.ilganGangYag.0]
+        r += " " + String(self.ilganGangYag.1)
+        return r
+    }
+    
+    func getHeeYong() -> String {
+        var r: String = "희용: "
+        
+        for e in hy {
+            r += ohangHanja[e]!
+        }
+        return r
+    }
+
+    func getHelpOhang() -> String {
+        var r: String = "도움: "
+        
+        for e in helpohang[ilganGangYag.0]! {
+            r += ohangHanja[e]!
+        }
+        return r
+    }
+
 }
 
 class MasterViewController: UITableViewController {
@@ -48,7 +110,10 @@ class MasterViewController: UITableViewController {
     var hour: Int = 0
     var minute: Int = 0
     var hy: [Int] = []
+    var dob : String = ""
     var numSelected: Int = 0
+    var surName: String = ""
+    var givenName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +139,9 @@ class MasterViewController: UITableViewController {
       //  }
 
         // set date and time of birth
+        self.dob = selectedDate
+        self.surName = surName
+        self.givenName = givenName
         var str = selectedDate.componentsSeparatedByString(" ")
         
         self.day = Int(str[0])!
@@ -82,8 +150,6 @@ class MasterViewController: UITableViewController {
         self.hour = Int(str[3])!
         self.minute = Int(str[4])!
         self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)
-
-        
 
         let index = givenName.startIndex.advancedBy(0)
         gname = getHanjaDataFromHangul(String(givenName[index]))
@@ -145,6 +211,12 @@ class MasterViewController: UITableViewController {
         // add name
         let elem = Elem(name: name)
         elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
+        elem.dob = self.dob
+        elem.surName1 = surName
+        elem.givenName1 = givenName
+        elem.ilganGangYag = getIlganGangYag(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
+        elem.hy = self.hy
+        
         objects.insert(elem, atIndex: numSelected)
         numSelected += 1
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)

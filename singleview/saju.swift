@@ -30,6 +30,8 @@ func getYear(year : String, month : String, day : String, time: String) -> Strin
     return gan[newGan] + ji[newJi]
 }
 
+
+
 func IsLeapyear(year : String) -> Bool {
     return IsLeapyear(Int(year)!)
 }
@@ -325,6 +327,9 @@ let ganjiohang = ["甲":1, "乙":1, "丙":2, "丁":2, "戊":3, "己":3, "庚":4,
 // 오행과 그 오행을 돕는 오행들
 let helpohang = [1:[1, 5], 2:[1, 2], 3:[2, 3], 4:[3, 4], 5:[4, 5]]
 
+// 오행 한자 매핑
+let ohangHanja = [1:"木", 2:"火", 3:"土", 4:"金", 5:"水"]
+
 
 func getJi(j: String) -> Int {
     let j1 = j.startIndex.advancedBy(1)
@@ -426,6 +431,16 @@ func getAntiIlgan(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
     
     return sum
 }
+
+
+func getIlganGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> (Int, Double)
+{
+    let ilju = getIlju(year, m:month, d:day)
+    let base = ganjiohang[gan[getGan(ilju)]]
+    let strength = getGangYag(year, month: month, day: day, hour: hour, minute: minute)
+    return (base!, strength)
+}
+
 
 func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int]
 {
