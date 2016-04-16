@@ -80,7 +80,16 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         RegisterConfirmViewController
 
         if let s = lastName.text {
-            vc.surName = s
+            if s.characters.count > 0 {
+                vc.surName = s
+            } else {
+                let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                
+                self.addChildViewController(vc2)
+                self.view.addSubview(vc2.view)
+                vc2.showInView("성을 입력하세요",  animated: true)
+                return
+            }
         }
         else {
             let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
