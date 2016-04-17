@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Main-->
         <scene sceneID="PuC-gx-OWy">
             <objects>
                 <viewController id="sgv-xB-FRN" customClass="MainViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,7 +64,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="eDg-Gu-2JI"/>
+                    <navigationItem key="navigationItem" title="Main" id="eDg-Gu-2JI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -211,7 +211,7 @@
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="146" y="381" width="56" height="31"/>
-                                <state key="normal" title="입력"/>
+                                <state key="normal" title="확인"/>
                                 <connections>
                                     <action selector="checkInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="oC8-MF-z4C"/>
                                 </connections>
