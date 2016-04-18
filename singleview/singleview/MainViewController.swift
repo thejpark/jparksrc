@@ -103,6 +103,29 @@ class MainViewController: UIViewController {
         defaults.removeObjectForKey(RegisterInfoKeys.surName)
         defaults.synchronize()
     }
+    
+    
+    @IBAction func LoadSelectedNames(sender: UIButton)
+    {
+        if savedElements.count == 0 {
+            if let s = loadElem() {
+                savedElements = s
+                if savedElements.count == 0 {
+                    let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                    
+                    self.addChildViewController(vc2)
+                    self.view.addSubview(vc2.view)
+                    vc2.showInView("저장된 이름이 없습니다",  animated: true)
+                    return
+                }
+            }
+        }
 
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("SavedNames") as!
+            SavedViewTableController
+                
+        vc.LoadTable()
+        self.showViewController(vc as SavedViewTableController, sender: vc)
+    }
 }
 

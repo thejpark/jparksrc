@@ -1,14 +1,14 @@
 //
-//  DetailViewController.swift
-//  singleview
+//  SavedDetailView.swift
+//  BabyName
 //
-//  Created by Park Jung Gyu on 17/10/2015.
-//  Copyright © 2015 pyfamily. All rights reserved.
+//  Created by Park Jung Gyu on 18/04/2016.
+//  Copyright © 2016 pyfamily. All rights reserved.
 //
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class SavedDetailViewController: UIViewController {
     
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var saju: UILabel!
@@ -17,8 +17,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var jawonohang: UILabel!
     @IBOutlet weak var heeyong: UILabel!
     @IBOutlet weak var helpohang: UILabel!
-    
-    
+
     
     var detailItem: Elem?
     
@@ -46,27 +45,18 @@ class DetailViewController: UIViewController {
             if let helpohang = self.helpohang {
                 helpohang.text = detail.getHelpOhang()
             }
-        
+            
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .Plain, target: self, action:#selector(DetailViewController.saveOne))
         self.configureView()
-    }
-    
-    func saveOne() {
-        if let detail = self.detailItem {
-            detail.save()
-        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
 }

@@ -8,7 +8,8 @@
 
 import UIKit
 
-class Elem {
+
+class Elem: NSObject, NSCoding {
     var surName : Hanja
     var surName1: String // hangul
     var givenName : [Hanja]
@@ -17,6 +18,78 @@ class Elem {
     var dob: String
     var ilganGangYag: (Int, Double)
     var hy: [Int]
+
+    struct PropertyKey {
+        static let surNameKey = "surName"
+        static let surName1Key = "surName1"
+        static let givenNameKey = "givenName"
+        static let givenName1Key = "givenName1"
+        static let sajuKey = "saju"
+        static let dobKey = "dob"
+        static let ilganKey = "ilgan"
+        static let gangYagKey = "gangYag"
+        static let hyKey = "hy"
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(surName.0, forKey: PropertyKey.surNameKey)
+        aCoder.encodeObject(surName1, forKey: PropertyKey.surName1Key)
+        var tmp: String = ""
+        for e in givenName {
+            tmp += e.0
+        }
+        aCoder.encodeObject(tmp, forKey: PropertyKey.givenNameKey)
+        aCoder.encodeObject(givenName1, forKey: PropertyKey.givenName1Key)
+        aCoder.encodeObject(saju, forKey: PropertyKey.sajuKey)
+        aCoder.encodeObject(dob, forKey: PropertyKey.dobKey)
+        aCoder.encodeObject(ilganGangYag.0, forKey: PropertyKey.ilganKey)
+        aCoder.encodeObject(ilganGangYag.1, forKey: PropertyKey.gangYagKey)
+        aCoder.encodeObject(hy, forKey: PropertyKey.hyKey)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        let sn = aDecoder.decodeObjectForKey(PropertyKey.surNameKey) as! String
+        let sn1 = aDecoder.decodeObjectForKey(PropertyKey.surName1Key) as! String
+        let snh = getHanjaData(sn1, hanja: sn)
+        let gn = aDecoder.decodeObjectForKey(PropertyKey.givenNameKey) as! String
+        let gn1 = aDecoder.decodeObjectForKey(PropertyKey.givenName1Key) as! String
+        var gnh: [Hanja] = [Hanja]()
+        for i in 0...(gn1.characters.count - 1) {
+            let index = gn.startIndex.advancedBy(i)
+            let index1 = gn1.startIndex.advancedBy(i)
+            gnh.append(getHanjaData(String(gn1[index1]), hanja: String(gn[index])))
+        }
+        let sj = aDecoder.decodeObjectForKey(PropertyKey.sajuKey) as! String
+        let d = aDecoder.decodeObjectForKey(PropertyKey.dobKey) as! String
+        let il = aDecoder.decodeObjectForKey(PropertyKey.ilganKey) as! Int
+        let gy = aDecoder.decodeObjectForKey(PropertyKey.gangYagKey) as! Double
+        let h = aDecoder.decodeObjectForKey(PropertyKey.hyKey) as! [Int]
+        
+     
+        self.init(surName1: sn1, surName:snh, givenName1: gn1, givenName: gnh,
+                  saju:sj, dob:d, ilgan: il, gangYag:gy, hy: h)
+    
+    }
+    
+    init?(surName1: String, surName: Hanja, givenName1: String, givenName:[Hanja],
+          saju: String, dob: String, ilgan: Int, gangYag: Double, hy: [Int]) {
+        // Initialize stored properties.
+        self.surName1 = surName1
+        self.surName = surName
+        self.givenName1 = givenName1
+        self.givenName = givenName
+        self.saju = saju
+        self.dob = dob
+        self.ilganGangYag = (ilgan, gangYag)
+        self.hy = hy
+        
+        super.init()
+        
+        // Initialization should fail if there is no name or if the rating is negative.
+        if surName1.characters.count < 1 || givenName1.characters.count  < 1 {
+            return nil
+        }
+    }
 
     init (name:[Hanja]) {
         surName = name[0]
@@ -98,6 +171,32 @@ class Elem {
         return r
     }
 
+    // is it ok to save all? optimal case would be to save only last element
+    func save() {
+        savedElements.append(self)
+        saveElem()
+    }
+
+    // save and load
+    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    
+    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("data")
+}
+
+// saved elements
+var savedElements: [Elem] = [Elem]()
+
+
+func saveElem() {
+    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path!)
+    if !isSuccessfulSave {
+        print("Failed to save elements...")
+    }
+}
+
+
+func loadElem() -> [Elem]? {
+    return NSKeyedUnarchiver.unarchiveObjectWithFile(Elem.ArchiveURL.path!) as? [Elem]
 }
 
 class MasterViewController: UITableViewController {
