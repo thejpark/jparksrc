@@ -60,6 +60,11 @@ class DetailViewController: UIViewController {
     func saveOne() {
         if let detail = self.detailItem {
             detail.save()
+            
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            vc.showInView("저장되었습니다.",  animated: true)
         }
     }
     

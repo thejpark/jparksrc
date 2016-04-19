@@ -173,6 +173,20 @@ class Elem: NSObject, NSCoding {
 
     // is it ok to save all? optimal case would be to save only last element
     func save() {
+        for e in savedElements {
+            for i in 0..<e.givenName.count {
+                if e.givenName[i] == self.givenName[i] {
+                    if i == (e.givenName.count - 1) {
+                        // already have it.
+                        return
+                    }
+                }
+                else {
+                    break;
+                }
+                
+            }
+        }
         savedElements.append(self)
         saveElem()
     }
