@@ -18,6 +18,7 @@ class Elem: NSObject, NSCoding {
     var dob: String
     var ilganGangYag: (Int, Double)
     var hy: [Int]
+    var prio: Int = 0
 
     struct PropertyKey {
         static let surNameKey = "surName"
@@ -227,6 +228,7 @@ class MasterViewController: UITableViewController {
     var numSelected: Int = 0
     var surName: String = ""
     var givenName: String = ""
+    var prio_set:[[Int:Int]] = [[Int:Int]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -264,22 +266,35 @@ class MasterViewController: UITableViewController {
         self.minute = Int(str[4])!
         self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)
 
+        prio_set = [[Int:Int]]()
+        for _ in 1...givenName.characters.count {
+            self.prio_set.append([:])
+        }
+        
+        
         let index = givenName.startIndex.advancedBy(0)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
+        var i: Int = 1
         for g in gname {
             var name: [Hanja] = [Hanja]()
             name.append(getHanjaData(surName, hanja: surNameH))
             name.append(g)
-            findAndInsert(name, givenName: givenName, idx: 1)
+            var x: [Int] = [Int]()
+            x.append(i)
+            findAndInsert(name, givenName: givenName, idx: 1, prio: x)
+            i += 1
         }
-        
+
+        objects.sortInPlace({$0.prio < $1.prio})
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
-    func findAndInsert(name: [Hanja], givenName: String, idx : Int) {
+    func findAndInsert(name: [Hanja], givenName: String, idx : Int, prio : [Int]) {
         
         if (idx == givenName.characters.count) {
-            insertNewObject(name)
+            insertNewObject(name, prio: prio)
             return
         }
         
@@ -287,15 +302,19 @@ class MasterViewController: UITableViewController {
         let index = givenName.startIndex.advancedBy(idx)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
+        var i: Int = 1
         for g in gname {
             var n = name
             n.append(g)
-            findAndInsert(n, givenName: givenName, idx: idx + 1)
+            var x: [Int] = prio
+            x.append(i)
+            findAndInsert(n, givenName: givenName, idx: idx + 1, prio: x)
+            i += 1
         }
 
     }
     
-    func insertNewObject(name: [Hanja]) {
+    func insertNewObject(name: [Hanja], prio: [Int]) {
         // at most one given name
         if name.count < 2 {
             return
@@ -321,10 +340,22 @@ class MasterViewController: UITableViewController {
             }
         }
         
+        // calculate priority. hanja is assumed be sorted from higher proi to lower.
+        var priority: Int = 0
+        for i in 0..<prio.count {
+            if let k = prio_set[i][prio[i]] {
+            } else {
+                let size = prio_set[i].count + 1
+                prio_set[i][prio[i]] = size
+            }
+            priority += prio_set[i][prio[i]]!
+        }
+        
         // add name
         let elem = Elem(name: name)
+        elem.prio = priority
         elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
-        elem.dob = self.dob
+        elem.dob =  self.dob
         elem.surName1 = surName
         elem.givenName1 = givenName
         elem.ilganGangYag = getIlganGangYag(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
@@ -332,8 +363,8 @@ class MasterViewController: UITableViewController {
         
         objects.insert(elem, atIndex: numSelected)
         numSelected += 1
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     // MARK: - Table View

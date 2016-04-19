@@ -32,9 +32,10 @@ class SavedViewTableController: UITableViewController {
         for e in savedElements {
             objects.insert(e, atIndex: i)
             i += 1
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
+
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     // MARK: - Table View
