@@ -1189,6 +1189,44 @@ void tri_sum()
 
 }
 
+// http://poj.org/problem?id=1163
+void dp_triangle_test()
+{
+    int line;
+    cin >> line;
+    vector<vector<int>> t(line, vector<int>(line));
+    for (int i = 0; i < line; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j) 
+        {
+            int k;
+            cin >> k;
+            t[i][j] = k;
+        }
+    }
+
+    vector<vector<int>> r(line, vector<int>(line));
+    
+    for (int i = line - 1; i >= 0; --i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+        {
+
+            if (i == (line - 1))
+            {
+                r[i][j] = t[i][j];
+            }
+            else
+            {
+                r[i][j] = t[i][j] + max(r[i + 1][j], r[i + 1][j + 1]);
+
+            }
+        }
+    }
+
+    cout << "The result is " << r[0][0] << endl;
+}
+
 
 void init_combination(vector<int> &vi, int n, int k)
 {
