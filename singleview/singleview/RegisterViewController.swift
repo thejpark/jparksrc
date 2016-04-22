@@ -31,7 +31,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
 
     @IBAction func textFieldEdited(sender: UITextField) {
-        self.pickerData = getHanjaFromHangul(lastName.text!)
+        self.pickerData = getLastNameFromHangul(lastName.text!)
         self.picker.reloadAllComponents()
     }
     
