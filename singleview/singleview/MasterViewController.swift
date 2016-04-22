@@ -34,7 +34,7 @@ class Elem: NSObject, NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder) {
         var tmp: String = ""
-        for e in givenName {
+        for e in surName {
             tmp += e.0
         }
         aCoder.encodeObject(tmp, forKey: PropertyKey.surNameKey)
@@ -217,6 +217,14 @@ var savedElements: [Elem] = [Elem]()
 
 
 func saveElem() {
+    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path!)
+    if !isSuccessfulSave {
+        print("Failed to save elements...")
+    }
+}
+
+func clearElem() {
+    savedElements = [Elem]()
     let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path!)
     if !isSuccessfulSave {
         print("Failed to save elements...")

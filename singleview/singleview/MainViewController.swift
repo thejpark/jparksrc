@@ -102,6 +102,7 @@ class MainViewController: UIViewController {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.removeObjectForKey(RegisterInfoKeys.surName)
         defaults.synchronize()
+        clearElem()
     }
     
     

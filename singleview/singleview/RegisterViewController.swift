@@ -33,6 +33,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBAction func textFieldEdited(sender: UITextField) {
         let tmp:String = lastName.text!
         // first character only
+        if tmp.characters.count == 0 {
+            return
+        }
         let index = tmp.startIndex.advancedBy(0)
         self.pickerData = getLastNameFromHangul(String(tmp[index]))
         self.picker.reloadAllComponents()
