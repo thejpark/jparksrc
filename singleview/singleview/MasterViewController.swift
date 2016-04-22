@@ -10,7 +10,7 @@ import UIKit
 
 
 class Elem: NSObject, NSCoding {
-    var surName : Hanja
+    var surName : [Hanja]
     var surName1: String // hangul
     var givenName : [Hanja]
     var givenName1: String // hangul
@@ -33,9 +33,13 @@ class Elem: NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(surName.0, forKey: PropertyKey.surNameKey)
-        aCoder.encodeObject(surName1, forKey: PropertyKey.surName1Key)
         var tmp: String = ""
+        for e in givenName {
+            tmp += e.0
+        }
+        aCoder.encodeObject(tmp, forKey: PropertyKey.surNameKey)
+        aCoder.encodeObject(surName1, forKey: PropertyKey.surName1Key)
+        tmp = ""
         for e in givenName {
             tmp += e.0
         }
@@ -51,7 +55,13 @@ class Elem: NSObject, NSCoding {
     required convenience init?(coder aDecoder: NSCoder) {
         let sn = aDecoder.decodeObjectForKey(PropertyKey.surNameKey) as! String
         let sn1 = aDecoder.decodeObjectForKey(PropertyKey.surName1Key) as! String
-        let snh = getHanjaData(sn1, hanja: sn)
+        var snh: [Hanja] = [Hanja]()
+        for i in 0...(sn1.characters.count - 1) {
+            let index = sn.startIndex.advancedBy(i)
+            let index1 = sn1.startIndex.advancedBy(i)
+            snh.append(getHanjaData(String(sn1[index1]), hanja: String(sn[index])))
+        }
+
         let gn = aDecoder.decodeObjectForKey(PropertyKey.givenNameKey) as! String
         let gn1 = aDecoder.decodeObjectForKey(PropertyKey.givenName1Key) as! String
         var gnh: [Hanja] = [Hanja]()
@@ -72,7 +82,7 @@ class Elem: NSObject, NSCoding {
     
     }
     
-    init?(surName1: String, surName: Hanja, givenName1: String, givenName:[Hanja],
+    init?(surName1: String, surName: [Hanja], givenName1: String, givenName:[Hanja],
           saju: String, dob: String, ilgan: Int, gangYag: Double, hy: [Int]) {
         // Initialize stored properties.
         self.surName1 = surName1
@@ -92,10 +102,13 @@ class Elem: NSObject, NSCoding {
         }
     }
 
-    init (name:[Hanja]) {
-        surName = name[0]
+    init (name:[Hanja], num: Int) {
+        surName = [Hanja]()
+        for i in 0..<num {
+            surName.append(name[i])
+        }
         givenName = [Hanja]()
-        for i in 1...(name.count - 1) {
+        for i in num..<name.count {
             givenName.append(name[i])
         }
         saju = ""
@@ -107,8 +120,10 @@ class Elem: NSObject, NSCoding {
     }
     
     func desc() -> String {
-        var r: String
-        r = surName.0
+        var r: String = ""
+        for e in surName {
+            r += e.0
+        }
         for e in givenName {
             r += e.0
         }
@@ -138,7 +153,6 @@ class Elem: NSObject, NSCoding {
     
     func getJaWonOHang() -> String {
         var r: String = "자원오행: "
-        r += ohangHanja[surName.3]!
         
         for i  in 0...(givenName.count - 1) {
             r += " " + ohangHanja[givenName[i].3]!
@@ -362,7 +376,7 @@ class MasterViewController: UITableViewController {
         }
         
         // add name
-        let elem = Elem(name: name)
+        let elem = Elem(name: name, num:self.surName.characters.count)
         elem.prio = priority
         elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
         elem.dob =  self.dob
