@@ -278,7 +278,7 @@ class MasterViewController: UITableViewController {
         var i: Int = 1
         for g in gname {
             var name: [Hanja] = [Hanja]()
-            name.append(getHanjaData(surName, hanja: surNameH))
+            name += getLastNameHanjaData(surName, hanja: surNameH)
             name.append(g)
             var x: [Int] = [Int]()
             x.append(i)
@@ -315,26 +315,36 @@ class MasterViewController: UITableViewController {
     }
     
     func insertNewObject(name: [Hanja], prio: [Int]) {
-        // at most one given name
         if name.count < 2 {
             return
         }
         
         // filter out all even number or all odd number hanja
-        let k = name[0].2 % 2
-        var count = 0
+        var k = name[0].2 % 2
+        if self.surName.characters.count == 2 {
+            k = (name[0].2 + name[1].2) % 2
+        }
+
+        var count = 1
+        var i = 0
         for n in name {
+            i += 1
+            // skip surname
+            if i <= self.surName.characters.count {
+                continue
+            }
+            
             if ((n.2 % 2) == k) {
                 count += 1
             }
         }
-        if count == name.count {
+        if count == name.count - self.surName.characters.count + 1 {
             return
         }
         
         //filter out by jawon ohang
         
-        for i in 1 ... name.count - 1 {
+        for i in self.surName.characters.count ... name.count - 1 {
             if self.hy.contains(name[i].3) == false {
                 return
             }

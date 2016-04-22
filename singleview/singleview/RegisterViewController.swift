@@ -31,7 +31,10 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
 
     @IBAction func textFieldEdited(sender: UITextField) {
-        self.pickerData = getLastNameFromHangul(lastName.text!)
+        let tmp:String = lastName.text!
+        // first character only
+        let index = tmp.startIndex.advancedBy(0)
+        self.pickerData = getLastNameFromHangul(String(tmp[index]))
         self.picker.reloadAllComponents()
     }
     
@@ -69,6 +72,45 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             
             controller.surName = lastName.text!
             controller.surNameH = currData
+            if controller.surName.characters.count == 2 {
+                if controller.surName == "황보" && currData == "皇" {
+                    controller.surNameH += "甫"
+                }
+                else if controller.surName == "남궁" && currData == "南" {
+                    controller.surNameH += "宮"
+                }
+                else if controller.surName == "강전" && currData == "岡" {
+                    controller.surNameH += "田"
+                }
+                else if controller.surName == "독고" && currData == "獨" {
+                    controller.surNameH += "孤"
+                }
+                else if controller.surName == "동방" && currData == "東" {
+                    controller.surNameH += "方"
+                }
+                else if controller.surName == "망절" && currData == "網" {
+                    controller.surNameH += "切"
+                }
+                else if controller.surName == "사공" && currData == "司" {
+                    controller.surNameH += "空"
+                }
+                else if controller.surName == "서문" && currData == "西" {
+                    controller.surNameH += "門"
+                }
+                else if controller.surName == "선우" && currData == "鮮" {
+                    controller.surNameH += "于"
+                }
+                else if controller.surName == "소봉" && currData == "小" {
+                    controller.surNameH += "峰"
+                }
+                else if controller.surName == "장곡" && currData == "長" {
+                    controller.surNameH += "谷"
+                }
+                else if controller.surName == "제갈" && currData == "諸" {
+                    controller.surNameH += "葛"
+                }
+                
+            }
             controller.selectedDate = self.selectedDate
         }
     }
@@ -121,6 +163,45 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             self.view.addSubview(vc2.view)
             vc2.showInView("생일을 입력하세요",  animated: true)
             return
+        }
+        
+        if vc.surName.characters.count == 2 {
+            if vc.surName == "황보" && currData == "皇" {
+                vc.surNameH += "甫"
+            }
+            else if vc.surName == "남궁" && currData == "南" {
+                vc.surNameH += "宮"
+            }
+            else if vc.surName == "강전" && currData == "岡" {
+                vc.surNameH += "田"
+            }
+            else if vc.surName == "독고" && currData == "獨" {
+                vc.surNameH += "孤"
+            }
+            else if vc.surName == "동방" && currData == "東" {
+                vc.surNameH += "方"
+            }
+            else if vc.surName == "망절" && currData == "網" {
+                vc.surNameH += "切"
+            }
+            else if vc.surName == "사공" && currData == "司" {
+                vc.surNameH += "空"
+            }
+            else if vc.surName == "서문" && currData == "西" {
+                vc.surNameH += "門"
+            }
+            else if vc.surName == "선우" && currData == "鮮" {
+                vc.surNameH += "于"
+            }
+            else if vc.surName == "소봉" && currData == "小" {
+                vc.surNameH += "峰"
+            }
+            else if vc.surName == "장곡" && currData == "長" {
+                vc.surNameH += "谷"
+            }
+            else if vc.surName == "제갈" && currData == "諸" {
+                vc.surNameH += "葛"
+            }
         }
         
         self.showViewController(vc as RegisterConfirmViewController, sender: vc)

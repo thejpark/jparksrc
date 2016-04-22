@@ -73,6 +73,7 @@ func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
     return p
 }
 
+
 func getLastNameFromHangul(hangul: String) -> [String] {
     
     var p: [String] = [String]()
@@ -127,9 +128,67 @@ func getLastNameFromHangul(hangul: String) -> [String] {
     return p
 }
 
+func getLastNameHanjaData(hangul: String, hanja:String) -> [Hanja] {
 
-func getHanjaData(hangul: String, hanja:String) -> Hanja {
+    var lastName: [Hanja] = [Hanja]()
     
+    if hangul == "황보" && hanja == "皇甫" {
+        lastName.append(getHanjaData("황", hanja:"皇"))
+        lastName.append(getHanjaData("보", hanja:"甫"))
+    }
+    else if hangul == "남궁" && hanja == "南宮" {
+        lastName.append(getHanjaData("남", hanja:"南"))
+        lastName.append(getHanjaData("궁", hanja:"宮"))
+    }
+    else if hangul == "강전" && hanja == "岡田" {
+        lastName.append(getHanjaData("강", hanja:"岡"))
+        lastName.append(getHanjaData("전", hanja:"田"))
+    }
+    else if hangul == "독고" && hanja == "獨孤" {
+        lastName.append(getHanjaData("독", hanja:"獨"))
+        lastName.append(getHanjaData("고", hanja:"孤"))
+    }
+    else if hangul == "동방" && hanja == "東方" {
+        lastName.append(getHanjaData("동", hanja:"東"))
+        lastName.append(getHanjaData("방", hanja:"方"))
+    }
+    else if hangul == "망절" && hanja == "網切" {
+        lastName.append(getHanjaData("망", hanja:"網"))
+        lastName.append(getHanjaData("절", hanja:"切"))
+    }
+    else if hangul == "사공" && hanja == "司空" {
+        lastName.append(getHanjaData("사", hanja:"司"))
+        lastName.append(getHanjaData("공", hanja:"空"))
+    }
+    else if hangul == "서문" && hanja == "西門" {
+        lastName.append(getHanjaData("서", hanja:"西"))
+        lastName.append(getHanjaData("문", hanja:"門"))
+    }
+    else if hangul == "선우" && hanja == "鮮于" {
+        lastName.append(getHanjaData("선", hanja:"鮮"))
+        lastName.append(getHanjaData("문", hanja:"于"))
+    }
+    else if hangul == "소봉" && hanja == "小峰" {
+        lastName.append(getHanjaData("소", hanja:"小"))
+        lastName.append(getHanjaData("문", hanja:"峰"))
+    }
+    else if hangul == "장곡" && hanja == "長谷" {
+        lastName.append(getHanjaData("장", hanja:"長"))
+        lastName.append(getHanjaData("곡", hanja:"谷"))
+    }
+    else if hangul == "제갈" && hanja == "諸葛" {
+        lastName.append(getHanjaData("제", hanja:"諸"))
+        lastName.append(getHanjaData("갈", hanja:"葛"))
+    }
+    else {
+    	 lastName.append(getHanjaData(hangul, hanja:hanja))
+    }
+
+    return lastName
+ }
+ 
+func getHanjaData(hangul: String, hanja:String) -> Hanja {
+
     var p: [Hanja] = getHanjaDataFromHangul(hangul)
 
     if  hangul == "이" {
@@ -663,7 +722,7 @@ let hanjaData: HanjaDict = [
 ("黃","누를 황",12,3,true),
 ("滉","물깊고넓을 황",14,5,false),
 ("凰","봉황새 황",11,1,false),
-("皇","임금 황",9,4,false),
+("皇","임금 황",9,4,true),
 ("堭","벽없는집 황",12,0,false),
 ("媓","어머니 황",12,0,false),
 ("晄","밝을 황",10,0,false),
@@ -1037,7 +1096,7 @@ let hanjaData: HanjaDict = [
 ],
 "능":[("能","능할 능",12,5,false),
 ],
-"장":[("長","긴 장",8,1,false),
+"장":[("長","긴 장",8,1,true),
 ("章","글 장",11,4,false),
 ("將","장수 장",11,3,false),
 ("張","베풀 장",11,4,true),
@@ -1210,7 +1269,7 @@ let hanjaData: HanjaDict = [
 "서":[("瑞","상서로울 서",14,4,false),
 ("敍","베풀 서",11,4,false),
 ("書","글 서",10,1,false),
-("西","서녘 서",6,4,false),
+("西","서녘 서",6,4,true),
 ("序","차례 서",7,1,false),
 ("暑","여름 서",13,4,false),
 ("叙","펼 서",9,5,false),
@@ -1256,7 +1315,7 @@ let hanjaData: HanjaDict = [
 ],
 "선":[("宣","베풀 선",9,2,true),
 ("先","먼저 선",6,1,false),
-("鮮","고울 선",17,5,false),
+("鮮","고울 선",17,5,true),
 ("善","착할 선",12,5,false),
 ("線","실 선",15,1,false),
 ("禪","고요할 선",17,1,false),
@@ -3200,7 +3259,7 @@ let hanjaData: HanjaDict = [
 ("杠","깃대 강",7,0,false),
 ("堈","언덕 강",11,3,false),
 ("姜","성 강",9,3,true),
-("岡","언덕 강",8,3,false),
+("岡","언덕 강",8,3,true),
 ("崗","언덕 강",11,3,false),
 ("降","내릴 강",14,3,false),
 ("橿","박달나무 강",17,0,false),
@@ -4454,7 +4513,7 @@ let hanjaData: HanjaDict = [
 ("茫","아득할 망",12,0,false),
 ("妄","망녕될 망",6,0,false),
 ("罔","그물 망",9,0,false),
-("網","그물 망",14,1,false),
+("網","그물 망",14,1,true),
 ("芒","까끄라기 망",9,0,false),
 ("輞","바퀴테 망",15,0,false),
 ("邙","산이름 망",10,0,false),
@@ -5044,7 +5103,7 @@ let hanjaData: HanjaDict = [
 ("消","사라질 소",11,0,false),
 ("笑","웃음 소",10,1,false),
 ("咲","웃음 소",9,0,false),
-("小","작을 소",3,5,false),
+("小","작을 소",3,5,true),
 ("少","적을 소",4,5,false),
 ("召","부를 소",5,5,false),
 ("騷","근심스러울 소",20,0,false),
@@ -5775,7 +5834,7 @@ let hanjaData: HanjaDict = [
 ("乭","이름 돌",6,0,false),
 ],
 "독":[("讀","읽을 독",22,0,false),
-("獨","홀로 독",17,0,false),
+("獨","홀로 독",17,0,true),
 ("督","살필 독",13,0,false),
 ("篤","도타울 독",16,0,false),
 ("瀆","도랑 독",19,0,false),
@@ -5829,7 +5888,7 @@ let hanjaData: HanjaDict = [
 ("稌","찰벼 도",12,0,false),
 ],
 "동":[("同","한가지 동",6,5,false),
-("東","동녘 동",8,1,false),
+("東","동녘 동",8,1,true),
 ("動","움직일 동",11,5,false),
 ("洞","고을 동",10,5,false),
 ("童","아이 동",12,4,false),
@@ -6162,7 +6221,7 @@ let hanjaData: HanjaDict = [
 ("搠","바를 삭",14,0,false),
 ],
 "사":[("史","역사 사",5,5,false),
-("司","맡을 사",5,5,false),
+("司","맡을 사",5,5,true),
 ("巳","여섯째지지 사",3,0,false),
 ("士","선비 사",3,1,false),
 ("思","생각할 사",9,2,false),
