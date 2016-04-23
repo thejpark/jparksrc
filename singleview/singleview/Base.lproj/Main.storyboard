@@ -179,7 +179,7 @@
             </objects>
             <point key="canvasLocation" x="1755" y="-1430"/>
         </scene>
-        <!--Register View Controller-->
+        <!--개인 정보 입력-->
         <scene sceneID="zBw-Ux-CN3">
             <objects>
                 <viewController storyboardIdentifier="RegisterView" id="FDT-xE-FeJ" customClass="RegisterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -235,6 +235,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="개인 정보 입력" id="DmJ-Ka-0Uc"/>
                     <connections>
                         <outlet property="lastName" destination="APE-ku-Yig" id="x6U-8w-gom"/>
                         <outlet property="myDatePicker" destination="XwB-GO-MWu" id="Fko-bq-LJD"/>
@@ -295,7 +296,7 @@
             </objects>
             <point key="canvasLocation" x="935" y="194"/>
         </scene>
-        <!--View Controller-->
+        <!--영어 작명-->
         <scene sceneID="7mP-ha-j31">
             <objects>
                 <viewController id="XIj-fE-WIr" customClass="TTSViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -331,6 +332,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="영어 작명" id="FFo-Y1-qCb"/>
                     <connections>
                         <outlet property="firstName" destination="9D3-A1-3et" id="wVO-aM-yG4"/>
                     </connections>
@@ -339,7 +341,7 @@
             </objects>
             <point key="canvasLocation" x="925" y="964"/>
         </scene>
-        <!--View Controller-->
+        <!--작명-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="EnterNameView" id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -387,6 +389,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="작명" id="9fs-jE-LyD"/>
                     <connections>
                         <outlet property="DOB" destination="pMT-Sd-ueI" id="pe5-xE-kpS"/>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
