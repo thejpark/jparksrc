@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
             let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
-            vc.showInView("이미 등록하셨습니다.",  animated: true)
+            vc.showInView("새로 등록 할까요?",  animated: true)
            
         }
         else {
@@ -73,10 +73,10 @@ class MainViewController: UIViewController {
             self.surName = str
         }
         else {
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
-            vc.showInView("등록을 하셔야 합니다.",  animated: true)
+            vc.showInView("개인 정보를 등록하세요",  animated: true)
             
             return
         }
