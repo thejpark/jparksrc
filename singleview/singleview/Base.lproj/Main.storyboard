@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
         </scene>
-        <!--Main-->
+        <!--Main View Controller-->
         <scene sceneID="PuC-gx-OWy">
             <objects>
                 <viewController id="sgv-xB-FRN" customClass="MainViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -80,7 +80,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Main" id="eDg-Gu-2JI"/>
+                    <navigationItem key="navigationItem" id="eDg-Gu-2JI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -179,7 +179,7 @@
             </objects>
             <point key="canvasLocation" x="1755" y="-1430"/>
         </scene>
-        <!--Enter Info-->
+        <!--Register View Controller-->
         <scene sceneID="zBw-Ux-CN3">
             <objects>
                 <viewController storyboardIdentifier="RegisterView" id="FDT-xE-FeJ" customClass="RegisterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -235,7 +235,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Enter Info" id="hz8-8L-wzS"/>
                     <connections>
                         <outlet property="lastName" destination="APE-ku-Yig" id="x6U-8w-gom"/>
                         <outlet property="myDatePicker" destination="XwB-GO-MWu" id="Fko-bq-LJD"/>
@@ -340,7 +339,7 @@
             </objects>
             <point key="canvasLocation" x="925" y="964"/>
         </scene>
-        <!--Enter Name-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="EnterNameView" id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -388,7 +387,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Enter Name" id="zxj-uQ-tnE"/>
                     <connections>
                         <outlet property="DOB" destination="pMT-Sd-ueI" id="pe5-xE-kpS"/>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
@@ -399,7 +397,7 @@
             </objects>
             <point key="canvasLocation" x="37" y="332"/>
         </scene>
-        <!--Matching Names-->
+        <!--Master View Controller-->
         <scene sceneID="74h-Ic-uOO">
             <objects>
                 <tableViewController storyboardIdentifier="CandidateView" id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -434,16 +432,15 @@
                             <outlet property="delegate" destination="LCm-aK-E4l" id="Mkb-Np-phx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Matching Names" id="MF0-nL-BEn"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BAV-42-vDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="134" y="1097"/>
         </scene>
-        <!--Detail-->
+        <!--Detail View Controller-->
         <scene sceneID="nwi-a4-UUJ">
             <objects>
-                <viewController title="Detail" id="Oq1-7N-IQv" customClass="DetailViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Oq1-7N-IQv" customClass="DetailViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Xd2-hN-QHH"/>
                         <viewControllerLayoutGuide type="bottom" id="Rq4-dt-vJK"/>
@@ -542,10 +539,10 @@
             </objects>
             <point key="canvasLocation" x="103" y="2718"/>
         </scene>
-        <!--Saved Detail-->
+        <!--Saved Detail View Controller-->
         <scene sceneID="FK2-ye-vLe">
             <objects>
-                <viewController storyboardIdentifier="SavedDetail" title="Saved Detail" id="Ui4-q3-vUn" customClass="SavedDetailViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SavedDetail" id="Ui4-q3-vUn" customClass="SavedDetailViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UMe-uR-T4c"/>
                         <viewControllerLayoutGuide type="bottom" id="LJA-5y-jEd"/>
