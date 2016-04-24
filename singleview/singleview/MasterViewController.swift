@@ -239,6 +239,7 @@ func loadElem() -> [Elem]? {
 class MasterViewController: UITableViewController {
     
     var objects = [AnyObject]()
+    var numSelected: Int = 0
 
     var day: Int = 0
     var month: Int = 0
@@ -247,7 +248,6 @@ class MasterViewController: UITableViewController {
     var minute: Int = 0
     var hy: [Int] = []
     var dob : String = ""
-    var numSelected: Int = 0
     var surName: String = ""
     var givenName: String = ""
     var prio_set:[[Int:Int]] = [[Int:Int]]()
@@ -268,6 +268,8 @@ class MasterViewController: UITableViewController {
     
     func search(surName: String, surNameH: String, givenName: String, selectedDate: String) {
         var gname: [Hanja] = [Hanja]()
+        self.objects = [AnyObject]()
+        self.numSelected = 0
       
       //  for var i = 0; i < givenName.characters.count; ++i {
       //      let index = givenName.startIndex.advancedBy(i)
@@ -309,8 +311,6 @@ class MasterViewController: UITableViewController {
         }
 
         objects.sortInPlace({$0.prio < $1.prio})
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     func findAndInsert(name: [Hanja], givenName: String, idx : Int, prio : [Int]) {
