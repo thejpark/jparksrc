@@ -7,11 +7,15 @@
         <!--Navigation Controller-->
         <scene sceneID="eek-DR-Ijg">
             <objects>
-                <navigationController id="LCo-r8-A1y" sceneMemberID="viewController">
+                <navigationController toolbarHidden="NO" id="LCo-r8-A1y" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ARI-EM-0T0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="J05-4g-KXc">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="sgv-xB-FRN" kind="relationship" relationship="rootViewController" id="X80-lE-RKl"/>
                     </connections>
@@ -20,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="-957" y="620"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Home-->
         <scene sceneID="PuC-gx-OWy">
             <objects>
                 <viewController id="sgv-xB-FRN" customClass="MainViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,28 +37,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="252" width="141" height="36"/>
+                                <rect key="frame" x="100" y="233" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="작명"/>
+                                <state key="normal" title="셀프 작명"/>
                                 <connections>
                                     <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5O-aX-zYJ" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="309" width="141" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="clear"/>
-                                <connections>
-                                    <action selector="clearInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="DUh-rb-4mJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="125" width="141" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="도움말"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="190" width="141" height="36"/>
+                                <rect key="frame" x="100" y="125" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="개인 정보 입력"/>
                                 <connections>
@@ -62,25 +53,38 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qg-TH-CGt" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="360" width="141" height="30"/>
+                                <rect key="frame" x="100" y="285" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="불러오기"/>
+                                <state key="normal" title="선택 이름 목록"/>
                                 <connections>
                                     <action selector="LoadSelectedNames:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="e4E-EO-APj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="105" y="414" width="141" height="36"/>
+                                <rect key="frame" x="100" y="341" width="141" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="영어 작명"/>
                                 <connections>
                                     <segue destination="XIj-fE-WIr" kind="show" id="b72-0M-der"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="100" y="181" width="141" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="추천 작명"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="eDg-Gu-2JI"/>
+                    <toolbarItems>
+                        <barButtonItem title="도움말" id="jIR-6z-9JI"/>
+                        <barButtonItem title="clear" width="191" id="L9H-Dr-txb">
+                            <connections>
+                                <action selector="clearInfo:" destination="sgv-xB-FRN" id="6Lh-zh-JPl"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Home" id="eDg-Gu-2JI"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -435,6 +439,14 @@
                             <outlet property="delegate" destination="LCm-aK-E4l" id="Mkb-Np-phx"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Home" id="MZz-1H-DR5">
+                            <connections>
+                                <action selector="goHome:" destination="LCm-aK-E4l" id="Ha0-GT-K8i"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BAV-42-vDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -476,12 +488,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="heeyong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="814-nf-DyU">
-                                <rect key="frame" x="20" y="331" width="182" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="helpohang" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EeL-zm-3V5">
                                 <rect key="frame" x="20" y="289" width="182" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -494,9 +500,34 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="heeyong" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="814-nf-DyU">
+                                <rect key="frame" x="20" y="331" width="182" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="도움말" id="ULX-Gx-w5c">
+                            <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <action selector="goHome:" destination="Oq1-7N-IQv" id="QKQ-Wa-gcM"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Home" width="131" id="pXc-5q-D9I">
+                            <connections>
+                                <action selector="goHome:" destination="Oq1-7N-IQv" id="q1R-uT-DsK"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="선택 이름 목록" id="bog-5q-g9m">
+                            <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <action selector="goHome:" destination="Oq1-7N-IQv" id="HWY-m7-G5s"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <connections>
                         <outlet property="detailDescriptionLabel" destination="NbQ-DG-rRk" id="UsX-J8-FJN"/>
                         <outlet property="dob" destination="vlR-aq-m62" id="ppA-ib-Zgo"/>
@@ -599,6 +630,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="도움말" width="91" id="ZGv-KS-eJ8">
+                            <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <action selector="goHome:" destination="Oq1-7N-IQv" id="7AY-B3-cbJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Home" width="168" id="O42-v3-R9r">
+                            <connections>
+                                <action selector="goHome:" destination="Ui4-q3-vUn" id="GKm-Ov-XDA"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="detailDescriptionLabel" destination="66k-ZC-Fs3" id="rjB-aX-uNv"/>
                         <outlet property="dob" destination="HKA-SP-UNT" id="mnC-o0-zgg"/>

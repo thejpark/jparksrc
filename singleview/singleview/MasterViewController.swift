@@ -442,5 +442,11 @@ class MasterViewController: UITableViewController {
             }
         }
     }
+    
+    @IBAction func goHome(sender: UIBarItem)
+    {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
+
 }
 

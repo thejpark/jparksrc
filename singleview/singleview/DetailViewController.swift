@@ -73,5 +73,8 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    @IBAction func goHome(sender: UIBarItem)
+    {
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
 }

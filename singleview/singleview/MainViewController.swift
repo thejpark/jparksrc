@@ -23,7 +23,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         // load register info
         let defaults = NSUserDefaults.standardUserDefaults()
         
@@ -98,7 +98,7 @@ class MainViewController: UIViewController {
   
     }
     
-    @IBAction func clearInfo(sender: UIButton) {
+    @IBAction func clearInfo(sender: UIBarItem) {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.removeObjectForKey(RegisterInfoKeys.surName)
         defaults.synchronize()
