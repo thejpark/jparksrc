@@ -524,7 +524,7 @@
                         <barButtonItem title="선택 이름 목록" id="bog-5q-g9m">
                             <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
-                                <action selector="goHome:" destination="Oq1-7N-IQv" id="HWY-m7-G5s"/>
+                                <action selector="LoadSelectedNames:" destination="Oq1-7N-IQv" id="3QV-wH-Uxb"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>

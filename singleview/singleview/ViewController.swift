@@ -69,16 +69,26 @@ class ViewController: UIViewController {
                 MasterViewController
 
                 vc.search(surName, surNameH: surNameH, givenName: givenName, selectedDate: self.selectedDate)
-                self.showViewController(vc as MasterViewController, sender: vc)
-                return
+                if vc.objects.count > 0 {
+                    self.showViewController(vc as MasterViewController, sender: vc)
+                    return
+                }
+                else {
+                    let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                    
+                    self.addChildViewController(vc2)
+                    self.view.addSubview(vc2.view)
+                    vc2.showInView("찾는 이름이 없습니다",  animated: true)
+                    return
+                }
             }
         }
-
-        let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+        else {
+            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
             
-        self.addChildViewController(vc2)
-        self.view.addSubview(vc2.view)
-        vc2.showInView("이름을 입력하세요",  animated: true)
-
+            self.addChildViewController(vc2)
+            self.view.addSubview(vc2.view)
+            vc2.showInView("이름을 입력하세요",  animated: true)
+        }
     }
 }
