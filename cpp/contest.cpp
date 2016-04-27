@@ -1349,6 +1349,70 @@ void post_office()
 
 }
 
+/* 
+
+int get_min(vector<int> vi, int left, int right)
+{
+    if (left == -1 && right == -1)
+    {
+    }
+    else if (right == -1)
+    {
+    }
+    else if (left == -1)
+    {
+    }
+    else
+    {
+    }
+}
+
+
+int get_min_pv(vector<int>vi, int num_p, int left, int right)
+{
+    int r, min_t;
+    
+    if (num_p == 1)
+    {
+        min_t = get_min(vi, left, right);
+    }
+    else
+    {
+        for (int i = 0; i <= vi.size() - num_p; ++i)
+        {
+            r = get_min(vector(vi, vi + i + 1), left, vi[i]) +
+                get_min_pv(vector(vi + i + 1, vi.end()), num_p - 1, vi[i], right);
+            if (min_t < r)
+                min_t = r;
+        }
+    }
+
+    return min_t;
+}
+
+void post_office2()
+{
+
+  int num_v, num_p;
+  vector<int> vi;
+  int t, min_t, r;
+  vector<vector<int> > vii;
+  vector<int> vi2;
+
+  cin >> num_v >> num_p;
+
+  for(int i = 0; i < num_v; i++) {
+    cin >> t;
+    vi.push_back(t);
+  }
+
+
+  min_t = get_min_pv(vi, num_p, -1, -1);
+
+  cout << "The result is " << min_t << endl;
+}
+*/
+
 // http://poj.org/problem?id=2033
 void alphacode()
 {
