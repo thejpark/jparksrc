@@ -1349,28 +1349,71 @@ void post_office()
 
 }
 
-/* 
 
 int get_min(vector<int> vi, int left, int right)
 {
     if (left == -1 && right == -1)
     {
+        int min_t = 10000;
+        for (int i = 0; i < vi.size(); ++i)
+        {
+            int sum = 0;
+            for (int j = 0; j < vi.size(); ++j)
+            {
+                sum += abs(vi[i] - vi[j]);
+            }
+
+            if (sum < min_t)
+                min_t = sum;
+        }
+        return min_t;
+                
     }
     else if (right == -1)
     {
-    }
+        int min_t = 10000;
+        for (int i = 0; i < vi.size(); ++i)
+        {
+            int sum = 0;
+            for (int j = 0; j < vi.size(); ++j)
+            {
+                sum += min(abs(left - vi[j]),
+                           abs(vi[i] - vi[j]));
+            }
+
+            if (sum < min_t)
+                min_t = sum;
+        }
+        return min_t;
+     }
     else if (left == -1)
     {
-    }
+        int sum = 0;
+        for (int i = 0; i < vi.size(); ++i)
+        {
+            sum += abs(right - vi[i]);
+        }
+
+        return sum;
+     }
     else
     {
+        int sum = 0;
+        for (int i = 0; i < vi.size(); ++i)
+        {
+            sum += min(abs(right - vi[i]),
+                       abs(left - vi[i]));
+        }
+
+        return sum;
+       
     }
 }
 
 
 int get_min_pv(vector<int>vi, int num_p, int left, int right)
 {
-    int r, min_t;
+    int r, min_t = 10000; // assume it would be max number
     
     if (num_p == 1)
     {
@@ -1380,9 +1423,9 @@ int get_min_pv(vector<int>vi, int num_p, int left, int right)
     {
         for (int i = 0; i <= vi.size() - num_p; ++i)
         {
-            r = get_min(vector(vi, vi + i + 1), left, vi[i]) +
-                get_min_pv(vector(vi + i + 1, vi.end()), num_p - 1, vi[i], right);
-            if (min_t < r)
+            r = get_min(vector<int>(vi.begin(), vi.begin() + i + 1), left, vi[i]) +
+                get_min_pv(vector<int>(vi.begin() + i + 1, vi.end()), num_p - 1, vi[i], right);
+            if (min_t > r)
                 min_t = r;
         }
     }
@@ -1395,8 +1438,7 @@ void post_office2()
 
   int num_v, num_p;
   vector<int> vi;
-  int t, min_t, r;
-  vector<vector<int> > vii;
+  int t, min_t;
   vector<int> vi2;
 
   cin >> num_v >> num_p;
@@ -1411,7 +1453,6 @@ void post_office2()
 
   cout << "The result is " << min_t << endl;
 }
-*/
 
 // http://poj.org/problem?id=2033
 void alphacode()
@@ -2381,7 +2422,7 @@ void test_bit()
 
 int main()
 {
-    alphacode();
+    post_office2();
 }
 
 
