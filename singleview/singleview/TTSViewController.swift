@@ -24,7 +24,6 @@ class TTSViewController: UIViewController {
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var firstNameK: UITextField!
-    @IBOutlet weak var firstNameE: UILabel!
     
     // keyboard should disappear
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -57,7 +56,7 @@ class TTSViewController: UIViewController {
                         return
                     }
                 }
-                firstNameE.text = str
+                firstName.text = str
             }
             else {
                 return

@@ -352,12 +352,6 @@
                                     <action selector="translateEng:" destination="XIj-fE-WIr" eventType="primaryActionTriggered" id="InU-R1-3fF"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xlx-6d-i5d">
-                                <rect key="frame" x="214" y="176" width="173" height="47"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-4J-S3d" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="50" y="382" width="87" height="30"/>
                                 <state key="normal" title="발음듣기"/>
@@ -371,7 +365,6 @@
                     <navigationItem key="navigationItem" title="영어 작명" id="FFo-Y1-qCb"/>
                     <connections>
                         <outlet property="firstName" destination="9D3-A1-3et" id="wVO-aM-yG4"/>
-                        <outlet property="firstNameE" destination="Xlx-6d-i5d" id="4Q3-G0-nh4"/>
                         <outlet property="firstNameK" destination="yrx-pQ-LNE" id="aMR-Lv-3ba"/>
                     </connections>
                 </viewController>
