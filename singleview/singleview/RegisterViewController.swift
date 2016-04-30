@@ -69,6 +69,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return pickerData[row]
     }
     
+    /*
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "confirmInfo" {
             let controller = segue.destinationViewController as! RegisterConfirmViewController
@@ -117,16 +119,19 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             controller.selectedDate = self.selectedDate
         }
     }
+ */
     
     @IBAction func checkInfo(sender: UIButton)
     {
         // check if some info is nil
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterConfirmView") as!
-        RegisterConfirmViewController
+        var sName:String = ""
+        var sNameH:String = ""
+        var dob:String = ""
 
+        
         if let s = lastName.text {
             if s.characters.count > 0 {
-                vc.surName = s
+                sName = s
             } else {
                 let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
                 
@@ -146,7 +151,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
         if self.currData.characters.count > 0 {
-            vc.surNameH = self.currData
+            sNameH = self.currData
         }
         else {
             let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
@@ -157,7 +162,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         if self.selectedDate.characters.count > 0 {
-            vc.selectedDate = self.selectedDate
+            dob = self.selectedDate
         }
         else {
             let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
@@ -168,46 +173,60 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         
-        if vc.surName.characters.count == 2 {
-            if vc.surName == "황보" && currData == "皇" {
-                vc.surNameH += "甫"
+        if sName.characters.count == 2 {
+            if sName == "황보" && currData == "皇" {
+                sNameH += "甫"
             }
-            else if vc.surName == "남궁" && currData == "南" {
-                vc.surNameH += "宮"
+            else if sName == "남궁" && currData == "南" {
+                sNameH += "宮"
             }
-            else if vc.surName == "강전" && currData == "岡" {
-                vc.surNameH += "田"
+            else if sName == "강전" && currData == "岡" {
+                sNameH += "田"
             }
-            else if vc.surName == "독고" && currData == "獨" {
-                vc.surNameH += "孤"
+            else if sName == "독고" && currData == "獨" {
+                sNameH += "孤"
             }
-            else if vc.surName == "동방" && currData == "東" {
-                vc.surNameH += "方"
+            else if sName == "동방" && currData == "東" {
+                sNameH += "方"
             }
-            else if vc.surName == "망절" && currData == "網" {
-                vc.surNameH += "切"
+            else if sName == "망절" && currData == "網" {
+                sNameH += "切"
             }
-            else if vc.surName == "사공" && currData == "司" {
-                vc.surNameH += "空"
+            else if sName == "사공" && currData == "司" {
+                sNameH += "空"
             }
-            else if vc.surName == "서문" && currData == "西" {
-                vc.surNameH += "門"
+            else if sName == "서문" && currData == "西" {
+                sNameH += "門"
             }
-            else if vc.surName == "선우" && currData == "鮮" {
-                vc.surNameH += "于"
+            else if sName == "선우" && currData == "鮮" {
+                sNameH += "于"
             }
-            else if vc.surName == "소봉" && currData == "小" {
-                vc.surNameH += "峰"
+            else if sName == "소봉" && currData == "小" {
+                sNameH += "峰"
             }
-            else if vc.surName == "장곡" && currData == "長" {
-                vc.surNameH += "谷"
+            else if sName == "장곡" && currData == "長" {
+                sNameH += "谷"
             }
-            else if vc.surName == "제갈" && currData == "諸" {
-                vc.surNameH += "葛"
+            else if sName == "제갈" && currData == "諸" {
+                sNameH += "葛"
             }
         }
         
-        self.showViewController(vc as RegisterConfirmViewController, sender: vc)
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpConfirmView") as! PopUpViewController
+        self.addChildViewController(vc)
+        self.view.addSubview(vc.view)
+        
+        vc.lastName.text = "성: " + sName + "(" + sNameH + ")"
+        // set date and time of birth
+        var str = self.selectedDate.componentsSeparatedByString(" ")
+        vc.dob.text = "생일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
+        
+        vc.surName = sName
+        vc.surNameH = sNameH
+        vc.selectedDate = self.selectedDate
+        
+        vc.showInView("입력 내용이 정확한가요?",  animated: true)
+
     }
 }
 

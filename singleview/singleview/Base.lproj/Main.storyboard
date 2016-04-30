@@ -106,14 +106,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
-                                <rect key="frame" x="42" y="213" width="240" height="174"/>
+                                <rect key="frame" x="42" y="213" width="197" height="174"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc2-oh-IcO">
-                                        <rect key="frame" x="27" y="14" width="205" height="52"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="16" y="99" width="65" height="31"/>
                                         <state key="normal" title="아니요"/>
@@ -128,6 +122,12 @@
                                             <action selector="registerNewInfo:" destination="DMd-mL-rIG" eventType="primaryActionTriggered" id="pnH-Zl-Qco"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc2-oh-IcO">
+                                        <rect key="frame" x="24" y="19" width="165" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -252,56 +252,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v5i-Im-PGI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="925" y="-669"/>
-        </scene>
-        <!--Register Confirm View Controller-->
-        <scene sceneID="pH6-hp-8eq">
-            <objects>
-                <viewController storyboardIdentifier="RegisterConfirmView" id="j8Z-OK-IPT" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WIG-nf-6o9"/>
-                        <viewControllerLayoutGuide type="bottom" id="GV2-nh-Hvr"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qC2-ov-6QI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="dob" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEh-FQ-43R">
-                                <rect key="frame" x="28" y="183" width="307" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-rC-xid" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="83" y="372" width="58" height="30"/>
-                                <state key="normal" title="다시"/>
-                                <connections>
-                                    <action selector="goback:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="hwe-iw-0nP"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Go2-S7-APd" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="205" y="377" width="54" height="30"/>
-                                <state key="normal" title="저장"/>
-                                <connections>
-                                    <action selector="storeInfo:" destination="j8Z-OK-IPT" eventType="primaryActionTriggered" id="Kdg-Vh-igg"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtj-a4-Di9">
-                                <rect key="frame" x="28" y="132" width="173" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="DOB" destination="TEh-FQ-43R" id="Z5q-T9-cd7"/>
-                        <outlet property="lastName" destination="Gtj-a4-Di9" id="gaE-Ld-aIG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1rG-wU-eag" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="935" y="194"/>
         </scene>
         <!--영어 작명-->
         <scene sceneID="7mP-ha-j31">
@@ -734,6 +684,70 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ocK-5s-xLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="52" y="3601"/>
+        </scene>
+        <!--Pop Up View Controller-->
+        <scene sceneID="HM4-m3-442">
+            <objects>
+                <viewController storyboardIdentifier="PopUpConfirmView" id="KM7-bg-cyB" customClass="PopUpViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zFn-mr-a5O"/>
+                        <viewControllerLayoutGuide type="bottom" id="BWF-6D-bM8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wIB-Z7-hKB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dz-a0-p1L">
+                                <rect key="frame" x="42" y="179" width="262" height="208"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" 입력한 내용이 정확한가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhP-8P-U9t">
+                                        <rect key="frame" x="32" y="8" width="192" height="52"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7O-bY-4xI" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="60" y="169" width="65" height="31"/>
+                                        <state key="normal" title="아니요"/>
+                                        <connections>
+                                            <action selector="closePopup:" destination="KM7-bg-cyB" eventType="primaryActionTriggered" id="Wdc-ZP-lKD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdM-0Y-Aft" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="151" y="170" width="64" height="30"/>
+                                        <state key="normal" title="예"/>
+                                        <connections>
+                                            <action selector="returnToMain:" destination="KM7-bg-cyB" eventType="primaryActionTriggered" id="UuP-sG-qPQ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-aQ-JKU">
+                                        <rect key="frame" x="14" y="106" width="248" height="46"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciq-Ao-3CS">
+                                        <rect key="frame" x="14" y="57" width="248" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="dob" destination="SMV-aQ-JKU" id="rd1-Up-r88"/>
+                        <outlet property="lastName" destination="ciq-Ao-3CS" id="7Ba-d1-DQR"/>
+                        <outlet property="messageLabel" destination="LhP-8P-U9t" id="VR9-l1-03j"/>
+                        <outlet property="popUpView" destination="7dz-a0-p1L" id="Bim-EJ-QSB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qqg-Xf-IJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1059" y="-1436"/>
         </scene>
     </scenes>
 </document>

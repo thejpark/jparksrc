@@ -11,6 +11,10 @@ import UIKit
 
 class PopUpViewController: UIViewController {
     
+    @IBOutlet weak var lastName: UILabel!
+    @IBOutlet weak var dob: UILabel!
+    
+    
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var popUpView: UIView!
     
@@ -86,6 +90,22 @@ class PopUpViewController: UIViewController {
         let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterView")
         self.showViewController(vc as! UIViewController, sender: vc)
     }
+    
+    var selectedDate: String = ""
+    var surName: String = ""
+    var surNameH: String = ""
 
+    @IBAction func returnToMain(sender: UIButton) {
+        self.removeAnimate()
+        
+        // store info
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(surName, forKey: RegisterInfoKeys.surName)
+        defaults.setValue(surNameH, forKey: RegisterInfoKeys.surNameH)
+        defaults.setValue(selectedDate, forKey: RegisterInfoKeys.dob)
+        defaults.synchronize()
+        
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
 }
 
