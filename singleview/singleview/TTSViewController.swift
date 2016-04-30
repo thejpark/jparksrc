@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class TTSViewController: UIViewController {
+class TTSViewController: UIViewController, UITextFieldDelegate {
 
 
     override func viewDidLoad() {
@@ -63,7 +63,30 @@ class TTSViewController: UIViewController {
             }
         }
     }
-
+    
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == firstName {
+            animateViewMoving(true, moveValue: 200)
+        }
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField == firstName {
+            animateViewMoving(false, moveValue: 200)
+        }
+    }
+    
+    // Lifting the view up
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:NSTimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        UIView.beginAnimations( "animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration )
+        self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+        UIView.commitAnimations()
+    }
 }
 
 let han_to_eng: [String:String] = [
