@@ -174,13 +174,24 @@ class MainViewController: UIViewController {
         if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
             self.dob = str2
         }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+            self.gender = str2
+        }
         ///
         
         var objects = [AnyObject]()
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("CandidateView") as!
         MasterViewController
         
-        for givenName in male {
+        var names:[String]
+        if self.gender == "남자" {
+            names = male
+        }
+        else {
+            names = female
+        }
+        
+        for givenName in names {
             vc.search(surName, surNameH: surNameH, givenName: givenName, selectedDate: self.dob)
             if vc.objects.count > 0 {
                 objects.append(vc.objects[0])
