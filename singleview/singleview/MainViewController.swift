@@ -12,6 +12,7 @@ struct RegisterInfoKeys {
     static let surName = "surName"
     static let surNameH = "surNameH"
     static let dob = "dob"
+    static let gender = "gender"
 }
 
 class MainViewController: UIViewController {
@@ -19,6 +20,7 @@ class MainViewController: UIViewController {
     var surName: String = ""
     var surNameH: String = ""
     var dob: String = ""
+    var gender: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,10 @@ class MainViewController: UIViewController {
         if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
             self.dob = str2
         }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+            self.gender = str2
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -86,13 +92,18 @@ class MainViewController: UIViewController {
         if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
             self.dob = str2
         }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+            self.gender = str2
+        }
 
+        
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("EnterNameView") as!
             ViewController
 
         vc.surName = self.surName
         vc.surNameH = self.surNameH
         vc.selectedDate = self.dob
+        vc.gender = self.gender
      
         self.showViewController(vc as UIViewController, sender: vc)
   

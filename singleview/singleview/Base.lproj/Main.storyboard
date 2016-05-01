@@ -199,13 +199,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성 (음)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-pQ-H3h">
-                                <rect key="frame" x="28" y="113" width="50" height="40"/>
+                                <rect key="frame" x="28" y="88" width="50" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="APE-ku-Yig" userLabel="Last Name">
-                                <rect key="frame" x="78" y="122" width="81" height="30"/>
+                                <rect key="frame" x="78" y="97" width="81" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -214,14 +214,34 @@
                                 </connections>
                             </textField>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fKb-an-PT2">
-                                <rect key="frame" x="194" y="88" width="80" height="122"/>
+                                <rect key="frame" x="192" y="66" width="80" height="91"/>
                                 <connections>
                                     <outlet property="dataSource" destination="FDT-xE-FeJ" id="Hit-Ji-o0M"/>
                                     <outlet property="delegate" destination="FDT-xE-FeJ" id="6Nc-cb-Ggf"/>
                                 </connections>
                             </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="146" y="381" width="56" height="31"/>
+                                <state key="normal" title="확인"/>
+                                <connections>
+                                    <action selector="checkInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="oC8-MF-z4C"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xS6-uz-SGL">
+                                <rect key="frame" x="28" y="174" width="61" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bQ4-tM-5a1">
+                                <rect key="frame" x="78" y="150" width="80" height="70"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FDT-xE-FeJ" id="NFI-Yo-uEE"/>
+                                    <outlet property="delegate" destination="FDT-xE-FeJ" id="M6X-vs-7RE"/>
+                                </connections>
+                            </pickerView>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
-                                <rect key="frame" x="28" y="228" width="290" height="124"/>
+                                <rect key="frame" x="29" y="238" width="290" height="124"/>
                                 <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
                                     <!--2015-10-24 21:22:00 +0000-->
                                 </date>
@@ -232,18 +252,12 @@
                                     <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="RG6-Cy-458"/>
                                 </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="146" y="381" width="56" height="31"/>
-                                <state key="normal" title="확인"/>
-                                <connections>
-                                    <action selector="checkInfo:" destination="FDT-xE-FeJ" eventType="primaryActionTriggered" id="oC8-MF-z4C"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="개인 정보 입력" id="DmJ-Ka-0Uc"/>
                     <connections>
+                        <outlet property="genderPicker" destination="bQ4-tM-5a1" id="bm0-Ku-0QI"/>
                         <outlet property="lastName" destination="APE-ku-Yig" id="x6U-8w-gom"/>
                         <outlet property="myDatePicker" destination="XwB-GO-MWu" id="Fko-bq-LJD"/>
                         <outlet property="picker" destination="fKb-an-PT2" id="1sR-ld-L2l"/>

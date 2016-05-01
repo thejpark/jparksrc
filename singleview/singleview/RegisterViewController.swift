@@ -5,7 +5,6 @@
 //  Created by Park Jung Gyu on 9/04/2016.
 //  Copyright © 2016 pyfamily. All rights reserved.
 //
-
 import UIKit
 
 class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
@@ -14,7 +13,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        pickerData = getHanjaFromHangul("이")
+        pickerData = []
+        currData = ""
+        gender = "여자"
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd MM yyyy HH mm"
+        self.selectedDate = dateFormatter.stringFromDate(self.myDatePicker.date)
     }
     
     override func didReceiveMemoryWarning() {
@@ -25,6 +30,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var myDatePicker: UIDatePicker!
+    @IBOutlet weak var genderPicker: UIPickerView!
     
     var selectedDate: String = ""
     weak var m_parent: MainViewController?
@@ -54,19 +60,35 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     var pickerData: [String] = [String]()
+    var genderPickerData: [String] = ["여자", "남자"]
+
     var currData: String = "이"
+    var gender: String = "여자"
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        if pickerView == self.picker {
+            return pickerData.count
+        }
+        else if pickerView == self.genderPicker {
+            return genderPickerData.count
+        }
+        return 0
     }
     
     // The data to return for the row and component (column) that's being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        currData = pickerData[row]
-        return pickerData[row]
+        if pickerView == self.picker {
+            currData = pickerData[row]
+            return pickerData[row]
+        }
+        else if pickerView == self.genderPicker {
+            gender = genderPickerData[row]
+            return genderPickerData[row]
+        }
+        return nil
     }
     
     /*
@@ -216,7 +238,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         self.addChildViewController(vc)
         self.view.addSubview(vc.view)
         
-        vc.lastName.text = "성: " + sName + "(" + sNameH + ")"
+        vc.lastName.text = "성: " + sName + "(" + sNameH + ")  성별: " + gender
         // set date and time of birth
         var str = self.selectedDate.componentsSeparatedByString(" ")
         vc.dob.text = "생일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
@@ -224,6 +246,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         vc.surName = sName
         vc.surNameH = sNameH
         vc.selectedDate = self.selectedDate
+        vc.gender = gender
         
         vc.showInView("입력 내용이 정확한가요?",  animated: true)
 

@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        lastName.text = "성: " + self.surName + "(" + self.surNameH + ")"
+        lastName.text = "성: " + self.surName + "(" + self.surNameH + ")  성별: " + self.gender
         
         
         // set date and time of birth
@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     var selectedDate: String = ""
     var surName: String = ""
     var surNameH: String = ""
+    var gender: String = ""
   
     // keyboard should disappear
     func textFieldShouldReturn(textField: UITextField) -> Bool {

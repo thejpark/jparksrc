@@ -94,6 +94,7 @@ class PopUpViewController: UIViewController {
     var selectedDate: String = ""
     var surName: String = ""
     var surNameH: String = ""
+    var gender: String = ""
 
     @IBAction func returnToMain(sender: UIButton) {
         self.removeAnimate()
@@ -103,6 +104,8 @@ class PopUpViewController: UIViewController {
         defaults.setValue(surName, forKey: RegisterInfoKeys.surName)
         defaults.setValue(surNameH, forKey: RegisterInfoKeys.surNameH)
         defaults.setValue(selectedDate, forKey: RegisterInfoKeys.dob)
+        defaults.setValue(gender, forKey: RegisterInfoKeys.gender)
+
         defaults.synchronize()
         
         navigationController?.popToRootViewControllerAnimated(true)
