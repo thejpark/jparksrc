@@ -258,7 +258,7 @@ func getWorju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
 func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
     
     var i = getDays(2016, m1:3, d1:3, y2:y, m2:m, d2:d)
-    if (h == 0 && mm < 29) {
+    if (h == 0 && mm < 30) {
         // 0:30 boundary
         i -= 1
     }
@@ -437,12 +437,14 @@ func getAntiIlgan(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
 }
 
 
-func getIlganGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> (Int, Double)
+func getIlganGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> (Int, Double, Int, Double)
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let base = ganjiohang[gan[getGan(ilju)]]
     let strength = getGangYag(year, month: month, day: day, hour: hour, minute: minute)
-    return (base!, strength)
+    let strength2 = getAntiIlgan(year, month: month, day: day, hour: hour, minute: minute)
+
+    return (base!, strength, antiohang[base!]!, strength2)
 }
 
 

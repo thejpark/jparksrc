@@ -16,7 +16,7 @@ class Elem: NSObject, NSCoding {
     var givenName1: String // hangul
     var saju: String
     var dob: String
-    var ilganGangYag: (Int, Double)
+    var ilganGangYag: (Int, Double, Int, Double)
     var hy: [Int]
     var prio: Int = 0
 
@@ -29,6 +29,9 @@ class Elem: NSObject, NSCoding {
         static let dobKey = "dob"
         static let ilganKey = "ilgan"
         static let gangYagKey = "gangYag"
+        static let antiIlganKey = "antiIlgan"
+        static let antiGangYagKey = "antiGangYag"
+
         static let hyKey = "hy"
     }
     
@@ -49,6 +52,9 @@ class Elem: NSObject, NSCoding {
         aCoder.encodeObject(dob, forKey: PropertyKey.dobKey)
         aCoder.encodeObject(ilganGangYag.0, forKey: PropertyKey.ilganKey)
         aCoder.encodeObject(ilganGangYag.1, forKey: PropertyKey.gangYagKey)
+        aCoder.encodeObject(ilganGangYag.2, forKey: PropertyKey.antiIlganKey)
+        aCoder.encodeObject(ilganGangYag.3, forKey: PropertyKey.antiGangYagKey)
+
         aCoder.encodeObject(hy, forKey: PropertyKey.hyKey)
     }
     
@@ -74,16 +80,20 @@ class Elem: NSObject, NSCoding {
         let d = aDecoder.decodeObjectForKey(PropertyKey.dobKey) as! String
         let il = aDecoder.decodeObjectForKey(PropertyKey.ilganKey) as! Int
         let gy = aDecoder.decodeObjectForKey(PropertyKey.gangYagKey) as! Double
+        let antiIl = aDecoder.decodeObjectForKey(PropertyKey.antiIlganKey) as! Int
+        let antiGy = aDecoder.decodeObjectForKey(PropertyKey.antiGangYagKey) as! Double
+
         let h = aDecoder.decodeObjectForKey(PropertyKey.hyKey) as! [Int]
         
      
         self.init(surName1: sn1, surName:snh, givenName1: gn1, givenName: gnh,
-                  saju:sj, dob:d, ilgan: il, gangYag:gy, hy: h)
+                  saju:sj, dob:d, ilgan: il, gangYag:gy, antiIlgan:antiIl, antiGangYag: antiGy, hy: h)
     
     }
     
     init?(surName1: String, surName: [Hanja], givenName1: String, givenName:[Hanja],
-          saju: String, dob: String, ilgan: Int, gangYag: Double, hy: [Int]) {
+          saju: String, dob: String, ilgan: Int, gangYag: Double, antiIlgan: Int, antiGangYag: Double,
+          hy: [Int]) {
         // Initialize stored properties.
         self.surName1 = surName1
         self.surName = surName
@@ -91,7 +101,7 @@ class Elem: NSObject, NSCoding {
         self.givenName = givenName
         self.saju = saju
         self.dob = dob
-        self.ilganGangYag = (ilgan, gangYag)
+        self.ilganGangYag = (ilgan, gangYag, antiIlgan, antiGangYag)
         self.hy = hy
         
         super.init()
@@ -115,7 +125,7 @@ class Elem: NSObject, NSCoding {
         dob = ""
         surName1 = ""
         givenName1 = ""
-        ilganGangYag = (0,0)
+        ilganGangYag = (0,0, 0, 0)
         hy = [Int]()
     }
     
@@ -161,10 +171,29 @@ class Elem: NSObject, NSCoding {
         return r
     }
     
+    func getUmYang() -> String {
+        var r: String = "음양: "
+        
+        for i  in 0...(givenName.count - 1) {
+            if (givenName[i].2 % 2) == 0 {
+                r += " 음"
+            }
+            else {
+                r += " 양"
+            }
+        }
+        
+        return r
+    }
+
+    
     func getIlganGangYag() -> String {
         var r: String = "일간: "
         r += ohangHanja[self.ilganGangYag.0]!
         r += " " + String(self.ilganGangYag.1)
+        r += " 극: "
+        r += ohangHanja[self.ilganGangYag.2]!
+        r += " " + String(self.ilganGangYag.3)
         return r
     }
     
@@ -176,7 +205,7 @@ class Elem: NSObject, NSCoding {
         }
         return r
     }
-
+    
     func getHelpOhang() -> String {
         var r: String = "도움: "
         
