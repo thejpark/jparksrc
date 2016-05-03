@@ -163,7 +163,7 @@ class Elem: NSObject, NSCoding {
     
     func getIlganGangYag() -> String {
         var r: String = "일간: "
-        r += gan[self.ilganGangYag.0]
+        r += ohangHanja[self.ilganGangYag.0]!
         r += " " + String(self.ilganGangYag.1)
         return r
     }
