@@ -162,13 +162,13 @@ class Elem: NSObject, NSCoding {
     }
     
     func getJaWonOHang() -> String {
-        var r: String = "자원오행: "
+        var r: String = "자원: "
         
         for i  in 0...(givenName.count - 1) {
             r += " " + ohangHanja[givenName[i].3]!
         }
         
-        return r
+        return r + "  " + getBarumOhang()
     }
     
     func getUmYang() -> String {
@@ -212,6 +212,17 @@ class Elem: NSObject, NSCoding {
         for e in helpohang[ilganGangYag.0]! {
             r += ohangHanja[e]!
         }
+        return r
+    }
+    
+    func getBarumOhang() -> String {
+        var r: String = "발음:"
+        for i in 0...self.givenName1.characters.count - 1 {
+            let index = self.givenName1.startIndex.advancedBy(i)
+            r += ohangHanja[getBarumOhangIndex(String(self.givenName1[index]))]!
+            r += " "
+        }
+        
         return r
     }
 
