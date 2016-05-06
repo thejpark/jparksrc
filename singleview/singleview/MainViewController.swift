@@ -54,18 +54,33 @@ class MainViewController: UIViewController {
     {
         let defaults = NSUserDefaults.standardUserDefaults()
         
-        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
-            // popup window
+        if defaults.stringForKey(RegisterInfoKeys.surName) != nil {
+            
+            if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+                self.surNameH = str1
+            }
+            if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+                self.dob = str2
+            }
+            if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+                self.gender = str2
+            }
+
+            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterInfoView") as! RegisterConfirmViewController
+            
+            vc.surName = self.surName
+            vc.surNameH = self.surNameH
+            vc.selectedDate = self.dob
+            vc.gender = self.gender
+            
+            self.showViewController(vc as UIViewController, sender: vc)
+        }
+        else {
             
             let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
-            vc.showInView("새로 등록 할까요?",  animated: true)
-           
-        }
-        else {
-            let vc : AnyObject! = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterView")
-            self.showViewController(vc as! UIViewController, sender: vc)
+            vc.showInView("등록할까요?",  animated: true)
         }
     }
     

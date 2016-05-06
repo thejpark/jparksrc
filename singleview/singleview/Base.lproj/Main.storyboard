@@ -53,7 +53,7 @@
                                 <color key="backgroundColor" red="0.08829820536245625" green="0.4157599803664922" blue="0.41304176273439996" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="개인 정보 입력">
+                                <state key="normal" title="개인 정보">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -62,7 +62,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="164" y="97" width="141" height="36"/>
-                                <color key="backgroundColor" red="0.36247031458044249" green="0.141164720284951" blue="0.51677028795811508" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.60910912958115171" green="0.16728455252974184" blue="0.557929735648372" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="추천 작명">
@@ -609,6 +609,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pwl-Yx-hZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="686" y="2855"/>
+        </scene>
+        <!--Register Confirm View Controller-->
+        <scene sceneID="fVB-xS-slm">
+            <objects>
+                <viewController storyboardIdentifier="RegisterInfoView" id="8nf-jD-gsN" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kLT-5V-f17"/>
+                        <viewControllerLayoutGuide type="bottom" id="zJN-Ff-Kmh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gdF-b3-AkA">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성과 성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HZ-GD-j16">
+                                <rect key="frame" x="59" y="96" width="329" height="61"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poj-tD-aNN">
+                                <rect key="frame" x="59" y="196" width="329" height="47"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="DOB" destination="poj-tD-aNN" id="8V3-4I-H0J"/>
+                        <outlet property="lastName" destination="5HZ-GD-j16" id="8Me-2I-G7O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O3U-q3-U93" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-979" y="4107"/>
         </scene>
         <!--Saved Detail View Controller-->
         <scene sceneID="FK2-ye-vLe">
