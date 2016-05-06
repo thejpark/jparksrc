@@ -117,7 +117,7 @@ class MainViewController: UIViewController {
     }
     
     
-    @IBAction func LoadSelectedNames(sender: UIButton)
+    @IBAction func LoadSelectedNames(sender: UIBarItem)
     {
         if savedElements.count == 0 {
             if let s = loadElem() {
