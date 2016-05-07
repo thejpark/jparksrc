@@ -21,6 +21,7 @@ class MainViewController: UIViewController {
     var surNameH: String = ""
     var dob: String = ""
     var gender: String = ""
+    @IBOutlet weak var settings: UIBarItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +41,12 @@ class MainViewController: UIViewController {
         }
         if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
             self.gender = str2
+        }
+
+        
+        self.settings.title = NSString(string: "\u{2699}") as String
+        if let font = UIFont(name: "Helvetica", size: 18.0) {
+            self.settings.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
         }
 
     }

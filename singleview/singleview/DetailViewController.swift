@@ -57,7 +57,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "선택", style: .Plain, target: self, action:#selector(DetailViewController.saveOne))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .Plain, target: self, action:#selector(DetailViewController.saveOne))
         self.configureView()
     }
     

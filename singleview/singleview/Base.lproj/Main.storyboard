@@ -48,18 +48,6 @@
                                     <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="20" y="97" width="141" height="36"/>
-                                <color key="backgroundColor" red="0.08829820536245625" green="0.4157599803664922" blue="0.41304176273439996" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="개인 정보">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="164" y="97" width="141" height="36"/>
                                 <color key="backgroundColor" red="0.60910912958115171" green="0.16728455252974184" blue="0.557929735648372" alpha="1" colorSpace="calibratedRGB"/>
@@ -84,24 +72,39 @@
                                     <segue destination="XIj-fE-WIr" kind="show" id="b72-0M-der"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="20" y="97" width="141" height="36"/>
+                                <color key="backgroundColor" red="0.08829820536245625" green="0.4157599803664922" blue="0.41304176273439996" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="등록 정보">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem title="도움말" id="jIR-6z-9JI"/>
-                        <barButtonItem title="clear" width="137" id="L9H-Dr-txb">
+                        <barButtonItem width="137" id="L9H-Dr-txb">
                             <connections>
                                 <action selector="clearInfo:" destination="sgv-xB-FRN" id="6Lh-zh-JPl"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title=" 선택목록" width="68" id="PZf-t1-eln">
+                        <barButtonItem title=" 저장목록" width="68" id="PZf-t1-eln">
                             <connections>
                                 <action selector="LoadSelectedNames:" destination="sgv-xB-FRN" id="P6I-gL-MBI"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Home" id="eDg-Gu-2JI"/>
+                    <connections>
+                        <outlet property="settings" destination="L9H-Dr-txb" id="TzD-RT-bzY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -350,7 +353,7 @@
             </objects>
             <point key="canvasLocation" x="925" y="964"/>
         </scene>
-        <!--작명-->
+        <!--셀프 작명-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="EnterNameView" id="BYZ-38-t0r" customClass="ViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -398,7 +401,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="작명" id="9fs-jE-LyD"/>
+                    <navigationItem key="navigationItem" title="셀프 작명" id="9fs-jE-LyD"/>
                     <connections>
                         <outlet property="DOB" destination="pMT-Sd-ueI" id="pe5-xE-kpS"/>
                         <outlet property="firstName" destination="vUn-au-ZWa" id="zNR-NU-jy3"/>
@@ -409,7 +412,7 @@
             </objects>
             <point key="canvasLocation" x="37" y="332"/>
         </scene>
-        <!--Master View Controller-->
+        <!--이름 목록-->
         <scene sceneID="74h-Ic-uOO">
             <objects>
                 <tableViewController storyboardIdentifier="CandidateView" id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -451,6 +454,7 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
+                    <navigationItem key="navigationItem" title="이름 목록" id="mlp-Z2-Xrh"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BAV-42-vDy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -557,7 +561,7 @@
                                 <action selector="goHome:" destination="Oq1-7N-IQv" id="q1R-uT-DsK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="선택 이름 목록" id="bog-5q-g9m">
+                        <barButtonItem title="저장목록" id="bog-5q-g9m">
                             <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
                                 <action selector="LoadSelectedNames:" destination="Oq1-7N-IQv" id="3QV-wH-Uxb"/>
@@ -610,7 +614,7 @@
             </objects>
             <point key="canvasLocation" x="686" y="2855"/>
         </scene>
-        <!--Register Confirm View Controller-->
+        <!--등록 정보-->
         <scene sceneID="fVB-xS-slm">
             <objects>
                 <viewController storyboardIdentifier="RegisterInfoView" id="8nf-jD-gsN" customClass="RegisterConfirmViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
@@ -637,6 +641,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="등록 정보" id="jwC-HT-BlC">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="EYj-DY-NBQ">
+                            <connections>
+                                <action selector="registerInfo:" destination="8nf-jD-gsN" id="st4-No-U4S"/>
+                            </connections>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="rightBarButtonItem" destination="EYj-DY-NBQ" id="LHM-bU-EdQ"/>
+                        </connections>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="DOB" destination="poj-tD-aNN" id="8V3-4I-H0J"/>
                         <outlet property="lastName" destination="5HZ-GD-j16" id="8Me-2I-G7O"/>
