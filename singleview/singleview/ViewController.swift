@@ -14,11 +14,10 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         lastName.text = "성: " + self.surName + "(" + self.surNameH + ")  성별: " + self.gender
-        
+        birthPlace.text = "출생지: " + self.place
         
         // set date and time of birth
         var str = self.selectedDate.componentsSeparatedByString(" ")
-        
         DOB.text = "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
     }
 
@@ -28,14 +27,15 @@ class ViewController: UIViewController {
     }
 
     @IBOutlet weak var lastName: UILabel!
+    @IBOutlet weak var birthPlace: UILabel!
     @IBOutlet weak var DOB: UILabel!
-
     @IBOutlet weak var firstName: UITextField!
 
     var selectedDate: String = ""
     var surName: String = ""
     var surNameH: String = ""
     var gender: String = ""
+    var place: String = ""
   
     // keyboard should disappear
     func textFieldShouldReturn(textField: UITextField) -> Bool {

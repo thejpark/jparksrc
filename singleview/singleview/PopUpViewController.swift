@@ -13,6 +13,7 @@ class PopUpViewController: UIViewController {
     
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var dob: UILabel!
+    @IBOutlet weak var place: UILabel!
     
     
     @IBOutlet weak var messageLabel: UILabel!
@@ -95,6 +96,7 @@ class PopUpViewController: UIViewController {
     var surName: String = ""
     var surNameH: String = ""
     var gender: String = ""
+    var birthPlace: String = ""
 
     @IBAction func returnToMain(sender: UIButton) {
         self.removeAnimate()
@@ -105,6 +107,7 @@ class PopUpViewController: UIViewController {
         defaults.setValue(surNameH, forKey: RegisterInfoKeys.surNameH)
         defaults.setValue(selectedDate, forKey: RegisterInfoKeys.dob)
         defaults.setValue(gender, forKey: RegisterInfoKeys.gender)
+        defaults.setValue(birthPlace, forKey: RegisterInfoKeys.place)
 
         defaults.synchronize()
         

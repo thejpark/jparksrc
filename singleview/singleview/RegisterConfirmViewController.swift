@@ -14,7 +14,7 @@ class RegisterConfirmViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         lastName.text = "성: " + self.surName + "(" + self.surNameH + ")  성별: " + self.gender
-        
+        birthPlace.text = "출생지: " + place
         
         // set date and time of birth
         var str = self.selectedDate.componentsSeparatedByString(" ")
@@ -28,6 +28,7 @@ class RegisterConfirmViewController: UIViewController {
     }
     
     @IBOutlet weak var lastName: UILabel!
+    @IBOutlet weak var birthPlace: UILabel!
     @IBOutlet weak var DOB: UILabel!
 
     
@@ -35,8 +36,10 @@ class RegisterConfirmViewController: UIViewController {
     var surName: String = ""
     var surNameH: String = ""
     var gender: String = ""
+    var place: String = ""
+
     
-    
+ /*
     @IBAction func goback(sender: UIButton)
     {
         navigationController?.popViewControllerAnimated(true)
@@ -52,6 +55,14 @@ class RegisterConfirmViewController: UIViewController {
         defaults.synchronize()
         
         navigationController?.popToRootViewControllerAnimated(true)
+    }
+  */
+    @IBAction func registerInfo(sender: UIBarButtonItem)
+    {
+        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
+        self.addChildViewController(vc)
+        self.view.addSubview(vc.view)
+        vc.showInView("새로 등록 할까요?",  animated: true)
     }
 
 }

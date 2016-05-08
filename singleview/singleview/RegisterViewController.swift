@@ -16,6 +16,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         pickerData = []
         currData = ""
         gender = "여자"
+        place = "서울"
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
@@ -31,6 +32,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var myDatePicker: UIDatePicker!
     @IBOutlet weak var genderPicker: UIPickerView!
+    @IBOutlet weak var placePicker: UIPickerView!
+    
     
     var selectedDate: String = ""
     weak var m_parent: MainViewController?
@@ -61,9 +64,11 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var pickerData: [String] = [String]()
     var genderPickerData: [String] = ["여자", "남자"]
+    var placePickerData: [String] = ["서울", "부산", "대구", "광주", "인천", "대전", "강릉", "울산", "제주", "전주", "목포", "춘천", "수원", "용인", "평택", "경주", "통영", "청주", "원주", "여수", "군산", "서산", "김천", "울릉", "백령도"]
 
     var currData: String = "이"
     var gender: String = "여자"
+    var place: String = "서울"
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -74,6 +79,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         else if pickerView == self.genderPicker {
             return genderPickerData.count
+        }
+        else if pickerView == self.placePicker {
+            return placePickerData.count
         }
         return 0
     }
@@ -88,6 +96,11 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             gender = genderPickerData[row]
             return genderPickerData[row]
         }
+        else if pickerView == self.placePicker {
+            place = placePickerData[row]
+            return placePickerData[row]
+        }
+
         return nil
     }
     
@@ -242,11 +255,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // set date and time of birth
         var str = self.selectedDate.componentsSeparatedByString(" ")
         vc.dob.text = "생일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
+        vc.place.text = "출생지: " + place
         
         vc.surName = sName
         vc.surNameH = sNameH
         vc.selectedDate = self.selectedDate
         vc.gender = gender
+        vc.birthPlace = place
         
         vc.showInView("입력 내용이 정확한가요?",  animated: true)
 

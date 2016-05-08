@@ -13,6 +13,8 @@ struct RegisterInfoKeys {
     static let surNameH = "surNameH"
     static let dob = "dob"
     static let gender = "gender"
+    static let place = "place"
+
 }
 
 class MainViewController: UIViewController {
@@ -21,6 +23,8 @@ class MainViewController: UIViewController {
     var surNameH: String = ""
     var dob: String = ""
     var gender: String = ""
+    var place: String = ""
+
     @IBOutlet weak var settings: UIBarItem!
     
     override func viewDidLoad() {
@@ -41,6 +45,9 @@ class MainViewController: UIViewController {
         }
         if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
             self.gender = str2
+        }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+            self.place = str2
         }
 
         
@@ -72,14 +79,19 @@ class MainViewController: UIViewController {
             if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
                 self.gender = str2
             }
+            if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+                self.place = str2
+            }
 
+            
             let vc = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterInfoView") as! RegisterConfirmViewController
             
             vc.surName = self.surName
             vc.surNameH = self.surNameH
             vc.selectedDate = self.dob
             vc.gender = self.gender
-            
+            vc.place = self.place
+
             self.showViewController(vc as UIViewController, sender: vc)
         }
         else {
@@ -117,8 +129,10 @@ class MainViewController: UIViewController {
         if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
             self.gender = str2
         }
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+            self.place = str2
+        }
 
-        
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("EnterNameView") as!
             ViewController
 
@@ -126,7 +140,8 @@ class MainViewController: UIViewController {
         vc.surNameH = self.surNameH
         vc.selectedDate = self.dob
         vc.gender = self.gender
-     
+        vc.place = self.place
+
         self.showViewController(vc as UIViewController, sender: vc)
   
     }
@@ -199,8 +214,10 @@ class MainViewController: UIViewController {
         if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
             self.gender = str2
         }
-        ///
-        
+        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+            self.place = str2
+        }
+
         var objects = [AnyObject]()
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("CandidateView") as!
         MasterViewController
