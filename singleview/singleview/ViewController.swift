@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -92,4 +92,29 @@ class ViewController: UIViewController {
             vc2.showInView("이름을 입력하세요",  animated: true)
         }
     }
+    
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == firstName {
+            animateViewMoving(true, moveValue: 100)
+        }
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if textField == firstName {
+            animateViewMoving(false, moveValue: 100)
+        }
+    }
+
+    // Lifting the view up
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:NSTimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        UIView.beginAnimations( "animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration )
+        self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+        UIView.commitAnimations()
+    }
+
 }
