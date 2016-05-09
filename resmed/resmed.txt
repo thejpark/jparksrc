@@ -72,9 +72,8 @@ ex) how to do commrelay?
 
 head up for commrelay: server does not have 'locahost, but client has
 
-resetprg.c:PowerON_Reset_PC()
 
-stuck at healthy check? set APN
+
 xhash error? AUTH
 after setup FG serial number, you should reboot FG
 
@@ -103,6 +102,55 @@ As port open for public may be running out, we need to share public port for Apa
 # svn checkout to a specific revision
 
 svn up -rXXXX
+
+resetprg.c:PowerON_Reset_PC()
+
+stuck at healthy check? set APN
+xhash error? AUTH
+after setup FG serial number, you should reboot FG
+
+
+eLB: how to create new one?
+
+- go to the parent directory for the eLB
+- find a template
+- duplicate
+- edit
+- exit and release
+
+how to test single python unit test (without running them all)?
+py.test -v test_bridgesim.py -k 'test_fg_disconnected_cam_can_receive_reply_from_bridge' -s
+
+you should specify 'test_name'
+
+
+some important serf files:
+
+modemcontrol.c
+serfmodem.cpp
+serfpower.c
+modemcoms.c
+seqrsphandler.c
+
+
+Newport Data Connectivity …  Manufacturing Support
+Python to executables
+Created by Jung Gyu Park, last modified on 08 May, 2014 Go to start of metadata
+- For your Windows system, install Windows version of Python (32 bit)
+- Install necessary python packages (i.e., serial).
+- Make sure your python program can run on the Windows Python
+- Install python-to-executable. We can use cx_freeze (http://cx-freeze.sourceforge.net/)
+- Run script to build executables (cxfreeze-quickstart. Check scripts directory under python installationdirectory). It will ask python file name and exe file name.
+It will generate .exe file and .dll files. If you find some python packages are missing, then you should copy the missing python packages to the working directory.
+- Run the .exe file.
+
+
+
+
+
+
+
+
 
 
 Software release
