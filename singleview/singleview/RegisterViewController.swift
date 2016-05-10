@@ -21,6 +21,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
         self.selectedDate = dateFormatter.stringFromDate(self.myDatePicker.date)
+        
+        placePicker.selectRow(placePickerData.count - 1, inComponent: 0, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,7 +66,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var pickerData: [String] = [String]()
     var genderPickerData: [String] = ["여자", "남자"]
-    var placePickerData: [String] = ["서울", "부산", "대구", "광주", "인천", "대전", "강릉", "울산", "제주", "전주", "목포", "춘천", "수원", "용인", "평택", "경주", "통영", "청주", "원주", "여수", "군산", "서산", "김천", "울릉", "백령도"]
+    var placePickerData: [String] = ["백령도", "울릉", "김천", "서산", "군산", "여수", "원주", "청주", "통영", "경주", "평택", "수원", "춘천", "목포", "전주", "제주", "울산", "강릉", "대전", "용인", "인천", "광주", "대구", "부산", "서울"]
 
     var currData: String = "이"
     var gender: String = "여자"
@@ -102,6 +104,21 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
 
         return nil
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+
+        if pickerView == self.picker {
+            currData = pickerData[row]
+        }
+        else if pickerView == self.genderPicker {
+            gender = genderPickerData[row]
+        }
+        else if pickerView == self.placePicker {
+            place = placePickerData[row]
+        }
+
+        return
     }
     
     /*
@@ -162,7 +179,6 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         var sName:String = ""
         var sNameH:String = ""
         var dob:String = ""
-
         
         if let s = lastName.text {
             if s.characters.count > 0 {
