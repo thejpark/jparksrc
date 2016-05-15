@@ -355,6 +355,7 @@ func getJi(j: String) -> Int {
 
 var sajuohang = [1:0.0, 2:0.0, 3:0.0, 4:0.0, 5:0.0]
 
+// 신강/신약을 판단하고, 사주의 오행값을 계산함.
 func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
@@ -364,7 +365,7 @@ func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Doub
     
     // clear sajuohang
     for i in 1...5 {
-        sajuohang[i] = 0
+        sajuohang[i] = 0.0
     }
     //
 
@@ -490,6 +491,35 @@ func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int
         else {
             return helpohang[base!]!
         }
+    }
+    else if strength == 5 {
+        let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
+        if  ["巳", "午", "未"].contains(ji[getJi(worju)]) && [1, 2, 3].contains(base) {
+            // summer
+            return [4, 5]
+        }
+        else if ["子", "丑", "亥"].contains(ji[getJi(worju)]) && [3, 4, 5].contains(base) {
+            // winter
+            return [1, 2]
+        }
+        else {
+            // find if there is missing ohang in Saju
+            var ll:[Integer] = []
+            if [1, 2].contains(base) {
+                ll = [3, 4, 5]
+            }
+            else if [4, 5].contains(base) {
+                ll = [1, 2, 3]
+            }
+            else {
+                ll = [1, 2, 4, 5]
+            }
+            
+            ll.sortInPlace({sajuohang[$0] < sajuohang[$1]})
+            
+            return [ll[0], ll[1]]
+        }
+        
     }
     else {
         if base == 5 {
