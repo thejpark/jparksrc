@@ -353,6 +353,8 @@ func getJi(j: String) -> Int {
 }
 
 
+var sajuohang = [1:0.0, 2:0.0, 3:0.0, 4:0.0, 5:0.0]
+
 func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
@@ -360,35 +362,49 @@ func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Doub
     let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
     
+    // clear sajuohang
+    for i in 1...5 {
+        sajuohang[i] = 0
+    }
+    //
+
     let base = ganjiohang[gan[getGan(ilju)]]
     var sum: Double = 1.0
+    sajuohang[base] += 1.0
     
     if  helpohang[base!]!.contains(ganjiohang[ji[getJi(ilju)]]!) {
         sum += 1.2
+        sajuohang[ganjiohang[ji[getJi(ilju)]]!] += 1.2
     }
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(siju)]]!) {
         sum += 1.2
+        sajuohang[ganjiohang[ji[getJi(siju)]]!] += 1.2
     }
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(worju)]]!) {
         sum += 3
+        sajuohang[ganjiohang[ji[getJi(worju)]]!] += 3
     }
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(nyonju)]]!) {
         sum += 1
+        sajuohang[ganjiohang[ji[getJi(nyonju)]]!] += 1
     }
     
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(siju)]]!) {
         sum += 0.8
+        sajuohang[ganjiohang[gan[getGan(siju)]]!] += 0.8
     }
     
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(worju)]]!) {
         sum += 1
+        sajuohang[ganjiohang[gan[getGan(worju)]]!] += 1
     }
     
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(nyonju)]]!) {
         sum += 0.8
+        sajuohang[ganjiohang[gan[getGan(nyonju)]]!] += 0.8
     }
     
     return sum
