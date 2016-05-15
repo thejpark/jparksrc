@@ -254,18 +254,23 @@ func getWorju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
     return g + j
 }
 
+let timeDiffMap = ["해외": 0, "백령도":40, "울릉":16, "김천":27, "서산":34, "군산":33, "여수":29, "원주":28, "청주":30, "통영":25, "경주":23, "평택":31, "수원":31, "춘천":29, "목포":34, "전주":31, "제주":33, "울산":22, "강릉":24, "대전":30, "용인":30, "인천":33, "광주":32, "대구":25, "부산":23, "서울":32]
+
+var timeDiff = 30
 
 func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
     
     var i = getDays(2016, m1:3, d1:3, y2:y, m2:m, d2:d)
-    if (h == 0 && mm < 30) {
-        // 0:30 boundary
+    if (h == 0 && mm < timeDiff) {
         i -= 1
     }
     
     let gan1 = gan[i % 10]
     
     i = getDays(2016, m1:3, d1:7, y2:y, m2:m, d2:d)
+    if (h == 0 && mm < timeDiff) {
+        i -= 1
+    }
     let ji1 = ji[i % 12]
     
     return gan1 + ji1
@@ -275,9 +280,9 @@ func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
 func getSiju(ilgan: Int, hour: Int, minute: Int) -> String {
     let g1 = (ilgan % 5) * 2
     let t = hour * 60 + minute
-    var h = [30, 90]
+    var h = [timeDiff, timeDiff + 60]
     for i in 1...11 {
-        h.append(90 + i * 120)
+        h.append(timeDiff + 60 + i * 120)
     }
     h.append(24 * 60)
     

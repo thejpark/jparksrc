@@ -279,6 +279,7 @@ func loadElem() -> [Elem]? {
 class MasterViewController: UITableViewController {
     
     var objects = [AnyObject]()
+    var defered_objects = [AnyObject]()
     var numSelected: Int = 0
 
     var day: Int = 0
@@ -309,6 +310,7 @@ class MasterViewController: UITableViewController {
     func search(surName: String, surNameH: String, givenName: String, selectedDate: String) {
         var gname: [Hanja] = [Hanja]()
         self.objects = [AnyObject]()
+        self.defered_objects = [AnyObject]()
         self.numSelected = 0
       
       //  for var i = 0; i < givenName.characters.count; ++i {
@@ -401,6 +403,7 @@ class MasterViewController: UITableViewController {
             }
         }
         if count == name.count - self.surName.characters.count + 1 {
+            //self.defered_objects.append(elem)
             return
         }
         

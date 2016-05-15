@@ -66,7 +66,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var pickerData: [String] = [String]()
     var genderPickerData: [String] = ["여자", "남자"]
-    var placePickerData: [String] = ["백령도", "울릉", "김천", "서산", "군산", "여수", "원주", "청주", "통영", "경주", "평택", "수원", "춘천", "목포", "전주", "제주", "울산", "강릉", "대전", "용인", "인천", "광주", "대구", "부산", "서울"]
+    var placePickerData: [String] = ["해외", "백령도", "울릉", "김천", "서산", "군산", "여수", "원주", "청주", "통영", "경주", "평택", "수원", "춘천", "목포", "전주", "제주", "울산", "강릉", "대전", "용인", "인천", "광주", "대구", "부산", "서울"]
 
     var currData: String = "이"
     var gender: String = "여자"
