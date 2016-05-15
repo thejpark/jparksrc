@@ -353,7 +353,7 @@ func getJi(j: String) -> Int {
 }
 
 
-var sajuohang = [1:0.0, 2:0.0, 3:0.0, 4:0.0, 5:0.0]
+var sajuohang:[Double] = [0, 0, 0, 0, 0, 0] // first element is not used.
 
 // 신강/신약을 판단하고, 사주의 오행값을 계산함.
 func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
@@ -371,42 +371,44 @@ func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Doub
 
     let base = ganjiohang[gan[getGan(ilju)]]
     var sum: Double = 1.0
-    sajuohang[base] += 1.0
+    sajuohang[base!] = sajuohang[base!] + 1.0
     
     if  helpohang[base!]!.contains(ganjiohang[ji[getJi(ilju)]]!) {
         sum += 1.2
-        sajuohang[ganjiohang[ji[getJi(ilju)]]!] += 1.2
     }
+    sajuohang[ganjiohang[ji[getJi(ilju)]]!] = sajuohang[ganjiohang[ji[getJi(ilju)]]!] + 1.2
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(siju)]]!) {
         sum += 1.2
-        sajuohang[ganjiohang[ji[getJi(siju)]]!] += 1.2
     }
+    sajuohang[ganjiohang[ji[getJi(siju)]]!] = sajuohang[ganjiohang[ji[getJi(siju)]]!] + 1.2
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(worju)]]!) {
         sum += 3
-        sajuohang[ganjiohang[ji[getJi(worju)]]!] += 3
     }
+    sajuohang[ganjiohang[ji[getJi(worju)]]!] = sajuohang[ganjiohang[ji[getJi(worju)]]!] + 3.0
+
     
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(nyonju)]]!) {
         sum += 1
-        sajuohang[ganjiohang[ji[getJi(nyonju)]]!] += 1
     }
+    sajuohang[ganjiohang[ji[getJi(nyonju)]]!] = sajuohang[ganjiohang[ji[getJi(nyonju)]]!] + 1.0
+
     
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(siju)]]!) {
         sum += 0.8
-        sajuohang[ganjiohang[gan[getGan(siju)]]!] += 0.8
     }
+    sajuohang[ganjiohang[gan[getGan(siju)]]!] = sajuohang[ganjiohang[gan[getGan(siju)]]!] + 0.8
     
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(worju)]]!) {
         sum += 1
-        sajuohang[ganjiohang[gan[getGan(worju)]]!] += 1
     }
-    
+    sajuohang[ganjiohang[gan[getGan(worju)]]!] = sajuohang[ganjiohang[gan[getGan(worju)]]!] + 1.0
+
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(nyonju)]]!) {
         sum += 0.8
-        sajuohang[ganjiohang[gan[getGan(nyonju)]]!] += 0.8
     }
+    sajuohang[ganjiohang[gan[getGan(nyonju)]]!] = sajuohang[ganjiohang[gan[getGan(nyonju)]]!] + 0.8
     
     return sum
 }
@@ -494,21 +496,21 @@ func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int
     }
     else if strength == 5 {
         let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
-        if  ["巳", "午", "未"].contains(ji[getJi(worju)]) && [1, 2, 3].contains(base) {
+        if  ["巳", "午", "未"].contains(ji[getJi(worju)]) && [1, 2, 3].contains(base!) {
             // summer
             return [4, 5]
         }
-        else if ["子", "丑", "亥"].contains(ji[getJi(worju)]) && [3, 4, 5].contains(base) {
+        else if ["子", "丑", "亥"].contains(ji[getJi(worju)]) && [3, 4, 5].contains(base!) {
             // winter
             return [1, 2]
         }
         else {
             // find if there is missing ohang in Saju
-            var ll:[Integer] = []
-            if [1, 2].contains(base) {
+            var ll:[Int] = []
+            if [1, 2].contains(base!) {
                 ll = [3, 4, 5]
             }
-            else if [4, 5].contains(base) {
+            else if [4, 5].contains(base!) {
                 ll = [1, 2, 3]
             }
             else {
