@@ -261,14 +261,14 @@ var timeDiff = 30
 func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
     
     var i = getDays(2016, m1:3, d1:3, y2:y, m2:m, d2:d)
-    if (h == 0 && mm < timeDiff) {
+    if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }
     
     let gan1 = gan[i % 10]
     
     i = getDays(2016, m1:3, d1:7, y2:y, m2:m, d2:d)
-    if (h == 0 && mm < timeDiff) {
+    if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }
     let ji1 = ji[i % 12]

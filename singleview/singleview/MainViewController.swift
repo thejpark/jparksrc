@@ -48,6 +48,8 @@ class MainViewController: UIViewController {
         }
         if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
             self.place = str2
+            // set timediff
+            timeDiff = timeDiffMap[self.place]!
         }
 
         
@@ -81,6 +83,8 @@ class MainViewController: UIViewController {
             }
             if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
                 self.place = str2
+                // set timediff
+                timeDiff = timeDiffMap[self.place]!
             }
 
             
@@ -131,6 +135,8 @@ class MainViewController: UIViewController {
         }
         if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
             self.place = str2
+            // set timediff
+            timeDiff = timeDiffMap[self.place]!
         }
 
         let vc = self.storyboard!.instantiateViewControllerWithIdentifier("EnterNameView") as!
@@ -216,6 +222,8 @@ class MainViewController: UIViewController {
         }
         if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
             self.place = str2
+            // set timediff
+            timeDiff = timeDiffMap[self.place]!
         }
 
         var objects = [AnyObject]()

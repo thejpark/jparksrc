@@ -316,7 +316,8 @@ class MasterViewController: UITableViewController {
       //      var hanja : [Hanja] = getHanjaDataFromHangul(String(givenName[index]))
       //      gname.append(hanja[0])
       //  }
-
+        
+        
         // set date and time of birth
         self.dob = selectedDate
         self.surName = surName
