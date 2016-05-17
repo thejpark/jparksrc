@@ -2420,9 +2420,136 @@ void test_bit()
     cout << "test_bit passed" << endl;
 }
 
+
+
+map<int, int> kth_num_map;
+
+bool kth_right(vector<int>& v, int num)
+{
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        if (v[i] > num)
+            return true;
+    }
+    return false;
+}
+
+bool kth_left(vector<int>& v, int num)
+{
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        if (v[i] < num)
+            return true;
+    }
+    return false;
+}
+
+int kth(int left, int right, int num, vector<vector<int>>& v)
+{
+    if (left == 0)
+    {
+        for (int i = 0; i < v.size(); ++i) {
+            if (!kth_num_map[i]) {
+                if (!kth_right(v[i], num))
+                    return 0;
+            }
+        }
+        return 1;
+                   
+    }
+    else if (right == 0)
+    {
+        for (int i = 0; i < v.size(); ++i) {
+            if (!kth_num_map[i]) {
+                if (!kth_left(v[i], num))
+                    return 0;
+            }
+        }
+        return 1;
+ 
+    }
+    else
+    {
+        for (int i = 0; i < v.size(); ++i)
+        {
+            if (!kth_num_map[i])
+            {
+                kth_num_map[i] = 1;
+                int r = 0;
+                if ((kth_left(v[i], num) && kth(left - 1, right, num, v)) ||
+                    (kth_right(v[i], num) && kth(left, right - 1, num, v)))
+                    r = 1;
+                kth_num_map[i] = 0;
+
+                if (r)
+                    return 1;
+            }
+        }
+
+        return 0;
+    }
+}
+                                                              
+
+int get_kth_number(int n, int k, vector<vector<int>>& v)
+{
+    int r = 0;
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        kth_num_map[i] = 1;
+        for (int j = 0; j < v[i].size(); ++j)
+        {
+            r += kth(k - 1, n - k, v[i][j], v);
+        }
+        kth_num_map[i] = 0;
+    }   
+
+
+    return r;
+}
+
+
+void kth_number()
+{
+    int n, t, k;
+
+    cin >> t;
+
+    vector<int> r;
+
+    for (int i = 0; i < t; ++i) 
+    {
+        cin >> n >> k;
+
+        vector<vector<int>> v(n);
+        for (int j = 0; j < n; ++j)
+        {
+            int nn;
+            cin >> nn;
+            for (int jj = 0; jj < nn; ++jj)
+            {
+                int e;
+                cin >> e;
+                v[j].push_back(e);
+            }
+        }
+
+        r.push_back(get_kth_number(n, k, v));
+    }
+
+    cout << "the result is" << endl;
+    for (auto&e : r)
+        cout << e << " ";
+                
+    cout << endl;
+}
+
 int main()
 {
-    post_office2();
+    kth_number();
 }
 
 
