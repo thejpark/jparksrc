@@ -2421,12 +2421,8 @@ void test_bit()
 }
 
 
-
-map<int, int> kth_num_map;
-
 bool kth_right(vector<int>& v, int num)
 {
-
     for (int i = 0; i < v.size(); ++i)
     {
         if (v[i] > num)
@@ -2437,7 +2433,6 @@ bool kth_right(vector<int>& v, int num)
 
 bool kth_left(vector<int>& v, int num)
 {
-
     for (int i = 0; i < v.size(); ++i)
     {
         if (v[i] < num)
@@ -2446,50 +2441,29 @@ bool kth_left(vector<int>& v, int num)
     return false;
 }
 
-int kth(int left, int right, int num, vector<vector<int>>& v)
+int kth(int left, int right, int num, int index, vector<vector<int>>& v)
 {
-    if (left == 0)
-    {
-        for (int i = 0; i < v.size(); ++i) {
-            if (!kth_num_map[i]) {
-                if (!kth_right(v[i], num))
-                    return 0;
-            }
-        }
-        return 1;
-                   
-    }
-    else if (right == 0)
-    {
-        for (int i = 0; i < v.size(); ++i) {
-            if (!kth_num_map[i]) {
-                if (!kth_left(v[i], num))
-                    return 0;
-            }
-        }
-        return 1;
- 
-    }
-    else
-    {
-        for (int i = 0; i < v.size(); ++i)
-        {
-            if (!kth_num_map[i])
-            {
-                kth_num_map[i] = 1;
-                int r = 0;
-                if ((kth_left(v[i], num) && kth(left - 1, right, num, v)) ||
-                    (kth_right(v[i], num) && kth(left, right - 1, num, v)))
-                    r = 1;
-                kth_num_map[i] = 0;
+    set<int> r, l;
 
-                if (r)
-                    return 1;
-            }
-        }
-
-        return 0;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        if (i == index)
+            continue;
+        if (kth_left(v[i], num))
+            l.insert(i);
+        if (kth_right(v[i], num))
+            r.insert(i);
     }
+
+    vector<int> set_i;
+
+    set_intersection(r.begin(), r.end(), l.begin(), l.end(), back_inserter(set_i));
+    
+    if (l.size() >= left && r.size() >= right &&
+        (l.size() + r.size() - set_i.size() >= left + right))
+        return 1;
+    
+    return 0;
 }
                                                               
 
@@ -2499,12 +2473,10 @@ int get_kth_number(int n, int k, vector<vector<int>>& v)
 
     for (int i = 0; i < v.size(); ++i)
     {
-        kth_num_map[i] = 1;
         for (int j = 0; j < v[i].size(); ++j)
         {
-            r += kth(k - 1, n - k, v[i][j], v);
+            r += kth(k - 1, n - k, v[i][j], i, v);
         }
-        kth_num_map[i] = 0;
     }   
 
 
@@ -2536,9 +2508,18 @@ void kth_number()
                 v[j].push_back(e);
             }
         }
+        
+        // for (auto&e : v) {
+        //     for (auto ee: e) {
+        //         cout << ee << " ";
+        //     }
+        //     cout << endl;
+        // }
+
 
         r.push_back(get_kth_number(n, k, v));
     }
+
 
     cout << "the result is" << endl;
     for (auto&e : r)
