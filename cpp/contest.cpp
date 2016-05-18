@@ -2557,9 +2557,245 @@ void kth_number()
     cout << endl;
 }
 
+
+/*
+
+Q2 BasketBall game
+A group of N high school students wants to play a basketball game. To divide themselves into two teams they first rank all the players in the following way:
+
+Players with a higher shot percentage are rated higher than players with a lower shot percentage. If two players have the same shot percentage, the taller player is rated higher.
+
+Luckily there are no two players with both the same shot percentage and height so they are able to order themselves in an unambiguous way. Based on that ordering each player is assigned a draft number from the range [1..N], where the highest-rated player gets the number 1, the second highest-rated gets the number 2, and so on. Now the first team contains all the players with the odd draft numbers and the second team all the players with the even draft numbers.
+
+Each team can only have P players playing at a time, so to ensure that everyone gets similar time on the court both teams will rotate their players according to the following algorithm: Each team starts the game with the P players who have the lowest draft numbers. If there are more than P players on a team after each minute of the game the player with the highest total time played leaves the playing field. Ties are broken by the player with the higher draft number leaving first. To replace her the player on the bench with the lowest total time played joins the game. Ties are broken by the player with the lower draft number entering first.
+
+The game has been going on for M minutes now. Your task is to print out the names of all the players currently on the field, (that is after M rotations).
+
+Input
+
+The first line of the input consists of a single number T, the number of test cases.
+
+Each test case starts with a line containing three space separated integers N M P
+
+The subsequent N lines are in the format " ". See the example for clarification.
+
+Constraints
+
+1 ? T ? 50 2 * P ? N ? 30 1 ? M ? 120 1 ? P ? 5 Each name starts with an uppercase English letter, followed by 0 to 20 lowercase English letters. There can be players sharing the same name. Each shot percentage is an integer from the range [0..100]. Each height is an integer from the range [100..240]
+
+Output
+
+For each test case i numbered from 1 to T, output "Case #i: ", followed by 2 * P space separated names of the players playing after M rotations. The names should be printed in lexicographical order.
+
+Example
+
+In the first example if you sort all the players by their shot percentage you get the list: [Wai, Purav, Weiyan, Slawek, Lin, Meihong]. This makes the two teams: [Wai, Weiyan, Lin] [Purav, Slawek, Meihong]
+
+The game starts with Lin and Meihong sitting on the bench in their respective teams. After the first minute passes it's time for Weiyan and Slawek to sit out since they have the highest draft numbers of the people who played. After the second minute passes Lin and Meihong will keep playing since they only played one minute so far and it's Wai and Purav who have to sit out.
+
+Finally after the third minute Lin and Maihong go back to the bench and all the players currently playing again are: Purav Slawek Wai Weiyan
+
+
+*/
+
+struct  student {
+    student(string n, int h=0, int p=0) : name(n), height(h), per(p), st(0), pt(0), num(0)
+    {}
+    void print()
+    {
+        cout << name << " ";
+    }
+    string name;
+    int num;
+    int height;
+    int per;
+    int st;
+    int pt;
+};
+
+bool pred_p(student& a, student& b) {
+    if (b.pt > a.pt)
+        return true;
+    else if (b.pt == a.pt) {
+        if (b.num > a.num)
+            return true;
+        else
+            return false;
+    }
+    else return false;
+}
+
+bool pred_s(student& a, student& b) {
+    if (b.st > a.st)
+        return true;
+    else if (b.st == a.st) {
+        if (b.num < a.num)
+            return true;
+        else
+            return false;
+    }
+    else return false;
+}
+
+
+void process_q(vector<student>& h1p, vector<student>& h1s, 
+               vector<student>& h2p, vector<student>& h2s)
+{
+    for (auto& e: h1p)
+        e.pt += 1;
+    for (auto& e: h2p)
+        e.pt += 1;
+    for (auto& e: h1s)
+        e.st += 1;
+    for (auto& e: h2s)
+        e.st += 1;
+    
+    pop_heap(h1p.begin(), h1p.end(), pred_p);
+    h1s.push_back(h1p.back());
+    push_heap(h1s.begin(), h1s.end(), pred_s);
+    h1p.pop_back();
+    pop_heap(h1s.begin(), h1s.end(), pred_s);
+    h1p.push_back(h1s.back());
+    push_heap(h1p.begin(), h1p.end(), pred_p);
+    h1s.pop_back();
+    
+    pop_heap(h2p.begin(), h2p.end(), pred_p);
+    h2s.push_back(h2p.back());
+    push_heap(h2s.begin(), h2s.end(), pred_s);
+    h2p.pop_back();
+    pop_heap(h2s.begin(), h2s.end(), pred_s);
+    h2p.push_back(h2s.back());
+    push_heap(h2p.begin(), h2p.end(), pred_p);
+    h2s.pop_back();
+}
+
+void basketball()
+{
+    int t, n, m, p;
+    cin >> t;
+    cin >> n >> m >> p;
+
+    auto pred = [&](student& a, student &b) {
+        if (a.per < b.per)
+            return true;
+        else if (a.per == b.per) {
+            if (a.height < b.height)
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    };
+    
+    for (int i = 0; i < t; ++i) {
+        vector<student> vs;
+        for (int j = 0; j < n; ++j) {
+            string s;
+            int h, p;
+            cin >> s >> h >> p;
+            vs.push_back(student(s, h, p));
+        }
+
+        sort(vs.begin(), vs.end(), pred);
+
+        vector<student> h1p;
+        vector<student> h1s;
+        vector<student> h2p;
+        vector<student> h2s;
+
+        for (int j = 0; j < vs.size(); j += 2)
+        {
+            vs[j].num = j + 1;
+            vs[j + 1].num = j + 2;
+            h1s.push_back(vs[j]);
+            h2s.push_back(vs[j + 1]);
+        }
+
+        make_heap(h1s.begin(), h1s.end(), pred_s);
+        make_heap(h2s.begin(), h2s.end(), pred_s);
+
+        pop_heap(h1s.begin(), h1s.end(), pred_s);
+        h1p.push_back(h1s.back());
+        h1s.pop_back();
+        pop_heap(h2s.begin(), h2s.end(), pred_s);
+        h2p.push_back(h2s.back());
+        h2s.pop_back();
+        
+        make_heap(h1p.begin(), h1p.end(), pred_p);
+        make_heap(h2p.begin(), h2p.end(), pred_p);
+        
+        for (int j = 0; j < m; ++j)
+            process_q(h1p, h1s, h2p, h2s);
+
+        for (auto&e : h1p)
+            e.print();
+        for (auto&e : h2p)
+            e.print();
+    }
+}
+
+void test_basketball()
+{
+    int p = 2;
+    int m = 3;
+    vector<student>vs;
+    vs.push_back(student("Wai"));
+    vs.push_back(student("Pur"));
+    vs.push_back(student("Wei"));
+    vs.push_back(student("Sla"));
+    vs.push_back(student("Lin"));
+    vs.push_back(student("Mei"));
+    
+    vector<student> h1p;
+    vector<student> h1s;
+    vector<student> h2p;
+    vector<student> h2s;
+
+    for (int j = 0; j < vs.size(); j += 2)
+    {
+        vs[j].num = j + 1;
+        vs[j + 1].num = j + 2;
+        h1s.push_back(vs[j]);
+        h2s.push_back(vs[j + 1]);
+    }
+
+    make_heap(h1s.begin(), h1s.end(), pred_s);
+    make_heap(h2s.begin(), h2s.end(), pred_s);
+
+    pop_heap(h1s.begin(), h1s.end(), pred_s);
+    h1p.push_back(h1s.back());
+    h1s.pop_back();
+    pop_heap(h1s.begin(), h1s.end(), pred_s);
+    h1p.push_back(h1s.back());
+    h1s.pop_back();
+    pop_heap(h2s.begin(), h2s.end(), pred_s);
+    h2p.push_back(h2s.back());
+    h2s.pop_back();
+    pop_heap(h2s.begin(), h2s.end(), pred_s);
+    h2p.push_back(h2s.back());
+    h2s.pop_back();
+        
+    make_heap(h1p.begin(), h1p.end(), pred_p);
+    make_heap(h2p.begin(), h2p.end(), pred_p);
+        
+    for (int j = 0; j < m; ++j)
+    {
+        cout << endl << "-----------" << endl;
+        process_q(h1p, h1s, h2p, h2s);
+
+        for (auto&e : h1p)
+            e.print();
+        for (auto&e : h2p)
+            e.print();
+        cout << endl << "-----------" << endl;
+    }
+}
+
+
 int main()
 {
-    kth_number();
+    test_basketball();
 }
 
 
