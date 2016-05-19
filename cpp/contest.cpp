@@ -2793,20 +2793,55 @@ void test_basketball()
 }
 
 
+struct jobs2m {
+    jobs2m(int i, int j, int k) :index(i), a(j), b(k)
+    {
+    }
+    
+    bool operator<(const jobs2m &other) const
+    { 
+        if (index < other.index)
+            return true;
+        else if (index == other.index) {
+            if (a < other.a)
+                return true;
+            else if (a == other.a) {
+                if (b < other.b)
+                    return true;
+                else return false;
+            }
+            else return false;
+        }
+        else return false;
+    }
+    
+int index;
+    int a;
+    int b;
+};
+
+map<jobs2m, int> jobs2m_map;
+
 int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int k)
 {
 
     if (idx == a.size())
         return 0;
 
+    jobs2m t(idx, ka, kb);
+    if (jobs2m_map.find(t) != jobs2m_map.end())
+        return jobs2m_map[t];
+    
     if (ka == 0)
         return (b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
     if (kb == 0)
         return (a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k)); 
 
-    return min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
+    int r =  min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
                b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
 
+    jobs2m_map[t] = r;
+    return r;
 }
 
 
