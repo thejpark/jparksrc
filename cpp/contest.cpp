@@ -2793,9 +2793,53 @@ void test_basketball()
 }
 
 
+int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int k)
+{
+
+    if (idx == a.size())
+        return 0;
+
+    if (ka == 0)
+        return (b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
+    if (kb == 0)
+        return (a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k)); 
+
+    return min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
+               b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
+
+}
+
+
+void two_machine_n_jobs()
+{
+
+    int n, k;
+    cin >> n >> k;
+
+    int t;
+    vector<int> a, b;
+
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> t;
+        a.push_back(t);
+    }
+    for (int i = 0; i < n; ++i)
+    {
+        cin >> t;
+        b.push_back(t);
+    }
+
+
+    int r = process_jobs2m(0, a, b, k, k, k);
+
+    cout << "the result is " << r << endl;
+}
+
+
 int main()
 {
-    test_basketball();
+    two_machine_n_jobs();
 }
 
 
