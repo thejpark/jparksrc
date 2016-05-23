@@ -148,7 +148,24 @@ void dna_sorting()
 
 int get_unsortedness(string& s)
 {
-    return 0;
+    int r = 0;
+    if (s.size() == 1) return 0;
+    
+    for (int i = s.size() - 2; i >= 0; --i)
+    {
+        for (int j = i; j < s.size() - 1; ++j)
+        {
+            if (s[j] > s[j + 1])
+            {
+                r += 1;
+                sawp(s[j], s[j + 1]);
+            }
+            else
+                break; // we don't need to go further as it is sorted
+        } // or we from the right, and use binary search to find where to put?
+    }
+    
+    return r;
 }
 
 
