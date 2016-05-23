@@ -146,6 +146,12 @@ void dna_sorting()
 }
 
 
+int get_unsortedness(string& s)
+{
+}
+
+
+// nlog(n)
 void dna_sorting2()
 {
     int str_len, num_str;
@@ -162,34 +168,26 @@ void dna_sorting2()
         }
         vs.push_back(str);
     }
+
+    vector<pair<int, int>> pv;
+    for (int i = 0; i < num_str; ++i)
+    {
+        int r = get_unsortedness(vs[i]);
+        pv.push_back(pair(i, r));
+    }
+
+
+
+    using elem = pair<int, int>;
+    auto comp = [&](elem& a, elem& b) {
+        a.second < b.second;
+    }
     
+    sort(pv.begin(), pv.end(), comp);
 
-    // compute indexes of unordered item 
-    vector<vector<int>> vi(vs.size());
-    for (int i = 0; i < vs.size(); ++i)
-    {
-        for (int j = 1; j < vs[i].size(); ++j)
-        {
-            if (vs[i][j] < vs[i][j - 1])
-                vi[i].push_back(j);
-        }
-    }
+    for (int i = 0; i < pv.size(); ++i)
+        cout << vs[pv[i].first] << endl;
 
-    vector<int> vr;
-
-    for (int i = 0; i < vs.size(); ++i)
-    {
-        int k = 0;
-        int r = 0;
-        int size = vi[i].size();
-        for (int j = 0; j < vs[i].size(); )
-        {
-            // instead of incrementaly increasing j, it can be incremented
-            // using the value in vi.
-        }
-
-        vr.push_back(r);
-    }
 }
 
 
