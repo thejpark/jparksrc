@@ -148,6 +148,7 @@ void dna_sorting()
 
 int get_unsortedness(string& s)
 {
+    return 0;
 }
 
 
@@ -169,25 +170,24 @@ void dna_sorting2()
         vs.push_back(str);
     }
 
-    vector<pair<int, int>> pv;
-    for (int i = 0; i < num_str; ++i)
+    using dna_elem = pair<int, int>;
+    vector<dna_elem> pv;
+
+    for (int i = 0; i < vs.size(); ++i)
     {
         int r = get_unsortedness(vs[i]);
-        pv.push_back(pair(i, r));
+        pv.push_back(dna_elem(i, r));
     }
 
-
-
-    using elem = pair<int, int>;
-    auto comp = [&](elem& a, elem& b) {
-        a.second < b.second;
-    }
+    auto pred = [&](dna_elem& a, dna_elem& b) {
+        return a.second < b.second;
+    };
     
-    sort(pv.begin(), pv.end(), comp);
+    sort(pv.begin(), pv.end(), pred);
 
+    cout << "the result is" << endl;
     for (int i = 0; i < pv.size(); ++i)
         cout << vs[pv[i].first] << endl;
-
 }
 
 
