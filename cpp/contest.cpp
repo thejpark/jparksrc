@@ -158,7 +158,7 @@ int get_unsortedness(string s)
             if (s[j] > s[j + 1])
             {
                 r += 1;
-                sawp(s[j], s[j + 1]);
+                swap(s[j], s[j + 1]);
             }
             else
                 break; // we don't need to go further as it is sorted
@@ -2889,7 +2889,7 @@ void two_machine_n_jobs()
 
 int main()
 {
-    two_machine_n_jobs();
+    dna_sorting2();
 }
 
 
