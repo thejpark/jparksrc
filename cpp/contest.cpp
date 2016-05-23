@@ -146,7 +146,7 @@ void dna_sorting()
 }
 
 
-int get_unsortedness(string& s)
+int get_unsortedness(string s)
 {
     int r = 0;
     if (s.size() == 1) return 0;
