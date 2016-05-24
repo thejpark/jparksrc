@@ -2887,8 +2887,6 @@ void two_machine_n_jobs()
 }
 
 
-
-/*
 int get_weighted_sum(vector<int>& v)
 {
 
@@ -2902,6 +2900,33 @@ int get_weighted_sum(vector<int>& v)
     return r;
 }
 
+bool get_staff(int i, int j, vector<int>& v)
+{
+    int len =  j - i;
+
+    return true;
+}
+
+
+int get_st(int idx, vector<int>& v, pair<int, int>& r)
+{
+    int r1, r2, r3;
+
+    for (int j = idx + 1; j <= v.size() / 2; ++i)
+    {
+        if (get_staff(idx, j, v))
+        {
+            r1 = idx;
+            r2 = j;
+            r3 = j - idx;
+        }
+    }
+
+    r.first = r1;
+    r.second = r2;
+    return r3;
+}
+
 
 void find_staff()
 {
@@ -2909,9 +2934,32 @@ void find_staff()
 
     cin >> s;
 
+    vector<int> v;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        char c[2];
+        c[1] = 0;
+        c[0] = s[i];
+        v.push_back(atoi(c));
+    }
+        
+    pair<int, int> ret; 
+    int m_max = 0;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        pair<int, int> rv;
+        int r = get_st(i, v, rv);
+
+        if (r > m_max)
+        {
+            m_max = r;
+            ret = rv;
+        }
+    }
+
+    cout << " The result is " << rv.first << " " << rv.second << " " << m_max << endl
 }
 
-*/
 
 int main()
 {
