@@ -2887,6 +2887,32 @@ void two_machine_n_jobs()
 }
 
 
+
+/*
+int get_weighted_sum(vector<int>& v)
+{
+
+    int r = 0;
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        r += (i + 1) * v[i];
+    }
+
+    return r;
+}
+
+
+void find_staff()
+{
+    string s;
+
+    cin >> s;
+
+}
+
+*/
+
 int main()
 {
     dna_sorting2();
