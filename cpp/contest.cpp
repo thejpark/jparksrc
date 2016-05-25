@@ -2887,77 +2887,73 @@ void two_machine_n_jobs()
 }
 
 
-int get_weighted_sum(vector<int>& v)
+// 1. start with finding staff that has the same sum
+// 2. then find (from the result of 1) the weight staff
+vector<int> find_staff(vector<int>& v, int i, int len)
 {
+    int sum = v[i + len] - v[i];
 
-    int r = 0;
-
-    for (int i = 0; i < v.size(); ++i)
+    vector<int> r;
+    
+    for (int j = i + len; j < v.size() - len; ++j)
     {
-        r += (i + 1) * v[i];
+        int t = v[j + len] - v[j];
+        if (t == sum)
+            r.push_back(j);
     }
 
     return r;
 }
 
-bool get_staff(int i, int j, vector<int>& v)
+vector<int> find_match_staff(vector<int>& v, int i, int len, vector<int>& r)
 {
-    int len =  j - i;
-
-    return true;
+    vector<int> rr;
+    
+    return rr;
 }
 
 
-int get_st(int idx, vector<int>& v, pair<int, int>& r)
-{
-    int r1, r2, r3;
-
-    for (int j = idx + 1; j <= v.size() / 2; ++i)
-    {
-        if (get_staff(idx, j, v))
-        {
-            r1 = idx;
-            r2 = j;
-            r3 = j - idx;
-        }
-    }
-
-    r.first = r1;
-    r.second = r2;
-    return r3;
-}
-
-
-void find_staff()
+void staff()
 {
     string s;
 
     cin >> s;
 
     vector<int> v;
-    for (int i = 0; i < s.size(); ++i)
-    {
-        char c[2];
-        c[1] = 0;
-        c[0] = s[i];
-        v.push_back(atoi(c));
-    }
+    vector<char> vc(s.begin(), s.end());
+
+    for (auto& e: vc)
+        v.push_back(int(e - '0'));
         
-    pair<int, int> ret; 
     int m_max = 0;
-    for (int i = 0; i < v.size(); ++i)
+    vector<int> vs;
+    vs[0] = v[0];
+    for (int i = 1; i < v.size(); ++i)
     {
-        pair<int, int> rv;
-        int r = get_st(i, v, rv);
-
-        if (r > m_max)
-        {
-            m_max = r;
-            ret = rv;
-        }
+        vs[i] = v[i] + vs[i - 1];
     }
 
-    cout << " The result is " << rv.first << " " << rv.second << " " << m_max << endl
+    int max_len = v.size() / 2;
+    
+    // start with max_len first, as we will stop if we find
+    // the longest staff
+    bool found = false;
+    for (int len = max_len; len >= 1 ; --len)
+    {
+        for (int i = 0; i + len < v.size(); ++i)
+        {
+            vector<int>r = find_staff(vs, i, len);
+            vector<int> rr = find_match_staff(v, i, len, r);
+            if (rr.size() > 0)
+            {
+                found = true;
+// we found it;
+            }
+        }
+
+        if (found)
+            break;
+    }
 }
 
 
