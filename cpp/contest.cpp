@@ -12,6 +12,7 @@ http://web.stanford.edu/class/cs97si/
 #include <unordered_map>
 #include <list>
 #include <set>
+#include <stack>
 #include <algorithm>
 using namespace std;
 
@@ -2957,9 +2958,107 @@ void staff()
 }
 
 
+struct bt_node {
+    bt_node(int v) : val(v), left(nullptr), right(nullptr) {}
+    bt_node* left;
+    bt_node* right;
+    int val;
+};
+
+void  find_first_left(bt_node* n, stack<bt_node*> &ls)
+{
+    ls.push(n);
+    if (n->left)
+    {
+        return find_first_left(n->left, ls);
+    }
+    else
+    {
+        return;
+    }
+}
+
+bt_node* get_next_left(stack<bt_node*> &ls)
+{
+    if (ls.empty())
+        return nullptr;
+    bt_node* n = ls.top();
+    ls.pop();
+    if (n->right)
+        find_first_left(n->right, ls);
+    return n;
+}
+
+void find_first_right(bt_node* n, stack<bt_node*> &rs)
+{
+    rs.push(n);
+    if (n->right)
+    {
+        return find_first_right(n->right, rs);
+    }
+    else
+    {
+        return;
+    }
+}
+
+bt_node* get_next_right(stack<bt_node*> &rs)
+{
+    if (rs.empty())
+        return nullptr;
+    bt_node* n = rs.top();
+    rs.pop();
+    if (n->left)
+        find_first_right(n->left, rs);
+    return n;
+}
+
+void find_match_sum_bintree()
+{
+    bt_node a(6);
+    bt_node b(3);
+    bt_node c(8);
+    a.left = &b;
+    a.right = &c;
+
+    bt_node d(1);
+    bt_node e(4);
+    b.left = &d;
+    b.right = &e;
+
+    bt_node f(7);
+    bt_node g(12);
+    c.left = &f;
+    c.right = &g;
+
+    stack<bt_node*> ls, rs;
+
+    find_first_left(&a, ls);
+    find_first_right(&a, rs);
+
+    bt_node* left = ls.top();ls.pop();
+    bt_node* right = rs.top();rs.pop();
+
+    int match = 16;
+    
+    while (left->val < right->val) {
+        // cout << "left is " << left->val << " and right is " << right->val << endl;
+        if (left->val + right->val < match)
+            left = get_next_left(ls);
+        else if (left->val + right->val > match)
+            right = get_next_right(rs);
+        else
+        {
+            cout << "found " << left->val << " " << right->val << endl;
+            left = get_next_left(ls);
+            right = get_next_right(rs);
+        }
+    }
+}
+    
 int main()
 {
-    dna_sorting2();
+    find_match_sum_bintree();
 }
 
 
