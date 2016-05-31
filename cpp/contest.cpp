@@ -3117,7 +3117,7 @@ int get_btr(int r)
     while (r > i)
     {
         int x = get_ones(r - i);
-        if (x >= num)
+        if (x == num)
             return (r - i);
         i = i * 2;
     }
