@@ -3152,6 +3152,95 @@ void beauty_number()
     cout <<"winner is " << winner << endl;
 }
 
+/*
+Your task is to decode messages that are encoded with substitution ciphers. In a substitution cipher, all occurrences of a character are replaced by a different character. For example, in a cipher that replaces "a" with "d" and "b" with "e", the message "abb" is encoded as "dee".
+
+The exact character mappings that are used in the substitution ciphers will not be known to you. However, the dictionary of words that were used will be given. You will be given multiple encoded messages to decode (one per line) and they may use different substitution ciphers. The same substitution cipher is used on all of the words in a particular message.
+
+For each scrambled message in the input, your program should output a line with the input line, followed by the string " = " (without the quotes), followed by the decoded message.
+
+Example:
+
+input file:
+
+//dict
+
+hello
+
+there
+
+yello
+
+thorns
+
+//secret
+
+12334 51272
+
+12334 514678
+
+output:
+
+12334 51272 = hello there
+
+12334 514678 = hello thorns
+*/
+
+
+struct dcpr {
+    dcpr_msg(string m) : msg(m), visited(false) {}
+    string msg;
+    bool visited;
+};
+
+bool match_dcpr(dcpr& a, dcpr&b)
+{
+    if (a.msg.size() != b.msg.size())
+        return false;
+    
+
+}
+
+void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va)
+{
+    if (i == vb.size())
+    {
+
+        // print result
+        return;
+    }
+
+    for (auto& e : vb)
+    {
+        if (e.visited)
+            continue;
+        e.visited = true;
+
+        for (auto& a : va)
+        {
+            if (a.visited)
+                continue;
+            if (!dcpr_match(e, a))
+                continue;
+            a.visited = true;
+            proc_dcpr(i + 1, vb, va);
+            a.visited = false;
+        }
+        e.visited = false;
+    }
+
+}
+
+void decipher()
+{
+    vector<dcpr> va = {"hello", "there", "yello", "thorns"};
+    vector<dcpr> vb1 = {"12334", "51272"};
+    vector<dcpr> vb2 = {"12334", "514678"};
+    
+    proc_dcpr(0, vb1, va);
+    proc_dcpr(0, vb2, va); 
+}
+
 
     
 int main()
