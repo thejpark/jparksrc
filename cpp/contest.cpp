@@ -3188,25 +3188,55 @@ output:
 
 
 struct dcpr {
-    dcpr_msg(string m) : msg(m), visited(false) {}
+    dcpr(const char* m) : msg(m), visited(false) {}
     string msg;
     bool visited;
 };
 
-bool match_dcpr(dcpr& a, dcpr&b)
+bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
 {
-    if (a.msg.size() != b.msg.size())
-        return false;
+    cout << "match " << a.msg << " " << b.msg << " ";
+    if (a.msg.size() != b.msg.size()) {
+        cout << "false 1" << endl; 
+           return false;
+    }
     
+    for (int i = 0; i < a.msg.size(); ++i)
+    {
+        char c = a.msg[i];
+        if (cmap.find(c) != cmap.end())
+        {
+            if (cmap[c] != b.msg[i])
+            {
+                cout << "false 2" << endl; 
+                return false;
+            }
+        }
+        else
+        {
+            cmap[c] = b.msg[i];
+        }
 
+    }
+
+                
+    cout << "true" << endl; 
+    return true;
 }
 
-void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va)
+void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va, map<char, char>& cmap)
 {
+    cout << "proc with i " << i << endl;
     if (i == vb.size())
     {
-
-        // print result
+        cout << "found" << endl;
+        for (auto& ee : vb)
+        {
+            cout << ee.msg << " = " ;
+            for (int k = 0; k < ee.msg.size(); ++k)
+                ee.msg[k] = cmap[ee.msg[k]];
+            cout << ee.msg << endl;
+        }
         return;
     }
 
@@ -3220,10 +3250,10 @@ void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va)
         {
             if (a.visited)
                 continue;
-            if (!dcpr_match(e, a))
+            if (!dcpr_match(e, a, cmap))
                 continue;
             a.visited = true;
-            proc_dcpr(i + 1, vb, va);
+            proc_dcpr(i + 1, vb, va, cmap);
             a.visited = false;
         }
         e.visited = false;
@@ -3236,16 +3266,20 @@ void decipher()
     vector<dcpr> va = {"hello", "there", "yello", "thorns"};
     vector<dcpr> vb1 = {"12334", "51272"};
     vector<dcpr> vb2 = {"12334", "514678"};
-    
-    proc_dcpr(0, vb1, va);
-    proc_dcpr(0, vb2, va); 
+
+    map<char, char> cmap;
+
+    proc_dcpr(0, vb1, va, cmap);
+
+    cmap.clear();
+    proc_dcpr(0, vb2, va, cmap); 
 }
 
 
     
 int main()
 {
-    beauty_number();
+    decipher();
 }
 
 
