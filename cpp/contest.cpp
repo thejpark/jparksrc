@@ -3288,9 +3288,8 @@ void decipher()
 
 
 struct stk_node {
-    stk_node(string ss) : s(ss), leaf(true) {}
+    stk_node(string ss) : s(ss) {}
     string s;
-    bool leaf;
 };
 
 
@@ -3310,43 +3309,33 @@ string remove_parenthesis(string str)
         else
         {
             string s;
-            bool non_leaf_found = false;
-            while (stk.top().s[0] != '(')
+            int count = 0;
+
+            while (stk.top().s != "(")
             {
                 stk_node sn = stk.top();
-                if (sn.leaf)
-                    s += sn.s;
-                else
-                {
-                    s += "(" + sn.s + ")";
-                    non_leaf_found = true;
-                }
+                s += sn.s;
+                count++;
                 stk.pop();
             }
 
             // remove '('
             stk.pop();
 
-            if (s.size() > 1 || non_leaf_found)
-            {
-                stk_node sn(s);
-                sn.leaf = false;
-                stk.push(sn);
-            }
-            else if (s.size() == 1)
-            {
-                stk_node sn(s);
-                stk.push(sn);
-            }
-            else
-            {
-            }
+            if (count == 0)
+                continue;
+                  
+            if (count > 1)
+                s = "(" + s + ")";
+                
+            stk_node sn(s);
+            stk.push(sn);
         }
 
     }
 
-
-    return stk.top().s;
+    string r = string(stk.top().s.begin() + 1, stk.top().s.end() - 1);
+    return r;
 }
 
 
