@@ -3343,11 +3343,47 @@ void test_remove_par()
 }
 
 
+void set_of_k_elem(int idx, vector<int>& vi, vector<int>& vr, int k)
+{
+    if (vr.size() == k)
+    {
+        cout << "{" ;
+        for (auto e : vr)
+            cout << e << " ";
+        cout << "}" << endl ;
+    }
+    for (int i = idx; i < vi.size(); ++i)
+    {
+        vr.push_back(vi[i]);
+        set_of_k_elem(i + 1, vi, vr, k);
+        vr.pop_back();
+    }
+
+}
+
+void test_set_of_k_elem()
+{
+
+    int k, t;
+    vector<int> vi;
+
+    cin >> t >> k;
+
+    for (int i = 0; i < t; ++i)
+    {
+        int tt;
+        cin >> tt;
+        vi.push_back(tt);
+    }
+
+    vector<int> vr;
+    set_of_k_elem(0, vi, vr, k);
+}
 
     
 int main()
 {
-    test_remove_par();
+    test_set_of_k_elem();
 }
 
 
