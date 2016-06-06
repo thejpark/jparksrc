@@ -3287,16 +3287,9 @@ void decipher()
 */
 
 
-struct stk_node {
-    stk_node(string ss) : s(ss) {}
-    string s;
-};
-
-
 string remove_parenthesis(string str)
 {
-    stack<stk_node> stk;
-    vector<stk_node> vs;
+    stack<string> stk;
 
     for (auto c : str)
     {
@@ -3304,17 +3297,16 @@ string remove_parenthesis(string str)
         if (c != ')')
         {
             string ss(1, c);
-            stk.push(stk_node(ss));
+            stk.push(ss);
         }
         else
         {
             string s;
             int count = 0;
 
-            while (stk.top().s != "(")
+            while (stk.top() != "(")
             {
-                stk_node sn = stk.top();
-                s += sn.s;
+                s += stk.top();
                 count++;
                 stk.pop();
             }
@@ -3328,13 +3320,12 @@ string remove_parenthesis(string str)
             if (count > 1)
                 s = "(" + s + ")";
                 
-            stk_node sn(s);
-            stk.push(sn);
+            stk.push(s);
         }
 
     }
 
-    string r = string(stk.top().s.begin() + 1, stk.top().s.end() - 1);
+    string r = string(stk.top().begin() + 1, stk.top().end() - 1);
     return r;
 }
 
