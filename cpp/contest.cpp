@@ -3276,10 +3276,98 @@ void decipher()
 }
 
 
+
+/*
+
+  remove unnecessary parenthesis from an explression
+
+  (((( a + b)) c )) -> (a + b) c
+  ((a) + (b)) -> a + b
+
+*/
+
+
+struct stk_node {
+    stk_node(string ss) : s(ss), leaf(true) {}
+    string s;
+    bool leaf;
+};
+
+
+string remove_parenthesis(string str)
+{
+    stack<stk_node> stk;
+    vector<stk_node> vs;
+
+    for (auto c : str)
+    {
+
+        if (c != ')')
+        {
+            string ss(1, c);
+            stk.push(stk_node(ss));
+        }
+        else
+        {
+            string s;
+            bool non_leaf_found = false;
+            while (stk.top().s[0] != '(')
+            {
+                stk_node sn = stk.top();
+                if (sn.leaf)
+                    s += sn.s;
+                else
+                {
+                    s += "(" + sn.s + ")";
+                    non_leaf_found = true;
+                }
+                stk.pop();
+            }
+
+            // remove '('
+            stk.pop();
+
+            if (s.size() > 1 || non_leaf_found)
+            {
+                stk_node sn(s);
+                sn.leaf = false;
+                stk.push(sn);
+            }
+            else if (s.size() == 1)
+            {
+                stk_node sn(s);
+                stk.push(sn);
+            }
+            else
+            {
+            }
+        }
+
+    }
+
+
+    return stk.top().s;
+}
+
+
+
+void test_remove_par()
+{
+    string s;
+    cin >> s;
+
+    string r = remove_parenthesis(s);
+
+    cout << "the result is " << r << endl;
+
+}
+
+
+
     
 int main()
 {
-    decipher();
+    test_remove_par();
 }
 
 
