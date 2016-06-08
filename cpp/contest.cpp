@@ -3195,9 +3195,9 @@ struct dcpr {
 
 bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
 {
-    cout << "match " << a.msg << " " << b.msg << " ";
+    // cout << "match " << a.msg << " " << b.msg << " ";
     if (a.msg.size() != b.msg.size()) {
-        cout << "false 1" << endl; 
+        // cout << "false 1" << endl; 
            return false;
     }
     
@@ -3208,34 +3208,36 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
         {
             if (cmap[c] != b.msg[i])
             {
-                cout << "false 2" << endl; 
+                // cout << "false 2" << endl; 
                 return false;
             }
         }
-        else
-        {
-            cmap[c] = b.msg[i];
-        }
-
     }
 
-                
-    cout << "true" << endl; 
+    // update cmap
+    for (int i = 0; i < a.msg.size(); ++i)
+    {
+        char c = a.msg[i];
+        cmap[c] = b.msg[i];
+    }
+    
+    // cout << "true" << endl; 
     return true;
 }
 
 void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va, map<char, char>& cmap)
 {
-    cout << "proc with i " << i << endl;
+    // cout << "proc with i " << i << endl;
     if (i == vb.size())
     {
         cout << "found" << endl;
         for (auto& ee : vb)
         {
             cout << ee.msg << " = " ;
+            string ss;
             for (int k = 0; k < ee.msg.size(); ++k)
-                ee.msg[k] = cmap[ee.msg[k]];
-            cout << ee.msg << endl;
+                ss.push_back(cmap[ee.msg[k]]);
+            cout << ss << endl;
         }
         return;
     }
@@ -3383,7 +3385,7 @@ void test_set_of_k_elem()
     
 int main()
 {
-    test_set_of_k_elem();
+    decipher();
 }
 
 
