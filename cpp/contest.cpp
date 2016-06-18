@@ -3403,6 +3403,7 @@ string bin_add(string& s1, string& s2)
         string r = (t % 2)? "1" : "0";
         s3 = r + s3;
         
+        // this is important. always check the last element.
         if (i == (len - 1) && carry)
             s3 = "1" + s3;
     }
