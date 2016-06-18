@@ -3382,10 +3382,49 @@ void test_set_of_k_elem()
     set_of_k_elem(0, vi, vr, k);
 }
 
-    
+int gget (string& s, int idx)
+{
+    if (idx >= s.size())
+        return 0;
+
+    return s[s.size() - 1 - idx] - '0';
+}
+   
+string bin_add(string& s1, string& s2)
+{
+    int len = max(s1.size(), s2.size());
+    string s3;
+    int carry = 0;
+   
+    for (int i = 0; i < len; ++i)
+    {
+        int t = carry + gget(s1, i) + gget(s2, i);
+        carry = t / 2;
+        string r = (t % 2)? "1" : "0";
+        s3 = r + s3;
+        
+        if (i == (len - 1) && carry)
+            s3 = "1" + s3;
+    }
+
+    return s3;
+}
+
+
+void bin_string_add()
+{
+    string s1, s2;
+    cin >> s1 >> s2;
+
+    string r = bin_add(s1, s2);
+
+    cout << r << endl;
+}
+
+
 int main()
 {
-    decipher();
+    bin_string_add();
 }
 
 
