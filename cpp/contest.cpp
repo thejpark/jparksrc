@@ -3423,9 +3423,28 @@ void bin_string_add()
 }
 
 
+
+
+void add_without_plus()
+{
+    int a, b;
+    cin >> a >> b;
+
+    int carry = 0;
+
+    do {
+        carry = a & b;
+        b = a ^ b;
+        a = carry << 1;
+    } while (carry != 0);
+
+    cout << "the  result is " << b;
+
+}
+
 int main()
 {
-    bin_string_add();
+    add_without_plus();
 }
 
 
