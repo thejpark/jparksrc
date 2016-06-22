@@ -2015,12 +2015,53 @@ void t132()
 }
 
 
+void test_merge_array()
+{
+
+    vector<int> a(10);
+    vector<int> b = {1, 2, 7, 9, 11};
+
+    int x[] = {3, 4, 5, 6, 8};
+    
+    for (int i = 0; i < 5; ++i)
+        a[i] = x[i];
+        
+    auto first1 = a.begin();
+    auto last1 = a.begin() + 5;
+    auto first2 = b.begin();
+    auto last2 = b.end();
+    auto ret = a.end();
+    
+    while (true)
+    {
+        if (first1 == last1)
+        {
+            copy(first2, last2, first1);
+            break;
+        }
+        else if (first2 == last2)
+        {
+            break;
+        }
+        else
+        {
+            *(--ret) = *(last1 - 1) > *(last2 -1) ? *(--last1) : *(--last2);
+        }
+    }
+
+    for (auto e : a)
+        cout << e << " ";
+
+    cout << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    t131();
+    test_merge_array();
 }
 
