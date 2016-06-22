@@ -1960,6 +1960,22 @@ void largest_sum()
     }
             
     cout << "the result is " << max_x << endl;
+
+
+    // use array computation
+    vector<int> r(vi.size());
+
+    r[vi.size() - 1] = vi[vi.size() -1];
+
+    max_x = r[vi.size() - 1];
+    for (int i = vi.size() - 2; i >= 0; --i)
+    {
+        r[i] = max (vi[i], vi[i] + r[i + 1]);
+        if (r[i] > max_x)
+            max_x = r[i];
+    }
+
+    cout << "the result is " << max_x << endl;
 }
 
 
@@ -3444,7 +3460,7 @@ void add_without_plus()
 
 int main()
 {
-    add_without_plus();
+    largest_sum();
 }
 
 
