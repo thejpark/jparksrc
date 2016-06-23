@@ -2015,6 +2015,8 @@ void t132()
 }
 
 
+// merge to arrays into one, one with N + M size (N filled) and the other is M.
+// Merge into N + M size array.
 void test_merge_array()
 {
 
