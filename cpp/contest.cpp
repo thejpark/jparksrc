@@ -3466,30 +3466,37 @@ int gmbs_get(vector<int>& vs, int beg, int len)
 }
 
 
-int gmbs_rec(vector<int>&vs, int beg, int len)
+pair<int, int> max_p(pair<int, int> a, pair<int, int> b)
+{
+    if (a.first > b.first)
+        return a;
+    return b;
+}
+
+pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
 {
     if ((len % 2) == 0)
     {
         if (gmbs_get(vs, beg, len) == len / 2)
         {
-            return len;
+            return pair<int, int>(len, beg);
         }
         else
         {
-            return max(
-                max(gmbs_rec(vs, beg, len - 2),
+            return max_p(
+                max_p(gmbs_rec(vs, beg, len - 2),
                     gmbs_rec(vs, beg + 1, len - 2)),
                 gmbs_rec(vs, beg + 2, len - 2));
         }
     }
     else 
     {
-        return max(gmbs_rec(vs, beg, len - 1),
+        return max_p(gmbs_rec(vs, beg, len - 1),
                    gmbs_rec(vs, beg + 1, len - 1));
     }
 }
 
-int gmbs(vector<int>& v)
+pair<int, int> gmbs(vector<int>& v)
 {
     vector<int> vs(v.size());
     vs[0] = v[0];
@@ -3506,8 +3513,13 @@ void get_max_bin_subsequence()
     vector<int> v1 = {1,0,1,0,1,0,1,0};
     vector<int> v2 = {1,1,0,1,0,0,0};
     
-    cout << gmbs(v1) << " " << endl;
-    cout << gmbs(v2) << " " << endl;
+    pair<int, int> r;
+
+    r = gmbs(v1);
+    cout << r.first << " " << r.second << endl;
+
+    r = gmbs(v2);
+    cout << r.first << " " << r.second << endl;
 }
 
 
