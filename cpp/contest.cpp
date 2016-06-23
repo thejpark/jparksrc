@@ -3438,6 +3438,77 @@ void bin_string_add()
     cout << r << endl;
 }
 
+/*
+  u are given an array containing 0s and 1s. Give an O(n) time algorithm to 
+find the maximum contiguous sub sequence which has equal number of 1s and 0s.
+
+Examples
+
+1) 10101010
+
+The longest contiguous sub sequence that satisfies the problem is the input itself
+
+2)1101000
+
+The longest sub sequence that satisfies the problem is 110100
+*/
+
+int gmbs_get(vector<int>& vs, int beg, int len)
+{
+    if (len == 0)
+        return 0;
+    int j = beg + len - 1;
+
+    if (beg == 0)
+        return vs[j];
+    else
+        return vs[j] - vs[beg - 1];
+}
+
+
+int gmbs_rec(vector<int>&vs, int beg, int len)
+{
+    if ((len % 2) == 0)
+    {
+        if (gmbs_get(vs, beg, len) == len / 2)
+        {
+            return len;
+        }
+        else
+        {
+            return max(
+                max(gmbs_rec(vs, beg, len - 2),
+                    gmbs_rec(vs, beg + 1, len - 2)),
+                gmbs_rec(vs, beg + 2, len - 2));
+        }
+    }
+    else 
+    {
+        return max(gmbs_rec(vs, beg, len - 1),
+                   gmbs_rec(vs, beg + 1, len - 1));
+    }
+}
+
+int gmbs(vector<int>& v)
+{
+    vector<int> vs(v.size());
+    vs[0] = v[0];
+    for (int i = 1; i < v.size(); ++i)
+    {
+        vs[i] = vs[i - 1] + v[i];
+    }
+    
+    return gmbs_rec(vs, 0, vs.size());
+}
+
+void get_max_bin_subsequence()
+{
+    vector<int> v1 = {1,0,1,0,1,0,1,0};
+    vector<int> v2 = {1,1,0,1,0,0,0};
+    
+    cout << gmbs(v1) << " " << endl;
+    cout << gmbs(v2) << " " << endl;
+}
 
 
 
@@ -3460,7 +3531,7 @@ void add_without_plus()
 
 int main()
 {
-    largest_sum();
+    get_max_bin_subsequence();
 }
 
 
