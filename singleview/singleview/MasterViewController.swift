@@ -204,9 +204,23 @@ class Elem: NSObject, NSCoding {
         
         for e in hy {
             r += ohangHanja[e]!
+            r += " "
         }
-        r += " 입니다"
+        r += "입니다"
         return r
+    }
+
+    func isBarumInHeeYong() -> Bool {
+        
+        for i in 0...self.givenName1.characters.count - 1 {
+            let index = self.givenName1.startIndex.advancedBy(i)
+            let i = getBarumOhangIndex(String(self.givenName1[index]))
+            if hy.contains(i) {
+                return true
+            }
+        }
+
+        return false
     }
     
     func getHelpOhang() -> String {

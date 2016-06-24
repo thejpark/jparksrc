@@ -55,7 +55,12 @@ class DetailViewController: UIViewController {
             }
             if let barum = self.barum {
                 barum.text = detail.getBarumOhang()
-                barumend.text = "입니다"
+                if (detail.isBarumInHeeYong()) {
+                    barumend.text = "이며 사주에 부족한 오행을 보충합니다"
+                }
+                else {
+                    barumend.text = "입니다"
+                }
             }
             if let maininfo = self.maininfo {
                 maininfo.layer.masksToBounds = true

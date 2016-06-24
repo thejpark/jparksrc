@@ -15,9 +15,14 @@ class SavedDetailViewController: UIViewController {
     @IBOutlet weak var dob: UILabel!
     @IBOutlet weak var ilgangangyag: UILabel!
     @IBOutlet weak var jawonohang: UILabel!
+    @IBOutlet weak var jawonohangend: UILabel!
+    @IBOutlet weak var umyang: UILabel!
+    @IBOutlet weak var umyangend: UILabel!
     @IBOutlet weak var heeyong: UILabel!
-    @IBOutlet weak var helpohang: UILabel!
-
+    @IBOutlet weak var maininfo: UILabel!
+    @IBOutlet weak var barum: UILabel!
+    @IBOutlet weak var barumend: UILabel!
+    
     
     var detailItem: Elem?
     
@@ -38,15 +43,32 @@ class SavedDetailViewController: UIViewController {
             }
             if let jawonohang = self.jawonohang {
                 jawonohang.text = detail.getJaWonOHang()
+                jawonohangend.text = "사주의 부족한 오행을 보충합니다"
+            }
+            if let umyang = self.umyang {
+                umyang.text = detail.getUmYang()
+                umyangend.text = "음(짝수) 양(홀수) 조화를 이룹니다"
             }
             if let heeyong = self.heeyong {
                 heeyong.text = detail.getHeeYong()
             }
-            if let helpohang = self.helpohang {
-                helpohang.text = detail.getHelpOhang()
+            if let barum = self.barum {
+                barum.text = detail.getBarumOhang()
+                if (detail.isBarumInHeeYong()) {
+                    barumend.text = "이며 사주에 부족한 오행을 보충합니다"
+                }
+                else {
+                    barumend.text = "입니다"
+                }
+            }
+            if let maininfo = self.maininfo {
+                maininfo.layer.masksToBounds = true
+                maininfo.layer.cornerRadius = 5
             }
             
         }
+        
+        
     }
     
     override func viewDidLoad() {
