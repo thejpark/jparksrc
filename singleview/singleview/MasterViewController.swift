@@ -140,7 +140,7 @@ class Elem: NSObject, NSCoding {
         r += " ("
         for i  in 0...(givenName.count - 1) {
             r += givenName[i].1
-            r += "(" + String(givenName[i].2) + "획)"
+            // r += "(" + String(givenName[i].2) + "획)"
             if (i != givenName.count - 1) {
                 r += ", "
             }
@@ -162,47 +162,50 @@ class Elem: NSObject, NSCoding {
     }
     
     func getJaWonOHang() -> String {
-        var r: String = "자원: "
+        var r: String = "이름 글자의 자원오행이 "
         
         for i  in 0...(givenName.count - 1) {
             r += " " + ohangHanja[givenName[i].3]!
         }
         
-        return r + "  " + getBarumOhang()
+        r += " 으로"
+        return r
     }
     
     func getUmYang() -> String {
-        var r: String = "음양: "
+        var r: String = "성과 이름이 각각 "
+        
+        var s = 0
+        for i in 0...(surName.count - 1) {
+            s += surName[i].2
+        }
+        r += String(s) + "획 "
         
         for i  in 0...(givenName.count - 1) {
-            if (givenName[i].2 % 2) == 0 {
-                r += " 음"
-            }
-            else {
-                r += " 양"
-            }
+            r += String(givenName[i].2) + "획 "
         }
         
-        return r
+        return r + "으로"
     }
 
     
     func getIlganGangYag() -> String {
-        var r: String = "일간: "
+        var r: String = "사주의 기준이 되는 오행은 "
         r += ohangHanja[self.ilganGangYag.0]!
-        r += " " + String(self.ilganGangYag.1)
-        r += " 극: "
-        r += ohangHanja[self.ilganGangYag.2]!
-        r += " " + String(self.ilganGangYag.3)
+        r += " 입니다" // + String(self.ilganGangYag.1)
+//        r += " 극: "
+//        r += ohangHanja[self.ilganGangYag.2]!
+//        r += " " + String(self.ilganGangYag.3)
         return r
     }
     
     func getHeeYong() -> String {
-        var r: String = "희용: "
+        var r: String = "사주에 부족한 오행은 "
         
         for e in hy {
             r += ohangHanja[e]!
         }
+        r += " 입니다"
         return r
     }
     
@@ -216,7 +219,7 @@ class Elem: NSObject, NSCoding {
     }
     
     func getBarumOhang() -> String {
-        var r: String = "발음:"
+        var r: String = "참고로 이름 글자의 발음오행은 "
         for i in 0...self.givenName1.characters.count - 1 {
             let index = self.givenName1.startIndex.advancedBy(i)
             r += ohangHanja[getBarumOhangIndex(String(self.givenName1[index]))]!
