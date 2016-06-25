@@ -22,3 +22,11 @@ class BorderedButton: UIButton {
         setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
     }
 }
+
+class RoundedLabel: UILabel {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 5
+    }
+}

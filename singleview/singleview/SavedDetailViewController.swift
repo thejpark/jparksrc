@@ -19,7 +19,6 @@ class SavedDetailViewController: UIViewController {
     @IBOutlet weak var umyang: UILabel!
     @IBOutlet weak var umyangend: UILabel!
     @IBOutlet weak var heeyong: UILabel!
-    @IBOutlet weak var maininfo: UILabel!
     @IBOutlet weak var barum: UILabel!
     @IBOutlet weak var barumend: UILabel!
     
@@ -61,11 +60,6 @@ class SavedDetailViewController: UIViewController {
                     barumend.text = "입니다"
                 }
             }
-            if let maininfo = self.maininfo {
-                maininfo.layer.masksToBounds = true
-                maininfo.layer.cornerRadius = 5
-            }
-            
         }
         
         
