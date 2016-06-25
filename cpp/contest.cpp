@@ -3575,4 +3575,6 @@ int main()
 
 /*
 start: get an idea by examples, design, implement next, optimize or debug last
+end: if there is a loop, then check end condition - what happens at the end of
+of the loop. If carry is left at the end of the loop?
 */
