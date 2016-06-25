@@ -2,6 +2,7 @@
 http://web.stanford.edu/class/cs97si/
 */
 
+#include <assert.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -3541,9 +3542,34 @@ void add_without_plus()
 
 }
 
+void test_set()
+{
+    set<set<int>> ss;
+
+    set<int> s1 = {1, 2};
+    set<int> s2 = {1, 2};
+
+    ss.insert(s1);
+    ss.insert(s2);
+
+    assert(1 == ss.size());
+
+
+    set<vector<int>> ls;
+
+    vector<int> l1 = {1, 2};
+    vector<int> l2 = {1, 2};
+
+    ls.insert(l1);
+    ls.insert(l2);
+
+    assert(1 == ls.size());
+}
+
+
 int main()
 {
-    get_max_bin_subsequence();
+    test_set();
 }
 
 
