@@ -53,10 +53,12 @@ class MainViewController: UIViewController {
         }
 
         
+/*
         self.settings.title = NSString(string: "\u{2699}") as String
         if let font = UIFont(name: "Helvetica", size: 18.0) {
             self.settings.setTitleTextAttributes([NSFontAttributeName: font], forState: UIControlState.Normal)
         }
+ */
 
     }
     
@@ -185,10 +187,15 @@ class MainViewController: UIViewController {
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showTTS" {
+        if segue.identifier == "showOhang" {
             
 
         }
+        else if segue.identifier == "showTheories" {
+            
+            
+        }
+
     }
  
     
