@@ -111,6 +111,9 @@ class PopUpViewController: UIViewController {
 
         defaults.synchronize()
         
+        // clear previously stored names
+        clearElem()
+        
         navigationController?.popToRootViewControllerAnimated(true)
     }
 }

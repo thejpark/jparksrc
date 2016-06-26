@@ -185,7 +185,7 @@ class MainViewController: UIViewController {
         self.showViewController(vc as SavedViewTableController, sender: vc)
     }
 
-    
+    /*
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showOhang" {
             
@@ -197,7 +197,7 @@ class MainViewController: UIViewController {
         }
 
     }
- 
+ */
     
     let male: [String] = ["민준","서준","주원","하준","예준","준우","도윤","지후","준서","지호","서진"]
     let female: [String] = ["서윤","서연","민서","지우","지민","서진","지아","지우","지유","하윤","하은","서현","지원"]
