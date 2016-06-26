@@ -3583,10 +3583,46 @@ void test_set()
     assert(1 == ls.size());
 }
 
+/*
+Given an in nite number of quarters (25 cents), dimes (10 cents), 
+nickels (5 cents) and pennies (1 cent), write code to calculate the 
+number of ways of representing n cents 
+*/
+
+int makeChange(int n, int denom) { 
+    int next_denom = 0;
+    
+    switch (denom) {
+    case 25:
+        next_denom = 10;
+        break;
+    case 10:
+        next_denom = 5;
+        break;
+    case 5:
+        next_denom = 1;
+        break;
+    case 1: // when it comes here, you always find solution.
+        return 1;
+    }
+
+    int ways = 0;
+    
+    for(int i=0;i*denom<=n;i++)
+    {
+        ways += makeChange(n - i * denom, next_denom); 
+    }
+    return ways; 
+}
+
+void test_denom()
+{
+    cout << makeChange(16, 25) << endl;
+}
 
 int main()
 {
-    test_set();
+    test_denom();
 }
 
 
