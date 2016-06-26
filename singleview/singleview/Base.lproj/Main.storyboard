@@ -37,7 +37,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="20" y="136" width="141" height="36"/>
+                                <rect key="frame" x="20" y="179" width="141" height="36"/>
                                 <color key="backgroundColor" red="0.10699782162526808" green="0.11682889647523066" blue="0.51677028795811508" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,7 +49,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="164" y="97" width="141" height="36"/>
+                                <rect key="frame" x="164" y="140" width="141" height="36"/>
                                 <color key="backgroundColor" red="0.60910912958115171" green="0.16728455252974184" blue="0.557929735648372" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,7 +61,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="164" y="136" width="141" height="36"/>
+                                <rect key="frame" x="164" y="179" width="141" height="36"/>
                                 <color key="backgroundColor" red="0.85004908376963351" green="0.49619000173344557" blue="0.081718940955254254" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -73,7 +73,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="20" y="97" width="141" height="36"/>
+                                <rect key="frame" x="20" y="96" width="285" height="36"/>
                                 <color key="backgroundColor" red="0.08829820536245625" green="0.4157599803664922" blue="0.41304176273439996" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -84,38 +84,23 @@
                                     <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4G-SX-MWB" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="47" y="236" width="238" height="36"/>
-                                <color key="backgroundColor" red="0.41575998040000001" green="0.10170528327543241" blue="0.28098894873822078" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-bz-a7a" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="20" y="140" width="141" height="36"/>
+                                <color key="backgroundColor" red="0.5118275039404514" green="0.3036538699245987" blue="0.72005890052356025" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="작명과 음양오행">
+                                <state key="normal" title="인명 한자">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="QPU-J0-L6f" kind="show" id="aZM-KN-jkd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-0t-Huf" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="47" y="291" width="238" height="36"/>
-                                <color key="backgroundColor" red="0.41575998040000001" green="0.35359525031807054" blue="0.3006969849747293" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title=" 여러 가지 작명 이론">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="SbQ-Na-Img" kind="show" id="YRo-Ht-KtN"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Reset" width="137" id="L9H-Dr-txb">
+                        <barButtonItem title="도움말" width="137" id="L9H-Dr-txb">
                             <connections>
-                                <action selector="clearInfo:" destination="sgv-xB-FRN" id="6Lh-zh-JPl"/>
+                                <segue destination="QPU-J0-L6f" kind="show" id="HBe-0r-zdN"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title=" 저장목록" width="160" id="PZf-t1-eln">
@@ -125,9 +110,6 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Home" id="eDg-Gu-2JI"/>
-                    <connections>
-                        <outlet property="settings" destination="L9H-Dr-txb" id="TzD-RT-bzY"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -145,10 +127,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MIb-8W-oG6">
-                                <rect key="frame" x="7" y="72" width="304" height="367"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIb-8W-oG6">
+                                <rect key="frame" x="7" y="72" width="304" height="406"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.    오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다. 자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하고, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다.     쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다. 작명시 발음의 음양을 보는 경우도 있으나, 근거가 없다고 알려져 있습니다. </mutableString>
+                                <mutableString key="text">오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.    오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다. 자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하고, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다.     쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다. 작명시 발음의 음양을 보는 경우도 있으나, 근거가 없다고 알려져 있습니다. 또한 수리오행, 81수리, 그리고 삼원오행 등도 근거가 없는 것으로  알려져 있습니다.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -159,33 +141,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75D-R5-WQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="223" y="-779"/>
-        </scene>
-        <!--여러 가지 작명 이론-->
-        <scene sceneID="hai-02-gEz">
-            <objects>
-                <viewController title="여러 가지 작명 이론" id="SbQ-Na-Img" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="A3i-6l-LUr"/>
-                        <viewControllerLayoutGuide type="bottom" id="pGu-Xz-ImC"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="eFJ-A9-r3c">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jsV-RI-g4Z">
-                                <rect key="frame" x="7" y="72" width="280" height="317"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">오늘날 이름학에서 여러가지 학설이 존재합니다. 다음의 학설들은 근거나 설득력이 부족하며 혼란스러운 내용이라는 것이 저자의 견해입니다. 쉬운 작명에서는 채택하지 않았습니다.   수리오행: 이름의 글자를 획수에 따라서 오행으로 분류한 후 사용합니다.   81 수리: 이름 각 글자의 획수를 세어 원격(초년운), 형격(청장년운), 이격(말년운), 정격 (전체운) 의 4격수리로 따진 후 이것을 다시 81가지로 세분합니다. 81 수리는 믿을 수 없다는 것이 다수 의견입니다.  삼원오행: 위의 두 방식과 비슷합니다. 이격, 형격, 원격의 수리오행의 상호관계를 통해서 작명을 하는 방법입니다. </mutableString>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="avh-R9-yeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="247" y="-227"/>
         </scene>
         <!--Pop Up View Controller-->
         <scene sceneID="nJ1-FU-vuG">
