@@ -3620,9 +3620,42 @@ void test_denom()
     cout << makeChange(16, 25) << endl;
 }
 
+
+
+int lsna(int i, vector<int>& v)
+{
+    if (i >= v.size())
+        return 0;
+
+    return max(v[i] + lsna(i + 2, v),
+               lsna(i + 1, v));
+}
+
+void largest_sum_no_adjcent()
+{
+
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        
+        v.push_back(t);
+    }
+
+    int r = lsna(0, v);
+
+    cout << r << endl;
+}
+
+
 int main()
 {
-    test_denom();
+    largest_sum_no_adjcent();
 }
 
 
