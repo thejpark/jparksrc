@@ -30,3 +30,12 @@ class RoundedLabel: UILabel {
         self.layer.cornerRadius = 5
     }
 }
+
+class RoundedBorderLabel: UILabel {
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            self.layer.masksToBounds = true
+            self.layer.cornerRadius = 5
+            self.layer.borderWidth = 1.0
+        }
+}
