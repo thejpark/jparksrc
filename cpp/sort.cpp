@@ -1,56 +1,38 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
-
-
 vector<int>
-merge(const vector<int>& a, const vector<int>& b)
+msort(vector<int>::iterator beg, vector<int>::iterator end)
 {
-    typedef vector<int>::const_iterator iter;
-    iter ia = a.begin();
-    iter ib = b.begin();
-    vector<int> res;
+    if (end - beg <= 1)
+        return vector<int>(beg, end);
 
-    while (ia != a.end() && ib != b.end()) {
-        if (*ia > *ib)
-            res.push_back(*ib++);
-        else if (*ia < *ib)
-            res.push_back(*ia++);
-        else {
-            res.push_back(*ia++);
-            res.push_back(*ib++);
-        }
-    }
+    auto i = beg + (end - beg) / 2;
 
-    if (ia == a.end())
-        copy(ib, b.end(), back_inserter(res));
-    else if (ib == b.end())
-        copy(ia, a.end(), back_inserter(res));
-    
-    return res;
-}
-
-vector<int>
-msort(vector<int> va)
-{
-    if (va.size() <= 1)
-        return va;
-
-    typedef vector<int>::iterator iter;
-
-    iter i = va.begin() + (va.end() - va.begin()) / 2;
-
-    vector<int> a(va.begin(), i);
-    vector<int> b(i, va.end()); // it should be i, not i + 1. 
-
-    vector<int> ra = msort(a);
-    vector<int> rb = msort(b);
-    vector<int> r = merge(ra,rb);
+    vector<int> ra = msort(beg, i);
+    vector<int> rb = msort(i, end);
+    vector<int> r;
+    merge(ra.begin(), ra.end(), rb.begin(), rb.end(), back_inserter(r));
 
     return r;
 }
+
+void msort2(vector<int>::iterator beg, vector<int>::iterator end)
+{
+    if (end - beg <= 1)
+        return;
+
+    auto i = beg + (end - beg) / 2;
+
+    msort2(beg, i);
+    msort2(i, end);
+    inplace_merge(beg, i, end);
+}
+
+
 
 vector<int>
 quick(vector<int> va)
@@ -233,7 +215,7 @@ int main()
     cout << endl;
 
     
-    heapsort(va);
+    msort2(va.begin(), va.end());
 
     cout << "after:" << endl;
     for (int i = 0; i < va.size(); i++)
