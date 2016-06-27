@@ -225,9 +225,7 @@ vector<int> binsort(vector<int> va)
 
 int main()
 {
-
     vector<int> va = {5, 1, 2, 6, 7, 3, 4, 8, 10, 9};
-
 
     cout << "before:" << endl;
     for (int i = 0; i < va.size(); i++)
@@ -242,5 +240,4 @@ int main()
         cout << " " << va[i];
  
     cout << endl;
-
 }
