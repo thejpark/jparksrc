@@ -120,11 +120,72 @@ selection(vector<int> va)
 }
 
 
-vector<int> heap(vector<int> va)
+void heapify(vector<int>& va, int i)
 {
+    if (i == 0)
+        return;
 
+    int p = (i - 1) / 2;
 
+    while (p >= 0)
+    {
+        if (va[i] > va[p])
+        {
+            swap(va[i], va[p]);
+            i = p;
+            p = (p - 1) / 2;
+        }
+        else
+            break;
+    }
+}
 
+void heap_push(vector<int>& va, int idx)
+{
+    if (idx == 0)
+        return;
+
+    int i = 0;
+    while (i <= (idx - 1) / 2)
+    {
+        int l = i * 2 + 1;
+        int r = i * 2 + 2;
+
+        if (r > idx || va[l] >= va[r])
+        {
+            if (va[i] < va[l])
+            {
+                swap(va[i], va[l]);
+                i = l;
+            }
+            else
+                break;
+        }
+        else
+        {
+            if (va[i] <va[r])
+            {
+                swap(va[i], va[r]);
+                i = r;
+            }
+            else
+                break;
+        }
+    }
+}
+
+void heapsort(vector<int>& va)
+{
+    for (int i = 0; i < va.size(); ++i)
+    {
+        heapify(va, i);
+    }
+
+    for (int i = va.size() - 1; i > 0; --i)
+    {
+        swap(va[0], va[i]);
+        heap_push(va, i - 1);
+    }
 }
 
 
@@ -165,10 +226,8 @@ vector<int> binsort(vector<int> va)
 int main()
 {
 
-    vector<int> va;
+    vector<int> va = {5, 1, 2, 6, 7, 3, 4, 8, 10, 9};
 
-    for (int i = 10; i > 0; i--)
-        va.push_back(i);
 
     cout << "before:" << endl;
     for (int i = 0; i < va.size(); i++)
@@ -176,11 +235,11 @@ int main()
     cout << endl;
 
     
-    vector<int> r = binsort(va);
+    heapsort(va);
 
     cout << "after:" << endl;
-    for (int i = 0; i < r.size(); i++)
-        cout << " " << r[i];
+    for (int i = 0; i < va.size(); i++)
+        cout << " " << va[i];
  
     cout << endl;
 
