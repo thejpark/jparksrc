@@ -684,91 +684,87 @@ void minus(vector<char> &ret, vector<char> &v, char c)
 
 #endif
 
-
-
-void vcprint(vector<char> &v)
+void perm(vector<int>& a,
+          vector<int>& t,
+          vector<vector<int>>& r,
+          map<int, int>& visited)
 {
-  for (int i = 0; i < v.size(); i++) {
-    cout << v[i];
-  }
-  cout << endl;
-}
-
-
-void merge(vector<vector<char> *> &ret, char c, vector<vector<char> *> &v)
-{
-  int size = v.size();
-
-  if (size == 0) {
-    vector<char> *tmp = new vector<char>;
-    tmp->push_back(c);
-    ret.push_back(tmp);
-
-  }
-
-  else { 
-    for (int i = 0; i < size; i++) {
-
-      vector<char> *tmp = new vector<char>;
-      
-      tmp->push_back(c);
-      
-      vector<char> *tmp2 = v[i];
-
-      for (int j = 0; j < tmp2->size(); j++) {
-	tmp->push_back(tmp2->at(j));
-      }
-
-      ret.push_back(tmp);
-      delete tmp2;
+    if (t.size() == a.size())
+    {
+        r.push_back(t);
+        return;
     }
-  }
-
-  return;
+    for (int i = 0; i < a.size(); ++i)
+    {
+        if (visited[i])
+            continue;
+        visited[i] = 1;
+        t.push_back(a[i]);
+        perm(a, t, r, visited);
+        t.pop_back();
+        visited[i] = 0;
+    }
 }
-
-
-void perm(vector<vector<char> *> &ret, vector<char> &vc)
-{
-
-
-  if (vc.size() == 0) 
-    return;
- 
-  for (int i = 0; i < vc.size(); i++) {
-
-    vector<char> vc_1 = vc; 
-    vc_1.erase(vc_1.begin() + i);
-
-    vector<vector<char> *> ret_1;
-    perm(ret_1, vc_1); 
-    merge(ret, vc[i], ret_1);
-    
-  }
-
-}
-
 
 void permutation()
 {
+    vector<int> a = {1, 2, 3};
 
-  vector<vector<char> *> ret;
-  vector<char> v;
+    vector<int> t;
+    vector<vector<int>> r;
+    map<int, int> visited;
 
-  v.push_back('a');
-  v.push_back('b');
-  v.push_back('c');
-  v.push_back('d');
+    perm(a, t, r, visited);
 
-  perm(ret, v);
-
-  for (int i = 0; i < ret.size(); i++) {
-
-    vcprint(*ret[i]);
-  }
-
+    for (auto& e : r)
+    {
+        for (auto& ee : e)
+        {
+            cout << ee << " ";
+        }
+        cout << endl;
+    }
 }
 
+void comb(vector<int>& a,
+          int idx,
+          vector<int>& t,
+          vector<vector<int>>& r,
+          int k)
+{
+    if (t.size() == k)
+    {
+        r.push_back(t);
+        return;
+    }
+
+    for (int i = idx; i < a.size(); ++i)
+    {
+        t.push_back(a[i]);
+        comb(a, i + 1, t, r, k);
+        t.pop_back();
+    }
+}
+ 
+    
+void combination()
+{
+    vector<int> a = {1, 2, 3, 4};
+
+    vector<int> t;
+    vector<vector<int>> r;
+
+    comb(a, 0, t, r, 2); // combination with size 2
+
+    for (auto& e : r)
+    {
+        for (auto& ee : e)
+        {
+            cout << ee << " ";
+        }
+        cout << endl;
+    }
+}
 
 void foo()
 {
@@ -3664,7 +3660,7 @@ void largest_sum_no_adjcent()
 
 int main()
 {
-    largest_sum_no_adjcent();
+    combination();
 }
 
 
