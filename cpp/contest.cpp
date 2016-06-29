@@ -766,6 +766,27 @@ void combination()
     }
 }
 
+void powerset()
+{
+    vector<int> a = {1, 2, 3};
+
+    vector<int> t;
+    vector<vector<int>> r;
+
+    for (int i = 1; i <= a.size(); ++i)
+        comb(a, 0, t, r, i); 
+
+    for (auto& e : r)
+    {
+        for (auto& ee : e)
+        {
+            cout << ee << " ";
+        }
+        cout << endl;
+    }
+}
+
+
 void foo()
 {
   int x;
@@ -3660,7 +3681,7 @@ void largest_sum_no_adjcent()
 
 int main()
 {
-    combination();
+    powerset();
 }
 
 
