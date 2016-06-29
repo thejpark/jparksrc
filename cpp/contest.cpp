@@ -2013,22 +2013,20 @@ void match_sum()
     for (int i = 1; i < vi2.size(); ++i)
     {
         vi2[i] = vi2[i - 1] + vi[i];
-        cout << vi2[i] << " ";
     }
     cout << endl;
 
     
     unordered_map<int, int> mi;
-    mi[0]++;
     for (int i = 0; i < vi2.size(); ++i)
     {
         mi[vi2[i]]++;
-        mi[vi2[i] - mmatch]++;
     }
-
+    
+    mi[0]++; // this is necessary
     for (int i = 0; i < vi2.size(); ++i)
     {
-        if (mi[vi2[i] - mmatch] == 2)
+        if (mi[vi2[i] - mmatch] > 0)
         {
             cout << "Found item at " << i << endl;
             return;
@@ -3650,7 +3648,7 @@ void largest_sum_no_adjcent()
 
 int main()
 {
-    bin_string_add();
+    match_sum();
 }
 
 
