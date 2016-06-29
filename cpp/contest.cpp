@@ -3648,6 +3648,10 @@ void largest_sum_no_adjcent()
 
 int main()
 {
+    // when test your algorithm which takes a string,
+    // consider 'a', 'ab', 'aba', 'aaa'.
+    // Consider also the case the loop of your algorithm is not taken.
+    // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
     match_sum();
 }
 
