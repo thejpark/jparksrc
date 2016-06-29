@@ -35,37 +35,6 @@ For example, if we want to compare standard sorting algorithms on the basis of s
 */
 
 
-void add()
-{
-  int a, b;
-  cin >> a >> b;
-  cout << a << " + " << b << " = " << a + b << endl;
-}
-
-void finance()
-{
-  int i;
-  double a[12];
-  double sum = 0, average;
-  unsigned int tmp;
-
-  for (i = 0; i < 12; i++) {
-    cin >> a[i];
-    sum += a[i];
-
-  }
-
-  average = sum / 12;
-  
-  tmp = average * 100;
-  average = double(tmp) / 100;
-  
-
-  cout << average;
-    
-}
-
-
 void hangover()
 {
   vector<double> vcard_len;
