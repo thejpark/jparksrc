@@ -104,6 +104,8 @@ void reverse(string &s)
     
 }
 
+
+
 // test for c style string
 void reverse1(char *s)
 {
@@ -718,6 +720,48 @@ void t21()
     }
 
     
+}
+
+node* reverse_list(node* a)
+{
+    if (!a)
+        return a;
+
+    node* prev = a;
+    a = a-> next;
+    prev->next = NULL;
+
+    while (a) 
+    {
+        node* next = a->next;
+        a->next = prev;
+        prev = a;
+        a = next;
+    }
+
+    return prev;
+}
+
+void test_reverse_linked_list()
+{
+    node* head = new node(1);
+    node* end = head;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+ 
+
+    node* r = reverse_list(head);
+
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
 }
 
 class myq {
@@ -2064,6 +2108,6 @@ void test_merge_array()
 
 int main()
 {
-    test_merge_array();
+    test_reverse_linked_list();
 }
 
