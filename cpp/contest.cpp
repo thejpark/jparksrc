@@ -3462,11 +3462,11 @@ string bin_add(string& s1, string& s2)
         carry = t / 2;
         string r = (t % 2)? "1" : "0";
         s3 = r + s3;
-        
-        // this is important. always check the last element.
-        if (i == (len - 1) && carry)
-            s3 = "1" + s3;
     }
+
+    // this is important. always check the last element.
+    if (carry)
+        s3 = "1" + s3;
 
     return s3;
 }
@@ -3681,7 +3681,7 @@ void largest_sum_no_adjcent()
 
 int main()
 {
-    powerset();
+    bin_string_add();
 }
 
 
