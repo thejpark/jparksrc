@@ -742,6 +742,43 @@ node* reverse_list(node* a)
     return prev;
 }
 
+
+node* merge_list(node*a, node*b)
+{
+
+    if (!a)
+        return b;
+    if (!b)
+        return a;
+
+    node* ret = a;
+
+    while (true)
+    {
+        if (a->data < b->data)
+        {
+            if (!a->next)
+            {
+                a->next = b;
+                return ret;
+            }
+            a = a->next;
+        }
+        else
+        {
+            node* nexta = a->next;
+            node* nextb = b->next;
+            a->next = b;
+            b->next = nexta;
+            swap(a->data, b->data);
+            a = a->next;
+            b = nextb;
+            if (!b)
+                return ret;
+        }
+    }
+}
+
 void test_reverse_linked_list()
 {
     node* head = new node(1);
@@ -754,6 +791,35 @@ void test_reverse_linked_list()
  
 
     node* r = reverse_list(head);
+
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
+void test_merge_linked_list()
+{
+    node* head = new node(1);
+    node* end = head;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+    end = end->next;
+    end->next = new node(7);
+ 
+    node* head2 = new node(2);
+    node* end2 = head2;
+    end2->next = new node(4);
+    end2 = end2->next;
+    end2->next = new node(5);
+    end2 = end2->next;
+    end2->next = new node(6);
+
+    node* r = merge_list(head, head2);
 
     while (r)
     {
@@ -2108,6 +2174,6 @@ void test_merge_array()
 
 int main()
 {
-    test_reverse_linked_list();
+    test_merge_linked_list();
 }
 
