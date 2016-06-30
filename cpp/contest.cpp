@@ -3674,7 +3674,7 @@ int fnre(vector<int>& vi, int i, int j)
     
 }
 
-
+// all elements are repeated except one. Find it as quick as possible.
 void test_find_non_repeated_elem()
 {
     int n;
