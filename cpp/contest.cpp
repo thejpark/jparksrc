@@ -3646,13 +3646,59 @@ void largest_sum_no_adjcent()
 }
 
 
+int fnre(vector<int>& vi, int i, int j)
+{
+    if (i == j)
+        return vi[i];
+
+    int m = i + (j - i) / 2;
+
+    if ((vi[m - 1] != vi[m]) &&
+        vi[m + 1] != vi[m])
+        return vi[m];
+
+    if (m % 2) 
+    {
+        if (vi[m] == vi[m - 1])
+            return fnre(vi, m + 1, j);
+        else
+            return fnre(vi, i, m - 1);
+    }
+    else
+    {
+        if (vi[m] == vi[m - 1])
+            return fnre(vi, i, m - 1);
+        else
+            return fnre(vi, m + 1, j);
+    }
+    
+}
+
+
+void test_find_non_repeated_elem()
+{
+    int n;
+    vector<int> vi;
+
+    cin >> n;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        vi.push_back(t);
+    }
+
+    cout << fnre(vi, 0, vi.size() - 1) << endl;
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    match_sum();
+    test_find_non_repeated_elem();
 }
 
 
