@@ -13,6 +13,13 @@ using namespace std;
 template<class T>
 class graph 
 {
+private:
+    map<T, int> r;
+    map<T, list<pair<T, int> > > node;
+    // unordered_map is faster.
+    unordered_map<T, bool> resolved;
+    map<T, int> visited;
+    map<T, vector<pair<T, int>> > parents;
 
 public:
     typedef typename list<pair<T, int> >::iterator iter;
@@ -296,13 +303,6 @@ public:
         }
     }
         
-    private:
-    map<T, int> r;
-    map<T, list<pair<T, int> > > node;
-    // unordered_map is faster.
-    unordered_map<T, bool> resolved;
-    map<T, int> visited;
-    map<T, vector<pair<T, int>> > parents;
 };
 
 
