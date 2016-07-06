@@ -862,7 +862,94 @@ int Find(int x) {
 // suffix trie
 //http://www.geeksforgeeks.org/pattern-searching-set-8-suffix-tree-introduction/
 
+
+struct node {
+    node() : a(0), b(0), left(nullptr), right(nullptr) {}
+    int a;
+    int b;
+    node* left;
+    node* right;
+};
+
+bool bfs_pair(node* n, int a, int b)
+{
+    if (!n) return false;
+
+    map<node*, bool> visited;
+    list<node*> nl;
+    visited[n] = true;
+    nl.push_back(n);
+    node r; // end mark
+    nl.push_back(&r);
+
+    set<int> sr;
+    set<int> sl;
+    int depth = 0;
+
+    while (!nl.empty())
+    {
+        node* t = nl.front();
+        nl.pop_front();
+        if (t == &r) {
+            if (nl.empty())
+                return false;
+            else {
+                depth++;
+                nl.push_back(t);
+            }
+        }
+        else {
+            if (t->a == a)
+                sl.insert(depth);
+            if (t->b == b)
+                sr.insert(depth);
+
+            vector<int> va;
+            set_intersection(sl.begin(), sl.end(), sr.begin(), sr.end(),
+                             back_inserter(va));
+            if (!va.empty())
+            {
+                cout << "found" << endl;
+                return true;
+            }
+            
+            if (t->left && (visited[t->left] == false))
+            {
+                visited[t->left] = true;
+                nl.push_back(t->left);
+            }
+            if (t->right && (visited[t->right] == false))
+            {
+                visited[t->right] = true;
+                nl.push_back(t->right);
+            }
+        }
+    }
+
+    return false;
+}
+
+void test_bfs_pair()
+{
+    node a;
+    node b;
+    node c;
+    node d;
+    node e;
+
+    a.left = &b; a.a = 1; a.b = 2; a.right = &c;
+    b.left = &d; b.a = 3; b.b = 4; b.right = &e;
+    c.a = 5;c.b = 6;
+    d.a = 7;d.b = 8;
+    e.a = 9;e.b = 10;
+    
+    cout << bfs_pair(&a, 1, 2) << endl;
+    cout << bfs_pair(&a, 3, 6) << endl;
+    cout << bfs_pair(&a, 2, 9) << endl;
+    cout << bfs_pair(&a, 12, 2) << endl;
+}
+
 int main()
 {
-    t2();
+    test_bfs_pair();
 }
