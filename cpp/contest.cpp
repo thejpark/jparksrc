@@ -3691,6 +3691,57 @@ void test_find_non_repeated_elem()
     cout << fnre(vi, 0, vi.size() - 1) << endl;
 }
 
+void test_find_longest_repeated_char()
+{
+    string s;
+    cin >> s;
+
+    char prev = s[0];
+    int count = 1;
+    int max = 0;
+    list <char> l;
+    
+    for (int i = 1; i < s.size(); ++i)
+    {
+        if (prev != s[i])
+        {
+            if (count > max)
+            {
+                max = count;
+                l.clear();
+                // sometimes interviewer wants other data structure than map
+                l.push_back(prev);
+            }
+            else if (count == max)
+            {
+                l.push_back(prev);
+            }
+            
+            prev = s[i];
+            count = 1;
+        }
+        else
+        {
+            ++count;
+        }
+    }
+
+    // don' forget the condition after exit (i.e., carry)
+    if (count > max)
+    {
+        max = count;
+        l.clear();
+        l.push_back(prev);
+    }
+    else if (count == max)
+    {
+        l.push_back(prev);
+    }
+
+    for (auto& e: l)
+        cout << e << " ";
+    cout << endl;
+}
 
 int main()
 {
@@ -3698,7 +3749,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_non_repeated_elem();
+    test_find_longest_repeated_char();
 }
 
 
