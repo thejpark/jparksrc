@@ -1565,31 +1565,6 @@ int t_stl_test1()
 
 }
 
-int t_stl_test2()
-{
-    
-
-        binder2nd < less<int> > IsNegative (less<int>(),0);
-        binder1st < less<int> > IsPositive (less<int>(),0);
-
-        int numbers[] = {10,-20,-30,40,-50
-        };
-
-        int cx;
-
-        cx = count_if (numbers,numbers+5,IsNegative);
-
-        cout << "There are " << cx << " negative elements.\n";
-
-        cx = count_if (numbers,numbers+5,IsPositive);
-
-        cout << "There are " << cx << " positive elements.\n";
-
-        return 0;
-
-}
-
-
 
 int t_ctor_dtor()
 {
@@ -2167,6 +2142,73 @@ void test_merge_array()
     cout << endl;
 }
 
+// given a sorted array and a character, print the number of characters
+
+// this method returns the begining index of the character.
+// if there is no such character then it returns the position which it should be exist
+int find_beg(vector<char>& vc, int i, int j, char t)
+{
+    if (i > j)
+        return i;
+    int mid = i + (j - i) / 2;
+
+    if (vc[mid] == t)
+        return find_beg(vc, i, mid - 1, t);
+    else if (vc[mid] > t)
+        return find_beg(vc, i, mid - 1, t);
+    else
+        return find_beg(vc, mid + 1, j, t);
+}
+
+// this method returns the begining index of the next character.
+// if there is no such character then it returns the position which it should be exist
+int find_end(vector<char>& vc, int i, int j, char t)
+{
+    if (i > j)
+        return i;
+    
+    int mid = i + (j - i) / 2;
+
+    if (vc[mid] == t)
+        return find_end(vc, mid + 1, j, t);
+    else if (vc[mid] > t)
+        return find_end(vc, i, mid - 1, t);
+    else
+        return find_end(vc, mid + 1, j, t);
+}
+
+int find_pos(vector<char>& vc, int i, int j, char t)
+{
+    if (i > j)
+        return i;
+    
+    int mid = i + (j - i) / 2;
+
+    if (vc[mid] == t)
+        return  mid;
+    else if (vc[mid] > t)
+        return find_pos(vc, i, mid - 1, t);
+    else
+        return find_pos(vc, mid + 1, j, t);
+}
+
+void test_count_char_in_sorted_array()
+{
+    string s;
+    cin >> s;
+
+    vector<char> vc(s.begin(), s.end());
+
+    char t;
+    cin >> t;
+    
+    int i = find_beg(vc, 0, vc.size() - 1, t);
+    int j = find_end(vc, 0, vc.size() - 1, t);
+    int k = find_pos(vc, 0, vc.size() - 1, t);
+
+    cout << " the result is " << i << " " << j << " " << k << endl;
+}
+
 
 // reference
 // https://github.com/andreis/interview 
@@ -2174,6 +2216,6 @@ void test_merge_array()
 
 int main()
 {
-    test_merge_linked_list();
+    test_count_char_in_sorted_array();
 }
 
