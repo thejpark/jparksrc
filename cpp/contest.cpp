@@ -1982,6 +1982,47 @@ void largest_sum()
     cout << "the result is " << max_x << endl;
 }
 
+int get_max_path(vector<vector<int>>& v, int i, int j) 
+{
+    if ((i == v.size() - 1) &&
+        (j == v[0].size() - 1))
+    {
+        return v[i][j];
+    }
+    else if (i == v.size() - 1)
+    {
+        return v[i][j] + get_max_path(v, i, j + 1);  
+    }
+    else if (j == v[0].size() - 1)
+    {
+        return v[i][j] + get_max_path(v, i + 1, j);  
+    }
+    else 
+    {
+        return v[i][j] + max(get_max_path(v, i + 1, j),
+                             get_max_path(v, i, j + 1));
+    }
+}
+
+void largest_path()
+{
+    int m, n;
+    cin >> n >> m;
+    vector<vector<int>> v(n, vector<int>(m, 0));
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            int t;
+            cin >> t;
+            v[i][j] = t;
+        }
+    }
+
+    
+    cout << get_max_path(v, 0, 0) << endl;
+}
 
 // find sequences in an array which matches to a number
 // [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
@@ -3749,7 +3790,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_longest_repeated_char();
+    largest_path();
 }
 
 
