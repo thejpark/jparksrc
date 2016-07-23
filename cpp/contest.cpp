@@ -1982,25 +1982,42 @@ void largest_sum()
     cout << "the result is " << max_x << endl;
 }
 
-int get_max_path(vector<vector<int>>& v, int i, int j) 
+int get_max_path(vector<vector<int>>& v, int i, int j, 
+                 vector<pair<int, int>> t, vector<pair<int, int>>& r) 
 {
     if ((i == v.size() - 1) &&
         (j == v[0].size() - 1))
     {
+        r = t;
         return v[i][j];
     }
     else if (i == v.size() - 1)
     {
-        return v[i][j] + get_max_path(v, i, j + 1);  
+        t.push_back(pair<int, int>(i, j + 1));
+        return v[i][j] + get_max_path(v, i, j + 1, t, r);  
     }
     else if (j == v[0].size() - 1)
     {
-        return v[i][j] + get_max_path(v, i + 1, j);  
+        t.push_back(pair<int, int>(i + 1, j));
+        return v[i][j] + get_max_path(v, i + 1, j, t, r);  
     }
     else 
     {
-        return v[i][j] + max(get_max_path(v, i + 1, j),
-                             get_max_path(v, i, j + 1));
+        vector<pair<int, int>> t1(t);t1.push_back(pair<int, int>(i + 1, j));
+        vector<pair<int, int>> t2(t);t2.push_back(pair<int, int>(i, j + 1));
+        vector<pair<int, int>> r1, r2;
+        int a = get_max_path(v, i + 1, j, t1, r1);
+        int b = get_max_path(v, i, j + 1, t2, r2);
+        if (a > b)
+        {
+            r = r1;
+            return v[i][j] + a;
+        }
+        else
+        {
+            r = r2;
+            return v[i][j] + b;
+        }
     }
 }
 
@@ -2020,8 +2037,12 @@ void largest_path()
         }
     }
 
-    
-    cout << get_max_path(v, 0, 0) << endl;
+    vector<pair<int, int>> t, r;
+    t.push_back(pair<int, int>(0, 0));
+    get_max_path(v, 0, 0, t, r);
+
+    for (int i = 0; i < r.size(); ++i)
+        cout << r[i].first << " " << r[i].second << endl;
 }
 
 // find sequences in an array which matches to a number
