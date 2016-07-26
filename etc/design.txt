@@ -1,0 +1,28 @@
+Design
+
+1. bad ip checking
+- what is bad ip?
+- ac/uc?
+- a) collect access log from each web server and send it to centralised server to analyze
+     pros:
+     cons: if server is down then we may lost some information
+  b) collect access log from each web server and process it and send it to centralised server
+     pros:
+     cons:
+  c) send log as they created to the centralised server
+     pros:
+     cons:
+
+- which network protocol to use?
+  tcp:
+  pros
+  cons
+  udp (or multicasting):
+  pros
+  cons
+
+
+2. fb news feed
+
+
+3. find shopping pattern in Amazon 
