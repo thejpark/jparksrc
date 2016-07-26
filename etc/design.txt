@@ -4,22 +4,21 @@ Design
 - what is bad ip?
 - ac/uc?
 - a) collect access log from each web server and send it to centralised server to analyze
-     pros:
-     cons: if server is down then we may lost some information
-  b) collect access log from each web server and process it and send it to centralised server
-     pros:
-     cons:
-  c) send log as they created to the centralised server
-     pros:
-     cons:
+     - pros: analyse locally and minimise network traffic
+     - cons: if server is down then we may lost some information
+     - web server need to rotate access log? if log is small then memory double buffer? 
+  b) send log as they created to the centralised server
+     - pros:
+     - cons: network overhead, need more powerful server? 
+     - do not need to store at access log but just send from memory to network
 
 - which network protocol to use?
   tcp:
-  pros
-  cons
+     - pros
+     - cons
   udp (or multicasting):
-  pros
-  cons
+     - pros
+     - cons
 
 
 2. fb news feed
