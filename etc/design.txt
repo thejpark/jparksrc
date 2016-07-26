@@ -3,12 +3,16 @@ Design
 1. bad ip checking
 - what is bad ip?
 - ac/uc?
+  
 - a) collect access log from each web server and send it to centralised server to analyze
      - pros: analyse locally and minimise network traffic
      - cons: if server is down then we may lost some information
+       client (webserver) and log analyse server should synchronise. So each message may have
+       a tag representing which timeframe it is for. It may use/send more bytes to network
      - web server need to rotate access log? if log is small then memory double buffer? 
   b) send log as they created to the centralised server
-     - pros:
+     - pros: each webserver can just udp send msg(containing ip) to server, server can take
+             care of the rest
      - cons: network overhead, need more powerful server? 
      - do not need to store at access log but just send from memory to network
 
