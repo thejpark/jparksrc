@@ -2050,69 +2050,72 @@ void largest_path()
 // frog can jump n steps in on direction (where n is 1 ... )
 // but the direction is right and below (no go back).
 //
-void construct_min_path_map(vector<vector<int>>&vi, vector<vector<int>>& vo)
+
+list<pair<int, int>> get_adj(vector<vector<int>>& v, int i, int j)
 {
-    int n = vi.size();
-    int m = vi[0].size();
+    list<pair<int, int>> r;
 
-    // copy the last row
-    vo[n - 1] = vi[n - 1]; 
-    vector<int> vmin = vo[n - 1];
+    for (int k = i + 1; k < v.size(); ++k)
+        r.push_back(pair<int, int>(k, j));
 
-    for (int i = n - 2; i >= 0; --i)
+    for (int k = j + 1; k < v[0].size(); ++k)
+        r.push_back(pair<int, int>(i, k));
+
+    return r;
+}
+
+int find_shortes_path(vector<vector<int>>& v, int i, int j, 
+                 vector<pair<int, int>> t, vector<pair<int, int>>& r) 
+{
+    int n = v.size();
+    int m = v[0].size();
+
+    if ((i == n - 1) &&
+        (j == m - 1))
     {
-        vmin[m - 1] = vo[i][m - 1] = vi[i][m - 1];
-        
-        for (int j = m - 2; j >= 0; --j)
+        r = t;
+        return v[i][j];
+    }
+    else if (i == n - 1)
+    {
+        t.push_back(pair<int, int>(n - 1, m - 1));
+        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);  
+    }
+    else if (j == m - 1)
+    {
+        t.push_back(pair<int, int>(n - 1, m - 1));
+        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);  
+    }
+    else 
+    {
+        auto adj = get_adj(v, i, j);
+        int min = 10000; // some max value;
+        for (auto& e: adj)
         {
-            vmin[j] = min(vmin[j], vmin[j + 1]);
-            vo[i][j] = vi[i][j] + vmin[j];
+            vector<pair<int, int>> r1;
+            vector<pair<int, int>> t1(t);t1.push_back(pair<int, int>(e.first, e.second));
+            int a = find_shortes_path(v, e.first, e.second, t1, r1);
+            if (min > a)
+            {
+                min = a;
+                r = r1;
+            }
         }
+        return v[i][j] + min;
     }
 }
 
+/*
 
+ 7 9 2 11 
+13 23 1 3 
+14 11 20 6 
+22 44 3 15
 
-void find_shortes_path(vector<vector<int>>& vi, 
-                       vector<pair<int, int>>& r)
-{
-    int i = 0;
-    int j = 0;
-    int n = vi.size();
-    int m = vi[0].size();
+-> Minimum difficulty = 7 (a[0][0])+ 2(a[0][2]) +3(a[3][2])+15(a[3][3]) = 27 
+Path trace will have = 7->2->3->15
 
-    r.push_back(pair<int, int>(i, j));
-
-    int nexti, nextj;
-    while (i == n - 1 || j == m - 1)
-    {
-        nexti = i; nextj = j;
-        int mink = vi[i][m - 1];
-        for (int k = i; k < n - 1; ++k)
-        {
-            if (mink > vi[k][j])
-            {
-                mink = vi[k][j];
-                nexti = k;
-            }
-        }
-
-        for (int k = j; k < n - 1; ++k)
-        {
-            if (mink > vi[i][k])
-            {
-                mink = vi[k][k];
-                nextj = k;
-            }
-        }
-
-        i = nexti;
-        j = nextj;
-        r.push_back(pair<int, int>(i, j));
-    }
-
-    r.push_back(pair<int, int>(n - 1, m - 1));
-}
+*/
 
 void shortest_frog_path()
 {
@@ -2130,11 +2133,11 @@ void shortest_frog_path()
         }
     }
 
-    vector<pair<int, int>> r;
-    vector<vector<int>> vo(n, vector<int>(m, 0));
-    construct_min_path_map(v, vo);
-    find_shortes_path(vo, r);
+    vector<pair<int, int>> t, r;
+    t.push_back(pair<int, int>(0, 0));
+    int rr = find_shortes_path(v, 0, 0, t, r);
 
+    cout << " the result is " << rr << endl;
     for (auto& e : r)
     {
         cout << e.first << " " << e.second << endl;
