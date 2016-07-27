@@ -2045,6 +2045,102 @@ void largest_path()
         cout << r[i].first << " " << r[i].second << endl;
 }
 
+
+// find shortest path using array computation.
+// frog can jump n steps in on direction (where n is 1 ... )
+// but the direction is right and below (no go back).
+//
+void construct_min_path_map(vector<vector<int>>&vi, vector<vector<int>>& vo)
+{
+    int n = vi.size();
+    int m = vi[0].size();
+
+    // copy the last row
+    vo[n - 1] = vi[n - 1]; 
+    vector<int> vmin = vo[n - 1];
+
+    for (int i = n - 2; i >= 0; --i)
+    {
+        vmin[m - 1] = vo[i][m - 1] = vi[i][m - 1];
+        
+        for (int j = m - 2; j >= 0; --j)
+        {
+            vmin[j] = min(vmin[j], vmin[j + 1]);
+            vo[i][j] = vi[i][j] + vmin[j];
+        }
+    }
+}
+
+
+
+void find_shortes_path(vector<vector<int>>& vi, 
+                       vector<pair<int, int>>& r)
+{
+    int i = 0;
+    int j = 0;
+    int n = vi.size();
+    int m = vi[0].size();
+
+    r.push_back(pair<int, int>(i, j));
+
+    int nexti, nextj;
+    while (i == n - 1 || j == m - 1)
+    {
+        nexti = i; nextj = j;
+        int mink = vi[i][m - 1];
+        for (int k = i; k < n - 1; ++k)
+        {
+            if (mink > vi[k][j])
+            {
+                mink = vi[k][j];
+                nexti = k;
+            }
+        }
+
+        for (int k = j; k < n - 1; ++k)
+        {
+            if (mink > vi[i][k])
+            {
+                mink = vi[k][k];
+                nextj = k;
+            }
+        }
+
+        i = nexti;
+        j = nextj;
+        r.push_back(pair<int, int>(i, j));
+    }
+
+    r.push_back(pair<int, int>(n - 1, m - 1));
+}
+
+void shortest_frog_path()
+{
+    int m, n;
+    cin >> n >> m;
+    vector<vector<int>> v(n, vector<int>(m, 0));
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            int t;
+            cin >> t;
+            v[i][j] = t;
+        }
+    }
+
+    vector<pair<int, int>> r;
+    vector<vector<int>> vo(n, vector<int>(m, 0));
+    construct_min_path_map(v, vo);
+    find_shortes_path(vo, r);
+
+    for (auto& e : r)
+    {
+        cout << e.first << " " << e.second << endl;
+    }
+}
+
 // find sequences in an array which matches to a number
 // [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
 // in linear time (O(n))
@@ -3811,7 +3907,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    largest_path();
+    shortest_frog_path();
 }
 
 
