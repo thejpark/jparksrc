@@ -3235,6 +3235,102 @@ void find_match_sum_bintree()
     }
 }
 
+//
+// How to save bst and retrieve it? how to serialise and reconstruct?
+//
+
+vector<int> serialise_bst(bt_node* n)
+{
+    vector<int> a;
+
+    if (!n)
+        return a;
+    
+    a.push_back(n->val);
+
+    if (n->left)
+    {
+        vector<int> l = serialise_bst(n->left);
+        copy(l.begin(), l.end(), back_inserter(a));
+    }
+    if (n->right)
+    {
+        vector<int> l = serialise_bst(n->right);
+        copy(l.begin(), l.end(), back_inserter(a));
+    }
+         
+    return a;
+}
+
+vector<int> left_tree(vector<int>& v)
+{
+    
+    vector<int> r;
+    if (v.size() == 0)
+        return r;
+    
+    int m = v[0];
+
+    for (int i = 1; i < v.size(); ++i)
+    {
+        if (v[i] > m)
+            break;
+        r.push_back(v[i]);
+    }
+    return r;
+}
+
+
+bt_node* construct_bst(vector<int>& v)
+{
+    bt_node* n = nullptr;
+
+    if (v.size() == 0)
+        return n;
+
+    n = new bt_node(v[0]);
+    vector<int> l = left_tree(v);
+    n->left = construct_bst(l);
+    vector<int> r(v.begin() + l.size() + 1, v.end());
+    n->right = construct_bst(r);
+
+    return n;
+}
+
+
+void test_save_reconstruct_bst()
+{
+    bt_node a(6);
+    bt_node b(3);
+    bt_node c(8);
+    a.left = &b;
+    a.right = &c;
+
+    bt_node d(1);
+    bt_node e(4);
+    b.left = &d;
+    b.right = &e;
+
+    bt_node f(7);
+    bt_node g(12);
+    c.left = &f;
+    c.right = &g;
+
+    vector<int> r = serialise_bst(&a);
+    cout << "before" << endl;
+    for (auto e: r)
+        cout << e << " ";
+    cout << endl;
+
+    bt_node* n = construct_bst(r);
+    
+    r = serialise_bst(n);
+    cout << "after" << endl;
+    for (auto e: r)
+        cout << e << " ";
+    cout << endl;
+}
+
 
 /*
 
@@ -3910,7 +4006,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    shortest_frog_path();
+    test_save_reconstruct_bst();
 }
 
 
