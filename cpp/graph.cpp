@@ -871,6 +871,8 @@ struct node {
     node* right;
 };
 
+// find whether there is a depth n which has both value a and b.
+
 bool bfs_pair(node* n, int a, int b)
 {
     if (!n) return false;
