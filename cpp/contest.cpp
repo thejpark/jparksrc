@@ -3332,6 +3332,79 @@ void test_save_reconstruct_bst()
 }
 
 
+//
+//
+// construct binary tree from the traverse of
+// its post order and pre order.
+// For example,
+// a b c d e f g (left is root, bfs), 
+// a b d e c f g (pre order)
+// d e b f g c a (post order)
+
+vector<int> left_tree(vector<int>& va, vector<int>& vb)
+{
+    set<int> a;
+    set<int> b;
+
+    for (int i = 0; i + 1 < va.size(); ++i)
+    {
+        a.insert(va[i + 1]);
+        b.insert(vb[i]);
+        if (a == b)
+            break;
+    }
+
+    return vector<int>(va.begin() + 1, va.begin() + 1 + a.size());
+}
+
+
+bt_node* make_tree(vector<int> va, vector<int> vb)
+{
+    bt_node* n = nullptr;
+    if (va.size() == 0 || vb.size() == 0)
+        return n;
+
+    n = new bt_node(va[0]);
+
+    vector<int> l = left_tree(va, vb);
+    n->left = make_tree(l, vector<int>(vb.begin(), vb.begin() + l.size()));
+    vector<int> r(va.begin() + l.size() + 1, va.end());
+    n->right = make_tree(r, vector<int>(vb.begin() + l.size(), vb.end() - 1));
+
+    return n;
+}
+
+void construct_binarytree_from_post_and_pre_order_traverse()
+{
+    int n;
+    cin >> n;
+    vector<int> va, vb;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        va.push_back(t);
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        vb.push_back(t);
+    }
+
+    bt_node* node = make_tree(va, vb);
+    vector<int> r = serialise_bst(node);
+    cout << "after" << endl;
+    for (auto e: r)
+        cout << e << " ";
+    cout << endl;
+
+}
+
+
+
 /*
 
 The beauty of a number X is the number of 1s in the binary representation of X.
@@ -4006,7 +4079,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_save_reconstruct_bst();
+    construct_binarytree_from_post_and_pre_order_traverse();
 }
 
 
