@@ -2209,6 +2209,22 @@ void test_count_char_in_sorted_array()
     cout << " the result is " << i << " " << j << " " << k << endl;
 }
 
+//
+// Given a file with a lot of words (10 million) find out the top 10%
+// most frequently occurring words.
+//
+
+void test_find_10_percent_from_10_milion_words()
+{
+// run map for each word, count how big is it, then calculate 10%, make heap with that size,
+// run each word in the map and find 10%. Is it OK?
+
+// can we split and gather/merge the result? No, as 10M * sizeof(word) can be
+// enough for memory usage for heap structure and hash map. O(n) is data usage.
+// or just want to see how to implement heap? Yes, with some explanation of memory usage
+
+}
+
 
 // reference
 // https://github.com/andreis/interview 
