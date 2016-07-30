@@ -755,6 +755,49 @@ void powerset()
     }
 }
 
+//
+//
+// find the number of combination sum to 15
+// from the array of int from 1 to 10.
+// ex) [1, 2, 3, 4, 5] -> 1
+// ex) [5, 5, 10, 2,3] -> 4
+//
+int fff(vector<int>& vi, int idx, int t)
+{
+    if (t == 0)
+        return 1;
+    if (t < 0)
+        return 0;
+    
+    int r = 0;
+    for (int i = idx; i < vi.size(); ++i)
+    {
+        r += fff(vi, i + 1, t - vi[i]);
+    }
+
+    return r;
+}
+
+void test_combination_sum_to_15()
+{
+    int n;
+    cin >> n;
+
+    vector<int> vi;
+    
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        vi.push_back(t);
+    }
+
+    int r = 0;
+    r = fff(vi, 0, 15);
+
+    cout << "the result is " << r << endl;
+}
+
 
 void foo()
 {
@@ -4107,49 +4150,6 @@ void test_find_longest_repeated_char()
     for (auto& e: l)
         cout << e << " ";
     cout << endl;
-}
-
-//
-//
-// find the number of combination sum to 15
-// from the array of int from 1 to 10.
-// ex) [1, 2, 3, 4, 5] -> 1
-// ex) [5, 5, 10, 2,3] -> 4
-//
-int fff(vector<int>& vi, int idx, int t)
-{
-    if (t == 0)
-        return 1;
-    if (t < 0)
-        return 0;
-    
-    int r = 0;
-    for (int i = idx; i < vi.size(); ++i)
-    {
-        r += fff(vi, i + 1, t - vi[i]);
-    }
-
-    return r;
-}
-
-void test_combination_sum_to_15()
-{
-    int n;
-    cin >> n;
-
-    vector<int> vi;
-    
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        vi.push_back(t);
-    }
-
-    int r = 0;
-    r = fff(vi, 0, 15);
-
-    cout << "the result is " << r << endl;
 }
 
 int main()
