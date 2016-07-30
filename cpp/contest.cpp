@@ -799,34 +799,6 @@ void test_combination_sum_to_15()
 }
 
 
-void foo()
-{
-  int x;
-  while  (cin >> x) {
-
-    cout << x << endl;
-  }
-
-}
-
-
-void map_test_word_count()
-{
-
-  string s;
-  map<string, int> wc;
-
-  while (cin >> s) {
-    ++wc[s];
-  }
-
-  for(map<string, int>::const_iterator it = wc.begin(); it != wc.end(); ++it) {
-    cout << it->first << ":" << it->second << endl;
-  }
-
-
-}
-
 #if 0
 bool has_str(string a, string b)
 {
