@@ -3952,6 +3952,22 @@ int makeChange(vector<int>& denom, int idx, int n)
     return r;
 }
 
+int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
+{
+    if (n == 0)
+        return cnt;
+    if (idx == denom.size())
+        return 1000; // some max number
+    int r = 1000; // some max number
+    for (int i = 0; i * denom[idx] <= n; ++i)
+    {
+        int a = makeMinChange(denom, idx + 1, cnt + i, n - i * denom[idx]);
+        if (a < r)
+            r = a;
+    }
+    return r;
+}
+
 void test_denom()
 {
     cout << makeChange(16, 25) << endl;
@@ -3961,8 +3977,8 @@ void test_denom()
 
     cout << makeChange(a, 0, 16) << endl;
     cout << makeChange(b, 0, 16) << endl;
+    cout << makeMinChange(a, 0, 0, 16) << endl;
 }
-
 
 
 int lsna(int i, vector<int>& v)
