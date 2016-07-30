@@ -3938,9 +3938,29 @@ int makeChange(int n, int denom) {
     return ways; 
 }
 
+int makeChange(vector<int>& denom, int idx, int n)
+{
+    if (n == 0)
+        return 1;
+    if (idx == denom.size())
+        return 0;
+    int r = 0;
+    for (int i = 0; i * denom[idx] <= n; ++i)
+    {
+        r += makeChange(denom, idx + 1, n - i * denom[idx]);
+    }
+    return r;
+}
+
 void test_denom()
 {
     cout << makeChange(16, 25) << endl;
+
+    vector<int> a {25, 10,  5, 1};
+    vector<int> b {1, 5, 10, 25};
+
+    cout << makeChange(a, 0, 16) << endl;
+    cout << makeChange(b, 0, 16) << endl;
 }
 
 
@@ -4079,7 +4099,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    construct_binarytree_from_post_and_pre_order_traverse();
+    test_denom();
 }
 
 
