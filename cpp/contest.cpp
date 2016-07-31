@@ -3831,43 +3831,36 @@ pair<int, int> max_p(pair<int, int> a, pair<int, int> b)
 
 pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
 {
-    if ((len % 2) == 0)
-    {
-        if (gmbs_get(vs, beg, len) * 2 == len)
-        {
-            return pair<int, int>(len, beg);
-        }
-        else
-        {
-            // this is actually 3^(n/2). to make it happen in
-            // O(n), we need to precompute a table for this recursive call.
-            return max_p(
-                max_p(gmbs_rec(vs, beg, len - 2),
-                    gmbs_rec(vs, beg + 1, len - 2)),
-                gmbs_rec(vs, beg + 2, len - 2));
-        }
-    }
-    else 
-    {
-        // also, i think this rwo recursive call can do the work (though it has
-        // unnecessary call for the odd length.
-        return max_p(gmbs_rec(vs, beg, len - 1),
-                   gmbs_rec(vs, beg + 1, len - 1));
-    }
-}
-
-pair<int, int> gmbs_iter(vector<int>&vs, int beg, int len)
-{
     if (gmbs_get(vs, beg, len) * 2 == len)
     {
         return pair<int, int>(len, beg);
     }
-    else
+    else 
     {
-        return max_p(gmbs_iter(vs, beg, len - 1),
-                   gmbs_iter(vs, beg + 1, len - 1));
+        return max_p(gmbs_rec(vs, beg, len - 1),
+                     gmbs_rec(vs, beg + 1, len - 1));
     }
 }
+
+pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
+{
+    int len = size;
+    while (len > 0)
+    {
+        for (int i = beg; i + len <= size; ++i)
+        {
+            if (gmbs_get(vs, i, len) * 2 == len)
+            {
+                return pair<int, int>(len, i);
+            }
+        
+        }
+        --len;
+    }
+
+    return pair<int, int>(0, 0);
+}
+
 
 pair<int, int> gmbs(vector<int>& v)
 {
