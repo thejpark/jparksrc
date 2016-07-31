@@ -3833,12 +3833,14 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
 {
     if ((len % 2) == 0)
     {
-        if (gmbs_get(vs, beg, len) == len / 2)
+        if (gmbs_get(vs, beg, len) * 2 == len)
         {
             return pair<int, int>(len, beg);
         }
         else
         {
+            // this is actually 3^(n/2). to make it happen in
+            // O(n), we need to precompute a table for this recursive call.
             return max_p(
                 max_p(gmbs_rec(vs, beg, len - 2),
                     gmbs_rec(vs, beg + 1, len - 2)),
@@ -3847,8 +3849,23 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
     }
     else 
     {
+        // also, i think this rwo recursive call can do the work (though it has
+        // unnecessary call for the odd length.
         return max_p(gmbs_rec(vs, beg, len - 1),
                    gmbs_rec(vs, beg + 1, len - 1));
+    }
+}
+
+pair<int, int> gmbs_iter(vector<int>&vs, int beg, int len)
+{
+    if (gmbs_get(vs, beg, len) * 2 == len)
+    {
+        return pair<int, int>(len, beg);
+    }
+    else
+    {
+        return max_p(gmbs_iter(vs, beg, len - 1),
+                   gmbs_iter(vs, beg + 1, len - 1));
     }
 }
 
@@ -3864,6 +3881,19 @@ pair<int, int> gmbs(vector<int>& v)
     return gmbs_rec(vs, 0, vs.size());
 }
 
+pair<int, int> gmbs2(vector<int>& v)
+{
+    vector<int> vs(v.size());
+    vs[0] = v[0];
+    for (int i = 1; i < v.size(); ++i)
+    {
+        vs[i] = vs[i - 1] + v[i];
+    }
+    
+    return gmbs_iter(vs, 0, vs.size());
+}
+
+
 void get_max_bin_subsequence()
 {
     vector<int> v1 = {1,0,1,0,1,0,1,0};
@@ -3876,6 +3906,13 @@ void get_max_bin_subsequence()
 
     r = gmbs(v2);
     cout << r.first << " " << r.second << endl;
+
+    r = gmbs2(v1);
+    cout << r.first << " " << r.second << endl;
+
+    r = gmbs2(v2);
+    cout << r.first << " " << r.second << endl;
+
 }
 
 
@@ -4130,6 +4167,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
+    get_max_bin_subsequence();
  
 }
 
