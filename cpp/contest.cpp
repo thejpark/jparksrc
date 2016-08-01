@@ -3805,6 +3805,7 @@ pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
             if (v[beg] == 1)
             {
                 ++beg;
+                --len;
             }
             else
             {
