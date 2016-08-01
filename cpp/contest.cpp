@@ -3777,6 +3777,59 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 }
 
 
+pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
+{
+    int len = size;
+    while (len > 0)
+    {
+        int t = gmbs_get(vs, beg, len) * 2;
+
+        if (t == len)
+        {
+            return pair<int, int>(len, beg);
+        }
+        else if (t < len)
+        {
+            if (v[beg] == 0)
+            {
+                ++beg;
+                --len;
+            }
+            else
+            {
+                --len;
+            }
+        }
+        else
+        {
+            if (v[beg] == 1)
+            {
+                ++beg;
+            }
+            else
+            {
+                --len;
+            }
+        }
+    }
+
+    return pair<int, int>(0, 0);
+}
+
+
+pair<int, int> gmbs3(vector<int>& v)
+{
+    vector<int> vs(v.size());
+    vs[0] = v[0];
+    for (int i = 1; i < v.size(); ++i)
+    {
+        vs[i] = vs[i - 1] + v[i];
+    }
+    
+    return gmbs_linear(vs, v, 0, vs.size());
+}
+
+
 pair<int, int> gmbs(vector<int>& v)
 {
     vector<int> vs(v.size());
@@ -3804,21 +3857,28 @@ pair<int, int> gmbs2(vector<int>& v)
 
 void get_max_bin_subsequence()
 {
-    vector<int> v1 = {1,0,1,0,1,0,1,0};
-    vector<int> v2 = {1,1,0,1,0,0,0};
+    vector<int> v1;
+
+    int n;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v1.push_back(t);
+    }
     
     pair<int, int> r;
 
     r = gmbs(v1);
     cout << r.first << " " << r.second << endl;
 
-    r = gmbs(v2);
-    cout << r.first << " " << r.second << endl;
-
     r = gmbs2(v1);
     cout << r.first << " " << r.second << endl;
 
-    r = gmbs2(v2);
+    r = gmbs3(v1);
     cout << r.first << " " << r.second << endl;
 
 }
