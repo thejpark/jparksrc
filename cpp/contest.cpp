@@ -3776,7 +3776,6 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
     return pair<int, int>(0, 0);
 }
 
-
 pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
 {
     int len = size;
@@ -3812,6 +3811,25 @@ pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
                 --len;
             }
         }
+    }
+
+    return pair<int, int>(0, 0);
+}
+
+pair<int, int> gebs_iter(vector<int>&vs1, vector<int>& vs2, int beg, int size)
+{
+    int len = size;
+    while (len > 0)
+    {
+        for (int i = beg; i + len <= size; ++i)
+        {
+            if (gmbs_get(vs1, i, len) == gmbs_get(vs2, i, len))
+            {
+                return pair<int, int>(len, i);
+            }
+        
+        }
+        --len;
     }
 
     return pair<int, int>(0, 0);
@@ -3853,6 +3871,55 @@ pair<int, int> gmbs2(vector<int>& v)
     }
     
     return gmbs_iter(vs, 0, vs.size());
+}
+
+pair<int, int> gebs(vector<int>& v1, vector<int>& v2)
+{
+    vector<int> vs1(v1.size());
+    vs1[0] = v1[0];
+    for (int i = 1; i < v1.size(); ++i)
+    {
+        vs1[i] = vs1[i - 1] + v1[i];
+    }
+
+    vector<int> vs2(v2.size());
+    vs2[0] = v2[0];
+    for (int i = 1; i < v2.size(); ++i)
+    {
+        vs2[i] = vs2[i - 1] + v2[i];
+    }
+    
+    return gebs_iter(vs1, vs2, 0, vs1.size());
+}
+
+
+void get_eq_bin_subsequence()
+{
+    vector<int> v1;
+    vector<int> v2;
+
+    int n;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v1.push_back(t);
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v2.push_back(t);
+    }
+    
+    pair<int, int> r;
+
+    r = gebs(v1, v2);
+    cout << r.first << " " << r.second << endl;
 }
 
 
@@ -4136,7 +4203,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    get_max_bin_subsequence();
+    get_eq_bin_subsequence();
  
 }
 
