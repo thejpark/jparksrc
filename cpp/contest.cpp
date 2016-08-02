@@ -4078,6 +4078,27 @@ int lsna(int i, vector<int>& v)
                lsna(i + 1, v));
 }
 
+int lsna_table(vector<int>& v)
+{
+    vector<int> t(v.size());
+    int size = t.size();
+    if (size == 0)
+        return 0;
+    if (size == 1)
+        return v[0];
+    
+    t[size - 1] = v[size - 1];
+    t[size - 2] = max(v[size - 1], v[size - 2]);
+    
+    for (int i = size - 3; i >= 0; --i)
+    {
+        t[i] = max(t[i + 1], v[i] + t[i + 2]);
+    }
+
+    return t[0];
+}
+
+
 void largest_sum_no_adjcent()
 {
 
@@ -4095,7 +4116,8 @@ void largest_sum_no_adjcent()
     }
 
     int r = lsna(0, v);
-
+    cout << r << endl;
+    r = lsna_table(v);
     cout << r << endl;
 }
 
@@ -4203,7 +4225,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    get_eq_bin_subsequence();
+    largest_sum_no_adjcent();
  
 }
 
