@@ -4219,13 +4219,41 @@ void test_find_longest_repeated_char()
     cout << endl;
 }
 
+void test_first_unrepeated_char()
+{
+    string s;
+    cin >> s;
+
+    char prev = s[0];
+    int count = 1;
+    
+    for (int i = 1; i < s.size(); ++i)
+    {
+        if (prev != s[i])
+        {
+            if (count == 1)
+                break;
+            
+            prev = s[i];
+            count = 1;
+        }
+        else
+        {
+            ++count;
+        }
+    }
+
+    if (count == 1)
+        cout << "the result is " << prev << endl;
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    largest_sum_no_adjcent();
+    test_first_unrepeated_char();
  
 }
 
