@@ -3334,6 +3334,87 @@ void construct_binarytree_from_post_and_pre_order_traverse()
 }
 
 
+//
+// binary tree (not bst), find whether node b is in between the path from a to c
+//
+
+bool search_topdown_path(bt_node* n, list<bt_node*> l)
+{
+    if (l.empty())
+        return true;
+
+    if (!n)
+        return false;
+
+    bt_node* t = l.front();
+
+    if (n == t) {
+        l.pop_front();
+        if (l.empty())
+            return true;
+    }
+
+    bool r = false;
+    // l is copied, so no need to worry about the
+    // changes in the subtree
+    // if we want to consider pre-order traversal,
+    // then l should be reference type.
+    
+    r = search_topdown_path(n->left, l);
+    if (r)
+        return true;
+    
+    r = search_topdown_path(n->right, l);
+    if (r)
+        return true;
+
+    return false;
+}
+
+
+void test_search_node_path()
+{
+    bt_node a(6);
+    bt_node b(3);
+    bt_node c(8);
+    a.left = &b;
+    a.right = &c;
+
+    bt_node d(1);
+    bt_node e(4);
+    b.left = &d;
+    b.right = &e;
+
+    bt_node f(7);
+    bt_node g(12);
+    c.left = &f;
+    c.right = &g;
+
+    bt_node h(100);
+    bt_node i(120);
+    f.left = &h;
+    g.right = &i;
+
+    list<bt_node*> l = {&a, &c, &i};
+    if (search_topdown_path(&a, l))
+        cout << "yes1" << endl;
+    
+    l = {&a, &c, &h};
+    if (search_topdown_path(&a, l))
+        cout << "yes2" << endl;
+ 
+    l = {&a, &b, &i};
+    if (search_topdown_path(&a, l))
+        cout << "no1" << endl;
+
+    l = {&a, &i, &h};
+    if (search_topdown_path(&a, l))
+        cout << "no2" << endl;
+}
+
+
+
+
 
 /*
 
@@ -4253,7 +4334,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_first_unrepeated_char();
+    test_search_node_path();
  
 }
 
