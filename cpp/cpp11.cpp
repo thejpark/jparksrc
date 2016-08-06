@@ -765,7 +765,6 @@ public:
     my_blocking_queue(string s="") : name{s}, count{0}, availItems{0} {}
     void put(T t);
     T take();
-    bool contains(T t);
     int size()
     {
         unique_lock<mutex> lck{mmutex};
@@ -776,7 +775,6 @@ private:
     shared_ptr<elem> head;
     shared_ptr<elem> tail;
     int count;
-    map<T, shared_ptr<elem>> mc;
     mutex mmutex;
     string name;
     mysem availItems;
@@ -798,7 +796,6 @@ void my_blocking_queue<T>::put(T t)
         p->prev = tail;
         tail = p;
     }
-    mc[t] = p;
     ++count;
     availItems.release();
 }
@@ -816,39 +813,19 @@ T my_blocking_queue<T>::take()
     if (head == nullptr)
         tail = nullptr;
 
-    auto it = mc.find(p->data);
-    if (it != mc.end())
-        mc.erase(it);
-
     --count;
     T data = p->data;
     return data;
 }
 
-template<typename T>
-bool my_blocking_queue<T>::contains(T t)
-{
-    auto it = mc.find(t);
-    if (it != mc.end())
-        return true;
-
-    return false;
-}
 
 void t19()
 {
     my_blocking_queue<int> mbi;
-    bool r = mbi.contains(1);
-    assert(r == false);
 
     mbi.put(1);
-    r = mbi.contains(1);
-    assert(r == true);
-
     int x = mbi.take();
     cout << "done" << endl;
-    r = mbi.contains(1);
-    assert(r == false);
     assert(x == 1);
 }
 
