@@ -1760,7 +1760,7 @@ overlap(const vector<int> &A, long long  x, long long y)
     if ((x1 <= y1 && y1 <= x2) ||
             (x1 <= y2 && y2 <= x2) ||
             (x1 <= y1 && y2 <= x2) ||
-            (x2 >= y1 && y2 >= x2))
+            (x1 >= y1 && y2 >= x2))
         return true;
 
     return false;
@@ -1901,30 +1901,31 @@ void t43()
 
 int search_min(tree* n)
 {
-if (n->left)
-    return search_min(n->left);
+    if (n->left)
+        return search_min(n->left);
 
-return n->data;
+    return n->data;
 }
 
 int search_next(tree* n)
 {
-    int k = n->data;
     if (n->right)
         return search_min(n->right);
-    else
+
+    node* p = n->parent;
+
+    while (p)
     {
-        while (n->data <= k)
+        if (n == p->left)
         {
-            n = n->parent;
-            if (n == null)
-            {
-                cout << "the last element";
-                return -1;
-            }
+            return n->data;
         }
-        return n->data;
+        n = p;
+        p = p->parent;
     }
+
+    cout << "last element" << endl;
+    return 0;
 }
 void t45()
 {
