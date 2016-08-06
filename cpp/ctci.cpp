@@ -531,6 +531,8 @@ col_row(vector<vector<int> > m)
 void
 col_row2(vector<vector<int> > &m)
 {
+    // instead of row and col as vector,
+    // consider using set. As it removes redundancy
     vector<int> row;
     vector<int> col;
     
