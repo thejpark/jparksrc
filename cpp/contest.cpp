@@ -4205,8 +4205,8 @@ void largest_sum_no_adjcent()
 
 int fnre(vector<int>& vi, int i, int j)
 {
-    if (i == j)
-        return vi[i];
+    if (i > j)
+        return -1; // did not find one
 
     int m = i + (j - i) / 2;
 
