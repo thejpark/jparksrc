@@ -29,3 +29,8 @@ Design
 
 
 3. find shopping pattern in Amazon 
+
+4. global chatting server
+
+5. phonebook
+
