@@ -713,6 +713,80 @@ void test_combination_sum_to_15()
     cout << "the result is " << r << endl;
 }
 
+/*
+Given an in nite number of quarters (25 cents), dimes (10 cents), 
+nickels (5 cents) and pennies (1 cent), write code to calculate the 
+number of ways of representing n cents 
+*/
+
+int makeChange(int n, int denom) { 
+    int next_denom = 0;
+    
+    switch (denom) {
+    case 25:
+        next_denom = 10;
+        break;
+    case 10:
+        next_denom = 5;
+        break;
+    case 5:
+        next_denom = 1;
+        break;
+    case 1: // when it comes here, you always find solution.
+        return 1;
+    }
+
+    int ways = 0;
+    
+    for(int i=0;i*denom<=n;i++)
+    {
+        ways += makeChange(n - i * denom, next_denom); 
+    }
+    return ways; 
+}
+
+int makeChange(vector<int>& denom, int idx, int n)
+{
+    if (n == 0)
+        return 1;
+    if (idx == denom.size())
+        return 0;
+    int r = 0;
+    for (int i = 0; i * denom[idx] <= n; ++i)
+    {
+        r += makeChange(denom, idx + 1, n - i * denom[idx]);
+    }
+    return r;
+}
+
+int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
+{
+    if (n == 0)
+        return cnt;
+    if (idx == denom.size())
+        return 1000; // some max number
+    int r = 1000; // some max number
+    for (int i = 0; i * denom[idx] <= n; ++i)
+    {
+        int a = makeMinChange(denom, idx + 1, cnt + i, n - i * denom[idx]);
+        if (a < r)
+            r = a;
+    }
+    return r;
+}
+
+void test_denom()
+{
+    cout << makeChange(16, 25) << endl;
+
+    vector<int> a {25, 10,  5, 1};
+    vector<int> b {1, 5, 10, 25};
+
+    cout << makeChange(a, 0, 16) << endl;
+    cout << makeChange(b, 0, 16) << endl;
+    cout << makeMinChange(a, 0, 0, 16) << endl;
+}
+
 
 #if 0
 bool has_str(string a, string b)
@@ -4073,80 +4147,6 @@ void test_set()
     ls.insert(l2);
 
     assert(1 == ls.size());
-}
-
-/*
-Given an in nite number of quarters (25 cents), dimes (10 cents), 
-nickels (5 cents) and pennies (1 cent), write code to calculate the 
-number of ways of representing n cents 
-*/
-
-int makeChange(int n, int denom) { 
-    int next_denom = 0;
-    
-    switch (denom) {
-    case 25:
-        next_denom = 10;
-        break;
-    case 10:
-        next_denom = 5;
-        break;
-    case 5:
-        next_denom = 1;
-        break;
-    case 1: // when it comes here, you always find solution.
-        return 1;
-    }
-
-    int ways = 0;
-    
-    for(int i=0;i*denom<=n;i++)
-    {
-        ways += makeChange(n - i * denom, next_denom); 
-    }
-    return ways; 
-}
-
-int makeChange(vector<int>& denom, int idx, int n)
-{
-    if (n == 0)
-        return 1;
-    if (idx == denom.size())
-        return 0;
-    int r = 0;
-    for (int i = 0; i * denom[idx] <= n; ++i)
-    {
-        r += makeChange(denom, idx + 1, n - i * denom[idx]);
-    }
-    return r;
-}
-
-int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
-{
-    if (n == 0)
-        return cnt;
-    if (idx == denom.size())
-        return 1000; // some max number
-    int r = 1000; // some max number
-    for (int i = 0; i * denom[idx] <= n; ++i)
-    {
-        int a = makeMinChange(denom, idx + 1, cnt + i, n - i * denom[idx]);
-        if (a < r)
-            r = a;
-    }
-    return r;
-}
-
-void test_denom()
-{
-    cout << makeChange(16, 25) << endl;
-
-    vector<int> a {25, 10,  5, 1};
-    vector<int> b {1, 5, 10, 25};
-
-    cout << makeChange(a, 0, 16) << endl;
-    cout << makeChange(b, 0, 16) << endl;
-    cout << makeMinChange(a, 0, 0, 16) << endl;
 }
 
 
