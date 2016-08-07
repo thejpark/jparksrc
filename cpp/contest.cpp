@@ -3947,11 +3947,6 @@ pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
             if (v[beg] == 0)
             {
                 ++beg;
-                --len;
-            }
-            else
-            {
-                --len;
             }
         }
         else
@@ -3959,13 +3954,9 @@ pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
             if (v[beg] == 1)
             {
                 ++beg;
-                --len;
-            }
-            else
-            {
-                --len;
             }
         }
+        --len;
     }
 
     return pair<int, int>(0, 0);
@@ -4103,7 +4094,6 @@ void get_max_bin_subsequence()
 
     r = gmbs3(v1);
     cout << r.first << " " << r.second << endl;
-
 }
 
 
@@ -4334,7 +4324,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_search_node_path();
+    get_max_bin_subsequence();
  
 }
 
