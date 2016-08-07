@@ -2195,7 +2195,7 @@ int find_end(vector<char>& vc, int i, int j, char t)
 int find_pos(vector<char>& vc, int i, int j, char t)
 {
     if (i > j)
-        return i;
+        return -1;// that means it did not find any
     
     int mid = i + (j - i) / 2;
 
@@ -2247,6 +2247,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_merge_linked_list();
+    test_count_char_in_sorted_array();
 }
 
