@@ -747,36 +747,48 @@ node* reverse_list(node* a)
 
 node* merge_list(node*a, node*b)
 {
-
+// merge two list into one
     if (!a)
         return b;
     if (!b)
         return a;
 
     node* ret = a;
+    node* prev = nullptr;
 
     while (true)
     {
-        if (a->data < b->data)
+        if (!a)
         {
-            if (!a->next)
-            {
-                a->next = b;
-                return ret;
-            }
-            a = a->next;
+            prev->next = b;
+            return ret;
+        }
+        else if (!b)
+        {
+            return ret;
         }
         else
         {
-            node* nexta = a->next;
-            node* nextb = b->next;
-            a->next = b;
-            b->next = nexta;
-            swap(a->data, b->data);
-            a = a->next;
-            b = nextb;
-            if (!b)
-                return ret;
+            if (a->data < b->data)
+            {
+                prev = a;
+                a = a->next;
+            }
+            else
+            {
+                node* next = b->next;
+                if (prev)
+                {
+                    prev->next = b;
+                }
+                else
+                {
+                    ret = b;
+                }
+                prev = b;
+                b->next = a;
+                b = next;
+            }
         }
     }
 }
@@ -2235,6 +2247,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_count_char_in_sorted_array();
+    test_merge_linked_list();
 }
 
