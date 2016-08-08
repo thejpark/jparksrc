@@ -3631,6 +3631,43 @@ void beauty_number()
     cout <<"winner is " << winner << endl;
 }
 
+
+int get_dum(int x, int y)
+{
+    if (x < y)
+        return 0;
+
+    int i = 1;
+    while (x >= y * i * 2) 
+        i *= 2;
+
+    return i;
+}
+        
+    
+
+int div_using_mul(int x, int y)
+{
+    int k = 0;
+    int r = 0;
+    while (x >= y)
+    {
+        k = get_dum(x, y);
+        x -= k * y;
+        r += k;
+    }
+
+    return r;
+}
+
+void test_div_using_mul()
+{
+    int x, y;
+    cin >> x >> y;
+
+    cout << "The result is " << div_using_mul(x, y) << endl;
+}
+
 /*
 Your task is to decode messages that are encoded with substitution ciphers. In a substitution cipher, all occurrences of a character are replaced by a different character. For example, in a cipher that replaces "a" with "d" and "b" with "e", the message "abb" is encoded as "dee".
 
@@ -3755,7 +3792,6 @@ void decipher()
     cmap.clear();
     proc_dcpr(0, vb2, va, cmap); 
 }
-
 
 
 /*
@@ -4324,7 +4360,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    get_max_bin_subsequence();
+    test_div_using_mul();
  
 }
 
