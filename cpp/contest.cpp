@@ -3632,6 +3632,7 @@ void beauty_number()
 }
 
 
+// get maximum number i where i is 1, 2, 4, 8, ...
 int get_dum(int x, int y)
 {
     if (x < y)
@@ -3646,18 +3647,21 @@ int get_dum(int x, int y)
         
     
 
-int div_using_mul(int x, int y)
+// this can be implemented using get_dum.
+void div_using_mul(int x, int y)
 {
-    int k = 0;
     int r = 0;
     while (x >= y)
     {
-        k = get_dum(x, y);
+        int k = 1;
+        while (x >= 2 * k * y)
+            k *= 2;
+        
         x -= k * y;
         r += k;
     }
 
-    return r;
+    cout << " the result is " << r << " and " << x << endl;
 }
 
 void test_div_using_mul()
@@ -3665,7 +3669,7 @@ void test_div_using_mul()
     int x, y;
     cin >> x >> y;
 
-    cout << "The result is " << div_using_mul(x, y) << endl;
+    div_using_mul(x, y);
 }
 
 /*
