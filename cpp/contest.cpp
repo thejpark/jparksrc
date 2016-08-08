@@ -2062,6 +2062,46 @@ int get_max_path(vector<vector<int>>& v, int i, int j,
     }
 }
 
+void get_max_path(vector<vector<int>>& v, int n, int m)
+{
+    vector<vector<int>> vs(n, vector<int>(m));
+
+    vs[n - 1][m - 1] = v[n - 1][m - 1];
+
+    for (int i = m - 2; i >= 0; --i)
+        vs[n - 1][i] = v[n - 1][i] + vs[n - 1][i + 1];
+    
+    for (int i = n - 2; i >= 0; --i)
+        vs[i][m - 1] = v[i][m - 1] + vs[i + 1][m - 1];
+
+    for (int i = n - 2; i >= 0; --i)
+    {
+        for (int j = m - 2; j >= 0; --j)
+        {
+            vs[i][j] = v[i][j] + max(vs[i + 1][j], vs[i][j + 1]);
+        }
+    }
+
+    int i = 0;
+    int j = 0;
+    // take care about the condition. It is !((i == n - 1) && (j == m - 1))
+    while (i != n - 1 || j != m - 1)
+    {
+        cout << i << " " << j << endl;
+
+        if (i == n - 1)
+            ++j;
+        else if (j == m - 1)
+            ++i;
+        else if (vs[i + 1][j] > vs[i][j + 1])
+            ++i;
+        else
+            ++j;
+    }
+    cout << i << " " << j << endl;
+}
+
+
 void largest_path()
 {
     int m, n;
@@ -2084,6 +2124,10 @@ void largest_path()
 
     for (int i = 0; i < r.size(); ++i)
         cout << r[i].first << " " << r[i].second << endl;
+
+    cout << "---------------" << endl;
+
+    get_max_path(v,n,m);
 }
 
 
@@ -4364,7 +4408,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_div_using_mul();
+    largest_path();
  
 }
 
