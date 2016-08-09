@@ -1,4 +1,16 @@
-Design
+Design steps
+
+
+1. ask clarifying questions
+2. list requirements
+3. diagram of components and how it works to address requirements
+   data source, web service, client, and software components
+4. trade off between possible solutions
+5. operational performance, possible problem point?
+
+
+
+Example
 
 1. bad ip checking
 - what is bad ip?
