@@ -71,8 +71,6 @@ If you now want to dive more into the details and actual technical design, I rec
 
 If you do something time-consuming, try to do it always asynchronously.
 
-The already released parts of the series “Scalability for Dummies” you can find here.
-
 
 
 ***** Example Design *****
