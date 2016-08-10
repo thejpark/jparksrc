@@ -101,6 +101,26 @@ If you do something time-consuming, try to do it always asynchronously.
 
 
 2. fb news feed
+* AC
+ - user A updates then A's friend can see the update
+ - update should be finished as soon as possible
+ - user login then she/he can see missed update 
+ - scailable for the billions of people
+ 
+* interactions/diagram
+
+user -> updates -> webserver -> put request on request queue (ac2, ac4) -> update worker processes a request
+and process it. then for each friend's queue add change notification, and add each friend to the notification queue -> notification worker process item -> friends of a receive notification (ac4) -> pull a list of unread changes in the users notification queue -> for each element, pull changes (ac1)
+
+login -> pull a list of upread changes in the users notification queue -> for each element, pull changes
+(ac1, ac3)
+
+* what is design alternative? what is scalability issue? (ac4)
+request queue (async) .vs. wait for update done
+db access. vs. cache (i.e., memcached)
+notification .vs. periodic polling
+tcp. vs. udp: tcp for storing update queue, udp for notification suff
+notification merging needed? (if notification adjacent in the queue)
 
 
 3. find shopping pattern in Amazon 
