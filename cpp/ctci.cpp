@@ -844,6 +844,19 @@ void test_merge_linked_list()
     cout << endl;
 }
 
+
+
+void test_merge_k_sorted_list()
+{
+
+    // merge k list of length n
+    // with nklogk
+
+    // 1) using heap of length k
+    // 2) logk means tree, so merge two list of size n, then 2n,..., and at the logk step
+    //    merge all
+}
+
 class myq {
 public:
     void enq(int x) 
