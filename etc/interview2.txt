@@ -29,9 +29,9 @@ FB:
 
 make sure I understand the question, and show my idea and my ability of how to tackle the problem, pros and cons, etc.
  tell them what I am doing, show my ability and problem solving ideas. 
- carrier conversation: why come to FB? the whole mission about the company - make world to open and connected. why I want to join? for this mission? align my passion with the company mission. I also can use my potential to solve very big problem.
+ courier conversation: why come to FB? the whole mission about the company - make world to open and connected. why I want to join? for this mission? align my passion with the company mission. I also can use my potential to solve very big problem.
  show my enthusiasm
-tell my story in a compelling way. Why I wanted to be a programmer. Giving context. in Korea I should be a manager, I want to be more technical.
+tell my story in a compelling way. Why I wanted to be a programmer. Giving context. in Korea I should be a manager, I want to be more technical. I like to have a leadership in technical area though.
  
 
 
@@ -71,7 +71,7 @@ So far, the most proud of project was mobile virtualization of Android smartphon
  - Probably I would be still with Samsung if I didn't moved to Australia. 
 
 2.2 Why do you left Korea? Why do you come to Australia?
-- I traveled australia before with my family, visited Sudney and Melbourn. after that we thought about living
+- I want to be working on more technical stuff, but i was supposed to do more on people management. And I also want to have more family oriented environment (i wanted to spend more time with family)
 in australia. very good environment, public welfare, and education. 
 
 2.3 Why do you choosed our company (also in 2.9)
