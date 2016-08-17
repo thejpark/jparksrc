@@ -857,6 +857,12 @@ void test_merge_k_sorted_list()
     //    merge all
 }
 
+void test_swap_nodes()
+{
+    
+}
+
+
 class myq {
 public:
     void enq(int x) 

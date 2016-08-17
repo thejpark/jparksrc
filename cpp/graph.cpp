@@ -877,6 +877,7 @@ bool bfs_pair(node* n, int a, int b)
 {
     if (!n) return false;
 
+    // we don't need this map as this is binary tree.
     map<node*, bool> visited;
     list<node*> nl;
     visited[n] = true;

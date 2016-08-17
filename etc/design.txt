@@ -123,9 +123,32 @@ tcp. vs. udp: tcp for storing update queue, udp for notification suff
 notification merging needed? (if notification adjacent in the queue)
 
 
-3. find shopping pattern in Amazon 
+3. parking lot management (and reservation?)
+(how many levels, number of exits/entrance, number of slots, etc)
 
-4. global chatting server
 
-5. phonebook
+4. book/reserve (a table) for a restaurant through web
+(how many tables, seats, ...) It may be similar to hotel reservation system
+
+AC: given  number of people, starting time, end time (some default value)
+    provide a list of possible table allocations, or just enter number of
+    people and see allocation time?
+    user request is either get avail list and update with reservation
+    just one store? do we need user location to book nearest place?
+    do we need more inputs from the client? prefernce? baby seat? 
+    how big is the restaurant? how many requests in a min/hr?
+
+Interaction and diagram
+    user1 -> enter info -> webserver -> reader show avail list -> user select item -> submit -> writer check version number and send ok/nok -> confirm
+    user2 -> do the same thing 
+    user session should be considered
+    version should be considered 
+    
+
+
+5. find shopping pattern in Amazon 
+
+6. global chatting server
+
+7. phonebook
 
