@@ -2243,6 +2243,30 @@ void test_count_char_in_sorted_array()
     cout << " the result is " << i << " " << j << " " << k << endl;
 }
 
+
+// Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9) 
+// (60,90) and build a data structure. Query the data structure for point x, 
+// and it find out all the intervals that contain this point x.
+void test_find_interval()
+{
+    // sort intervals with first number, and store it to array a
+    // sort intervals with last number, and store it to array b
+    // given number x, binary search in the a->k and b->l 
+    // then set_intersection(a[:k], b[l:]) would be the answer.
+    // To improve speed, this set intersection can be precomputed for each(k,l)
+    // where k and l are in [0, sizeof(intervals)].
+
+}
+
+
+// implement how to find lru map element if the number of element in the map
+// hits to the max. We only have 1000 element in the map, and later should
+// replace old one with new one.
+
+void test_lru()
+{
+}
+
 //
 // Given a file with a lot of words (10 million) find out the top 10%
 // most frequently occurring words.
