@@ -2267,6 +2267,15 @@ void test_lru()
 {
 }
 
+
+// given an array of (start price, daily high, daily low), find the best
+// period for buy and sell (gap between buy and sell is highest)
+void test_find_best_investment_period()
+{
+    // for x = [2, 3, 5, 1, 9],
+    //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);  
+    // then for the biggest element (biggest gap)  in y, find interval
+}
 //
 // Given a file with a lot of words (10 million) find out the top 10%
 // most frequently occurring words.
