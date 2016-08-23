@@ -2263,6 +2263,90 @@ void test_find_interval()
 // hits to the max. We only have 1000 element in the map, and later should
 // replace old one with new one.
 
+class lrumap {
+private:
+
+    class node {
+    public:
+        node(string s, int x) : str(s), data(x), prev(NULL), next(NULL) {}
+        int data;
+        string str;
+        node* prev;
+        node* next;
+    };
+    node* head;
+    node* tail;
+    map<string, node*> mm;
+    int size;
+ 
+public:
+    lrumap(int sz) : size(sz) {}
+    
+    int get(string& s)
+    {
+        if (mm.find(s) != mm.end())
+        {
+            node* n = mm[s];
+
+            // set the node as the head of the list
+            if (n == head && n == tail)
+            {
+                // do nothing
+            }
+            else if (n == head)
+            {
+                // do nothing
+            }
+            else if (n == tail)
+            {
+                tail = tail->prev;
+                tail->next = nullptr;
+
+                n->next = head;
+                n->prev = nullptr;
+                head = n;
+            }
+            else
+            {
+                n->prev->next = n->next;
+                n->next->prev = n->prev;
+
+                n->next = head;
+                n->prev = nullptr;
+                head = n;
+            }
+
+            return n->data;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    void put(string& s, int i)
+    {
+        node* n;
+
+        if (mm.size() == size)
+        {
+            n = tail;
+            n->prev = nullptr;
+            mm.erase(mm.find(n->str));
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        else
+        {
+            n = new node(s, i);
+        }
+
+        n->next = head;
+        head = n;
+        mm[s] = n;
+    }
+};
+    
 void test_lru()
 {
 }
