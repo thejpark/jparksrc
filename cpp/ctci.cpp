@@ -845,6 +845,86 @@ void test_merge_linked_list()
 }
 
 
+pair<node*, node*> skip_zero(node* n)
+{
+    node* first = n;
+    node* prev = nullptr;
+
+    while (n && n->data == 0)
+    {
+        prev = n;
+        n = n->next;
+    }
+
+    return pair<node*, node*>(prev, n);
+}
+
+pair<node*, node*> reverse_one_word(node* a)
+{
+    if (!a)
+        return pair<node*, node*>(a, a);
+
+    node* prev = a;
+    node* head = a;
+    a = a-> next;
+
+    while (a && a->data != 0) 
+    {
+        node* next = a->next;
+        a->next = prev;
+        prev = a;
+        a = next;
+    }
+
+    head->next = a;
+    return pair<node*, node*>(prev, a);
+}
+
+
+node* reverse_word(node* n)
+{
+    node* head = n;
+
+    while (n)
+    {
+        pair<node*, node*> a = skip_zero(n);
+        pair<node*, node*> b = reverse_one_word(a.second);
+
+        if (a.first)
+            a.first->next = b.first;
+        else
+            head = b.first;
+
+        n = b.second;
+    }
+
+    return head;
+}
+
+void test_reverse_word()
+{
+    node* head = new node(0);
+    node* end = head;
+    end->next = new node(1);
+    end = end->next;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(0);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+
+    node* r = reverse_word(head);
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
 
 void test_merge_k_sorted_list()
 {
@@ -2383,6 +2463,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_count_char_in_sorted_array();
+    test_reverse_word();
 }
 
