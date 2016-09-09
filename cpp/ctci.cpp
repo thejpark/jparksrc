@@ -2439,6 +2439,38 @@ void test_find_best_investment_period()
     // for x = [2, 3, 5, 1, 9],
     //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);  
     // then for the biggest element (biggest gap)  in y, find interval
+
+    vector<int> v;
+    int n;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int m_max = 0;
+    int k = 0;
+    int beg;
+    int end = v.size() - 1;
+    for (int i = v.size() - 2; i >= 0; --i)
+    {
+        int t = v[i + 1] - v[i];
+        k = max(t, t + k);
+        if (k > m_max)
+        {
+            m_max = k;
+            beg = i;
+        }
+
+        if (v[end] < v[i])
+            end = i;
+    }
+
+    cout << "the result is " << m_max << " begin at " << beg << " and ends at " << end << endl;
 }
 //
 // Given a file with a lot of words (10 million) find out the top 10%
@@ -2463,6 +2495,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_reverse_word();
+    test_find_best_investment_period();
 }
 
