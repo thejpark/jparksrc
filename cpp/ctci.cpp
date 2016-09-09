@@ -2464,10 +2464,11 @@ void test_find_best_investment_period()
         {
             m_max = k;
             beg = i;
+
+            if (v[end] < v[i])
+                end = i;
         }
 
-        if (v[end] < v[i])
-            end = i;
     }
 
     cout << "the result is " << m_max << " begin at " << beg << " and ends at " << end << endl;
