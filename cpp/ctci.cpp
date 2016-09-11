@@ -2427,8 +2427,38 @@ public:
     }
 };
     
+
 void test_lru()
 {
+}
+
+
+// partition int array with k, so that k puts together, smaller than k goes left,
+// and bigger than k goes to right.
+void test_partition_using_k()
+{
+    int n, k;
+    cin >> n;
+    vector<int> v;
+    
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    cin >> k;
+
+    auto a = partition(v.begin(), v.end(), [&](int x) { return x < k; }); 
+    partition(a, v.end(), [&](int x) { return x == k; }); 
+
+    cout << "the result is" << endl;
+
+    for (auto &e: v)
+        cout << e << " ";
+
+    cout << endl;
 }
 
 
@@ -2496,6 +2526,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_find_best_investment_period();
+    test_partition_using_k();
 }
 
