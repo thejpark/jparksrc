@@ -2336,6 +2336,32 @@ void test_find_interval()
     // To improve speed, this set intersection can be precomputed for each(k,l)
     // where k and l are in [0, sizeof(intervals)].
 
+    int n;
+
+    cin >> n;
+
+    using pos = pair<int, int>;
+    vector<pos> v;
+    for (int i = 0; i < n; ++i)
+    {
+        int x, y;
+        cin >> x >> y;
+
+        v.push_back(pos(x, y));
+    }
+
+    int k;
+    cin >> k;
+    
+    cout << " And the result is " << endl;
+
+    vector<pos> a(v);
+    vector<pos> b(v);
+
+    sort(a.begin(), a.end(), [](pos x, pos y) {return x.first < y.first; });
+    sort(b.begin(), b.end(), [](pos x, pos y) {return x.second < y.second; });
+    
+        
 }
 
 
