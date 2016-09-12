@@ -2353,15 +2353,29 @@ void test_find_interval()
     int k;
     cin >> k;
     
-    cout << " And the result is " << endl;
 
     vector<pos> a(v);
     vector<pos> b(v);
 
     sort(a.begin(), a.end(), [](pos x, pos y) {return x.first < y.first; });
+    int i, j;
+    for (i = 0; i < n; ++i)
+        if (a[i].first > k)
+            break;
     sort(b.begin(), b.end(), [](pos x, pos y) {return x.second < y.second; });
-    
-        
+    for (j = 0; j < n; ++j)
+        if (b[j].second > k)
+            break;
+
+    vector<pos> r;
+    set_intersection(a.begin(), a.begin() + i, b.begin() + j, b.end(),
+                     back_inserter(r));
+
+    cout << " And the result is " << endl;
+    for (auto&e : r)
+        cout << e.first << "," << e.second << endl;
+
+    cout << endl;
 }
 
 
@@ -2552,6 +2566,6 @@ void test_find_10_percent_from_10_milion_words()
 
 int main()
 {
-    test_partition_using_k();
+    test_find_interval();
 }
 
