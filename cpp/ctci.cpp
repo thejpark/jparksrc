@@ -2334,7 +2334,8 @@ void test_find_interval()
     // given number x, binary search in the a->k and b->l 
     // then set_intersection(a[:k], b[l:]) would be the answer.
     // To improve speed, this set intersection can be precomputed for each(k,l)
-    // where k and l are in [0, sizeof(intervals)].
+    // where k and l are in [0, sizeof(intervals)], so the computation is just
+    // binary search for finding k and l, which is O(log(n))
 
     int n;
 
