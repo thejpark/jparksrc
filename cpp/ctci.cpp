@@ -2327,6 +2327,38 @@ void test_count_char_in_sorted_array()
 // Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9) 
 // (60,90) and build a data structure. Query the data structure for point x, 
 // and it find out all the intervals that contain this point x.
+// this method returns the begining index of the character.
+// if there is no such character then it returns the position which it should exists
+int find_beg(vector<pair<int, int>>& vc, int i, int j, int t) {
+    if (i > j)
+        return i;
+    int mid = i + (j - i) / 2;
+
+    if (vc[mid].second == t)
+        return find_beg(vc, i, mid - 1, t);
+    else if (vc[mid].second > t)
+        return find_beg(vc, i, mid - 1, t);
+    else
+        return find_beg(vc, mid + 1, j, t);
+}
+
+// this method returns the begining index of the next character.
+// if there is no such character then it returns the position which it should exists
+int find_end(vector<pair<int, int>>& vc, int i, int j, int t) {
+    if (i > j)
+        return i;
+    
+    int mid = i + (j - i) / 2;
+
+    if (vc[mid].first == t)
+        return find_end(vc, mid + 1, j, t);
+    else if (vc[mid].first > t)
+        return find_end(vc, i, mid - 1, t);
+    else
+        return find_end(vc, mid + 1, j, t);
+}
+
+
 void test_find_interval()
 {
     // sort intervals with first number, and store it to array a
@@ -2354,19 +2386,14 @@ void test_find_interval()
     int k;
     cin >> k;
     
-
     vector<pos> a(v);
     vector<pos> b(v);
 
     sort(a.begin(), a.end(), [](pos x, pos y) {return x.first < y.first; });
-    int i, j;
-    for (i = 0; i < n; ++i)
-        if (a[i].first > k)
-            break;
+    int i = find_end(a, 0, a.size() - 1, k);
+
     sort(b.begin(), b.end(), [](pos x, pos y) {return x.second < y.second; });
-    for (j = 0; j < n; ++j)
-        if (b[j].second > k)
-            break;
+    int j = find_beg(b, 0, b.size() - 1, k);
 
     vector<pos> r;
     set_intersection(a.begin(), a.begin() + i, b.begin() + j, b.end(),
