@@ -3698,6 +3698,8 @@ void div_using_mul(int x, int y)
     while (x >= y)
     {
         int k = 1;
+        // actually it can be done without multiplication.
+        // we can just use bit >> or << 
         while (x >= 2 * k * y)
             k *= 2;
         
