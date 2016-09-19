@@ -2588,6 +2588,27 @@ void test_find_10_percent_from_10_milion_words()
 }
 
 
+/*
+There are N houses in a row. Each house can be painted in either Red, Green or Blue color. The cost of coloring each house in each of the colors is different.
+Find the color of each house such that no two adjacent house have the same color and the total cost of coloring all the houses is minimum.
+
+Update: The question intends to state that cost of painting any house in any color is different, so if cost of painting House 1 in Red is say, X then the cost of painting House 2 in red will some other value Y. It can be considered each house has different dimensions and hence cost of painting in each color is different, and the cost of paint for each house also varies
+*/
+
+void test_paint_house_with_3_colors()
+{
+    // If the cost for painting is same across all houses, then just start
+    // with a cheapest color, then next with second cheap, then third with
+    // cheapest color, until all houses are painted.
+
+
+    // If the costs for painting is different across all houses, then
+    // assume cost[n][3] is the cost of painting each n houses,
+    // compute total_cost[n][3] be the total cost for swimming. 
+
+}
+
+
 // reference
 // https://github.com/andreis/interview 
 //
