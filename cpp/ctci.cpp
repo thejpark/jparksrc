@@ -2604,8 +2604,37 @@ void test_paint_house_with_3_colors()
 
     // If the costs for painting is different across all houses, then
     // assume cost[n][3] is the cost of painting each n houses,
-    // compute total_cost[n][3] be the total cost for swimming. 
+    // compute total_cost[n][3] be the total cost for painting. 
 
+
+    int n;
+    cin >> n;
+
+    vector<vector<int>> v(n,vector<int>(3));
+    for (int i = 0; i < n; ++i)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        v[i][0] = a;
+        v[i][1] = b;
+        v[i][2] = c;
+    }
+
+    vector<vector<int>> vr(n,vector<int>(3));
+    
+    vr[n - 1][0] = v[n - 1][0];
+    vr[n - 1][1] = v[n - 1][1];
+    vr[n - 1][2] = v[n - 1][2];
+
+    for (int i = n - 2; i >= 0; --i)
+    {
+        vr[i][0] = v[i][0] + min(vr[i + 1][1], vr[i + 1][2]);
+        vr[i][1] = v[i][1] + min(vr[i + 1][0], vr[i + 1][2]);
+        vr[i][2] = v[i][2] + min(vr[i + 1][1], vr[i + 1][0]);
+    }
+
+    int r = min(min(vr[0][0], vr[0][1]), vr[0][2]);
+    cout << "The result is " << r << endl;
 }
 
 
@@ -2615,6 +2644,6 @@ void test_paint_house_with_3_colors()
 
 int main()
 {
-    test_find_interval();
+    test_paint_house_with_3_colors();
 }
 
