@@ -3159,6 +3159,59 @@ void two_machine_n_jobs()
     // to the end of the job list. For any index i in the array, if selecting
     // small valued machine makes more than k consecutive, then select the other
     // machine.
+
+    r = 0;
+    using elem = pair<int, int>;
+    vector<elem> d;
+    for (int i = 0; i < n; ++i)
+    {
+        d.push_back(elem(abs(a[i] - b[i]), i));
+    }
+
+    sort(d.begin(), d.end(), [](elem&a, elem&b) { return a.first < b.first; });
+
+    vector<int> vr(n);
+
+    for (int i = n - 1; i >= 0; --i)
+    {
+        int idx = d[i].second;
+        int t = 0;
+
+        if (a[idx] > b[idx])
+            t = -1;
+        else if (a[idx] < b[idx])
+            t = 1;
+        else {
+            r += a[idx];
+            continue;
+        }
+        
+        int cnt = 1;
+        for (int j = idx - 1; j >= 0; --j)
+        {
+            if (vr[j] != t)
+                break;
+            ++cnt;
+        }
+        for (int j = idx + 1; j <= n - 1; ++j)
+        {
+            if (vr[j] != t)
+                break;
+            ++cnt;
+        }
+
+        if (cnt > k)
+            t = -t;
+
+        vr[idx] = t;
+
+        if (t > 0)
+            r += a[idx];
+        else
+            r += b[idx];
+    }
+
+    cout << "the result is " << r << endl;
 }
 
 
@@ -4420,7 +4473,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    largest_path();
+    two_machine_n_jobs();
  
 }
 
