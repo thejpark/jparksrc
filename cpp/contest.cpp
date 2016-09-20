@@ -3149,9 +3149,16 @@ void two_machine_n_jobs()
     }
 
 
+    // recursive call to find the optimal solution.
     int r = process_jobs2m(0, a, b, k, k, k);
 
     cout << "the result is " << r << endl;
+
+    // we can also find optimal solution by first sorting the diff between
+    // the two machine, and select from the beggest gap first al the way
+    // to the end of the job list. For any index i in the array, if selecting
+    // small valued machine makes more than k consecutive, then select the other
+    // machine.
 }
 
 
