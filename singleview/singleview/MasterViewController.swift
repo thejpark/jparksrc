@@ -35,55 +35,55 @@ class Elem: NSObject, NSCoding {
         static let hyKey = "hy"
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         var tmp: String = ""
         for e in surName {
             tmp += e.0
         }
-        aCoder.encodeObject(tmp, forKey: PropertyKey.surNameKey)
-        aCoder.encodeObject(surName1, forKey: PropertyKey.surName1Key)
+        aCoder.encode(tmp, forKey: PropertyKey.surNameKey)
+        aCoder.encode(surName1, forKey: PropertyKey.surName1Key)
         tmp = ""
         for e in givenName {
             tmp += e.0
         }
-        aCoder.encodeObject(tmp, forKey: PropertyKey.givenNameKey)
-        aCoder.encodeObject(givenName1, forKey: PropertyKey.givenName1Key)
-        aCoder.encodeObject(saju, forKey: PropertyKey.sajuKey)
-        aCoder.encodeObject(dob, forKey: PropertyKey.dobKey)
-        aCoder.encodeObject(ilganGangYag.0, forKey: PropertyKey.ilganKey)
-        aCoder.encodeObject(ilganGangYag.1, forKey: PropertyKey.gangYagKey)
-        aCoder.encodeObject(ilganGangYag.2, forKey: PropertyKey.antiIlganKey)
-        aCoder.encodeObject(ilganGangYag.3, forKey: PropertyKey.antiGangYagKey)
+        aCoder.encode(tmp, forKey: PropertyKey.givenNameKey)
+        aCoder.encode(givenName1, forKey: PropertyKey.givenName1Key)
+        aCoder.encode(saju, forKey: PropertyKey.sajuKey)
+        aCoder.encode(dob, forKey: PropertyKey.dobKey)
+        aCoder.encode(ilganGangYag.0, forKey: PropertyKey.ilganKey)
+        aCoder.encode(ilganGangYag.1, forKey: PropertyKey.gangYagKey)
+        aCoder.encode(ilganGangYag.2, forKey: PropertyKey.antiIlganKey)
+        aCoder.encode(ilganGangYag.3, forKey: PropertyKey.antiGangYagKey)
 
-        aCoder.encodeObject(hy, forKey: PropertyKey.hyKey)
+        aCoder.encode(hy, forKey: PropertyKey.hyKey)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let sn = aDecoder.decodeObjectForKey(PropertyKey.surNameKey) as! String
-        let sn1 = aDecoder.decodeObjectForKey(PropertyKey.surName1Key) as! String
+        let sn = aDecoder.decodeObject(forKey: PropertyKey.surNameKey) as! String
+        let sn1 = aDecoder.decodeObject(forKey: PropertyKey.surName1Key) as! String
         var snh: [Hanja] = [Hanja]()
         for i in 0...(sn1.characters.count - 1) {
-            let index = sn.startIndex.advancedBy(i)
-            let index1 = sn1.startIndex.advancedBy(i)
+            let index = sn.characters.index(sn.startIndex, offsetBy: i)
+            let index1 = sn1.characters.index(sn1.startIndex, offsetBy: i)
             snh.append(getHanjaData(String(sn1[index1]), hanja: String(sn[index])))
         }
 
-        let gn = aDecoder.decodeObjectForKey(PropertyKey.givenNameKey) as! String
-        let gn1 = aDecoder.decodeObjectForKey(PropertyKey.givenName1Key) as! String
+        let gn = aDecoder.decodeObject(forKey: PropertyKey.givenNameKey) as! String
+        let gn1 = aDecoder.decodeObject(forKey: PropertyKey.givenName1Key) as! String
         var gnh: [Hanja] = [Hanja]()
         for i in 0...(gn1.characters.count - 1) {
-            let index = gn.startIndex.advancedBy(i)
-            let index1 = gn1.startIndex.advancedBy(i)
+            let index = gn.characters.index(gn.startIndex, offsetBy: i)
+            let index1 = gn1.characters.index(gn1.startIndex, offsetBy: i)
             gnh.append(getHanjaData(String(gn1[index1]), hanja: String(gn[index])))
         }
-        let sj = aDecoder.decodeObjectForKey(PropertyKey.sajuKey) as! String
-        let d = aDecoder.decodeObjectForKey(PropertyKey.dobKey) as! String
-        let il = aDecoder.decodeObjectForKey(PropertyKey.ilganKey) as! Int
-        let gy = aDecoder.decodeObjectForKey(PropertyKey.gangYagKey) as! Double
-        let antiIl = aDecoder.decodeObjectForKey(PropertyKey.antiIlganKey) as! Int
-        let antiGy = aDecoder.decodeObjectForKey(PropertyKey.antiGangYagKey) as! Double
+        let sj = aDecoder.decodeObject(forKey: PropertyKey.sajuKey) as! String
+        let d = aDecoder.decodeObject(forKey: PropertyKey.dobKey) as! String
+        let il = aDecoder.decodeObject(forKey: PropertyKey.ilganKey) as! Int
+        let gy = aDecoder.decodeObject(forKey: PropertyKey.gangYagKey) as! Double
+        let antiIl = aDecoder.decodeObject(forKey: PropertyKey.antiIlganKey) as! Int
+        let antiGy = aDecoder.decodeObject(forKey: PropertyKey.antiGangYagKey) as! Double
 
-        let h = aDecoder.decodeObjectForKey(PropertyKey.hyKey) as! [Int]
+        let h = aDecoder.decodeObject(forKey: PropertyKey.hyKey) as! [Int]
         
      
         self.init(surName1: sn1, surName:snh, givenName1: gn1, givenName: gnh,
@@ -157,7 +157,7 @@ class Elem: NSObject, NSCoding {
     }
     
     func getDob() -> String {
-        var str = self.dob.componentsSeparatedByString(" ")
+        var str = self.dob.components(separatedBy: " ")
         return "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
     }
     
@@ -213,7 +213,7 @@ class Elem: NSObject, NSCoding {
     func isBarumInHeeYong() -> Bool {
         
         for i in 0...self.givenName1.characters.count - 1 {
-            let index = self.givenName1.startIndex.advancedBy(i)
+            let index = self.givenName1.characters.index(self.givenName1.startIndex, offsetBy: i)
             let i = getBarumOhangIndex(String(self.givenName1[index]))
             if hy.contains(i) {
                 return true
@@ -235,7 +235,7 @@ class Elem: NSObject, NSCoding {
     func getBarumOhang() -> String {
         var r: String = "참고로 이름 글자의 발음오행은 "
         for i in 0...self.givenName1.characters.count - 1 {
-            let index = self.givenName1.startIndex.advancedBy(i)
+            let index = self.givenName1.characters.index(self.givenName1.startIndex, offsetBy: i)
             r += ohangHanja[getBarumOhangIndex(String(self.givenName1[index]))]!
             r += " "
         }
@@ -264,9 +264,9 @@ class Elem: NSObject, NSCoding {
     }
 
     // save and load
-    static let DocumentsDirectory = NSFileManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     
-    static let ArchiveURL = DocumentsDirectory.URLByAppendingPathComponent("data")
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("data")
 }
 
 // saved elements
@@ -274,7 +274,7 @@ var savedElements: [Elem] = [Elem]()
 
 
 func saveElem() {
-    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path!)
+    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path)
     if !isSuccessfulSave {
         print("Failed to save elements...")
     }
@@ -282,7 +282,7 @@ func saveElem() {
 
 func clearElem() {
     savedElements = [Elem]()
-    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path!)
+    let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(savedElements, toFile: Elem.ArchiveURL.path)
     if !isSuccessfulSave {
         print("Failed to save elements...")
     }
@@ -290,7 +290,7 @@ func clearElem() {
 
 
 func loadElem() -> [Elem]? {
-    return NSKeyedUnarchiver.unarchiveObjectWithFile(Elem.ArchiveURL.path!) as? [Elem]
+    return NSKeyedUnarchiver.unarchiveObject(withFile: Elem.ArchiveURL.path) as? [Elem]
 }
 
 class MasterViewController: UITableViewController {
@@ -314,7 +314,7 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -323,7 +323,7 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func search(surName: String, surNameH: String, givenName: String, selectedDate: String) {
+    func search(_ surName: String, surNameH: String, givenName: String, selectedDate: String) {
         var gname: [Hanja] = [Hanja]()
         self.objects = [AnyObject]()
         self.numSelected = 0
@@ -339,7 +339,7 @@ class MasterViewController: UITableViewController {
         self.dob = selectedDate
         self.surName = surName
         self.givenName = givenName
-        var str = selectedDate.componentsSeparatedByString(" ")
+        var str = selectedDate.components(separatedBy: " ")
         
         self.day = Int(str[0])!
         self.month = Int(str[1])!
@@ -354,7 +354,7 @@ class MasterViewController: UITableViewController {
         }
         
         
-        let index = givenName.startIndex.advancedBy(0)
+        let index = givenName.characters.index(givenName.startIndex, offsetBy: 0)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
         var i: Int = 1
@@ -368,10 +368,10 @@ class MasterViewController: UITableViewController {
             i += 1
         }
 
-        objects.sortInPlace({$0.prio < $1.prio})
+        objects.sort(by: {$0.prio < $1.prio})
     }
     
-    func findAndInsert(name: [Hanja], givenName: String, idx : Int, prio : [Int]) {
+    func findAndInsert(_ name: [Hanja], givenName: String, idx : Int, prio : [Int]) {
         
         if (idx == givenName.characters.count) {
             insertNewObject(name, prio: prio)
@@ -379,7 +379,7 @@ class MasterViewController: UITableViewController {
         }
         
         var gname: [Hanja] = [Hanja]()
-        let index = givenName.startIndex.advancedBy(idx)
+        let index = givenName.characters.index(givenName.startIndex, offsetBy: idx)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
         var i: Int = 1
@@ -394,7 +394,7 @@ class MasterViewController: UITableViewController {
 
     }
     
-    func insertNewObject(name: [Hanja], prio: [Int]) {
+    func insertNewObject(_ name: [Hanja], prio: [Int]) {
         if name.count < 2 {
             return
         }
@@ -452,7 +452,7 @@ class MasterViewController: UITableViewController {
         elem.ilganGangYag = getIlganGangYag(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
         elem.hy = self.hy
         
-        objects.insert(elem, atIndex: numSelected)
+        objects.insert(elem, at: numSelected)
         numSelected += 1
 //        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
 //        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -460,51 +460,51 @@ class MasterViewController: UITableViewController {
     
     // MARK: - Table View
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return objects.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let object = objects[indexPath.row] as! Elem
+        let object = objects[(indexPath as NSIndexPath).row] as! Elem
         cell.textLabel!.text = object.desc()
         return cell
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            objects.remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
     
     // MARK: - Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let obj = objects[indexPath.row] as! Elem
-                let controller = segue.destinationViewController as! DetailViewController
+                let obj = objects[(indexPath as NSIndexPath).row] as! Elem
+                let controller = segue.destination as! DetailViewController
                 controller.detailItem = obj
             }
         }
     }
     
-    @IBAction func goHome(sender: UIBarItem)
+    @IBAction func goHome(_ sender: UIBarItem)
     {
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
     }
 
 }

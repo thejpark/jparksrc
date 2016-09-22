@@ -22,7 +22,7 @@ let jiStartY: Int = 8
 let ganStartM: Int = 7
 let jiStartM: Int = 3
 
-func getYear(year : String, month : String, day : String, time: String) -> String {
+func getYear(_ year : String, month : String, day : String, time: String) -> String {
     let y = Int(year)
     let diff = y! - yearStart
     let newGan = (ganStartY + diff) % gan.count
@@ -32,11 +32,11 @@ func getYear(year : String, month : String, day : String, time: String) -> Strin
 
 
 
-func IsLeapyear(year : String) -> Bool {
+func IsLeapyear(_ year : String) -> Bool {
     return IsLeapyear(Int(year)!)
 }
 
-func IsLeapyear(y: Int) -> Bool {
+func IsLeapyear(_ y: Int) -> Bool {
     if ((y % 4) == 0) {
         return true
     }
@@ -45,7 +45,7 @@ func IsLeapyear(y: Int) -> Bool {
 }
 
 
-func getDaysInYear(year: Int) -> Int {
+func getDaysInYear(_ year: Int) -> Int {
     
     if IsLeapyear(year) {
         return 366
@@ -54,7 +54,7 @@ func getDaysInYear(year: Int) -> Int {
     return 365
 }
 
-func getDaysInMonth(month: Int, year: Int) -> Int {
+func getDaysInMonth(_ month: Int, year: Int) -> Int {
     
     let m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
@@ -66,7 +66,7 @@ func getDaysInMonth(month: Int, year: Int) -> Int {
     return r
 }
 
-func getDaysLeft(day: Int, month: Int, year: Int) -> Int {
+func getDaysLeft(_ day: Int, month: Int, year: Int) -> Int {
     
     let m = getDaysInMonth(month, year: year)
     var sum = m - day
@@ -81,7 +81,7 @@ func getDaysLeft(day: Int, month: Int, year: Int) -> Int {
 }
 
 
-func getDays(y1: Int, m1: Int, d1: Int, y2: Int, m2: Int, d2: Int) -> Int {
+func getDays(_ y1: Int, m1: Int, d1: Int, y2: Int, m2: Int, d2: Int) -> Int {
     
     let diff_y = y2 - y1
     
@@ -134,7 +134,7 @@ typealias Nalja = (Int, Int, Int, Int)
 let Jolgi : [Nalja] = [(1, 6, 7, 8), (2,4,18,46), (3,5,12,43),(4,4,17,27), (5, 5, 10, 42), (6, 5, 14, 48),
     (7, 7, 1, 3), (8, 7, 10, 53), (9,7,13,51), (10,8,5,33), (11,7,8,48), (12,7,1,41)]
 
-func compareNalja(a:Nalja, b:Nalja) -> Bool {
+func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
     
     if (b.0 > a.0) {
         return true
@@ -168,7 +168,7 @@ func compareNalja(a:Nalja, b:Nalja) -> Bool {
 }
 
 let base_year = 2016
-func getJolgi(year: Int) -> [Nalja] {
+func getJolgi(_ year: Int) -> [Nalja] {
     
     var r : [Nalja] = Jolgi
 
@@ -208,7 +208,7 @@ func getJolgi(year: Int) -> [Nalja] {
     return r
 }
 
-func getNyonju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String {
+func getNyonju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String {
     
     let g = gan[(year - 2014) % 10]
     let j = ji[(year - 2008) % 12]
@@ -226,7 +226,7 @@ func getNyonju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Strin
     return g + j
 }
 
-func getWorju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String{
+func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String{
     let d: Nalja = (month, day, hour, minute)
     let jolgi = getJolgi(year)
     
@@ -258,7 +258,7 @@ let timeDiffMap = ["해외": 0, "백령도":40, "울릉":16, "김천":27, "서�
 
 var timeDiff = 30
 
-func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
+func getIlju(_ y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
     
     var i = getDays(2016, m1:3, d1:3, y2:y, m2:m, d2:d)
     if (h == 0 && timeDiff > 0 && mm < timeDiff) {
@@ -277,7 +277,7 @@ func getIlju(y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
 }
 
 
-func getSiju(ilgan: Int, hour: Int, minute: Int) -> String {
+func getSiju(_ ilgan: Int, hour: Int, minute: Int) -> String {
     let g1 = (ilgan % 5) * 2
     let t = hour * 60 + minute
     var h = [timeDiff, timeDiff + 60]
@@ -307,7 +307,7 @@ func getSiju(ilgan: Int, hour: Int, minute: Int) -> String {
     }
 }
 
-func getGan(ilju: String) -> Int {
+func getGan(_ ilju: String) -> Int {
     let i1 = ilju.startIndex
     for i in 0 ... gan.count - 1 {
         let i2 = gan[i].startIndex
@@ -320,7 +320,7 @@ func getGan(ilju: String) -> Int {
 }
 
 
-func getSaju(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
+func getSaju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
@@ -340,8 +340,8 @@ let helpohang = [1:[1, 5], 2:[1, 2], 3:[2, 3], 4:[3, 4], 5:[4, 5]]
 let ohangHanja = [1:"木", 2:"火", 3:"土", 4:"金", 5:"水"]
 
 
-func getJi(j: String) -> Int {
-    let j1 = j.startIndex.advancedBy(1)
+func getJi(_ j: String) -> Int {
+    let j1 = j.characters.index(j.startIndex, offsetBy: 1)
     for i in 0 ... ji.count - 1 {
         let j2 = ji[i].startIndex
         if ji[i].characters[j2] == j.characters[j1] {
@@ -356,7 +356,7 @@ func getJi(j: String) -> Int {
 var sajuohang:[Double] = [0, 0, 0, 0, 0, 0] // first element is not used.
 
 // 신강/신약을 판단하고, 사주의 오행값을 계산함.
-func getGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
+func getGangYag(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
@@ -419,7 +419,7 @@ let antiohang = [1:4, 2:5, 3:1, 4:2, 5:3]
 //(일간이) 생 하는 오행, 즉 오행과 그 오행이 돕는 오행
 let liveohang = [1:2, 2:3, 3:4, 4:5, 5:1]
 
-func getAntiIlgan(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
+func getAntiIlgan(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Double
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
@@ -461,7 +461,7 @@ func getAntiIlgan(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
 }
 
 
-func getIlganGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> (Int, Double, Int, Double)
+func getIlganGangYag(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> (Int, Double, Int, Double)
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let base = ganjiohang[gan[getGan(ilju)]]
@@ -472,7 +472,7 @@ func getIlganGangYag(year: Int, month: Int, day: Int, hour: Int, minute: Int) ->
 }
 
 
-func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int]
+func getHeeYong(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int]
 {
     let ilju = getIlju(year, m:month, d:day, h:hour, mm:minute)
     let base = ganjiohang[gan[getGan(ilju)]]
@@ -517,7 +517,7 @@ func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int
                 ll = [1, 2, 4, 5]
             }
             
-            ll.sortInPlace({sajuohang[$0] < sajuohang[$1]})
+            ll.sort(by: {sajuohang[$0] < sajuohang[$1]})
             
             return [ll[0], ll[1]]
         }
@@ -546,7 +546,7 @@ func getHeeYong(year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [Int
     }
 }
 
-func getBarumOhangIndex(str: String) -> Int {
+func getBarumOhangIndex(_ str: String) -> Int {
     if barum_1.contains(str) {
         return 1
     }

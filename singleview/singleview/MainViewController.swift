@@ -32,21 +32,21 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         // load register info
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
-        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+        if let str = defaults.string(forKey: RegisterInfoKeys.surName) {
             self.surName = str
         }
-        if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+        if let str1 = defaults.string(forKey: RegisterInfoKeys.surNameH) {
             self.surNameH = str1
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.dob) {
             self.dob = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.gender) {
             self.gender = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.place) {
             self.place = str2
             // set timediff
             timeDiff = timeDiffMap[self.place]!
@@ -68,29 +68,29 @@ class MainViewController: UIViewController {
     }
     
     
-    @IBAction func enterInfo(sender: UIButton)
+    @IBAction func enterInfo(_ sender: UIButton)
     {
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
-        if defaults.stringForKey(RegisterInfoKeys.surName) != nil {
+        if defaults.string(forKey: RegisterInfoKeys.surName) != nil {
             
-            if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+            if let str1 = defaults.string(forKey: RegisterInfoKeys.surNameH) {
                 self.surNameH = str1
             }
-            if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+            if let str2 = defaults.string(forKey: RegisterInfoKeys.dob) {
                 self.dob = str2
             }
-            if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+            if let str2 = defaults.string(forKey: RegisterInfoKeys.gender) {
                 self.gender = str2
             }
-            if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+            if let str2 = defaults.string(forKey: RegisterInfoKeys.place) {
                 self.place = str2
                 // set timediff
                 timeDiff = timeDiffMap[self.place]!
             }
 
             
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("RegisterInfoView") as! RegisterConfirmViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "RegisterInfoView") as! RegisterConfirmViewController
             
             vc.surName = self.surName
             vc.surNameH = self.surNameH
@@ -98,11 +98,11 @@ class MainViewController: UIViewController {
             vc.gender = self.gender
             vc.place = self.place
 
-            self.showViewController(vc as UIViewController, sender: vc)
+            self.show(vc as UIViewController, sender: vc)
         }
         else {
             
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
             vc.showInView("등록할까요?",  animated: true)
@@ -110,38 +110,38 @@ class MainViewController: UIViewController {
     }
     
     
-    @IBAction func enterName(sender: UIButton) {
+    @IBAction func enterName(_ sender: UIButton) {
 
         // load register info
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
             
-        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+        if let str = defaults.string(forKey: RegisterInfoKeys.surName) {
             self.surName = str
         }
         else {
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
             vc.showInView("개인 정보를 등록하세요",  animated: true)
             
             return
         }
-        if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+        if let str1 = defaults.string(forKey: RegisterInfoKeys.surNameH) {
             self.surNameH = str1
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.dob) {
             self.dob = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.gender) {
             self.gender = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.place) {
             self.place = str2
             // set timediff
             timeDiff = timeDiffMap[self.place]!
         }
 
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("EnterNameView") as!
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "EnterNameView") as!
             ViewController
 
         vc.surName = self.surName
@@ -150,7 +150,7 @@ class MainViewController: UIViewController {
         vc.gender = self.gender
         vc.place = self.place
 
-        self.showViewController(vc as UIViewController, sender: vc)
+        self.show(vc as UIViewController, sender: vc)
   
     }
     
@@ -163,13 +163,13 @@ class MainViewController: UIViewController {
     }
     */
     
-    @IBAction func LoadSelectedNames(sender: UIBarItem)
+    @IBAction func LoadSelectedNames(_ sender: UIBarItem)
     {
         if savedElements.count == 0 {
             if let s = loadElem() {
                 savedElements = s
                 if savedElements.count == 0 {
-                    let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                    let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
                     self.addChildViewController(vc2)
                     self.view.addSubview(vc2.view)
@@ -179,11 +179,11 @@ class MainViewController: UIViewController {
             }
         }
 
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("SavedNames") as!
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "SavedNames") as!
             SavedViewTableController
                 
         vc.LoadTable()
-        self.showViewController(vc as SavedViewTableController, sender: vc)
+        self.show(vc as SavedViewTableController, sender: vc)
     }
 
     /*
@@ -203,39 +203,39 @@ class MainViewController: UIViewController {
     let male: [String] = ["민준","서준","주원","하준","예준","준우","도윤","지후","준서","지호","서진"]
     let female: [String] = ["서윤","서연","민서","지우","지민","서진","지아","지우","지유","하윤","하은","서현","지원"]
     
-    @IBAction func getRecommendedNames(sender: UIButton) {
+    @IBAction func getRecommendedNames(_ sender: UIButton) {
         
         // load register info
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
-        if let str = defaults.stringForKey(RegisterInfoKeys.surName) {
+        if let str = defaults.string(forKey: RegisterInfoKeys.surName) {
             self.surName = str
         }
         else {
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
             vc.showInView("개인 정보를 등록하세요",  animated: true)
             
             return
         }
-        if let str1 = defaults.stringForKey(RegisterInfoKeys.surNameH) {
+        if let str1 = defaults.string(forKey: RegisterInfoKeys.surNameH) {
             self.surNameH = str1
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.dob) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.dob) {
             self.dob = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.gender) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.gender) {
             self.gender = str2
         }
-        if let str2 = defaults.stringForKey(RegisterInfoKeys.place) {
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.place) {
             self.place = str2
             // set timediff
             timeDiff = timeDiffMap[self.place]!
         }
 
         var objects = [AnyObject]()
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("CandidateView") as!
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "CandidateView") as!
         MasterViewController
         
         var names:[String]
@@ -255,11 +255,11 @@ class MainViewController: UIViewController {
         
         if objects.count > 0 {
             vc.objects = objects
-            self.showViewController(vc as MasterViewController, sender: vc)
+            self.show(vc as MasterViewController, sender: vc)
             return
         }
         else {
-            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             
             self.addChildViewController(vc2)
             self.view.addSubview(vc2.view)

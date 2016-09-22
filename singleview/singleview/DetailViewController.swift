@@ -67,7 +67,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .Plain, target: self, action:#selector(DetailViewController.saveOne))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action:#selector(DetailViewController.saveOne))
         self.configureView()
     }
     
@@ -75,7 +75,7 @@ class DetailViewController: UIViewController {
         if let detail = self.detailItem {
             detail.save()
             
-            let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             self.addChildViewController(vc)
             self.view.addSubview(vc.view)
             vc.showInView("저장되었습니다.",  animated: true)
@@ -87,18 +87,18 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func goHome(sender: UIBarItem)
+    @IBAction func goHome(_ sender: UIBarItem)
     {
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
-    @IBAction func LoadSelectedNames(sender: UIBarItem)
+    @IBAction func LoadSelectedNames(_ sender: UIBarItem)
     {
         if savedElements.count == 0 {
             if let s = loadElem() {
                 savedElements = s
                 if savedElements.count == 0 {
-                    let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                    let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
                     self.addChildViewController(vc2)
                     self.view.addSubview(vc2.view)
@@ -108,10 +108,10 @@ class DetailViewController: UIViewController {
             }
         }
         
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("SavedNames") as!
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "SavedNames") as!
         SavedViewTableController
         
         vc.LoadTable()
-        self.showViewController(vc as SavedViewTableController, sender: vc)
+        self.show(vc as SavedViewTableController, sender: vc)
     }
 }

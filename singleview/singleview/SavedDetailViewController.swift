@@ -76,8 +76,8 @@ class SavedDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func goHome(sender: UIBarItem)
+    @IBAction func goHome(_ sender: UIBarItem)
     {
-        navigationController?.popToRootViewControllerAnimated(true)
+        navigationController?.popToRootViewController(animated: true)
     }
 }

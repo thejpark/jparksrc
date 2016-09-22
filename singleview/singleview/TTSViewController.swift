@@ -26,28 +26,28 @@ class TTSViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var firstNameK: UITextField!
     
     // keyboard should disappear
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    @IBAction func SayName(sender: UIButton)
+    @IBAction func SayName(_ sender: UIButton)
     {
         let synthesizer = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: firstName.text!)
         utterance.rate = 0.3
         // utterance.voice = AVSpeechSynthesisVoice(language: "fr-FR")
-        synthesizer.speakUtterance(utterance)
+        synthesizer.speak(utterance)
     }
 
-    @IBAction func translateEng(sender: UIButton)
+    @IBAction func translateEng(_ sender: UIButton)
     {
         var str: String = ""
         
         if let fname = firstNameK.text {
             if fname.characters.count > 0 {
                 for i in  0..<fname.characters.count {
-                    let index = fname.startIndex.advancedBy(i)
+                    let index = fname.characters.index(fname.startIndex, offsetBy: i)
                     let s = String(fname[index])
                     if let k = han_to_eng[s] {
                         str += k
@@ -65,26 +65,26 @@ class TTSViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == firstName {
             animateViewMoving(true, moveValue: 200)
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == firstName {
             animateViewMoving(false, moveValue: 200)
         }
     }
     
     // Lifting the view up
-    func animateViewMoving (up:Bool, moveValue :CGFloat){
-        let movementDuration:NSTimeInterval = 0.3
+    func animateViewMoving (_ up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.3
         let movement:CGFloat = ( up ? -moveValue : moveValue)
         UIView.beginAnimations( "animateView", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(movementDuration )
-        self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+        self.view.frame = self.view.frame.offsetBy(dx: 0,  dy: movement)
         UIView.commitAnimations()
     }
 }

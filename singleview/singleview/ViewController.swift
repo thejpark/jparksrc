@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         birthPlace.text = "출생지: " + self.place
         
         // set date and time of birth
-        var str = self.selectedDate.componentsSeparatedByString(" ")
+        var str = self.selectedDate.components(separatedBy: " ")
         DOB.text = "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
     }
 
@@ -38,7 +38,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var place: String = ""
   
     // keyboard should disappear
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -46,17 +46,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showList" {
 
-            let controller = segue.destinationViewController as! MasterViewController
+            let controller = segue.destination as! MasterViewController
             controller.search(surName, surNameH: surNameH, givenName: firstName.text!, selectedDate: self.selectedDate)
           
         }
     }
     
     
-    @IBAction func checkName(sender: UIButton)
+    @IBAction func checkName(_ sender: UIButton)
     {
         // check if name is valid or not
         var givenName: String
@@ -66,16 +66,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
             givenName = s
             
             if givenName.characters.count > 0 {
-                let vc = self.storyboard!.instantiateViewControllerWithIdentifier("CandidateView") as!
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "CandidateView") as!
                 MasterViewController
 
                 vc.search(surName, surNameH: surNameH, givenName: givenName, selectedDate: self.selectedDate)
                 if vc.objects.count > 0 {
-                    self.showViewController(vc as MasterViewController, sender: vc)
+                    self.show(vc as MasterViewController, sender: vc)
                     return
                 }
                 else {
-                    let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                    let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
                     self.addChildViewController(vc2)
                     self.view.addSubview(vc2.view)
@@ -85,7 +85,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
         else {
-            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             
             self.addChildViewController(vc2)
             self.view.addSubview(vc2.view)
@@ -94,26 +94,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == firstName {
             animateViewMoving(true, moveValue: 100)
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == firstName {
             animateViewMoving(false, moveValue: 100)
         }
     }
 
     // Lifting the view up
-    func animateViewMoving (up:Bool, moveValue :CGFloat){
-        let movementDuration:NSTimeInterval = 0.3
+    func animateViewMoving (_ up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.3
         let movement:CGFloat = ( up ? -moveValue : moveValue)
         UIView.beginAnimations( "animateView", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
         UIView.setAnimationDuration(movementDuration )
-        self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+        self.view.frame = self.view.frame.offsetBy(dx: 0,  dy: movement)
         UIView.commitAnimations()
     }
 

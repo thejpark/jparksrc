@@ -9,7 +9,7 @@
 typealias Hanja = (String, String, Int, Int, Bool)
 typealias HanjaDict = [String:[Hanja]]
 
-func getHanjaFromHangul(hangul: String) -> [String]{
+func getHanjaFromHangul(_ hangul: String) -> [String]{
     if let ll = hanjaData[hangul] {
     
         var p: [String] = [String]()
@@ -59,7 +59,7 @@ func getHanjaFromHangul(hangul: String) -> [String]{
     return ["李"]
 }
 
-func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
+func getHanjaDataFromHangul(_ hangul: String) -> [Hanja] {
 
     var p: [Hanja] = [Hanja]()
     
@@ -74,7 +74,7 @@ func getHanjaDataFromHangul(hangul: String) -> [Hanja] {
 }
 
 
-func getLastNameFromHangul(hangul: String) -> [String] {
+func getLastNameFromHangul(_ hangul: String) -> [String] {
     
     var p: [String] = [String]()
     
@@ -128,7 +128,7 @@ func getLastNameFromHangul(hangul: String) -> [String] {
     return p
 }
 
-func getLastNameHanjaData(hangul: String, hanja:String) -> [Hanja] {
+func getLastNameHanjaData(_ hangul: String, hanja:String) -> [Hanja] {
 
     var lastName: [Hanja] = [Hanja]()
     
@@ -187,7 +187,7 @@ func getLastNameHanjaData(hangul: String, hanja:String) -> [Hanja] {
     return lastName
  }
  
-func getHanjaData(hangul: String, hanja:String) -> Hanja {
+func getHanjaData(_ hangul: String, hanja:String) -> Hanja {
 
     var p: [Hanja] = getHanjaDataFromHangul(hangul)
 

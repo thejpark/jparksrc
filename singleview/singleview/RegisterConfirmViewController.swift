@@ -17,7 +17,7 @@ class RegisterConfirmViewController: UIViewController {
         birthPlace.text = "출생지: " + place
         
         // set date and time of birth
-        var str = self.selectedDate.componentsSeparatedByString(" ")
+        var str = self.selectedDate.components(separatedBy: " ")
         
         DOB.text = "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
     }
@@ -57,9 +57,9 @@ class RegisterConfirmViewController: UIViewController {
         navigationController?.popToRootViewControllerAnimated(true)
     }
   */
-    @IBAction func registerInfo(sender: UIBarButtonItem)
+    @IBAction func registerInfo(_ sender: UIBarButtonItem)
     {
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpView") as! PopUpViewController
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
         self.addChildViewController(vc)
         self.view.addSubview(vc.view)
         vc.showInView("새로 등록 할까요?",  animated: true)

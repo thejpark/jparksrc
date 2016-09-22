@@ -18,9 +18,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         gender = "여자"
         place = "서울"
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
-        self.selectedDate = dateFormatter.stringFromDate(self.myDatePicker.date)
+        self.selectedDate = dateFormatter.string(from: self.myDatePicker.date)
         
         placePicker.selectRow(placePickerData.count - 1, inComponent: 0, animated: true)
     }
@@ -41,25 +41,25 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     weak var m_parent: MainViewController?
     
 
-    @IBAction func textFieldEdited(sender: UITextField) {
+    @IBAction func textFieldEdited(_ sender: UITextField) {
         let tmp:String = lastName.text!
         // first character only
         if tmp.characters.count == 0 {
             return
         }
-        let index = tmp.startIndex.advancedBy(0)
+        let index = tmp.characters.index(tmp.startIndex, offsetBy: 0)
         self.pickerData = getLastNameFromHangul(String(tmp[index]))
         self.picker.reloadAllComponents()
     }
     
-    @IBAction func datePickerAction(sender: AnyObject) {
-        let dateFormatter = NSDateFormatter()
+    @IBAction func datePickerAction(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
-        self.selectedDate = dateFormatter.stringFromDate(self.myDatePicker.date)
+        self.selectedDate = dateFormatter.string(from: self.myDatePicker.date)
     }
     
     // keyboard should disappear
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
@@ -72,10 +72,10 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var gender: String = "여자"
     var place: String = "서울"
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == self.picker {
             return pickerData.count
         }
@@ -89,7 +89,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     // The data to return for the row and component (column) that's being passed in
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if pickerView == self.picker {
             currData = pickerData[row]
             return pickerData[row]
@@ -106,7 +106,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return nil
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         if pickerView == self.picker {
             currData = pickerData[row]
@@ -173,7 +173,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
  */
     
-    @IBAction func checkInfo(sender: UIButton)
+    @IBAction func checkInfo(_ sender: UIButton)
     {
         // check if some info is nil
         var sName:String = ""
@@ -184,7 +184,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             if s.characters.count > 0 {
                 sName = s
             } else {
-                let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+                let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                 
                 self.addChildViewController(vc2)
                 self.view.addSubview(vc2.view)
@@ -193,7 +193,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
         else {
-            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
             self.addChildViewController(vc2)
             self.view.addSubview(vc2.view)
@@ -205,7 +205,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             sNameH = self.currData
         }
         else {
-            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
             self.addChildViewController(vc2)
             self.view.addSubview(vc2.view)
@@ -216,7 +216,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             dob = self.selectedDate
         }
         else {
-            let vc2 = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpEmpty") as! PopUpViewController
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
             self.addChildViewController(vc2)
             self.view.addSubview(vc2.view)
@@ -263,13 +263,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
         }
         
-        let vc = self.storyboard!.instantiateViewControllerWithIdentifier("PopUpConfirmView") as! PopUpViewController
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpConfirmView") as! PopUpViewController
         self.addChildViewController(vc)
         self.view.addSubview(vc.view)
         
         vc.lastName.text = "성: " + sName + "(" + sNameH + ")  성별: " + gender
         // set date and time of birth
-        var str = self.selectedDate.componentsSeparatedByString(" ")
+        var str = self.selectedDate.components(separatedBy: " ")
         vc.dob.text = "생일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
         vc.place.text = "출생지: " + place
         
