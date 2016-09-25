@@ -15,6 +15,7 @@ http://web.stanford.edu/class/cs97si/
 #include <set>
 #include <stack>
 #include <algorithm>
+#include <memory>
 using namespace std;
 
 
@@ -3484,6 +3485,51 @@ Convert a doubly linked list to a Binary Search Tree
 Given a sorted doubly linked list, create a BST which 
 is balanced and not skewed. */
 
+bt_node* make_tree(list<int>& l)
+{
+    if (l.begin() == l.end())
+        return nullptr;
+    
+    // find middle
+    
+    auto first = l.begin();
+    auto last = l.end();
+    while (first != last)
+    {
+        auto next = first;
+        ++next;
+        if (next == last)
+            break;
+        ++first;
+        --last;
+    }
+
+    bt_node* n {new bt_node(*first)};
+    list<int> left {l.begin(), first};
+    auto next = first; 
+    ++next;
+    list<int> right {next, l.end()};
+    n->left = make_tree(left);
+    n->right = make_tree(right);
+
+    return n;
+}
+
+
+void print(bt_node* r)
+{
+    if (!r)
+    {
+        cout << "null" << endl;
+        return;
+    }
+
+    cout << r->val << endl;
+    print(r->left);
+    print(r->right);
+}
+
+
 void test_bst_from_list()
 {
     // find middle and divide and conquer, call make_tree
@@ -3491,9 +3537,24 @@ void test_bst_from_list()
     // shared_ptr<node> m{new node(middle->val)};
     // m->left = make_tree(begin, middle->left);
     // m->right = make_tree(middle->right, end);
-    
 
+    int n;
 
+    cin >> n;
+
+    list<int> l;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        l.push_back(t);
+    }
+
+    bt_node* r = make_tree(l);
+
+    cout << " The result is " << endl;
+
+    print(r);
 }
 
 
@@ -4491,7 +4552,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    two_machine_n_jobs();
+    test_bst_from_list();
  
 }
 
