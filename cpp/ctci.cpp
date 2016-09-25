@@ -2638,6 +2638,50 @@ void test_paint_house_with_3_colors()
 }
 
 
+// with two rectangle, if they are intersect then return
+// the intersection area
+struct rect {
+    int x, y, width, height;
+};
+
+bool is_intersect(const rect& r1, const rect& r2)
+{
+    return !((r1.x > r2.x + r2.width) ||
+             (r2.x > r1.x + r1.width) ||
+             (r1.y > r2.y + r2.height) ||
+             (r2.y > r1.y + r1.height));
+}
+
+rect intersect(const rect& r1, const rect& r2)
+{
+    if (is_intersect(r1, r2))
+    {
+        return rect{
+            max(r1.x, r2.x), max(r1.y, r2.y),
+            min(r1.x + r1.width, r2.x + r2.width) - max(r1.x, r2.x),
+            min(r1.y + r1.height, r2.y + r2.height) - max(r1.y, r2.y)};
+    }
+    else
+    {
+        return rect{0,0,-1,-1};
+    }
+}
+
+void test_rect_intersect()
+{
+    int x, y, w, h;
+    cin >> x >> y >> w >> h;
+    rect r1{x, y, w, h};
+    
+    cin >> x >> y >> w >> h;
+    rect r2{x, y, w, h};
+
+    rect r = intersect(r1, r2);
+
+    cout << "the result is " << r.x << " " << r.y << " " << r.width << " " << r.height << endl;
+
+}
+
 
 // reference
 // https://github.com/andreis/interview 
@@ -2645,6 +2689,6 @@ void test_paint_house_with_3_colors()
 
 int main()
 {
-    test_paint_house_with_3_colors();
+    test_rect_intersect();
 }
 
