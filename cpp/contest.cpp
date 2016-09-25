@@ -3479,6 +3479,24 @@ void test_save_reconstruct_bst()
     cout << endl;
 }
 
+/*
+Convert a doubly linked list to a Binary Search Tree
+Given a sorted doubly linked list, create a BST which 
+is balanced and not skewed. */
+
+void test_bst_from_list()
+{
+    // find middle and divide and conquer, call make_tree
+    // 
+    // shared_ptr<node> m{new node(middle->val)};
+    // m->left = make_tree(begin, middle->left);
+    // m->right = make_tree(middle->right, end);
+    
+
+
+}
+
+
 
 //
 //
