@@ -104,6 +104,38 @@ void reverse(string &s)
     
 }
 
+void rotate(string &s, int middle)
+{
+    int first = 0;
+    int last = s.size();
+    int next = middle;
+    while (first != next)
+    {
+        swap(s[first++], s[next++]);
+
+        if (next == last) // this comparison go first otherwise endless loop
+        {
+            next = middle;
+        }
+        else if (first == middle)
+        {
+            middle = next;
+        }
+    }
+}
+
+
+void test_string_rotate()
+{
+    string s;
+    int idx;
+
+    cin >> s >> idx;
+
+    rotate(s, idx);
+
+    cout << "the result is " << s << endl;
+}
 
 
 // test for c style string
@@ -2689,6 +2721,6 @@ void test_rect_intersect()
 
 int main()
 {
-    test_rect_intersect();
+    test_string_rotate();
 }
 
