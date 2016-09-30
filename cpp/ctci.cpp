@@ -2714,6 +2714,69 @@ void test_rect_intersect()
 
 }
 
+// this implementation assume that we just copy as small as possible
+// do not copy overlapping area
+void acopy(vector<int>* v, int s, int l, int t)
+{
+    vector<int>& vi = *v;
+
+    if (s == t)
+        return;
+    else if (s > t)
+    {
+        int l1 = s - t;
+        l1 = min(l, l1);
+        l1 = min(l1, int(vi.size() - s));
+        while (l1 > 0)
+        {
+            vi[t++] = vi[s++];
+            --l1;
+        }
+    }
+    else
+    {
+        int l1 = t - s;
+        l1 = min(l, l1);
+        l1 = min(l1, int(vi.size() - t));
+        while (l1 > 0)
+        {
+            vi[t++] = vi[s++];
+            --l1;
+        }
+    }
+}
+
+// this test is simple but you need to ask questions for the
+// overlapping and edge cases before implement.
+void test_copy_in_array()
+{
+    int n;
+
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int s, t, l;
+    cin >> s >> l >> t;
+
+    acopy(&v, s, l, t);
+
+    cout << "the result is" << endl;
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
 
 // reference
 // https://github.com/andreis/interview 
@@ -2721,6 +2784,6 @@ void test_rect_intersect()
 
 int main()
 {
-    test_string_rotate();
+    test_copy_in_array();
 }
 
