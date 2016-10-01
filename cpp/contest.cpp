@@ -353,12 +353,10 @@ int revert(int n)
   return r;
 }
 
-
-
+// this algorithm was wrong, as it depends on the internal data type.
+// so it is not able to add big numbers.
 void reversed_sum()
 {
-
-
   int num;
 
   cin >> num;
@@ -384,6 +382,44 @@ void reversed_sum()
   }
 }
 
+void test_reverse_sum2()
+{
+    string a, b;
+    cin >> a >> b;
+
+    int len = max(a.size(), b.size());
+    string r;
+    int carry = 0;
+
+    for (int i = 0; i < len; ++i)
+    {
+        int x = 0, y = 0;
+
+        if (i < a.size())
+            x = a[i] - '0';
+        if (i < b.size())
+            y = b[i] - '0'; 
+
+        int sum = x + y + carry;
+        carry = (sum >= 10)? 1 : 0;
+        sum = sum % 10;
+
+        r.push_back('0' + sum);
+    }
+
+    if (carry == 1)
+        r.push_back('0' + 1);
+
+    int i;
+    for (i = 0; i < r.size(); ++i)
+    {
+        if (r[i] != '0')
+            break;
+    }
+
+    string t = r.substr(i);
+    cout << " the result is "  << t << endl;
+}
 
 
 void slice(int s, int n, int size)
@@ -4552,7 +4588,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_bst_from_list();
+    test_reverse_sum2();
  
 }
 
