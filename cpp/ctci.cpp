@@ -2564,7 +2564,7 @@ void test_partition_using_k()
 
 // given an array of (start price, daily high, daily low), find the best
 // period for buy and sell (gap between buy and sell is highest)
-void test_find_best_investment_period()
+void test_find_best_investment_period_once()
 {
     // for x = [2, 3, 5, 1, 9],
     //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);  
@@ -2603,6 +2603,53 @@ void test_find_best_investment_period()
 
     cout << "the result is " << m_max << " begin at " << beg << " and ends at " << end << endl;
 }
+
+
+// find the best investment period of buying and selling twice
+void test_find_best_investment_period_twice()
+{
+    vector<int> v;
+    int n;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int end = v.size() - 1;
+
+    vector<int> v1(v.size());
+    vector<int> v2(v.size());
+
+    v1[end] = 0;
+    for (int i = v.size() - 2; i >= 0; --i)
+    {
+        int t = v[i + 1] - v[i];
+        v1[i] = max(t, t + v1[i + 1]);
+    }
+
+    v2[0] = 0;
+    int m_min = v[0]; 
+    for (int i = 1; i < v.size(); ++i)
+    {
+        v2[i] = v[i] - m_min;
+        m_min = min(m_min, v[i]);
+    }
+
+    int m_max = 0;
+    for  (int i = 1; i < v.size() - 1; ++i)
+    {
+        int t = v2[i] + v1[i + 1];
+        m_max = max(m_max, t);
+    }
+
+    cout << "the result is " << m_max << endl;
+}
+
 //
 // Given a file with a lot of words (10 million) find out the top 10%
 // most frequently occurring words.
@@ -2784,6 +2831,6 @@ void test_copy_in_array()
 
 int main()
 {
-    test_copy_in_array();
+    test_find_best_investment_period_twice();
 }
 
