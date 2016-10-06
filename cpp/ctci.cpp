@@ -2825,12 +2825,40 @@ void test_copy_in_array()
 }
 
 
+void test_apply_perm()
+{
+    string a;
+    vector<int> v;
+
+    cin >> a;
+    for (int i = 0; i < a.size(); ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        int idx = i;
+
+        while (v[idx] >= 0)
+        {
+            int next = v[idx];
+            swap(a[i], a[next]);
+            v[idx] = -1;
+            idx = next;
+        }
+    }
+
+    cout << "the result is " << a << endl;
+}
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_find_best_investment_period_twice();
+    test_apply_perm();
 }
 
