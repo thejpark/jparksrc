@@ -2846,7 +2846,7 @@ void test_apply_perm()
         {
             int next = v[idx];
             swap(a[i], a[next]);
-            v[idx] = -1;
+            v[idx] -= v.size(); // just in case we need to restore v
             idx = next;
         }
     }
