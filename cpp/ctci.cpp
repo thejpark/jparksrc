@@ -2853,12 +2853,66 @@ void test_apply_perm()
 
     cout << "the result is " << a << endl;
 }
+
+void next_perm(vector<int>* pv)
+{
+    vector<int>& v = *pv;
+
+    for (int i = v.size() - 2; i >= 0; --i)
+    {
+        if (v[i] < v[i + 1])
+        {
+            int min_j = i + 1;
+            for (int j = i + 2; j < v.size(); ++j)
+            {
+                if ((v[j] > v[i]) && (v[j] < v[min_j]))
+                    min_j = j;
+            }
+            swap(v[i], v[min_j]);
+
+            // then reverse all from i + 1 to the end
+            reverse(v.begin() + i + 1, v.end());
+            return;
+        }
+    }
+
+    v.clear();
+    return;
+}
+
+
+// find next permutation without recursive call
+void test_next_perm()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    while(!v.empty())
+    {
+        next_perm(&v);
+        for (int e: v)
+            cout << e << " ";
+        cout << endl;
+    }
+    cout << "no more permutation" << endl;
+}
+    
+            
+    
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_apply_perm();
+    test_next_perm();
 }
 
