@@ -2906,6 +2906,40 @@ void test_next_perm()
 }
     
             
+int find_min_from_sorted_rotated(const vector<int>& v, int a, int e)
+{
+    if (v[a] <= v[e])
+        return v[a];
+
+    int mid = a + (e - a) / 2;
+    int min1 = min(v[a], v[mid]);
+    int min2 = min(v[mid + 1], v[e]);
+
+    if (min1 > min2)
+        return find_min_from_sorted_rotated(v, mid + 1, e);
+    else
+        return find_min_from_sorted_rotated(v, a, mid);
+}
+
+
+void test_find_min_from_sorted_rotated_array()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    cout << "the result is " ;
+    cout <<  find_min_from_sorted_rotated(v, 0, v.size() - 1) << endl;
+}
+
     
 // reference
 // https://github.com/andreis/interview 
@@ -2913,6 +2947,6 @@ void test_next_perm()
 
 int main()
 {
-    test_next_perm();
+    test_find_min_from_sorted_rotated_array();
 }
 
