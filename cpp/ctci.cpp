@@ -26,6 +26,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <typeinfo>
+#include <random>
 
 using namespace std;
 
@@ -2940,6 +2941,36 @@ void test_find_min_from_sorted_rotated_array()
     cout <<  find_min_from_sorted_rotated(v, 0, v.size() - 1) << endl;
 }
 
+void test_find_rand_comb()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+    for(int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int k;
+
+    cin >> k;
+    
+    default_random_engine seed((random_device())()); // random num generator
+    for (int i = 0; i < k; ++i)
+    {
+        swap(v[i], v[uniform_int_distribution<int>{
+                    i, static_cast<int>(v.size()) - 1}(seed)]);
+    }
+
+    cout << "the result is ";
+    for (int i = 0; i < k; ++i)
+        cout << v[i] << " ";
+
+    cout << endl;
+}
     
 // reference
 // https://github.com/andreis/interview 
@@ -2947,6 +2978,6 @@ void test_find_min_from_sorted_rotated_array()
 
 int main()
 {
-    test_find_min_from_sorted_rotated_array();
+    test_find_rand_comb();
 }
 
