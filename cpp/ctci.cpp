@@ -2972,12 +2972,55 @@ void test_find_rand_comb()
     cout << endl;
 }
     
+void test_non_unform_random_numbers()
+{
+    int n;
+
+    vector<int> v;
+    cin >> n;
+    
+    for(int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    vector<double> p;
+    for(int i = 0; i < n; ++i)
+    {
+        double t;
+        cin >> t;
+        p.push_back(t);
+    }    
+
+    vector<double> prefix_p;
+    prefix_p.emplace_back(0.0);
+    
+    // prefix sum or cumulative sum
+    partial_sum(p.cbegin(), p.cend(), back_inserter(prefix_p));
+
+    default_random_engine seed((random_device())()); // random num generator
+
+    double uniform_0_1 =
+        generate_canonical<double, numeric_limits<double>::digits>(seed);
+
+    int interval_idx =
+        distance(prefix_p.cbegin(),
+                 upper_bound(prefix_p.cbegin(),
+                             prefix_p.cend(),
+                             uniform_0_1)) - 1;
+
+    cout << " the result is " <<  v[interval_idx] << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_find_rand_comb();
+    test_non_unform_random_numbers();
 }
 
