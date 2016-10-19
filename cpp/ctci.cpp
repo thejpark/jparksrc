@@ -2307,6 +2307,25 @@ int find_beg(vector<char>& vc, int i, int j, char t)
         return find_beg(vc, mid + 1, j, t);
 }
 
+
+int find_beg2(vector<char>& vc, int i, int j, char t)
+{
+    while(i <= j)
+    {
+        int mid = i + (j - i) / 2;
+
+        if (vc[mid] == t)
+            j = mid - 1;
+        else if (vc[mid] > t)
+            j = mid - 1;
+        else
+            i = mid + 1;
+    }
+
+    return i;
+}
+
+
 // this method returns the begining index of the next character.
 // if there is no such character then it returns the position which it should be exist
 int find_end(vector<char>& vc, int i, int j, char t)
@@ -2323,6 +2342,25 @@ int find_end(vector<char>& vc, int i, int j, char t)
     else
         return find_end(vc, mid + 1, j, t);
 }
+
+
+int find_end2(vector<char>& vc, int i, int j, char t)
+{
+    while(i <= j)
+    {
+        int mid = i + (j - i) / 2;
+
+        if (vc[mid] == t)
+            i = mid + 1;
+        else if (vc[mid] > t)
+            j = mid - 1;
+        else
+            i = mid + 1;
+    }
+
+    return i;
+}
+
 
 int find_pos(vector<char>& vc, int i, int j, char t)
 {
@@ -2354,7 +2392,10 @@ void test_count_char_in_sorted_array()
     int k = find_pos(vc, 0, vc.size() - 1, t);
 
     cout << " the result is " << i << " " << j << " " << k << endl;
-}
+    i = find_beg2(vc, 0, vc.size() - 1, t);
+    j = find_end2(vc, 0, vc.size() - 1, t);
+    cout << " the result is " << i << " " << j << " " << k << endl;
+ }
 
 
 // Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9) 
@@ -3021,6 +3062,6 @@ void test_non_unform_random_numbers()
 
 int main()
 {
-    test_non_unform_random_numbers();
+    test_count_char_in_sorted_array();
 }
 
