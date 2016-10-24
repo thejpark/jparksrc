@@ -777,6 +777,7 @@ node* reverse_list(node* a)
     return prev;
 }
 
+// 1->2->3->4 to 2->1->4->3
 node* reverse_list_every_other(node* a)
 {
     if (!a)
