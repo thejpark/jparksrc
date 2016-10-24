@@ -543,19 +543,32 @@ int find(vector<int> m, int val)
 }
 
 
-vector<vector<int> >
-col_row(vector<vector<int> > m)
+void col_row(vector<vector<int>>& m)
 {
-    vector<vector<int> > ret (m);
+
+    set<int> col, row;
     
-    for (int i = 0; i < m.size(); i++) {
-        int j = find(m[i], 0);
-        if (j != m[i].size()) {
-            set_row(ret, i);
-            set_col(ret, j);
+    for (int i = 0; i < m.size(); ++i)
+    {
+        for (int j = 0; j < m[1].size(); ++j)
+        {
+            if (m[i][j] == 0)
+            {
+                col.insert(j);
+                row.insert(i);
+            }
         }
     }
-    return ret;
+
+    for (auto& e: col)
+    {
+        set_col(m, e);
+    }
+
+    for (auto& e: row)
+    {
+        set_row(m, e);
+    }
 }
 
 
@@ -603,15 +616,11 @@ col_row2(vector<vector<int> > &m)
 
 int t17()
 {
-    vector<vector<int> > m, n;
+    vector<vector<int> > m;
     m.resize(3);
     m[0].resize(3);
     m[1].resize(3);
     m[2].resize(3);
-    n.resize(3);
-    n[0].resize(3);
-    n[1].resize(3);
-    n[2].resize(3);
     
     m[0][0] = 1;
     m[0][1] = 2;
@@ -630,7 +639,8 @@ int t17()
         cout << endl;
     }
     
-    n = col_row(m);
+    vector<vector<int>> n(m);
+    col_row(n);
 
     cout << endl << " and the result is " << endl;
     
@@ -3093,6 +3103,6 @@ void test_non_unform_random_numbers()
 
 int main()
 {
-    test_reverse_linked_list();
+    t17();
 }
 
