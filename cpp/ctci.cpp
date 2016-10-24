@@ -777,6 +777,35 @@ node* reverse_list(node* a)
     return prev;
 }
 
+node* reverse_list_every_other(node* a)
+{
+    if (!a)
+        return a;
+
+    node* r = a->next? a->next: a;
+
+    node* prev = nullptr;
+
+    while (a) 
+    {
+        if (a->next == nullptr)
+            break;
+        
+        if (prev)
+            prev->next = a->next;
+
+        prev = a;
+        a = a-> next;
+        node* next = a->next;
+
+        a->next = prev;
+        prev->next = next;
+        a = next;
+    }
+
+    return r;
+}
+
 
 node* merge_list(node*a, node*b)
 {
@@ -837,7 +866,8 @@ void test_reverse_linked_list()
     end->next = new node(4);
  
 
-    node* r = reverse_list(head);
+    // node* r = reverse_list(head);
+    node* r = reverse_list_every_other(head);
 
     while (r)
     {
@@ -3062,6 +3092,6 @@ void test_non_unform_random_numbers()
 
 int main()
 {
-    test_count_char_in_sorted_array();
+    test_reverse_linked_list();
 }
 
