@@ -15,6 +15,7 @@ http://web.stanford.edu/class/cs97si/
 #include <set>
 #include <stack>
 #include <algorithm>
+#include <numeric>
 #include <memory>
 using namespace std;
 
@@ -305,27 +306,21 @@ void herd_sum2()
 
     int mmatch = size;
 
-    vector<int> vi2(vi.size());
+    vector<int> vi2;
 
-    vi2[0] = vi[0];
-    for (int i = 1; i < vi2.size(); ++i)
-    {
-        vi2[i] = vi2[i - 1] + vi[i];
-    }
-
+    partial_sum(vi.begin(), vi.end(), back_inserter(vi2));
     
     unordered_map<int, int> mi;
-    mi[0]++;
+    mi[0]++; // in case sum starts from the beginning
     for (int i = 0; i < vi2.size(); ++i)
     {
         mi[vi2[i]]++;
-        mi[vi2[i] - mmatch]++;
     }
 
     int r = 0;
     for (int i = 0; i < vi2.size(); ++i)
     {
-        if (mi[vi2[i] - mmatch] == 2)
+        if (mi.find(vi2[i] - mmatch) != mi.end())
         {
             ++r;
         }
@@ -4588,7 +4583,8 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_reverse_sum2();
+    herd_sum();
+    herd_sum2();
  
 }
 
