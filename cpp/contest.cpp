@@ -334,13 +334,15 @@ void herd_sum2()
 
 int revert(int n)
 {
+    // for numbers, always check whether it could be negative number.
+    // bool is_negative = (n < 0)
   int r = 0;
   
   while(1) {
     r += n % 10;
     n = n / 10;
     if (n == 0)
-	break;
+        break;
     else 
       r = r * 10;
   }
