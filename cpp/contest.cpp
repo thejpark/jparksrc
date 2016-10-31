@@ -3529,12 +3529,10 @@ bt_node* make_tree(list<int>& l)
     auto last = l.end();
     while (first != last)
     {
-        auto next = first;
-        ++next;
-        if (next == last)
+        --last;
+        if (first == last)
             break;
         ++first;
-        --last;
     }
 
     bt_node* n {new bt_node(*first)};
@@ -4585,9 +4583,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    herd_sum();
-    herd_sum2();
- 
+    test_bst_from_list();
 }
 
 
