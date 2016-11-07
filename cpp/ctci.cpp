@@ -797,11 +797,8 @@ node* reverse_list_every_other(node* a)
 
     node* prev = nullptr;
 
-    while (a) 
+    while (a && a->next) 
     {
-        if (a->next == nullptr)
-            break;
-        
         if (prev)
             prev->next = a->next;
 
@@ -3103,6 +3100,6 @@ void test_non_unform_random_numbers()
 
 int main()
 {
-    t17();
+    test_reverse_linked_list();
 }
 
