@@ -122,6 +122,8 @@ db access. vs. cache (i.e., memcached)
 notification .vs. periodic polling
 tcp. vs. udp: tcp for storing update queue, udp for notification suff
 notification merging needed? (if notification adjacent in the queue)
+put more on client? or server (probably we need to do more jobs on client side then
+server side to make the system scalable)
 
 
 3. parking lot management (and reservation?)
