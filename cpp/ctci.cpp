@@ -3114,6 +3114,8 @@ int search_substr(const string& s, const string& t)
     {
         // filter so that only if sum is same.
         // this filter is linear.
+        // we can use hash of each character and use it instead of just ascii
+        // value of it.
         int tt = v[i + s.size()] - v[i];
 
         if ((sum == tt) &&
