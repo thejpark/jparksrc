@@ -3094,12 +3094,54 @@ void test_non_unform_random_numbers()
 }
 
 
+// how to make searching substring more efficient?
+// you can use many string algorithms (MK, etc)
+
+// or you can optimize it like this:
+// return index in string t if s is a substring of t, -1 otherwise
+int search_substr(const string& s, const string& t)
+{
+    if (s.size() > t.size())
+        return -1;
+
+    vector<int> v;
+
+    int sum = accumulate(s.begin(), s.end(), 0);
+    v.push_back(0);
+    partial_sum(t.begin(), t.end(), back_inserter(v));
+
+    for (int i = 0; i < t.size() - s.size() + 1; ++i)
+    {
+        // filter so that only if sum is same.
+        // this filter is linear.
+        int tt = v[i + s.size()] - v[i];
+
+        if ((sum == tt) &&
+            (s == t.substr(i, s.size())))
+            {
+                return i;
+            }
+    }
+
+    return -1;
+}
+
+void test_search_substring()
+{
+    string a, b;
+
+    cin >> a >> b;
+
+    cout << search_substr(a, b) << endl;
+
+}
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_reverse_linked_list();
+    test_search_substring();
 }
 
