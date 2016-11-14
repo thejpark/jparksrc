@@ -818,49 +818,40 @@ node* reverse_list_every_other(node* a)
 node* merge_list(node*a, node*b)
 {
 // merge two list into one
-    if (!a)
-        return b;
-    if (!b)
-        return a;
 
-    node* ret = a;
-    node* prev = nullptr;
+    node ret(0);
+    node* prev = &ret;
 
     while (true)
     {
         if (!a)
         {
             prev->next = b;
-            return ret;
+            break;
         }
         else if (!b)
         {
-            return ret;
+            prev->next = a;
+            break;
         }
         else
         {
             if (a->data < b->data)
             {
+                prev->next = a;
                 prev = a;
                 a = a->next;
             }
             else
             {
-                node* next = b->next;
-                if (prev)
-                {
-                    prev->next = b;
-                }
-                else
-                {
-                    ret = b;
-                }
+                prev->next = b;
                 prev = b;
-                b->next = a;
-                b = next;
+                b = b->next;
             }
         }
     }
+
+    return ret.next;
 }
 
 void test_reverse_linked_list()
@@ -3100,6 +3091,6 @@ void test_non_unform_random_numbers()
 
 int main()
 {
-    test_reverse_linked_list();
+    test_merge_linked_list();
 }
 
