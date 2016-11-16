@@ -195,6 +195,8 @@ whether I am on the correct path or not.
  - if there is a hard work with tight deadline, how did you do to meet the the deadline?
  : I am good at both but I think I like more with work with others. It is more interesting with work with others. ...
 
+6.1 What was your greatest failure? Probably I did not take big adventure and did not have a big failure would be my greatest failure?
+
 7. What do you know about this position?
 
  - why do you want to work for this position? what do you want (looking for) in this position?
@@ -211,8 +213,9 @@ whether I am on the correct path or not.
 tried my best not to aggressive and not to emotional, but with strong opinion. If the other's object my opinion, 
 tried not to emotional. If the other's opinion is good then ready to accept that.
 
+9.1 When you have a conflict with others, how do you handle?
 
-100. Asking questions
+10. Asking questions
 
  - how many different kind of engineers in the company?
  - (google.com) what difference between goole.com engineer and software engineer?
@@ -246,10 +249,17 @@ Turn the question on them: Don’t be afraid to ask the interviewer questions. I
 Avoid overexposure: Less is more. Get in and get out. The same rules apply to this age old question. If you sit there babbling on and talking your interviewers ear off with your life story you’re ultimately going to leave a bad impression. Smile, keep a positive and excited tone during your abridged, micro-autobiography and let the rest of the interview commence. You’ll have time to ask your own questions at various intervals throughout the process. Good luck!
 
 
-
 References: 
 
 1. http://www.job-interview-site.com/tell-me-about-yourself-interview-questions-and-answers.html
 2. http://www.recruiter.com/i/tell-me-about-yourself-tips-to-answer-this-tough-interview-question/
 3. http://fiveoclockclub.com/2010/04/answering-the-question-so-tell-me-about-yourself-with-your-two-minute-pitch/
 4. http://careers.unc.edu/blogs/career-blog/mastering-tell-me-about-yourself-interview-question.html
+
+---------------------------------------------
+chat with Robert Charles:
+
+1. tech phone screen
+: coding/knowledge of computer science (big O, data structure)/technical communication: what i am doing loud, why i am doing/over effectiveness
+2. on-site 5 interviewers onsite interview
+3. team matching phase

@@ -818,49 +818,40 @@ node* reverse_list_every_other(node* a)
 node* merge_list(node*a, node*b)
 {
 // merge two list into one
-    if (!a)
-        return b;
-    if (!b)
-        return a;
 
-    node* ret = a;
-    node* prev = nullptr;
+    node ret(0);
+    node* prev = &ret;
 
     while (true)
     {
         if (!a)
         {
             prev->next = b;
-            return ret;
+            break;
         }
         else if (!b)
         {
-            return ret;
+            prev->next = a;
+            break;
         }
         else
         {
             if (a->data < b->data)
             {
+                prev->next = a;
                 prev = a;
                 a = a->next;
             }
             else
             {
-                node* next = b->next;
-                if (prev)
-                {
-                    prev->next = b;
-                }
-                else
-                {
-                    ret = b;
-                }
+                prev->next = b;
                 prev = b;
-                b->next = a;
-                b = next;
+                b = b->next;
             }
         }
     }
+
+    return ret.next;
 }
 
 void test_reverse_linked_list()
@@ -3094,12 +3085,56 @@ void test_non_unform_random_numbers()
 }
 
 
+// how to make searching substring more efficient?
+// you can use many string algorithms (MK, etc)
+
+// or you can optimize it like this:
+// return index in string t if s is a substring of t, -1 otherwise
+int search_substr(const string& s, const string& t)
+{
+    if (s.size() > t.size())
+        return -1;
+
+    vector<int> v;
+
+    int sum = accumulate(s.begin(), s.end(), 0);
+    v.push_back(0);
+    partial_sum(t.begin(), t.end(), back_inserter(v));
+
+    for (int i = 0; i < t.size() - s.size() + 1; ++i)
+    {
+        // filter so that only if sum is same.
+        // this filter is linear.
+        // we can use hash of each character and use it instead of just ascii
+        // value of it.
+        int tt = v[i + s.size()] - v[i];
+
+        if ((sum == tt) &&
+            (s == t.substr(i, s.size())))
+            {
+                return i;
+            }
+    }
+
+    return -1;
+}
+
+void test_search_substring()
+{
+    string a, b;
+
+    cin >> a >> b;
+
+    cout << search_substr(a, b) << endl;
+
+}
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_reverse_linked_list();
+    test_merge_linked_list();
 }
 
