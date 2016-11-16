@@ -213,3 +213,28 @@ select externals double click
 change properties and press ok
 commit the change
 
+
+how to change CAN bus in testing (from ixxx to gridconnect)?
+$ svn diff
+Index: Test/Scripts/SteehlTest/SteehlDatagramDemo.py
+===================================================================
+--- Test/Scripts/SteehlTest/SteehlDatagramDemo.py       (revision 48155)
++++ Test/Scripts/SteehlTest/SteehlDatagramDemo.py       (working copy)
+@@ -6,7 +6,7 @@
+
+ import PyFig
+ from Comms.CommsThread import CommsThreadManager
+-from Comms.Transport import Codec, IxxatCanToUsb
++from Comms.Transport import Codec, IxxatCanToUsb, GridConnectCanToUsb
+ import time
+ import argparse
+
+@@ -67,7 +67,7 @@
+     steehl = Steehl(canCodec)
+
+     # create a thread responsible for sending/receiving data to/from the physical CAN
+-    CommsThreadManager(IxxatCanToUsb(), canCodec, args.canId)
++    CommsThreadManager(GridConnectCanToUsb(), canCodec, args.canId)
+
+     greeting = 'Hello FG, I am Steehl.'
+     for i in range(10):
