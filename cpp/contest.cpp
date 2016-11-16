@@ -308,10 +308,12 @@ void herd_sum2()
 
     vector<int> vi2;
 
+    // to make mi[0]++; // in case sum starts from the beginning
+    vi2.emplace_back(0);
+
     partial_sum(vi.begin(), vi.end(), back_inserter(vi2));
     
     unordered_map<int, int> mi;
-    mi[0]++; // in case sum starts from the beginning
     for (int i = 0; i < vi2.size(); ++i)
     {
         mi[vi2[i]]++;
