@@ -1,4 +1,5 @@
 
+CAM TEAM
 
 ./bin/Hub.exe -FG Serial:COM4,57000,n,8,1 -basePort 12340
 
@@ -183,3 +184,32 @@ Software release
 10. copy the result and put it in the Jira card as a comment
 
    
+
+FG TEAM
+
+
+Test/Script/RunTest has some file to refer (i.e., UnitEnv.py, BddEnv.py)
+
+bddtest:
+/Test/Scenarios/fgtest.py [-s scenarioname]
+
+unittest:
+/Test/Unit/SuperUnit/Win32
+scons -u
+and then run exe file
+
+
+power cycle test farm machine:
+Inthe remote desktop, press Alt-4 (or Alt-F4), select restart.
+ Or open windows cmd, and then enter the following command:
+shutdown /r /t 0
+
+
+how to change external revision:
+Windows explorer, from main fg application folder, go to extermal
+select toroise svn
+select properties
+select externals double click
+change properties and press ok
+commit the change
+
