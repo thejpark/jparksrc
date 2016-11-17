@@ -1408,6 +1408,9 @@ int dp_post_office(vector<vector<int> > &vii, vector<int> &vi)
 }
 
 // http://poj.org/problem?id=1160
+
+// I think it is similar with find_perfect_stall problem.
+
 void post_office()
 {
 
@@ -1616,7 +1619,7 @@ void hay()
   for (int i = 1; i <= n; i++)
     for (int j = 1; j <= n; j++)
       vt[i][j] = 10000000;
-  
+ test_bst_from_list(); 
   for (int i = 0; i < m; i++) {
 
     int a, b, len;
