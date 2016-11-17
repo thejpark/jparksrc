@@ -1619,7 +1619,7 @@ void hay()
   for (int i = 1; i <= n; i++)
     for (int j = 1; j <= n; j++)
       vt[i][j] = 10000000;
- test_bst_from_list(); 
+
   for (int i = 0; i < m; i++) {
 
     int a, b, len;
