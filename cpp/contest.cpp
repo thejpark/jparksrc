@@ -1410,6 +1410,7 @@ int dp_post_office(vector<vector<int> > &vii, vector<int> &vi)
 // http://poj.org/problem?id=1160
 
 // I think it is similar with find_perfect_stall problem.
+// or just a combination problem
 
 void post_office()
 {
