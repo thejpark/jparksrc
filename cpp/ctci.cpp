@@ -908,7 +908,6 @@ void test_merge_linked_list()
 
 pair<node*, node*> skip_zero(node* n)
 {
-    node* first = n;
     node* prev = nullptr;
 
     while (n && n->data == 0)
@@ -944,22 +943,20 @@ pair<node*, node*> reverse_one_word(node* a)
 
 node* reverse_word(node* n)
 {
-    node* head = n;
+    node head(0);
+    head.next = n;
 
+    n = &head;
     while (n)
     {
         pair<node*, node*> a = skip_zero(n);
         pair<node*, node*> b = reverse_one_word(a.second);
 
-        if (a.first)
-            a.first->next = b.first;
-        else
-            head = b.first;
-
+        a.first->next = b.first;
         n = b.second;
     }
 
-    return head;
+    return head.next;
 }
 
 void test_reverse_word()
@@ -3134,6 +3131,6 @@ void test_search_substring()
 
 int main()
 {
-    test_reverse_linked_list();
+    test_reverse_word();
 }
 
