@@ -793,17 +793,16 @@ node* reverse_list_every_other(node* a)
     if (!a)
         return a;
 
-    node* r = a->next? a->next: a;
+    node r(0);
 
-    node* prev = nullptr;
+    node* prev = &r;
+    prev->next = a;
 
     while (a && a->next) 
     {
-        if (prev)
-            prev->next = a->next;
-
+        prev->next = a->next;
         prev = a;
-        a = a-> next;
+        a = a->next;
         node* next = a->next;
 
         a->next = prev;
@@ -811,7 +810,7 @@ node* reverse_list_every_other(node* a)
         a = next;
     }
 
-    return r;
+    return r.next;
 }
 
 
@@ -3135,6 +3134,6 @@ void test_search_substring()
 
 int main()
 {
-    test_merge_linked_list();
+    test_reverse_linked_list();
 }
 
