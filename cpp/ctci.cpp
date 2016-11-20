@@ -3041,6 +3041,36 @@ void test_find_rand_comb()
 
 void test_find_rand_subset_of_k_from_n()
 {
+
+    int n, k;
+    cin >> n >> k;
+
+    map<int, int> mi;
+    default_random_engine seed((random_device())()); // random num generator
+
+    for (int i = 0; i < k; ++i)
+    {
+        int ri = uniform_int_distribution<int>{i, n - 1}(seed);
+        auto p1 = mi.find(i);
+        auto p2 = mi.find(ri);
+
+        if (p1 == mi.end() && p2 == mi.end())
+        {
+            mi[i] = ri;
+            mi[ri] = i;
+        }
+        else if (p1 == mi.end())
+        {
+            
+        }
+        else if (p2 == mi.end())
+        {
+        }
+        else
+        {
+        }
+    }    
+        
 }
     
 void test_non_unform_random_numbers()
