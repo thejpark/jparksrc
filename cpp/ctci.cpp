@@ -3061,16 +3061,27 @@ void test_find_rand_subset_of_k_from_n()
         }
         else if (p1 == mi.end())
         {
-            
+            mi[i] = p2->second;
+            p2->second = i;
         }
         else if (p2 == mi.end())
         {
+            mi[ri] = p1->second;
+            p1->second = ri;
         }
         else
         {
+            swap(p1->second, p2->second);
         }
     }    
-        
+
+    for (int i = 0; i < k; ++i)
+    {
+        cout << mi[i] << " ";
+    }
+
+    cout << endl;
+                                 
 }
     
 void test_non_unform_random_numbers()
@@ -3166,6 +3177,6 @@ void test_search_substring()
 
 int main()
 {
-    test_reverse_word();
+    test_find_rand_subset_of_k_from_n();
 }
 
