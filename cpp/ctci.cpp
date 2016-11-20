@@ -3037,6 +3037,11 @@ void test_find_rand_comb()
 
     cout << endl;
 }
+
+
+void test_find_rand_subset_of_k_from_n()
+{
+}
     
 void test_non_unform_random_numbers()
 {
