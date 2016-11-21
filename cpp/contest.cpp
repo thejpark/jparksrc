@@ -340,13 +340,9 @@ int revert(int n)
     // bool is_negative = (n < 0)
   int r = 0;
   
-  while(1) {
-    r += n % 10;
+  while(n) {
+    r += r * 10 + n % 10;
     n = n / 10;
-    if (n == 0)
-        break;
-    else 
-      r = r * 10;
   }
   
   return r;
