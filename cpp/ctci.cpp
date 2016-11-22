@@ -3171,12 +3171,65 @@ void test_search_substring()
 
 }
 
+
+string ConstructString(int r, int b)
+{
+    if (r == 0)
+        return "";
+
+    int t = r % b;
+
+    if (t >= 10)
+        return ConstructString(r/b, b) + char('A' + t - 10 );
+
+    else
+        return ConstructString(r/b, b) + char('0' + t);
+}
+
+
+string ConvertBase(const string& s, int a, int b)
+{
+
+    if (s.empty())
+        return s;
+
+    bool is_negative = s[0] == '-';
+
+    int r = 0;
+    for (int i = is_negative? 1:0; i < s.size(); ++i)
+    {
+        int t = isdigit(s[i])? s[i] - '0' : s[i] - 'A' + 10;
+        r = r * a + t;
+    }
+
+    if (r == 0)
+        return "0";
+
+    string rs = ConstructString(r, b);
+
+    if (is_negative)
+        return "-" + rs;
+    else
+        return rs;
+}
+
+void test_convert_base()
+{
+    int a, b;
+    string n;
+    cin >> n >> a >> b;
+
+    cout << "the result is " << ConvertBase(n, a, b) << endl;
+
+}
+
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_find_rand_subset_of_k_from_n();
+    test_convert_base();
 }
 
