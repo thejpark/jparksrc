@@ -57,7 +57,7 @@ also includes upgrade firmware, or upload log message in the system for analysis
 
 from low-level up to application level.
 
-So far, the most proud of project was mobile virtualization of Android smartphone in OK labs.
+So far, the most proud of project was mobile virtualization of Android smartphone in OK labs. small company with virtualization technology, but we did not have a real hardware running our software (only some test platform). To impress our customers, we desparately needed a real hardware running virtualization.
 
 2.OKL
  - OKL was a good company with good software development cycle, and one of the leader in mobile virtualization.
