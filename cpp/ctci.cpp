@@ -3223,6 +3223,23 @@ void test_convert_base()
 
 }
 
+void test_swap_bit()
+{
+    int i, j;
+    long n;
+
+    cin >> n >> i >> j;
+
+    int x = (n >> i) & 1;
+    int y = (n >> j) & 1;
+    
+    if (x != y)
+    {
+        n ^= (1L << i | 1L << j);
+    }
+
+    cout << "the result is " << n;
+}
 
 // reference
 // https://github.com/andreis/interview 
@@ -3230,6 +3247,6 @@ void test_convert_base()
 
 int main()
 {
-    test_convert_base();
+    test_swap_bit();
 }
 
