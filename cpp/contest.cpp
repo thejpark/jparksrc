@@ -4579,6 +4579,16 @@ void test_first_unrepeated_char()
         cout << "the result is " << prev << endl;
 }
 
+
+void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel()
+{
+// given width and height and percentage, generates an image of pixel (black 
+// and white) that has exactly p percent of black pixel, with uniformly 
+// randomised.
+
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
