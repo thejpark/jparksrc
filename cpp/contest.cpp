@@ -4589,6 +4589,22 @@ void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel(
 }
 
 
+void test_find_missing_number_in_4_billion_numbers_in_a_file()
+{
+    // You have a file in which there are supposed to be 4 billion numbers, 
+    // starting from 1 to 4,000,000,000 but unfortunately one number is missing, 
+    // i.e there are only 3,999,999,999 numbers, You need to find the missing number. 
+
+    // solution: n (n + 1) / 2 = 1 + 2 + ... + n, so
+    // missing number = n ( n + 1) / 2 - sum
+}
+
+void test_searching_words_in_a_very_big_file()
+{
+    // Given a large file, how will you store the words in the file so that searching of a word can be done in constant time? Also how will you find the 10 most frequently occurring word
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
