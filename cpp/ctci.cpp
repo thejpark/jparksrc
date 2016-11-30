@@ -3096,6 +3096,15 @@ void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel(
 }
 
 
+void test_sample_online_data()
+{
+// design an algorithm that takes as input a size k, and read packets,
+// continuously maintinging a uniform random subset of size k of the read
+// packets
+    
+}
+
+
 void test_find_rand_subset_of_k_from_n()
 {
 
@@ -3357,6 +3366,12 @@ void test_path_normalization()
 // https://github.com/andreis/interview 
 //
 
+
+// for algorithm design or coding interview question,
+// consider simple cases. For example, in uniformly randomised
+// pixel of p percent black pixel, forst consider if the number
+// of black pixel is 1. and then 2. If the size is n, then how to
+// handle n + 1?
 int main()
 {
     test_path_normalization();
