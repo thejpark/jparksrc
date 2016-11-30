@@ -531,18 +531,6 @@ void set_col(vector<vector<int> > &m, int col)
 
 }
 
-int find(vector<int> m, int val)
-{
-    int i = 0;
-    
-    while (i != m.size()) {
-        if (m[i] == val)
-            return i;
-        ++i;
-    }
-    return i;
-}
-
 
 void col_row(vector<vector<int>>& m)
 {
@@ -570,36 +558,6 @@ void col_row(vector<vector<int>>& m)
     {
         set_row(m, e);
     }
-}
-
-
-
-// this is two phase algorithm using only col and row vector.
-void
-col_row2(vector<vector<int> > &m)
-{
-    // instead of row and col as vector,
-    // consider using set. As it removes redundancy
-    vector<int> row;
-    vector<int> col;
-    
-    
-    for (int i = 0; i < m.size(); i++) {
-        int j = find(m[i], 0);
-        if (j != m[i].size()) {
-            row.push_back(i);
-            col.push_back(j);
-        }
-    }
-
-    for (int i = 0; i < m.size(); i++) {
-        for (int j = 0; j < m[i].size(); j++) {
-            if (find(row, i) != row.size() ||
-                    find(col, j) != col.size())
-                m[i][j] = 0;
-        }
-    }
-    
 }
 
 // how to create 2 dimensional vector?
@@ -651,49 +609,6 @@ int t17()
         }
         cout << endl;
     }
-}
-
-int t17_1()
-{
-    vector<vector<int> > m, n;
-    m.resize(3);
-    m[0].resize(3);
-    m[1].resize(3);
-    m[2].resize(3);
-    n.resize(3);
-    n[0].resize(3);
-    n[1].resize(3);
-    n[2].resize(3);
-    
-    m[0][0] = 1;
-    m[0][1] = 2;
-    m[0][2] = 1;
-    m[1][0] = 1;
-    m[1][1] = 0;
-    m[1][2] = 7;
-    m[2][0] = 3;
-    m[2][1] = 1;
-    m[2][2] = 9;
-
-    for (int i = 0; i < m.size(); i++) {
-        for (int j = 0; j < m[i].size(); j++) {
-            cout << " " << m[i][j];
-        }
-        cout << endl;
-    }
-    
-    col_row2(m);
-
-    cout << endl << " and the result is " << endl;
-
-    for (int i = 0; i < m.size(); i++) {
-        for (int j = 0; j < m[i].size(); j++) {
-            cout << " " << m[i][j];
-        }
-        cout << endl;
-    }
-
-
 }
 
 // remove duplicate for a linked list and map
@@ -1521,31 +1436,6 @@ int t1911_1()
     }
 
 }
-
-
-// test map_reduce
-/*
- * worker thread
- * workq
- *
- * Q: how to choose chunk size? data band width and cache size?
- */ 
-int t_thread_4()
-{
-
-
-}
-
-class testConst 
-{
-
-private:
-    const static int x;
-    const static int y = 100;
-
-};
-
-
 
 
 // reinterpret_cast
