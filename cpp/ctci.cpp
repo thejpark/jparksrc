@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <typeinfo>
 #include <random>
+#include <sstream>
 
 using namespace std;
 
@@ -3038,6 +3039,62 @@ void test_find_rand_comb()
     cout << endl;
 }
 
+void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel()
+{
+// given width and height and percentage, generates an image of pixel (black 
+// and white) that has exactly p percent of black pixel, with uniformly 
+// randomised.
+
+    int n, m;
+    double p;
+
+    cin >> n >> m >> p;
+
+
+    vector<vector<int>> v(n, vector<int>(m, 0));
+    int cnt = (n * m * p) / 100;
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            if (cnt > 0)
+            {
+                v[i][j] = 1;
+                cnt--;
+            }
+        }
+    }
+    
+
+    cnt = (n * m * p) / 100;
+    default_random_engine seed((random_device())()); // random num generator
+            
+    
+    for (int i = cnt - 1; i >= 0 ; --i)
+    {
+        int ii = i / m;
+        int jj = i % m;
+        int kk = uniform_int_distribution<int>{
+            i, n * m - 1}(seed);
+        int ki = kk / m;
+        int kj = kk % m;
+        swap(v[ii][jj], v[ki][kj]);
+    }
+
+    cout << " the result is" << endl;
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            cout << " " << v[i][j];
+        }
+
+        cout << endl;
+    }
+
+}
+
 
 void test_find_rand_subset_of_k_from_n()
 {
@@ -3241,12 +3298,28 @@ void test_swap_bit()
     cout << "the result is " << n;
 }
 
+void test_string_tokening()
+{
+    string s;
+    cin >> s;
+
+    stringstream ss(s);
+
+    string str;
+    while (getline(ss, str, '/'))
+    {
+        cout << "*: " << str << endl;
+    }
+}
+
+
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_swap_bit();
+    test_string_tokening();
 }
 
