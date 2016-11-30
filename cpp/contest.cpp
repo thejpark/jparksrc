@@ -4596,6 +4596,14 @@ void test_searching_words_in_a_very_big_file()
     // Given a large file, how will you store the words in the file so that 
     // searching of a word can be done in constant time? Also how will you find 
     // the 10 most frequently occurring word.
+
+
+    // sol 1: trie, each end node has the list of the positions
+    //        in the file. After constructing the trie, scan the 
+    // trie to create map<int, list<string>> where int is the number of occurences
+    // and list<stirng> is string that occurs int times in the file.
+
+    // sol 2: multiple hash, as single hash may create hash corriding.
 }
 
 
