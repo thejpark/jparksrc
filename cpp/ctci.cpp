@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <typeinfo>
 #include <random>
+#include <sstream>
 
 using namespace std;
 
@@ -3280,12 +3281,28 @@ void test_convert_base()
 }
 
 
+void test_string_tokening()
+{
+    string s;
+    cin >> s;
+
+    stringstream ss(s);
+
+    string str;
+    while (getline(ss, str, '/'))
+    {
+        cout << "*: " << str << endl;
+    }
+}
+
+
+
 // reference
 // https://github.com/andreis/interview 
 //
 
 int main()
 {
-    test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel();
+    test_string_tokening();
 }
 
