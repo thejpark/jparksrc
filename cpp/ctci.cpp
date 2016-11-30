@@ -2935,52 +2935,37 @@ void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel(
 // and white) that has exactly p percent of black pixel, with uniformly 
 // randomised.
 
+
+// it is just the same problem of selecting a uniformly randomised subset
+
     int n, m;
     double p;
 
     cin >> n >> m >> p;
 
 
-    vector<vector<int>> v(n, vector<int>(m, 0));
-    int cnt = (n * m * p) / 100;
-    for (int i = 0; i < n; ++i)
-    {
-        for (int j = 0; j < m; ++j)
-        {
-            if (cnt > 0)
-            {
-                v[i][j] = 1;
-                cnt--;
-            }
-        }
-    }
-    
+    vector<int> v(n * m);
+    for (int i = 0; i < n * m; ++i)
+        v[i] = i;
 
-    cnt = (n * m * p) / 100;
+    int cnt = (n * m * p) / 100;
+
     default_random_engine seed((random_device())()); // random num generator
             
-    
-    for (int i = cnt - 1; i >= 0 ; --i)
+    for (int i = 0; i < cnt; ++i)
     {
-        int ii = i / m;
-        int jj = i % m;
-        int kk = uniform_int_distribution<int>{
+        int j = uniform_int_distribution<int>{
             i, n * m - 1}(seed);
-        int ki = kk / m;
-        int kj = kk % m;
-        swap(v[ii][jj], v[ki][kj]);
+        swap(v[i], v[j]);
     }
 
     cout << " the result is" << endl;
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < cnt; ++i)
     {
-        for (int j = 0; j < m; ++j)
-        {
-            cout << " " << v[i][j];
-        }
-
-        cout << endl;
+        int x = v[i] / m;
+        int y = v[i] % m;
+        cout << x << ":" <<y << endl;
     }
 
 }
@@ -3264,6 +3249,6 @@ void test_path_normalization()
 // handle n + 1?
 int main()
 {
-    test_path_normalization();
+    test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel();
 }
 
