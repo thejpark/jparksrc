@@ -2977,6 +2977,40 @@ void test_sample_online_data()
 // continuously maintinging a uniform random subset of size k of the read
 // packets
     
+    int t;
+    int k;
+    cin >> k;
+
+    cout << " now enter numbers " << endl;
+    
+    vector<int> v(k);
+    int cnt = 0;
+    default_random_engine seed((random_device())()); // random num generator
+
+    while (cin >> t)
+    {
+        if (cnt < k)
+        {
+            v[cnt] = t;
+        }
+        else
+        {
+            int j = uniform_int_distribution<int>{0, cnt - 1}(seed);
+            if (j < k)
+            {
+                v[j] = t;
+            }
+        }
+        ++cnt;
+
+        
+        cout << endl << " the result is : " << endl;
+        for (int i = 0; i < k; ++i)
+        {
+            cout << " " << v[i];
+        }
+        cout << endl;
+    }
 }
 
 
@@ -3249,6 +3283,6 @@ void test_path_normalization()
 // handle n + 1?
 int main()
 {
-    test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel();
+    test_sample_online_data();
 }
 
