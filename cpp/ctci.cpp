@@ -1187,27 +1187,59 @@ public:
     void deque()
     {
         l.pop_front();
+        l2.pop_front();
     }
 
     void enque(int x)
     {
         l.emplace_back(x);
+        for (auto iter = l2.rbegin(); iter != l2.rend(); ++iter)
+        {
+            if (*iter < x)
+                *iter = x;
+            else
+                break;
+        }
+        l2.emplace_back(x);
     }
-
 
     int max()
     {
-        return 0;
+        return l2.front();
     }
 
 private:
     list<int> l;
-
+    list<int> l2;
 };
 
 
 void test_queue_with_max_method()
 {
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    myqueue mq;
+
+    for (int i = 0; i < n; ++i)
+    {
+        mq.enque(v[i]);
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        cout << mq.front() << " : " << mq.max() << endl;
+        mq.deque();
+    }
 
 }
 
@@ -3336,6 +3368,6 @@ void test_swap_bit()
 // handle n + 1?
 int main()
 {
-    test_sample_online_data();
+    test_queue_with_max_method();
 }
 
