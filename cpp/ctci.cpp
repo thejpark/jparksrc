@@ -1108,6 +1108,67 @@ int t36()
 
 }
 
+void test_path_normalization()
+{
+    string s;
+    cin >> s;
+
+    stringstream ss(s);
+    stack<string> stk;
+
+
+    if (s[0] == '/')
+        stk.emplace("/");
+
+    string str;
+    while (getline(ss, str, '/'))
+    {
+        if (str == "." || str == "")
+        {
+            continue;
+        }
+        else if (str == "..")
+        {
+            if (stk.top() == "/")
+            {
+                cout << "error" << endl;
+                return;
+            } 
+            else if (stk.top() == ".." || stk.empty())
+            {
+                stk.emplace(str);
+            }
+            else
+            {
+                stk.pop();
+            }
+        }
+        else
+        {
+            stk.emplace(str);
+        }
+    }
+
+    string r;
+    while (!stk.empty())
+    {
+        r = stk.top() + r;
+        stk.pop();
+        if (!stk.empty() && stk.top() != "/")
+            r = "/" + r;
+    }
+
+    cout << " the result is " << r << endl;
+}
+
+void test_sunset_view()
+{
+    // input: list of house with hight, east to west
+    // out : list ouf house with sunset view
+    // constraints: if there is higher building in the west,
+    // view is blocked and not sunset view.
+}
+
 
 int t_str_size()
 {
@@ -3214,59 +3275,6 @@ void test_swap_bit()
     }
 
     cout << "the result is " << n;
-}
-
-void test_path_normalization()
-{
-    string s;
-    cin >> s;
-
-    stringstream ss(s);
-    stack<string> stk;
-
-
-    if (s[0] == '/')
-        stk.emplace("/");
-
-    string str;
-    while (getline(ss, str, '/'))
-    {
-        if (str == "." || str == "")
-        {
-            continue;
-        }
-        else if (str == "..")
-        {
-            if (stk.top() == "/")
-            {
-                cout << "error" << endl;
-                return;
-            } 
-            else if (stk.top() == ".." || stk.empty())
-            {
-                stk.emplace(str);
-            }
-            else
-            {
-                stk.pop();
-            }
-        }
-        else
-        {
-            stk.emplace(str);
-        }
-    }
-
-    string r;
-    while (!stk.empty())
-    {
-        r = stk.top() + r;
-        stk.pop();
-        if (!stk.empty() && stk.top() != "/")
-            r = "/" + r;
-    }
-
-    cout << " the result is " << r << endl;
 }
 
 
