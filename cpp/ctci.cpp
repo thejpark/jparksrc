@@ -1170,6 +1170,48 @@ void test_sunset_view()
 }
 
 
+class myqueue {
+
+public:
+    myqueue() { }
+    bool empty()
+    {
+        return l.empty();
+    }
+
+    int front()
+    {
+        return l.front();
+    }
+    
+    void deque()
+    {
+        l.pop_front();
+    }
+
+    void enque(int x)
+    {
+        l.emplace_back(x);
+    }
+
+
+    int max()
+    {
+        return 0;
+    }
+
+private:
+    list<int> l;
+
+};
+
+
+void test_queue_with_max_method()
+{
+
+}
+
+
 int t_str_size()
 {
     string s("this");
