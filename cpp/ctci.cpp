@@ -1244,44 +1244,6 @@ void test_queue_with_max_method()
 }
 
 
-int t_str_size()
-{
-    string s("this");
-    cout << s << " " << s.size() << " " << s.capacity() << endl;
-
-    s.reserve(100);
-    cout << s << " " << s.size() << " " << s.capacity() << endl;
-
-    s.resize(100);
-    cout << s << " " << s.size() << " " << s.capacity() << endl;
-
-    cout << "  :"<< s[6] << ": " << endl;
-
-    s.append("no no");
-    cout << s << " " << s.size() << " " << s.capacity() << endl;
-    cout << "  :"<< s[100] << ": " << endl;
-}
-
-int t_ptr_test()
-{
-
-    int x[] = {1, 2, 3, 4, 5, 6, 7}; // for some reason, int *x does not work here.
-
-    int *x2 = x + 1;
-    
-    int *y = x + 6;
-#if 0
-    // this line causes compile error
-    int *z = (x2 + y) / 2;
-#endif
-    cout << endl << *x << endl;
-    cout << *y << endl;
-#if 0
-    cout << *z << endl;
-#endif
-    
-}
-
 #include <pthread.h>
 int t_thread_1()
 {
@@ -1291,8 +1253,6 @@ int t_thread_1()
     cout << "after join: " << err << endl;
     
 }
-
-
 
 
 static pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
@@ -3353,7 +3313,6 @@ void test_swap_bit()
 
     cout << "the result is " << n;
 }
-
 
 
 // reference
