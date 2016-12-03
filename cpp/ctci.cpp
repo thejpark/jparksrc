@@ -2139,6 +2139,9 @@ public:
     {
     }
     
+    // what should we do if we want to increase/resize buffer
+    // when the buffer is full? then rotate and set head/tail
+    // and resize the buffer!
     int put(char* vi, int len)
     {
         int bytes_written = (len > availspace)? availspace : len;
