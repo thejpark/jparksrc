@@ -101,6 +101,9 @@
                                 <state key="normal" title="사용 방법">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="f8w-4a-7dk" kind="show" id="lQq-cO-ZTk"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -150,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75D-R5-WQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="223" y="-779"/>
+            <point key="canvasLocation" x="300" y="-424"/>
         </scene>
         <!--Pop Up View Controller-->
         <scene sceneID="nJ1-FU-vuG">
@@ -1109,6 +1112,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qqg-Xf-IJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1059" y="-1436"/>
+        </scene>
+        <!--사용 방법-->
+        <scene sceneID="b3j-lQ-BPb">
+            <objects>
+                <viewController storyboardIdentifier="userguide" title="사용 방법" id="f8w-4a-7dk" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ycm-K9-dWG"/>
+                        <viewControllerLayoutGuide type="bottom" id="49R-bg-56t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oOx-Iu-BYh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="우선 기본 정보를 등록 하세요. 그 다음으로 셀프 작명 혹은 추천 작명으로 이름을 작명하세요. 영어이름을 지을 경우 영어작명을 활용하시면 됩니다.   " textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGx-cr-anc">
+                                <rect key="frame" x="7" y="72" width="304" height="406"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G73-4g-i4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="-551"/>
         </scene>
     </scenes>
 </document>
