@@ -2084,10 +2084,60 @@ int search_next(tree* n)
     cout << "last element" << endl;
     return 0;
 }
+
+#endif
+
+// check whether a binary tree is balanced or not.
+// what is balanced? distance from the root to all the leaf, min and
+// max should be less than 1? or all the internal nodes (including)
+// root, its left and right tree should be less than 1? proably
+// the second is more difficult.
+
+template <typename T>
+struct bt_node {
+    bt_node(T v) : val(v), left(nullptr), right(nullptr) {}
+    bt_node* left;
+    bt_node* right;
+    T val;
+};
+
+pair<bool, int> check_balanced(const bt_node<int>* node)
+{
+    if (!node)
+        return pair<bool, int>(true, 0);
+    
+    auto left = check_balanced(node->left);
+    auto right = check_balanced(node->right);
+
+    int depth = max(left.second, right.second) + 1;
+    bool balanced = (left.first == true && 
+                     right.first == true &&
+                     abs(left.second - right.second) <= 1);
+
+    return pair<bool, int>(balanced, depth);
+}
+
 void t45()
 {
+    bt_node<int> a(6);
+    bt_node<int> b(3);
+    a.left = &b;
 
+    bt_node<int> d(1);
+    bt_node<int> e(4);
+    b.left = &d;
+    b.right = &e;
+
+    auto r = check_balanced(&a);
+    cout << " the result is " << r.first << " : " << r.second << endl;
+
+    bt_node<int> c(8);
+    a.right = &c;
+    r = check_balanced(&a);
+    cout << " the result is " << r.first << " : " << r.second << endl;
 }
+
+#if 0
 
 // Design an algorithm and write code to find the first common 
 // ancestor of two nodes in a binary tree Avoid storing 
@@ -3327,6 +3377,6 @@ void test_swap_bit()
 // handle n + 1?
 int main()
 {
-    test_queue_with_max_method();
+    t45();
 }
 
