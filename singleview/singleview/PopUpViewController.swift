@@ -108,7 +108,9 @@ class PopUpViewController: UIViewController {
         defaults.setValue(selectedDate, forKey: RegisterInfoKeys.dob)
         defaults.setValue(gender, forKey: RegisterInfoKeys.gender)
         defaults.setValue(birthPlace, forKey: RegisterInfoKeys.place)
-
+        gEditCount -= 1
+        defaults.setValue(String(gEditCount), forKey: RegisterInfoKeys.editCount)
+        
         defaults.synchronize()
         
         // clear previously stored names

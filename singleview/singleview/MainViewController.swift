@@ -14,8 +14,10 @@ struct RegisterInfoKeys {
     static let dob = "dob"
     static let gender = "gender"
     static let place = "place"
-
+    static let editCount = "editCount"
 }
+
+var gEditCount = 3
 
 class MainViewController: UIViewController {
     
@@ -24,7 +26,7 @@ class MainViewController: UIViewController {
     var dob: String = ""
     var gender: String = ""
     var place: String = ""
-
+    
     @IBOutlet weak var settings: UIBarItem!
     
     override func viewDidLoad() {
@@ -51,7 +53,11 @@ class MainViewController: UIViewController {
             // set timediff
             timeDiff = timeDiffMap[self.place]!
         }
+        if let str2 = defaults.string(forKey: RegisterInfoKeys.editCount) {
+            gEditCount = Int(str2)!
+        }
 
+        
         
 /*
         self.settings.title = NSString(string: "\u{2699}") as String
@@ -74,6 +80,9 @@ class MainViewController: UIViewController {
         
         if defaults.string(forKey: RegisterInfoKeys.surName) != nil {
             
+            if let str1 = defaults.string(forKey: RegisterInfoKeys.surName) {
+                self.surName = str1
+            }
             if let str1 = defaults.string(forKey: RegisterInfoKeys.surNameH) {
                 self.surNameH = str1
             }

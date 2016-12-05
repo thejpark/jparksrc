@@ -59,10 +59,22 @@ class RegisterConfirmViewController: UIViewController {
   */
     @IBAction func registerInfo(_ sender: UIBarButtonItem)
     {
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
-        self.addChildViewController(vc)
-        self.view.addSubview(vc.view)
-        vc.showInView("새로 등록 할까요?",  animated: true)
+        if (gEditCount > 0)
+        {
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
+            self.addChildViewController(vc)
+            self.view.addSubview(vc.view)
+            vc.showInView("새로 등록 할까요?",  animated: true)
+        }
+        else
+        {
+            let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
+            
+            self.addChildViewController(vc2)
+            self.view.addSubview(vc2.view)
+            vc2.showInView("한도 초과 입니다",  animated: true)
+            return
+        }
     }
 
 }
