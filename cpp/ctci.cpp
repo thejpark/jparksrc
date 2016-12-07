@@ -2137,6 +2137,87 @@ void t45()
     cout << " the result is " << r.first << " : " << r.second << endl;
 }
 
+
+using nodeType = pair<int, vector<char>> ; 
+
+void get_path(bt_node<int>* node, vector<char> t, vector<nodeType>& vr)
+{
+    if (!node)
+        return;
+    
+    t.emplace_back(0);
+    get_path(node->left, t, vr);
+    t.pop_back();
+    
+    vr.emplace_back(nodeType{node->val, t});
+
+    t.emplace_back(1);
+    get_path(node->right, t, vr);
+    t.pop_back();
+}
+
+void test_check_binary_tree_symmetric()
+{
+    // traverse tree in-order, and keep track of paths.
+    // traverse left and right of the root, and see
+    // whether one is the right reverse of the other
+
+    vector<nodeType> r;
+    vector<char> t;
+
+    bt_node<int> a(6);
+    bt_node<int> b(3);
+    a.left = &b;
+    bt_node<int> c(3);
+    a.right = &c;
+
+    bt_node<int> d(1);
+    bt_node<int> e(1);
+    b.left = &d;
+    c.left = &e;
+
+
+    get_path(&a, t, r); 
+
+    auto first = r.begin();
+    auto last = r.end();
+
+    while (first != last)
+    {
+        --last;
+
+        if (first == last)
+            break;
+
+        bool result = false;
+        if (first->first == last->first &&
+            first->second.size() == last->second.size())
+        {
+            int i = 0;
+            for (; i < first->second.size(); ++i)
+            {
+                if (first->second[i] == last->second[i])
+                    break;
+            }
+
+            if (i == first->second.size())
+                result = true;
+        }
+
+        if (!result)
+        {
+            cout << " no symmetric " << endl;
+            return;
+        }
+
+        ++first;
+    }
+
+    cout << " symmetric " << endl;
+
+}
+
+
 #if 0
 
 // Design an algorithm and write code to find the first common 
@@ -3377,6 +3458,6 @@ void test_swap_bit()
 // handle n + 1?
 int main()
 {
-    t45();
+    test_check_binary_tree_symmetric();
 }
 
