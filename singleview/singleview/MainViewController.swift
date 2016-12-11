@@ -17,7 +17,7 @@ struct RegisterInfoKeys {
     static let editCount = "editCount"
 }
 
-var gEditCount = 3
+var gEditCount = 100
 
 class MainViewController: UIViewController {
     
