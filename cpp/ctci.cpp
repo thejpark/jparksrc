@@ -2174,36 +2174,35 @@ void test_check_binary_tree_symmetric()
 }
 
 
-#if 0
-
 // Design an algorithm and write code to find the first common 
 // ancestor of two nodes in a binary tree Avoid storing 
-//additional nodes in a data structure NOTE: This is not 
+// additional nodes in a data structure NOTE: This is not 
 // necessarily a binary search tree
-tree* cover(tree*n, tree*a, tree*b)
+
+using elem1 = pair<int, bt_node<int>*>;
+elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)
 {
-b1 = search(n->left, a);
-b2 = search(n->left, b);
-b3 = search(n->right, a);
-b4 = search(n->right, b);
+    
+    if (n == nullptr)
+        return elem1(0, nullptr);
 
-if (b1 && b2)
-    return cover(n->left, a, b);
+    elem1 r1 = find_fca1(n->left, a, b);
+    if (r1.first == 2)
+        return r1;
 
-if (b3 && b4)
-    return cover(n->right, a, b);
+    elem1 r2 = find_fca1(n->right, a, b);
+    if (r2.first == 2)
+        return r2;
+    
+    int r3 = r1.first + r2.first + (n == a) + (n == b);
 
-if ((b1 && b4) || (b2 && b3))
-    return n;
-
-return NULL;
+    return elem1(r3, (r3 == 2) ? n : nullptr);
 }
+
 
 void t46()
 {
 }
-
-#endif
 
 // You have two very large binary trees: T1, with millions of nodes, and T2, 
 // with hun- dreds of nodes Create an algorithm to decide if T2 is a subtree of T1
