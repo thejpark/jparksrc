@@ -2140,6 +2140,11 @@ void t45()
 
 bool check_symmetric(bt_node<int>* left, bt_node<int>* right)
 {
+    // or, traverse tree in order and store it in a list, and
+    // store pair pair<list<bool>, int> where list shows path (i.e.,
+    // false means left and true means right) and int is val,
+    // perform partition method like traverse from left-to-right and
+    // right-to-left
     if (left == nullptr && right == nullptr)
         return true;
     if (left != nullptr && right != nullptr)
