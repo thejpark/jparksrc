@@ -1675,3 +1675,11 @@ ambience
 arable
 statuesque
 idle
+abode
+effigy
+masonry
+feral
+extravagant
+thrifty
+cautious
+
