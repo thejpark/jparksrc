@@ -1072,6 +1072,7 @@ retorted
 voluminous
 compactly
 aptitude
+apt
 despondent
 penetrating
 venue
@@ -1661,4 +1662,16 @@ circumspect
 terse
 repugnant
 vivacious
-
+contingent
+ferocious
+taunt
+reclusive
+impending
+notorious
+infamous
+masticate
+prior
+ambience
+arable
+statuesque
+idle
