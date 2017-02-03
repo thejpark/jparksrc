@@ -1380,7 +1380,6 @@ rendered
 salinity
 preserve
 billowing
-adament
 tolerant
 frequent
 determined
