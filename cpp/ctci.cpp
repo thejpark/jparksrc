@@ -421,6 +421,9 @@ void replace2(string &s, string r)
         if (s[i] == ' ') {
             for (int k = r.size(); k > 0; k--)
                 s[j--] = r[k - 1];
+            // same as the following code
+            // copy(r.cbegin(), r.cend(), s.rbegin() + new_size - j - 1);
+            // j -= r.size();
         }
         else {
             
