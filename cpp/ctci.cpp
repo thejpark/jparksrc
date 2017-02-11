@@ -732,6 +732,47 @@ node* reverse_list_every_other(node* a)
     return r.next;
 }
 
+pair<node*, node*> swap_two(node* a)
+{
+    if (!a)
+        return pair<node*, node*>(nullptr, nullptr);
+    else if (!a->next)
+        return pair<node*, node*>(a, nullptr);
+
+    node* first = a->next;
+    node* next = first->next;
+    a->next = next;
+    first->next = a;
+    return pair<node*, node*>(first, a);
+}
+
+node* reverse_list_every_other2(node* a)
+{
+    if (!a)
+        return a;
+
+    node* prev = nullptr;
+    node* rtn = nullptr;
+
+    while (a)
+    {
+        auto n = swap_two(a);
+
+        if (!rtn)
+            rtn = n.first;
+        else
+            prev->next = n.first;
+
+        if (!n.second)
+            break;
+
+        prev = n.second;
+        a = prev->next;
+    }
+
+    return rtn;
+}
+
 
 node* merge_list(node*a, node*b)
 {
@@ -784,7 +825,7 @@ void test_reverse_linked_list()
  
 
     // node* r = reverse_list(head);
-    node* r = reverse_list_every_other(head);
+    node* r = reverse_list_every_other2(head);
 
     while (r)
     {
@@ -3421,6 +3462,6 @@ void test_swap_bit()
 // handle n + 1?
 int main()
 {
-    test_check_binary_tree_symmetric();
+    test_reverse_linked_list();
 }
 
