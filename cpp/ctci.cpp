@@ -763,15 +763,17 @@ node* reverse_list_every_other2(node* a)
         else
             prev->next = n.first;
 
+        prev = n.second;
+
         if (!n.second)
             break;
-
-        prev = n.second;
         a = prev->next;
     }
 
     return rtn;
 }
+
+// or, you can just swap the value of first and second node.
 
 
 node* merge_list(node*a, node*b)
