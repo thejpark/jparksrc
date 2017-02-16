@@ -751,17 +751,15 @@ node* reverse_list_every_other2(node* a)
     if (!a)
         return a;
 
-    node* prev = nullptr;
-    node* rtn = nullptr;
+    node rtn(0);
+    node* prev = &rtn;
+    prev->next = a;
 
     while (a)
     {
         auto n = swap_two(a);
 
-        if (!rtn)
-            rtn = n.first;
-        else
-            prev->next = n.first;
+        prev->next = n.first;
 
         prev = n.second;
 
@@ -770,7 +768,7 @@ node* reverse_list_every_other2(node* a)
         a = prev->next;
     }
 
-    return rtn;
+    return rtn.next;
 }
 
 // or, you can just swap the value of first and second node.
