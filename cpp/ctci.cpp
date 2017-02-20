@@ -2116,17 +2116,13 @@ tree* search_next(tree* n)
 
     node* p = n->parent;
 
-    while (p)
+    while ((p != nullptr) && (p->right == n))
     {
-        if (n == p->left)
-        {
-            return p;
-        }
         n = p;
         p = p->parent;
     }
 
-    return nullptr;
+    return p;
 }
 
 #endif
