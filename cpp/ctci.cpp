@@ -2101,15 +2101,15 @@ void t43()
 // each node has pointer to its parent
 #if 0
 
-int search_min(tree* n)
+tree* search_min(tree* n)
 {
     if (n->left)
         return search_min(n->left);
 
-    return n->data;
+    return n;
 }
 
-int search_next(tree* n)
+tree* search_next(tree* n)
 {
     if (n->right)
         return search_min(n->right);
@@ -2120,14 +2120,13 @@ int search_next(tree* n)
     {
         if (n == p->left)
         {
-            return n->data;
+            return p;
         }
         n = p;
         p = p->parent;
     }
 
-    cout << "last element" << endl;
-    return 0;
+    return nullptr;
 }
 
 #endif
