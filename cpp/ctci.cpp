@@ -2638,22 +2638,22 @@ private:
         node(string s, int x) : str(s), data(x), prev(NULL), next(NULL) {}
         int data;
         string str;
-        node* prev;
-        node* next;
+        shared_ptr<node> prev;
+        shared_ptr<node> next;
     };
-    node* head;
-    node* tail;
-    map<string, node*> mm;
+    shared_ptr<node> head;
+    shared_ptr<node> tail;
+    map<string, shared_ptr<node>> mm;
     int size;
  
 public:
     lrumap(int sz) : size(sz) {}
     
-    node* get(string& s)
+    shared_ptr<node> get(string& s)
     {
         if (mm.find(s) != mm.end())
         {
-            node* n = mm[s];
+            shared_ptr<node> n = mm[s];
 
             // set the node as the head of the list
             if (n == head && n == tail)
@@ -2693,9 +2693,7 @@ public:
 
     void put(string& s, int i)
     {
-        node* n;
-
-        n = get(s);
+        shared_ptr<node> n = get(s);
 
         if (!n)
         {
@@ -2705,15 +2703,14 @@ public:
 
         if (mm.size() == size)
         {
-            node* prev = tail->prev;
+            shared_ptr<node> prev = tail->prev;
             tail->prev = nullptr;
             mm.erase(mm.find(tail->str));
-            delete tail;
             tail = prev;
             tail->next = nullptr;
         }
 
-        n = new node(s, i);
+        n = shared_ptr<node>(new node(s, i));
         n->next = head;
         head = n;
         mm[s] = n;
