@@ -2649,7 +2649,7 @@ private:
 public:
     lrumap(int sz) : size(sz) {}
     
-    int get(string& s)
+    node* get(string& s)
     {
         if (mm.find(s) != mm.end())
         {
@@ -2683,11 +2683,11 @@ public:
                 head = n;
             }
 
-            return n->data;
+            return n;
         }
         else
         {
-            return 0;
+            return nullptr;
         }
     }
 
@@ -2695,19 +2695,25 @@ public:
     {
         node* n;
 
-        if (mm.size() == size)
+        n = get(s);
+
+        if (!n)
         {
-            n = tail;
-            n->prev = nullptr;
-            mm.erase(mm.find(n->str));
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        else
-        {
-            n = new node(s, i);
+            n->data = i;
+            return;
         }
 
+        if (mm.size() == size)
+        {
+            node* prev = tail->prev;
+            tail->prev = nullptr;
+            mm.erase(mm.find(tail->str));
+            delete tail;
+            tail = prev;
+            tail->next = nullptr;
+        }
+
+        n = new node(s, i);
         n->next = head;
         head = n;
         mm[s] = n;
