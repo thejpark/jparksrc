@@ -710,6 +710,7 @@ void set_of_k_elem(int idx, vector<int>& vi, vector<int>& vr, int k)
         for (auto e : vr)
             cout << e << " ";
         cout << "}" << endl ;
+        return;
     }
     for (int i = idx; i < vi.size(); ++i)
     {
@@ -4613,7 +4614,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_bst_from_list();
+    test_set_of_k_elem();
 }
 
 
