@@ -1572,7 +1572,7 @@ void alphacode()
   d[0] = 1;
   d[1] = 1;
 
-  for (int i = 2; i <= size; i++) {
+  for (int i = 2; i < size; i++) {
     if (vi[i] < 7 && (vi[i - 1] == 1 || vi[i - 1] == 2))
       d[i] = d[i - 1] + d[i - 2];
     else 
