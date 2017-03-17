@@ -1572,6 +1572,9 @@ void alphacode()
   d[0] = 1;
   d[1] = 1;
 
+  // d(i) = d(i - 1) + d(i - 2), but if i == 1 then d(1) = d(0) + d(-1).
+  // to make all positive, we added a dummy value at the beginning.
+  
   for (int i = 2; i < size; i++) {
     if (vi[i] < 7 && (vi[i - 1] == 1 || vi[i - 1] == 2))
       d[i] = d[i - 1] + d[i - 2];
