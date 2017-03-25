@@ -13,14 +13,15 @@ import Foundation
 let gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
 let ji = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
 
-let yearStart: Int = 2016
+// need to addjust for new year
+let yearStart: Int = 2017
 let monthStart: Int = 3
+let ganStartM: Int = 8
+let jiStartM: Int = 2
 
+// no need to adjust
 let ganStartY: Int = 2
 let jiStartY: Int = 8
-
-let ganStartM: Int = 7
-let jiStartM: Int = 3
 
 func getYear(_ year : String, month : String, day : String, time: String) -> String {
     let y = Int(year)
@@ -130,9 +131,16 @@ let m = Int (x - Double(h * 60))
 
 // month, day, hour, minute
 typealias Nalja = (Int, Int, Int, Int)
+
 // 2016 jolgi, from sohan
+/*
 let Jolgi : [Nalja] = [(1, 6, 7, 8), (2,4,18,46), (3,5,12,43),(4,4,17,27), (5, 5, 10, 42), (6, 5, 14, 48),
-    (7, 7, 1, 3), (8, 7, 10, 53), (9,7,13,51), (10,8,5,33), (11,7,8,48), (12,7,1,41)]
+                       (7, 7, 1, 3), (8, 7, 10, 53), (9,7,13,51), (10,8,5,33), (11,7,8,48), (12,7,1,41)]
+*/
+
+// 2017 jolgi, from sohan
+let Jolgi : [Nalja] = [(1, 5, 12, 56), (2,4,0,34), (3,5,18,33),(4,4,23,17), (5, 5, 16, 31), (6, 5, 20, 36),
+    (7, 7, 6, 51), (8, 7, 16, 40), (9,7,19,38), (10,8,11,22), (11,7,14,38), (12,7,7,32)]
 
 func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
     
@@ -167,7 +175,7 @@ func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
     return false
 }
 
-let base_year = 2016
+let base_year = yearStart
 func getJolgi(_ year: Int) -> [Nalja] {
     
     var r : [Nalja] = Jolgi
@@ -239,8 +247,6 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
     }
     
     var count = 0
-    // 2016.1.5 乙未년 戊子월
-    
     var diff = year - base_year
     while (diff > 0) {
         count += 12
@@ -248,8 +254,11 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
     }
 
     count += index
-    let g = gan[(4 + count) % 10]
-    let j = ji[count % 12]
+    // 2016.1.5 乙未년 戊子월
+    // 2017/1 ( 丙申년 辛丑월 )
+    // not sure, but need to adjust
+    let g = gan[(6 + count) % 10]
+    let j = ji[(count) % 12]
     
     return g + j
 }
@@ -260,14 +269,14 @@ var timeDiff = 30
 
 func getIlju(_ y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
     
-    var i = getDays(2016, m1:3, d1:3, y2:y, m2:m, d2:d)
+    var i = getDays(yearStart, m1:monthStart, d1:ganStartM, y2:y, m2:m, d2:d)
     if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }
     
     let gan1 = gan[i % 10]
     
-    i = getDays(2016, m1:3, d1:7, y2:y, m2:m, d2:d)
+    i = getDays(yearStart, m1:monthStart, d1:jiStartM, y2:y, m2:m, d2:d)
     if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }

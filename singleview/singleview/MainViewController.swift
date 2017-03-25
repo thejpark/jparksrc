@@ -18,7 +18,7 @@ struct RegisterInfoKeys {
 }
 
 // I think only insane person may try 
-var gEditCount = 10000000
+var gEditCount = 100000
 
 class MainViewController: UIViewController {
     
