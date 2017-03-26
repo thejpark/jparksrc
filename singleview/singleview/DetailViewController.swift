@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var heeyong: UILabel!
     @IBOutlet weak var barum: UILabel!
     @IBOutlet weak var barumend: UILabel!
+    @IBOutlet weak var name: UILabel!
     
     
     
@@ -31,6 +32,9 @@ class DetailViewController: UIViewController {
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {
                 label.text = detail.desc()
+            }
+            if let name = self.name {
+                name.text = detail.desc()
             }
             if let saju = self.saju {
                 saju.text = detail.getSaju()

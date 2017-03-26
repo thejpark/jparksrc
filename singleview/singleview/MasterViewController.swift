@@ -8,6 +8,21 @@
 
 import UIKit
 
+struct PropertyKey {
+    static let surNameKey = "surName"
+    static let surName1Key = "surName1"
+    static let givenNameKey = "givenName"
+    static let givenName1Key = "givenName1"
+    static let sajuKey = "saju"
+    static let dobKey = "dob"
+    static let ilganKey = "ilgan"
+    static let gangYagKey = "gangYag"
+    static let antiIlganKey = "antiIlgan"
+    static let antiGangYagKey = "antiGangYag"
+    static let hyKey = "hy"
+}
+
+
 
 class Elem: NSObject, NSCoding {
     var surName : [Hanja]
@@ -20,21 +35,7 @@ class Elem: NSObject, NSCoding {
     var hy: [Int]
     var prio: Int = 0
 
-    struct PropertyKey {
-        static let surNameKey = "surName"
-        static let surName1Key = "surName1"
-        static let givenNameKey = "givenName"
-        static let givenName1Key = "givenName1"
-        static let sajuKey = "saju"
-        static let dobKey = "dob"
-        static let ilganKey = "ilgan"
-        static let gangYagKey = "gangYag"
-        static let antiIlganKey = "antiIlgan"
-        static let antiGangYagKey = "antiGangYag"
 
-        static let hyKey = "hy"
-    }
-    
     func encode(with aCoder: NSCoder) {
         var tmp: String = ""
         for e in surName {
@@ -54,7 +55,6 @@ class Elem: NSObject, NSCoding {
         aCoder.encode(ilganGangYag.1, forKey: PropertyKey.gangYagKey)
         aCoder.encode(ilganGangYag.2, forKey: PropertyKey.antiIlganKey)
         aCoder.encode(ilganGangYag.3, forKey: PropertyKey.antiGangYagKey)
-
         aCoder.encode(hy, forKey: PropertyKey.hyKey)
     }
     
@@ -78,14 +78,13 @@ class Elem: NSObject, NSCoding {
         }
         let sj = aDecoder.decodeObject(forKey: PropertyKey.sajuKey) as! String
         let d = aDecoder.decodeObject(forKey: PropertyKey.dobKey) as! String
-        let il = aDecoder.decodeObject(forKey: PropertyKey.ilganKey) as! Int
-        let gy = aDecoder.decodeObject(forKey: PropertyKey.gangYagKey) as! Double
-        let antiIl = aDecoder.decodeObject(forKey: PropertyKey.antiIlganKey) as! Int
-        let antiGy = aDecoder.decodeObject(forKey: PropertyKey.antiGangYagKey) as! Double
+        let il = aDecoder.decodeInteger(forKey: PropertyKey.ilganKey)
+        let gy = aDecoder.decodeDouble(forKey: PropertyKey.gangYagKey)
+        let antiIl = aDecoder.decodeInteger(forKey: PropertyKey.antiIlganKey)
+        let antiGy = aDecoder.decodeDouble(forKey: PropertyKey.antiGangYagKey)
 
         let h = aDecoder.decodeObject(forKey: PropertyKey.hyKey) as! [Int]
         
-     
         self.init(surName1: sn1, surName:snh, givenName1: gn1, givenName: gnh,
                   saju:sj, dob:d, ilgan: il, gangYag:gy, antiIlgan:antiIl, antiGangYag: antiGy, hy: h)
     
