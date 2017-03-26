@@ -50,6 +50,7 @@ class SavedViewTableController: UITableViewController {
         
         let object = objects[(indexPath as NSIndexPath).row] as! Elem
         cell.textLabel!.text = object.desc()
+        cell.textLabel!.font = UIFont(name: "Avenir", size:20);
         return cell
     }
     
