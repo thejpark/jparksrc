@@ -20,6 +20,14 @@ class RegisterConfirmViewController: UIViewController {
         var str = self.selectedDate.components(separatedBy: " ")
         
         DOB.text = "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
+        
+        
+        self.day = Int(str[0])!
+        self.month = Int(str[1])!
+        self.year = Int(str[2])!
+        self.hour = Int(str[3])!
+        self.minute = Int(str[4])!
+        saju.text = "사주(년월일시): " + getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
     }
     
     override func didReceiveMemoryWarning() {
@@ -30,8 +38,14 @@ class RegisterConfirmViewController: UIViewController {
     @IBOutlet weak var lastName: UILabel!
     @IBOutlet weak var birthPlace: UILabel!
     @IBOutlet weak var DOB: UILabel!
+    @IBOutlet weak var saju: UILabel!
 
     
+    var day: Int = 0
+    var month: Int = 0
+    var year: Int = 0
+    var hour: Int = 0
+    var minute: Int = 0
     var selectedDate: String = ""
     var surName: String = ""
     var surNameH: String = ""
