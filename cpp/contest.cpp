@@ -4617,6 +4617,86 @@ void test_searching_words_in_a_very_big_file()
 // if left has two '1' and the rest has one '1' then we should take one.
 // also remember this is sparse matrix
 
+struct splus {
+    int x, y, size;
+};
+
+
+int find_more(pair<int, int>& n, set<pair<int, int>>& m, map<pair<int, int>, int>& t_m, int direction)
+{
+    auto it = t_m.find(n);
+    if (it != t_m.end())
+        return it->second;
+
+    pair<int, int> next;
+
+    switch(direction) {
+    case 0: next = pair<int, int> (n.first - 1, n.second);
+        break;
+    case 1: next = pair<int, int> (n.first + 1, n.second);
+        break;
+    case 2: next = pair<int, int> (n.first, n.second - 1);
+        break;
+    case 3: next = pair<int, int> (n.first, n.second + 1);
+        break;
+
+    }
+
+    auto next_len = (m.find(next) == m.end()) ? 0: 1 + find_more(next, m, t_m, direction);
+
+    t_m[n] = next_len;
+    return next_len;
+}
+
+
+int find_plus(pair<int, int>& n, 
+              set<pair<int, int>>& m, 
+              map<pair<int, int>, int>& t_m, 
+              map<pair<int, int>, int>& b_m,
+              map<pair<int, int>, int>& l_m,
+              map<pair<int, int>, int>& r_m)
+{
+    auto top = pair<int, int> (n.first - 1, n.second);
+    auto bot = pair<int, int> (n.first + 1, n.second);
+    auto left = pair<int, int> (n.first, n.second - 1);
+    auto right = pair<int, int> (n.first, n.second + 1);
+
+    auto top_len = (m.find(top) == m.end()) ? 0: 1 + find_more(top, m, t_m, 0);
+    auto bot_len = (m.find(bot) == m.end()) ? 0: 1 + find_more(bot, m, b_m, 1);
+    auto left_len = (m.find(left) == m.end()) ? 0: 1 + find_more(left, m, l_m, 2);
+    auto right_len = (m.find(right) == m.end()) ? 0: 1 + find_more(right, m, r_m, 3);
+
+    auto r1 = min(bot_len, top_len);
+    auto r2 = min(right_len, left_len);
+    auto r = min(r1, r2);
+
+    return r;
+}
+
+
+splus find_biggest_plus(set<pair<int, int>>& m)
+{
+    splus t;
+    // for each elem in the list, do dfs
+    map<pair<int, int>, int> t_m;
+    map<pair<int, int>, int> b_m;
+    map<pair<int, int>, int> l_m;
+    map<pair<int, int>, int> r_m;
+
+    for (auto e: m)
+    {
+        int r = find_plus(e, m, t_m, b_m, l_m, r_m);
+        if (r > t.size)
+        {
+            t.size = r;
+            t.x = e.first;
+            t.y = e.second;
+        }
+    }
+
+    return t;
+}
+
 void test_find_biggest_plus()
 {
 }
