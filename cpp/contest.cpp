@@ -4611,6 +4611,17 @@ void test_searching_words_in_a_very_big_file()
 }
 
 
+
+// find the biggest '+' mark in a sparse matrix (0 and 1).
+// left, right, top, down wing should be same length of '1's. So
+// if left has two '1' and the rest has one '1' then we should take one.
+// also remember this is sparse matrix
+
+void test_find_biggest_plus()
+{
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
