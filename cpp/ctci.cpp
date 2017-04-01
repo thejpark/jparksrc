@@ -2633,20 +2633,41 @@ void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vect
 
     int mid = i + (j - i) / 2;
 
+    // we are happy just one of the indexes
+    #if 1
+    // if there is a duplicate in the array
+    if (mid == va[mid])
+    {
+        vr.emplace_back(mid);
+        return;
+    }
+    if (!(va[i] > (mid - 1) || (va[mid - 1] < i)))
+    {
+        find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
+        if (vr.size() > 0)
+            return;
+    }
+    if (!(va[j] < (mid + 1) || (va[mid + 1] > j)))
+    {
+        find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
+        if (vr.size() > 0)
+            return;
+    }
+    #else
+    // if there is no duplicate in the array
     if (mid == va[mid])
     {
         vr.emplace_back(mid);
     }
-
-    if (!(va[i] > (mid - 1) || (va[mid - 1] < i)))
+    else if (mid < va[mid])
     {
         find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
     }
-
-    if (!(va[j] < (mid + 1) || (va[mid + 1] > j)))
+    else
     {
         find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
     }
+    #endif
 }
 
 
