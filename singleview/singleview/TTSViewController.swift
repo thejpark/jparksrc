@@ -35,8 +35,8 @@ class TTSViewController: UIViewController, UITextFieldDelegate {
     {
         let synthesizer = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: firstName.text!)
-        utterance.rate = 0.3
-        // utterance.voice = AVSpeechSynthesisVoice(language: "fr-FR")
+        //utterance.rate = 0.3
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)
     }
 
