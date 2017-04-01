@@ -2625,6 +2625,59 @@ void test_find_interval()
     cout << endl;
 }
 
+// [-2, 0, 2, 3, 6, 7, 9] -> [2, 3]
+void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vector<int>& vr)
+{
+    if (i > j)
+        return;
+
+    int mid = i + (j - i) / 2;
+
+    if (mid == va[mid])
+    {
+        vr.emplace_back(mid);
+    }
+
+    if (!(va[i] > (mid - 1) || (va[mid - 1] < i)))
+    {
+        find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
+    }
+
+    if (!(va[j] < (mid + 1) || (va[mid + 1] > j)))
+    {
+        find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
+    }
+}
+
+
+void test_find_same_index_and_val_in_sorted_array()
+{
+    vector<int> va;
+    int t;
+
+    cin >> t;
+
+    for (int i = 0; i < t; ++i)
+    {
+        int k;
+        cin >> k;
+        va.emplace_back(k);
+    }
+
+    vector<int> vr;
+
+    find_same_index_and_val_in_sorted_array(va, 0, va.size() - 1, vr);
+
+    cout << "the result is" << endl;
+
+    for (auto e : vr)
+    {
+        cout << " " << e;
+    }
+
+    cout << endl;
+}
+
 
 // implement how to find lru map element if the number of element in the map
 // hits to the max. We only have 1000 element in the map, and later should
@@ -3461,6 +3514,6 @@ void test_swap_bit()
 // handle n + 1?
 int main()
 {
-    test_reverse_linked_list();
+    test_find_same_index_and_val_in_sorted_array();
 }
 
