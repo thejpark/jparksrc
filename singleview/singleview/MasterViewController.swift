@@ -189,7 +189,7 @@ class Elem: NSObject, NSCoding {
 
     
     func getIlganGangYag() -> String {
-        var r: String = "사주의 기준이 되는 오행은 "
+        var r: String = "사주의 기준 오행은 "
         r += ohangHanja[self.ilganGangYag.0]!
         r += " 입니다" // + String(self.ilganGangYag.1)
 //        r += " 극: "
