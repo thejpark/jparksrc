@@ -2700,6 +2700,32 @@ void test_find_same_index_and_val_in_sorted_array()
 }
 
 
+// find a number x in a sorted (left to right, top to down) 2D
+// array
+bool matrix_search(const vector<vector<int>>& va, int x)
+{
+    int row = 0;
+    int col = va[0].size() - 1;
+
+    while (row < va.size() && col >= 0)
+    {
+        if (va[row][col] == x)
+        {
+            return true;
+        }
+        else if (va[row][col] > x)
+        {
+            --col;
+        }
+        else
+        {
+            ++row;
+        }
+    }
+
+    return false;
+}
+
 // implement how to find lru map element if the number of element in the map
 // hits to the max. We only have 1000 element in the map, and later should
 // replace old one with new one.
