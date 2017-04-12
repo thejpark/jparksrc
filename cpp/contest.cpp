@@ -4585,14 +4585,22 @@ void test_first_unrepeated_char()
 
 
 
-void test_find_missing_number_in_4_billion_numbers_in_a_file()
+void test_find_a_missing_number_in_4_billion_number_in_a_file()
 {
     // You have a file in which there are supposed to be 4 billion numbers, 
     // starting from 1 to 4,000,000,000 but unfortunately one number is missing, 
     // i.e there are only 3,999,999,999 numbers, You need to find the missing number. 
 
-    // solution: n (n + 1) / 2 = 1 + 2 + ... + n, so
+    // it is s^32
+    // sol 1: first 16 bit of the integer can be bucket, and the next 16 bit can be index.
+    // for each number x in the file, count[x >> 16]++ then for each c in count check if
+    // c is less then 2^16. If it is, that means that bucket has missing number.
+    // Then pass the the file again, use a bitset<2^16> bs, and for each number x
+    // check if x is in the bucket. If it is, then bs.set(x & (1<<16 - 1).
+    // Finally, for each bs[i] check if it is 0. If it is, then that is the missing number
+    // solution 2: n (n + 1) / 2 = 1 + 2 + ... + n, so
     // missing number = n ( n + 1) / 2 - sum
+    // but it may take too long time to keep adding very big value
 }
 
 void test_searching_words_in_a_very_big_file()
