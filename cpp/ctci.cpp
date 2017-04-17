@@ -2723,6 +2723,9 @@ bool matrix_search(const vector<vector<int>>& va, int x)
         }
     }
 
+    // this implementation is O(n + m), but I think we can improve this by using
+    // lower bound to find the next array element if the array size is too big.
+    // for example, instead of --col, col = get_lower_bound_col(row, col1, col2)
     return false;
 }
 
@@ -3548,6 +3551,11 @@ void test_swap_bit()
     cout << "the result is " << n;
 }
 
+
+// in an array of integer (+, -, 0), find 3 numbers that sums up 0, and
+// return index of them.
+// [0, 2, -2, -2] -> [(0, 1, 2), (0, 1, 3)]
+// can we find in less then n^2?
 
 // reference
 // https://github.com/andreis/interview 
