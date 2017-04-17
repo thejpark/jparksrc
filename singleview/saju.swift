@@ -336,7 +336,7 @@ func getSaju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Strin
     let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
     
-    return nyonju + worju + ilju + siju
+    return siju + ilju + worju + nyonju
 }
 
 

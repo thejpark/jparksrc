@@ -27,7 +27,7 @@ class RegisterConfirmViewController: UIViewController {
         self.year = Int(str[2])!
         self.hour = Int(str[3])!
         self.minute = Int(str[4])!
-        saju.text = "사주(년월일시): " + getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
+        saju.text = "사주(시일월년): " + getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
     }
     
     override func didReceiveMemoryWarning() {
