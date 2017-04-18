@@ -3557,6 +3557,50 @@ void test_swap_bit()
 // [0, 2, -2, -2] -> [(0, 1, 2), (0, 1, 3)]
 // can we find in less then n^2?
 
+void test_find_3_num_sum_to_zero()
+{
+
+}
+
+/*
+there is a bunch of tasks, each have different time to complete, task is independent, and then there are some workers, 
+      How to allocate tasks to these workers to minimize the total time to complete all the task. The tasks can be randomly picked from the task list.
+      Example 
+      Task: 2,2,3,7, 1 
+      Worker: 2. 
+      Return 8, because the first worker can work on the first three tasks : 2 + 2 + 3 = 7, and the second worker can work on the last two tasks : 7 + 1 = 8, so the total time to finish all the task is 8. 
+      public int getMini(int[] tasks, int k)
+
+
+sol 1: using recursive method.
+
+ int foo(x, y, a, i):
+     if (i == a.size())
+        return max(x, y)
+     return min(foo(x + a[i], y, a, i + 1),
+                foo(x, y + a[i], a, i + 1))
+
+sol 2: sort array, and then from max number to min number, distribute to 
+       one of the worker. If the distribution did not make status change 
+       then keep adding the next big task to the same worker. Otherwise
+       change the worker and send the new task to the worker. so, 
+       first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
+       worker 1.
+*/
+
+void test_distribute_tasks_2_workers()
+{
+
+}
+
+
+
+
+
+*/
+
+
+
 // reference
 // https://github.com/andreis/interview 
 //
