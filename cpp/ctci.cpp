@@ -3653,6 +3653,19 @@ void test_distribute_tasks_2_workers()
 }
 
 
+// implement a method to return an index of one of max numbers in an array
+// with the possibility of 1 / num_max_number. [3 0 2 1 3] -> [0, 4] with 1/2
+// possibility. do it with O(n) time and O(1) space
+
+void test_return_index_to_max_num()
+{
+    // sol: first pass find max number and number of it
+    //      second pass, get the random number r in range [0, num_max -1],
+    //        go throuth the numbers and return the index of rth max number. 
+
+
+}
+
 
 // reference
 // https://github.com/andreis/interview 
