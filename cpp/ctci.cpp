@@ -3592,7 +3592,8 @@ void test_find_3_num_sum_to_zero()
     }
 
     // the following code, time complexity is O(n^2).
-    // To make it faster, we can use map for va[i][j] -> (i, j) and
+    // To make it faster, we can use map for va[i][j] -> list<pair<int, int>>
+    // (it is a list or set as there should be multiple (i, j) that sums to same value
     // iterate v to find out, which make time complexity to O(n).
     // 
     set<set<int>> sr;
