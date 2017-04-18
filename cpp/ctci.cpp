@@ -20,6 +20,7 @@
 #include <functional> // function  object
 #include <math.h>
 #include <map>
+#include <unordered_map>
 #include <stack>
 #include <memory> // auto_ptr
 #include <stdlib.h>
@@ -3556,10 +3557,66 @@ void test_swap_bit()
 // return index of them.
 // [0, 2, -2, -2] -> [(0, 1, 2), (0, 1, 3)]
 // can we find in less then n^2?
-
+// [-8, -4, -3, 2, 6, 7]
+// at the moment, assume that all numbers are distinct.
 void test_find_3_num_sum_to_zero()
 {
+    // sol1: for each combination of sum of 2 numbers in the array (O(n^2)),
+    //       if there is a number which can be sum to 0 (O(n^2) if hash map)?
 
+    int n;
+    cin >> n;
+    vector<int> v;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    vector<vector<int>> va(v.size(), vector<int>(v.size(), 0));
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        for (int j = i + 1; j < v.size(); ++j)
+        {
+            va[i][j] = v[i] + v[j];
+        }
+    }
+
+    unordered_map<int, int> m;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        m[v[i]] = i;
+    }
+
+    vector<vector<int>> vr;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        for (int j = i + 1; j < v.size(); ++j)
+        {
+            int t = 0 - va[i][j];
+            if (m.find(t) != m.end())
+            {
+                vector<int> vt;
+                vt.emplace_back(i);
+                vt.emplace_back(j);
+                vt.emplace_back(m[t]);
+                vr.emplace_back(vt);
+            }
+        }
+    }
+
+    for (auto e : vr)
+    {
+        for (auto ee: e)
+        {
+            cout << ee << " ";
+        }
+        cout << endl;
+    }
+        
 }
 
 /*
@@ -3595,12 +3652,6 @@ void test_distribute_tasks_2_workers()
 
 
 
-
-
-*/
-
-
-
 // reference
 // https://github.com/andreis/interview 
 //
@@ -3613,6 +3664,6 @@ void test_distribute_tasks_2_workers()
 // handle n + 1?
 int main()
 {
-    test_find_same_index_and_val_in_sorted_array();
+    test_find_3_num_sum_to_zero();
 }
 
