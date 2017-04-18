@@ -3591,7 +3591,7 @@ void test_find_3_num_sum_to_zero()
         m[v[i]] = i;
     }
 
-    vector<vector<int>> vr;
+    set<set<int>> sr;
     for (int i = 0; i < v.size(); ++i)
     {
         for (int j = i + 1; j < v.size(); ++j)
@@ -3599,16 +3599,18 @@ void test_find_3_num_sum_to_zero()
             int t = 0 - va[i][j];
             if (m.find(t) != m.end())
             {
-                vector<int> vt;
-                vt.emplace_back(i);
-                vt.emplace_back(j);
-                vt.emplace_back(m[t]);
-                vr.emplace_back(vt);
+                set<int> st;
+                st.emplace(i);
+                st.emplace(j);
+                st.emplace(m[t]);
+                if (st.size() != 3)
+                    continue;
+                sr.emplace(st);
             }
         }
     }
 
-    for (auto e : vr)
+    for (auto e : sr)
     {
         for (auto ee: e)
         {
