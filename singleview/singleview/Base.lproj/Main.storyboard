@@ -72,7 +72,7 @@
                                 <color key="backgroundColor" red="0.85004908376963351" green="0.49619000173344557" blue="0.081718940955254254" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="영어 작명">
+                                <state key="normal" title="영문 이름">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
