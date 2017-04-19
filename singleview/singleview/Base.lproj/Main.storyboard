@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
-                                <rect key="frame" x="42" y="213" width="197" height="174"/>
+                                <rect key="frame" x="42" y="213" width="235" height="174"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
@@ -231,8 +231,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-D7-UHL">
-                                <rect key="frame" x="62" y="108" width="240" height="174"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="50" y="108" width="232" height="174"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-c6-Nzh" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="92" y="101" width="56" height="31"/>
@@ -702,12 +702,12 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Home" width="167" id="pXc-5q-D9I">
+                        <barButtonItem title="Home" width="74" id="pXc-5q-D9I">
                             <connections>
                                 <action selector="goHome:" destination="Oq1-7N-IQv" id="q1R-uT-DsK"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="저장목록" id="bog-5q-g9m">
+                        <barButtonItem title="저장목록" width="302" id="bog-5q-g9m">
                             <inset key="imageInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <connections>
                                 <action selector="LoadSelectedNames:" destination="Oq1-7N-IQv" id="3QV-wH-Uxb"/>
@@ -1007,8 +1007,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dz-a0-p1L">
-                                <rect key="frame" x="42" y="179" width="262" height="208"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="22" y="179" width="282" height="208"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" 입력한 내용이 정확한가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhP-8P-U9t">
                                         <rect key="frame" x="32" y="8" width="192" height="52"/>
@@ -1070,7 +1070,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qqg-Xf-IJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1059" y="-1436"/>
+            <point key="canvasLocation" x="1057.5" y="-1436.25"/>
         </scene>
         <!--사용 방법-->
         <scene sceneID="b3j-lQ-BPb">
