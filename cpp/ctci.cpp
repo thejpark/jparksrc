@@ -3672,6 +3672,30 @@ void test_return_index_to_max_num()
 }
 
 
+/*
+Given an unsorted array, sort it in such a way that the first 
+element is the largest value, the second element is the smallest, 
+the third element is the second largest element and so on. 
+[2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3] 
+can you do it without using extra space 
+
+sol:
+ 1. sort the arrary from big number to small number
+ 2. if the number of elements are even, then
+   2.1 place the big numbers (half of all element) in the right place
+       from back to front. 
+   2.2 place the small numbers (the rest half) in place. swap with last element.
+ 3. if the number of elements are odd, then rotate them from the middle to the end so
+    that the middle number goes at the end, then do the same thing for 2 above from
+    the beginning to the (end - 1) element.
+    [6, 5, 4, 3, 2, 1]
+    [6, 5, 2, 3, 4, 1]
+    [6, 2, 5, 3, 4, 1]
+    [6, 1, 5, 3, 4, 2]
+    [6, 1, 5, 2, 4, 3]
+*/
+
+
 // reference
 // https://github.com/andreis/interview 
 //
