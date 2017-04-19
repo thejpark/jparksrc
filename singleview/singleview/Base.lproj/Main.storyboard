@@ -106,8 +106,8 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="saju-labs-logo1.png" translatesAutoresizingMaskIntoConstraints="NO" id="3nJ-YG-qnY">
-                                <rect key="frame" x="60" y="358" width="201" height="47"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="80" y="357" width="160" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
