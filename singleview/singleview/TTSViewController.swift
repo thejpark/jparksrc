@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class TTSViewController: UIViewController, UITextFieldDelegate {
+class TTSViewController: UIViewController, UITextFieldDelegate, AVSpeechSynthesizerDelegate  {
 
 
     override func viewDidLoad() {
@@ -33,10 +33,12 @@ class TTSViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func SayName(_ sender: UIButton)
     {
-        let synthesizer = AVSpeechSynthesizer()
         let utterance = AVSpeechUtterance(string: firstName.text!)
         //utterance.rate = 0.3
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
         synthesizer.speak(utterance)
     }
 
