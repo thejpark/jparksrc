@@ -3693,8 +3693,66 @@ sol:
     [6, 2, 5, 3, 4, 1]
     [6, 1, 5, 3, 4, 2]
     [6, 1, 5, 2, 4, 3]
+
 */
 
+void test_sort_big_small_number()
+{
+}
+
+
+// given a list of range (x1, x2), find the size of entire area covered by all of the
+// range. For example, [(1,2), (1, 3)] -> 2, [(2,3), (4, 5)] -> 2
+// sol: first, sort the list with the first number in the pair.
+//      second, from the first pair, if it is intersecting with the next pair then merge
+//              it. otherwise skip to the next pair.
+//      third, calculate the range.
+bool is_intersect(pair<int, int> a, pair<int, int> b)
+{
+    return !(a.second < b.first || b.second < a.first);
+}
+
+void test_get_all_covered_range()
+{
+    int n;
+    cin >> n;
+
+    using elem = pair<int, int>;
+
+    vector<elem> vp;
+    for (int i = 0; i < n; ++i)
+    {
+        int a, b;
+        cin >> a >> b;
+
+        vp.emplace_back(elem(a, b));
+    }
+
+    sort(vp.begin(), vp.end(), [](elem x, elem y) { return x.first < y.first; });
+
+    int ret = 0;
+    vector<int> vr;
+    vr.emplace_back(0);
+                    
+    for (int i = 1; i < vp.size(); ++i)
+    {
+        if (is_intersect(vp[ret], vp[i]))
+        {
+            vp[ret].second = max(vp[ret].second, vp[i].second);
+        }
+        else
+        {
+            vr.emplace_back(i);
+            ret = i;
+        }
+    }
+
+    int rsize = 0;
+    for (int i = 0; i < vr.size(); ++i)
+        rsize += vp[vr[i]].second - vp[vr[i]].first;
+
+    cout << "the result is " << rsize << endl;
+}
 
 // reference
 // https://github.com/andreis/interview 
@@ -3708,6 +3766,6 @@ sol:
 // handle n + 1?
 int main()
 {
-    test_find_3_num_sum_to_zero();
+    test_get_all_covered_range();
 }
 
