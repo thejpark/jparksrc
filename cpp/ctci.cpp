@@ -3754,6 +3754,76 @@ void test_get_all_covered_range()
     cout << "the result is " << rsize << endl;
 }
 
+
+int my_part(int i, int j, int k, vector<int>& v)
+{
+    while (i != j)
+    {
+        while (v[i] <= k)
+        {
+            ++i;
+            if (i == j)
+                return i;
+        }
+        
+        do
+        {
+            --j;
+            if (i == j)
+                return i;
+        } while (v[j] > k);
+
+        swap(v[i], v[j]);
+        ++i;
+    }
+
+    return i;
+}
+
+void test_find_kth_biggest_element_from_unsorted_array()
+{
+// sol1: use min heap with size of k (or max heap of n - k if k is too big)
+// sol2: use partition
+
+    int n;
+    int k;
+    cin >> k >> n;
+
+    vector<int> v;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+    int left = 0;
+    int right = v.size();
+
+    int r = -100;
+    while (left != right)
+    {
+        int lval = v[left];
+        int d = my_part(left, right, lval, v);
+        swap(v[left], v[d - 1]);
+        if (d == k)
+        {
+            r = v[d - 1];
+            break;
+        }
+        else if (d < k)
+        {
+            left = d;
+        }
+        else
+        {
+            right = d - 1;
+        }
+    }
+
+    cout << "the result is " << r << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview 
 //
@@ -3766,6 +3836,6 @@ void test_get_all_covered_range()
 // handle n + 1?
 int main()
 {
-    test_get_all_covered_range();
+    test_find_kth_biggest_element_from_unsorted_array();
 }
 
