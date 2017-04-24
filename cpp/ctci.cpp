@@ -3823,6 +3823,20 @@ void test_find_kth_biggest_element_from_unsorted_array()
     cout << "the result is " << r << endl;
 }
 
+/*
+Given an input string "aabbccba", find the shortest substring from the alphabet "abc". 
+In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output. 
+Output doesnt need to maintain the ordering as in the alphabet. 
+Other examples: 
+input = "abbcac", alphabet="abc" Output : shortest substring = "bca".
+ */
+
+void test_find_shortest_substr_using_alplabet()
+{
+
+}
+
+
 
 // reference
 // https://github.com/andreis/interview 
