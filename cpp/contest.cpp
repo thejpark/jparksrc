@@ -417,6 +417,56 @@ void test_reverse_sum2()
 }
 
 
+// add 2 numbers in linked list form, reversed, and return result in reversed linked list
+
+/*
+node* sum(node*a, node*b)
+{
+
+node dummy;
+node*prev = &dummy;
+int carry = 0;
+while(a || b)
+{
+int sum = 0;
+if (a)
+{
+sum += a->data;
+a = a->next;
+}
+
+if (b)
+{
+sum += b->data;
+b = b->next;
+}
+
+sum += carry;
+
+prev->next = new node(sum % 10);
+carry = sum / 10;
+
+}
+
+if (carry > 0)
+{
+...
+}
+
+
+return dummy->next;
+}
+
+
+*/
+void test_reverse_sum_linked_list()
+{
+    
+
+}
+
+
+
 void slice(int s, int n, int size)
 {
 
