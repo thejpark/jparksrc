@@ -3823,6 +3823,52 @@ void test_find_kth_biggest_element_from_unsorted_array()
     cout << "the result is " << r << endl;
 }
 
+/* 100 -> "One Hundred" */
+
+string n2e(int d)
+{
+    if (d >= 1000)
+    {
+        return n2e(d / 1000) + " Thousand" + n2e(d % 1000);
+    }
+    else if (d >= 100)
+    {
+        return  n2e(d / 100) + " Hundred" + n2e(d % 100);
+    }
+    else if (d >= 20)
+    {
+        vector<string> vs = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy",
+                             "Eighty", "Ninty"};
+        return vs[d / 10] + n2e(d % 10);
+    }
+    else
+    {
+        vector<string> vs = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+                             "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Ninteen"};
+
+        return vs[d];
+    }
+}
+            
+string num_to_eng(int d)
+{
+    if (d == 0)
+        return "Zero";
+
+    return n2e(d);
+}
+
+void test_number_to_english()
+{
+    int n;
+    cin >> n;
+
+    string s = num_to_eng(n);
+
+    cout<< " the result is " << s << endl;
+}
+
+
 /*
 Given an input string "aabbccba", find the shortest substring from the alphabet "abc". 
 In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output. 
@@ -3850,6 +3896,6 @@ void test_find_shortest_substr_using_alplabet()
 // handle n + 1?
 int main()
 {
-    test_find_kth_biggest_element_from_unsorted_array();
+    test_number_to_english();
 }
 
