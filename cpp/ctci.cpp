@@ -3827,27 +3827,30 @@ void test_find_kth_biggest_element_from_unsorted_array()
 
 string n2e(int d)
 {
+    string s;
     if (d >= 1000)
     {
-        return n2e(d / 1000) + " Thousand" + n2e(d % 1000);
+        s = n2e(d / 1000) + " Thousand" + n2e(d % 1000);
     }
     else if (d >= 100)
     {
-        return  n2e(d / 100) + " Hundred" + n2e(d % 100);
+        s = n2e(d / 100) + " Hundred" + n2e(d % 100);
     }
     else if (d >= 20)
     {
         vector<string> vs = {"", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy",
                              "Eighty", "Ninty"};
-        return vs[d / 10] + n2e(d % 10);
+        s = vs[d / 10] + n2e(d % 10);
     }
     else
     {
         vector<string> vs = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
                              "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Ninteen"};
 
-        return vs[d];
+        s = vs[d];
     }
+
+    return " " + s;
 }
             
 string num_to_eng(int d)
