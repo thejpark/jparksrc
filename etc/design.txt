@@ -155,3 +155,10 @@ Interaction and diagram
 
 7. phonebook
 
+8. POI (given a point, fine something interested within a range)
+
+9. UI and contents download manager
+
+10. fake news detector
+
+11. online add
