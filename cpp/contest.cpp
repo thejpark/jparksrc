@@ -1637,6 +1637,40 @@ void alphacode()
 
 }
 
+int acode1(string s)
+{
+    if (s.size() == 0)
+        return 1;
+    if (s.size() == 1)
+    {
+        if (s[0] == '0')
+            return 0;
+        return acode1(s.substr(1));
+    }
+    if (s[0] == '1' || s[0] == '2')
+    {
+        if (s[1] == '0')
+            return acode1(s.substr(2));
+        if (s[1] > '0' && s[1] < '7')
+            return acode1(s.substr(1)) + acode1(s.substr(2));
+    }
+
+    return acode1(s.substr(1));
+}
+
+
+void alphacode2()
+{
+
+    string s;
+    cin >> s;
+
+    int r = acode1(s);
+
+    cout << " the result is " << r << endl;
+}
+
+
 int min_elem(vector<int> &vi, set<int> &s)
 {
   int min = 100000000;
@@ -4766,7 +4800,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_set_of_k_elem();
+    alphacode2();
 }
 
 
