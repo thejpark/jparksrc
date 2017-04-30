@@ -153,8 +153,8 @@
                                 <rect key="frame" x="7" y="72" width="304" height="417"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <string key="text">오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.    오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다. 자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하고, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다.     쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다. 
- 작명시 발음의 음양을 보는 경우도 있으나, 근거가 없다고 알려져 있습니다. 또한 수리오행, 81수리, 그리고 삼원오행 등도 근거가 없는 것으로  알려져 있으며, 오히려 나쁜 이름을 좋은 이름으로 만들 수 있어서 쉬운작명 에서는 고려하지 않도록 하였습니다. </string>
+                                <mutableString key="text">오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.    오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다. 자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하며, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다. 예를 들어, 在錫(재석) 이라는 이름의 자원 오행은 土와 金이 되며 발음 오행은 金과 金이 됩니다.    쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다. 
+ 작명시 발음의 음양을 보는 경우도 있으나, 근거가 없다고 알려져 있습니다. 또한 수리오행, 81수리, 그리고 삼원오행 등도 근거가 없는 것으로  알려져 있으며, 오히려 나쁜 이름을 좋은 이름으로 만들 수 있어서 쉬운작명 에서는 고려하지 않도록 하였습니다. </mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -411,20 +411,11 @@
                                     <outlet property="delegate" destination="XIj-fE-WIr" id="kTJ-gr-aXt"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-4J-S3d" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="50" y="313" width="101" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="발음듣기"/>
-                                <connections>
-                                    <action selector="SayName:" destination="XIj-fE-WIr" eventType="primaryActionTriggered" id="mBq-Mh-iMq"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z2-Hq-NVx" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="50" y="212" width="101" height="30"/>
+                                <rect key="frame" x="50" y="209" width="176" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="영어 변환"/>
+                                <state key="normal" title="한글표준 영어 변환"/>
                                 <connections>
                                     <action selector="translateEng:" destination="XIj-fE-WIr" eventType="primaryActionTriggered" id="InU-R1-3fF"/>
                                 </connections>
@@ -438,6 +429,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-4J-S3d" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="50" y="313" width="101" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="발음듣기"/>
+                                <connections>
+                                    <action selector="SayName:" destination="XIj-fE-WIr" eventType="primaryActionTriggered" id="mBq-Mh-iMq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -464,9 +464,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDo-j0-h4G">
-                                <rect key="frame" x="41" y="89" width="228" height="40"/>
+                                <rect key="frame" x="16" y="83" width="263" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -486,25 +486,11 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-Sd-ueI">
-                                <rect key="frame" x="41" y="170" width="353" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="출생지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhb-zv-45o">
-                                <rect key="frame" x="41" y="131" width="228" height="40"/>
+                                <rect key="frame" x="16" y="131" width="263" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAX-Q9-i4r" customClass="RoundedBorderLabel" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="16" y="89" width="288" height="124"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
@@ -516,6 +502,13 @@
                                     <action selector="checkName:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="7dD-Wd-cPT"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-Sd-ueI">
+                                <rect key="frame" x="16" y="172" width="353" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -775,13 +768,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성과 성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HZ-GD-j16">
-                                <rect key="frame" x="30" y="102" width="329" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poj-tD-aNN">
                                 <rect key="frame" x="30" y="217" width="329" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -800,6 +786,13 @@
                                 <rect key="frame" x="30" y="255" width="329" height="47"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성과 성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HZ-GD-j16">
+                                <rect key="frame" x="16" y="102" width="329" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1081,10 +1074,10 @@
                                 <rect key="frame" x="7" y="72" width="304" height="402"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <string key="text">  우선 기본 정보 등록 메뉴에서 아이의 성과 생년월일 등의 기본 정보를 등록 하세요. 출생지역은 인근 도시 혹은 경도상 같은 도시이름을 설정하여도 됩니다.  태어난 시간은 썸머타임이 아닌 원래의 시간을 사용합니다.
+                                <mutableString key="text">  우선 기본 정보 등록 메뉴에서 아이의 성과 생년월일 등의 기본 정보를 등록 하세요. 출생지역은 인근 도시 혹은 경도상 같은 도시이름을 설정하여도 됩니다.  태어난 시간은 썸머타임이 아닌 원래의 시간을 사용합니다.
   그 다음으로 셀프 작명 혹은 추천 작명 메뉴로 이름을 작명하세요. 셀프작명은 한글 이름을 이용하여 사주에 적합한 한자 이름 조합을 제공해 줍니다. 추천 작명은 요즘 인기있는 한글 이름 중에서 사주에 적합한 한자 이름 조합을 제공합니다. 
   이름 작성 중 마음에 드는 이름이 있으면 저장 메뉴를 선택하여 저장하고, 저장목록 메뉴를 선택하여 확인할 수 있고 또한 지울 수 있습니다.
-  영어이름을 지을 경우 영문이름을 활용하시면 되며, 한글 이름의 표준 영어 이름일 제공해 줍니다.   </string>
+  영어이름을 지을 경우 영문이름을 활용하시면 되며, 한글 이름의 표준 영어 표기를 제공해 줍니다.   </mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
