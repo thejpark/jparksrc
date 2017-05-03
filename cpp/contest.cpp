@@ -879,6 +879,8 @@ int makeChange(vector<int>& denom, int idx, int n)
     return r;
 }
 
+//todo: makechange dynamic programming?
+
 int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
 {
     if (n == 0)
@@ -1607,33 +1609,48 @@ void alphacode()
 {
   
   string s;
-  vector<int> vi, d;
+  vector<int> v;
   
   cin >> s;
-  int size = s.size() + 1;
 
-  vi.push_back(0);
+  int size = s.size();
   for (int i = 0; i < size; i++)
-    vi.push_back(s[i] - '0');
+    v.push_back(s[i] - '0');
 
-  d.resize(size + 1);
+  vector<int> d(v.size());
 
+  d[size - 1] = 1;
 
-  d[0] = 1;
-  d[1] = 1;
-
-  // d(i) = d(i - 1) + d(i - 2), but if i == 1 then d(1) = d(0) + d(-1).
-  // to make all positive, we added a dummy value at the beginning.
-  
-  for (int i = 2; i < size; i++) {
-    if (vi[i] < 7 && (vi[i - 1] == 1 || vi[i - 1] == 2))
-      d[i] = d[i - 1] + d[i - 2];
-    else 
-      d[i] = d[i - 1];
-
+  if ((v[size - 2] == 1 || v[size - 2] == 2) && (v[size - 1] > 0 && v[size - 1] < 7))
+  {
+      d[size - 2] = 2;
+  }
+  else if (v[size - 2] == 0 && v[size - 1] == 0)
+  {
+      d[size - 2] = d[size - 1] = 0;
+  }
+  else
+  {
+      d[size - 2] = 1;
   }
 
-  cout << "the result is " << d[size - 1] << endl;
+  for (int i = size - 3; i >= 0; --i)
+  {
+      if ((v[i] == 1 || v[i] == 2) && (v[i + 1] > 0 && v[i + 1] < 7))
+      {
+          d[i] = d[i + 1] + d[i + 2];
+      }
+      else if (v[i] == 0 && v[i + 1] == 0)
+      {
+          d[i] = 0;
+      }
+      else
+      {
+          d[i] = d[i + 1];
+      }
+  }
+
+  cout << "the result is " << d[0] << endl;
 
 }
 
@@ -4800,7 +4817,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    alphacode2();
+    alphacode();
 }
 
 
