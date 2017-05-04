@@ -3650,6 +3650,8 @@ sol 2: sort array, and then from max number to min number, distribute to
        change the worker and send the new task to the worker. so, 
        first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
        worker 1.
+
+todo: can it be done in O(n)?
 */
 
 void test_distribute_tasks_2_workers()
@@ -3882,6 +3884,8 @@ input = "abbcac", alphabet="abc" Output : shortest substring = "bca".
 
 void test_find_shortest_substr_using_alplabet()
 {
+    // sol: build a triangle from the bottom to compute bitset, and if the size of
+    // bitset is same as the target alphabet then that is the result.
 
 }
 
