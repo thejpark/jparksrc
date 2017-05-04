@@ -879,7 +879,10 @@ int makeChange(vector<int>& denom, int idx, int n)
     return r;
 }
 
-//todo: makechange dynamic programming?
+// can you implement it using dynamic programming?
+int makeChangeDP(vector<int& denom, int n)
+{
+}
 
 int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
 {
