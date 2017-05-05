@@ -880,8 +880,27 @@ int makeChange(vector<int>& denom, int idx, int n)
 }
 
 // can you implement it using dynamic programming?
-int makeChangeDP(vector<int& denom, int n)
+int makeChangeDP(vector<int>& denom, int n)
 {
+    vector<vector<int>> v(denom.size(), vector<int>(n + 1));
+
+    // assume that demon start from smallest number to large number
+    for (int i = 0; i < denom.size(); ++i)
+    {
+        v[i][0] = 1;
+        for (int j = 1; j <= n; ++j)
+        {
+            // without this denom
+            int x = (i >= 1)? v[i - 1][j] : 0;
+
+            // with this denom
+            int y = (j >= denom[i])? v[i][j - denom[i]] : 0;
+
+            v[i][j] = x + y;
+        }
+    }
+
+    return v.back().back();
 }
 
 int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
@@ -909,6 +928,7 @@ void test_denom()
 
     cout << makeChange(a, 0, 16) << endl;
     cout << makeChange(b, 0, 16) << endl;
+    cout << makeChangeDP(b, 16) << endl;
     cout << makeMinChange(a, 0, 0, 16) << endl;
 }
 
@@ -4820,7 +4840,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    alphacode();
+    test_denom();
 }
 
 
