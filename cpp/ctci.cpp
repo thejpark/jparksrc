@@ -3756,6 +3756,14 @@ void test_get_all_covered_range()
     cout << "the result is " << rsize << endl;
 }
 
+void test_find_maximum_intersected_events_in_a_calendar()
+{
+// sol: each end point of a calendar are added in a vector, sort the vector,
+//      process each one by one. If a start of event then increase num_intersect,
+//      if an end of event then decrease it. If num_intersect is bigger than max_intersect
+//      then set new max_intersect. After processing all the event, return max_intersect.
+}
+
 
 int my_part(int i, int j, int k, vector<int>& v)
 {
@@ -3888,6 +3896,7 @@ void test_find_shortest_substr_using_alplabet()
     // bitset is same as the target alphabet then that is the result.
 
 }
+
 
 
 
