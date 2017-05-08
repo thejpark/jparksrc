@@ -3564,6 +3564,9 @@ void test_find_3_num_sum_to_zero()
     // sol1: for each combination of sum of 2 numbers in the array (O(n^2)),
     //       if there is a number which can be sum to 0 (O(n^2) if hash map)?
 
+    // sol2: sort the array, for each e in array find wheter there is a pair (x, y) which
+    // sum up to -a. O(n^2).
+
     int n;
     cin >> n;
     vector<int> v;
