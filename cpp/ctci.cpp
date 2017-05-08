@@ -3899,6 +3899,16 @@ void test_find_shortest_substr_using_alplabet()
 
 
 
+// given a vector of strings, group them with same substrings.
+// the substring should be in a given vector as well
+void test_group_with_substrings()
+{
+    // sol1: map<string, list<string>> m, for e in vector do m[e].push_back(e)
+    //  then, for each e in vector, generate a list of substring from it then
+    //  if one of the substring is in the map then add it to m (m[substr].push_nack(e))
+    //  After processing all the substrings of all string in vector, find
+    //  map which has more than 1 element in the list
+}
 
 // reference
 // https://github.com/andreis/interview 
