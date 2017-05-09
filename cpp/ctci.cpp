@@ -3901,16 +3901,77 @@ void test_find_shortest_substr_using_alplabet()
 }
 
 
+vector<string> gen_substr(string& s)
+{
+    vector<string> r;
+
+    for (int i = 0; i < s.size(); ++i)
+    {
+        for (int j = 1; i + j <= s.size(); ++j)
+        {
+            string ss = s.substr(i, j); 
+            if (ss != s)
+                r.emplace_back(ss);
+        }
+    }
+
+    return r;
+}
 
 // given a vector of strings, group them with same substrings.
 // the substring should be in a given vector as well
 void test_group_with_substrings()
 {
-    // sol1: map<string, list<string>> m, for e in vector do m[e].push_back(e)
-    //  then, for each e in vector, generate a list of substring from it then
-    //  if one of the substring is in the map then add it to m (m[substr].push_nack(e))
+    // sol1: map<string, set<string>> m, for e in vector do m[e].push_back(e)
+    //  then, for each e in vector, generate a set of substring from it then
+    //  if one of the substring is in the map then add it to m (m[substr].insert(e))
     //  After processing all the substrings of all string in vector, find
-    //  map which has more than 1 element in the list
+    //  map which has more than 0 element in the set
+    
+    int n;
+    cin >> n;
+
+    vector<string> v;
+
+    for (int i = 0; i < n; ++i)
+    {
+        string s;
+        cin >> s;
+        v.emplace_back(s);
+    }
+
+    map<string, set<string>> m;
+
+    for (int i = 0; i < n; ++i)
+    {
+        m[v[i]].insert(v[i]);
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        vector<string> r = gen_substr(v[i]);
+        for (auto e : r) 
+        {
+            if (m.find(e) != m.end())
+            {
+                m[e].insert(v[i]);
+                auto it = m.find(v[i]);
+                if (it != m.end())
+                    m.erase(it);
+            }
+        }
+    }
+
+    for (auto e : m)
+    {
+        cout << e.first << endl;
+        cout << "( ";
+        for (auto ee : e.second)
+        {
+            cout << ee << " ";
+        }
+        cout << " )" << endl;
+    }
 }
 
 // reference
@@ -3925,6 +3986,6 @@ void test_group_with_substrings()
 // handle n + 1?
 int main()
 {
-    test_number_to_english();
+    test_group_with_substrings();
 }
 
