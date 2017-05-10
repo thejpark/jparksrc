@@ -4014,6 +4014,53 @@ void test_perm_1_0_with_no_adjacent_1()
     cout << "the result is " << r << endl;
 }
 
+/*
+Given a positive integer n, find the no of integers less than equal to n, whose binary representation doesn't contain consecutive 1s. 
+eg: 
+I/P : 4 
+O/P: 4 (0,1,2,4 Valid) 
+ */
+
+int no_adj_1(int m, int t, int k)
+{
+    if (t > k)
+        return 0;
+
+    if (m == 0)
+        return 1;
+
+    int r1 = no_adj_1(m - 1, t << 1, k);
+
+    int r2 = 0;
+    if ((t & 0x1) == 0)
+        r2 = no_adj_1(m - 1, (t << 1) + 1, k);
+
+    return r1 + r2;
+}
+
+
+void test_nums_with_no_adjacent_1()
+{
+    int k;
+    cin >> k;
+
+    int t = k;
+    int m = 0, n = 0;
+
+    while (t > 0)
+    {
+        if ((t & 0x1) == 0)
+            ++m;
+        else
+            ++n;
+        t = t >> 1;
+    }
+    
+    int r = no_adj_1(m + n, 0, k);
+
+    cout << "the result is " << r << endl;
+}
+
 // reference
 // https://github.com/andreis/interview 
 //
@@ -4026,6 +4073,6 @@ void test_perm_1_0_with_no_adjacent_1()
 // handle n + 1?
 int main()
 {
-    test_perm_1_0_with_no_adjacent_1();
+    test_nums_with_no_adjacent_1();
 }
 
