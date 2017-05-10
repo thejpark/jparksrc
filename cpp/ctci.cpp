@@ -3974,6 +3974,46 @@ void test_group_with_substrings()
     }
 }
 
+/*
+Given m 0 and n 1, count the total number of permutations where two 1 cannot be adjacent 
+public int count(int m, int n){ 
+}
+*/
+
+int no_adj_1(int m, int n, bool prevOne)
+{
+    if (m == 0)
+    {
+        if (n > 1)
+            return 0;
+        // if (n == 1 && prevOne)
+        //     return 0;
+        return 1;
+    }
+    if (n == 0)
+        return 1;
+
+    int r1 = no_adj_1(m - 1, n, false);
+
+    int r2 = 0;
+    if (!prevOne)
+        r2 = no_adj_1(m, n - 1, true);
+
+    return r1 + r2;
+}
+
+
+void test_perm_1_0_with_no_adjacent_1()
+{
+    int m, n;
+
+    cin >> m >> n;
+
+    int r = no_adj_1(m, n, false);
+
+    cout << "the result is " << r << endl;
+}
+
 // reference
 // https://github.com/andreis/interview 
 //
@@ -3981,11 +4021,11 @@ void test_group_with_substrings()
 
 // for algorithm design or coding interview question,
 // consider simple cases. For example, in uniformly randomised
-// pixel of p percent black pixel, forst consider if the number
+// pixel of p percent black pixel, first consider if the number
 // of black pixel is 1. and then 2. If the size is n, then how to
 // handle n + 1?
 int main()
 {
-    test_group_with_substrings();
+    test_perm_1_0_with_no_adjacent_1();
 }
 
