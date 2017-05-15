@@ -193,7 +193,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
                                 <rect key="frame" x="42" y="213" width="235" height="174"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="18" y="98" width="81" height="31"/>
@@ -205,15 +205,15 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nc2-oh-IcO">
-                                        <rect key="frame" x="24" y="19" width="165" height="52"/>
+                                        <rect key="frame" x="24" y="19" width="186" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="146" y="99" width="64" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="예"/>
                                         <connections>
@@ -249,7 +249,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-D7-UHL">
                                 <rect key="frame" x="52" y="197" width="232" height="174"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-c6-Nzh" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="92" y="101" width="56" height="31"/>
@@ -1006,19 +1006,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dz-a0-p1L">
-                                <rect key="frame" x="22" y="179" width="282" height="208"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="22" y="179" width="282" height="220"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text=" 입력한 내용이 정확한가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LhP-8P-U9t">
-                                        <rect key="frame" x="32" y="8" width="192" height="52"/>
+                                        <rect key="frame" x="32" y="8" width="224" height="52"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7O-bY-4xI" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                        <rect key="frame" x="60" y="169" width="65" height="31"/>
+                                        <rect key="frame" x="50" y="169" width="75" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <state key="normal" title="아니요"/>
                                         <connections>
                                             <action selector="closePopup:" destination="KM7-bg-cyB" eventType="primaryActionTriggered" id="Wdc-ZP-lKD"/>
@@ -1026,7 +1027,8 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdM-0Y-Aft" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="151" y="170" width="64" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <state key="normal" title="예"/>
                                         <connections>
                                             <action selector="returnToMain:" destination="KM7-bg-cyB" eventType="primaryActionTriggered" id="UuP-sG-qPQ"/>
@@ -1035,21 +1037,21 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMV-aQ-JKU">
                                         <rect key="frame" x="14" y="106" width="248" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciq-Ao-3CS">
                                         <rect key="frame" x="14" y="57" width="248" height="41"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMg-5I-QZP">
                                         <rect key="frame" x="14" y="81" width="248" height="46"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1118,10 +1120,10 @@
                                 <rect key="frame" x="7" y="72" width="304" height="402"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <string key="text">  한국 이름 중에서는 외국 사람들이 발음하기 힘든 이름들이 있습니다. '수현' 처럼 '현' 자가 들어간 이름은 영어를 사용하는 외국인들이 발음하기 힘듭니다. 현을  Hyun이라서 쓰면 '하이언' 처럼 발음하게 됩니다. '혁'도 마찬가지로 어려운데, 쉽게 '척' 이라고 발음 하기도 합니다. 또한, '재석'의 '석'자는 영어로 발음하기에 매우 조심스러운 글자 입니다. 일본인들은 'ㅁ' 받침을 발음하기 힘들어 합니다. 외국인들이 발음하기에 쉬운 이름은 다음과 같은 특징이 있습니다. 
-  우선 모음이 간단해야 합니다. '아', '오', '우', '이' 정도가 쉬운데, 복모음의 경우 외국인들이 발음하기 힘들어 하는 경우가 많습니다. 여자의 경우 '은'을 많이 사용하는데, 이것 역시 발임하기 힘든 모음 입니다. 
+                                <mutableString key="text">  한국 이름 중에서는 외국 사람들이 발음하기 힘든 이름들이 있습니다. '수현' 처럼 '현' 자가 들어간 이름은 영어를 사용하는 외국인들이 발음하기 힘듭니다. 현을  Hyun이라서 쓰면 '하이언' 처럼 발음하게 됩니다. '혁'도 마찬가지로 어려운데, 쉽게 '척' 이라고 발음 하기도 합니다. 또한, '재석'의 '석'자는 영어로 발음하기에 매우 조심스러운 글자 입니다. 일본인들은 'ㅁ' 받침을 발음하기 힘들어 합니다. 외국인들이 발음하기에 쉬운 이름은 다음과 같은 특징이 있습니다. 
+  우선 모음이 간단해야 합니다. '아', '오', '우', '이' 정도가 쉬운데, 복모음의 경우 외국인들이 발음하기 힘들어 하는 경우가 많습니다. 여자의 경우 '은'을 많이 사용하는데, 이것 역시 발음하기 힘든 모음 입니다. 
   받침은 없는 것이 좋지만, 'ㄴ' 도 괜찮습니다. 'ㅇ'과 'ㄱ' 받침은 발음하기 힘든 경우가 많습니다. '승' 이나 '정', '혁' 등의 예가 있습니다. 
-  발음 이외에도 요즘 작명을 할 때 고려해야 할 것이 있는데, 너무 복잡한 한자는 피하는게 좋다는 것입니다. 복잡한 한자중에서 중국, 일본, 대만, 홍콩 등에서는 사용되지 않는 글자들도 많기 때문입니다.</string>
+  발음 이외에도 요즘 작명을 할 때 고려해야 할 것이 있는데, 너무 복잡한 한자는 피하는게 좋다는 것입니다. 복잡한 한자중에서 중국, 일본, 대만, 홍콩 등에서는 사용되지 않는 글자들도 많기 때문입니다.</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
