@@ -7,7 +7,7 @@
  * Sometimes it is necessary to run the list or data in multiple (usually 2 passes), first pass
  * for finding size or other property, second pass for processing. see 1.7.
  *
- */ 
+ */
 
 
 #include <assert.h>
@@ -48,15 +48,15 @@ bool unique_str(string &s)
     // you should initialize array,
     for (int i = 0; i < 256; i++)
         chars[i] = false;
-    
+
     for (int i = 0; i < s.size(); i++) {
         char c = s[i];
         if (chars[c]) return false;
         chars[c] = true;
     }
-    
+
     return true;
-    
+
 }
 
 //using bit vector, useful only with small letters
@@ -74,7 +74,7 @@ bool unique_str2(string &s)
 
         w |= 1 << (c - 'a');
     }
-    
+
     return true;
 }
 
@@ -104,7 +104,7 @@ void reverse(string &s)
         ++i;
         --j;
     }
-    
+
 }
 
 void rotate(string &s, int middle)
@@ -148,30 +148,30 @@ void reverse1(char *s)
     int i = 0;
 
     int j;
-    
+
     for (j = 0; s[j] != 0; ++j);
 
     --j;
 
     cout << s << " : the size of str is " << j + 1 << endl;
-    
+
     while (i < j) {
         swap(s[i], s[j]);
         ++i;
         --j;
     }
-    
+
 }
 
 int t12()
 {
     string s("this");
     cout << s << endl;
-    
+
     reverse(s);
-    
+
     cout << s << endl;
-    
+
 }
 
 int t12_1()
@@ -180,11 +180,11 @@ int t12_1()
     char s[] = {'T', 'h', 'i', 's', 0};
 
     cout << s << " " << strlen(s) << endl;
-    
+
     reverse1(s);
-    
+
     cout << s << endl;
-    
+
 }
 
 
@@ -198,7 +198,7 @@ void remove_dup(string &s)
     int ret;
 
     int len = s.size();
-    
+
     // for each char in s
     for (int i = 0; i != len; i++){
         // len = remove(s.begin + 1, s.end, c);
@@ -233,7 +233,7 @@ void remove_dup2(string &s)
     }
 
     s.resize(ret);
-    
+
 }
 
 // using additional info, which char has not unique.
@@ -244,22 +244,22 @@ void remove_dup3(string &s)
 
     if (s.empty())
         return;
-    
-        
+
+
     // do I need to initialize it to false? or automatically initialized to false? YES, otherwise you got problem
     for (int i = 0; i < 256; i++)
         chars[i] = false;
-    
+
     int ret = 1;
     char c = s[0]; // this may cause if the string is null
-    
+
     chars[c] = true;
-    
+
     for (int i = 1; i != s.size(); ++i) {
 
         c = s[i];
         if (!chars[c]) {
-            
+
             s[ret++] = c;
             chars[c] = true;
         }
@@ -283,7 +283,7 @@ void remove_dup4(string& s)
     s.erase(ret, s.end());
 }
 
-// void remove_dup5(string& s) { use map<char, int> and iterate. it is sorted though.. 
+// void remove_dup5(string& s) { use map<char, int> and iterate. it is sorted though..
 
 int resize_test()
 {
@@ -304,7 +304,7 @@ int t13()
     string s("abcdab");
     cout << "string is " << s << endl;
     remove_dup(s);
-    cout << "string is " << s << endl;    
+    cout << "string is " << s << endl;
 }
 
 
@@ -320,7 +320,7 @@ int t13_1()
     cout << "string is " << ss << endl;
     remove_dup2(ss);
     cout << "string is " << ss << endl;
-    
+
 }
 
 int t13_2()
@@ -335,7 +335,7 @@ int t13_2()
     cout << "string is " << ss << endl;
     remove_dup3(ss);
     cout << "string is " << ss << endl;
-    
+
 }
 
 int t13_3()
@@ -350,11 +350,11 @@ int t13_3()
     cout << "string is " << ss << endl;
     remove_dup4(ss);
     cout << "string is " << ss << endl;
-    
+
     string s3("abcdab");
     cout << "string is " << s3 << endl;
     remove_dup3(s3);
-    cout << "string is " << s3 << endl;    
+    cout << "string is " << s3 << endl;
 }
 
 
@@ -364,7 +364,7 @@ int t13_3()
 void replace(string &s, string r)
 {
     // which data structure we are using?
-    // check if we need to reserve first. string needs reserve. so 
+    // check if we need to reserve first. string needs reserve. so
     // first step (first scan) would be to find out the size to reserve.
 
     int i, j;
@@ -377,14 +377,14 @@ void replace(string &s, string r)
     }
 
     s.reserve(s.size() + (r.size() - 1) * j); // resize should be performed before get iterator
-    
+
     string::iterator it = s.begin();
 
     while (it != s.end()) {
         cout << * it << endl;
-        
+
         if (*it == ' ') {
-            it = s.erase(it); // erase or insert may change iterator. should use iterator returned. 
+            it = s.erase(it); // erase or insert may change iterator. should use iterator returned.
             s.insert(it, r.begin(), r.end()); // insert may change iterator. So, you have enough space reserved so that insert does not
             // allocate new memory.
             it += r.size();
@@ -395,7 +395,7 @@ void replace(string &s, string r)
 
 
 
-// this version does not need copying element after replacing. 
+// this version does not need copying element after replacing.
 void replace2(string &s, string r)
 {
 
@@ -411,7 +411,7 @@ void replace2(string &s, string r)
     int new_size = s.size() + j * (r.size() - 1);
 
     cout << old_size << " , " << new_size << endl;
-    
+
     s.resize(new_size); // we have to use resize, not reserve. reserve is just for reserving.
     // insert automatically increases size. But if we are using direct access using index, than
     // we have to resize.
@@ -427,10 +427,10 @@ void replace2(string &s, string r)
             // j -= r.size();
         }
         else {
-            
+
             s[j--] = s[i];
         }
-    }   
+    }
 }
 
 
@@ -441,16 +441,16 @@ void replace(vector<int> &va, vector<int> vb)
     i = j = 0;
 
     for (i = 0; i != va.size(); i++){
-        
+
         if (va[i] == 3)
             ++j;
 
     }
 
     va.reserve(va.size() + (vb.size() - 1) * j);
-    
+
     vector<int>::iterator it = va.begin();
-    
+
     while (it != va.end()) {
         if (*it == 3) {
             cout << "before " << va.size() << endl;
@@ -494,7 +494,7 @@ int t15_1()
 
 
 
-    
+
     vb.push_back(1);
     vb.push_back(1);
     vb.push_back(2);
@@ -503,18 +503,18 @@ int t15_1()
     for (int i = 0; i < va.size(); i++)
         cout << va[i];
     cout << endl;
-    
+
     for (int i = 0; i < vb.size(); i++)
         cout << vb[i];
     cout << endl;
-    
+
     replace(va, vb);
 
     cout << " result : " << va.size() << endl;
     for (int i = 0; i < va.size(); i++)
         cout << va[i];
     cout << endl;
-    
+
 }
 
 
@@ -540,7 +540,7 @@ void col_row(vector<vector<int>>& m)
 {
 
     set<int> col, row;
-    
+
     for (int i = 0; i < m.size(); ++i)
     {
         for (int j = 0; j < m[1].size(); ++j)
@@ -584,7 +584,7 @@ int t17()
     m[0].resize(3);
     m[1].resize(3);
     m[2].resize(3);
-    
+
     m[0][0] = 1;
     m[0][1] = 2;
     m[0][2] = 1;
@@ -601,12 +601,12 @@ int t17()
         }
         cout << endl;
     }
-    
+
     vector<vector<int>> n(m);
     col_row(n);
 
     cout << endl << " and the result is " << endl;
-    
+
     for (int i = 0; i < n.size(); i++) {
         for (int j = 0; j < n[i].size(); j++) {
             cout << " " << n[i][j];
@@ -627,7 +627,7 @@ void remove_dup5(node* n)
 {
     if (n == NULL)
         return;
-    
+
     map<int, int> mc;
     node* end = n;
     mc[n->data]++;
@@ -684,7 +684,7 @@ void t21()
         n = n ->next;
     }
 
-    
+
 }
 
 node* reverse_list(node* a)
@@ -696,7 +696,7 @@ node* reverse_list(node* a)
     a = a-> next;
     prev->next = NULL;
 
-    while (a) 
+    while (a)
     {
         node* next = a->next;
         a->next = prev;
@@ -718,7 +718,7 @@ node* reverse_list_every_other(node* a)
     node* prev = &r;
     prev->next = a;
 
-    while (a && a->next) 
+    while (a && a->next)
     {
         prev->next = a->next;
         prev = a;
@@ -823,7 +823,7 @@ void test_reverse_linked_list()
     end->next = new node(3);
     end = end->next;
     end->next = new node(4);
- 
+
 
     // node* r = reverse_list(head);
     node* r = reverse_list_every_other2(head);
@@ -846,7 +846,7 @@ void test_merge_linked_list()
     end->next = new node(4);
     end = end->next;
     end->next = new node(7);
- 
+
     node* head2 = new node(2);
     node* end2 = head2;
     end2->next = new node(4);
@@ -889,7 +889,7 @@ pair<node*, node*> reverse_one_word(node* a)
     node* head = a;
     a = a-> next;
 
-    while (a && a->data != 0) 
+    while (a && a->data != 0)
     {
         node* next = a->next;
         a->next = prev;
@@ -958,13 +958,13 @@ void test_merge_k_sorted_list()
 
 void test_swap_nodes()
 {
-    
+
 }
 
 
 class myq {
 public:
-    void enq(int x) 
+    void enq(int x)
     {
         a.push(x);
     }
@@ -982,22 +982,22 @@ public:
             a.push(b.top());
             b.pop();
         }
-        
+
         return front;
     }
-    
+
 private:
     stack<int> a, b;
 };
 
 class myq2 {
 public:
-    void enq(int x) 
+    void enq(int x)
     {
         a.push(x);
     }
 
-    int size() 
+    int size()
     {
         cout << endl << " " << a.size() << " : " << b.size() << endl;
         return a.size() + b.size();
@@ -1006,32 +1006,32 @@ public:
     int deq()
     {
         int front;
-        
+
         if (!b.empty()) {
             front = b.top();
             b.pop();
             return front;
-        } 
-            
+        }
+
         while (!a.empty()) {
             b.push(a.top());
             a.pop();
         }
 
         cout << "now a is empty" << endl;
-        
+
 
         front = b.top();
         b.pop();
 
         return front;
     }
-    
+
 private:
     stack<int> a, b;
 };
 
-    
+
 
 // implement stack. pop, push, and min. all in O(1).
 class minstack
@@ -1063,7 +1063,7 @@ private:
     // value, min
     vector<pair<int, int>> v;
     };
-    
+
 void t31()
 {
     minstack ms;
@@ -1091,8 +1091,8 @@ int t35()
 
     for (int i = 0; i < 10; i++)
         cout << mq.deq() << endl;
-    
-    
+
+
 }
 
 int t35_1()
@@ -1105,15 +1105,15 @@ int t35_1()
 
     for (int i = 0; i < 10; i++)
         cout << mq.deq() << endl;
-    
-    
+
+
 }
 
 stack<int>
 sort_stack(stack<int> a)
 {
     stack<int> b;
-    
+
     while (!a.empty()) {
 
         int x = a.top();
@@ -1125,11 +1125,11 @@ sort_stack(stack<int> a)
         }
 
         b.push(x);
-        
+
     }
     return b;
-    
-    
+
+
 }
 
 //3.6
@@ -1144,9 +1144,9 @@ int t36()
     b = sort_stack(a);
 
     cout << endl;
-    
+
     while (!b.empty()) {
-        
+
         cout << b.top() << endl;
         b.pop();
     }
@@ -1178,7 +1178,7 @@ void test_path_normalization()
             {
                 cout << "error" << endl;
                 return;
-            } 
+            }
             else if (stk.top() == ".." || stk.empty())
             {
                 stk.emplace(str);
@@ -1228,7 +1228,7 @@ public:
     {
         return l.front();
     }
-    
+
     void deque()
     {
         l.pop_front();
@@ -1296,7 +1296,7 @@ int t_thread_1()
     cout << "before join: " << pthread_self() <<  endl;
     int err = pthread_join(pthread_self(), NULL);
     cout << "after join: " << err << endl;
-    
+
 }
 
 
@@ -1307,7 +1307,7 @@ static void *
 threadFunc2(void * args)
 {
     int err;
-    
+
     err = pthread_mutex_lock(&mtx);
     if (err)
         cout << "error in mutex_lock" << endl;
@@ -1318,7 +1318,7 @@ threadFunc2(void * args)
     err = pthread_mutex_unlock(&mtx);
     if (err)
         cout << "error in mutex_unlock" << endl;
-    
+
     cout << "thread with : " << x << " is created" << endl;
 }
 
@@ -1337,7 +1337,7 @@ int t_thread_2()
     err = pthread_create(&t2, NULL, threadFunc2, &local);
     if (err)
         cout << " error in creating thread 1 " << endl;
-    
+
     err = pthread_join(t1, NULL);
     err |= pthread_join(t2, NULL);
 
@@ -1346,7 +1346,7 @@ int t_thread_2()
 
 }
 
-struct mythread 
+struct mythread
 {
     pthread_t thread;
     bool term;
@@ -1362,25 +1362,25 @@ threadFunc3(void * args)
     int err;
     int i = *(int *)args;
 
-    cout << "thread [" << i << "] is created" << endl;    
+    cout << "thread [" << i << "] is created" << endl;
 
     err = pthread_mutex_lock(&mtx);
     if (err)
         cout << "error in mutex_lock" << endl;
-    
+
 
 
     numTerm++;
     mythread[i].term = true;
-    
+
     err = pthread_mutex_unlock(&mtx);
     if (err)
         cout << "error in mutex_unlock" << endl;
-    
+
     err = pthread_cond_signal(&cond);
     if (err)
         cout << "error in cond_signal" << endl;
-    
+
 
     return NULL;
 }
@@ -1395,9 +1395,9 @@ int t_thread_3()
     mythread = (struct mythread *)calloc(numThread, sizeof(*mythread));
     if (mythread == NULL)
         cout << "thread alloc error" << endl;
-        
+
     int numLive = numThread;
-    
+
     for (int i = 0; i < numLive; ++i) {
         mythread[i].idx = i;
         // if i is given to the last argument of pthread_create, then
@@ -1415,7 +1415,7 @@ int t_thread_3()
 
         while (numTerm == 0) {
             err = pthread_cond_wait(&cond, &mtx);
-            
+
             if (err)
                 cout << "cond wait  error" << endl;
         }
@@ -1431,11 +1431,11 @@ int t_thread_3()
                 cout << "joined thread [" << i << "]" << endl;
             }
         }
-        
+
         err = pthread_mutex_unlock(&mtx);
         if (err)
             cout << "mutex unlock error" << endl;
-            
+
     }
 
 }
@@ -1515,7 +1515,7 @@ int rand7()
 int t1910()
 {
 
-    
+
 
 }
 
@@ -1537,7 +1537,7 @@ int t1911()
     }
 
     cout << endl;
-    
+
     // find vars sum up to 25;
     for (int i = 0; i != vi.size(); ++i) {
         int r = 25 - vi[i];
@@ -1546,9 +1546,9 @@ int t1911()
             mc[r]++; // to remove duplications
             mc[vi[i]]++; // to remove duplications
         }
-        
+
     }
-    
+
 }
 
 
@@ -1565,7 +1565,7 @@ int t1911_1()
     vector<int>::size_type i, j;
 
     sort(vi.begin(), vi.end());
-    
+
     i = 0; j = vi.size() - 1;
     while (i < j)
     {
@@ -1587,7 +1587,7 @@ class A
 {
 
 public:
-    A() : m_i(0) 
+    A() : m_i(0)
     {
         cout << "default" << endl;
     }
@@ -1605,7 +1605,7 @@ class B
 {
 
 public:
-    B() : m_d(0.0) 
+    B() : m_d(0.0)
     {
     }
 
@@ -1662,12 +1662,12 @@ int t_reinterpret_cast()
 }
 
 #if 0
-class CBase 
+class CBase
 {
     // in this case, there is no polymorphysim
 };
 
-class CDerived: public CBase 
+class CDerived: public CBase
 {
 };
 
@@ -1698,7 +1698,7 @@ int t_dynamic_cast()
     CBase * pbb = new CBase;
 
     CDerived* pd;
-    
+
     pd = dynamic_cast<CDerived*>(pba); // if there is no polymorphism, then compile error here
 
     if (pd==0) cout << "Null pointer on first type-cast" << endl;
@@ -1721,7 +1721,7 @@ int t_static_cast()
     CDerived * b = static_cast<CDerived*>(a); // it compiles but maybe runtime error.
 
     double d=3.14159265;
-    int i = static_cast<int>(d); 
+    int i = static_cast<int>(d);
 }
 #endif
 
@@ -1736,10 +1736,10 @@ int t_typeid()
         cout << "b is: " << typeid(b).name() << '\n';
     }
     return 0;
-    
+
 }
 
-    
+
 int t_stl_test1()
 {
 
@@ -1774,20 +1774,20 @@ int t_ctor_dtor()
     A *p = 0;
     {
         const A a = 2;
-        cout << "*****1" << endl; 
+        cout << "*****1" << endl;
         p = new A[3];
-        cout << "*****2" << endl; 
+        cout << "*****2" << endl;
         p[0] = a;
-        cout << "*****3" << endl; 
+        cout << "*****3" << endl;
     }
-    cout << "*****4" << endl; 
+    cout << "*****4" << endl;
     p[1] = A(1);
-    cout << "*****5" << endl; 
+    cout << "*****5" << endl;
     p[2] = 2;
-    cout << "*****6" << endl; 
+    cout << "*****6" << endl;
     delete [] p;
 
-    
+
     return 0;
 }
 
@@ -1808,7 +1808,7 @@ int t_operator()
     std::cout << l.size();
     std::remove_if(l.begin(), l.end(), P());
     std::cout << l.size() << std::endl;
-    
+
     return 0;
 }
 
@@ -1845,7 +1845,7 @@ myreverse(const string& s)
         r.push_back(s[0]);
         return r;
     }
-    
+
 }
 
 int t_reverse_str()
@@ -1856,7 +1856,7 @@ int t_reverse_str()
     string r = myreverse(s);
 
     cout << endl << s << " is reverse of " << r << endl;
-    
+
 
 }
 
@@ -1877,7 +1877,7 @@ struct CC
 int t_test_set()
 {
 
-    const int a[] = { 4, 2, 7, 11, 12, 14, 17, 2 
+    const int a[] = { 4, 2, 7, 11, 12, 14, 17, 2
     };
 
     const int count = sizeof(a) / sizeof(a[0]);
@@ -1893,7 +1893,7 @@ int t_test_set()
     for (set<int>::iterator it = y.begin(); it != y.end(); ++it) {
         cout << *it << endl;
     }
-    
+
 
 
     return 0;
@@ -1903,7 +1903,7 @@ int t_test_set()
 /*
  * other STL
  *
- * count, count_if 
+ * count, count_if
  * unique
  * adjacent_find
  *
@@ -1915,14 +1915,14 @@ int t_test_set()
 
 //todo: 1.6, 3.1
 
-int equil_solution ( const vector<int> &A ) 
+int equil_solution ( const vector<int> &A )
 {
     unsigned int size = A.size();
 
     if (size == 0)
         return -1;
 
-    unsigned int b = 0; // index should be non zero.. but might use int as well 
+    unsigned int b = 0; // index should be non zero.. but might use int as well
     unsigned int e = size;
 
     long long  sum = 0; // it should be signed, and it should be long long if the test cases is too big
@@ -1931,12 +1931,12 @@ int equil_solution ( const vector<int> &A )
         sum += A[b];
         ++b;
     }
-    
+
     sum -= A[0];
     long long  sum2 = 0; // check whether it is signed or unsigned
 
     b = 0;
-    
+
     do {
         if (sum == sum2)
             return b;
@@ -1945,9 +1945,9 @@ int equil_solution ( const vector<int> &A )
             ++b;
             sum -= A[b];
         }
-        
+
     } while (b != e);
-    
+
     return -1;
 }
 
@@ -1975,7 +1975,7 @@ int overlap_solution (const vector<int> &A)
     int size = A.size();
 
     int r = 0;
-    
+
     for (int i = 0; i !=size; ++i) {
         for (int j = i + 1; j != size; ++j) {
 
@@ -1987,9 +1987,9 @@ int overlap_solution (const vector<int> &A)
 
     if (r > 10000000)
         return -1;
-    
+
     return r;
-    
+
 
 }
 
@@ -2010,19 +2010,19 @@ int merge_pair(vector<int> a)
     }
 
     cout << endl;
-    
+
     for (int i = 0; i != pa.size(); ++i)
         cout << pa[i].first << " ";
 
     cout << endl;
-    
+
     sort(pa.begin(), pa.end(), comp_pair);
 
     for (int i = 0; i != pa.size(); ++i)
         cout << pa[i].first << " ";
 
     cout << endl;
-    
+
 }
 
 int test_merge_pair()
@@ -2052,9 +2052,9 @@ double mod_fib(double n)
         b = temp + a;
     }
     //cout << a << endl;
-    
+
     return fmod(a, 10000103);
-    
+
 }
 
 int test_mod_fib()
@@ -2063,12 +2063,12 @@ int test_mod_fib()
     double x = pow(2, 3);
     cout << endl << mod_fib(x) << endl;
     //mod_fib(x);
-    
+
 
     x = pow (4, 7);
     cout << endl << x << " "  << mod_fib(x) << endl;
     //mod_fib(x);
-    
+
 }
 
 
@@ -2086,8 +2086,8 @@ void hashTest ()
   std::cout << "same hashes:\n" << std::boolalpha;
   std::cout << "nts1 and nts2: " << (ptr_hash(nts1)==ptr_hash(nts2)) << '\n';
   std::cout << "str1 and str2: " << (str_hash(str1)==str_hash(str2)) << '\n';
-}   
-    
+}
+
 
 // given a sorted array, create binary tree with minimal height
 void t43()
@@ -2146,12 +2146,12 @@ pair<bool, int> check_balanced(const bt_node<int>* node)
 {
     if (!node)
         return pair<bool, int>(true, 0);
-    
+
     auto left = check_balanced(node->left);
     auto right = check_balanced(node->right);
 
     int depth = max(left.second, right.second) + 1;
-    bool balanced = (left.first == true && 
+    bool balanced = (left.first == true &&
                      right.first == true &&
                      abs(left.second - right.second) <= 1);
 
@@ -2220,15 +2220,15 @@ void test_check_binary_tree_symmetric()
 }
 
 
-// Design an algorithm and write code to find the first common 
-// ancestor of two nodes in a binary tree Avoid storing 
-// additional nodes in a data structure NOTE: This is not 
+// Design an algorithm and write code to find the first common
+// ancestor of two nodes in a binary tree Avoid storing
+// additional nodes in a data structure NOTE: This is not
 // necessarily a binary search tree
 
 using elem1 = pair<int, bt_node<int>*>;
 elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)
 {
-    
+
     if (n == nullptr)
         return elem1(0, nullptr);
 
@@ -2239,7 +2239,7 @@ elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)
     elem1 r2 = find_fca1(n->right, a, b);
     if (r2.first == 2)
         return r2;
-    
+
     int r3 = r1.first + r2.first + (n == a) + (n == b);
 
     return elem1(r3, (r3 == 2) ? n : nullptr);
@@ -2250,32 +2250,32 @@ void t46()
 {
 }
 
-// You have two very large binary trees: T1, with millions of nodes, and T2, 
+// You have two very large binary trees: T1, with millions of nodes, and T2,
 // with hun- dreds of nodes Create an algorithm to decide if T2 is a subtree of T1
 
 #if 0
 Note that the problem here specifies that T1 has millions of nodes
 this means that we should be careful of how much space we use Lets say,
- for example, T1 has 10 million nodes thismeansthatthedataaloneisabout40mb 
-Wecouldcreateastringrepresenting the inorder and preorder traversals If T2s 
-preorder traversal is a substring of T1s preorder traversal, and T2s inorder 
+ for example, T1 has 10 million nodes thismeansthatthedataaloneisabout40mb
+Wecouldcreateastringrepresenting the inorder and preorder traversals If T2s
+preorder traversal is a substring of T1s preorder traversal, and T2s inorder
 traversal is a substring of T1s inorder traversal, then T2 is a sub- string
- of T1 We can check this using a suffix tree However, we may hit memory 
-limitations because suffix trees are extremely memory intensive If this 
+ of T1 We can check this using a suffix tree However, we may hit memory
+limitations because suffix trees are extremely memory intensive If this
 become an issue, we can use an alternative approach
-                                   
-Alternative Approach: The treeMatch procedure visits each node in the small 
-tree at most once and is called no more than once per node of the large tree 
-Worst case runtime is at most O(n * m), where n and m are the sizes of trees 
-T1 and T2, respectively If k is the number of occurrences of T2s root in T1, 
+
+Alternative Approach: The treeMatch procedure visits each node in the small
+tree at most once and is called no more than once per node of the large tree
+Worst case runtime is at most O(n * m), where n and m are the sizes of trees
+T1 and T2, respectively If k is the number of occurrences of T2s root in T1,
 the worst case runtime can be characterized as O(n + k * m)
 
 Another alternative is using parallelism. async is a way.
-    
+
 Or let each node have a hash (or similar) value which can represent
 nodes under the root node
 #endif
-    
+
 
 // https://en.wikipedia.org/wiki/Suffix_array
 void t47()
@@ -2284,8 +2284,8 @@ void t47()
 }
 
 
-// given a binary tree in which each node contains a value Design an 
-// algorithm to print all paths which sum up to that value Note that 
+// given a binary tree in which each node contains a value Design an
+// algorithm to print all paths which sum up to that value Note that
 // it can be any path in the tree - it does not have to start at the root
 void t48()
 {
@@ -2296,15 +2296,15 @@ void t48()
 
 class cb {
 public:
-    cb() : availspace(10), 
-           capacity(10), 
-           availitem(0), 
-           head(0), 
-           tail(0), 
+    cb() : availspace(10),
+           capacity(10),
+           availitem(0),
+           head(0),
+           tail(0),
            data{new char[10]}
     {
     }
-    
+
     // what should we do if we want to increase/resize buffer
     // when the buffer is full? then rotate and set head/tail
     // and resize the buffer!
@@ -2315,7 +2315,7 @@ public:
         availitem += bytes_written;
         for (int i = 0; i < bytes_written; ++i)
             putitem(vi[i]);
-            
+
         return bytes_written;
     }
 
@@ -2325,7 +2325,7 @@ public:
         data[i] = x;
         tail = (++i == capacity)? 0 : i;
     }
-    
+
     int get(char* vo, int len)
     {
         int bytes_read = (len > availitem)? availitem : len;
@@ -2334,10 +2334,10 @@ public:
 
         for (int i = 0; i < bytes_read; ++i)
             vo[i] = getitem();
-            
+
         return bytes_read;
     }
-    
+
     char getitem()
     {
         int i = head;
@@ -2371,7 +2371,7 @@ void t131()
 
     r = c.get(ra, 2);
     cout << r << endl;
-    
+
     r = c.put(ca, 8);
     cout << r << endl;
 
@@ -2402,16 +2402,16 @@ void test_merge_array()
     vector<int> b = {1, 2, 7, 9, 11};
 
     int x[] = {3, 4, 5, 6, 8};
-    
+
     for (int i = 0; i < 5; ++i)
         a[i] = x[i];
-        
+
     auto first1 = a.begin();
     auto last1 = a.begin() + 5;
     auto first2 = b.begin();
     auto last2 = b.end();
     auto ret = a.end();
-    
+
     while (true)
     {
         if (first1 == last1)
@@ -2478,7 +2478,7 @@ int find_end(vector<char>& vc, int i, int j, char t)
 {
     if (i > j)
         return i;
-    
+
     int mid = i + (j - i) / 2;
 
     if (vc[mid] == t)
@@ -2512,7 +2512,7 @@ int find_pos(vector<char>& vc, int i, int j, char t)
 {
     if (i > j)
         return -1;// that means it did not find any
-    
+
     int mid = i + (j - i) / 2;
 
     if (vc[mid] == t)
@@ -2532,7 +2532,7 @@ void test_count_char_in_sorted_array()
 
     char t;
     cin >> t;
-    
+
     int i = find_beg(vc, 0, vc.size() - 1, t);
     int j = find_end(vc, 0, vc.size() - 1, t);
     int k = find_pos(vc, 0, vc.size() - 1, t);
@@ -2544,8 +2544,8 @@ void test_count_char_in_sorted_array()
  }
 
 
-// Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9) 
-// (60,90) and build a data structure. Query the data structure for point x, 
+// Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9)
+// (60,90) and build a data structure. Query the data structure for point x,
 // and it find out all the intervals that contain this point x.
 // this method returns the begining index of the character.
 // if there is no such character then it returns the position which it should exists
@@ -2567,7 +2567,7 @@ int find_beg(vector<pair<int, int>>& vc, int i, int j, int t) {
 int find_end(vector<pair<int, int>>& vc, int i, int j, int t) {
     if (i > j)
         return i;
-    
+
     int mid = i + (j - i) / 2;
 
     if (vc[mid].first == t)
@@ -2583,7 +2583,7 @@ void test_find_interval()
 {
     // sort intervals with first number, and store it to array a
     // sort intervals with last number, and store it to array b
-    // given number x, binary search in the a->k and b->l 
+    // given number x, binary search in the a->k and b->l
     // then set_intersection(a[:k], b[l:]) would be the answer.
     // To improve speed, this set intersection can be precomputed for each(k,l)
     // where k and l are in [0, sizeof(intervals)], so the computation is just
@@ -2605,7 +2605,7 @@ void test_find_interval()
 
     int k;
     cin >> k;
-    
+
     vector<pos> a(v);
     vector<pos> b(v);
 
@@ -2749,10 +2749,10 @@ private:
     shared_ptr<node> tail;
     map<string, shared_ptr<node>> mm;
     int size;
- 
+
 public:
     lrumap(int sz) : size(sz) {}
-    
+
     shared_ptr<node> get(string& s)
     {
         if (mm.find(s) != mm.end())
@@ -2820,7 +2820,7 @@ public:
         mm[s] = n;
     }
 };
-    
+
 
 void test_lru()
 {
@@ -2834,7 +2834,7 @@ void test_partition_using_k()
     int n, k;
     cin >> n;
     vector<int> v;
-    
+
     for (int i = 0; i < n; ++i)
     {
         int t;
@@ -2844,8 +2844,8 @@ void test_partition_using_k()
 
     cin >> k;
 
-    auto a = partition(v.begin(), v.end(), [&](int x) { return x < k; }); 
-    partition(a, v.end(), [&](int x) { return x == k; }); 
+    auto a = partition(v.begin(), v.end(), [&](int x) { return x < k; });
+    partition(a, v.end(), [&](int x) { return x == k; });
 
     cout << "the result is" << endl;
 
@@ -2861,7 +2861,7 @@ void test_partition_using_k()
 void test_find_best_investment_period_once()
 {
     // for x = [2, 3, 5, 1, 9],
-    //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);  
+    //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);
     // then for the biggest element (biggest gap)  in y, find interval
 
     vector<int> v;
@@ -2927,7 +2927,7 @@ void test_find_best_investment_period_twice()
     }
 
     v2[0] = 0;
-    int m_min = v[0]; 
+    int m_min = v[0];
     for (int i = 1; i < v.size(); ++i)
     {
         v2[i] = v[i] - m_min;
@@ -2977,7 +2977,7 @@ void test_paint_house_with_3_colors()
 
     // If the costs for painting is different across all houses, then
     // assume cost[n][3] is the cost of painting each n houses,
-    // compute total_cost[n][3] be the total cost for painting. 
+    // compute total_cost[n][3] be the total cost for painting.
 
 
     int n;
@@ -2994,7 +2994,7 @@ void test_paint_house_with_3_colors()
     }
 
     vector<vector<int>> vr(n,vector<int>(3));
-    
+
     vr[n - 1][0] = v[n - 1][0];
     vr[n - 1][1] = v[n - 1][1];
     vr[n - 1][2] = v[n - 1][2];
@@ -3045,7 +3045,7 @@ void test_rect_intersect()
     int x, y, w, h;
     cin >> x >> y >> w >> h;
     rect r1{x, y, w, h};
-    
+
     cin >> x >> y >> w >> h;
     rect r2{x, y, w, h};
 
@@ -3198,8 +3198,8 @@ void test_next_perm()
     }
     cout << "no more permutation" << endl;
 }
-    
-            
+
+
 int find_min_from_sorted_rotated(const vector<int>& v, int a, int e)
 {
     if (v[a] <= v[e])
@@ -3250,7 +3250,7 @@ void test_find_rand_comb()
     int k;
 
     cin >> k;
-    
+
     default_random_engine seed((random_device())()); // random num generator
     for (int i = 0; i < k; ++i)
     {
@@ -3267,8 +3267,8 @@ void test_find_rand_comb()
 
 void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel()
 {
-// given width and height and percentage, generates an image of pixel (black 
-// and white) that has exactly p percent of black pixel, with uniformly 
+// given width and height and percentage, generates an image of pixel (black
+// and white) that has exactly p percent of black pixel, with uniformly
 // randomised.
 
 
@@ -3287,7 +3287,7 @@ void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel(
     int cnt = (n * m * p) / 100;
 
     default_random_engine seed((random_device())()); // random num generator
-            
+
     for (int i = 0; i < cnt; ++i)
     {
         int j = uniform_int_distribution<int>{
@@ -3312,13 +3312,13 @@ void test_sample_online_data()
 // design an algorithm that takes as input a size k, and read packets,
 // continuously maintinging a uniform random subset of size k of the read
 // packets
-    
+
     int t;
     int k;
     cin >> k;
 
     cout << " now enter numbers " << endl;
-    
+
     vector<int> v(k);
     int cnt = 0;
     default_random_engine seed((random_device())()); // random num generator
@@ -3339,7 +3339,7 @@ void test_sample_online_data()
         }
         ++cnt;
 
-        
+
         cout << endl << " the result is : " << endl;
         for (int i = 0; i < k; ++i)
         {
@@ -3384,7 +3384,7 @@ void test_find_rand_subset_of_k_from_n()
         {
             swap(p1->second, p2->second);
         }
-    }    
+    }
 
     for (int i = 0; i < k; ++i)
     {
@@ -3392,16 +3392,16 @@ void test_find_rand_subset_of_k_from_n()
     }
 
     cout << endl;
-                                 
+
 }
-    
+
 void test_non_unform_random_numbers()
 {
     int n;
 
     vector<int> v;
     cin >> n;
-    
+
     for(int i = 0; i < n; ++i)
     {
         int t;
@@ -3415,11 +3415,11 @@ void test_non_unform_random_numbers()
         double t;
         cin >> t;
         p.push_back(t);
-    }    
+    }
 
     vector<double> prefix_p;
     prefix_p.emplace_back(0.0);
-    
+
     // prefix sum or cumulative sum
     partial_sum(p.cbegin(), p.cend(), back_inserter(prefix_p));
 
@@ -3543,7 +3543,7 @@ void test_swap_bit()
 
     int x = (n >> i) & 1;
     int y = (n >> j) & 1;
-    
+
     if (x != y)
     {
         n ^= (1L << i | 1L << j);
@@ -3563,6 +3563,9 @@ void test_find_3_num_sum_to_zero()
 {
     // sol1: for each combination of sum of 2 numbers in the array (O(n^2)),
     //       if there is a number which can be sum to 0 (O(n^2) if hash map)?
+    // problem: the number may duplicate?: map has -1 and sum of 2 and -1 is 1
+    // in that case is it just 2 and -1?
+    // TODO:
 
     // sol2: sort the array, for each e in array find wheter there is a pair (x, y) which
     // sum up to -a. O(n^2).
@@ -3598,7 +3601,7 @@ void test_find_3_num_sum_to_zero()
     // To make it faster, we can use map for va[i][j] -> list<pair<int, int>>
     // (it is a list or set as there should be multiple (i, j) that sums to same value
     // iterate v to find out, which make time complexity to O(n).
-    // 
+    //
     set<set<int>> sr;
     for (int i = 0; i < v.size(); ++i)
     {
@@ -3626,16 +3629,16 @@ void test_find_3_num_sum_to_zero()
         }
         cout << endl;
     }
-        
+
 }
 
 /*
-there is a bunch of tasks, each have different time to complete, task is independent, and then there are some workers, 
+there is a bunch of tasks, each have different time to complete, task is independent, and then there are some workers,
       How to allocate tasks to these workers to minimize the total time to complete all the task. The tasks can be randomly picked from the task list.
-      Example 
-      Task: 2,2,3,7, 1 
-      Worker: 2. 
-      Return 8, because the first worker can work on the first three tasks : 2 + 2 + 3 = 7, and the second worker can work on the last two tasks : 7 + 1 = 8, so the total time to finish all the task is 8. 
+      Example
+      Task: 2,2,3,7, 1
+      Worker: 2.
+      Return 8, because the first worker can work on the first three tasks : 2 + 2 + 3 = 7, and the second worker can work on the last two tasks : 7 + 1 = 8, so the total time to finish all the task is 8.
       public int getMini(int[] tasks, int k)
 
 
@@ -3647,10 +3650,10 @@ sol 1: using recursive method.
      return min(foo(x + a[i], y, a, i + 1),
                 foo(x, y + a[i], a, i + 1))
 
-sol 2: sort array, and then from max number to min number, distribute to 
-       one of the worker. If the distribution did not make status change 
+sol 2: sort array, and then from max number to min number, distribute to
+       one of the worker. If the distribution did not make status change
        then keep adding the next big task to the same worker. Otherwise
-       change the worker and send the new task to the worker. so, 
+       change the worker and send the new task to the worker. so,
        first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
        worker 1.
 
@@ -3671,24 +3674,24 @@ void test_return_index_to_max_num()
 {
     // sol: first pass find max number and number of it
     //      second pass, get the random number r in range [0, num_max -1],
-    //        go throuth the numbers and return the index of rth max number. 
+    //        go throuth the numbers and return the index of rth max number.
 
 
 }
 
 
 /*
-Given an unsorted array, sort it in such a way that the first 
-element is the largest value, the second element is the smallest, 
-the third element is the second largest element and so on. 
-[2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3] 
-can you do it without using extra space 
+Given an unsorted array, sort it in such a way that the first
+element is the largest value, the second element is the smallest,
+the third element is the second largest element and so on.
+[2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3]
+can you do it without using extra space
 
 sol:
  1. sort the arrary from big number to small number
  2. if the number of elements are even, then
    2.1 place the big numbers (half of all element) in the right place
-       from back to front. 
+       from back to front.
    2.2 place the small numbers (the rest half) in place. swap with last element.
  3. if the number of elements are odd, then rotate them from the middle to the end so
     that the middle number goes at the end, then do the same thing for 2 above from
@@ -3738,7 +3741,7 @@ void test_get_all_covered_range()
     int ret = 0;
     vector<int> vr;
     vr.emplace_back(0);
-                    
+
     for (int i = 1; i < vp.size(); ++i)
     {
         if (is_intersect(vp[ret], vp[i]))
@@ -3778,7 +3781,7 @@ int my_part(int i, int j, int k, vector<int>& v)
             if (i == j)
                 return i;
         }
-        
+
         do
         {
             --j;
@@ -3865,7 +3868,7 @@ string n2e(int d)
 
     return " " + s;
 }
-            
+
 string num_to_eng(int d)
 {
     if (d == 0)
@@ -3886,10 +3889,10 @@ void test_number_to_english()
 
 
 /*
-Given an input string "aabbccba", find the shortest substring from the alphabet "abc". 
-In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output. 
-Output doesnt need to maintain the ordering as in the alphabet. 
-Other examples: 
+Given an input string "aabbccba", find the shortest substring from the alphabet "abc".
+In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output.
+Output doesnt need to maintain the ordering as in the alphabet.
+Other examples:
 input = "abbcac", alphabet="abc" Output : shortest substring = "bca".
  */
 
@@ -3909,7 +3912,7 @@ vector<string> gen_substr(string& s)
     {
         for (int j = 1; i + j <= s.size(); ++j)
         {
-            string ss = s.substr(i, j); 
+            string ss = s.substr(i, j);
             if (ss != s)
                 r.emplace_back(ss);
         }
@@ -3927,7 +3930,7 @@ void test_group_with_substrings()
     //  if one of the substring is in the map then add it to m (m[substr].insert(e))
     //  After processing all the substrings of all string in vector, find
     //  map which has more than 0 element in the set
-    
+
     int n;
     cin >> n;
 
@@ -3950,7 +3953,7 @@ void test_group_with_substrings()
     for (int i = 0; i < n; ++i)
     {
         vector<string> r = gen_substr(v[i]);
-        for (auto e : r) 
+        for (auto e : r)
         {
             if (m.find(e) != m.end())
             {
@@ -3975,8 +3978,8 @@ void test_group_with_substrings()
 }
 
 /*
-Given m 0 and n 1, count the total number of permutations where two 1 cannot be adjacent 
-public int count(int m, int n){ 
+Given m 0 and n 1, count the total number of permutations where two 1 cannot be adjacent
+public int count(int m, int n){
 }
 */
 
@@ -4015,12 +4018,14 @@ void test_perm_1_0_with_no_adjacent_1()
 }
 
 /*
-Given a positive integer n, find the no of integers less than equal to n, whose binary representation doesn't contain consecutive 1s. 
-eg: 
-I/P : 4 
-O/P: 4 (0,1,2,4 Valid) 
+Given a positive integer n, find the no of integers less than equal to n, whose binary representation doesn't contain consecutive 1s.
+eg:
+I/P : 4
+O/P: 4 (0,1,2,4 Valid)
  */
 
+// sol 1: from 0 to n, check if it has consecuive n.
+// sol 2: use recursive method as following
 int no_adj_1(int m, int t, int k)
 {
     if (t > k)
@@ -4038,7 +4043,6 @@ int no_adj_1(int m, int t, int k)
     return r1 + r2;
 }
 
-
 void test_nums_with_no_adjacent_1()
 {
     int k;
@@ -4055,14 +4059,32 @@ void test_nums_with_no_adjacent_1()
             ++n;
         t = t >> 1;
     }
-    
+
     int r = no_adj_1(m + n, 0, k);
 
-    cout << "the result is " << r << endl;
+    cout << "1: the result is " << r << endl;
+
+    // TODO
+    // sol3: divide and conquer.
+    /*
+    t = k;
+    int a = 0; b = 0;
+    while (t > 0)
+    {
+        tmp = a;
+        a = num % 4 + a + b;// 4 -> 1, 8 -> 3, 16-> 8,
+        if ((t & 0x3) == 0x3)
+            ++a;
+        b = tmp;
+    }
+    */
+
 }
 
+
+
 // reference
-// https://github.com/andreis/interview 
+// https://github.com/andreis/interview
 //
 
 
@@ -4073,6 +4095,12 @@ void test_nums_with_no_adjacent_1()
 // handle n + 1?
 int main()
 {
+    // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
+    // But I did not pass. because I pretend I do not know the problem before.
+    // 문제를 다 풀기전에, 리커시브로alphacode 풀다가 잘 안된다고 DP로 넘어갔고,
+    // three var sum to zero또한N^2로 풀다가 안된다고NlogN 으로 넘어갔음. 나는
+    // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
+    // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
+    // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
     test_nums_with_no_adjacent_1();
 }
-
