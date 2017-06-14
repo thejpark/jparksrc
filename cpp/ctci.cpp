@@ -2799,7 +2799,7 @@ public:
     {
         shared_ptr<node> n = get(s);
 
-        if (!n)
+        if (n)
         {
             n->data = i;
             return;
