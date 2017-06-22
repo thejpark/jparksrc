@@ -16,8 +16,11 @@ def bar(c):
     return c + 1
 
 class base:
+    def __init__(self, x):
+        self.val = x
+
     def foo(self, a):
-        return a + 2
+        return a + self.val
 
 
 def print10():
