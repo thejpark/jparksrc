@@ -4095,7 +4095,10 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
     {
       ss.insert(s[i]);
       if (ss.size() == k.size())
-        end = i;
+        {
+          end = i;
+          break;
+        }
     }
   }
 
