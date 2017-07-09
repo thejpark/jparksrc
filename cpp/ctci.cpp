@@ -4085,11 +4085,17 @@ void test_nums_with_no_adjacent_1()
 pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
 {
   map<string, int> m;
-  set<string> ss;
+  set<string> ss, sk;
   int begin = 0, end = 0;
+
+  for (int i = 0; i < k.size(); ++i)
+    sk.insert(k[i]);
 
   for (int i = 0; i < s.size(); ++i)
   {
+    if (sk.find(s[i]) == sk.end())
+      continue;
+
     m[s[i]]++;
     if (ss.size() > k.size())
     {
@@ -4148,14 +4154,16 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
 
 
   vector<string> vs, vk;
-  for (int = 0; i < n; ++ i)
+  for (int i = 0; i < n; ++ i)
     {
+      string s;
       cin >> s;
       vs.emplace_back(s);
     }
 
-  for (int = 0; i < m; ++ i)
+  for (int i = 0; i < m; ++ i)
     {
+      string s;
       cin >> s;
       vk.emplace_back(s);
     }
