@@ -4082,6 +4082,14 @@ void test_nums_with_no_adjacent_1()
 }
 
 
+void test_find_smallest_subarray_of_string_containing_key_strings
+{
+  // sol 1: for each index from 0, find subarray that have all the containing key, find the min of all the finding.
+  // sol 2: first pass, for each index from 0 update map<string, int> for word count. also find first index(k) which has all keys
+  //        second pass, start with [0, k], increase lower bound, if it causes a key missing then stop increase lower bound. increase upper bound
+  //        until the missing key found. Keep update smallest range [a, b] until we run up all the element in the array
+  
+}
 
 // reference
 // https://github.com/andreis/interview
