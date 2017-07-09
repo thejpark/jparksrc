@@ -4082,7 +4082,58 @@ void test_nums_with_no_adjacent_1()
 }
 
 
-void test_find_smallest_subarray_of_string_containing_key_strings
+pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
+{
+  map<string, int> m;
+  set<string> ss;
+  int begin = 0, end = 0;
+
+  for (int i = 0; i < s.size(); ++i)
+  {
+    m[s[i]]++;
+    if (ss.size() > k.size())
+    {
+      ss.insert(s[i]);
+      if (ss.size() == k.size())
+        end = i;
+    }
+  }
+
+  int size = end - begin + 1;
+  int f_begin = 0, f_end = 0;
+
+  string missing_str;
+  while(true) {
+      while(true) {
+        m[s[begin]]--;
+        if (m[s[begin]] == 0)
+          {
+            missing_str = s[begin];
+            break;
+          }
+        ++begin;
+      } 
+
+      while(true) {
+        m[s[end]]++;
+        if (s[end] == missing_str)
+          break;
+        ++end;
+      } 
+
+      // if there is multiple of same range, ignore that
+      if (end - begin  + 1 < size)
+        {
+          f_end = end;
+          f_begin = begin;
+          size = end - begin;
+        }
+    }
+
+  return pair<int, int>(f_begin, f_end);
+}
+
+void test_find_smallest_subarray_of_string_containing_key_strings()
 {
   // sol 1: for each index from 0, find subarray that have all the containing key, find the min of all the finding.
   // sol 2: first pass, for each index from 0 update map<string, int> for word count. also find first index(k) which has all keys
