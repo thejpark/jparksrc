@@ -14,6 +14,7 @@
 #include <vector>
 #include <list>
 #include <set>
+#include <unordered_set>
 #include <iterator> //
 #include <iostream>
 #include <algorithm>
@@ -4084,8 +4085,8 @@ void test_nums_with_no_adjacent_1()
 
 pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
 {
-  map<string, int> m;
-  set<string> ss, sk;
+  unordered_map<string, int> m;
+  unordered_set<string> ss, sk;
   int begin = 0, end = 0;
 
   for (int i = 0; i < k.size(); ++i)
@@ -4097,23 +4098,26 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
       continue;
 
     m[s[i]]++;
-    if (ss.size() > k.size())
-    {
-      ss.insert(s[i]);
-      if (ss.size() == k.size())
-        {
-          end = i;
-          break;
-        }
-    }
+    ss.insert(s[i]);
+    if (ss.size() == k.size())
+      {
+        end = i;
+        break;
+      }
   }
 
   int size = end - begin + 1;
   int f_begin = 0, f_end = 0;
 
   string missing_str;
-  while(true) {
-      while(true) {
+  while(end < s.size()) {
+      while(begin != end) {
+        if (sk.find(s[begin]) == sk.end())
+          {
+            ++begin;
+            continue;
+          }
+
         m[s[begin]]--;
         if (m[s[begin]] == 0)
           {
@@ -4123,13 +4127,21 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
         ++begin;
       } 
 
-      while(true) {
+      while(end < s.size()) {
+        if (sk.find(s[end]) == sk.end())
+          {
+            ++end;
+            continue;
+          }
+
         m[s[end]]++;
         if (s[end] == missing_str)
           break;
         ++end;
       } 
 
+      if (end == s.size())
+        continue;
       // if there is multiple of same range, ignore that
       if (end - begin  + 1 < size)
         {
