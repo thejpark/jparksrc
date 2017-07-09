@@ -4143,6 +4143,26 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
   //        second pass, start with [0, k], increase lower bound, if it causes a key missing then stop increase lower bound. increase upper bound
   //        until the missing key found. Keep update smallest range [a, b] until we run up all the element in the array
   
+  int n, m;
+  cin >> n >> m;
+
+
+  vector<string> vs, vk;
+  for (int = 0; i < n; ++ i)
+    {
+      cin >> s;
+      vs.emplace_back(s);
+    }
+
+  for (int = 0; i < m; ++ i)
+    {
+      cin >> s;
+      vk.emplace_back(s);
+    }
+
+  auto r = find_small_subarray(vs, vk);
+
+  cout << " the result is " << r.first << ", " << r.second << endl;
 }
 
 // reference
