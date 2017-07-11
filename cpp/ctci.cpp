@@ -4155,6 +4155,28 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
   cout << " the result is " << r.first << ", " << r.second << endl;
 }
 
+
+bool check_array_is_keep_increasing_decreasing(vector<int>& a)
+{
+  int direction = a.back() > a.front() ? 1 : -1;
+
+  for (int i = 0; i < a.size() - 1; ++i) {
+    int tempd;
+
+    if (direction == 1) {
+      tempd = a[i + 1] >= a[i] ? 1 : -1;
+    }
+    else {
+      tempd = a[i + 1] <= a[i]? -1 : 1;
+    }
+
+    if (tempd != direction)
+      return false;
+  }
+
+  return true;
+}
+
 // reference
 // https://github.com/andreis/interview
 //
