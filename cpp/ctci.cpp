@@ -4091,27 +4091,30 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
 
   for (int i = 0; i < k.size(); ++i) {
     sk.insert(k[i]);
-    ++m[key];
   }
 
-  int remain = sk.size();
+  int size = 0;
 
   for (int left = 0, right = 0; right < s.size(); ++right) {
-    if (sk.count(s[right]) &&
-        --m[s[right]] >= 0) {
-          --remain;
+    if (sk.count(s[right])) {
+      if (m[s[right]] == 0) {
+          ++size;
+      }
+      ++m[s[right]];
     }
 
-    while (remain == 0) {
+    while (size == sk.size()) {
       if ((begin == -1 && end == -1) ||
           right - left < end - begin) {
         begin = left;
         end = right;
       }
 
-      if (sk.count(s[left]) &&
-          ++m[s[left]] > 0) {
-        ++remain;
+      if (sk.count(s[left])) {
+        if(m[s[left]] == 1) {
+          --size;
+        }
+        --m[s[left]];
       }
 
       ++left;
