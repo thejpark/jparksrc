@@ -4086,72 +4086,39 @@ void test_nums_with_no_adjacent_1()
 pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
 {
   unordered_map<string, int> m;
-  unordered_set<string> ss, sk;
-  int begin = 0, end = 0;
+  unordered_set<string> sk;
+  int begin = -1, end = -1;
 
-  for (int i = 0; i < k.size(); ++i)
+  for (int i = 0; i < k.size(); ++i) {
     sk.insert(k[i]);
-
-  for (int i = 0; i < s.size(); ++i)
-  {
-    if (sk.find(s[i]) == sk.end())
-      continue;
-
-    m[s[i]]++;
-    ss.insert(s[i]);
-    if (ss.size() == k.size())
-      {
-        end = i;
-        break;
-      }
+    ++m[key];
   }
 
-  int size = end - begin + 1;
-  int f_begin = 0, f_end = 0;
+  int remain = sk.size();
 
-  string missing_str;
-  while(end < s.size()) {
-      while(begin != end) {
-        if (sk.find(s[begin]) == sk.end())
-          {
-            ++begin;
-            continue;
-          }
-
-        m[s[begin]]--;
-        if (m[s[begin]] == 0)
-          {
-            missing_str = s[begin];
-            break;
-          }
-        ++begin;
-      } 
-
-      while(end < s.size()) {
-        if (sk.find(s[end]) == sk.end())
-          {
-            ++end;
-            continue;
-          }
-
-        m[s[end]]++;
-        if (s[end] == missing_str)
-          break;
-        ++end;
-      } 
-
-      if (end == s.size())
-        continue;
-      // if there is multiple of same range, ignore that
-      if (end - begin  + 1 < size)
-        {
-          f_end = end;
-          f_begin = begin;
-          size = end - begin;
-        }
+  for (int left = 0, right = 0; right < s.size(); ++right) {
+    if (sk.count(s[right]) &&
+        --m[s[right]] >= 0) {
+          --remain;
     }
 
-  return pair<int, int>(f_begin, f_end);
+    while (remain == 0) {
+      if ((begin == -1 && end == -1) ||
+          right - left < end - begin) {
+        begin = left;
+        end = right;
+      }
+
+      if (sk.count(s[left]) &&
+          ++m[s[left]] > 0) {
+        ++remain;
+      }
+
+      ++left;
+    }
+  }
+
+  return pair<int, int>(begin, end);
 }
 
 void test_find_smallest_subarray_of_string_containing_key_strings()
