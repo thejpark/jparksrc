@@ -2,6 +2,7 @@
 ** 잠과 건강을 가장 중요하게 생각하자.
 ** TODO health
 *** TODO sleep 
+*** TODO eye 
 ** TODO name app
 *** TODO app for fb
 *** DONE app for appl
@@ -10,6 +11,7 @@
 *** TODO effective modern c++
 *** TODO machine learning
 *** TODO clean code
+*** TODO coding interview
 
 * 2014
 
