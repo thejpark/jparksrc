@@ -4124,6 +4124,42 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
   return pair<int, int>(begin, end);
 }
 
+pair<int, int> find_small_subarray(istringstream* sin, vector<string>& k)
+{
+  list<int> loc;
+  unordered_map<string, list<int>::iterator> dict;
+
+  for (string& s : k) {
+    dict[s] = loc.end();
+  }
+
+  int begin = -1, end = -1;
+
+  int idx = 0;
+  string s;
+  while(*sin >> s) {
+    auto it = dict.find(s);
+    if (it != dict.end()) {
+      loc.erase(it->second);
+    }
+
+    loc.emplace_back(idx);
+    it->second = --loc.end();
+
+    if (loc.size() == k.size()) {
+      if ((begin == -1 && end == -1) ||
+          idx - loc.front() < end - begin) {
+        begin = loc.front();
+        end = idx;
+      }
+    }
+
+    ++idx;
+  }
+
+  return pair<int, int>(begin, end);
+}
+
 void test_find_smallest_subarray_of_string_containing_key_strings()
 {
   // sol 1: for each index from 0, find subarray that have all the containing key, find the min of all the finding.
