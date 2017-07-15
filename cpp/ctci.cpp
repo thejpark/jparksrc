@@ -4140,11 +4140,13 @@ pair<int, int> find_small_subarray(istringstream* sin, vector<string>& k)
   while(*sin >> s) {
     auto it = dict.find(s);
     if (it != dict.end()) {
-      loc.erase(it->second);
-    }
+      if (it->second != loc.end()) {
+        loc.erase(it->second);
+      }
 
-    loc.emplace_back(idx);
-    it->second = --loc.end();
+      loc.emplace_back(idx);
+      it->second = --loc.end();
+    }
 
     if (loc.size() == k.size()) {
       if ((begin == -1 && end == -1) ||
@@ -4159,6 +4161,7 @@ pair<int, int> find_small_subarray(istringstream* sin, vector<string>& k)
 
   return pair<int, int>(begin, end);
 }
+
 
 void test_find_smallest_subarray_of_string_containing_key_strings()
 {
@@ -4189,6 +4192,40 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
   auto r = find_small_subarray(vs, vk);
 
   cout << " the result is " << r.first << ", " << r.second << endl;
+}
+
+// the same problem, but subarray should have order
+pair<int, int> find_small_subarray_with_order(vector<string>& s, vector<string>& k)
+{
+  vector<int> vi(k.size(), -1);
+  int begin = -1, end = -1;
+  map<string, int> m;              // map for string to index into vector vi
+  for (int i = 0; i < k.size(); ++i) {
+    m[k[i]] = i;
+  }
+
+  for (int i = 0; i < s.size(); ++i) {
+    if (s[i] == k[0]) {
+      vi[0] = i;
+      continue;
+    }
+
+    auto it = m.find(s[i]);
+    if (it != m.end()) {
+      int idx = it->second;
+      if (vi[idx - 1] != -1) {
+        vi[idx] = vi[idx - 1];
+        vi[idx - 1] = -1;
+        if (idx == k.size() - 1 && ((begin == -1 && end == -1) || (i - vi[idx] < end - begin))) {
+          begin = vi[idx];
+          end = i;
+          vi[idx] = -1;
+        }
+      }
+    }
+  }
+
+  return pair<int, int>(begin, end);
 }
 
 
