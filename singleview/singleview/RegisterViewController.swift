@@ -99,7 +99,8 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return genderPickerData[row]
         }
         else if pickerView == self.placePicker {
-            place = placePickerData[row]
+            // todo: also remove assignment stmt above
+            // place = placePickerData[row]
             return placePickerData[row]
         }
 
