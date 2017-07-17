@@ -4228,6 +4228,52 @@ pair<int, int> find_small_subarray_with_order(vector<string>& s, vector<string>&
   return pair<int, int>(begin, end);
 }
 
+// [3, -2, 7, 9, 8, 1, 2, 0, -1, 5, 8] -> [-2, -1, 0, 1, 2, 3]
+pair<int, int> find_largest_contained_interval(vector<int>& vi)
+{
+  unordered_map<int, int> m;
+
+  for (auto e : vi) {
+    m[e] = e;
+  }
+
+  unordered_set<int> s(vi.begin(), vi.end());
+
+  for (auto e :vi) {
+    if (m.find(e + 1) != m.end()) {
+      m[e] = e + 1;
+      s.erase(e + 1);
+    }
+  }
+
+  // now s should have root nodes
+  auto begin = s.begin();
+  int next = *begin;
+  int a = next;
+  int count = 1;
+  while (m[next] != next) {
+    next = m[next];
+    ++count;
+  }
+  int b = next;
+
+  for (auto beg = ++(s.begin()); beg != s.end(); ++beg) {
+    int next = *beg;
+    int cnt = 1;
+    while (m[next] != next) {
+      next = m[next];
+      ++cnt;
+    }
+
+    if (cnt > count) {
+      count = cnt;
+      a = *beg;
+      b = next;
+    }
+  }
+
+  return pair<int, int>(a, b);
+}
 
 bool check_array_is_keep_increasing_decreasing(vector<int>& a)
 {
