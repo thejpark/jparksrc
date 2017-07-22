@@ -15,8 +15,10 @@
 #include <list>
 #include <set>
 #include <unordered_set>
+#include <queue>
 #include <iterator> //
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <functional> // function  object
 #include <math.h>
@@ -4295,6 +4297,50 @@ bool check_array_is_keep_increasing_decreasing(vector<int>& a)
 
   return true;
 }
+
+int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores)
+{
+  int sum = 0;
+  while (!scores.empty()) {
+    sum += scores.top();
+    scores.pop();
+  }
+
+  return sum;
+}
+
+string find_student_with_highest_best_of_three_scores(ifstream* ifs)
+{
+  // multiset
+  unordered_map<string, priority_queue<int, vector<int>, greater<int>>> student_scores;
+
+  string name;
+  int score;
+
+  while (*ifs >> name >> score) {
+    student_scores[name].emplace(score);
+    if (student_scores[name].size() > 3) {
+      student_scores[name].pop();
+
+    }
+  }
+
+  string top_student = "no such student";
+  int current_top_sum = 0;
+  for (const auto& scores: student_scores) {
+    if (scores.second.size() == 3) {
+      int current_scores_sum = get_top_three_scores_sum(scores.second);
+      if (current_scores_sum > current_top_sum) {
+        current_top_sum = current_scores_sum;
+        top_student = scores.first;
+
+      }
+    }
+  }
+
+  return top_student;
+}
+
 
 // reference
 // https://github.com/andreis/interview
