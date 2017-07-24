@@ -2432,6 +2432,8 @@ void test_merge_array()
         }
     }
 
+    // this can be done with two separate while loop (section 14.2 of element of coding interview)
+
     for (auto e : a)
         cout << e << " ";
 
