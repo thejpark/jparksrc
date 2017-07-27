@@ -4344,6 +4344,43 @@ string find_student_with_highest_best_of_three_scores(ifstream* ifs)
 }
 
 
+struct student {
+  int age;
+  string name;
+};
+
+// partition student so that same ages go together.
+// try to swap inplace to reduce memory usage.
+void partition_student_with_same_age(vector<student>& vs)
+{
+  unordered_map<int, int> age_count;
+  unordered_map<int, int> age_offset;
+
+  for (auto& a : vs) {
+    age_count[a.age]++;
+  }
+
+  int offset = 0;
+  for (auto& a : age_count) {
+    age_offset[a.first] = offset;
+    offset += a.second;
+  }
+
+  while (age_offset.size()) {
+    auto from = age_offset.begin();
+    auto to = age_offset.find(vs[from->second].age);
+
+    swap(vs[from->second], vs[to->second]);
+
+    --age_count[to->first];
+    if (age_count[to->first]) {
+      --to->second;
+    }
+    else {
+      age_offset.erase(to);
+    }
+  }
+}
 // reference
 // https://github.com/andreis/interview
 //
