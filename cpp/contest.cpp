@@ -1397,132 +1397,10 @@ void dp_triangle_test()
 }
 
 
-void init_combination(vector<int> &vi, int n, int k)
-{
-  for (int i = 0; i < k; i++)
-    vi.push_back(i);
-  
-}
-
-
-int get_next_combination(vector<int> &vi, int n, int k)
-{
-  int size = vi.size();
-  int i = 1;
-
-  while (i > 0) {
-
-    if (vi[size - i] >= n - i) {
-      vi[size - i] = 0;
-      i++;
-      if (i > k) break;
-      
-    } else {
-
-      if (i < k)
-	if (vi[size - i] < vi[size - i - 1])
-	  vi[size - i] = vi[size - i - 1];
-
-      vi[size - i]++;
-      i--;
-    }
-    
-  }
-
-  if (i > k)
-    return 0;
-
-  return 1;
-}
-
-
-
-void compute_matrix(vector<vector<int> > &vii, vector<int> &vi)
-{
-
-  int n = vi.size();
-  vii.resize(vi.size());
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-
-      vii[i].push_back(abs(vi[i] - vi[j]));
-
-    }
-  }
-
-}
-
-
-int dp_post_office(vector<vector<int> > &vii, vector<int> &vi)
-{
-
-  int r = 0;
-  int idx = 0;
-  int i = 0;
-
-  while (i <= vi[idx])
-    r += vii[i++][vi[idx]];
-    
-  while (i <= vi[vi.size() - 1])  {
-
-    r += min(vii[i][vi[idx]], vii[i][vi[idx + 1]]);
-    i++;
-    if (i > vi[idx + 1])
-      ++idx;
-  }
-
-  while (i < vii.size())
-    r += vii[i++][vi[idx]];
-
-  return r;
-    
-}
-
 // http://poj.org/problem?id=1160
 
 // I think it is similar with find_perfect_stall problem.
 // or just a combination problem
-
-void post_office()
-{
-
-  int num_v, num_p;
-  vector<int> vi;
-  int t, min_t, r;
-  vector<vector<int> > vii;
-  vector<int> vi2;
-
-  cin >> num_v >> num_p;
-
-
-  for(int i = 0; i < num_v; i++) {
-    cin >> t;
-    vi.push_back(t);
-  }
-
-  compute_matrix(vii, vi);
-
-  init_combination(vi2, num_v, num_p);
-
-  min_t = - 1;
-  while (1) {
-
-    t = dp_post_office(vii, vi2);
-    if (min_t == -1)
-      min_t = t;
-    else if (min_t > t)
-      min_t = t;
-
-    r = get_next_combination(vi2, num_v, num_p);
-    if (!r) break;
-  }
-
-  cout <<  "the result is " << min_t << endl;
-
-}
-
-
 int get_sum(vector<int>& vi, vector<int>& vt)
 {
   int idx = 0;
@@ -1580,7 +1458,7 @@ void get_comb(vector<int>& a, vector<vector<int>>& vr, vector<int>& vt, int num_
   }
 }
 
-void post_office2()
+void post_office()
 {
 
   int num_v, num_p;
@@ -4818,7 +4696,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-  post_office2();
+  post_office();
 }
 
 
