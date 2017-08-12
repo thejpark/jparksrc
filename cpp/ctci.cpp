@@ -10,7 +10,7 @@
  */
 
 
-#include <assert.h>
+#include <assert.h>i
 #include <vector>
 #include <list>
 #include <set>
@@ -4300,6 +4300,33 @@ bool check_array_is_keep_increasing_decreasing(vector<int>& a)
   return true;
 }
 
+void test_largest_increasing_range_in_array()
+{
+  int n;
+  cin >> n;
+
+  vector<int> v;
+  for (int i = 0; i < n; ++i) {
+    int t;
+    cin >> t;
+    v.emplace_back(t);
+  }
+
+  vector<int> r(v.size());
+
+  int max_r = 0;
+  for (int i = v.size() - 2; i >= 0; --i) {
+    if (v[i] < v[i + 1]) {
+      r[i] = r[i + 1] + 1;
+    }
+    if (r[i] > max_r) {
+      max_r = r[i];
+    }
+  }
+
+  cout << "the result is " << max_r << endl;
+}
+
 int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores)
 {
   int sum = 0;
@@ -4400,5 +4427,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_nums_with_no_adjacent_1();
+  test_largest_increasing_range_in_array();
 }
