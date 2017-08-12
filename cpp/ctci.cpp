@@ -10,7 +10,7 @@
  */
 
 
-#include <assert.h>i
+#include <assert.h>
 #include <vector>
 #include <list>
 #include <set>
