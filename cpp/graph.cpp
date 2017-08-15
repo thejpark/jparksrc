@@ -11,7 +11,7 @@
 using namespace std;
 
 template<class T>
-class graph 
+class graph
 {
 private:
     map<T, int> r;
@@ -35,13 +35,13 @@ public:
     }
 
     list<pair<T, int> >
-    adj(T from) 
+    adj(T from)
     {
         return node[from];
     }
 
     map<T, int>
-    dijkstra(T from) 
+    dijkstra(T from)
     {
         // initial distance
         list<pair<T, int> > adjlist = adj(from);
@@ -52,7 +52,7 @@ public:
 
         set<T> s;
         set<T> v;
-        s.insert(from);        
+        s.insert(from);
         for (typename map<T, int>::iterator it = r.begin();
              it != r.end();
              ++it)
@@ -74,14 +74,14 @@ public:
 
             s.insert(m);
             v.erase(m);
-                    
+
             list<pair<T, int> > adj_m = adj(m);
             for(iter it = adj_m.begin();
                     it != adj_m.end(); ++it) {
 
                     r[it->first] = min(r[it->first], r[m] + it->second);
             }
-            
+
         }
         return r;
     }
@@ -90,16 +90,13 @@ public:
     {
         resolved[t] = true; // we now can work with cycle.
 
-        if (!node[t].empty())
-        {
-            for (typename list<pair<T, int> >::iterator it = node[t].begin();
-                 it != node[t].end();
-                 ++it)
-            {
-                if (!resolved[it->first])
-                    sort(it->first);
-            }
-        }
+        for (typename list<pair<T, int> >::iterator it = node[t].begin();
+             it != node[t].end();
+             ++it)
+          {
+            if (!resolved[it->first])
+              sort(it->first);
+          }
         // actually visited can be here if there is no cycle
         // resolved[t] = true;
         cout << t << endl;
@@ -127,7 +124,7 @@ public:
             visited[t]--;
             return;
         }
-        
+
         if (!node[t].empty())
         {
             for (typename list<pair<T, int> >::iterator it = node[t].begin();
@@ -138,7 +135,7 @@ public:
                     sortFindCycle(it->first);
             }
         }
-       
+
         cout << t << endl;
         resolved[t] = true;
         visited[t]--;
@@ -223,7 +220,7 @@ public:
             int r;
             if (e.first == s)
                 r = e.second;
-            else 
+            else
                 r = min(e.second, findMaxFlow(s, e.first));
 
             if (tmax < r)
@@ -248,13 +245,13 @@ public:
         {
             int r;
             list<T> tl;
-                
+
             tl.push_back(e.first);
             if (e.first == s)
             {
                 r = e.second;
             }
-            else 
+            else
             {
                 // cycle should not allowd here
                 if (visited[e.first] == 0)
@@ -302,12 +299,12 @@ public:
             }
         }
     }
-        
+
 };
 
 
 
-    
+
 int t1()
 {
     // test: find is by-value
@@ -319,7 +316,7 @@ int t1()
     l.push_back(pair<int, int>(1, 4));
 
     typedef list<pair<int, int> >::iterator iter;
-    
+
     iter it = find(l.begin(), l.end(), pair<int, int>(1,3));
 
     if (it != l.end())
@@ -339,7 +336,7 @@ int t2()
     g.push(4, 5, 60);
 
     map<int, int> r = g.dijkstra(1);
-        
+
     for (map<int, int>::iterator it = r.begin();
          it != r.end();
          ++it)
@@ -354,13 +351,13 @@ static pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 static int numTerm;
 
-struct thread_bfs 
+struct thread_bfs
 {
     list<int> *pfnode;
     graph<int> *pg;
     int node;
     map<int,int> *pmap;
-    
+
 };
 
 static void *
@@ -370,7 +367,7 @@ threadFunc1(void * args)
 
     struct thread_bfs *thr = (struct thread_bfs *)args;
     list<pair<int, int> > adjlist = (*(thr->pg)).adj(thr->node);
-    
+
     err = pthread_mutex_lock(&mtx);
     if (err)
         cout << "error in mutex_lock" << endl;
@@ -382,7 +379,7 @@ threadFunc1(void * args)
             ++(*(thr->pmap))[it->first];
             (*(thr->pfnode)).push_back(it->first);
             cout << "added node " << it->first << endl;
-            
+
         }
     }
 
@@ -395,7 +392,7 @@ threadFunc1(void * args)
     err = pthread_cond_signal(&cond);
     if (err)
         cout << "error in cond_signalx" << endl;
-}    
+}
 
 
 int t_thread_bfs_1()
@@ -408,7 +405,7 @@ int t_thread_bfs_1()
 
     numTerm = 0;
     int numCre = 0;
-    
+
     g.push(1, 2, 0);
     g.push(1, 4, 0);
     g.push(1, 5, 0);
@@ -421,11 +418,11 @@ int t_thread_bfs_1()
     // main thread is waiting for the list to be updated, and
     fnode.push_back(1);
     xmap[1]++; // mark visited. Otherwise you might end up with revisit the node
-    
+
     bool done = false;
-    
+
     while (!done) {
-        
+
         int err = pthread_mutex_lock(&mtx);
         if (err)
             cout << " error in mutex_lock " << endl;
@@ -451,7 +448,7 @@ int t_thread_bfs_1()
             // we do not have anything in the Q but worker threads are pending
             // wait for signal from the thread to avoid busy waiting
             cout << endl << "wait for new Data" << endl;
-            
+
             err = pthread_cond_wait(&cond, &mtx);
             if (err)
                 cout << " error in cond_wait " << endl;
@@ -544,7 +541,7 @@ void trie::add(string s)
 {
     int i = 0;
     int len = s.size();
-    // 
+    //
     shared_ptr<node> n = root;
     while(i < len)
     {
@@ -571,8 +568,8 @@ void trie::remove(string s)
 {
     int i = 0;
     int len = s.size();
-    
-    // 
+
+    //
     shared_ptr<node> n = root;
     shared_ptr<node> prev_n = root;
     char prev_ch;
@@ -628,7 +625,7 @@ bool trie::find(string s)
         n = it->second;
         ++i;
     }
-    
+
     return n->complete;
 }
 
@@ -719,7 +716,7 @@ void t6()
     for (auto it = vs.begin(); it != vs.end(); ++it)
         cout << *it << endl;
 }
- 
+
 
 // given a weighted grath, find a max flow path from source to dest
 void t7()
@@ -797,7 +794,7 @@ void t7_2()
             cout << e << " ";
 
         cout << endl;
-        g.update(1, 6, tl, tmax); 
+        g.update(1, 6, tl, tmax);
         tl.clear();
 
         tmax = g.findMaxFlow(1, 6, tl);
@@ -826,7 +823,7 @@ void t7_3()
             cout << e << " ";
 
         cout << endl;
-        g.update(1, 4, tl, tmax); 
+        g.update(1, 4, tl, tmax);
         tl.clear();
 
         tmax = g.findMaxFlow(1, 4, tl);
@@ -844,7 +841,7 @@ void Union(int x, int y) {
 }
 
 
-// path compression 
+// path compression
 int Find(int x) {
     if(x == L[x]) return x;
     int root = Find(L[x]);
@@ -915,7 +912,7 @@ bool bfs_pair(node* n, int a, int b)
                 cout << "found" << endl;
                 return true;
             }
-            
+
             if (t->left && (visited[t->left] == false))
             {
                 visited[t->left] = true;
@@ -945,7 +942,7 @@ void test_bfs_pair()
     c.a = 5;c.b = 6;
     d.a = 7;d.b = 8;
     e.a = 9;e.b = 10;
-    
+
     cout << bfs_pair(&a, 1, 2) << endl;
     cout << bfs_pair(&a, 3, 6) << endl;
     cout << bfs_pair(&a, 2, 9) << endl;
