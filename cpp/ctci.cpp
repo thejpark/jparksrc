@@ -615,15 +615,16 @@ int t17()
 
 // remove duplicate for a linked list and map
 struct node {
-    node(int d) : data(d), next(NULL) {};
+    node(int d) : data(d), next(nullptr) {};
     int data;
     node* next;
 };
 
 
+//jj
 void remove_dup5(node* n)
 {
-    if (n == NULL)
+    if (n == nullptr)
         return;
 
     map<int, int> mc;
@@ -631,7 +632,7 @@ void remove_dup5(node* n)
     mc[n->data]++;
 
     n = n->next;
-    while (n != NULL)
+    while (n != nullptr)
     {
         mc[n->data]++;
 
@@ -643,7 +644,7 @@ void remove_dup5(node* n)
 
         n = n->next;
     }
-    end->next = NULL;
+    end->next = nullptr;
 }
 
 // remove duplicate in linked list
@@ -685,6 +686,7 @@ void t21()
 
 }
 
+//todo
 node* reverse_list(node* a)
 {
     if (!a)
