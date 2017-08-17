@@ -110,6 +110,7 @@ void reverse(string &s)
 
 }
 
+//jg
 void rotate(string &s, int middle)
 {
     int first = 0;
@@ -217,6 +218,7 @@ void remove_dup(string &s)
     s.resize(len);
 }
 
+//jj
 // using find method in the same place
 void remove_dup2(string &s)
 {
@@ -271,6 +273,7 @@ void remove_dup3(string &s)
 }
 
 
+//jj
 void remove_dup4(string& s)
 {
     if (s.size() == 0)
@@ -398,6 +401,7 @@ void replace(string &s, string r)
 
 
 
+//jj
 // this version does not need copying element after replacing.
 void replace2(string &s, string r)
 {
@@ -539,6 +543,7 @@ void set_col(vector<vector<int> > &m, int col)
 }
 
 
+//jj
 void col_row(vector<vector<int>>& m)
 {
 
@@ -574,19 +579,9 @@ void col_row(vector<vector<int>>& m)
 //
 
 
-
-// when it comes to a matrix, it would be better to use array instead of vector.
-// as we have to resize.
-// we can use array, but it needs copy function. we can do that easily.
-// but if we assume input is given, then vector is also ok.
-
 int t17()
 {
-    vector<vector<int> > m;
-    m.resize(3);
-    m[0].resize(3);
-    m[1].resize(3);
-    m[2].resize(3);
+  vector<vector<int> > m(3, vector<int>(3, 0));
 
     m[0][0] = 1;
     m[0][1] = 2;
