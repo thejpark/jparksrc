@@ -110,8 +110,8 @@ void reverse(string &s)
 
 }
 
-//jg
-void rotate(string &s, int middle)
+
+void rotate(string &s, int middle)//jj
 {
     int first = 0;
     int last = s.size();
@@ -218,9 +218,8 @@ void remove_dup(string &s)
     s.resize(len);
 }
 
-//jj
 // using find method in the same place
-void remove_dup2(string &s)
+void remove_dup2(string &s)//jj
 {
     int ret = 1;
     int len = s.size();
@@ -273,8 +272,7 @@ void remove_dup3(string &s)
 }
 
 
-//jj
-void remove_dup4(string& s)
+void remove_dup4(string& s)//jj
 {
     if (s.size() == 0)
         return;
@@ -401,9 +399,8 @@ void replace(string &s, string r)
 
 
 
-//jj
 // this version does not need copying element after replacing.
-void replace2(string &s, string r)
+void replace2(string &s, string r)//jj
 {
 
     int i, j;
@@ -543,8 +540,7 @@ void set_col(vector<vector<int> > &m, int col)
 }
 
 
-//jj
-void col_row(vector<vector<int>>& m)
+void col_row(vector<vector<int>>& m)//jj
 {
 
     set<int> col, row;
@@ -621,8 +617,7 @@ struct node {
 };
 
 
-//jj
-void remove_dup5(node* n)
+void remove_dup5(node* n)//jj
 {
     if (n == nullptr)
         return;
@@ -686,7 +681,6 @@ void t21()
 
 }
 
-//todo
 node* reverse_list(node* a)
 {
     if (!a)
@@ -708,7 +702,7 @@ node* reverse_list(node* a)
 }
 
 // 1->2->3->4 to 2->1->4->3
-node* reverse_list_every_other(node* a)
+node* reverse_list_every_other(node* a)//jj
 {
     if (!a)
         return a;
@@ -733,13 +727,8 @@ node* reverse_list_every_other(node* a)
     return r.next;
 }
 
-pair<node*, node*> swap_two(node* a)
+pair<node*, node*> swap_two(node* a)//jj
 {
-    if (!a)
-        return pair<node*, node*>(nullptr, nullptr);
-    else if (!a->next)
-        return pair<node*, node*>(a, nullptr);
-
     node* first = a->next;
     node* next = first->next;
     a->next = next;
@@ -749,14 +738,11 @@ pair<node*, node*> swap_two(node* a)
 
 node* reverse_list_every_other2(node* a)
 {
-    if (!a)
-        return a;
-
     node rtn(0);
     node* prev = &rtn;
     prev->next = a;
 
-    while (a)
+    while (a && a->next)
     {
         auto n = swap_two(a);
 
@@ -764,8 +750,6 @@ node* reverse_list_every_other2(node* a)
 
         prev = n.second;
 
-        if (!n.second)
-            break;
         a = prev->next;
     }
 
@@ -775,7 +759,7 @@ node* reverse_list_every_other2(node* a)
 // or, you can just swap the value of first and second node.
 
 
-node* merge_list(node*a, node*b)
+node* merge_list(node*a, node*b)//jj
 {
 // merge two list into one
 
@@ -880,14 +864,14 @@ pair<node*, node*> skip_zero(node* n)
     return pair<node*, node*>(prev, n);
 }
 
-pair<node*, node*> reverse_one_word(node* a)
+pair<node*, node*> reverse_one_word(node* a)//jj
 {
     if (!a)
         return pair<node*, node*>(a, a);
 
     node* prev = a;
     node* head = a;
-    a = a-> next;
+    a = a->next;
 
     while (a && a->data != 0)
     {
@@ -945,7 +929,7 @@ void test_reverse_word()
 }
 
 
-void test_merge_k_sorted_list()
+void test_merge_k_sorted_list()//jj
 {
 
     // merge k list of length n
@@ -990,7 +974,7 @@ private:
     stack<int> a, b;
 };
 
-class myq2 {
+class myq2 { //jj
 public:
     void enq(int x)
     {
@@ -1034,7 +1018,7 @@ private:
 
 
 // implement stack. pop, push, and min. all in O(1).
-class minstack
+class minstack //jj
 {
 public:
     void push(int a)
@@ -1110,7 +1094,7 @@ int t35_1()
 }
 
 stack<int>
-sort_stack(stack<int> a)
+sort_stack(stack<int> a) //jj
 {
     stack<int> b;
 
@@ -1153,7 +1137,7 @@ int t36()
 
 }
 
-void test_path_normalization()
+void test_path_normalization() //jj
 {
     string s;
     cin >> s;
@@ -1206,10 +1190,10 @@ void test_path_normalization()
     cout << " the result is " << r << endl;
 }
 
-void test_sunset_view()
+void test_sunset_view() //jj
 {
     // input: list of house with hight, east to west
-    // out : list ouf house with sunset view
+    // out : list of house with sunset view
     // constraints: if there is higher building in the west,
     // view is blocked and not sunset view.
 }
@@ -1259,7 +1243,7 @@ private:
 };
 
 
-void test_queue_with_max_method()
+void test_queue_with_max_method()//jj
 {
     int n;
     vector<int> v;
@@ -1440,7 +1424,7 @@ int t_thread_3()
 
 }
 
-void test_swap_even_odd_bits()
+void test_swap_even_odd_bits()//jj
 {
 	int a = 54;
 	printf("the value of a is %d\n", a);
@@ -1479,7 +1463,7 @@ int t191()
     a = 5;
     b = 4;
 
-    cout << "swap in place with " << a << " + " << b << endl;
+    cout << "swap in place with " << a << " + " << b << endl; //jj
     a = b - a;
     b = b - a;
     a = b + a;
@@ -1520,7 +1504,7 @@ int t1910()
 }
 
 
-// find int sumed up to a X: with map
+// find int sumed up to a X: with map //jj
 int t1911()
 {
 
@@ -1552,7 +1536,7 @@ int t1911()
 }
 
 
-// if the data is sorted, then we can do it in place with less then O-square
+// if the data is sorted, then we can do it in place with less then O-square//jj
 // This is another application of partition
 int t1911_1()
 {
@@ -2081,7 +2065,7 @@ void hashTest ()
   std::string str2 (nts2);
 
   std::hash<char*> ptr_hash;
-  std::hash<std::string> str_hash;
+  std::hash<std::string> str_hash; //jj
 
   std::cout << "same hashes:\n" << std::boolalpha;
   std::cout << "nts1 and nts2: " << (ptr_hash(nts1)==ptr_hash(nts2)) << '\n';
@@ -2098,8 +2082,7 @@ void t43()
 }
 
 
-// find next node in binary search tree (in order successor) where
-// each node has pointer to its parent
+// find next node in binary search tree (in order successor) where each node has pointer to its parent //jj
 #if 0
 
 tree* search_min(tree* n)
@@ -2142,7 +2125,7 @@ struct bt_node {
     T val;
 };
 
-pair<bool, int> check_balanced(const bt_node<int>* node)
+pair<bool, int> check_balanced(const bt_node<int>* node)//jj
 {
     if (!node)
         return pair<bool, int>(true, 0);
@@ -4424,5 +4407,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-  test_largest_increasing_sub_seq_in_array();
+  test_reverse_linked_list();
 }
