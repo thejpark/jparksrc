@@ -1536,8 +1536,7 @@ int t1911()
 }
 
 
-// if the data is sorted, then we can do it in place with less then O-square//jj
-// This is another application of partition
+// if the data is sorted, then we can do it in place with less then O-square. This is another application of partition //jj
 int t1911_1()
 {
     vector<int>vi;
@@ -2162,7 +2161,7 @@ void t45()
 }
 
 
-bool check_symmetric(bt_node<int>* left, bt_node<int>* right)
+bool check_symmetric(bt_node<int>* left, bt_node<int>* right)//jj
 {
     // or, traverse tree in order and store it in a list, and
     // store pair pair<list<bool>, int> where list shows path (i.e.,
@@ -2209,7 +2208,7 @@ void test_check_binary_tree_symmetric()
 // necessarily a binary search tree
 
 using elem1 = pair<int, bt_node<int>*>;
-elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)
+elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)//jj
 {
 
     if (n == nullptr)
@@ -2234,7 +2233,7 @@ void t46()
 }
 
 // You have two very large binary trees: T1, with millions of nodes, and T2,
-// with hun- dreds of nodes Create an algorithm to decide if T2 is a subtree of T1
+// with hundreds of nodes Create an algorithm to decide if T2 is a subtree of T1//jj
 
 #if 0
 Note that the problem here specifies that T1 has millions of nodes
@@ -2268,14 +2267,14 @@ void t47()
 
 
 // given a binary tree in which each node contains a value Design an
-// algorithm to print all paths which sum up to that value Note that
+// algorithm to print all paths which sum up to that value Note that//jj
 // it can be any path in the tree - it does not have to start at the root
 void t48()
 {
 
 }
 
-// circular buffer
+// circular buffer//jj
 
 class cb {
 public:
@@ -2368,15 +2367,14 @@ void t131()
     cout << ra << endl;
 }
 
-// find the last N lines in a file
-
+// find the last N lines in a file (use array in a circular way)//jj
 void t132()
 {
     // use array in a circular way
 }
 
 
-// merge to arrays into one, one with N + M size (N filled) and the other is M.
+// merge to arrays into one, one with N + M size (N filled) and the other is M.//jj
 // Merge into N + M size array.
 void test_merge_array()
 {
@@ -2424,7 +2422,7 @@ void test_merge_array()
 
 // this method returns the begining index of the character.
 // if there is no such character then it returns the position which it should be exist
-int find_beg(vector<char>& vc, int i, int j, char t)
+int find_beg(vector<char>& vc, int i, int j, char t)//jj
 {
     if (i > j)
         return i;
@@ -2459,7 +2457,7 @@ int find_beg2(vector<char>& vc, int i, int j, char t)
 
 // this method returns the begining index of the next character.
 // if there is no such character then it returns the position which it should be exist
-int find_end(vector<char>& vc, int i, int j, char t)
+int find_end(vector<char>& vc, int i, int j, char t)//jj
 {
     if (i > j)
         return i;
@@ -2508,7 +2506,7 @@ int find_pos(vector<char>& vc, int i, int j, char t)
         return find_pos(vc, mid + 1, j, t);
 }
 
-void test_count_char_in_sorted_array()
+void test_count_char_in_sorted_array() //jj
 {
     string s;
     cin >> s;
@@ -2532,40 +2530,20 @@ void test_count_char_in_sorted_array()
 // Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9)
 // (60,90) and build a data structure. Query the data structure for point x,
 // and it find out all the intervals that contain this point x.
-// this method returns the begining index of the character.
-// if there is no such character then it returns the position which it should exists
-int find_beg(vector<pair<int, int>>& vc, int i, int j, int t) {
-    if (i > j)
-        return i;
-    int mid = i + (j - i) / 2;
-
-    if (vc[mid].second == t)
-        return find_beg(vc, i, mid - 1, t);
-    else if (vc[mid].second > t)
-        return find_beg(vc, i, mid - 1, t);
-    else
-        return find_beg(vc, mid + 1, j, t);
-}
-
-// this method returns the begining index of the next character.
-// if there is no such character then it returns the position which it should exists
-int find_end(vector<pair<int, int>>& vc, int i, int j, int t) {
-    if (i > j)
-        return i;
-
-    int mid = i + (j - i) / 2;
-
-    if (vc[mid].first == t)
-        return find_end(vc, mid + 1, j, t);
-    else if (vc[mid].first > t)
-        return find_end(vc, i, mid - 1, t);
-    else
-        return find_end(vc, mid + 1, j, t);
-}
-
-
-void test_find_interval()
+void test_find_interval()//jj
 {
+    // sol1: a point can be represented by pair<int, bool> where int is location
+    // and bool means begin or end. All points (including target) are stored in an
+    // array(sorted by beg position), keep searching array from left to right. While
+    // searching, if a point is begining of range that range is added, if the point
+    // is end of range that the ranage is removed, if target is found then return
+    // the ranges we keep so far. You can preprocess so that for each in the array,
+    // corresponding range set can precomputed, and then perform binary search for the
+    // target number in the array (find_beg would be enough?)
+    // If we want to count the number of range then it
+    // would be easier. 
+    //
+    // sol2:
     // sort intervals with first number, and store it to array a
     // sort intervals with last number, and store it to array b
     // given number x, binary search in the a->k and b->l
@@ -2590,29 +2568,10 @@ void test_find_interval()
 
     int k;
     cin >> k;
-
-    vector<pos> a(v);
-    vector<pos> b(v);
-
-    sort(a.begin(), a.end(), [](pos x, pos y) {return x.first < y.first; });
-    int i = find_end(a, 0, a.size() - 1, k);
-
-    sort(b.begin(), b.end(), [](pos x, pos y) {return x.second < y.second; });
-    int j = find_beg(b, 0, b.size() - 1, k);
-
-    vector<pos> r;
-    set_intersection(a.begin(), a.begin() + i, b.begin() + j, b.end(),
-                     back_inserter(r));
-
-    cout << " And the result is " << endl;
-    for (auto&e : r)
-        cout << e.first << "," << e.second << endl;
-
-    cout << endl;
 }
 
 // [-2, 0, 2, 3, 6, 7, 9] -> [2, 3]
-void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vector<int>& vr)
+void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vector<int>& vr)//jj
 {
     if (i > j)
         return;
@@ -2686,8 +2645,7 @@ void test_find_same_index_and_val_in_sorted_array()
 }
 
 
-// find a number x in a sorted (left to right, top to down) 2D
-// array
+// find a number x in a sorted (left to right, top to down) 2D array//jj
 bool matrix_search(const vector<vector<int>>& va, int x)
 {
     int row = 0;
@@ -2719,12 +2677,12 @@ bool matrix_search(const vector<vector<int>>& va, int x)
 // hits to the max. We only have 1000 element in the map, and later should
 // replace old one with new one.
 
-class lrumap {
+class lrumap {//jj
 private:
 
     class node {
     public:
-        node(string s, int x) : str(s), data(x), prev(NULL), next(NULL) {}
+      node(string s, int x) : str(s), data(x), prev(NULL), next(NULL) {}
         int data;
         string str;
         shared_ptr<node> prev;
@@ -2803,6 +2761,50 @@ public:
         n->next = head;
         head = n;
         mm[s] = n;
+    }
+};
+
+
+class lrumap2 {
+private:
+
+  list<int> l;
+  map<string, list<int>::iterator> mm;
+  int size;
+
+public:
+  lrumap2(int sz) : size(sz) {}
+
+  bool get(string& s, int* x)
+    {
+        if (mm.find(s) != mm.end())
+        {
+          auto t = mm[s];
+          int i = *x = *t;
+          l.erase(t);
+          l.push_front(i);
+          mm[s] = l.begin();
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+    }
+
+    void put(string& s, int i)
+    {
+      int t;
+      auto n = get(s, &t);
+
+      if (!n) {
+        l.push_front(i);
+        mm[s] = l.begin();
+      }
+      else {
+        auto a = l.begin();
+        *a = i;
+      }
     }
 };
 
