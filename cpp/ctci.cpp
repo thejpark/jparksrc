@@ -2814,7 +2814,7 @@ void test_lru()
 }
 
 
-// partition int array with k, so that k puts together, smaller than k goes left,
+// partition int array with k, so that k puts together, smaller than k goes left,//jj
 // and bigger than k goes to right.
 void test_partition_using_k()
 {
@@ -2845,7 +2845,7 @@ void test_partition_using_k()
 
 // given an array of (start price, daily high, daily low), find the best
 // period for buy and sell (gap between buy and sell is highest)
-void test_find_best_investment_period_once()
+void test_find_best_investment_period_once() //jj
 {
     // for x = [2, 3, 5, 1, 9],
     //     y = [7, 6, 4, 8, 0]. y[i] = max(x[i+1] - x[i], x[i+1] - x[i] + y[i+1]);
@@ -2886,7 +2886,7 @@ void test_find_best_investment_period_once()
 }
 
 
-// find the best investment period of buying and selling twice
+// find the best investment period of buying and selling twice //jj
 void test_find_best_investment_period_twice()
 {
     vector<int> v;
@@ -2955,7 +2955,7 @@ Find the color of each house such that no two adjacent house have the same color
 Update: The question intends to state that cost of painting any house in any color is different, so if cost of painting House 1 in Red is say, X then the cost of painting House 2 in red will some other value Y. It can be considered each house has different dimensions and hence cost of painting in each color is different, and the cost of paint for each house also varies
 */
 
-void test_paint_house_with_3_colors()
+void test_paint_house_with_3_colors() //jj
 {
     // If the cost for painting is same across all houses, then just start
     // with a cheapest color, then next with second cheap, then third with
@@ -2998,8 +2998,7 @@ void test_paint_house_with_3_colors()
 }
 
 
-// with two rectangle, if they are intersect then return
-// the intersection area
+// with two rectangle, if they are intersect then return the intersection area //jj
 struct rect {
     int x, y, width, height;
 };
@@ -3042,9 +3041,8 @@ void test_rect_intersect()
 
 }
 
-// this implementation assume that we just copy as small as possible
-// do not copy overlapping area
-void acopy(vector<int>* v, int s, int l, int t)
+// this implementation assume that we just copy as small as possible do not copy overlapping area
+void acopy(vector<int>* v, int s, int l, int t) //jj
 {
     vector<int>& vi = *v;
 
@@ -3076,7 +3074,7 @@ void acopy(vector<int>* v, int s, int l, int t)
 
 // this test is simple but you need to ask questions for the
 // overlapping and edge cases before implement.
-void test_copy_in_array()
+void test_copy_in_array() 
 {
     int n;
 
@@ -3106,7 +3104,7 @@ void test_copy_in_array()
 }
 
 
-void test_apply_perm()
+void test_apply_perm() //jj
 {
     string a;
     vector<int> v;
@@ -3135,7 +3133,7 @@ void test_apply_perm()
     cout << "the result is " << a << endl;
 }
 
-void next_perm(vector<int>* pv)
+void next_perm(vector<int>* pv) //jj
 {
     vector<int>& v = *pv;
 
@@ -3187,14 +3185,14 @@ void test_next_perm()
 }
 
 
-int find_min_from_sorted_rotated(const vector<int>& v, int a, int e)
+int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
 {
     if (v[a] <= v[e])
         return v[a];
 
     int mid = a + (e - a) / 2;
     int min1 = min(v[a], v[mid]);
-    int min2 = min(v[mid + 1], v[e]);
+    int min2 = min(v[mid + 1], v[e]); // mid + 1, not mid
 
     if (min1 > min2)
         return find_min_from_sorted_rotated(v, mid + 1, e);
@@ -3221,7 +3219,7 @@ void test_find_min_from_sorted_rotated_array()
     cout <<  find_min_from_sorted_rotated(v, 0, v.size() - 1) << endl;
 }
 
-void test_find_rand_comb()
+void test_find_rand_comb() //jj
 {
     int n;
     vector<int> v;
@@ -3252,7 +3250,7 @@ void test_find_rand_comb()
     cout << endl;
 }
 
-void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel()
+void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel() //jj
 {
 // given width and height and percentage, generates an image of pixel (black
 // and white) that has exactly p percent of black pixel, with uniformly
@@ -3783,7 +3781,7 @@ int my_part(int i, int j, int k, vector<int>& v)
     return i;
 }
 
-void test_find_kth_biggest_element_from_unsorted_array()
+void test_find_kth_biggest_element_from_unsorted_array() //jj
 {
 // sol1: use min heap with size of k (or max heap of n - k if k is too big)
 // sol2: use partition
