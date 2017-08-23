@@ -2166,8 +2166,8 @@ bool check_symmetric(bt_node<int>* left, bt_node<int>* right)//jj
     // or, traverse tree in order and store it in a list, and
     // store pair pair<list<bool>, int> where list shows path (i.e.,
     // false means left and true means right) and int is val,
-    // perform partition method like traverse from left-to-right and
-    // right-to-left
+    // perform partition-like comparison  one from left-to-right and
+    // the other from right-to-left
     if (left == nullptr && right == nullptr)
         return true;
     if (left != nullptr && right != nullptr)
@@ -3292,7 +3292,7 @@ void test_find_uniformly_randimised_image_with_exactly_p_percent_of_black_pixel(
 }
 
 
-void test_sample_online_data()
+void test_sample_online_data()//jj
 {
 // design an algorithm that takes as input a size k, and read packets,
 // continuously maintinging a uniform random subset of size k of the read
@@ -3335,7 +3335,7 @@ void test_sample_online_data()
 }
 
 
-void test_find_rand_subset_of_k_from_n()
+void test_find_rand_subset_of_k_from_n() //jj
 {
 
     int n, k;
@@ -3380,7 +3380,7 @@ void test_find_rand_subset_of_k_from_n()
 
 }
 
-void test_non_unform_random_numbers()
+void test_non_unform_random_numbers() //jj
 {
     int n;
 
@@ -3428,7 +3428,7 @@ void test_non_unform_random_numbers()
 
 // or you can optimize it like this:
 // return index in string t if s is a substring of t, -1 otherwise
-int search_substr(const string& s, const string& t)
+int search_substr(const string& s, const string& t) //jj
 {
     if (s.size() > t.size())
         return -1;
@@ -3483,7 +3483,7 @@ string ConstructString(int r, int b)
 }
 
 
-string ConvertBase(const string& s, int a, int b)
+string ConvertBase(const string& s, int a, int b) //jj
 {
 
     if (s.empty())
@@ -3519,7 +3519,7 @@ void test_convert_base()
 
 }
 
-void test_swap_bit()
+void test_swap_bit() //jj
 {
     int i, j;
     long n;
@@ -3544,7 +3544,7 @@ void test_swap_bit()
 // can we find in less then n^2?
 // [-8, -4, -3, 2, 6, 7]
 // at the moment, assume that all numbers are distinct.
-void test_find_3_num_sum_to_zero()
+void test_find_3_num_sum_to_zero() //jj
 {
     // sol1: for each combination of sum of 2 numbers in the array (O(n^2)),
     //       if there is a number which can be sum to 0 (O(n^2) if hash map)?
@@ -3645,7 +3645,7 @@ sol 2: sort array, and then from max number to min number, distribute to
 todo: can it be done in O(n)?
 */
 
-void test_distribute_tasks_2_workers()
+void test_distribute_tasks_2_workers() //jj
 {
 
 }
