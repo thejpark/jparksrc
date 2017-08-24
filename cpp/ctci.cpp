@@ -3645,7 +3645,7 @@ sol 2: sort array, and then from max number to min number, distribute to
 todo: can it be done in O(n)?
 */
 
-void test_distribute_tasks_2_workers() //jj
+void test_distribute_tasks_2_workers() //jj todo: DP?
 {
 
 }
@@ -3655,7 +3655,7 @@ void test_distribute_tasks_2_workers() //jj
 // with the possibility of 1 / num_max_number. [3 0 2 1 3] -> [0, 4] with 1/2
 // possibility. do it with O(n) time and O(1) space
 
-void test_return_index_to_max_num()
+void test_return_index_to_max_num() //jj
 {
     // sol: first pass find max number and number of it
     //      second pass, get the random number r in range [0, num_max -1],
@@ -3670,27 +3670,49 @@ Given an unsorted array, sort it in such a way that the first
 element is the largest value, the second element is the smallest,
 the third element is the second largest element and so on.
 [2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3]
-can you do it without using extra space
-
-sol:
- 1. sort the arrary from big number to small number
- 2. if the number of elements are even, then
-   2.1 place the big numbers (half of all element) in the right place
-       from back to front.
-   2.2 place the small numbers (the rest half) in place. swap with last element.
- 3. if the number of elements are odd, then rotate them from the middle to the end so
-    that the middle number goes at the end, then do the same thing for 2 above from
-    the beginning to the (end - 1) element.
-    [6, 5, 4, 3, 2, 1]
-    [6, 5, 2, 3, 4, 1]
-    [6, 2, 5, 3, 4, 1]
-    [6, 1, 5, 3, 4, 2]
-    [6, 1, 5, 2, 4, 3]
-
+can you do it without using extra space?
 */
 
-void test_sort_big_small_number()
+void test_sort_big_small_number() //jj //without extra space? can we do it?
 {
+  int n;
+  cin >> n;
+
+  vector<int> v;
+  for (int i = 0; i < n; ++i) {
+    int t;
+    cin >> t;
+    v.emplace_back(t);
+  }
+
+  sort(v.begin(), v.end(), [](int a, int b){ return a > b;});
+
+  vector<int> v2(v.size(), 0);
+  int j = 0;
+  for (int i = 0; i < v.size(); i += 2) {
+    v2[j++] = i;
+  }
+
+  j = v.size() - 1;
+  for (int i = 1; i < v.size(); i += 2) {
+    v2[j--] = i;
+  }
+
+  for (int i = 0; i < v2.size(); ++i) {
+    int idx = i;
+    while (v2[idx] >= 0) {
+      int next = v2[idx];
+      swap(v[i], v[next]);
+      v2[idx] -= v.size(); // just in case we need to restore v
+      idx = next;
+    }
+  }
+
+  cout << " the result is " << endl;
+  for (int i = 0; i < v.size(); ++i)
+    cout << v[i] << " ";
+
+  cout << endl;
 }
 
 
@@ -4407,5 +4429,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-  test_reverse_linked_list();
+  test_sort_big_small_number();
 }
