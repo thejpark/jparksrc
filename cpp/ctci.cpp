@@ -3673,7 +3673,7 @@ the third element is the second largest element and so on.
 can you do it without using extra space?
 */
 
-void test_sort_big_small_number() //jj //without extra space? can we do it?
+void test_sort_big_small_number() //jj //without extra space? can we do it? find max then swap, find min then swap, ...
 {
   int n;
   cin >> n;
@@ -3727,7 +3727,7 @@ bool is_intersect(pair<int, int> a, pair<int, int> b)
     return !(a.second < b.first || b.second < a.first);
 }
 
-void test_get_all_covered_range()
+void test_get_all_covered_range() //jj
 {
     int n;
     cin >> n;
@@ -3884,7 +3884,7 @@ string num_to_eng(int d)
     return n2e(d);
 }
 
-void test_number_to_english()
+void test_number_to_english() //jj
 {
     int n;
     cin >> n;
@@ -3894,21 +3894,6 @@ void test_number_to_english()
     cout<< " the result is " << s << endl;
 }
 
-
-/*
-Given an input string "aabbccba", find the shortest substring from the alphabet "abc".
-In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output.
-Output doesnt need to maintain the ordering as in the alphabet.
-Other examples:
-input = "abbcac", alphabet="abc" Output : shortest substring = "bca".
- */
-
-void test_find_shortest_substr_using_alplabet()
-{
-    // sol: build a triangle from the bottom to compute bitset, and if the size of
-    // bitset is same as the target alphabet then that is the result.
-
-}
 
 
 vector<string> gen_substr(string& s)
@@ -3930,9 +3915,9 @@ vector<string> gen_substr(string& s)
 
 // given a vector of strings, group them with same substrings.
 // the substring should be in a given vector as well
-void test_group_with_substrings()
+void test_group_with_substrings() //jj
 {
-    // sol1: map<string, set<string>> m, for e in vector do m[e].push_back(e)
+    // sol1: map<string, set<string>> m, for e in vector do m[e].insert(e)
     //  then, for each e in vector, generate a set of substring from it then
     //  if one of the substring is in the map then add it to m (m[substr].insert(e))
     //  After processing all the substrings of all string in vector, find
@@ -4013,7 +3998,7 @@ int no_adj_1(int m, int n, bool prevOne)
 }
 
 
-void test_perm_1_0_with_no_adjacent_1()
+void test_perm_1_0_with_no_adjacent_1() //jj
 {
     int m, n;
 
@@ -4050,7 +4035,7 @@ int no_adj_1(int m, int t, int k)
     return r1 + r2;
 }
 
-void test_nums_with_no_adjacent_1()
+void test_nums_with_no_adjacent_1() //jj
 {
     int k;
     cin >> k;
@@ -4089,7 +4074,7 @@ void test_nums_with_no_adjacent_1()
 }
 
 
-pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
+pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k) //jj
 {
   unordered_map<string, int> m;
   unordered_set<string> sk;
@@ -4130,7 +4115,7 @@ pair<int, int> find_small_subarray(vector<string>& s, vector<string>& k)
   return pair<int, int>(begin, end);
 }
 
-pair<int, int> find_small_subarray(istringstream* sin, vector<string>& k)
+pair<int, int> find_small_subarray(istringstream* sin, vector<string>& k) //jj
 {
   list<int> loc;
   unordered_map<string, list<int>::iterator> dict;
@@ -4200,8 +4185,21 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
   cout << " the result is " << r.first << ", " << r.second << endl;
 }
 
+/*
+  Given an input string "aabbccba", find the shortest substring from the alphabet "abc".
+  In the above example, there are these substrings "aabbc", "aabbcc", "ccba" and "cba". However the shortest substring that contains all the characters in the alphabet is "cba", so "cba" must be the output.
+  Output doesnt need to maintain the ordering as in the alphabet.
+  Other examples:
+  input = "abbcac", alphabet="abc" Output : shortest substring = "bca".
+*/
+
+void test_find_shortest_substr_using_alplabet() //jj : same as above
+{
+}
+
+
 // the same problem, but subarray should have order
-pair<int, int> find_small_subarray_with_order(vector<string>& s, vector<string>& k)
+pair<int, int> find_small_subarray_with_order(vector<string>& s, vector<string>& k) //jj
 {
   vector<int> vi(k.size(), -1);
   int begin = -1, end = -1;
@@ -4235,7 +4233,7 @@ pair<int, int> find_small_subarray_with_order(vector<string>& s, vector<string>&
 }
 
 // [3, -2, 7, 9, 8, 1, 2, 0, -1, 5, 8] -> [-2, -1, 0, 1, 2, 3]
-pair<int, int> find_largest_contained_interval(vector<int>& vi)
+pair<int, int> find_largest_contained_interval(vector<int>& vi) //jj
 {
   unordered_map<int, int> m;
 
@@ -4281,7 +4279,16 @@ pair<int, int> find_largest_contained_interval(vector<int>& vi)
   return pair<int, int>(a, b);
 }
 
-bool check_array_is_keep_increasing_decreasing(vector<int>& a)
+
+void test_find_largest_contained_intervals()
+{
+  vector<int> vi = {3, -2, 7, 9, 8, 1, 2, 0, -1, 5, 8};
+  pair<int, int> r = find_largest_contained_interval(vi);
+  cout << "the result is : " << r.first << " " << r.second << endl;
+}
+
+
+bool check_array_is_keep_increasing_decreasing(vector<int>& a) //jj
 {
   int direction = a.back() > a.front() ? 1 : -1;
 
@@ -4302,34 +4309,8 @@ bool check_array_is_keep_increasing_decreasing(vector<int>& a)
   return true;
 }
 
-void test_largest_increasing_sub_seq_in_array()
-{
-  int n;
-  cin >> n;
 
-  vector<int> v;
-  for (int i = 0; i < n; ++i) {
-    int t;
-    cin >> t;
-    v.emplace_back(t);
-  }
-
-  vector<int> r(v.size(), 1);
-
-  for (int i = 1; i < v.size(); ++i) {
-    for (int j = 0; j < i; ++j) {
-      if (v[i] > v[j]) {
-        r[i] = max(r[i], r[j] + 1);
-      }
-    }
-  }
-
-
-  int max_r = *max_element(r.begin(), r.end());
-  cout << "the result is " << max_r << endl;
-}
-
-int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores)
+int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores) //jj
 {
   int sum = 0;
   while (!scores.empty()) {
@@ -4380,7 +4361,7 @@ struct student {
 
 // partition student so that same ages go together.
 // try to swap inplace to reduce memory usage.
-void partition_student_with_same_age(vector<student>& vs)
+void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use apply_perm algorithm?
 {
   unordered_map<int, int> age_count;
   unordered_map<int, int> age_offset;
@@ -4429,5 +4410,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-  test_sort_big_small_number();
+  test_find_largest_contained_intervals();
 }
