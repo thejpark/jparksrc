@@ -1727,7 +1727,7 @@ void perfect_stall()
 }
 
 
-bool aia(string s, string t) //jj
+bool aia(string s, string t)
 {
     if (s.size() == 0)
         return true;
@@ -1745,7 +1745,7 @@ bool aia(string s, string t) //jj
     return false;
 }
 // http://poj.org/problem?id=1936
-void all_in_all()
+void all_in_all() //jj
 {
     string s, t;
     cin >> s >> t;
@@ -1766,7 +1766,7 @@ int get_large(vector<int> vi, int i)
     return max(vi[i], vi[i] + get_large(vi, i + 1));
 }
 
-void largest_sum()
+void largest_sum() //jj
 {
     vector<int> vi;
     int t;
@@ -1887,7 +1887,7 @@ void get_max_path(vector<vector<int>>& v, int n, int m)
 }
 
 
-void largest_path()
+void largest_path() //jj
 {
     int m, n;
     cin >> n >> m;
@@ -1919,8 +1919,6 @@ void largest_path()
 // find shortest path using array computation.
 // frog can jump n steps in on direction (where n is 1 ... )
 // but the direction is right and below (no go back).
-//
-
 list<pair<int, int>> get_adj(vector<vector<int>>& v, int i, int j)
 {
     list<pair<int, int>> r;
@@ -1987,7 +1985,7 @@ Path trace will have = 7->2->3->15
 
 */
 
-void shortest_frog_path()
+void shortest_frog_path() //jj
 {
     int m, n;
     cin >> n >> m;
@@ -2017,7 +2015,6 @@ void shortest_frog_path()
 // find sequences in an array which matches to a number
 // [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
 // in linear time (O(n))
-
 void match_sum()
 {
     vector<int> vi;
@@ -2073,7 +2070,7 @@ void match_sum()
 // [1, 3, 8, 13] , foo(4) --> true, foo(5) --> false
 // in linear time (O(n))
 
-void match_sum2()
+void match_sum2() //jj: same with herd, but did not used map.
 {
     vector<int> vi;
     int t;
@@ -2128,7 +2125,7 @@ void match_sum2()
 }
 
 
-bool find_match_sum(vector<int>& vi, int i, int target) // i ==0 -> size -1
+bool find_match_sum(vector<int>& vi, int i, int target)
 {
     int sum = 0;
     for (int j = i; j != vi.size(); ++j)
@@ -2210,7 +2207,7 @@ vector<bin_search_heap_node> find_right(vector<bin_search_heap_node>& v,
           return e.label > n.label;
       };
 
-    copy_if(v.begin(), v.end(), back_inserter(ret), is_right); 
+    copy_if(v.begin(), v.end(), back_inserter(ret), is_right);
     return ret;
 }
 
@@ -2223,7 +2220,7 @@ string construct(vector<bin_search_heap_node>& v)
     bin_search_heap_node n = find_max(v);
     vector<bin_search_heap_node> vl = find_left(v, n);
     vector<bin_search_heap_node> vr = find_right(v, n);
- 
+
     if (vl.size() > 0)
     {
         string left = construct(vl);
@@ -2240,8 +2237,8 @@ string construct(vector<bin_search_heap_node>& v)
     return ret;
 }
 
-   
-void test_bin_search_heap()
+
+void test_bin_search_heap() //jj
 {
     /*************
     Sample Input
@@ -2261,10 +2258,10 @@ void test_bin_search_heap()
     while (num != 0)
     {
         string str;
-        cin >> str; 
+        cin >> str;
         auto i = find(str.begin(), str.end(), '/');
-        
-        v.push_back(bin_search_heap_node(string(str.begin(), i), 
+
+        v.push_back(bin_search_heap_node(string(str.begin(), i),
                                          string(i + 1, str.end())));
         --num;
     }
@@ -2313,7 +2310,7 @@ void uunion(vector<cube_stack> &vi, int x, int y)
     vi[find(vi, y)].leaf = leaf;
 }
 
-void test_cube_stack()
+void test_cube_stack() //jj
 {
     int num_line, num_cube;
     string s;
@@ -2327,7 +2324,7 @@ void test_cube_stack()
         vc[i].grp = i;
         vc[i].leaf = i;
     }
-    
+
     while (num_line > 0)
     {
         cin >> s;
@@ -2336,10 +2333,6 @@ void test_cube_stack()
             int first, second;
             cin >> first >> second;
             uunion(vc, first, second);
-    //  for (int i = 0; i < num_cube; ++i)
-    // {
-    //     cout << vc[i].grp << " " << vc[i].leaf << endl;
-    // }
        }
         else if (s == "C")
         {
@@ -2383,7 +2376,7 @@ void uunion(vector<gang>& vi, int x, int y)
 }
 
 
-void test_find_and_catch()
+void test_find_and_catch() //jj
 {
     int m;
     cin >> m;
@@ -2423,15 +2416,15 @@ void test_find_and_catch()
 class BIT
 {
 public:
-    BIT() 
-    { 
+    BIT()
+    {
     }
 
     void push_back(int x)
     {
         leaf.push_back(x);
-        
-        // x -= (x & -x); // clear left most 1 
+
+        // x -= (x & -x); // clear left most 1
         // so, (x & -x) is right most bit
 
         int size = leaf.size();
@@ -2472,7 +2465,7 @@ private:
 };
 
 
-void test_bit()
+void test_bit() //jj
 {
     BIT b;
     for (int i = 1; i <= 10; ++i)
@@ -2552,16 +2545,16 @@ int kth(int left, int right, int num, int index, vector<vector<int>>& v)
     vector<int> set_i;
 
     set_intersection(r.begin(), r.end(), l.begin(), l.end(), back_inserter(set_i));
-    
+
     if (l.size() >= left && r.size() >= right &&
         (l.size() + r.size() - set_i.size() >= left + right))
         return 1;
-    
+
     return 0;
 }
-                                                              
 
-int get_kth_number(int n, int k, vector<vector<int>>& v)
+
+int get_kth_number(int n, int k, vector<vector<int>>& v) //jj
 {
     int r = 0;
 
@@ -2571,7 +2564,7 @@ int get_kth_number(int n, int k, vector<vector<int>>& v)
         {
             r += kth(k - 1, n - k, v[i][j], i, v);
         }
-    }   
+    }
 
 
     return r;
@@ -2586,7 +2579,7 @@ void kth_number()
 
     vector<int> r;
 
-    for (int i = 0; i < t; ++i) 
+    for (int i = 0; i < t; ++i)
     {
         cin >> n >> k;
 
@@ -2602,14 +2595,6 @@ void kth_number()
                 v[j].push_back(e);
             }
         }
-        
-        // for (auto&e : v) {
-        //     for (auto ee: e) {
-        //         cout << ee << " ";
-        //     }
-        //     cout << endl;
-        // }
-
 
         r.push_back(get_kth_number(n, k, v));
     }
@@ -2618,7 +2603,7 @@ void kth_number()
     cout << "the result is" << endl;
     for (auto&e : r)
         cout << e << " ";
-                
+
     cout << endl;
 }
 
@@ -2703,7 +2688,7 @@ bool pred_s(student& a, student& b) {
 }
 
 
-void process_q(vector<student>& h1p, vector<student>& h1s, 
+void process_q(vector<student>& h1p, vector<student>& h1s,
                vector<student>& h2p, vector<student>& h2s)
 {
     for (auto& e: h1p)
@@ -2714,7 +2699,7 @@ void process_q(vector<student>& h1p, vector<student>& h1s,
         e.st += 1;
     for (auto& e: h2s)
         e.st += 1;
-    
+
     pop_heap(h1p.begin(), h1p.end(), pred_p);
     h1s.push_back(h1p.back());
     push_heap(h1s.begin(), h1s.end(), pred_s);
@@ -2723,7 +2708,7 @@ void process_q(vector<student>& h1p, vector<student>& h1s,
     h1p.push_back(h1s.back());
     push_heap(h1p.begin(), h1p.end(), pred_p);
     h1s.pop_back();
-    
+
     pop_heap(h2p.begin(), h2p.end(), pred_p);
     h2s.push_back(h2p.back());
     push_heap(h2s.begin(), h2s.end(), pred_s);
@@ -2752,7 +2737,7 @@ void basketball()
         else
             return false;
     };
-    
+
     for (int i = 0; i < t; ++i) {
         vector<student> vs;
         for (int j = 0; j < n; ++j) {
