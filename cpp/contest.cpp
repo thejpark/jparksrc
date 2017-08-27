@@ -42,7 +42,7 @@ void hangover()
   vector<double> vcard_len;
   double card_len;
   int size;
-  
+
   while(1) {
 
     cin >> card_len;
@@ -83,7 +83,7 @@ private:
 	  unsort++;
       }
     }
-    
+
   }
 
 };
@@ -115,7 +115,7 @@ void dna_sorting()
     min = i;
 
     for (int j = i + 1; j < num_str; j++) {
-      if(vunsort[min]->unsort > vunsort[j]->unsort) 
+      if(vunsort[min]->unsort > vunsort[j]->unsort)
 	min = j;
     }
 
@@ -124,9 +124,9 @@ void dna_sorting()
       tmp = vunsort[i];
       vunsort[i] = vunsort[min];
       vunsort[min] = tmp;
-    
+
     }
-    
+
   }
 
 
@@ -140,7 +140,7 @@ int get_unsortedness(string s)
 {
     int r = 0;
     if (s.size() == 1) return 0;
-    
+
     for (int i = s.size() - 2; i >= 0; --i)
     {
         for (int j = i; j < s.size() - 1; ++j)
@@ -154,13 +154,11 @@ int get_unsortedness(string s)
                 break; // we don't need to go further as it is sorted
         } // or we from the right, and use binary search to find where to put?
     }
-    
     return r;
 }
 
 
-// nlog(n)
-void dna_sorting2()
+void dna_sorting2() //nlogn if we do binary search //jj
 {
     int str_len, num_str;
     string str;
@@ -189,7 +187,7 @@ void dna_sorting2()
     auto pred = [&](dna_elem& a, dna_elem& b) {
         return a.second < b.second;
     };
-    
+
     sort(pv.begin(), pv.end(), pred);
 
     cout << "the result is" << endl;
@@ -201,7 +199,7 @@ void dna_sorting2()
 void vertical_histo()
 {
 
-  
+
   int a['Z' - 'A' + 1];
   int max = 0;
   char cstr[256];
@@ -217,7 +215,7 @@ void vertical_histo()
       if (cstr[j] < 'A' || cstr[j] > 'Z')
 	continue;
       a[cstr[j] - 'A']++;
-      if (a[max] < a[cstr[j] - 'A']) 
+      if (a[max] < a[cstr[j] - 'A'])
 	max = cstr[j] - 'A';
     }
 
@@ -228,7 +226,7 @@ void vertical_histo()
 
   cout << max;
 
-  for (; max > 0; max--) { 
+  for (; max > 0; max--) {
     for (int j = 0; j < 'Z' - 'A' + 1; j++) {
 
       if (a[j] == max) {
@@ -291,7 +289,7 @@ void herd_sum()
 
 
 // linear time search of the herd sum with some preprocessing
-void herd_sum2()
+void herd_sum2() //jj
 {
     vector<int> vi;
     int t;
@@ -312,7 +310,7 @@ void herd_sum2()
     vi2.emplace_back(0);
 
     partial_sum(vi.begin(), vi.end(), back_inserter(vi2));
-    
+
     unordered_map<int, int> mi;
     for (int i = 0; i < vi2.size(); ++i)
     {
@@ -333,51 +331,7 @@ void herd_sum2()
 }
 
 
-
-int revert(int n)
-{
-    // for numbers, always check whether it could be negative number.
-    // bool is_negative = (n < 0)
-  int r = 0;
-  
-  while(n) {
-    r += r * 10 + n % 10;
-    n = n / 10;
-  }
-  
-  return r;
-}
-
-// this algorithm was wrong, as it depends on the internal data type.
-// so it is not able to add big numbers.
-void reversed_sum()
-{
-  int num;
-
-  cin >> num;
-
-  int *a = new int[num];
-  int *b = new int[num];
-  int *c = new int[num];
-
-  int l, m, r;
-
-  for (int i = 0; i < num; i++) {
-    cin >> a[i] >> b[i];
-    l = revert(a[i]);
-    m = revert(b[i]);
-    r = l + m;
-    c[i] = revert(r);
-  }
-
-  for (int i = 0; i < num; i++) {
-
-    cout << c[i] << endl;
-
-  }
-}
-
-void test_reverse_sum2()
+void test_reverse_sum() //jj
 {
     string a, b;
     cin >> a >> b;
@@ -393,7 +347,7 @@ void test_reverse_sum2()
         if (i < a.size())
             x = a[i] - '0';
         if (i < b.size())
-            y = b[i] - '0'; 
+            y = b[i] - '0';
 
         int sum = x + y + carry;
         carry = (sum >= 10)? 1 : 0;
@@ -403,7 +357,7 @@ void test_reverse_sum2()
     }
 
     if (carry == 1)
-        r.push_back('0' + 1);
+        r.push_back('1');
 
     int i;
     for (i = 0; i < r.size(); ++i)
@@ -417,52 +371,8 @@ void test_reverse_sum2()
 }
 
 
-// add 2 numbers in linked list form, reversed, and return result in reversed linked list
-
-/*
-node* sum(node*a, node*b)
-{
-
-node dummy;
-node*prev = &dummy;
-int carry = 0;
-while(a || b)
-{
-int sum = 0;
-if (a)
-{
-sum += a->data;
-a = a->next;
-}
-
-if (b)
-{
-sum += b->data;
-b = b->next;
-}
-
-sum += carry;
-
-prev->next = new node(sum % 10);
-carry = sum / 10;
-
-}
-
-if (carry > 0)
-{
-...
-}
-
-
-return dummy->next;
-}
-
-
-*/
 void test_reverse_sum_linked_list()
 {
-    
-
 }
 
 
@@ -471,21 +381,21 @@ void slice(int s, int n, int size)
 {
 
   int d = abs(s - n);
-  
+
   for (int i = 0; i < size; i++){
     for (int j = 0; j < size; j++) {
 
       int w = abs(i - n);
       int h = abs(j - n);
 
-      
+
       if (d + w + h > n)
 	cout << ".";
       else {
-	cout << (d + w + h); 
+	cout << (d + w + h);
 
-	  }	  
-	
+	  }
+
     }
     cout << endl;
   }
@@ -497,18 +407,18 @@ void slice(int s, int n, int size)
 void cubic(int s, int n)
 {
 
-  int size = n * 2 + 1;  
+  int size = n * 2 + 1;
 
   cout << "Scenario #" << s << endl;
 
 
-  
+
   for (int i = 0; i < size; i++) {
 
     cout << "slice #" << i + 1 << endl;
-    
+
     slice(i, n, size);
-      
+
     }
 
 
@@ -522,7 +432,7 @@ void manhattan()
   cin >> num;
 
   int *a = new int[num];
-  
+
   for (int i = 0; i < num; i++)
     cin >> a[i];
 
@@ -545,11 +455,11 @@ void ride()
 
   /* get input */
   while(1) {
-  
+
     cin >> num;
     if (num == 0)
       break;
-    
+
     c.push_back(num);
 
     for (int i = 0; i < num; i++) {
@@ -583,8 +493,8 @@ void ride()
   for (int i = 0; i < size; i++) {
     int tt = 0; //arrival time of Charlie
     int *group = new int [c[i]];
- 
-    // setup group 
+
+    // setup group
     for (int j = 1; j < c[i]; j++) {
       if (b[j] > 0) {
 	group[j] = 1; // before charlie
@@ -598,18 +508,18 @@ void ride()
     for (int t = 1; d[idx] < 4.5 ; t++) {
 
       d[idx] += a[idx] /3600;
-      
+
       for (int j = 1; j < c[i]; j++) {
 	/* d is distance at time t */
-      
+
 	d[idx + j] = a[idx + j] * (b[idx + j] + t)/3600;
 
 	if(group[j] < 0 && d[idx + j] > d[idx]) {
-	  
+
 	  a[idx] = a[idx + j];
 	  group[j] = 1;
 	  cout << "meet at time " << t << endl;
-	  
+
 	}
       }
 
@@ -619,8 +529,8 @@ void ride()
     idx += c[i];
   }
 
-  
-  
+
+
 }
 
 
@@ -633,7 +543,7 @@ void test_clock()
 
   h_angle = 30 * (hour % 12) + 0.5 * min; /* 1/2 becomes 0 so you should use 0.5 instead. or (double)1/2 */
   m_angle = 6 * min;
-  
+
   if (m_angle > h_angle) {
     Max = m_angle;
     Min = h_angle;
@@ -646,14 +556,11 @@ void test_clock()
   if ((Max - Min) < 180)
     cout << angle << endl;
   else
-    cout << (360 - angle) << endl; 
+    cout << (360 - angle) << endl;
 
 }
 
-void perm(vector<int>& a,
-          vector<int>& t,
-          vector<vector<int>>& r,
-          map<int, int>& visited)
+void perm(vector<int>& a, vector<int>& t, vector<vector<int>>& r, map<int, int>& visited) //jj
 {
     if (t.size() == a.size())
     {
@@ -692,11 +599,7 @@ void permutation()
     }
 }
 
-void comb(vector<int>& a,
-          int idx,
-          vector<int>& t,
-          vector<vector<int>>& r,
-          int k)
+void comb(vector<int>& a, int idx, vector<int>& t, vector<vector<int>>& r, int k) //jj
 {
     if (t.size() == k)
     {
@@ -711,8 +614,8 @@ void comb(vector<int>& a,
         t.pop_back();
     }
 }
- 
-    
+
+
 void combination()
 {
     vector<int> a = {1, 2, 3, 4};
@@ -740,7 +643,7 @@ void powerset()
     vector<vector<int>> r;
 
     for (int i = 1; i <= a.size(); ++i)
-        comb(a, 0, t, r, i); 
+        comb(a, 0, t, r, i);
 
     for (auto& e : r)
     {
@@ -797,13 +700,13 @@ void test_set_of_k_elem()
 // ex) [1, 2, 3, 4, 5] -> 1
 // ex) [5, 5, 10, 2,3] -> 4
 //
-int fff(vector<int>& vi, int idx, int t)
+int fff(vector<int>& vi, int idx, int t) //jj
 {
     if (t == 0)
         return 1;
     if (t < 0)
         return 0;
-    
+
     int r = 0;
     for (int i = idx; i < vi.size(); ++i)
     {
@@ -819,7 +722,7 @@ void test_combination_sum_to_15()
     cin >> n;
 
     vector<int> vi;
-    
+
     for (int i = 0; i < n; ++i)
     {
         int t;
@@ -834,14 +737,14 @@ void test_combination_sum_to_15()
 }
 
 /*
-Given an infinite number of quarters (25 cents), dimes (10 cents), 
-nickels (5 cents) and pennies (1 cent), write code to calculate the 
-number of ways of representing n cents 
+Given an infinite number of quarters (25 cents), dimes (10 cents),
+nickels (5 cents) and pennies (1 cent), write code to calculate the
+number of ways of representing n cents
 */
 
-int makeChange(int n, int denom) { 
+int makeChange(int n, int denom) {
     int next_denom = 0;
-    
+
     switch (denom) {
     case 25:
         next_denom = 10;
@@ -857,15 +760,15 @@ int makeChange(int n, int denom) {
     }
 
     int ways = 0;
-    
+
     for(int i=0;i*denom<=n;i++)
     {
-        ways += makeChange(n - i * denom, next_denom); 
+        ways += makeChange(n - i * denom, next_denom);
     }
-    return ways; 
+    return ways;
 }
 
-int makeChange(vector<int>& denom, int idx, int n)
+int makeChange(vector<int>& denom, int idx, int n) //jj
 {
     if (n == 0)
         return 1;
@@ -880,7 +783,7 @@ int makeChange(vector<int>& denom, int idx, int n)
 }
 
 // can you implement it using dynamic programming?
-int makeChangeDP(vector<int>& denom, int n)
+int makeChangeDP(vector<int>& denom, int n) //jj
 {
     vector<vector<int>> v(denom.size(), vector<int>(n + 1));
 
@@ -903,7 +806,7 @@ int makeChangeDP(vector<int>& denom, int n)
     return v.back().back();
 }
 
-int makeMinChange(vector<int>& denom, int idx, int cnt, int n)
+int makeMinChange(vector<int>& denom, int idx, int cnt, int n) //jj
 {
     if (n == 0)
         return cnt;
@@ -939,7 +842,7 @@ bool has_str(string a, string b)
 
 
 
-} 
+}
 
 
 void find_url()
@@ -949,61 +852,30 @@ void find_url()
   string proto = "://";
 
   vector<string> vs;
-  
+
   for (string::const_iterator i = s.begin(); i != s.end();) {
-    
+
     for (string::const_iterator j = i; j != s.end();) {
-      if (*j != ' ') 
+      if (*j != ' ')
 	break;
       ++j;
     }
-    
+
     for (string::const_iterator k = j; k != s.end();) {
-      if (*k == ' ') 
+      if (*k == ' ')
 	break;
       ++K;
     }
   }
-  
+
   string rr = string(j,k);
   if (has_str(rr, proto)) {
       vs.push_back(rr);
     }
-    
-    
+
+
 }
 #endif
-
-void tree_count()
-{
-
-
-  map<string, int> tc;
-  string str;
-  
-  while (cin >> str) {
-    ++tc[str];
-  } 
-
-  for (map<string, int>::const_iterator it = tc.begin(); it != tc.end(); it++) {
-
-    cout << it->first << " is " << it->second << endl;
-
-  } 
-
-}
-
-
-bool is_in(int a, vector<int> &b)
-{
-
-  for (int i = 0; i < b.size(); i++) {
-    if (a == b[i])
-      return true;
-  }
-  
-  return false;
-} 
 
 
 void find_parent(vector<int> &a, map<int, int> &t, int b)
@@ -1011,18 +883,16 @@ void find_parent(vector<int> &a, map<int, int> &t, int b)
 
   a.push_back(b);
   while (1) {
-    if (t[b] == 0) 
+    if (t[b] == 0)
       break;
     b = t[b];
     a.push_back(b);
-  } 
-}  
+  }
+}
 
 
-void nearest_common_ancestor()
+void nearest_common_ancestor() //jj
 {
-
-
   map<int, int> pairtree;
   vector<int> res;
   int cases, num_node;
@@ -1035,15 +905,15 @@ void nearest_common_ancestor()
     cin >> num_node;
 
     for (int j = 0; j < num_node -1; j++) {
-      
+
       int p, c;
-      
+
       cin >> p >> c;
 
       pairtree[c] = p;
 
     }
-    
+
     cin >> first >> second;
 
     vector<int> a, b;
@@ -1051,20 +921,7 @@ void nearest_common_ancestor()
     find_parent(a, pairtree, first);
     find_parent(b, pairtree, second);
 
-#if 0
-// method 1. compare all parents to all parents
-    for (int k = 0; k < a.size(); k++) {
-
-      if (is_in(a[k], b)) {
-          res.push_back(a[k]);
-          break;
-      }
-    }
-
-
-#endif
-#if 1
-// method 2. compare at the same level.
+// compare at the same level.
   if (a.size() > b.size())
   {
       int diff = a.size() - b.size();
@@ -1084,16 +941,12 @@ void nearest_common_ancestor()
           break;
       }
   }
-  
 
-#endif
   for (int i = 0; i < res.size(); i++) {
     cout << res[i] << endl;
 
   }
-
  }
-
 }
 
 
@@ -1103,18 +956,18 @@ void nearest_common_ancestor()
   replace expression from stack to queue.
   http://poj.org/problem?id=3367
 
-  1. to replace expression from stack to queue interpretation, first thing is to 
+  1. to replace expression from stack to queue interpretation, first thing is to
      make an AST. In other cases also, if you need to interpret, you need to make an AST.
   2. In this case, we can make a AST using tree-node, or using map.
   3. using map, each element in an input stream point to its parent, so we can make a tree node structure
      for that.
   4. for each element in an input stream, we can set the depth of the node in the AST.
   5. Queue traverse starts from the lower-toup, right-to-left. So traverse each element in that way will
-     make the new expression for queue.   
+     make the new expression for queue.
 
 
 */
-void exp_replace_stack_queue()
+void exp_replace_stack_queue() //jj
 {
 
   int num;
@@ -1133,7 +986,7 @@ void exp_replace_stack_queue()
   /* scan input again to calculate the depth of each element. Use map to find the root of each element. */
 
   /* from the right to left, traverse the lowest element up to the root will produce the expression for queue. */
-   
+
 
 }
 
@@ -1188,7 +1041,7 @@ void uunion(vector<struct farm> &vi, int x, int y)
 }
 
 // http://poj.org/problem?id=1984
-void navi()
+void navi() //jj
 {
 
   int num_farms;
@@ -1220,7 +1073,7 @@ void navi()
     }
 
     uunion(vi, farm1, farm2);
- 
+
   }
 
 
@@ -1231,7 +1084,7 @@ void navi()
     int res;
     res = abs(findx(vi, farm1) - findx(vi, farm2)) + abs(findy(vi, farm1) - findy(vi, farm2));
     cout << res << endl;
-    
+
   } else {
 
     cout << " not joined " << endl;
@@ -1259,7 +1112,7 @@ int b(int n)
     return 0;
   if (n == 2)
     return 1;
-  
+
   return d(n - 2) + b(n - 2);
 }
 
@@ -1270,14 +1123,14 @@ int a(int n)
     return 0;
   if (n == 2)
     return 1;
-  
+
   return d(n - 2) + a(n - 2);
 
 }
 
 int d(int n)
 {
-  if (n < 2) 
+  if (n < 2)
     return 0;
   if (n == 2)
     return 3;
@@ -1292,9 +1145,9 @@ void dp_tiling()
   int n, r;
   cin >> n;
 
-  
+
   r = d(n);
-  
+
   cout << "the result is " << r << endl;
 }
 
@@ -1314,34 +1167,27 @@ int d(vector<vector<int> > &a, int r, int c)
 
 }
 
-// /*
 
-// Do not keep the sum in the tree node, as the modified value in the left tree can affects 
+// Do not keep the sum in the tree node, as the modified value in the left tree can affects
 // the values in the right. So, in level 3 from the top, the node in the middle is updated twice,
 // first for the first node in level two, second for the second node in level two.
 
-// */
-
-
-
-// /*
-  
 //  Instead of function call, store the computed value to an array will be better for
 // dynamic programming.
 
-// */
-// // http://poj.org/problem?id=1163
-void tri_sum()
+
+// http://poj.org/problem?id=1163
+void tri_sum() //jj
 {
 
   int n, r;
   cin >> n;
-  
+
   vector<vector<int> > a;
   a.resize(n);
 
   for (int i = 0; i < n; i++) {
-  
+
     for (int j = 0; j < i + 1; j++) {
 
       int k;
@@ -1359,14 +1205,14 @@ void tri_sum()
 }
 
 // http://poj.org/problem?id=1163
-void dp_triangle_test()
+void dp_triangle_test() //jj
 {
     int line;
     cin >> line;
     vector<vector<int>> t(line, vector<int>(line));
     for (int i = 0; i < line; ++i)
     {
-        for (int j = 0; j < i + 1; ++j) 
+        for (int j = 0; j < i + 1; ++j)
         {
             int k;
             cin >> k;
@@ -1375,7 +1221,7 @@ void dp_triangle_test()
     }
 
     vector<vector<int>> r(line, vector<int>(line));
-    
+
     for (int i = line - 1; i >= 0; --i)
     {
         for (int j = 0; j < i + 1; ++j)
@@ -1458,7 +1304,7 @@ void get_comb(vector<int>& a, vector<vector<int>>& vr, vector<int>& vt, int num_
   }
 }
 
-void post_office()
+void post_office() //jj
 {
 
   int num_v, num_p;
@@ -1482,12 +1328,12 @@ void post_office()
 }
 
 // http://poj.org/problem?id=2033
-void alphacode()
+void alphacode() //jj
 {
-  
+
   string s;
   vector<int> v;
-  
+
   cin >> s;
 
   int size = s.size();
@@ -1497,6 +1343,8 @@ void alphacode()
   vector<int> d(v.size());
 
   d[size - 1] = 1;
+  // perhaps, I should stick to simple algorithm. And I should go a phase which check if input is healthy or not.
+  // for example, if there is more than 1 consecutive 0 in the input, then input is error.
 
   if ((v[size - 2] == 1 || v[size - 2] == 2) && (v[size - 1] > 0 && v[size - 1] < 7))
   {
@@ -1553,7 +1401,7 @@ int acode1(string s)
 }
 
 
-void alphacode2()
+void alphacode2() //j
 {
 
     string s;
@@ -1581,19 +1429,13 @@ int min_elem(vector<int> &vi, set<int> &s)
 
 
 // http://poj.org/problem?id=2395
-void hay()
+void hay() //jj
 {
 
   int n, m;
   cin >> n >> m;
 
-  vector<vector<int> > vt;
-
-  vt.resize(n + 1);
-  for (int i = 0; i < vt.size(); i++) {
-    vt[i].resize(n + 1);
-
-  }
+  vector<vector<int> > vt(n + 1, vector<int>(n + 1));
 
   for (int i = 1; i <= n; i++)
     for (int j = 1; j <= n; j++)
@@ -1603,18 +1445,17 @@ void hay()
 
     int a, b, len;
     cin >> a >> b >> len;
-    
+
     vt[a][b] = len;
   }
 
   /* shortest path algorithm by Dikstra */
 
-  vector<int> d;
+  vector<int> d(n + 1);
 
-  d.resize(n + 1);
   for (int i = 1; i <= n; i++)
     d[i] = 10000000;
-  
+
   for (int j = 0; j < vt[1].size(); j++) {
     d[j] = vt[1][j];
 
@@ -1626,9 +1467,9 @@ void hay()
   for (int i = 2; i <= n; i++) {
     v.insert(i);
   }
-  
+
   while (v.size() > 0) {
-    
+
     int w = min_elem(d, v);
     s.insert(w);
     v.erase(w);
@@ -1639,86 +1480,17 @@ void hay()
 
       cout << *it << " is " << d[*it] << endl;
     }
-    
-    
+
+
   }
-  
+
   for (int i = 2; i <= n; i++)
     cout << "to " << i << " is " << d[i];
 
 }
 
 
-
-int min_elem2(vector<vector<int> > &vi, set<int> &s, set<int> &v, int *r)
-{
-  int min = 10000000;
-  int res = 0;
- 
-  for (set<int>::const_iterator it = s.begin(); it != s.end(); it++) {
-    for (set<int>::const_iterator iit = v.begin(); iit != v.end(); iit++) {
-      if (min > vi[*it][*iit]) {
-          min = vi[*it][*iit];
-          *r = min;
-          res= *iit;
-      }
-    }
-  }
-  
-  return res;
-}
-
-void hay2()
-{
-  int n, m;
-  cin >> n >> m;
-
-  vector<vector<int> > vt;
-
-  vt.resize(n + 1);
-  for (int i = 0; i < vt.size(); i++) {
-    vt[i].resize(n + 1);
-
-  }
-
-  for (int i = 1; i <= n; i++)
-    for (int j = 1; j <= n; j++)
-      vt[i][j] = 10000000;
-  
-  for (int i = 0; i < m; i++) {
-
-    int a, b, len;
-    cin >> a >> b >> len;
-    
-    vt[a][b] = len;
-    vt[b][a] = len;
-
-  }
-
-  /* minimal spanning tree */
-
-  set<int> s, v;
-  s.insert(1);
-
-  for (int i = 2; i <= n; i++) {
-    v.insert(i);
-  }
-  
-  int res, max = -1;
-  while (v.size() > 0) {
-    int w = min_elem2(vt, s, v, &res);
-    s.insert(w);
-    v.erase(w);
-    cout << w << " and distance is " << res << endl;
-    if (max < res)
-      max = res;
-  }
-
-  cout << max << endl;
-
-}
-
-void hay3()
+void hay2() //jj
 {
   int n, m;
   cin >> n >> m;
@@ -1751,7 +1523,7 @@ void hay3()
   make_heap(vd.begin(), vd.end(), min_comp);
 
   int t_max = -1;
-  
+
   while (v.size() > 0) {
       auto w = vd.front();
       s.insert(w.first);
@@ -1781,7 +1553,7 @@ void test_vector()
     // it should be & as it copies otherwise. Always remember to use reference
     for (auto& k : va)
         k.resize(3);
-    
+
     for (int i = 0; i < 3; ++i)
     {
         for(int j = 0; j < 3; ++j)
@@ -1815,8 +1587,7 @@ list<string> kdfs(pair<int, int> e, map<pair<int,int>, bool>& visited,
 }
 
 // in the graph problem, node may be a compount value.
-
-void knight_move()
+void knight_move() //jj
 {
     int n, m;
     using elem = pair<int, int>;
@@ -1864,7 +1635,7 @@ void knight_move()
             }
         }
     }
-    
+
     // dfs
     map<pair<int, int>, bool> visited;
     list<string> r = kdfs(elem(0, 0), visited, adj);
@@ -1880,15 +1651,14 @@ void knight_move()
 }
 
 
-
-// worm hole seems to be just a shortest path starting from itself. Or a network
-// flow from source to dest?
+// worm hole  //jj todo
+// seems to be just a shortest path starting from itself. Or a network flow from source to dest?
 // http://poj.org/problem?id=3259
 
 
-// http://poj.org/problem?id=1945
+// http://poj.org/problem?id=1945 //jj todo
 // single line with a single integer that is the minimum number of operations it requires to compute the power.
-// given two variables (or store) to save temporary variable 
+// given two variables (or store) to save temporary variable
 // for example, for input 31, output is 6
 // we can either multiply or divide.
 // (x, 1), (x, x^2), ..., (x, x^32), (x, x^31)
@@ -1896,19 +1666,14 @@ void knight_move()
 // so, input is (1, 0), and output is either should (31, k) or (k, 31) for some
 // k. so, the problem is to construct a graph, and dfs to find the depth, search for the min depth. each node is a pair of integer.
 
- 
+
 // http://poj.org/problem?id=3169
-// layout.
-
-
+// layout. //jj todo
 
 
 // perfect stall
 // http://poj.org/problem?id=1274
-
-int find_perfect_stall(map<int, int>& allocated,
-                       map<int, int>& visited,
-                       map<int, list<int>>& cow)
+int find_perfect_stall(map<int, int>& allocated, map<int, int>& visited, map<int, list<int>>& cow) //jj
 {
     int m = 0;
 
@@ -1952,7 +1717,7 @@ void perfect_stall()
             cow[i].push_back(l);
         }
     }
-            
+
     cout << "input done" << endl;
     map<int, int> allocated;
     map<int, int> visited;
@@ -1962,7 +1727,7 @@ void perfect_stall()
 }
 
 
-bool aia(string s, string t)
+bool aia(string s, string t) //jj
 {
     if (s.size() == 0)
         return true;
@@ -2021,7 +1786,7 @@ void largest_sum()
     {
         max_x = max(max_x, get_large(vi, i));
     }
-            
+
     cout << "the result is " << max_x << endl;
 
 
@@ -2043,8 +1808,8 @@ void largest_sum()
     // todo: can we do it with online (or streaming) data?
 }
 
-int get_max_path(vector<vector<int>>& v, int i, int j, 
-                 vector<pair<int, int>> t, vector<pair<int, int>>& r) 
+int get_max_path(vector<vector<int>>& v, int i, int j,
+                 vector<pair<int, int>> t, vector<pair<int, int>>& r)
 {
     if ((i == v.size() - 1) &&
         (j == v[0].size() - 1))
@@ -2055,14 +1820,14 @@ int get_max_path(vector<vector<int>>& v, int i, int j,
     else if (i == v.size() - 1)
     {
         t.push_back(pair<int, int>(i, j + 1));
-        return v[i][j] + get_max_path(v, i, j + 1, t, r);  
+        return v[i][j] + get_max_path(v, i, j + 1, t, r);
     }
     else if (j == v[0].size() - 1)
     {
         t.push_back(pair<int, int>(i + 1, j));
-        return v[i][j] + get_max_path(v, i + 1, j, t, r);  
+        return v[i][j] + get_max_path(v, i + 1, j, t, r);
     }
-    else 
+    else
     {
         vector<pair<int, int>> t1(t);t1.push_back(pair<int, int>(i + 1, j));
         vector<pair<int, int>> t2(t);t2.push_back(pair<int, int>(i, j + 1));
@@ -2090,7 +1855,7 @@ void get_max_path(vector<vector<int>>& v, int n, int m)
 
     for (int i = m - 2; i >= 0; --i)
         vs[n - 1][i] = v[n - 1][i] + vs[n - 1][i + 1];
-    
+
     for (int i = n - 2; i >= 0; --i)
         vs[i][m - 1] = v[i][m - 1] + vs[i + 1][m - 1];
 
@@ -2169,8 +1934,8 @@ list<pair<int, int>> get_adj(vector<vector<int>>& v, int i, int j)
     return r;
 }
 
-int find_shortes_path(vector<vector<int>>& v, int i, int j, 
-                 vector<pair<int, int>> t, vector<pair<int, int>>& r) 
+int find_shortes_path(vector<vector<int>>& v, int i, int j,
+                 vector<pair<int, int>> t, vector<pair<int, int>>& r)
 {
     int n = v.size();
     int m = v[0].size();
@@ -2184,14 +1949,14 @@ int find_shortes_path(vector<vector<int>>& v, int i, int j,
     else if (i == n - 1)
     {
         t.push_back(pair<int, int>(n - 1, m - 1));
-        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);  
+        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);
     }
     else if (j == m - 1)
     {
         t.push_back(pair<int, int>(n - 1, m - 1));
-        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);  
+        return v[i][j] + find_shortes_path(v, n - 1, m - 1, t, r);
     }
-    else 
+    else
     {
         auto adj = get_adj(v, i, j);
         int min = 10000; // some max value;
@@ -2212,12 +1977,12 @@ int find_shortes_path(vector<vector<int>>& v, int i, int j,
 
 /*
 
- 7 9 2 11 
-13 23 1 3 
-14 11 20 6 
+ 7 9 2 11
+13 23 1 3
+14 11 20 6
 22 44 3 15
 
--> Minimum difficulty = 7 (a[0][0])+ 2(a[0][2]) +3(a[3][2])+15(a[3][3]) = 27 
+-> Minimum difficulty = 7 (a[0][0])+ 2(a[0][2]) +3(a[3][2])+15(a[3][3]) = 27
 Path trace will have = 7->2->3->15
 
 */
@@ -2282,13 +2047,13 @@ void match_sum()
     }
     cout << endl;
 
-    
+
     unordered_map<int, int> mi;
     for (int i = 0; i < vi2.size(); ++i)
     {
         mi[vi2[i]]++;
     }
-    
+
     mi[0]++; // this is necessary
     for (int i = 0; i < vi2.size(); ++i)
     {
@@ -2396,7 +2161,7 @@ public:
         label = s;
         number = atoi(n.c_str());
     };
-    
+
     void print()
     {
         cout << "node is " << label << " " << number << endl;
@@ -2431,7 +2196,7 @@ vector<bin_search_heap_node> find_left(vector<bin_search_heap_node>& v,
           return e.label < n.label;
       };
 
-    copy_if(v.begin(), v.end(), back_inserter(ret), isleft); 
+    copy_if(v.begin(), v.end(), back_inserter(ret), isleft);
     return ret;
 }
 
