@@ -2771,10 +2771,10 @@ void basketball()
         pop_heap(h2s.begin(), h2s.end(), pred_s);
         h2p.push_back(h2s.back());
         h2s.pop_back();
-        
+
         make_heap(h1p.begin(), h1p.end(), pred_p);
         make_heap(h2p.begin(), h2p.end(), pred_p);
-        
+
         for (int j = 0; j < m; ++j)
             process_q(h1p, h1s, h2p, h2s);
 
@@ -2796,7 +2796,7 @@ void test_basketball()
     vs.push_back(student("Sla"));
     vs.push_back(student("Lin"));
     vs.push_back(student("Mei"));
-    
+
     vector<student> h1p;
     vector<student> h1s;
     vector<student> h2p;
@@ -2825,10 +2825,10 @@ void test_basketball()
     pop_heap(h2s.begin(), h2s.end(), pred_s);
     h2p.push_back(h2s.back());
     h2s.pop_back();
-        
+
     make_heap(h1p.begin(), h1p.end(), pred_p);
     make_heap(h2p.begin(), h2p.end(), pred_p);
-        
+
     for (int j = 0; j < m; ++j)
     {
         cout << endl << "-----------" << endl;
@@ -2847,9 +2847,9 @@ struct jobs2m {
     jobs2m(int i, int j, int k) :index(i), a(j), b(k)
     {
     }
-    
+
     bool operator<(const jobs2m &other) const
-    { 
+    {
         if (index < other.index)
             return true;
         else if (index == other.index) {
@@ -2864,7 +2864,7 @@ struct jobs2m {
         }
         else return false;
     }
-    
+
 int index;
     int a;
     int b;
@@ -2881,11 +2881,11 @@ int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int 
     jobs2m t(idx, ka, kb);
     if (jobs2m_map.find(t) != jobs2m_map.end())
         return jobs2m_map[t];
-    
+
     if (ka == 0)
         return (b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
     if (kb == 0)
-        return (a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k)); 
+        return (a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k));
 
     int r =  min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
                b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
@@ -2898,7 +2898,7 @@ int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int 
 /*
 You are given 2 machines. There are N jobs you have to perform. Job i takes Ai time to perform on machine A and Bi time to perform on machine B. Each job should be done either on machine A or B. The jobs should be performed in order. Given the arrays A and B and an integer K, find the minimum time required to complete the jobs, given that you cannot do more than K jobs on the same machine continuously. This can be done in O(N K)space and time. This can be improved to O(N K) time and O(N ) space and further to O(N logN ) time.
 */
-void two_machine_n_jobs()
+void two_machine_n_jobs() //jj
 {
 
     int n, k;
@@ -2955,7 +2955,7 @@ void two_machine_n_jobs()
             r += a[idx];
             continue;
         }
-        
+
         int cnt = 1;
         for (int j = idx - 1; j >= 0; --j)
         {
@@ -2992,7 +2992,7 @@ vector<int> find_staff(vector<int>& v, int i, int len)
     int sum = v[i + len] - v[i];
 
     vector<int> r;
-    
+
     for (int j = i + len; j < v.size() - len; ++j)
     {
         int t = v[j + len] - v[j];
@@ -3006,12 +3006,12 @@ vector<int> find_staff(vector<int>& v, int i, int len)
 vector<int> find_match_staff(vector<int>& v, int i, int len, vector<int>& r)
 {
     vector<int> rr;
-    
+
     return rr;
 }
 
 
-void staff()
+void staff() //jj
 {
     string s;
 
@@ -3022,7 +3022,7 @@ void staff()
 
     for (auto& e: vc)
         v.push_back(int(e - '0'));
-        
+
     int m_max = 0;
     vector<int> vs;
     vs[0] = v[0];
@@ -3032,7 +3032,7 @@ void staff()
     }
 
     int max_len = v.size() / 2;
-    
+
     // start with max_len first, as we will stop if we find
     // the longest staff
     bool found = false;
@@ -3110,7 +3110,7 @@ bt_node* get_next_right(stack<bt_node*> &rs)
     return n;
 }
 
-void find_match_sum_bintree()
+void find_match_sum_bintree() //jj
 {
     bt_node a(6);
     bt_node b(3);
@@ -3137,7 +3137,7 @@ void find_match_sum_bintree()
     bt_node* right = rs.top();rs.pop();
 
     int match = 16;
-    
+
     while (left->val < right->val) {
         // cout << "left is " << left->val << " and right is " << right->val << endl;
         if (left->val + right->val < match)
@@ -3163,7 +3163,7 @@ vector<int> serialise_bst(bt_node* n)
 
     if (!n)
         return a;
-    
+
     a.push_back(n->val);
 
     if (n->left)
@@ -3176,17 +3176,17 @@ vector<int> serialise_bst(bt_node* n)
         vector<int> l = serialise_bst(n->right);
         copy(l.begin(), l.end(), back_inserter(a));
     }
-         
+
     return a;
 }
 
 vector<int> left_tree(vector<int>& v)
 {
-    
+
     vector<int> r;
     if (v.size() == 0)
         return r;
-    
+
     int m = v[0];
 
     for (int i = 1; i < v.size(); ++i)
@@ -3216,7 +3216,7 @@ bt_node* construct_bst(vector<int>& v)
 }
 
 
-void test_save_reconstruct_bst()
+void test_save_reconstruct_bst() //jj
 {
     bt_node a(6);
     bt_node b(3);
@@ -3241,7 +3241,7 @@ void test_save_reconstruct_bst()
     cout << endl;
 
     bt_node* n = construct_bst(r);
-    
+
     r = serialise_bst(n);
     cout << "after" << endl;
     for (auto e: r)
@@ -3251,16 +3251,15 @@ void test_save_reconstruct_bst()
 
 /*
 Convert a doubly linked list to a Binary Search Tree
-Given a sorted doubly linked list, create a BST which 
+Given a sorted doubly linked list, create a BST which
 is balanced and not skewed. */
-
 bt_node* make_tree(list<int>& l)
 {
     if (l.begin() == l.end())
         return nullptr;
-    
+
     // find middle
-    
+
     auto first = l.begin();
     auto last = l.end();
     while (first != last)
@@ -3273,7 +3272,7 @@ bt_node* make_tree(list<int>& l)
 
     bt_node* n {new bt_node(*first)};
     list<int> left {l.begin(), first};
-    auto next = first; 
+    auto next = first;
     ++next;
     list<int> right {next, l.end()};
     n->left = make_tree(left);
@@ -3297,10 +3296,10 @@ void print(bt_node* r)
 }
 
 
-void test_bst_from_list()
+void test_bst_from_list() //jj
 {
     // find middle and divide and conquer, call make_tree
-    // 
+    //
     // shared_ptr<node> m{new node(middle->val)};
     // m->left = make_tree(begin, middle->left);
     // m->right = make_tree(middle->right, end);
@@ -3325,16 +3324,12 @@ void test_bst_from_list()
 }
 
 
-
-//
-//
 // construct binary tree from the traverse of
 // its post order and pre order.
 // For example,
-// a b c d e f g (left is root, bfs), 
+// a b c d e f g (left is root, bfs),
 // a b d e c f g (pre order)
 // d e b f g c a (post order)
-
 vector<int> left_tree(vector<int>& va, vector<int>& vb)
 {
     set<int> a;
@@ -3368,7 +3363,7 @@ bt_node* make_tree(vector<int> va, vector<int> vb)
     return n;
 }
 
-void construct_binarytree_from_post_and_pre_order_traverse()
+void construct_binarytree_from_post_and_pre_order_traverse() //jj
 {
     int n;
     cin >> n;
@@ -3401,7 +3396,6 @@ void construct_binarytree_from_post_and_pre_order_traverse()
 //
 // binary tree (not bst), find whether node b is in between the path from a to c
 //
-
 bool search_topdown_path(bt_node* n, list<bt_node*> l)
 {
     if (l.empty())
@@ -3423,11 +3417,11 @@ bool search_topdown_path(bt_node* n, list<bt_node*> l)
     // changes in the subtree
     // if we want to consider pre-order traversal,
     // then l should be reference type.
-    
+
     r = search_topdown_path(n->left, l);
     if (r)
         return true;
-    
+
     r = search_topdown_path(n->right, l);
     if (r)
         return true;
@@ -3436,7 +3430,7 @@ bool search_topdown_path(bt_node* n, list<bt_node*> l)
 }
 
 
-void test_search_node_path()
+void test_search_node_path() //jj
 {
     bt_node a(6);
     bt_node b(3);
@@ -3462,11 +3456,11 @@ void test_search_node_path()
     list<bt_node*> l = {&a, &c, &i};
     if (search_topdown_path(&a, l))
         cout << "yes1" << endl;
-    
+
     l = {&a, &c, &h};
     if (search_topdown_path(&a, l))
         cout << "yes2" << endl;
- 
+
     l = {&a, &b, &i};
     if (search_topdown_path(&a, l))
         cout << "no1" << endl;
@@ -3558,7 +3552,7 @@ Each time a player chooses an integer number (0 <= k) so that 2^k is less than n
 The First player starts the game and they play in turns alternatively. Knowing that both two players play optimally you have to specify the winner.
 */
 
-void beauty_number()
+void beauty_number() //jj
 {
     int x;
     cin >> x;
@@ -3592,26 +3586,26 @@ int get_dum(int x, int y)
         return 0;
 
     int i = 1;
-    while (x >= y * i * 2) 
+    while (x >= y * i * 2)
         i *= 2;
 
     return i;
 }
-        
-    
+
+
 
 // this can be implemented using get_dum.
-void div_using_mul(int x, int y)
+void div_using_mul(int x, int y) //jj
 {
     int r = 0;
     while (x >= y)
     {
         int k = 1;
         // actually it can be done without multiplication.
-        // we can just use bit >> or << 
+        // we can just use bit >> or <<
         while (x >= 2 * k * y)
             k *= 2;
-        
+
         x -= k * y;
         r += k;
     }
@@ -3672,10 +3666,10 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
 {
     // cout << "match " << a.msg << " " << b.msg << " ";
     if (a.msg.size() != b.msg.size()) {
-        // cout << "false 1" << endl; 
+        // cout << "false 1" << endl;
            return false;
     }
-    
+
     for (int i = 0; i < a.msg.size(); ++i)
     {
         char c = a.msg[i];
@@ -3683,7 +3677,7 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
         {
             if (cmap[c] != b.msg[i])
             {
-                // cout << "false 2" << endl; 
+                // cout << "false 2" << endl;
                 return false;
             }
         }
@@ -3695,8 +3689,8 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
         char c = a.msg[i];
         cmap[c] = b.msg[i];
     }
-    
-    // cout << "true" << endl; 
+
+    // cout << "true" << endl;
     return true;
 }
 
@@ -3738,7 +3732,7 @@ void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va, map<char, char>& cmap)
 
 }
 
-void decipher()
+void decipher() //jj
 {
     vector<dcpr> va = {"hello", "there", "yello", "thorns"};
     vector<dcpr> vb1 = {"12334", "51272"};
@@ -3749,7 +3743,7 @@ void decipher()
     proc_dcpr(0, vb1, va, cmap);
 
     cmap.clear();
-    proc_dcpr(0, vb2, va, cmap); 
+    proc_dcpr(0, vb2, va, cmap);
 }
 
 
@@ -3763,7 +3757,7 @@ void decipher()
 */
 
 
-string remove_parenthesis(string str)
+string remove_parenthesis(string str) //jj
 {
     stack<string> stk;
 
@@ -3792,10 +3786,10 @@ string remove_parenthesis(string str)
 
             if (count == 0)
                 continue;
-                  
+
             if (count > 1)
                 s = "(" + s + ")";
-                
+
             stk.push(s);
         }
 
@@ -3826,13 +3820,13 @@ int gget (string& s, int idx)
 
     return s[s.size() - 1 - idx] - '0';
 }
-   
-string bin_add(string& s1, string& s2)
+
+string bin_add(string& s1, string& s2) //jj
 {
     int len = max(s1.size(), s2.size());
     string s3;
     int carry = 0;
-   
+
     for (int i = 0; i < len; ++i)
     {
         int t = carry + gget(s1, i) + gget(s2, i);
@@ -3860,7 +3854,7 @@ void bin_string_add()
 }
 
 /*
-  u are given an array containing 0s and 1s. Give an O(n) time algorithm to 
+  u are given an array containing 0s and 1s. Give an O(n) time algorithm to
 find the maximum contiguous sub sequence which has equal number of 1s and 0s.
 
 Examples
@@ -3900,7 +3894,7 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
     {
         return pair<int, int>(len, beg);
     }
-    else 
+    else
     {
         return max_p(gmbs_rec(vs, beg, len - 1),
                      gmbs_rec(vs, beg + 1, len - 1));
@@ -3918,7 +3912,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
             {
                 return pair<int, int>(len, i);
             }
-        
+
         }
         --len;
     }
@@ -3926,7 +3920,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
     return pair<int, int>(0, 0);
 }
 
-pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
+pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size) //jj
 {
     int len = size;
     while (len > 0)
@@ -3957,25 +3951,6 @@ pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size)
     return pair<int, int>(0, 0);
 }
 
-pair<int, int> gebs_iter(vector<int>&vs1, vector<int>& vs2, int beg, int size)
-{
-    int len = size;
-    while (len > 0)
-    {
-        for (int i = beg; i + len <= size; ++i)
-        {
-            if (gmbs_get(vs1, i, len) == gmbs_get(vs2, i, len))
-            {
-                return pair<int, int>(len, i);
-            }
-        
-        }
-        --len;
-    }
-
-    return pair<int, int>(0, 0);
-}
-
 
 pair<int, int> gmbs3(vector<int>& v)
 {
@@ -3985,7 +3960,7 @@ pair<int, int> gmbs3(vector<int>& v)
     {
         vs[i] = vs[i - 1] + v[i];
     }
-    
+
     return gmbs_linear(vs, v, 0, vs.size());
 }
 
@@ -3998,7 +3973,7 @@ pair<int, int> gmbs(vector<int>& v)
     {
         vs[i] = vs[i - 1] + v[i];
     }
-    
+
     return gmbs_rec(vs, 0, vs.size());
 }
 
@@ -4010,11 +3985,32 @@ pair<int, int> gmbs2(vector<int>& v)
     {
         vs[i] = vs[i - 1] + v[i];
     }
-    
+
     return gmbs_iter(vs, 0, vs.size());
 }
 
-pair<int, int> gebs(vector<int>& v1, vector<int>& v2)
+
+pair<int, int> gebs_iter(vector<int>&vs1, vector<int>& vs2, int beg, int size)
+{
+  int len = size;
+  while (len > 0)
+    {
+      for (int i = beg; i + len <= size; ++i)
+        {
+          if (gmbs_get(vs1, i, len) == gmbs_get(vs2, i, len))
+            {
+              return pair<int, int>(len, i);
+            }
+
+        }
+      --len;
+    }
+
+  return pair<int, int>(0, 0);
+}
+
+
+pair<int, int> gebs(vector<int>& v1, vector<int>& v2) //jj
 {
     vector<int> vs1(v1.size());
     vs1[0] = v1[0];
@@ -4029,7 +4025,7 @@ pair<int, int> gebs(vector<int>& v1, vector<int>& v2)
     {
         vs2[i] = vs2[i - 1] + v2[i];
     }
-    
+
     return gebs_iter(vs1, vs2, 0, vs1.size());
 }
 
@@ -4056,7 +4052,7 @@ void get_eq_bin_subsequence()
         cin >> t;
         v2.push_back(t);
     }
-    
+
     pair<int, int> r;
 
     r = gebs(v1, v2);
@@ -4078,7 +4074,7 @@ void get_max_bin_subsequence()
         cin >> t;
         v1.push_back(t);
     }
-    
+
     pair<int, int> r;
 
     r = gmbs(v1);
@@ -4093,7 +4089,7 @@ void get_max_bin_subsequence()
 
 
 
-void add_without_plus()
+void add_without_plus() //jj
 {
     int a, b;
     cin >> a >> b;
@@ -4152,10 +4148,10 @@ int lsna_table(vector<int>& v)
         return 0;
     if (size == 1)
         return v[0];
-    
+
     t[size - 1] = v[size - 1];
     t[size - 2] = max(v[size - 1], v[size - 2]);
-    
+
     for (int i = size - 3; i >= 0; --i)
     {
         t[i] = max(t[i + 1], v[i] + t[i + 2]);
@@ -4165,7 +4161,7 @@ int lsna_table(vector<int>& v)
 }
 
 
-void largest_sum_no_adjcent()
+void largest_sum_no_adjcent() //jj
 {
 
     int n;
@@ -4177,7 +4173,7 @@ void largest_sum_no_adjcent()
     {
         int t;
         cin >> t;
-        
+
         v.push_back(t);
     }
 
@@ -4199,7 +4195,7 @@ int fnre(vector<int>& vi, int i, int j)
         vi[m + 1] != vi[m])
         return vi[m];
 
-    if (m % 2) 
+    if (m % 2)
     {
         if (vi[m] == vi[m - 1])
             return fnre(vi, m + 1, j);
@@ -4213,11 +4209,11 @@ int fnre(vector<int>& vi, int i, int j)
         else
             return fnre(vi, m + 1, j);
     }
-    
+
 }
 
 // all elements are repeated except one. Find it as quick as possible.
-void test_find_non_repeated_elem()
+void test_find_non_repeated_elem() //jj
 {
     int n;
     vector<int> vi;
@@ -4233,7 +4229,7 @@ void test_find_non_repeated_elem()
     cout << fnre(vi, 0, vi.size() - 1) << endl;
 }
 
-void test_find_longest_repeated_char()
+void test_find_longest_repeated_char() //jj
 {
     string s;
     cin >> s;
@@ -4242,7 +4238,7 @@ void test_find_longest_repeated_char()
     int count = 1;
     int max = 0;
     list <char> l;
-    
+
     for (int i = 1; i < s.size(); ++i)
     {
         if (prev != s[i])
@@ -4258,7 +4254,7 @@ void test_find_longest_repeated_char()
             {
                 l.push_back(prev);
             }
-            
+
             prev = s[i];
             count = 1;
         }
@@ -4285,21 +4281,21 @@ void test_find_longest_repeated_char()
     cout << endl;
 }
 
-void test_first_unrepeated_char()
+void test_first_unrepeated_char() //jj
 {
     string s;
     cin >> s;
 
     char prev = s[0];
     int count = 1;
-    
+
     for (int i = 1; i < s.size(); ++i)
     {
         if (prev != s[i])
         {
             if (count == 1)
                 break;
-            
+
             prev = s[i];
             count = 1;
         }
@@ -4315,11 +4311,11 @@ void test_first_unrepeated_char()
 
 
 
-void test_find_a_missing_number_in_4_billion_number_in_a_file()
+void test_find_a_missing_number_in_4_billion_number_in_a_file() //jj
 {
-    // You have a file in which there are supposed to be 4 billion numbers, 
-    // starting from 1 to 4,000,000,000 but unfortunately one number is missing, 
-    // i.e there are only 3,999,999,999 numbers, You need to find the missing number. 
+    // You have a file in which there are supposed to be 4 billion numbers,
+    // starting from 1 to 4,000,000,000 but unfortunately one number is missing,
+    // i.e there are only 3,999,999,999 numbers, You need to find the missing number.
 
     // it is s^32
     // sol 1: first 16 bit of the integer can be bucket, and the next 16 bit can be index.
@@ -4333,15 +4329,15 @@ void test_find_a_missing_number_in_4_billion_number_in_a_file()
     // but it may take too long time to keep adding very big value
 }
 
-void test_searching_words_in_a_very_big_file()
+void test_searching_words_in_a_very_big_file() //jj
 {
-    // Given a large file, how will you store the words in the file so that 
-    // searching of a word can be done in constant time? Also how will you find 
+    // Given a large file, how will you store the words in the file so that
+    // searching of a word can be done in constant time? Also how will you find
     // the 10 most frequently occurring word.
 
 
     // sol 1: trie, each end node has the list of the positions
-    //        in the file. After constructing the trie, scan the 
+    //        in the file. After constructing the trie, scan the
     // trie to create map<int, list<string>> where int is the number of occurences
     // and list<stirng> is string that occurs int times in the file.
 
@@ -4387,9 +4383,9 @@ int find_more(pair<int, int>& n, set<pair<int, int>>& m, map<pair<int, int>, int
 }
 
 
-int find_plus(pair<int, int>& n, 
-              set<pair<int, int>>& m, 
-              map<pair<int, int>, int>& t_m, 
+int find_plus(pair<int, int>& n,
+              set<pair<int, int>>& m,
+              map<pair<int, int>, int>& t_m,
               map<pair<int, int>, int>& b_m,
               map<pair<int, int>, int>& l_m,
               map<pair<int, int>, int>& r_m)
@@ -4435,7 +4431,7 @@ splus find_biggest_plus(set<pair<int, int>>& m)
     return t;
 }
 
-void test_find_biggest_plus()
+void test_find_biggest_plus() //jj
 {
 }
 
