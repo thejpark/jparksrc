@@ -52,7 +52,7 @@ int myfib(int x)
     if (x == 0 || x == 1)
         return x;
 
-    auto r1 = async(myfib, x - 1);
+    auto r1 = async(myfib, x - 1); //jj
     auto r2 = async(myfib, x - 2);
     return r1.get() + r2.get();
 }
@@ -76,7 +76,7 @@ void t2_1()
 }
 
 
-class mysem {
+class mysem { //jj
 public:
     mysem(int size) : avail{size} {}
     mysem() : avail{0} {}
@@ -136,7 +136,7 @@ void t3()
 {
     test3 t;
     // first argument of the method is a reference(or pointer) to an object
-    thread a(&test3::task3a, ref(t));
+    thread a(&test3::task3a, ref(t)); //jj
     thread b(&test3::task3a, ref(t));
     // thread c(task3b);
     a.join();
@@ -145,9 +145,8 @@ void t3()
 }
 
 // RAII (vector, string, etc which hides nakid new/delete with handle class.
-
 template<typename T>
-class Vector
+class Vector //jj
 {
 public:
     // alias
@@ -234,7 +233,7 @@ private:
 };
 
 // So, enum can be used to create singleton pattern?
-enum class Color {red, blue, green};
+enum class Color {red, blue, green}; //jj
 enum class TrafficLight {green, yellow, red};
 // enum has initialization, assignment, and comparison, and also
 // allow adding new method
@@ -273,7 +272,7 @@ void t5()
         // return z;
     } catch (length_error e) {
         cout << "length error" << endl;
-    } catch (...) {
+    } catch (...) { //jj
         cout << " unknown error" << endl;
     }
 }
@@ -283,7 +282,7 @@ void t5()
 class Shape {
 public:
     Shape(){}
-    Shape(const Shape&)=delete; // no copy operation
+    Shape(const Shape&)=delete; // no copy operation //jj
     Shape& operator=(const Shape&)=delete;
     Shape(Shape&&)=delete; // no move operation
     virtual ~Shape(){};
@@ -310,7 +309,7 @@ public:
 };
 
 // unique_ptr hides naked new/delete.
-unique_ptr<Shape> ReadShape(istream& is)
+unique_ptr<Shape> ReadShape(istream& is) //jj
 {
 // read shape header from is and find its kind k
     // switch (k) {
@@ -412,7 +411,6 @@ bool operator<(const Entry&x, const Entry& y)
     return x.name < y.name;
 }
 
-// for some reason, unique_copy gives compile error.
 template <class InputIterator, class OutputIterator>
   OutputIterator unique_copy1 (InputIterator first, InputIterator last,
                               OutputIterator result)
@@ -422,7 +420,7 @@ template <class InputIterator, class OutputIterator>
   *result = *first;
   while (++first != last) {
       // Traits class defining properties of iterators
-      typename iterator_traits<InputIterator>::value_type val = *first;
+    typename iterator_traits<InputIterator>::value_type val = *first; //jj
       if (!(*result == val))   // or: if (!pred(*result,val)) for version (2)
           *(++result)=val;
   }
@@ -537,14 +535,14 @@ struct F15 {
 
 void t15()
 {
-    thread t1 {f15};
+  thread t1 {f15}; //jj
     thread t2 {F15()};
     t1.join();
     t2.join();
 
 }
 
-// if we need to return result, we should use out-param
+// if we need to return result, we should use out-param //jj
 void f16(vector<double>& v)
 {
     cout << "hello";
@@ -560,7 +558,7 @@ void t16()
 {
     vector<double> sv {1, 2, 3};
     vector<double> tv {3, 2, 1};
-// we need ref() to tell variadic template 'sv' is reference not object
+// we need ref() to tell variadic template 'sv' is reference not object //jj
     thread t1 {f16, ref(sv)};
     thread t2 {F16(tv)};
     t1.join();
@@ -597,13 +595,13 @@ double comp2(vector<double>& v)
     // difference between async and packaged_task is that, package_task should
     // explicitly start task. if you do not start thread the it will start in
     // the current thread.
-    thread t1 {move(pt0), first, first + v.size() / 2, 0.0}; // start task
+    thread t1 {move(pt0), first, first + v.size() / 2, 0.0}; // start task //jj
     thread t2 {move(pt1), first + v.size() / 2, first + v.size(), 0.0};
     return f0.get() + f1.get();
 }
 
 
-class my_countdown_latch {
+class my_countdown_latch { //jj
 public:
     my_countdown_latch(int n)
     {
@@ -657,7 +655,7 @@ void t18()
 }
 
 
-class my_barrier {
+class my_barrier { //jj
 public:
     my_barrier(int n)
     {
@@ -688,13 +686,13 @@ private:
 };
 
 template <typename T>
-class my_bounded_blocking_queue {
+class my_bounded_blocking_queue { //jj
 public:
     my_bounded_blocking_queue(string s="", int size=10) :
-        name{s}, 
+        name{s},
         head{0},
         tail{0},
-        capacity{size}, 
+        capacity{size},
         data{new T[size]},
         availSpace{size},
         availItems{0} {}
@@ -752,7 +750,7 @@ T my_bounded_blocking_queue<T>::getItem()
 
 
 template <typename T>
-class my_blocking_queue {
+class my_blocking_queue { //jj
     class elem {
     public:
         elem(T t) : data{t}, prev{nullptr}, next{nullptr} {}
@@ -829,8 +827,7 @@ void t19()
     assert(x == 1);
 }
 
-void client(my_blocking_queue<int>& qi,
-            my_blocking_queue<int>& qo)
+void client(my_blocking_queue<int>& qi, my_blocking_queue<int>& qo) //jj
 {
     int i;
     int count = 0;
@@ -902,7 +899,7 @@ void t21()
 
     int min = 0;
     pair<string, int> vs[10];
-    
+
     for (auto e: mc)
     {
         if (e.second > min)
@@ -938,7 +935,7 @@ bool  comp22(pair<string, int>& p1, pair<string, int>& p2)
 
 void t22()
 {
-// find top 10 most occured word in the list
+// find top 10 most occured word in the list //jj
     string s;
     map<string, int> mc;
     while(cin >> s)
@@ -949,9 +946,9 @@ void t22()
     int min = 0;
     vector<pair<string, int>> vs;
     vs.resize(10);
-    
+
     make_heap(vs.begin(), vs.end(), comp22);
-    
+
     for (auto e: mc)
     {
         if (e.second > min)
@@ -965,7 +962,7 @@ void t22()
     }
 
     sort_heap(vs.begin(), vs.end(), comp22);
-    
+
     for (auto it = vs.begin(); it != vs.end(); ++it)
         cout << it->first << " : " << it->second << endl;
 }
