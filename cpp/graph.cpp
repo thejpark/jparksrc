@@ -11,7 +11,7 @@
 using namespace std;
 
 template<class T>
-class graph
+class graph //jj
 {
 private:
     map<T, int> r;
@@ -41,7 +41,7 @@ public:
     }
 
     map<T, int>
-    dijkstra(T from)
+    dijkstra(T from) //jj
     {
         // initial distance
         list<pair<T, int> > adjlist = adj(from);
@@ -86,7 +86,7 @@ public:
         return r;
     }
 
-    void sort(T t)
+  void sort(T t) //jj
     {
         resolved[t] = true; // we now can work with cycle.
 
@@ -102,7 +102,7 @@ public:
         cout << t << endl;
     }
 
-    void sortFindCycle(T t)
+  void sortFindCycle(T t) //jj
     {
         visited[t]++;
         if (visited[t] > 1)
@@ -141,7 +141,7 @@ public:
         visited[t]--;
     }
 
-    void sortBfs(T t)
+  void sortBfs(T t) //jj
     {
         resolved[t] = true; // we now can work with cycle.
         list<T> vt;
@@ -208,7 +208,7 @@ public:
         }
     }
 
-    int findMaxFlow(T s, T d)
+  int findMaxFlow(T s, T d) //jj
     {
         // actually this check is useless.
         // if (parents.find(d) == parents.end())
@@ -515,7 +515,7 @@ int t3_1()
     g.sortBfs(1);
 }
 
-class trie {
+class trie { //jj
 private:
     class node {
     public:
@@ -831,7 +831,7 @@ void t7_3()
 }
 
 #if 0
- // union find
+ // union find //jj
 int Find(int x) {
      while(x != L[x]) x = L[x];
      return x;
@@ -869,8 +869,7 @@ struct node {
 };
 
 // find whether there is a depth n which has both value a and b.
-
-bool bfs_pair(node* n, int a, int b)
+bool bfs_pair(node* n, int a, int b) //jj
 {
     if (!n) return false;
 
