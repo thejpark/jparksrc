@@ -16,7 +16,7 @@ class Solver {
                 processRow(myRow);
 
                 try {
-                    barrier.await();
+                    barrier.await(); //jj
                 } catch (InterruptedException ex) {
                     return;
                 } catch (BrokenBarrierException ex) {

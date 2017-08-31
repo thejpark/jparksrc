@@ -5,7 +5,7 @@ package flatten;
  *
  */
 public class Either<A,B> {
-	
+
 	/**
 	 * Constructs a left-type Either
 	 */
@@ -14,7 +14,7 @@ public class Either<A,B> {
 		if (a == null) throw new IllegalArgumentException();
 		return new Either(a, null);
 	}
-	
+
 	/**
 	 * Constructs a right-type Either
 	 */
@@ -22,16 +22,16 @@ public class Either<A,B> {
 		if (b == null) throw new IllegalArgumentException();
 		return new Either(null, b);
 	}
-	
-	
+
+
 	private final A a;
 	private final B b;
-	
+
 	private Either(A a, B b) {
 		this.a = a;
 		this.b = b;
 	}
-	
+
 	/**
 	 * Applies function f to the contained value if it is a left-type and returns the result. Throws an IllegalStateException if this is a right-type Either.
 	 */
@@ -41,7 +41,7 @@ public class Either<A,B> {
 			throw new IllegalStateException();
 		}
 		return f.apply(a);
-		
+
 	}
 
 	/**
@@ -52,9 +52,9 @@ public class Either<A,B> {
 			throw new IllegalStateException();
 		}
 		return f.apply(b);
-		
+
 	}
-	
+
 	/**
 	 * @return true if this is a left, false if it is a right
 	 */

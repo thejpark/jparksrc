@@ -1,20 +1,20 @@
 private static final Object tieLock = new Object();
 
-public void transferMoney(final Account fromAcct,
+public void transferMoney(final Account fromAcct,//jj
                           final Account toAcct,
                           final DollarAmount amout)
     throws InsufficientFundException {
-    
+
     class Helper {
         public void transfer() {
             if (fromAcct.getBalance.compareTo(amout) < 0)
                 throw new InsufficientFundException();
             else
-            {
-                fromAcct.debit(amout);
-                toAcct.credit(amout);
-            }
-            
+                {
+                    fromAcct.debit(amout);
+                    toAcct.credit(amout);
+                }
+
         }
     }
 
@@ -46,4 +46,3 @@ public void transferMoney(final Account fromAcct,
         }
     }
 }
-     

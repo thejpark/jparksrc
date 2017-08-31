@@ -58,7 +58,7 @@ class AssertConcurrency {
             final CountDownLatch afterInitBlocker = new CountDownLatch(1);
             final CountDownLatch allDone = new CountDownLatch(numThreads);
 	    final AtomicInteger index = new AtomicInteger(-1);
-            for (final IpCheckable submittedTestRunnable : runnables) {
+      for (final IpCheckable submittedTestRunnable : runnables) { //jj
 		threadPool.submit(new Runnable() {
 			public void run() {
 			    allExecutorThreadsReady.countDown();

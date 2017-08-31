@@ -11,34 +11,34 @@ class FileCrawler implements Runnable {
     private final File file;
 
     FileCrawler(BlockingQueue<File> q, FileFilter ft, File f)  {
-	fileQueue = q;
-	file = f;
-	fileFilter = ft;
+        fileQueue = q;
+        file = f;
+        fileFilter = ft;
     }
 
     public void run() {
-	try {
-	    crawl(file);
-	} catch (InterruptedException e) {
-	    Thread.currentThread().interrupt();
-	}
+        try {
+            crawl(file);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
-    private void crawl(File root) throws InterruptedException {
-	File[] entries = root.listFiles(fileFilter);
-	if (entries != null) {
-	    for (File entry : entries) {
-		if (entry.isDirectory())
-		    crawl(entry);
-		else if (!alreadyIndexed(entry)) {
-		    fileQueue.put(entry);
-		}
-	    }
-	}
+    private void crawl(File root) throws InterruptedException {//jj
+        File[] entries = root.listFiles(fileFilter);
+        if (entries != null) {
+            for (File entry : entries) {
+                if (entry.isDirectory())
+                    crawl(entry);
+                else if (!alreadyIndexed(entry)) {
+                    fileQueue.put(entry);
+                }
+            }
+        }
     }
 
     private boolean alreadyIndexed(File entry) {
-	return fileQueue.contains(entry);
+        return fileQueue.contains(entry);
     }
 }
 

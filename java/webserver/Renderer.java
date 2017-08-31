@@ -2,34 +2,34 @@ package webserver;
 
 import java.util.concurrent.*;
 
-class Renderer {
+class Renderer { //jj
     final ExecutorService ex;
     Renderer(ExecutorService e) {
-	exec = e;
+        exec = e;
     }
 
     void renderPage(CharSequence source) {
-	final List<ImageInfo> info = scanForImageInfo(source);
-	CompletionService<ImageData> cs = new ExecutorCompletionService<ImageData>(exec);
-	for (final ImageInfo imageInfo : info)
-	    cs.submit(new Callable<ImageData>() {
-		    public ImageData call() {
-                return imageInfo.downloadImage();
-		    }
-		});
-	renderText(source);
+        final List<ImageInfo> info = scanForImageInfo(source);
+        CompletionService<ImageData> cs = new ExecutorCompletionService<ImageData>(exec);
+        for (final ImageInfo imageInfo : info)
+            cs.submit(new Callable<ImageData>() {
+                    public ImageData call() {
+                        return imageInfo.downloadImage();
+                    }
+                });
+        renderText(source);
 
-	try {
-	    for (int t = 0, n = info.size(); t < n; t++) {
-            Future<ImageData> f = cs.take();
-            ImageData imageData = f.get();
-            renderImage(imageData);
-	    }
-	} catch (InterruptedException e) {
-	    Thread.currentThread().interrupt();
-	} catch (ExecutionException e) {
-	    // do something here
-	}
+        try {
+            for (int t = 0, n = info.size(); t < n; t++) {
+                Future<ImageData> f = cs.take();
+                ImageData imageData = f.get();
+                renderImage(imageData);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException e) {
+            // do something here
+        }
     }
 
     Page renderPageWithAd() throws InterruptedException {

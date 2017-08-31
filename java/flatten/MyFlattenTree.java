@@ -8,9 +8,9 @@ public class MyFlattenTree<T> implements FlattenTree<T>
     private class myfunc implements Function<T, List<T>>
     {
         public myfunc() {}
-        public List<T> apply(T p) 
+        public List<T> apply(T p)
         {
-	    List<T> r = new ArrayList();
+            List<T> r = new ArrayList();
             r.add(p);
             return r;
         }
@@ -19,8 +19,8 @@ public class MyFlattenTree<T> implements FlattenTree<T>
     private class myfunc2 implements Function<Triple<Tree<T>>, List<T>>
     {
         public myfunc2() {}
-        
-        public List<T> apply(Triple<Tree<T>> p) 
+
+        public List<T> apply(Triple<Tree<T>> p)
         {
             List<T> r = new ArrayList();
 
@@ -30,24 +30,24 @@ public class MyFlattenTree<T> implements FlattenTree<T>
             return r;
         }
     }
-    
+
     private myfunc f1;
     private myfunc2 f2;
 
     MyFlattenTree() {
-	f1 = new myfunc();
-	f2 = new myfunc2();
+        f1 = new myfunc();
+        f2 = new myfunc2();
     }
 
-    public List<T> flattenInOrder(Tree<T> tree) 
+    public List<T> flattenInOrder(Tree<T> tree)
     {
         if (tree == null)
-	    return new ArrayList<T>();
-        
+            return new ArrayList<T>();
+
         Either<T, Triple<Tree<T>>> n =  tree.get();
 
         if (n.isLeft()) {
-            List<T> l = n.ifLeft(f1); 
+            List<T> l = n.ifLeft(f1);
             return l;
         } else {
             List<T> l = n.ifRight(f2);
