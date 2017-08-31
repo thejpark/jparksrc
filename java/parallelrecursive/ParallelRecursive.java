@@ -27,14 +27,12 @@ public<T> Collection<T> getParallelResults(List<Node<T>> nodes) //jj
 }
 
 
-
 interface Puzzle<P, M> {
     P initialPosition();
     boolean isGoal(P position);
     Set<M> legalMoves(P position);
     P move(P position, M mov);
 }
-
 
 
 class SequentialPuzzleSolver<P, M> {

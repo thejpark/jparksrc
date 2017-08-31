@@ -43,7 +43,6 @@ class FileCrawler implements Runnable {
 }
 
 
-
 // file crawling request to server, and server respondes asynch, then how it will be?
 // 1) single request and single response, with queue, after processing response and q is empty then it is done.
 // 2) if single request thread and multiple response, then a blocking queue will be fine
