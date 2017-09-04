@@ -65,7 +65,6 @@ void hangover()
 }
 
 
-
 class str_unsort {
 public:
   str_unsort(string &s) : str(s), unsort(0) {
@@ -79,15 +78,12 @@ private:
     int size = str.size();
     for (int i = 0; i < size; i++) {
       for (int j = i + 1; j < size; j++) {
-	if (str[i] > str[j])
-	  unsort++;
+        if (str[i] > str[j])
+          unsort++;
       }
     }
-
   }
-
 };
-
 
 
 /* usually, sorting needs swap. */
@@ -116,7 +112,7 @@ void dna_sorting()
 
     for (int j = i + 1; j < num_str; j++) {
       if(vunsort[min]->unsort > vunsort[j]->unsort)
-	min = j;
+        min = j;
     }
 
     if (min != i) {
