@@ -4310,6 +4310,8 @@ bool check_array_is_keep_increasing_decreasing(vector<int>& a) //jj
 }
 
 
+//std::sort (numbers, numbers+5, std::less<int>()); -> 10 20 30 40 50
+//std::sort (numbers, numbers+5, std::greater<int>()); -> 50 40 30 20 10
 int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores) //jj
 {
   int sum = 0;
