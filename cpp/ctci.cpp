@@ -2266,8 +2266,43 @@ void t47()
 }
 
 
+void faps(int k, int t, vector<int> vt, vector<vector<int>>& rt, bt_node<int>* n)
+{
+  if (n == nullptr) {
+      return;
+  }
+
+  if (t == k) {
+      rt.emplace_back(vt);
+  }
+
+  vector<int> vtt;
+  vtt.emplace_back(n->val);
+  faps(k, n->val, vtt, rt, n->left);
+  faps(k, n->val, vtt, rt, n->right);
+
+
+  t += n->val;
+  vt.emplace_back(n->val);
+  faps(k, t, vt, rt, n->left);
+  faps(k, t, vt, rt, n->right);
+}
+
+vector<vector<int>> find_all_paths_sum_up(int k, bt_node<int>* n)
+{
+  vector<vector<int>> rt;
+  vector<int> vt;
+
+  // assume that n is not nullprt
+  vt.emplace_back(n->val);
+  faps(k, n->val, vt, rt, n->left);
+  faps(k, n->val, vt, rt, n->right);
+
+  return rt;
+}
+
 // given a binary tree in which each node contains a value Design an
-// algorithm to print all paths which sum up to that value Note that//jj
+// algorithm to print all paths which sum up to that value Note that //jj: todo test this code
 // it can be any path in the tree - it does not have to start at the root
 void t48()
 {
