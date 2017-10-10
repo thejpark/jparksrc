@@ -3670,12 +3670,14 @@ sol 1: using recursive method.
      return min(foo(x + a[i], y, a, i + 1),
                 foo(x, y + a[i], a, i + 1))
 
-sol 2: sort array, and then from max number to min number, distribute to
+sol 2: this is wrong, but approximate.
+       sort array, and then from max number to min number, distribute to
        one of the worker. If the distribution did not make status change
        then keep adding the next big task to the same worker. Otherwise
        change the worker and send the new task to the worker. so,
        first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
-       worker 1.
+       worker 1. however, consider [7, 3, 2, 2, 2, 2, 2]. Optimal is (10, 10)
+       but it ends with (11, 9)
 
 todo: can it be done in O(n)?
 */
