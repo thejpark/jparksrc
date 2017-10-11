@@ -3968,6 +3968,7 @@ void test_group_with_substrings() //jj
     //  if one of the substring is in the map then add it to m (m[substr].insert(e))
     //  After processing all the substrings of all string in vector, find
     //  map which has more than 0 element in the set
+    // sol2: similar with largest contained interval, like union and find. But in this case, one string can belong to only one group.
 
     int n;
     cin >> n;
@@ -3981,6 +3982,7 @@ void test_group_with_substrings() //jj
         v.emplace_back(s);
     }
 
+#if 1
     map<string, set<string>> m;
 
     for (int i = 0; i < n; ++i)
@@ -3999,6 +4001,7 @@ void test_group_with_substrings() //jj
                 auto it = m.find(v[i]);
                 if (it != m.end())
                     m.erase(it);
+                // we do not need to copy m[vi] to m[e].
             }
         }
     }
@@ -4013,6 +4016,38 @@ void test_group_with_substrings() //jj
         }
         cout << " )" << endl;
     }
+
+#else
+    map<string, string> m;
+
+    for (int i = 0; i < n; ++i)
+    {
+        m[v[i]] = v[i];
+    }
+    set<string> s(v.begin(), v.end());
+
+    for (auto vi: v)
+    {
+      vector<string> r = gen_substr(vi);
+      for (auto e : r)
+      {
+          if (s.count(e))
+          {
+              m[e] = vi;
+              s.erase(vi);
+              break; // as we allow only one group. actually v should not have this case so that we do not need 'break' here
+          }
+      }
+    }
+
+
+    for (auto si: s)
+    {
+      // print all the group
+    }
+
+#endif
+
 }
 
 /*
