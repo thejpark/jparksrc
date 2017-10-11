@@ -4033,7 +4033,7 @@ void test_group_with_substrings() //jj
       {
           if (s.count(e))
           {
-              m[e] = vi;
+              m[vi] = e;
               s.erase(vi);
               break; // as we allow only one group. actually v should not have this case so that we do not need 'break' here
           }
@@ -4041,9 +4041,9 @@ void test_group_with_substrings() //jj
     }
 
 
-    for (auto si: s)
+    for (auto mi : m)
     {
-      // print all the group
+      // for each mi, find top, print (mi, top)
     }
 
 #endif
