@@ -3707,7 +3707,12 @@ Given an unsorted array, sort it in such a way that the first
 element is the largest value, the second element is the smallest,
 the third element is the second largest element and so on.
 [2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3]
-can you do it without using extra space?
+
+sol 2: can you do it without using extra space? yes.
+       sort the array from big number to small number.
+       [5, 4, 3, 2, 1]. From the position of the first small number, rotate right.
+       [5, 1, 4, 3, 2]. Then from the position of the next small number, rotate right.
+       [5, 1, 4, 2, 3].
 */
 
 void test_sort_big_small_number() //jj //without extra space? can we do it? find max then swap, find min then swap, ...
@@ -3759,6 +3764,10 @@ void test_sort_big_small_number() //jj //without extra space? can we do it? find
 //      second, from the first pair, if it is intersecting with the next pair then merge
 //              it. otherwise skip to the next pair.
 //      third, calculate the range.
+// sol2: same with intersect problem before.
+//       struct point {int loc; bool begin;}, sort all the points left to right. Visit them from left to right,
+//       starts a region if the point is begin and this is the only point, ends the region when end point encountered
+//       no other points remained in the region.
 bool is_intersect(pair<int, int> a, pair<int, int> b)
 {
     return !(a.second < b.first || b.second < a.first);
