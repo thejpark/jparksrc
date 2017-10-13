@@ -1338,17 +1338,26 @@ void alphacode() //jj
 
   vector<int> d(v.size());
 
-  d[size - 1] = 1;
-  // perhaps, I should stick to simple algorithm. And I should go a phase which check if input is healthy or not.
+  // I should stick to simple algorithm. And I should go a phase which check if input is healthy or not.
   // for example, if there is more than 1 consecutive 0 in the input, then input is error.
+  // So implement happy case, then extend.
 
+  // error check
+  for (int i = 0; i < v.size(); ++i) {
+      if (i == 0 && v[i] == 0) {
+        cout << " error input " << endl;
+        return;
+      }
+      else if (i > 0 && v[i] == 0 && v[i - 1] > 2) {
+        cout << " error input " << endl;
+        return;
+      }
+  }
+
+  d[size - 1] = 1;
   if ((v[size - 2] == 1 || v[size - 2] == 2) && (v[size - 1] > 0 && v[size - 1] < 7))
   {
       d[size - 2] = 2;
-  }
-  else if (v[size - 2] == 0 && v[size - 1] == 0)
-  {
-      d[size - 2] = d[size - 1] = 0;
   }
   else
   {
@@ -1357,13 +1366,9 @@ void alphacode() //jj
 
   for (int i = size - 3; i >= 0; --i)
   {
-      if ((v[i] == 1 || v[i] == 2) && (v[i + 1] > 0 && v[i + 1] < 7))
+    if ((v[i] == 1 || v[i] == 2) && (v[i + 1] > 0 && v[i + 1] < 7))
       {
           d[i] = d[i + 1] + d[i + 2];
-      }
-      else if (v[i] == 0 && v[i + 1] == 0)
-      {
-          d[i] = 0;
       }
       else
       {
@@ -1372,7 +1377,6 @@ void alphacode() //jj
   }
 
   cout << "the result is " << d[0] << endl;
-
 }
 
 int acode1(string s)
@@ -4438,7 +4442,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-  post_office();
+  alphacode();
 }
 
 
