@@ -1727,6 +1727,9 @@ void perfect_stall()
 }
 
 
+// this can be solved like finding shortest ordered subarray in ctci.
+// using array of size equal to s.size(), maintain a state machine.
+// then it takes only O(n)
 bool aia(string s, string t)
 {
     if (s.size() == 0)
