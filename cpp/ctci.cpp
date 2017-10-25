@@ -3852,7 +3852,7 @@ int my_part(int i, int j, int k, vector<int>& v)
 void test_find_kth_biggest_element_from_unsorted_array() //jj
 {
 // sol1: use min heap with size of k (or max heap of n - k if k is too big)
-// sol2: use partition
+// sol2: use partition // this is O(n)
 
     int n;
     int k;
