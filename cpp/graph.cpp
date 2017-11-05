@@ -980,7 +980,7 @@ void test_find_dependency() //jj
     // sol: 1. get dependency of each node, and get a set of root
     //      2. from node in root set, use dfs algorithm to find a set of nodes which forms cycle
     //      3. bfs from node in root set, excluding nodes in cycle set.
-    //      # topology sort 는 BFS 는 괜찮음. DFS는 이름에 맞게 leaf를 먼저 print해야함. 따라서 2번에서 동시에 할 수는 없음. 아니면, 2번 한 다음에 reverse해도 될듯.
+    //      # topology sort 는 BFS 는 괜찮음. DFS는 이름에 맞게 leaf를 먼저 print해야함. 따라서 2번에서 동시에 할 수는 없음. 2번에서 다 마치고 싶으면, 2번 한 다음에 reversei the result 하면 될듯.
 
 }
 
