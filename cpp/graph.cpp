@@ -969,12 +969,16 @@ void test_bfs_pair()
   Example 3: 
   {{"b", "c"}, {"c", "d"}, {"a", "b"}, {"d", "e"}, {"e","c"}, {"f", "g"}} 
   Ouput: f
+
+  Example 4: 
+  {{"b", "c"}, {"c", "d"}, {"a", "b"}, {"d", "e"}, {"c","a"}, {"f", "g"}} 
+  Ouput: f
  */
 
 void test_find_dependency() //jj
 {
     // sol: 1. get dependency of each node, and get a set of root
-    //      2. from node in root set, find a set of nodes which forms cycle
+    //      2. from node in root set, use dfs algorithm to find a set of nodes which forms cycle
     //      3. bfs from node in root set, excluding nodes in cycle set.
 
 }
