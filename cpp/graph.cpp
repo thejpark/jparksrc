@@ -948,6 +948,37 @@ void test_bfs_pair()
     cout << bfs_pair(&a, 12, 2) << endl;
 }
 
+/*
+  In Docker, building an image has dependencies. An image can only be built once its dependency is built (If the dependency is from outside, then the image can be built immediately).
+
+  Sometimes, engineers make mistakes by forming a cycle dependency of local images. In this case, ignore the cycle and all the images depending on this cycle.
+
+  Input is vector of pair of images (image, its dependency). 
+  Output the order of images to be built in order. 
+
+  ##Example: 
+  ``` 
+  Example 1: 
+  {{"master", "ubuntu"}, {"numpy", "master"}, {"tensorflow", "numpy"}} 
+  Output: master, numpy, tensorflow 
+
+  Example 2: 
+  {{"python", "numpy"}, {"numpy", "python"}, {"tensorflow", "ubuntu"}} 
+  Output: tensorflow 
+
+  Example 3: 
+  {{"b", "c"}, {"c", "d"}, {"a", "b"}, {"d", "e"}, {"e","c"}, {"f", "g"}} 
+  Ouput: f
+ */
+
+void test_find_dependency() //jj
+{
+    // sol: 1. get dependency of each node, and get a set of root
+    //      2. from node in root set, find a set of nodes which forms cycle
+    //      3. bfs from node in root set, excluding nodes in cycle set.
+
+}
+
 int main()
 {
     test_bfs_pair();
