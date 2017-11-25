@@ -15,6 +15,7 @@
 #include <stdexcept>
 #include <numeric>
 #include <memory>
+#include <queue>
 
 using namespace std;
 
@@ -935,7 +936,41 @@ bool  comp22(pair<string, int>& p1, pair<string, int>& p2)
 
 void t22()
 {
-// find top 10 most occured word in the list //jj
+  // find top 10 most occured word in the list //jj
+  string s;
+  map<string, int> mc;
+  while(cin >> s)
+    {
+      mc[s]++;
+    }
+
+  int min = 0;
+  vector<pair<string, int>> vs;
+  vs.resize(10);
+
+  make_heap(vs.begin(), vs.end(), comp22);
+
+  for (auto e: mc)
+    {
+      if (e.second > min)
+        {
+          pop_heap(vs.begin(), vs.end(), comp22);
+          vs.pop_back();
+          vs.push_back(e);
+          push_heap(vs.begin(), vs.end(), comp22);
+          min = vs[0].second;
+        }
+    }
+
+  sort_heap(vs.begin(), vs.end(), comp22);
+
+  for (auto it = vs.begin(); it != vs.end(); ++it)
+    cout << it->first << " : " << it->second << endl;
+}
+
+void t22_1()
+{
+// find top 10 most occured word in the list using priority queue //jj
     string s;
     map<string, int> mc;
     while(cin >> s)
@@ -943,32 +978,41 @@ void t22()
         mc[s]++;
     }
 
-    int min = 0;
-    vector<pair<string, int>> vs;
-    vs.resize(10);
+    using elem = pair<string, int>;
+    auto comp = [](elem e1, elem e2) { return e1.second > e2.second; };
+    priority_queue<elem, vector<elem>, std::function<bool(elem, elem)>> pq(comp);
+    /*
+      or I have to define a class for comp
+      class comp
+      {
+      public:
+      bool operator() (pair<string, int>& a, pair<string, int>& b)
+      {
+          return a.second > b.second;
+      }
+      };
 
-    make_heap(vs.begin(), vs.end(), comp22);
+      priority_queue<elem, vector<elem>, comp> pq;
 
-    for (auto e: mc)
-    {
-        if (e.second > min)
-        {
-            pop_heap(vs.begin(), vs.end(), comp22);
-            vs.pop_back();
-            vs.push_back(e);
-            push_heap(vs.begin(), vs.end(), comp22);
-            min = vs[0].second;
+     */
+
+    for (auto e: mc) {
+        pq.emplace(e);
+        if (pq.size() > 10) {
+            pq.pop();
         }
     }
 
-    sort_heap(vs.begin(), vs.end(), comp22);
+    while (pq.size() > 0) {
+        elem e = pq.top();
+        cout << e.first << endl;
+        pq.pop();
+    }
 
-    for (auto it = vs.begin(); it != vs.end(); ++it)
-        cout << it->first << " : " << it->second << endl;
 }
 
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t2_1();
+	t22_1();
 }
