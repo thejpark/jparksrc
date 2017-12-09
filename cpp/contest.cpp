@@ -1748,12 +1748,50 @@ bool aia(string s, string t)
     return false;
 }
 // http://poj.org/problem?id=1936
+bool aia2(string& s, string& t)
+{
+    map<int, vector<int>> mi;
+    vector<int> vi(s.size(), -1);
+
+    for (int i = 0; i < s.size(); ++i)
+    {
+        mi[s[i]].emplace_back(i);
+    }
+
+    for (int i = 0; i < t.size(); ++i)
+    {
+        if (mi.find(t[i]) != mi.end())
+        {
+            for (int k = mi[t[i]].size() - 1; k >= 0; --k)
+            {
+                int idx = mi[t[i]][k];
+                if (idx == 0)
+                {
+                    vi[0] = i;
+                }
+                else if (vi[idx - 1] >= 0)
+                {
+                    vi[idx] = vi[idx - 1];
+                    vi[idx - 1] = -1;
+
+                    if (idx == (s.size() - 1))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
 void all_in_all() //jj
 {
     string s, t;
     cin >> s >> t;
 
-    if (aia(s, t))
+    if (aia2(s, t))
         cout << "Yes" << endl;
     else
         cout << "No" << endl;
@@ -4445,7 +4483,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-  alphacode();
+  all_in_all();
 }
 
 
