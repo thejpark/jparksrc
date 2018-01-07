@@ -2576,7 +2576,7 @@ void test_find_interval()//jj
     // corresponding range set can precomputed, and then perform binary search for the
     // target number in the array (find_beg would be enough?)
     // If we want to count the number of range then it
-    // would be easier. 
+    // would be easier.
     //
     // sol2:
     // sort intervals with first number, and store it to array a
@@ -3109,7 +3109,7 @@ void acopy(vector<int>* v, int s, int l, int t) //jj
 
 // this test is simple but you need to ask questions for the
 // overlapping and edge cases before implement.
-void test_copy_in_array() 
+void test_copy_in_array()
 {
     int n;
 
@@ -4241,7 +4241,7 @@ void test_find_smallest_subarray_of_string_containing_key_strings()
   // sol 2: first pass, for each index from 0 update map<string, int> for word count. also find first index(k) which has all keys
   //        second pass, start with [0, k], increase lower bound, if it causes a key missing then stop increase lower bound. increase upper bound
   //        until the missing key found. Keep update smallest range [a, b] until we run up all the element in the array
-  
+
   int n, m;
   cin >> n >> m;
 
@@ -4474,6 +4474,21 @@ void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use
     }
   }
 }
+
+/*
+  Given an array (may have negative num) and an integer(may be negative),
+  find the smallest subarray whose sum is >= the given integer.
+  int[] nums2 = {5,4,-8,16};
+  int x=10;
+  return 1, because 16 >= x
+  try to solve it in o(n) time
+  public static int miniSubArrayLen(int[] nums, int s) {
+ */
+
+void find_min_subarray_bigger_than_x(vector<int>& v, int x)
+{
+}
+
 // reference
 // https://github.com/andreis/interview
 //
