@@ -4487,6 +4487,57 @@ void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use
 
 void find_min_subarray_bigger_than_x(vector<int>& v, int x)
 {
+    int begin = -1, end = -1;
+    int left = 0, right = 0;
+    int sum = 0;
+
+    while (right < v.size())
+    {
+        sum += v[right];
+
+        if (sum > x)
+        {
+            int tsum;
+            while (left <= right)
+            {
+                if ((sum >= x) &&
+                    ((begin == -1 && end == -1) ||
+                     ((right - left) < (end - begin))))
+                {
+                    begin = left;
+                    end = right;
+                    tsum = sum;
+                }
+
+                sum -= v[left];
+                ++left;
+            }
+
+            left = begin;
+            sum = tsum;
+        }
+
+        ++right;
+    }
+
+    cout << "the result is " << end  << " "  << begin << endl;
+}
+
+void test_find_min_subarray_bigger_than_x()
+{
+    int x, n;
+    cin >> x >> n;
+
+    vector<int> v;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    find_min_subarray_bigger_than_x(v, x);
 }
 
 // reference
@@ -4508,5 +4559,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-  test_find_largest_contained_intervals();
+    test_find_min_subarray_bigger_than_x();
 }
