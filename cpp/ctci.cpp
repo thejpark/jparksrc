@@ -4513,8 +4513,8 @@ void find_min_subarray_bigger_than_x(vector<int>& v, int x)
                 ++left;
             }
 
-            left = begin;
-            sum = tsum;
+            left = begin + 1;
+            sum = tsum - v[begin];
         }
 
         ++right;
