@@ -4540,6 +4540,37 @@ void test_find_min_subarray_bigger_than_x()
     find_min_subarray_bigger_than_x(v, x);
 }
 
+int find_minimum_number_of_chars_to_remove_to_make_palindrome(string s)
+{
+    if (s.size() <= 1)
+    {
+        return 0;
+    }
+
+    int end = s.size() - 1;
+
+    if (s[0] == s[end])
+    {
+        return find_minimum_number_of_chars_to_remove_to_make_palindrome(s.substr(1, end - 1));
+    }
+    else
+    {
+        return 1 + min(find_minimum_number_of_chars_to_remove_to_make_palindrome(s.substr(1)),
+                       find_minimum_number_of_chars_to_remove_to_make_palindrome(s.substr(0, end)));
+    }
+}
+
+void test_find_min_num_char_to_make_palindrome()
+{
+    string s;
+
+    cin >> s;
+
+    int r = find_minimum_number_of_chars_to_remove_to_make_palindrome(s);
+
+    cout << "the result is " << r << endl;
+}
+
 // reference
 // https://github.com/andreis/interview
 //
@@ -4559,5 +4590,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_find_min_subarray_bigger_than_x();
+    test_find_min_num_char_to_make_palindrome();
 }
