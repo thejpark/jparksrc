@@ -4571,6 +4571,45 @@ void test_find_min_num_char_to_make_palindrome()
     cout << "the result is " << r << endl;
 }
 
+
+int find_lcs(string s1, string s2)
+{
+    if (s1.size() == 0)
+    {
+        return 0;
+    }
+    else if (s2.size() == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        if (s1[0] == s2[0])
+        {
+            return 1 + find_lcs(s1.substr(1), s2.substr(1));
+        }
+        else
+        {
+
+            return  max(find_lcs(s1.substr(1), s2),
+                        find_lcs(s1, s2.substr(1)));
+        }
+    }
+}
+
+
+void test_find_lcs()
+{
+    string s1, s2;
+
+    cin >> s1 >> s2;
+
+    int r = find_lcs(s1, s2);
+
+    cout << "the result is " << r << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview
 //
@@ -4590,5 +4629,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_find_min_num_char_to_make_palindrome();
+    test_find_lcs();
 }
