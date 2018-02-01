@@ -4571,7 +4571,6 @@ void test_find_min_num_char_to_make_palindrome()
     cout << "the result is " << r << endl;
 }
 
-
 int find_lcs(string s1, string s2)
 {
     if (s1.size() == 0)
@@ -4597,6 +4596,41 @@ int find_lcs(string s1, string s2)
     }
 }
 
+int find_lcs_dp(string s1, string s2)
+{
+    int n = s1.size() + 1;
+    int m = s2.size() + 1;
+
+    vector<vector<int>> v(n, vector<int>(m));
+
+    for (int i = 0; i < n; ++i)
+    {
+        v[i][0] = 0; // not necessary
+    }
+
+    for (int j = 0; j < m; ++j)
+    {
+        v[0][j] = 0; // not necessary as well
+    }
+
+    for (int i = 1; i < n; ++i)
+    {
+        for (int j = 1; j < m; ++j)
+        {
+            if (s1[i - 1] == s2[j - 1])
+            {
+                v[i][j] = v[i - 1][j - 1] + 1;
+            }
+            else
+            {
+                v[i][j] = max(v[i - 1][j], v[i][j - 1]);
+            }
+        }
+    }
+
+    return v[n - 1][m - 1];
+}
+
 
 void test_find_lcs()
 {
@@ -4605,8 +4639,9 @@ void test_find_lcs()
     cin >> s1 >> s2;
 
     int r = find_lcs(s1, s2);
+    int r2 = find_lcs_dp(s1, s2);
 
-    cout << "the result is " << r << endl;
+    cout << "the result is " << r << " and " << r2 << endl;
 }
 
 
