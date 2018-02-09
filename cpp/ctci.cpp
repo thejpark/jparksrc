@@ -4560,6 +4560,36 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome(string s)
     }
 }
 
+
+int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
+{
+    vector<vector<int>> v(s.size() + 1, vector<int>(s.size() + 1));
+    int n = s.size() + 1;
+
+    for (int i = 0; i < n; ++i)
+    {
+        v[i][i] = 0;
+    }
+
+
+    for (int t = 2;t < n; ++t) 
+    {
+       for (int i = 1, j = t; j < n; ++i, ++j)
+       {
+           if (s[i - 1] == s[j - 1])
+           {
+               v[i][j] = v[i + 1][j -1];
+           }
+           else
+           {
+               v[i][j] = 1 + min(v[i][j - 1], v[i + 1][j]);
+           }
+       }
+    }
+
+    return v[1][n - 1];
+}
+
 void test_find_min_num_char_to_make_palindrome()
 {
     string s;
@@ -4567,8 +4597,9 @@ void test_find_min_num_char_to_make_palindrome()
     cin >> s;
 
     int r = find_minimum_number_of_chars_to_remove_to_make_palindrome(s);
+    int r2 = find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(s);
 
-    cout << "the result is " << r << endl;
+    cout << "the result is " << r << " and " << r2 << endl;
 }
 
 int find_lcs(string s1, string s2)
@@ -4664,5 +4695,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_find_lcs();
+    test_find_min_num_char_to_make_palindrome();
 }
