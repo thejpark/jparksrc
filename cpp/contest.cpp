@@ -1323,6 +1323,75 @@ void post_office() //jj
   cout << "The result is " << min_t << endl;
 }
 
+
+// test input: 10 5 1 2 3 6 7 9 11 22 44 50
+// test output: 9
+void post_office_2()
+{
+    int num_v, num_p;
+    int t, min_t;
+
+    cin >> num_v >> num_p;
+
+    vector<int> v(num_v + 2, 0);
+    for(int i = 1; i <= num_v; i++) {
+        cin >> t;
+        v[i] = t;
+    }
+
+    vector<vector<int>> vi(num_v + 2, vector<int>(num_v + 2, 0));
+
+    for (int i = 0; i <= num_v; ++i)
+    {
+        for (int j = i + 2; j <= num_v + 1; ++j)
+        {
+            int sum = 0;
+            for (int k = i + 1; k < j; ++k)
+            {
+                if (i == 0)
+                {
+                    sum += v[j] - v[k];
+                }
+                else if (j == num_v + 1)
+                {
+                    sum += v[k] - v[i];
+                }
+                else
+                {
+                    int t1 = v[k] - v[i];
+                    int t2 = v[j] - v[k];
+                    sum += min(t1, t2);
+                }
+            }
+            vi[i][j] = sum;
+        }
+    }
+
+    min_t = 10000; // some max number
+
+    vector<vector<int>> vr;
+    vector<int> vt;
+    vector<int> vv(v.begin() + 1, v.end() - 1);
+
+    get_comb(vv, vr, vt, num_p, 0);
+
+    for (int j = 0; j < vr.size(); ++j)
+    {
+        int t = 0;
+        t += vi[0][vr[j][0] + 1];
+        for (int k = 0; k < num_p - 1; ++k)
+        {
+            t += vi[vr[j][k] + 1][vr[j][k + 1] + 1];
+        }
+        t += vi[vr[j][num_p - 1] + 1][num_v + 1];
+
+        min_t = min(t, min_t);
+    }
+
+    cout << "The result is " << min_t << endl;
+}
+
+
 // http://poj.org/problem?id=2033
 void alphacode() //jj
 {
@@ -4483,7 +4552,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-  all_in_all();
+  post_office_2();
 }
 
 
