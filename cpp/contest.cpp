@@ -2992,13 +2992,21 @@ int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int 
     if (jobs2m_map.find(t) != jobs2m_map.end())
         return jobs2m_map[t];
 
-    if (ka == 0)
-        return (b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
-    if (kb == 0)
-        return (a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k));
+    int r;
 
-    int r =  min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
-               b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
+    if (ka == 0)
+    {
+        r = b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k);
+    }
+    else if (kb == 0)
+    {
+        r = a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k);
+    }
+    else
+    {
+        r =  min(a[idx] + process_jobs2m(idx + 1, a, b, ka - 1, k, k),
+                 b[idx] + process_jobs2m(idx + 1, a, b, k, kb - 1, k));
+    }
 
     jobs2m_map[t] = r;
     return r;
