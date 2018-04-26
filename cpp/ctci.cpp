@@ -3670,16 +3670,22 @@ sol 1: using recursive method.
      return min(foo(x + a[i], y, a, i + 1),
                 foo(x, y + a[i], a, i + 1))
 
-sol 2: this is wrong, but approximate.
+sol 2: this is not precise, but approximate.
        sort array, and then from max number to min number, distribute to
        one of the worker. If the distribution did not make status change
        then keep adding the next big task to the same worker. Otherwise
        change the worker and send the new task to the worker. so,
        first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
        worker 1. however, consider [7, 3, 2, 2, 2, 2, 2]. Optimal is (10, 10)
-       but it ends with (11, 9)
+       but it ends with (11, 9). We can enhance this algorithm by scaning the
+       resulting list, swap items to decrease the difference.
 
-todo: can it be done in O(n)?
+sol 3: sort it, sum it, target = sum / 2, then find sequence of numbers
+       (from the first one, which is biggest) that sums closest to the target.
+       Maintain min sum, and if the current sum is bigger than min then go to
+       the next candidate.
+
+todo: can it be done in O(n)? Is it 2^n?
 */
 
 void test_distribute_tasks_2_workers() //jj todo: DP?
