@@ -3684,13 +3684,11 @@ sol 3: sort it, sum it, target = sum / 2, then find sequence of numbers
        (from the first one, which is biggest) that sums closest to the target.
        Maintain min sum, and if the current sum is bigger than min then go to
        the next candidate.
-
 todo: can it be done in O(n)? Is it 2^n?
 */
 
 void test_distribute_tasks_2_workers() //jj todo: DP?
 {
-
 }
 
 
@@ -4578,7 +4576,7 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
     }
 
 
-    for (int t = 2;t < n; ++t) 
+    for (int t = 2;t < n; ++t)
     {
        for (int i = 1, j = t; j < n; ++i, ++j)
        {
