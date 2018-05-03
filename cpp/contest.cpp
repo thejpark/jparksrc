@@ -2537,13 +2537,20 @@ public:
         // x -= (x & -x); // clear right most 1
         // so, (x & -x) is right most bit
 
+
         int size = leaf.size();
+#if 0
         int ssum = 0;
+
         for (int i = size - (size & -size); i < size; ++i)
         {
             ssum += leaf[i];
         }
 
+#else
+        int ssum = sum(leaf.size() - 1) + x;
+        ssum -= sum(size - (size & -size));
+#endif
         inner.push_back(ssum);
     }
 
