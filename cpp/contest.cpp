@@ -2534,7 +2534,7 @@ public:
     {
         leaf.push_back(x);
 
-        // x -= (x & -x); // clear left most 1
+        // x -= (x & -x); // clear right most 1
         // so, (x & -x) is right most bit
 
         int size = leaf.size();
@@ -2545,16 +2545,16 @@ public:
         }
 
         inner.push_back(ssum);
-        // cout << ">> " << ssum << endl;
     }
 
     void update(int i, int x)
     {
-        leaf[i] += x;
+        int diff = x - leaf[i - 1];
+        leaf[i - 1] = x;
 
         int size = leaf.size();
         while (i <= size){
-            inner[i - 1] += x;
+            inner[i - 1] += diff;
             i += (i & -i);
         }
     }
@@ -2569,6 +2569,22 @@ public:
         return ssum;
     }
 
+    void print()
+    {
+        for (int i = 0; i < inner.size(); ++i)  
+        {
+            cout << inner[i] << ",";
+        }
+        cout << endl;
+
+        for (int i = 0; i < leaf.size(); ++i)  
+        {
+            cout << leaf[i] << ",";
+        }
+        cout << endl;
+
+    }
+
 private:
     vector<int> leaf;
     vector<int> inner;
@@ -2581,11 +2597,15 @@ void test_bit() //jj
     for (int i = 1; i <= 10; ++i)
         b.push_back(i);
 
-    b.update(2, -1);
+    b.print();
+    assert(b.sum(10) == 55);
+    b.update(3, 2);
 
-    cout << " the result should be 55 and " << b.sum(3) << " " << b.sum(10) << endl;
-    // assert(b.sum(10) == 55);
-    cout << "test_bit passed" << endl;
+    for (int i = 1; i <= 10; ++i)
+    {
+        cout << "sum " << i << " is " << b.sum(i) << endl;
+    }
+    b.print();
 }
 
 /*
@@ -4560,7 +4580,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-  post_office_2();
+ test_bit();
 }
 
 
