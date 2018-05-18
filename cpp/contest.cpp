@@ -2547,9 +2547,20 @@ public:
             ssum += leaf[i];
         }
 
-#else
+
+#endif
+#if 0
         int ssum = sum(leaf.size() - 1) + x;
         ssum -= sum(size - (size & -size));
+#endif
+#if 1
+        int i = 1;
+        int ssum = x;
+        while ((size & i) == 0)
+        {
+            ssum += inner[size - i - 1];
+            i = i * 2;
+        }
 #endif
         inner.push_back(ssum);
     }
@@ -2576,15 +2587,41 @@ public:
         return ssum;
     }
 
+    int sum(int i, int j)
+    {
+        return (sum(j) - sum(i - 1));
+    }
+
+    int max(int i, int j)
+    {
+        return 0;
+    }
+
+    int min(int i, int j)
+    {
+        // min and max returns item value, array item can be index not value.
+        return 0;
+    }
+
+    int max(int i)
+    {
+        return 0;
+    }
+
+    int min(int i)
+    {
+        return 0;
+    }
+
     void print()
     {
-        for (int i = 0; i < inner.size(); ++i)  
+        for (int i = 0; i < inner.size(); ++i)
         {
             cout << inner[i] << ",";
         }
         cout << endl;
 
-        for (int i = 0; i < leaf.size(); ++i)  
+        for (int i = 0; i < leaf.size(); ++i)
         {
             cout << leaf[i] << ",";
         }
