@@ -2592,23 +2592,23 @@ public:
         return (sum(j) - sum(i - 1));
     }
 
-    int max(int i, int j)
-    {
-        return 0;
-    }
-
-    int min(int i, int j)
+    int max(int i)
     {
         // min and max returns item value, array item can be index not value.
         return 0;
     }
 
-    int max(int i)
+    int max(int i, int j)
     {
         return 0;
     }
 
     int min(int i)
+    {
+        return 0;
+    }
+
+    int min(int i, int j)
     {
         return 0;
     }
