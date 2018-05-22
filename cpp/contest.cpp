@@ -2556,19 +2556,13 @@ public:
 #if 1
         int i = 1;
         int ssum = x;
-        int mmax = x;
-        int mmin = x;
         while ((size & i) == 0)
         {
             ssum += inner[size - i - 1];
-            mmax = max(maxv[size - i - 1], mmax);
-            mmin = min(minv[size - i - 1], mmin);
             i = i * 2;
         }
 #endif
         inner.push_back(ssum);
-        maxv.push_back(mmax);
-        minv.push_back(mmin);
     }
 
     void update(int i, int x)
@@ -2579,8 +2573,6 @@ public:
         int size = leaf.size();
         while (i <= size){
             inner[i - 1] += diff;
-            maxv[i - 1] = max(x, maxv[i - 1]);
-            minv[i - 1] = min(x, minv[i - 1]);
             i += (i & -i);
         }
     }
@@ -2598,38 +2590,6 @@ public:
     int sum(int i, int j)
     {
         return (sum(j) - sum(i - 1));
-    }
-
-    int max(int i)
-    {
-        // min and max returns item value, array item can be index not value.
-        // at the moment, however, value is used
-        int mmax = leaf[0];
-        while (i > 0){
-            mmax = max(maxv[i - 1], mmax);
-            i -= (i & -i);
-        }
-        return mmax;
-    }
-
-    int max(int i, int j)
-    {
-        return 0;
-    }
-
-    int min(int i)
-    {
-        int mmin = leaf[0];
-        while (i > 0){
-            mmin = min(minv[i - 1], mmin);
-            i -= (i & -i);
-        }
-        return mmin;
-    }
-
-    int min(int i, int j)
-    {
-        return 0;
     }
 
     void print()
@@ -2651,8 +2611,6 @@ public:
 private:
     vector<int> leaf;
     vector<int> inner;
-    vector<int> maxv;
-    vector<int> minv;
 };
 
 
