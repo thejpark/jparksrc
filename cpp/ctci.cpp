@@ -2733,7 +2733,7 @@ public:
 
     shared_ptr<node> get(string& s)
     {
-        if (mm.find(s) != mm.end())
+        if (mm.find(s) != mm.end()) // if (mm.count(s)) // can be used as well
         {
             shared_ptr<node> n = mm[s];
 
