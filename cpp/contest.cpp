@@ -1391,6 +1391,92 @@ void post_office_2()
     cout << "The result is " << min_t << endl;
 }
 
+void post_office_3()
+{
+    int num_v, num_p;
+    int t;
+
+    cin >> num_v >> num_p;
+
+    vector<int> v(num_v + 2, 0);
+    for(int i = 1; i <= num_v; i++) {
+        cin >> t;
+        v[i] = t;
+    }
+
+    vector<vector<int>> vi(num_v + 2, vector<int>(num_v + 2, 0));
+
+    for (int i = 0; i <= num_v; ++i)
+    {
+        for (int j = i + 2; j <= num_v + 1; ++j)
+        {
+            int sum = 0;
+            for (int k = i + 1; k < j; ++k)
+            {
+                if (i == 0)
+                {
+                    sum += v[j] - v[k];
+                }
+                else if (j == num_v + 1)
+                {
+                    sum += v[k] - v[i];
+                }
+                else
+                {
+                    int t1 = v[k] - v[i];
+                    int t2 = v[j] - v[k];
+                    sum += min(t1, t2);
+                }
+            }
+            vi[i][j] = sum;
+        }
+    }
+
+    vector<vector<int>> vr(num_p + 1, vector<int>(num_v + 1, 0));
+
+    for (int i = 1; i <= num_p; ++i)
+    {
+        for (int j = 1; j <= num_v; ++j)
+        {
+            if ((j - i) <= 0)
+            {
+                vr[i][j] = 10000;
+            }
+            else
+            {
+                if (i == 1)
+                {
+                    vr[i][j] = vi[0][j];
+                }
+                else
+                {
+                    int min_t = 10000; // some big number
+
+                    for (int k = j - 1; k > 0; --k)
+                    {
+                        int tmp = vr[i - 1][k] + vi[k][j];
+                        min_t = min(min_t, tmp);
+                    }
+
+                    vr[i][j] = min_t;
+                }
+            }
+        }
+    }
+
+    int min_t = 10000;
+
+    for (int i = 1; i <= num_v; ++i)
+    {
+        if (vr[num_p][i] > 0)
+        {
+            min_t = min(min_t, vr[num_p][i] + vi[i][num_v + 1]);
+        }
+    }
+
+    cout << "The result is " << min_t << endl;
+}
+
 
 // http://poj.org/problem?id=2033
 void alphacode() //jj
@@ -4603,7 +4689,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
- test_bit();
+    post_office_3();
 }
 
 
