@@ -4680,6 +4680,50 @@ void test_find_lcs()
 }
 
 
+int knapsack(int k, vector<int>& v, vector<int>& w, int i, int r)
+{
+    if (k < 0)
+        return 0;
+
+    if (i == w.size())
+        return r;
+
+    if (k == 0)
+        return r;
+
+    int a = knapsack(k - w[i], v, w, i + 1, r + v[i]);
+    int b = knapsack(k, v, w, i + 1, r);
+
+    return max(a, b);
+}
+
+void test_knapsack()
+{
+    int k;
+    vector<int> v;
+    vector<int> w;
+
+    cin >> k;
+
+    int size;
+
+    cin >> size;
+    for (int i = 0; i < size; ++i)
+    {
+        int a, b;
+        cin >> a >> b;
+
+        v.emplace_back(a);
+        w.emplace_back(b);
+    }
+
+
+    int result = knapsack(k, v, w, 0, 0);
+
+    cout << " the result is " << result << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview
 //
@@ -4699,5 +4743,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_find_min_num_char_to_make_palindrome();
+    test_knapsack();
 }
