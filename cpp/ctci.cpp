@@ -4680,22 +4680,26 @@ void test_find_lcs()
 }
 
 
-int knapsack(int k, vector<int>& v, vector<int>& w, int i, int r)
+// DP
+// post office is the same problem?
+int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& vv)
 {
-    if (k < 0)
+    if (i == w.size())
         return 0;
 
-    if (i == w.size())
-        return r;
+    if (vv[k][i] == -1)
+    {
+        int a = (k < w[i]) ? 0: v[i] + knapsack(k - w[i], v, w, i + 1, vv);
+        int b = knapsack(k, v, w, i + 1, vv);
+        vv[k][i] = max(a, b);
+    }
 
-    if (k == 0)
-        return r;
-
-    int a = knapsack(k - w[i], v, w, i + 1, r + v[i]);
-    int b = knapsack(k, v, w, i + 1, r);
-
-    return max(a, b);
+    return vv[k][i];
 }
+
+// test input
+// 130 16
+// 65 20 35 8 245 60 195 55 65 40 150 70 275 85 155 25 120 30 320 65 75 75 40 10 200 95 100 50 220 40 99 10
 
 void test_knapsack()
 {
@@ -4717,8 +4721,9 @@ void test_knapsack()
         w.emplace_back(b);
     }
 
+    vector<vector<int>> vv(k + 1, vector<int>(w.size(), -1));
 
-    int result = knapsack(k, v, w, 0, 0);
+    int result = knapsack(k, v, w, 0, vv);
 
     cout << " the result is " << result << endl;
 }
