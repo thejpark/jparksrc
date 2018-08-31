@@ -1478,6 +1478,73 @@ void post_office_3()
 }
 
 
+
+int dp_sum(int left, int right, vector<int>& v)
+{
+    int result = 0;
+
+    if (left == -1)
+    {
+        for (int i = 0; i < right; ++i)
+        {
+            result += v[right] - v[i];
+        }
+    }
+    else if (right == v.size())
+    {
+        for (int i = left + 1; i < right; ++i)
+        {
+            result += v[i] - v[left];
+        }
+    }
+    else
+    {
+        for (int i = left + 1; i < right; ++i)
+        {
+            result += min(v[i] - v[left], v[right] - v[i]);
+        }
+    }
+
+    return result;
+}
+
+
+int dp_post_office(int left, int begin, int count, vector<int>& v)
+{
+    if (count == (v.size() - begin))
+    {
+        return dp_sum(left, begin, v);
+    }
+
+    if (count == 0)
+    {
+        return dp_sum(left, v.size(), v);
+    }
+
+    int a = dp_post_office(left, begin + 1, count, v);
+    int b = (begin == v.size()) ? dp_sum(left, begin, v) : dp_sum(left, begin, v) + dp_post_office(begin, begin + 1, count - 1, v);
+
+    return min(a, b);
+}
+
+void post_office_4()
+{
+    int num_v, num_p;
+    int t;
+
+    cin >> num_v >> num_p;
+
+    vector<int> v(num_v, 0);
+    for(int i = 0; i < num_v; i++) {
+        cin >> t;
+        v[i] = t;
+    }
+
+    int result = dp_post_office(-1, 0, num_p, v);
+    cout << " the result is " << result << endl;
+}
+
+
 // http://poj.org/problem?id=2033
 void alphacode() //jj
 {
@@ -4689,7 +4756,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    post_office_3();
+    post_office_4();
 }
 
 
