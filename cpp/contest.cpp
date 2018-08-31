@@ -1479,10 +1479,13 @@ void post_office_3()
 
 
 
-int dp_sum(int left, int right, vector<int>& v)
+int dp_sum(int left, int right, vector<int>& v, vector<vector<int>>& vv)
 {
-    int result = 0;
+    // left may be -1, so increase by 1 to get it start with 0 from 2 array vector
+    if (vv[left + 1][right + 1] != -1)
+        return vv[left + 1][right + 1];
 
+    int result = 0;
     if (left == -1)
     {
         for (int i = 0; i < right; ++i)
@@ -1505,24 +1508,26 @@ int dp_sum(int left, int right, vector<int>& v)
         }
     }
 
+    // left may be -1, so increase by 1 to get it start with 0 from 2 array vector
+    vv[left + 1][right + 1] = result;
     return result;
 }
 
 
-int dp_post_office(int left, int begin, int count, vector<int>& v)
+int dp_post_office(int left, int begin, int count, vector<int>& v, vector<vector<int>>& vv)
 {
     if (count == (v.size() - begin))
     {
-        return dp_sum(left, begin, v);
+        return dp_sum(left, begin, v, vv);
     }
 
     if (count == 0)
     {
-        return dp_sum(left, v.size(), v);
+        return dp_sum(left, v.size(), v, vv);
     }
 
-    int a = dp_post_office(left, begin + 1, count, v);
-    int b = (begin == v.size()) ? dp_sum(left, begin, v) : dp_sum(left, begin, v) + dp_post_office(begin, begin + 1, count - 1, v);
+    int a = dp_post_office(left, begin + 1, count, v, vv);
+    int b = (begin == v.size()) ? dp_sum(left, begin, v, vv) : dp_sum(left, begin, v, vv) + dp_post_office(begin, begin + 1, count - 1, v, vv);
 
     return min(a, b);
 }
@@ -1540,7 +1545,8 @@ void post_office_4()
         v[i] = t;
     }
 
-    int result = dp_post_office(-1, 0, num_p, v);
+    vector<vector<int>> vv(num_v + 2, vector<int>(num_v + 2, -1));
+    int result = dp_post_office(-1, 0, num_p, v, vv);
     cout << " the result is " << result << endl;
 }
 
