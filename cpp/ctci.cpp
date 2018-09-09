@@ -4722,6 +4722,11 @@ void test_knapsack()
     }
 
     vector<vector<int>> vv(k + 1, vector<int>(w.size(), -1));
+    // todo: for the memory efficiency, we can use a map.
+    // map<int, int> ma;
+    // inside a knapsack function, check using
+    // if (ma.find(k * w.size() + i) == ma.end())
+    // { ma[k * w.size() + i] = max(...); }
 
     int result = knapsack(k, v, w, 0, vv);
 
