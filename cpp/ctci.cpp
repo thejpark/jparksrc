@@ -4734,6 +4734,11 @@ void test_knapsack()
 }
 
 
+// Given a dictionary, design an efficient algorithm that checks whether the name is the concatenation of a sequence of dictionary words. If such a concatenation exists, return it. Consider return any concatenation without using recursive function.
+void test_decompose_into_dictionary_words()
+{
+}
+
 // reference
 // https://github.com/andreis/interview
 //
