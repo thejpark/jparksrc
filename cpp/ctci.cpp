@@ -2621,13 +2621,13 @@ void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vect
         vr.emplace_back(mid);
         return;
     }
-    if (!(va[i] > (mid - 1) || (va[mid - 1] < i)))
+    if (va[i] <= (mid - 1) && i <= va[mid - 1])
     {
         find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
         if (vr.size() > 0)
             return;
     }
-    if (!(va[j] < (mid + 1) || (va[mid + 1] > j)))
+    if ((mid + 1) <= va[j] && va[mid + 1] <= j)
     {
         find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
         if (vr.size() > 0)
