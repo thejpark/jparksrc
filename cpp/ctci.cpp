@@ -4002,6 +4002,7 @@ void test_group_with_substrings() //jj
     for (int i = 0; i < n; ++i)
     {
         // substring of every length from 1 is too much. consider comapre using a method like isSubstr instead.
+        // or str.find(substr)
         vector<string> r = gen_substr(v[i]);
         for (auto e : r)
         {
