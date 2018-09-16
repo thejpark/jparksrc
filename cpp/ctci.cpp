@@ -3692,7 +3692,7 @@ sol 3: sort it, sum it, target = sum / 2, then find sequence of numbers
 todo: can it be done in O(n)? Is it 2^n?
 */
 
-void test_distribute_tasks_2_workers() //jj todo: DP?
+void test_distribute_tasks_2_workers() //jj todo: DP? using table? 2 machine n job
 {
 }
 
@@ -4066,6 +4066,8 @@ Given m 0 and n 1, count the total number of permutations where two 1 cannot be 
 public int count(int m, int n){
 }
 */
+
+// todo: can we do it with DP? using table?
 
 int no_adj_1(int m, int n, bool prevOne)
 {
