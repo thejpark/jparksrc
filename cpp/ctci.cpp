@@ -2803,7 +2803,8 @@ public:
 class lrumap2 {
 private:
 
-  list<int> l;
+  list<int> l; // if we want to limit the number of cache element, then we need to access map element.
+    // so list need to have either <key, value> pair (in this example, it is <string, int>) or <iterator_to_map_elem, value)
   map<string, list<int>::iterator> mm;
   int size;
 
@@ -3669,6 +3670,10 @@ sol 1: using recursive method.
         return max(x, y)
      return min(foo(x + a[i], y, a, i + 1),
                 foo(x, y + a[i], a, i + 1))
+
+     for performance, we can cache using two parameter [x, i]. for each i, the sum
+     so far is same for the same i, and sum[0, i - 1] == x + y, so we do not need to
+     take y as a third argument (x and i is enough.)
 
 sol 2: this is not precise, but approximate.
        sort array, and then from max number to min number, distribute to

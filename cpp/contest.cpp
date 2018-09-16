@@ -3190,6 +3190,7 @@ int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int 
     if (idx == a.size())
         return 0;
 
+    // todo: we can use 2 parameters instead of two.
     jobs2m t(idx, ka, kb);
     if (jobs2m_map.find(t) != jobs2m_map.end())
         return jobs2m_map[t];
