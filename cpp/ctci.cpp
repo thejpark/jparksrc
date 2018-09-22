@@ -4706,9 +4706,10 @@ int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& 
     return vv[k][i];
 }
 
-
-int knapsack_dp(int k, vector<int>& v, vector<int>& w, vector<vector<int>>& vv)
+int knapsack_dp(int k, vector<int>& v, vector<int>& w)
 {
+    vector<vector<int>> vv(w.size() + 1, vector<int>(k + 1, 0));
+
     for (int i = w[0]; i <= k; ++i)
     {
         vv[1][i] = v[0];
@@ -4725,6 +4726,41 @@ int knapsack_dp(int k, vector<int>& v, vector<int>& w, vector<vector<int>>& vv)
     }
 
     return vv[v.size()][k];
+}
+
+int knapsack_dp2(int k, vector<int>& v, vector<int>& w)
+{
+    vector<vector<int>> vv(2, vector<int>(k + 1, 0));
+
+    int prev = 0;
+    int  cur = 1;
+    for (int i = w[0]; i <= k; ++i)
+    {
+        vv[prev][i] = v[0];
+    }
+
+    for (int i = 2; i <= w.size(); ++i)
+    {
+        for (int j = 1; j <= k; ++j)
+        {
+            int a = vv[prev][j];
+            int b = (j < w[i - 1])? 0 : v[i - 1] + vv[prev][j - w[i - 1]];
+            vv[cur][j] = max(a, b);
+        }
+
+        if (prev == 0)
+        {
+            prev = 1;
+            cur = 0;
+        }
+        else
+        {
+            cur = 1;
+            prev = 0;
+        }
+    }
+
+    return vv[prev][k];
 }
 
 
@@ -4764,8 +4800,7 @@ void test_knapsack()
 
     cout << " the result is " << result << endl;
 
-    vector<vector<int>> vvv(w.size() + 1, vector<int>(k + 1, 0));
-    result = knapsack_dp(k, v, w, vvv);
+    result = knapsack_dp2(k, v, w);
     cout << " the result is " << result << endl;
 }
 
