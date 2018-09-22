@@ -4706,6 +4706,29 @@ int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& 
     return vv[k][i];
 }
 
+
+int knapsack_dp(int k, vector<int>& v, vector<int>& w, vector<vector<int>>& vv)
+{
+    for (int i = w[0]; i <= k; ++i)
+    {
+        vv[1][i] = v[0];
+    }
+
+    for (int i = 2; i <= w.size(); ++i)
+    {
+        for (int j = 1; j <= k; ++j)
+        {
+            int a = vv[i - 1][j];
+            int b = (j < w[i - 1])? 0 : v[i - 1] + vv[i - 1][j - w[i - 1]];
+            vv[i][j] = max(a, b);
+        }
+    }
+
+    return vv[v.size()][k];
+}
+
+
+
 // test input
 // 130 16
 // 65 20 35 8 245 60 195 55 65 40 150 70 275 85 155 25 120 30 320 65 75 75 40 10 200 95 100 50 220 40 99 10
@@ -4739,6 +4762,10 @@ void test_knapsack()
 
     int result = knapsack(k, v, w, 0, vv);
 
+    cout << " the result is " << result << endl;
+
+    vector<vector<int>> vvv(w.size() + 1, vector<int>(k + 1, 0));
+    result = knapsack_dp(k, v, w, vvv);
     cout << " the result is " << result << endl;
 }
 
