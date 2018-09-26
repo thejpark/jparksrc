@@ -3692,8 +3692,41 @@ sol 3: sort it, sum it, target = sum / 2, then find sequence of numbers
 todo: can it be done in O(n)? Is it 2^n?
 */
 
-void test_distribute_tasks_2_workers() //jj todo: DP? using table? 2 machine n job
+int two_workers_n_job(int x, int y, vector<int>& a, int i)
 {
+    if (i == a.size())
+    {
+        return max(x, y);
+    }
+
+    return min (two_workers_n_job(x + a[i], y, a, i + 1),
+                two_workers_n_job(x, y + a[i], a, i + 1));
+
+}
+
+int two_workers_n_job_dp(vector<int>& a)
+{
+    
+}
+
+
+void test_2_workers_n_jobs() //jj todo: DP? using table? 2 machine n job
+{
+    int n;
+    vector<int> a;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        a.emplace_back(t);
+    }
+
+    int result = two_workers_n_job(0, 0, a, 0);
+
+    cout << "the result is " << result << endl;
 }
 
 
@@ -4829,5 +4862,5 @@ int main()
     // 처음부터 하나로 해야 했고, 그리고 중간에 넘어가지 말고 끝까지 해결하는 모습을
     // 보여야 했음. 어쩌면 뭔가를 보면서 문제를 풀고있다는, 그러니까 남이 해 놓은것
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
-    test_knapsack();
+    test_2_workers_n_jobs();
 }

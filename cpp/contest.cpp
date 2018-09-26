@@ -3187,6 +3187,8 @@ map<jobs2m, int> jobs2m_map;
 int process_jobs2m(int idx, vector<int>& a, vector<int>& b, int ka, int kb, int k)
 {
 
+    // todo: I think this is not right. This implementation just returns minimum
+    // process time, not the time taken to complete all the jobs.
     if (idx == a.size())
         return 0;
 
