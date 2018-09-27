@@ -83,7 +83,7 @@ bool unique_str2(string &s)
 
 
 
-int t11()
+void t11()
 {
 
     string a("abcdefg hi");
@@ -167,7 +167,7 @@ void reverse1(char *s)
 
 }
 
-int t12()
+void t12()
 {
     string s("this");
     cout << s << endl;
@@ -178,7 +178,7 @@ int t12()
 
 }
 
-int t12_1()
+void t12_1()
 {
 
     char s[] = {'T', 'h', 'i', 's', 0};
@@ -188,7 +188,6 @@ int t12_1()
     reverse1(s);
 
     cout << s << endl;
-
 }
 
 
@@ -289,7 +288,7 @@ void remove_dup4(string& s)//jj
 
 // void remove_dup5(string& s) { use map<char, int> and iterate. it is sorted though..
 
-int resize_test()
+void resize_test()
 {
     int myints[] = {10,20,20,20,30,30,20,20,10};           // 10 20 20 20 30 30 20 20 10
     std::vector<int> myvector (myints,myints+9);
@@ -302,7 +301,7 @@ int resize_test()
     myvector.resize( std::distance(myvector.begin(),it) ); // 10 20 30 20 10
 }
 
-int t13()
+void t13()
 {
 
     string s("abcdab");
@@ -312,7 +311,7 @@ int t13()
 }
 
 
-int t13_1()
+void t13_1()
 {
 
     string s("abcdaaaabbbb");
@@ -327,7 +326,7 @@ int t13_1()
 
 }
 
-int t13_2()
+void t13_2()
 {
 
     string s("abcdaaaabbbb");
@@ -342,7 +341,7 @@ int t13_2()
 
 }
 
-int t13_3()
+void t13_3()
 {
 
     string s("abcdaaaabbbb");
@@ -468,7 +467,7 @@ void replace(vector<int> &va, vector<int> vb)
 }
 
 
-int t15()
+void t15()
 {
     string a("this is new world");
     string b("%20");
@@ -478,7 +477,7 @@ int t15()
     cout << a << endl;
 }
 
-int t15_2()
+void t15_2()
 {
     string a("this is new world");
     string b("%20");
@@ -488,7 +487,7 @@ int t15_2()
     cout << a << endl;
 }
 
-int t15_1()
+void t15_1()
 {
     vector<int> va, vb;
 
@@ -575,7 +574,7 @@ void col_row(vector<vector<int>>& m)//jj
 //
 
 
-int t17()
+void t17()
 {
   vector<vector<int> > m(3, vector<int>(3, 0));
 
@@ -1065,7 +1064,7 @@ void t31()
     assert(3 == ms.imin());
 }
 
-int t35()
+void t35()
 {
     myq mq;
 
@@ -1079,7 +1078,7 @@ int t35()
 
 }
 
-int t35_1()
+void t35_1()
 {
     myq2 mq;
 
@@ -1117,7 +1116,7 @@ sort_stack(stack<int> a) //jj
 }
 
 //3.6
-int t36()
+void t36()
 {
     stack<int> a, b;
 
@@ -1274,61 +1273,16 @@ void test_queue_with_max_method()//jj
 
 
 #include <pthread.h>
-int t_thread_1()
+void t_thread_1()
 {
 
     cout << "before join: " << pthread_self() <<  endl;
     int err = pthread_join(pthread_self(), NULL);
     cout << "after join: " << err << endl;
-
 }
-
 
 static pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-
-static void *
-threadFunc2(void * args)
-{
-    int err;
-
-    err = pthread_mutex_lock(&mtx);
-    if (err)
-        cout << "error in mutex_lock" << endl;
-    int x = *(int*)args;
-    x++;
-    *(int *)args = x;
-
-    err = pthread_mutex_unlock(&mtx);
-    if (err)
-        cout << "error in mutex_unlock" << endl;
-
-    cout << "thread with : " << x << " is created" << endl;
-}
-
-int t_thread_2()
-{
-    pthread_t t1, t2;
-
-    int err, local;
-
-    local = 2;
-
-    err = pthread_create(&t1, NULL, threadFunc2, &local);
-    if (err)
-        cout << " error in creating thread 1 " << endl;
-
-    err = pthread_create(&t2, NULL, threadFunc2, &local);
-    if (err)
-        cout << " error in creating thread 1 " << endl;
-
-    err = pthread_join(t1, NULL);
-    err |= pthread_join(t2, NULL);
-
-    if (err)
-        cout << " error joining threads " << endl;
-
-}
 
 struct mythread
 {
@@ -1370,7 +1324,7 @@ threadFunc3(void * args)
 }
 
 
-int t_thread_3()
+void t_thread_3()
 {
 
     int err;
@@ -1453,7 +1407,7 @@ void get_number_of_bits()
 
 
 // swap inplace:
-int t191()
+void t191()
 {
 
     cout << "swap in place" << endl;
@@ -1496,7 +1450,7 @@ int rand7()
 
 // nrand2 in acpp also can be used. But if rand5() is specialized function that does not
 // takes arguement then...
-int t1910()
+void t1910()
 {
 
 
@@ -1505,7 +1459,7 @@ int t1910()
 
 
 // find int sumed up to a X: with map //jj
-int t1911()
+void t1911()
 {
 
     vector<int>vi;
@@ -1537,7 +1491,7 @@ int t1911()
 
 
 // if the data is sorted, then we can do it in place with less then O-square. This is another application of partition //jj
-int t1911_1()
+void t1911_1()
 {
     vector<int>vi;
 
@@ -1641,7 +1595,6 @@ int t_reinterpret_cast()
 
     // result is 1368
     return 0;
-
 }
 
 #if 0
@@ -1661,7 +1614,7 @@ class CDerived: public CBase { int a; };
 
 #endif
 
-int t_dynamic_cast()
+void t_dynamic_cast()
 {
 #if 0
     CBase b;
@@ -1695,7 +1648,7 @@ int t_dynamic_cast()
 }
 
 #if 0
-int t_static_cast()
+void t_static_cast()
 {
 
     class CBase {};
@@ -1807,7 +1760,7 @@ private:
 };
 
 
-int t_vector()
+void t_vector()
 {
     int a[] = {1, 1, 2, 2};
     int count = sizeof(a) / sizeof(a[0]);
@@ -1831,7 +1784,7 @@ myreverse(const string& s)
 
 }
 
-int t_reverse_str()
+void t_reverse_str()
 {
 
     string s("abc");
@@ -1983,7 +1936,7 @@ bool comp_pair(pair<int, int> s1,
 }
 
 
-int merge_pair(vector<int> a)
+void merge_pair(vector<int> a)
 {
 
     vector<pair<int, int> > pa;
@@ -2005,10 +1958,9 @@ int merge_pair(vector<int> a)
         cout << pa[i].first << " ";
 
     cout << endl;
-
 }
 
-int test_merge_pair()
+void test_merge_pair()
 {
 
     int a[] = {1, 3, 2, 6, 4
@@ -2040,7 +1992,7 @@ double mod_fib(double n)
 
 }
 
-int test_mod_fib()
+void test_mod_fib()
 {
 
     double x = pow(2, 3);
@@ -3706,7 +3658,7 @@ int two_workers_n_job(int x, int y, vector<int>& a, int i)
 
 int two_workers_n_job_dp(vector<int>& a)
 {
-    
+    return 0;
 }
 
 
@@ -4415,6 +4367,8 @@ void test_find_largest_contained_intervals()
 }
 
 
+// array monotonic. Space complexity does not count the origial space, just count additional space, so this is
+// O(N) time complexity, and O(1) space complexity.
 bool check_array_is_keep_increasing_decreasing(vector<int>& a) //jj
 {
   int direction = a.back() > a.front() ? 1 : -1;
@@ -4434,6 +4388,38 @@ bool check_array_is_keep_increasing_decreasing(vector<int>& a) //jj
   }
 
   return true;
+}
+
+// Usually I can think of using prev variable.
+bool array_monotonic_2(vector<int>& a)
+{
+    if (a.size() < 3)
+        return true;
+
+    auto cd = [](int a, int b) {
+        if (b > a)
+            return 1;
+        else if (a > b)
+            return -1;
+        else return 0;
+    };
+
+    int prev = cd(a[1], a[0]);
+
+    for (int i = 2; i < a.size(); ++i)
+    {
+        int tmp = cd(a[i], a[i - 1]);
+
+        if (tmp == 0)
+            continue;
+
+        if (tmp != prev && prev != 0)
+            return false;
+
+        prev = tmp;
+    }
+
+    return true;
 }
 
 
