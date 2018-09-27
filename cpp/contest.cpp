@@ -4754,10 +4754,15 @@ splus find_biggest_plus(set<pair<int, int>>& m)
     return t;
 }
 
+// find the biggest plus sign in a sparse matrix. matrix -> (int x, int y, int size)
 void test_find_biggest_plus() //jj
 {
+    vector<string> s = {"0010010",
+                        "1010101",
+                        "1111111",
+                        "0010000",
+                        "0000000"}; // result: (2, 2, 1)
 }
-
 
 int main()
 {
