@@ -4674,94 +4674,91 @@ void test_searching_words_in_a_very_big_file() //jj
 // if left has two '1' and the rest has one '1' then we should take one.
 // also remember this is sparse matrix
 
-struct splus {
-    int x, y, size;
-};
-
-
-int find_more(pair<int, int>& n, set<pair<int, int>>& m, map<pair<int, int>, int>& t_m, int direction)
+void find_biggest_plus(vector<string>& v)
 {
-    auto it = t_m.find(n);
-    if (it != t_m.end())
-        return it->second;
+    using elem = pair<int, int>;
 
-    pair<int, int> next;
-
-    switch(direction) {
-    case 0: next = pair<int, int> (n.first - 1, n.second);
-        break;
-    case 1: next = pair<int, int> (n.first + 1, n.second);
-        break;
-    case 2: next = pair<int, int> (n.first, n.second - 1);
-        break;
-    case 3: next = pair<int, int> (n.first, n.second + 1);
-        break;
-
-    }
-
-    auto next_len = (m.find(next) == m.end()) ? 0: 1 + find_more(next, m, t_m, direction);
-
-    t_m[n] = next_len;
-    return next_len;
-}
-
-
-int find_plus(pair<int, int>& n,
-              set<pair<int, int>>& m,
-              map<pair<int, int>, int>& t_m,
-              map<pair<int, int>, int>& b_m,
-              map<pair<int, int>, int>& l_m,
-              map<pair<int, int>, int>& r_m)
-{
-    auto top = pair<int, int> (n.first - 1, n.second);
-    auto bot = pair<int, int> (n.first + 1, n.second);
-    auto left = pair<int, int> (n.first, n.second - 1);
-    auto right = pair<int, int> (n.first, n.second + 1);
-
-    auto top_len = (m.find(top) == m.end()) ? 0: 1 + find_more(top, m, t_m, 0);
-    auto bot_len = (m.find(bot) == m.end()) ? 0: 1 + find_more(bot, m, b_m, 1);
-    auto left_len = (m.find(left) == m.end()) ? 0: 1 + find_more(left, m, l_m, 2);
-    auto right_len = (m.find(right) == m.end()) ? 0: 1 + find_more(right, m, r_m, 3);
-
-    auto r1 = min(bot_len, top_len);
-    auto r2 = min(right_len, left_len);
-    auto r = min(r1, r2);
-
-    return r;
-}
-
-
-splus find_biggest_plus(set<pair<int, int>>& m)
-{
-    splus t;
-    // for each elem in the list, do dfs
-    map<pair<int, int>, int> t_m;
-    map<pair<int, int>, int> b_m;
-    map<pair<int, int>, int> l_m;
-    map<pair<int, int>, int> r_m;
-
-    for (auto e: m)
-    {
-        int r = find_plus(e, m, t_m, b_m, l_m, r_m);
-        if (r > t.size)
+    auto adj = [&] (int i, int j, int depth) {
+        if ((v[i][j] == '1') &&
+            (i - depth >= 0) &&
+            (i + depth < v.size()) &&
+            (j - depth >= 0) &&
+            (j + depth < v[0].size()) &&
+            (v[i + depth][j] == '1') &&
+            (v[i - depth][j] == '1') &&
+            (v[i][j - depth] == '1') &&
+            (v[i][j + depth] == '1'))
         {
-            t.size = r;
-            t.x = e.first;
-            t.y = e.second;
+            return true;
+        }
+
+        return false;
+    };
+
+    list<elem> l;
+    elem r(-1, -1);
+    int depth = 1;
+
+    for (int i = 1; i < v.size() - 1; ++i)
+    {
+        for (int j = 1; j < v[0].size() - 1; ++j)
+        {
+            if (adj(i, j, depth))
+            {
+                l.emplace_back(elem(i, j));
+            }
         }
     }
+    l.emplace_back(r);
 
-    return t;
+
+    list<elem> k;
+    while(!l.empty())
+    {
+        elem e = l.front();
+        l.pop_front();
+
+        if (e.first == -1)
+        {
+            if (l.empty())
+            {
+                if (k.empty())
+                {
+                    cout << "found nothing" << endl;
+                }
+                else
+                {
+                    elem e = k.front();
+                    cout << "the result is " << e.first << " " << e.second << " " << depth << endl;
+                }
+            }
+            else
+            {
+                ++depth;
+                l.emplace_back(e);
+                k.clear();
+            }
+        }
+        else
+        {
+            if (adj(e.first, e.second, depth + 1))
+            {
+                l.emplace_back(e);
+            }
+            k.emplace_back(e);
+        }
+    }
 }
 
-// find the biggest plus sign in a sparse matrix. matrix -> (int x, int y, int size)
 void test_find_biggest_plus() //jj
 {
-    vector<string> s = {"0010010",
+    vector<string> v = {"0010010",
                         "1010101",
                         "1111111",
                         "0010000",
                         "0000000"}; // result: (2, 2, 1)
+
+    find_biggest_plus(v);
 }
 
 int main()
@@ -4770,7 +4767,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    post_office_4();
+    test_find_biggest_plus();
 }
 
 
