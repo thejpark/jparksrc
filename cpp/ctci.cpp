@@ -3981,11 +3981,11 @@ void test_group_with_substrings() //jj
     }
 
     // result
-    map<int, vector<string>> m;
+    map<string, vector<string>> m;
 
     for (int i = 0; i < vi.size(); ++i)
     {
-        m[vi[i]].emplace_back(i);
+        m[vs[vi[i]]].emplace_back(vs[i]);
 
         cout << vs[i] << " belogns to " << vs[vi[i]] << endl;
     }
