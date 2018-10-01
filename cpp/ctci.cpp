@@ -3973,21 +3973,22 @@ void test_group_with_substrings() //jj
                 continue;
             }
 
-            if (vs[j].find(vs[i]) != vs[j].end())
+            if (vs[j].find(vs[i]) != std::string::npos)
             {
                 vi[j] = i;
             }
         }
     }
 
+    // result
     map<int, vector<string>> m;
 
     for (int i = 0; i < vi.size(); ++i)
     {
         m[vi[i]].emplace_back(i);
+
+        cout << vs[i] << " belogns to " << vs[vi[i]] << endl;
     }
-
-
 }
 
 /*
@@ -4794,5 +4795,5 @@ int main()
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
-    test_2_workers_n_jobs();
+    test_group_with_substrings();
 }
