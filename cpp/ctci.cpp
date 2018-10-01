@@ -3959,6 +3959,8 @@ void test_group_with_substrings() //jj
         vi[i] = i;
     }
 
+    // if we sort string using their size (smallest string first), then the second loop could be
+    // j = i + 1 not j = 0;
     for (int i = 0; i < vs.size(); ++i)
     {
         for (int j = 0; j < vs.size(); ++j)
