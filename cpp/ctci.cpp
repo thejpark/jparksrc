@@ -3935,114 +3935,58 @@ void test_number_to_english() //jj
 }
 
 
-
-vector<string> gen_substr(string& s)
-{
-    vector<string> r;
-
-    for (int i = 0; i < s.size(); ++i)
-    {
-        for (int j = 1; i + j <= s.size(); ++j)
-        {
-            string ss = s.substr(i, j);
-            if (ss != s)
-                r.emplace_back(ss);
-        }
-    }
-
-    return r;
-}
-
 // given a vector of strings, group them with same substrings.
 // the substring should be in a given vector as well
 void test_group_with_substrings() //jj
 {
-    // sol1: map<string, set<string>> m, for e in vector do m[e].insert(e)
-    //  then, for each e in vector, generate a set of substring from it then
-    //  if one of the substring is in the map then add it to m (m[substr].insert(e))
-    //  After processing all the substrings of all string in vector, find
-    //  map which has more than 0 element in the set
-    // sol2: similar with largest contained interval, like union and find. But in this case, one string can belong to only one group.
+    // union and find, use string::find method
 
     int n;
+    vector<string> vs;
+
     cin >> n;
 
-    vector<string> v;
-
     for (int i = 0; i < n; ++i)
     {
-        string s;
-        cin >> s;
-        v.emplace_back(s);
+        string t;
+        cin >> t;
+        vs.emplace_back(t);
     }
 
-#if 1
-    map<string, set<string>> m;
-
-    for (int i = 0; i < n; ++i)
+    vector<int> vi(vs.size(), 0);
+    for (int i = 0; i < vs.size(); ++i)
     {
-        m[v[i]].insert(v[i]);
+        vi[i] = i;
     }
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < vs.size(); ++i)
     {
-        // substring of every length from 1 is too much. consider comapre using a method like isSubstr instead.
-        // or str.find(substr)
-        vector<string> r = gen_substr(v[i]);
-        for (auto e : r)
+        for (int j = 0; j < vs.size(); ++j)
         {
-            if (m.find(e) != m.end())
+            if (i == j)
             {
-                m[e].insert(v[i]);
-                auto it = m.find(v[i]);
-                if (it != m.end())
-                    m.erase(it);
-                // we do not need to copy m[vi] to m[e].
+                continue;
+            }
+
+            if (vi[i] != i)
+            {
+                continue;
+            }
+
+            if (vs[j].find(vs[i]) != vs[j].end())
+            {
+                vi[j] = i;
             }
         }
     }
 
-    for (auto e : m)
+    map<int, vector<string>> m;
+
+    for (int i = 0; i < vi.size(); ++i)
     {
-        cout << e.first << endl;
-        cout << "( ";
-        for (auto ee : e.second)
-        {
-            cout << ee << " ";
-        }
-        cout << " )" << endl;
+        m[vi[i]].emplace_back(i);
     }
 
-#else
-    map<string, string> m;
-
-    for (int i = 0; i < n; ++i)
-    {
-        m[v[i]] = v[i];
-    }
-    set<string> s(v.begin(), v.end());
-
-    for (auto vi: v)
-    {
-      vector<string> r = gen_substr(vi);
-      for (auto e : r)
-      {
-          if (s.count(e))
-          {
-              m[vi] = e;
-              s.erase(vi);
-              break; // as we allow only one group. actually v should not have this case so that we do not need 'break' here
-          }
-      }
-    }
-
-
-    for (auto mi : m)
-    {
-      // for each mi, find top, print (mi, top)
-    }
-
-#endif
 
 }
 
