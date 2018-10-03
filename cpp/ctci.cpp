@@ -4772,8 +4772,63 @@ void test_knapsack()
 
 
 // Given a dictionary, design an efficient algorithm that checks whether the name is the concatenation of a sequence of dictionary words. If such a concatenation exists, return it. Consider return any concatenation without using recursive function.
+// inout: 'amanaplanacanal', 'a man plan canal'. output: 'a man a plan a canal'
 void test_decompose_into_dictionary_words()
 {
+    // sol1: use DP
+    int n;
+
+    cin >> n;
+
+    set<string> sset;
+    for (int i = 0; i < n; ++i)
+    {
+        string s;
+        cin >> s;
+        sset.insert(s);
+    }
+
+    string ss; // source string
+    cin >> ss;
+
+    vector<int> v;
+    vector<set<string>::iterator> vi(ss.size() + 1, sset.end());
+
+
+    for (int i = 1; i <= ss.size(); ++i)
+    {
+        string tmp = ss.substr(0, i);
+        if (sset.count(tmp))
+        {
+            v.emplace_back(i);
+            vi[i] = sset.find(tmp);
+        }
+        else
+        {
+            for (int j = v.size() - 1; j >= 0; --j)
+            {
+                string t = ss.substr(v[j], i - v[j]);
+                if (sset.count(t))
+                {
+                    v.emplace_back(i);
+                    vi[i] = sset.find(t);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (v.back() == ss.size())
+    {
+        cout << "found" << endl;
+        int i = ss.size();
+        while(i != 0)
+        {
+            string tmp = *vi[i];
+            cout << tmp << " ";
+            i -= tmp.size();
+        }
+    }
 }
 
 // reference
@@ -4797,5 +4852,5 @@ int main()
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
-    test_group_with_substrings();
+    test_decompose_into_dictionary_words();
 }
