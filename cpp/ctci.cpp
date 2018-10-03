@@ -4775,7 +4775,7 @@ void test_knapsack()
 // inout: 'amanaplanacanal', 'a man plan canal'. output: 'a man a plan a canal'
 void test_decompose_into_dictionary_words()
 {
-    // sol1: use DP
+    // sol1: use DP: time complexity O(W * n^2) where W is longest dictionary word and n is domain string length
     int n;
 
     cin >> n;
@@ -4852,5 +4852,6 @@ int main()
     // 을 인터넷으로 보고있다는 느낌을 줬을수도 있음.
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
+    // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
     test_decompose_into_dictionary_words();
 }
