@@ -4831,6 +4831,47 @@ void test_decompose_into_dictionary_words()
     }
 }
 
+
+// There are a row of coins (even number of them).
+// Two players pickup a coin from either front or back of coins. Maximum gains win.
+// Design an efficient algorithm to get maximum total value for the starting player.
+// Assume the second player move to minimize the revinue of the first player.
+int get_max_gain(vector<int>& v, int beg, int end)
+{
+    if (beg > end)
+    {
+        return 0;
+    }
+
+    int a = v[beg] + min(get_max_gain(v, beg + 2, end),
+                         get_max_gain(v, beg + 1, end - 1));
+    int c = v[end] + min(get_max_gain(v, beg + 1, end - 1),
+                         get_max_gain(v, beg, end - 2));
+
+    return max(a, c);
+}
+
+
+void test_pickup_coins_for_maximum_gain()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    int r = get_max_gain(v, 0, v.size() - 1);
+
+    cout << "the result is " << r << endl;
+}
+
+
 // reference
 // https://github.com/andreis/interview
 //
@@ -4853,5 +4894,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_decompose_into_dictionary_words();
+    test_pickup_coins_for_maximum_gain();
 }
