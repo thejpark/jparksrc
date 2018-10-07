@@ -4674,24 +4674,24 @@ int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& 
 
 int knapsack_dp(int k, vector<int>& v, vector<int>& w)
 {
-    vector<vector<int>> vv(w.size() + 1, vector<int>(k + 1, 0));
+    vector<vector<int>> vv(w.size(), vector<int>(k + 1, 0));
 
     for (int i = w[0]; i <= k; ++i)
     {
-        vv[1][i] = v[0];
+        vv[0][i] = v[0];
     }
 
-    for (int i = 2; i <= w.size(); ++i)
+    for (int i = 1; i < w.size(); ++i)
     {
         for (int j = 1; j <= k; ++j)
         {
             int a = vv[i - 1][j];
-            int b = (j < w[i - 1])? 0 : v[i - 1] + vv[i - 1][j - w[i - 1]];
+            int b = (j < w[i])? 0 : v[i] + vv[i - 1][j - w[i - 1]];
             vv[i][j] = max(a, b);
         }
     }
 
-    return vv[v.size()][k];
+    return vv[v.size() - 1][k];
 }
 
 int knapsack_dp2(int k, vector<int>& v, vector<int>& w)
@@ -4836,6 +4836,9 @@ void test_decompose_into_dictionary_words()
 // Two players pickup a coin from either front or back of coins. Maximum gains win.
 // Design an efficient algorithm to get maximum total value for the starting player.
 // Assume the second player move to minimize the revinue of the first player.
+// 10 25 5 1 10 5
+// the result is 31
+
 int get_max_gain(vector<int>& v, int beg, int end)
 {
     if (beg > end)
@@ -4851,6 +4854,22 @@ int get_max_gain(vector<int>& v, int beg, int end)
     return max(a, c);
 }
 
+int get_max_gain_dp(vector<int>& v)
+{
+    vector<vector<int>> vv(v.size() + 1, vector<int>(v.size() + 1, 0));
+
+    for (int i = 2; i <= v.size(); i += 2)
+    {
+        for (int j = 0; j <= v.size() - i; ++j)
+        {
+            int a = v[j] + min(vv[j + 2][j + i], vv[j + 1][j + i - 1]);
+            int c = v[j + i - 1] + min(vv[j + 1][j + i - 1], vv[j][j + i - 2]);
+            vv[j][j + i] = max(a, c);
+        }
+    }
+
+    return vv[0][v.size()];
+}
 
 void test_pickup_coins_for_maximum_gain()
 {
@@ -4868,6 +4887,8 @@ void test_pickup_coins_for_maximum_gain()
 
     int r = get_max_gain(v, 0, v.size() - 1);
 
+    cout << "the result is " << r << endl;
+    r = get_max_gain_dp(v);
     cout << "the result is " << r << endl;
 }
 
