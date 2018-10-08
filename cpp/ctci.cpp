@@ -3532,12 +3532,25 @@ void test_swap_bit() //jj
 // can we find in less then n^2?
 // [-8, -4, -3, 2, 6, 7]
 // at the moment, assume that all numbers are distinct.
-bool hastwosum(vector<int>& v, int t)
+bool hastwosum(vector<int>& v, int i)
 {
     int beg = 0, end = v.size() - 1;
 
+    int t = -v[i];
+
     while (beg < end)
     {
+        if (beg == i)
+        {
+            ++beg;
+            continue;
+        }
+        else if (end == i)
+        {
+            --end;
+            continue;
+        }
+
         int tmp = v[beg] + v[end];
         if (tmp == t)
         {
@@ -3574,11 +3587,12 @@ void test_find_3_num_sum_to_zero() //jj
 
     sort(v.begin(), v.end());
 
-    for (auto e: v)
+    for (int i = 0; i < v.size(); ++i)
     {
-        if (hastwosum(v, -e))
+        if (hastwosum(v, i))
         {
             cout << "found" << endl;
+            return;
         }
     }
 
@@ -4895,5 +4909,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_pickup_coins_for_maximum_gain();
+    test_find_3_num_sum_to_zero();
 }
