@@ -3532,16 +3532,34 @@ void test_swap_bit() //jj
 // can we find in less then n^2?
 // [-8, -4, -3, 2, 6, 7]
 // at the moment, assume that all numbers are distinct.
+bool hastwosum(vector<int>& v, int t)
+{
+    int beg = 0, end = v.size() - 1;
+
+    while (beg < end)
+    {
+        int tmp = v[beg] + v[end];
+        if (tmp == t)
+        {
+            return true;
+        }
+        else if (tmp < t)
+        {
+            ++beg;
+        }
+        else
+        {
+            --end;
+        }
+    }
+
+    return false;
+}
+
 void test_find_3_num_sum_to_zero() //jj
 {
-    // sol1: for each combination of sum of 2 numbers in the array (O(n^2)),
-    //       if there is a number which can be sum to 0 (O(n^2) if hash map)?
-    // problem: the number may duplicate?: map has -1 and sum of 2 and -1 is 1
-    // in that case is it just 2 and -1?
-    // TODO:
-
-    // sol2: sort the array, for each e in array find wheter there is a pair (x, y) which
-    // sum up to -a. O(n^2).
+    // sol1: sort the array, for each e in array find wheter there is a pair (x, y) which
+    // sum up to -a. O(nlogn) Time, O(1) space.
 
     int n;
     cin >> n;
@@ -3554,55 +3572,17 @@ void test_find_3_num_sum_to_zero() //jj
         v.emplace_back(t);
     }
 
-    vector<vector<int>> va(v.size(), vector<int>(v.size(), 0));
+    sort(v.begin(), v.end());
 
-    for (int i = 0; i < v.size(); ++i)
+    for (auto e: v)
     {
-        for (int j = i + 1; j < v.size(); ++j)
+        if (hastwosum(v, -e))
         {
-            va[i][j] = v[i] + v[j];
+            cout << "found" << endl;
         }
     }
 
-    unordered_map<int, int> m;
-    for (int i = 0; i < v.size(); ++i)
-    {
-        m[v[i]] = i;
-    }
-
-    // the following code, time complexity is O(n^2).
-    // To make it faster, we can use map for va[i][j] -> list<pair<int, int>>
-    // (it is a list or set as there should be multiple (i, j) that sums to same value
-    // iterate v to find out, which make time complexity to O(n).
-    //
-    set<set<int>> sr;
-    for (int i = 0; i < v.size(); ++i)
-    {
-        for (int j = i + 1; j < v.size(); ++j)
-        {
-            int t = 0 - va[i][j];
-            if (m.find(t) != m.end())
-            {
-                set<int> st;
-                st.emplace(i);
-                st.emplace(j);
-                st.emplace(m[t]);
-                if (st.size() != 3)
-                    continue;
-                sr.emplace(st);
-            }
-        }
-    }
-
-    for (auto e : sr)
-    {
-        for (auto ee: e)
-        {
-            cout << ee << " ";
-        }
-        cout << endl;
-    }
-
+    cout << "not found" << endl;
 }
 
 /*
