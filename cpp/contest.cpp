@@ -712,6 +712,7 @@ int fff(vector<int>& vi, int idx, int t) //jj
     return r;
 }
 
+// same with knapsack
 int fff_2(vector<int>& vi, int idx, int t) //jj
 {
     if (t == 0)
@@ -724,6 +725,28 @@ int fff_2(vector<int>& vi, int idx, int t) //jj
     int b = fff_2(vi, idx + 1, t);
 
     return a + b;
+}
+
+int fff_dp(vector<int>& vi, int t) //jj
+{
+    vector<vector<int>> vv(vi.size() + 1, vector<int>(t + 1, 0));
+
+    for (int i = 0; i <= vi.size(); ++i)
+    {
+        vv[i][0] = 1;
+    }
+
+    for (int i = 1; i <= vi.size(); ++i)
+    {
+        for (int j = 1; j <= t; ++j)
+        {
+            int a = (j < vi[i - 1]) ? 0 : vv[i - 1][j - vi[i - 1]];
+            int b = vv[i - 1][j];
+            vv[i][j] = a + b;
+        }
+    }
+
+    return vv[vi.size()][t];
 }
 
 void test_combination_sum_to_15()
@@ -744,6 +767,8 @@ void test_combination_sum_to_15()
     r = fff(vi, 0, 15);
     cout << "the result is " << r << endl;
     r = fff_2(vi, 0, 15);
+    cout << "the result is " << r << endl;
+    r = fff_dp(vi, 15);
     cout << "the result is " << r << endl;
 }
 
