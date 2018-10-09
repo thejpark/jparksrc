@@ -712,6 +712,20 @@ int fff(vector<int>& vi, int idx, int t) //jj
     return r;
 }
 
+int fff_2(vector<int>& vi, int idx, int t) //jj
+{
+    if (t == 0)
+        return 1;
+
+    if (idx == vi.size())
+        return 0;
+
+    int a = (t < vi[idx]) ? 0 : fff_2(vi, idx + 1, t - vi[idx]);
+    int b = fff_2(vi, idx + 1, t);
+
+    return a + b;
+}
+
 void test_combination_sum_to_15()
 {
     int n;
@@ -728,7 +742,8 @@ void test_combination_sum_to_15()
 
     int r = 0;
     r = fff(vi, 0, 15);
-
+    cout << "the result is " << r << endl;
+    r = fff_2(vi, 0, 15);
     cout << "the result is " << r << endl;
 }
 
@@ -4767,7 +4782,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_biggest_plus();
+    test_combination_sum_to_15();
 }
 
 
