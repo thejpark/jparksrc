@@ -1591,7 +1591,11 @@ void post_office_4()
 }
 
 
+// 'A' the code word 1, 'B' will be 2, and so on down to 'Z' being assigned 26."
 // http://poj.org/problem?id=2033
+// 25114 -> 6
+// 1111111111 -> 89
+// 3333333333 -> 1
 void alphacode() //jj
 {
 
@@ -1647,25 +1651,27 @@ void alphacode() //jj
   cout << "the result is " << d[0] << endl;
 }
 
-int acode1(string s)
+int acode1(string s, int i)
 {
-    if (s.size() == 0)
+    if (s.size() == i)
         return 1;
-    if (s.size() == 1)
+
+    if (s[i] == '0')
     {
-        if (s[0] == '0')
-            return 0;
-        return acode1(s.substr(1));
-    }
-    if (s[0] == '1' || s[0] == '2')
-    {
-        if (s[1] == '0')
-            return acode1(s.substr(2));
-        if (s[1] > '0' && s[1] < '7')
-            return acode1(s.substr(1)) + acode1(s.substr(2));
+        return 0;
     }
 
-    return acode1(s.substr(1));
+    if ((s[i] == '1' || s[i] == '2') &&
+        (i + 1 < s.size()))
+    {
+        if (s[i + 1] == '0')
+            return acode1(s, i + 2);
+
+        if (s[1] > '0' && s[1] < '7')
+            return acode1(s, i + 1) + acode1(s, i + 2);
+    }
+
+    return acode1(s, i + 1);
 }
 
 
@@ -1675,7 +1681,7 @@ void alphacode2() //j
     string s;
     cin >> s;
 
-    int r = acode1(s);
+    int r = acode1(s, 0);
 
     cout << " the result is " << r << endl;
 }
@@ -4807,7 +4813,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_combination_sum_to_15();
+    alphacode2();
 }
 
 
