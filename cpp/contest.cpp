@@ -1596,13 +1596,23 @@ void post_office_4()
 // 25114 -> 6
 // 1111111111 -> 89
 // 3333333333 -> 1
-int acode2(string s) //jj
+int acode2(string s, int i) //jj
 {
   // I can stick to simple algorithm. And I can go a phase which check if input is healthy or not.
   // for example, if there is more than 1 consecutive 0 in the input, then input is error.
   // So implement happy case, then extend.
 
-    return 0;
+    if (i == s.size())
+    {
+        return 1;
+    }
+
+    int a = (s[i] == '0')? 0 : acode2(s, i + 1);
+    int b = ((s[i] == '1' || s[i] == '2') &&
+             (i + 1 < s.size()) &&
+             (s[i + 1] >= '1') &&
+             (s[i + 1] <= '6'))? acode2(s, i + 2) : 0;
+    return a + b;
 }
 
 int acode1(string s, int i)
@@ -1638,7 +1648,7 @@ void alphacode() //j
     int r = acode1(s, 0);
     cout << " the result is " << r << endl;
 
-    r = acode2(s);
+    r = acode2(s, 0);
     cout << " the result is " << r << endl;
 }
 
