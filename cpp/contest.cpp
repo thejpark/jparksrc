@@ -1596,59 +1596,13 @@ void post_office_4()
 // 25114 -> 6
 // 1111111111 -> 89
 // 3333333333 -> 1
-void alphacode() //jj
+int acode2(string s) //jj
 {
-
-  string s;
-  vector<int> v;
-
-  cin >> s;
-
-  int size = s.size();
-  for (int i = 0; i < size; i++)
-    v.push_back(s[i] - '0');
-
-  vector<int> d(v.size());
-
-  // I should stick to simple algorithm. And I should go a phase which check if input is healthy or not.
+  // I can stick to simple algorithm. And I can go a phase which check if input is healthy or not.
   // for example, if there is more than 1 consecutive 0 in the input, then input is error.
   // So implement happy case, then extend.
 
-  // error check
-  for (int i = 0; i < v.size(); ++i) {
-      if (i == 0 && v[i] == 0) {
-        cout << " error input " << endl;
-        return;
-      }
-      else if (i > 0 && v[i] == 0 && v[i - 1] > 2) {
-        cout << " error input " << endl;
-        return;
-      }
-  }
-
-  d[size - 1] = 1;
-  if ((v[size - 2] == 1 || v[size - 2] == 2) && (v[size - 1] > 0 && v[size - 1] < 7))
-  {
-      d[size - 2] = 2;
-  }
-  else
-  {
-      d[size - 2] = 1;
-  }
-
-  for (int i = size - 3; i >= 0; --i)
-  {
-    if ((v[i] == 1 || v[i] == 2) && (v[i + 1] > 0 && v[i + 1] < 7))
-      {
-          d[i] = d[i + 1] + d[i + 2];
-      }
-      else
-      {
-          d[i] = d[i + 1];
-      }
-  }
-
-  cout << "the result is " << d[0] << endl;
+    return 0;
 }
 
 int acode1(string s, int i)
@@ -1661,13 +1615,14 @@ int acode1(string s, int i)
         return 0;
     }
 
+    // use cache for efficiency
     if ((s[i] == '1' || s[i] == '2') &&
         (i + 1 < s.size()))
     {
         if (s[i + 1] == '0')
             return acode1(s, i + 2);
 
-        if (s[1] > '0' && s[1] < '7')
+        if (s[i + 1] > '0' && s[i + 1] < '7')
             return acode1(s, i + 1) + acode1(s, i + 2);
     }
 
@@ -1675,14 +1630,15 @@ int acode1(string s, int i)
 }
 
 
-void alphacode2() //j
+void alphacode() //j
 {
-
     string s;
     cin >> s;
 
     int r = acode1(s, 0);
+    cout << " the result is " << r << endl;
 
+    r = acode2(s);
     cout << " the result is " << r << endl;
 }
 
@@ -4813,7 +4769,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    alphacode2();
+    alphacode();
 }
 
 
