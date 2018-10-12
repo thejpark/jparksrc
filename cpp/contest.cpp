@@ -17,6 +17,7 @@ http://web.stanford.edu/class/cs97si/
 #include <algorithm>
 #include <numeric>
 #include <memory>
+#include <queue>
 using namespace std;
 
 
@@ -1748,12 +1749,14 @@ void hay2() //jj
 {
   int n, m;
   cin >> n >> m;
-  auto min_comp = [&](pair<int, int>& a, pair<int, int>& b)
+
+  using elem = pair<int, int>;
+  auto min_comp = [](elem& a, elem& b)
       {
           return a.second > b.second;
       };
 
-  map<int, list<pair<int, int> > > mm;
+  map<int, list<elem>> mm;
   set<int> s, v;
 
   for (int i = 0; i < m; i++) {
@@ -1761,8 +1764,8 @@ void hay2() //jj
     int a, b, len;
     cin >> a >> b >> len;
 
-    mm[a].push_back(pair<int, int>(b, len));
-    mm[b].push_back(pair<int, int>(a, len));
+    mm[a].push_back(elem(b, len));
+    mm[b].push_back(elem(a, len));
     v.insert(a);
     v.insert(b);
   }
@@ -1773,27 +1776,28 @@ void hay2() //jj
   s.insert(x);
   v.erase(x);
 
-  vector<pair<int, int> > vd{mm[x].begin(), mm[x].end()};
-  make_heap(vd.begin(), vd.end(), min_comp);
+  priority_queue<elem, vector<elem>, decltype(min_comp)> pq(min_comp);
+  for (auto e: mm[x])
+  {
+      pq.emplace(e);
+  }
 
   int t_max = -1;
 
   while (v.size() > 0) {
-      auto w = vd.front();
+      auto w = pq.top();
       s.insert(w.first);
       v.erase(w.first);
       cout << w.first << " and distance is " << w.second << endl;
 
       t_max = max(t_max, w.second);
-      pop_heap(vd.begin(), vd.end(), min_comp);
-      vd.pop_back();
+      pq.pop();
 
       for (auto e: mm[w.first])
       {
           if (s.find(e.first) != s.end())
               continue;
-          vd.push_back(e);
-          push_heap(vd.begin(), vd.end(), min_comp);
+          pq.emplace(e);
       }
   }
 
