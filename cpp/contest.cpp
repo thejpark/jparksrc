@@ -1596,25 +1596,6 @@ void post_office_4()
 // 25114 -> 6
 // 1111111111 -> 89
 // 3333333333 -> 1
-int acode2(string s, int i) //jj
-{
-  // I can stick to simple algorithm. And I can go a phase which check if input is healthy or not.
-  // for example, if there is more than 1 consecutive 0 in the input, then input is error.
-  // So implement happy case, then extend.
-
-    if (i == s.size())
-    {
-        return 1;
-    }
-
-    int a = (s[i] == '0')? 0 : acode2(s, i + 1);
-    int b = ((s[i] == '1' || s[i] == '2') &&
-             (i + 1 < s.size()) &&
-             (s[i + 1] >= '1') &&
-             (s[i + 1] <= '6'))? acode2(s, i + 2) : 0;
-    return a + b;
-}
-
 int acode1(string s, int i)
 {
     if (s.size() == i)
@@ -1639,6 +1620,42 @@ int acode1(string s, int i)
     return acode1(s, i + 1);
 }
 
+int acode2(string s, int i) //jj
+{
+    // I can stick to simple algorithm. And I can go a phase which check if input is healthy or not.
+    // for example, if there is more than 1 consecutive 0 in the input, then input is error.
+    // So implement happy case, then extend.
+
+    if (i == s.size())
+    {
+        return 1;
+    }
+
+    int a = (s[i] == '0')? 0 : acode2(s, i + 1);
+    int b = ((s[i] == '1' || s[i] == '2') &&
+             (i + 1 < s.size()) &&
+             (s[i + 1] >= '1') &&
+             (s[i + 1] <= '6'))? acode2(s, i + 2) : 0;
+    return a + b;
+}
+
+int acode_dp(string s)
+{
+    vector<int> v(s.size() + 1, 0);
+    v[0] = 1;
+
+    for (int i = 1; i <= v.size(); ++i)
+    {
+        int a = (s[i - 1] == '0')? 0 : v[i - 1];
+        int b = ((i > 1) &&
+                 (s[i - 2] == '1' || s[i - 2] == '2') &&
+                 (s[i - 1] >= '1') &&
+                 (s[i - 1] <= '6'))? v[i - 2] : 0;
+        v[i] = a + b;
+    }
+
+    return v.back();
+}
 
 void alphacode() //j
 {
@@ -1649,6 +1666,9 @@ void alphacode() //j
     cout << " the result is " << r << endl;
 
     r = acode2(s, 0);
+    cout << " the result is " << r << endl;
+
+    r = acode_dp(s);
     cout << " the result is " << r << endl;
 }
 
