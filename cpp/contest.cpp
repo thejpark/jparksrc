@@ -1711,14 +1711,10 @@ void hay() //jj
 
   /* shortest path algorithm by Dikstra */
 
-  vector<int> d(n + 1);
-
-  for (int i = 1; i <= n; i++)
-    d[i] = 10000000;
+  vector<int> d(vt[1].size(), 10000000);
 
   for (int j = 0; j < vt[1].size(); j++) {
     d[j] = vt[1][j];
-
   }
 
   set<int> s, v;
@@ -1741,12 +1737,10 @@ void hay() //jj
       cout << *it << " is " << d[*it] << endl;
     }
 
-
   }
 
   for (int i = 2; i <= n; i++)
     cout << "to " << i << " is " << d[i];
-
 }
 
 
