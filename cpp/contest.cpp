@@ -820,6 +820,7 @@ int makeChange(vector<int>& denom, int idx, int n) //jj
 }
 
 // can you implement it using dynamic programming?
+// this is combination, not taking care of sequence
 int makeChangeDP(vector<int>& denom, int n) //jj
 {
     vector<vector<int>> v(denom.size(), vector<int>(n + 1));
@@ -1984,6 +1985,12 @@ void perfect_stall()
     cout << r;
 }
 
+// Given two strings s and t, you have to decide whether s is a subsequence of t, i.e. if you can remove characters from t such that the concatenation of the remaining characters is s.
+
+// sequence subsequence: yes
+// person compression: no
+// VERDI vivaVittorioEmanueleReDiItalia: yes
+// caseDoesMatter CaseDoesMatter: no
 
 // this can be solved like finding shortest ordered subarray in ctci.
 // using array of size equal to s.size(), maintain a state machine.
@@ -2181,8 +2188,8 @@ void get_max_path(vector<vector<int>>& v, int n, int m)
             ++i;
         else
             ++j;
+        cout << i << " " << j << endl;
     }
-    cout << i << " " << j << endl;
 }
 
 
