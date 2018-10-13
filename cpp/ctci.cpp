@@ -3645,16 +3645,44 @@ int two_workers_n_job(int x, int y, vector<int>& a, int i)
         return max(x, y);
     }
 
+    // use cache for performance
     return min (two_workers_n_job(x + a[i], y, a, i + 1),
                 two_workers_n_job(x, y + a[i], a, i + 1));
 
 }
 
-int two_workers_n_job_dp(vector<int>& a)
+// find max number which is smaller than the half of the sum of all numbers;
+int two_workers_n_job_2(vector<int>& a, int k, int i)
 {
-    return 0;
+    if (i == a.size())
+    {
+        return 0;
+    }
+
+    // use cache for performance
+    int x = two_workers_n_job_2(a, k, i + 1);
+    int y = (k < a[i])? 0 : a[i] + two_workers_n_job_2(a, k - a[i], i + 1);
+
+    return max(x, y);
 }
 
+
+int two_workers_n_job_dp(vector<int>& a, int k)
+{
+    vector<vector<int>> v(a.size() + 1, vector<int>(k + 1, 0));
+
+    for (int i = 1; i <= a.size(); ++i)
+    {
+        for (int j = 1; j <= k; ++j)
+        {
+            int x = v[i - 1][j];
+            int y = (j < a[i - 1])? 0 : a[i - 1] + v[i - 1][j - a[i - 1]];
+
+            v[i][j] = max(x, y);
+        }
+    }
+    return v[a.size()][k];
+}
 
 void test_2_workers_n_jobs() //jj todo: DP? using table? 2 machine n job
 {
@@ -3673,6 +3701,13 @@ void test_2_workers_n_jobs() //jj todo: DP? using table? 2 machine n job
     int result = two_workers_n_job(0, 0, a, 0);
 
     cout << "the result is " << result << endl;
+
+    int ac = accumulate(a.begin(), a.end(), 0);
+    result = two_workers_n_job_2(a, ac / 2, 0);
+    cout << "the result is " << (ac - result) << endl;
+
+    result = two_workers_n_job_dp(a, ac / 2);
+    cout << "the result is " << (ac - result) << endl;
 }
 
 
@@ -4668,24 +4703,19 @@ int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& 
 
 int knapsack_dp(int k, vector<int>& v, vector<int>& w)
 {
-    vector<vector<int>> vv(w.size(), vector<int>(k + 1, 0));
+    vector<vector<int>> vv(w.size() + 1, vector<int>(k + 1, 0));
 
-    for (int i = w[0]; i <= k; ++i)
-    {
-        vv[0][i] = v[0];
-    }
-
-    for (int i = 1; i < w.size(); ++i)
+    for (int i = 1; i <= w.size(); ++i)
     {
         for (int j = 1; j <= k; ++j)
         {
             int a = vv[i - 1][j];
-            int b = (j < w[i])? 0 : v[i] + vv[i - 1][j - w[i - 1]];
+            int b = (j < w[i - 1])? 0 : v[i - 1] + vv[i - 1][j - w[i - 1]];
             vv[i][j] = max(a, b);
         }
     }
 
-    return vv[v.size() - 1][k];
+    return vv[v.size()][k];
 }
 
 int knapsack_dp2(int k, vector<int>& v, vector<int>& w)
@@ -4758,6 +4788,9 @@ void test_knapsack()
 
     int result = knapsack(k, v, w, 0, vv);
 
+    cout << " the result is " << result << endl;
+
+    result = knapsack_dp(k, v, w);
     cout << " the result is " << result << endl;
 
     result = knapsack_dp2(k, v, w);
@@ -4909,5 +4942,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_3_num_sum_to_zero();
+    test_2_workers_n_jobs();
 }
