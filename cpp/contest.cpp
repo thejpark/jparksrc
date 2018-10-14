@@ -3284,7 +3284,7 @@ void two_machine_n_jobs() //jj
     // the two machine, and select from the beggest gap first al the way
     // to the end of the job list. For any index i in the array, if selecting
     // small valued machine makes more than k consecutive, then select the other
-    // machine.
+    // machine. Similar to graph coloring or minimal-spanning-tree?
 
     r = 0;
     using elem = pair<int, int>;
