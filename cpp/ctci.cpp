@@ -3676,7 +3676,7 @@ int two_workers_n_job_dp(vector<int>& a, int k)
         for (int j = 1; j <= k; ++j)
         {
             int x = v[i - 1][j];
-            int y = (j < a[i - 1])? 0 : a[i - 1] + v[i - 1][j - a[i - 1]];
+            int y = (j < j)? 0 : a[i - 1] + v[i - 1][j - a[i - 1]];
 
             v[i][j] = max(x, y);
         }
@@ -4065,7 +4065,8 @@ void test_perm_1_0_with_no_adjacent_1() //jj
 }
 
 /*
-Given a positive integer n, find the no of integers less than equal to n, whose binary representation doesn't contain consecutive 1s.
+Given a positive integer n, find the no of integers less than equal to n, whose binary representation doesn't contain consecutive or
+adjacent 1s.
 eg:
 I/P : 4
 O/P: 4 (0,1,2,4 Valid)
