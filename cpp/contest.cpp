@@ -2454,7 +2454,15 @@ bool match_sum_case1(vector<int>& vi, int x)
     return false;
 }
 
+
 // http://poj.org/problem?id=1785
+// A heap is a tree whose internal nodes have each assigned a priority (a number) such that the priority of each internal node is less than the priority of its parent. As a consequence, the root has the greatest priority in the tree, which is one of the reasons why heaps can be used for the implementation of priority queues and for sorting.
+// A binary tree in which each internal node has both a label and a priority, and which is both a binary search tree with respect to the labels and a heap with respect to the priorities, is called a treap. Your task is, given a set of label-priority-pairs, with unique labels and unique priorities, to construct a treap containing this data.
+// 7 a/7 b/6 c/5 d/4 e/3 f/2 g/1 -> (a/7(b/6(c/5(d/4(e/3(f/2(g/1)))))))
+// 7 a/1 b/2 c/3 d/4 e/5 f/6 g/7 -> (((((((a/1)b/2)c/3)d/4)e/5)f/6)g/7)
+// 7 a/3 b/6 c/4 d/7 e/2 f/5 g/1 -> (((a/3)b/6(c/4))d/7((e/2)f/5(g/1)))
+
+
 class bin_search_heap_node
 {
 public:
@@ -2546,18 +2554,6 @@ string construct(vector<bin_search_heap_node>& v)
 
 void test_bin_search_heap() //jj
 {
-    /*************
-    Sample Input
-    7 a/7 b/6 c/5 d/4 e/3 f/2 g/1
-    7 a/1 b/2 c/3 d/4 e/5 f/6 g/7
-    7 a/3 b/6 c/4 d/7 e/2 f/5 g/1
-    0
-    Sample Output
-    (a/7(b/6(c/5(d/4(e/3(f/2(g/1)))))))
-    (((((((a/1)b/2)c/3)d/4)e/5)f/6)g/7)
-    (((a/3)b/6(c/4))d/7((e/2)f/5(g/1)))
-    ****************/
-
     vector<bin_search_heap_node> v;
     int num;
     cin >> num;
