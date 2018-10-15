@@ -3676,7 +3676,7 @@ int two_workers_n_job_dp(vector<int>& a, int k)
         for (int j = 1; j <= k; ++j)
         {
             int x = v[i - 1][j];
-            int y = (j < j)? 0 : a[i - 1] + v[i - 1][j - a[i - 1]];
+            int y = (j < a[i - 1])? 0 : a[i - 1] + v[i - 1][j - a[i - 1]];
 
             v[i][j] = max(x, y);
         }
