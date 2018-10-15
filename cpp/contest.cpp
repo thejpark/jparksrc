@@ -4304,7 +4304,7 @@ pair<int, int> gmbs2(vector<int>& v)
 
 pair<int, int> gebs_iter(vector<int>&vs1, vector<int>& vs2, int beg, int size)
 {
-  int len = size;
+  int len = size - size % 2;
   while (len > 0)
     {
       for (int i = beg; i + len <= size; ++i)
@@ -4315,7 +4315,7 @@ pair<int, int> gebs_iter(vector<int>&vs1, vector<int>& vs2, int beg, int size)
             }
 
         }
-      --len;
+      len = len - 2;
     }
 
   return pair<int, int>(0, 0);
