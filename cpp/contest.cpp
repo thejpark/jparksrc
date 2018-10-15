@@ -4257,7 +4257,7 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
     }
 }
 
-// 1/2 + 1/4 + 1/6 + .... then I think it is O(n). Harmonic series
+// iteration, it is still not O(n)
 pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 {
     int len = size - size % 2; // same number of 0's and 1's means that it is even number.
