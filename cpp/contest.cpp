@@ -3284,7 +3284,7 @@ void two_machine_n_jobs() //jj
     // the two machine, and select from the beggest gap first al the way
     // to the end of the job list. For any index i in the array, if selecting
     // small valued machine makes more than k consecutive, then select the other
-    // machine. Similar to graph coloring or minimal-spanning-tree?
+    // machineways
 
     r = 0;
     using elem = pair<int, int>;
@@ -4257,9 +4257,10 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
     }
 }
 
+// 1/2 + 1/4 + 1/6 + .... then I think it is O(n). Harmonic series
 pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 {
-    int len = size;
+    int len = size - size % 2; // same number of 0's and 1's means that it is even number.
     while (len > 0)
     {
         for (int i = beg; i + len <= size; ++i)
@@ -4270,56 +4271,11 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
             }
 
         }
-        --len;
+        len = len - 2;
     }
 
     return pair<int, int>(0, 0);
 }
-
-pair<int, int> gmbs_linear(vector<int>&vs, vector<int>& v, int beg, int size) //jj
-{
-    int len = size;
-    while (len > 0)
-    {
-        int t = gmbs_get(vs, beg, len) * 2;
-
-        if (t == len)
-        {
-            return pair<int, int>(len, beg);
-        }
-        else if (t < len)
-        {
-            if (v[beg] == 0)
-            {
-                ++beg;
-            }
-        }
-        else
-        {
-            if (v[beg] == 1)
-            {
-                ++beg;
-            }
-        }
-        --len;
-    }
-
-    return pair<int, int>(0, 0);
-}
-
-
-pair<int, int> gmbs3(vector<int>& v)
-{
-    vector<int> vs(v.size());
-    vs[0] = v[0];
-    for (int i = 1; i < v.size(); ++i)
-    {
-        vs[i] = vs[i - 1] + v[i];
-    }
-
-    return gmbs_linear(vs, v, 0, vs.size());
-}
-
 
 pair<int, int> gmbs(vector<int>& v)
 {
@@ -4437,9 +4393,6 @@ void get_max_bin_subsequence()
     cout << r.first << " " << r.second << endl;
 
     r = gmbs2(v1);
-    cout << r.first << " " << r.second << endl;
-
-    r = gmbs3(v1);
     cout << r.first << " " << r.second << endl;
 }
 
@@ -4800,7 +4753,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    alphacode();
+    get_max_bin_subsequence();
 }
 
 
