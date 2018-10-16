@@ -4257,7 +4257,7 @@ pair<int, int> gmbs_rec(vector<int>&vs, int beg, int len)
     }
 }
 
-// iteration, it is still not O(n)
+// iteration
 pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 {
     int len = size - size % 2; // same number of 0's and 1's means that it is even number.
@@ -4275,6 +4275,34 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
     }
 
     return pair<int, int>(0, 0);
+}
+
+// linear
+
+pair<int, int> gmbs_linear(vector<int>& v)
+{
+    int len = 0;
+    int sum = 0;
+    int index = 0;
+    unordered_map<int, int> m;
+    m[0] = -1;
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        sum += (v[i] == 0)? -1 : 1;
+
+        if (m.find(sum) != m.end())
+        {
+            len = max(len, i - m[sum]);
+            index = i;
+        }
+        else
+        {
+            m[sum] = i;
+        }
+    }
+
+    return pair<int, int>(index - len + 1, len);
 }
 
 pair<int, int> gmbs(vector<int>& v)
