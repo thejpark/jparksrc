@@ -4293,8 +4293,11 @@ pair<int, int> gmbs_linear(vector<int>& v)
 
         if (m.find(sum) != m.end())
         {
-            len = max(len, i - m[sum]);
-            index = i;
+            if (len < i - m[sum])
+            {
+                len = i - m[sum];
+                index = i;
+            }
         }
         else
         {
