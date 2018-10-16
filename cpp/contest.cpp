@@ -4302,7 +4302,7 @@ pair<int, int> gmbs_linear(vector<int>& v)
         }
     }
 
-    return pair<int, int>(index - len + 1, len);
+    return pair<int, int>(len, index - len + 1);
 }
 
 pair<int, int> gmbs(vector<int>& v)
@@ -4421,6 +4421,9 @@ void get_max_bin_subsequence()
     cout << r.first << " " << r.second << endl;
 
     r = gmbs2(v1);
+    cout << r.first << " " << r.second << endl;
+
+    r = gmbs_linear(v1);
     cout << r.first << " " << r.second << endl;
 }
 
