@@ -4283,7 +4283,7 @@ pair<int, int> gmbs_linear(vector<int>& v)
 {
     int len = 0;
     int sum = 0;
-    int index = 0;
+    int index = -1;
     unordered_map<int, int> m;
     m[0] = -1;
 
