@@ -2341,6 +2341,7 @@ void match_sum()
     int mmatch;
     cin >> mmatch;
 
+    // method 1
     vector<int> vi2(vi.size());
 
     vi2[0] = vi[0];
@@ -2366,10 +2367,28 @@ void match_sum()
             return;
         }
     }
+
+    // // method 2
+    // unordered_map<int, int> mi;
+    // int sum = 0;
+    // for (int i = 0; i < vi.size(); ++i)
+    // {
+    //     sum += vi[i];
+    //     if (sum == target)
+    //     {
+    //         cout << "Found item at a to  " << i << endl;
+    //         return;
+    //     }
+    //     if (mi.find(sum - mmatch) != mi.end())
+    //     {
+    //         cout << "Found item at " mi[sum - mmatchi] + 1 << " to "<< i << endl;
+    //         return;
+    //     }
+    //     mi[sum] = i;
+    // }
+
     cout << "no sequences found" << endl;
 }
-
-
 
 // match sum, same with the above but without using map
 // find sequences in an array which matches to a number
@@ -4787,7 +4806,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    get_max_bin_subsequence();
+    match_sum();
 }
 
 
