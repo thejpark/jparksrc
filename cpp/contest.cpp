@@ -4392,6 +4392,9 @@ pair<int, int> gebs(vector<int>& v1, vector<int>& v2) //jj
     return gebs_iter(vs1, vs2, 0, vs1.size());
 }
 
+// other solution:
+// dynamic programming, same with lcs
+
 
 void get_eq_bin_subsequence()
 {
