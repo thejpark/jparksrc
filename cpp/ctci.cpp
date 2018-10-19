@@ -4920,6 +4920,17 @@ void test_pickup_coins_for_maximum_gain()
     cout << "the result is " << r << endl;
 }
 
+// Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
+// Output: Order of characters is 'b', 'd', 'a', 'c'
+//                                      Note that words are sorted and in the given language "baa" 
+//                                      comes before "abcd", therefore 'b' is before 'a' in output.
+//                                      Similarly we can find other orders.
+
+//                                      Input:  words[] = {"caa", "aaa", "aab"}
+// Output: Order of characters is 'c', 'a', 'b'
+void test_alien_alnguage()
+{
+}
 
 // reference
 // https://github.com/andreis/interview
