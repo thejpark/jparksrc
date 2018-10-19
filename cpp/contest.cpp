@@ -6,6 +6,7 @@ http://web.stanford.edu/class/cs97si/
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -4671,6 +4672,35 @@ void test_first_unrepeated_char() //jj
         cout << "the result is " << prev << endl;
 }
 
+// Find the first repeated word in a string
+// Given a string, Find the 1st repeated word in a string
+//                 Input : "Ravi had been saying that he had been there"
+//                 Output : had
+
+//                 Input : "Ravi had been saying that"
+//                 Output : No Repetition
+void test_first_repeated_word_in_a_string()
+{
+    // sol: use istringstream to tokenise the string, and use map to count occurence.
+
+    string s;
+    cin >> s;
+    istringstream iss(s);
+    string token;
+
+    // hashmap for storing word and its count
+    // in sentence
+    unordered_map<string, int> setOfWords;
+
+    // store all the words of string
+    // and the count of word in hashmap
+
+    while (getline(iss, token, ' ')) {
+        setOfWords[token] += 1;
+    }
+
+    // do the rest
+}
 
 
 void test_find_a_missing_number_in_4_billion_number_in_a_file() //jj
@@ -4799,6 +4829,7 @@ void test_find_biggest_plus() //jj
 
     find_biggest_plus(v);
 }
+
 
 int main()
 {
