@@ -4641,17 +4641,7 @@ int find_lcs_dp(string s1, string s2)
     int n = s1.size() + 1;
     int m = s2.size() + 1;
 
-    vector<vector<int>> v(n, vector<int>(m));
-
-    for (int i = 0; i < n; ++i)
-    {
-        v[i][0] = 0; // not necessary
-    }
-
-    for (int j = 0; j < m; ++j)
-    {
-        v[0][j] = 0; // not necessary as well
-    }
+    vector<vector<int>> v(n, vector<int>(m, 0));
 
     for (int i = 1; i < n; ++i)
     {
