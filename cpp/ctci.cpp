@@ -4920,7 +4920,42 @@ void test_pickup_coins_for_maximum_gain()
 // Output: Order of characters is 'c', 'a', 'b'
 void test_alien_alnguage()
 {
+    //sol: find partial order then it ends up wit  a graph, then topological sort using dfs
 }
+
+
+// Given a string, find all possible palindromic partitions of given string.
+// Example: input -> geeks
+//          output -> g e e k s
+//                    g ee k s
+bool is_palindrom(int i, int j, string&s)
+{
+    // needs implementation
+    // may need to cache for performance
+    return true;
+}
+
+void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
+{
+    if (i == s.size())
+    {
+        r.emplace_back(t);
+    }
+
+    for (int j = i; j < s.size(); ++j)
+    {
+        if (is_palindrom(i, j, s))
+        {
+            t.emplace_back(j);
+            find_all_palindrom(j + 1, s, t, r);
+        }
+    }
+}
+
+void test_find_all_possible_palindromic_partitions()
+{
+}
+
 
 // reference
 // https://github.com/andreis/interview
