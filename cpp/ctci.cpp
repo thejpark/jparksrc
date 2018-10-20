@@ -3125,18 +3125,32 @@ void next_perm(vector<int>* pv) //jj
 {
     vector<int>& v = *pv;
 
+    // caution: time complexity is O(n) not O(n^2). This code can be doen with
+    // two separate for loop instead of nested for loops.
     for (int i = v.size() - 2; i >= 0; --i)
     {
         if (v[i] < v[i + 1])
         {
             int min_j = i + 1;
+            // need to go back->front or front->back?
+#if 1
+            // if we search back->front, then we can just break if (v[i] < v[j])
+            for (int j = v.size() -1; j > i; --j)
+            {
+                if (v[j] > v[i])
+                {
+                    swap(v[j], v[i]);
+                    break;
+                }
+            }
+#else
             for (int j = i + 2; j < v.size(); ++j)
             {
                 if ((v[j] > v[i]) && (v[j] < v[min_j]))
                     min_j = j;
             }
             swap(v[i], v[min_j]);
-
+#endif
             // then reverse all from i + 1 to the end
             reverse(v.begin() + i + 1, v.end());
             return;
@@ -3162,14 +3176,10 @@ void test_next_perm()
         v.push_back(t);
     }
 
-    while(!v.empty())
-    {
-        next_perm(&v);
-        for (int e: v)
-            cout << e << " ";
-        cout << endl;
-    }
-    cout << "no more permutation" << endl;
+    next_perm(&v);
+    for (int e: v)
+        cout << e << " ";
+    cout << endl;
 }
 
 
@@ -4979,5 +4989,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_2_workers_n_jobs();
+    test_next_perm();
 }
