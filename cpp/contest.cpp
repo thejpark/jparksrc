@@ -4176,7 +4176,6 @@ string remove_parenthesis(string str) //jj
 }
 
 
-
 void test_remove_par()
 {
     string s;
@@ -4188,6 +4187,61 @@ void test_remove_par()
 
 }
 
+// Given a string with alpha-numeric characters and parentheses,
+// return a string with balanced parentheses by removing the fewest characters possible.
+// You cannot add anything to the string.
+void test_remove_unbalanced_par()
+{
+    //sol: step 1: from left to right, if there is a mismatching ')' then delete it from the string.
+    // step 2: from right to lefti, if there is a mismatching '(', then delete it from the string.
+
+    string s;
+    cin >> s;
+
+    int par = 0;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        if (s[i] == '(')
+        {
+            ++par;
+        }
+        else if (s[i] == ')')
+        {
+            if (par > 0)
+            {
+                --par;
+            }
+            else
+            {
+                s.erase(s.begin() + i);
+                --i;
+            }
+        }
+    }
+
+    cout << "the result is " << s << endl;
+    par = 0;
+    for (int i = s.size() - 1; i >= 0; --i)
+    {
+        if (s[i] == ')')
+        {
+            ++par;
+        }
+        else if (s[i] == '(')
+        {
+            if (par > 0)
+            {
+                --par;
+            }
+            else
+            {
+                s.erase(s.begin() + i);
+            }
+        }
+    }
+
+    cout << "the result is " << s << endl;
+}
 
 int gget (string& s, int idx)
 {
@@ -4822,7 +4876,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    get_eq_bin_subsequence();
+    test_remove_unbalanced_par();
 }
 
 
