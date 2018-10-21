@@ -1140,6 +1140,20 @@ void navi() //jj
 }
 
 
+// Q: Find number of Islands.
+// XXXOO
+// OOOXX
+// XXOOX
+// Return 3 islands.
+// 111OO
+// OOO22
+// 33OO2
+// Followup: If the board is too big to fit in memory, how to get the number?
+
+void test_find_number_of_island()
+{
+}
+
 int b(int);
 int a(int);
 int d(int);
@@ -1157,14 +1171,12 @@ int b(int n)
 
 int a(int n)
 {
-
   if (n < 2)
     return 0;
   if (n == 2)
     return 1;
 
   return d(n - 2) + a(n - 2);
-
 }
 
 int d(int n)
