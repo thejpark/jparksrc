@@ -4966,7 +4966,12 @@ void test_find_all_possible_palindromic_partitions()
 {
 }
 
-
+// moving average of last N numbers in a stream
+// For example, if N=3 and the stream S=[2,3,4,1,2,-3,0,…] then moving averages at each each streamed number are = [2.0, 2.5, 3.0, 2.66, 2.33, 0, -0.33,…].
+void test_moving_average_of_last_n()
+{
+    // sol: similar to circular buffer.
+}
 // reference
 // https://github.com/andreis/interview
 //
@@ -4989,5 +4994,4 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_next_perm();
 }
