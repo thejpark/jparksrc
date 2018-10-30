@@ -4928,7 +4928,7 @@ void test_pickup_coins_for_maximum_gain()
 
 //                                      Input:  words[] = {"caa", "aaa", "aab"}
 // Output: Order of characters is 'c', 'a', 'b'
-void test_alien_alnguage()
+void test_alien_language()
 {
     //sol: find partial order then it ends up wit  a graph, then topological sort using dfs
 }
@@ -4958,6 +4958,7 @@ void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
         {
             t.emplace_back(j);
             find_all_palindrom(j + 1, s, t, r);
+            t.pop_back();
         }
     }
 }
@@ -4972,6 +4973,12 @@ void test_moving_average_of_last_n()
 {
     // sol: similar to circular buffer.
 }
+
+
+void find_island_from_2_dimensional_array()
+{
+}
+
 // reference
 // https://github.com/andreis/interview
 //
