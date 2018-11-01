@@ -4920,6 +4920,50 @@ void test_pickup_coins_for_maximum_gain()
     cout << "the result is " << r << endl;
 }
 
+// input: 0 8 4 12 2 10 6 14 1 9
+// output: 4 (length of longest non decreasing seqeunce, 0, 4, 10, 14 or 0, 2, 6, 9)
+int non_dec_seq(int idx, vector<int>& v)
+{
+    if (v.size() == idx)
+    {
+        return 0;
+    }
+
+    int r = 0;
+    for (int i = idx + 1; i < v.size(); ++i)
+    {
+        if (v[idx] <= v[i])
+        {
+            r = max(r, 1 + non_dec_seq(i, v));
+        }
+    }
+
+    return r;
+}
+
+void test_longest_non_decreasing_sequence()
+{
+    int n;
+    vector<int> v;
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    int r = 0;
+
+    for (int i = 0; i < n; ++i)
+    {
+        r = max(r, non_dec_seq(i, v));
+    }
+
+    cout << "the result is " << r + 1 << endl;
+}
+
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 // Output: Order of characters is 'b', 'd', 'a', 'c'
 //                                      Note that words are sorted and in the given language "baa" 
@@ -5001,4 +5045,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
+    test_longest_non_decreasing_sequence();
 }
