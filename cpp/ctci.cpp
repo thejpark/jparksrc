@@ -4928,7 +4928,7 @@ int non_dec_seq(int idx, vector<int>& v)
     {
         return 0;
     }
-
+    // use cache using idx
     int r = 0;
     for (int i = idx + 1; i < v.size(); ++i)
     {
