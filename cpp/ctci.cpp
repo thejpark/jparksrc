@@ -4962,6 +4962,25 @@ void test_longest_non_decreasing_sequence()
     }
 
     cout << "the result is " << r + 1 << endl;
+
+    // DP
+
+    vector<int> vd(n, 1);
+
+    for (int i = 1; i < n; ++i)
+    {
+        for (int j = 0; j < i; ++j)
+        {
+            if (v[j] <= v[i])
+            {
+                vd[i] = max(vd[i], 1 + vd[j]);
+            }
+        }
+    }
+
+    r = *max_element(vd.begin(), vd.end());
+
+    cout << "the result is " << r << endl;
 }
 
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
