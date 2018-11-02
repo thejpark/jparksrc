@@ -2667,7 +2667,7 @@ void test_cube_stack() //jj
             int first, second;
             cin >> first >> second;
             uunion(vc, first, second);
-       }
+        }
         else if (s == "C")
         {
             int first;
@@ -4364,7 +4364,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 }
 
 // linear
-
+// same problem as sum to zero or sum to x
 pair<int, int> gmbs_linear(vector<int>& v)
 {
     int len = 0;
