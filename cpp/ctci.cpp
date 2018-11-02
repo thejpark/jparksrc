@@ -5034,6 +5034,40 @@ void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
     }
 }
 
+// find if there is a palindromic decomposition, it always return true as each char is a palindromic.
+bool find_palindrom_dp(string& s)
+{
+    vector<int> p;
+
+    for (int i = 0; i < s.size(); ++i)
+    {
+        if (is_palindrom(0, i, s))
+        {
+            p.emplace_back(i);
+        }
+        else
+        {
+            for (int j = p.size() - 1; j >= 0; --j)
+            {
+                if (is_palindrom(p[j] + 1, i, s))
+                {
+                    p.emplace_back(i);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (p.back() == (s.size() - 1))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void test_find_all_possible_palindromic_partitions()
 {
     string s;
@@ -5042,6 +5076,11 @@ void test_find_all_possible_palindromic_partitions()
 
     vector<int> t;
     vector<vector<int>> r;
+
+    if (find_palindrom_dp(s))
+    {
+        cout << "found at least one" << endl;
+    }
 
     find_all_palindrom(0, s, t, r);
 
