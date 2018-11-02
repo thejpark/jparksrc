@@ -5003,8 +5003,16 @@ void test_alien_language()
 //                    g ee k s
 bool is_palindrom(int i, int j, string&s)
 {
-    // needs implementation
-    // may need to cache for performance
+    while (i < j)
+    {
+        if (s[i] != s[j])
+        {
+            return false;
+        }
+        ++i;
+        --j;
+    }
+
     return true;
 }
 
@@ -5028,6 +5036,24 @@ void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
 
 void test_find_all_possible_palindromic_partitions()
 {
+    string s;
+
+    cin >> s;
+
+    vector<int> t;
+    vector<vector<int>> r;
+
+    find_all_palindrom(0, s, t, r);
+
+    for (int i = 0; i < r.size(); ++i)
+    {
+        cout << endl<< "begin : ";
+        for (int j = 0; j < r[i].size(); ++j)
+        {
+            cout << r[i][j] << " ";
+        }
+        cout << " end" << endl;
+    }
 }
 
 // moving average of last N numbers in a stream
@@ -5064,5 +5090,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_longest_non_decreasing_sequence();
+    test_find_all_possible_palindromic_partitions();
 }
