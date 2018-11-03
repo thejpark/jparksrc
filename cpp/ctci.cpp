@@ -5103,6 +5103,44 @@ void test_moving_average_of_last_n()
 }
 
 
+void test_find_number_of_subarrays_sum_to_k()
+{
+    int n;
+    vector<int> v;
+
+    int k;
+    cin >> k;
+
+    cin >> n;
+    for (int i = 0; i < n; ++i )
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    unordered_map<int, int> m;
+
+    int count = 0;
+    int sum = 0;
+
+    m[0] = 1;
+    for (int i = 0; i < n; ++i)
+    {
+        sum += v[i];
+
+        if (m.find(sum - k) != m.end())
+        {
+            count += m[sum - k];
+        }
+
+        m[sum]++;
+    }
+
+    cout << "the result is " << count << endl;
+}
+
+
 void find_island_from_2_dimensional_array()
 {
 }
@@ -5129,5 +5167,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_all_possible_palindromic_partitions();
+    test_find_number_of_subarrays_sum_to_k();
 }
