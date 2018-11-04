@@ -5141,8 +5141,93 @@ void test_find_number_of_subarrays_sum_to_k()
 }
 
 
-void find_island_from_2_dimensional_array()
+// find island
+// input
+// xxx00
+// 000xx
+// xx00x
+// output
+// ->3
+
+// x000x
+// x000x
+// x000x
+// xxxxx
+// -> 0
+// what if the dimension is too big? who can handle this?
+void test_find_island_from_2_dimensional_array()
 {
+    // sol1: dfs or bfs
+    // sol2: line by line, for each element look at left and up. If left and up belongs to different area, merge it (union/find?)
+    int n;
+    cin >> n;
+    vector<string> v;
+
+    for (int i = 0; i < n; ++i)
+    {
+        string s;
+        cin >> s;
+        v.emplace_back(s);
+    }
+
+    int count = 0;
+    vector<int> vi;
+
+    vector<vector<int>> vr (2, vector<int>(v[0].size(), -1));
+    int cur = 0, prev = -1;
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < v[0].size(); ++j)
+        {
+            if (v[i][j] != 'x')
+            {
+                continue;
+            }
+
+            auto a = (i == 0)? -1 : vr[prev][j];
+            auto b = (j == 0)? -1 : vr[cur][j - 1];
+
+            if (a == -1 && b == -1)
+            {
+                vi.emplace_back(count);
+                vr[cur][j] = count;
+                ++count;
+            }
+            else if (a == -1)
+            {
+                vr[cur][j] = b;
+            }
+            else if (b == -1)
+            {
+                vr[cur][j] = a;
+            }
+            else if (a == b)
+            {
+                vr[cur][j] = b;
+            }
+            else
+            {
+                vr[cur][j] = b;
+                // merge or union/find
+                vi[a] = vi[b];
+            }
+        }
+
+        prev = cur;
+        cur = (cur + 1) % 2;
+    }
+
+    int r = 0;
+    for (int i = 0; i < vi.size(); ++i)
+    {
+        if (vi[i] == i)
+        {
+            ++r;
+        }
+    }
+
+    cout << "the result is " << r << endl;
 }
 
 // reference
@@ -5167,5 +5252,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_number_of_subarrays_sum_to_k();
+    test_find_island_from_2_dimensional_array();
 }
