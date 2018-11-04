@@ -4385,7 +4385,7 @@ pair<int, int> gmbs_linear(vector<int>& v)
                 index = i;
             }
         }
-        else
+        if (m.find(sum) == m.end()) // if sum to zero, this if stmt can be replaced with just else of above if-stmt, but if sum to k (which is not zero) then we need this, as the map function should find sum - k above.
         {
             m[sum] = i;
         }
