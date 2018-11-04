@@ -5100,6 +5100,59 @@ void test_find_all_possible_palindromic_partitions()
 void test_moving_average_of_last_n()
 {
     // sol: similar to circular buffer.
+
+    int n;
+
+    cin >> n;
+    double sum = 0;
+    double avg = 0;
+    int size = 0;
+
+    vector<int> v(n, -1);
+
+    int head = 0, tail = 0;
+
+    auto put = [&](int t) {
+        if (tail == n)
+        {
+            tail = 0;
+        }
+        v[tail++] = t;
+        sum += t;
+    };
+
+
+    auto get = [&]() {
+        sum -= v[head++];
+
+        if (head == n)
+        {
+            head = 0;
+        }
+    };
+
+    auto get_avg = [&]() {
+        return sum / min(size, n);
+    };
+
+    int t;
+    string s;
+    while (getline(cin, s, ' '))
+    {
+        t = stoi(s);
+        if (size < n)
+        {
+            put(t);
+            size++;
+        }
+        else
+        {
+            get();
+            put(t);
+        }
+
+        cout << endl << "avg : " << get_avg() << endl;
+    }
 }
 
 
@@ -5252,5 +5305,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_island_from_2_dimensional_array();
+    test_moving_average_of_last_n();
 }
