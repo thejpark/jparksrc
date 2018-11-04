@@ -4364,7 +4364,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 }
 
 // linear
-// same problem as sum to zero or sum to x
+// same problem as longest subarray sum to zero or sum to x
 pair<int, int> gmbs_linear(vector<int>& v)
 {
     int len = 0;
@@ -4377,11 +4377,11 @@ pair<int, int> gmbs_linear(vector<int>& v)
     {
         sum += (v[i] == 0)? -1 : 1;
 
-        if (m.find(sum) != m.end())
+        if (m.find(sum) != m.end()) // searching for k? then sum - k
         {
-            if (len < i - m[sum])
+            if (len < i - m[sum]) // here as well, sum -k
             {
-                len = i - m[sum];
+                len = i - m[sum]; // sum - k
                 index = i;
             }
         }
