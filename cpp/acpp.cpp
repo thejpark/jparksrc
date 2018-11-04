@@ -55,7 +55,7 @@ int t2()
     std::cout << second << std::endl;
     std::cout << first << std::endl;
 
-    
+
 }
 
 int t3()
@@ -85,13 +85,13 @@ int t5()
         const string a = "a string";
         cout << a << endl;
     }
-    
-    
+
+
     {
         const string a = "another string";
         cout << a << endl;
-    } 
-    
+    }
+
 }
 
 
@@ -105,14 +105,14 @@ int t6()
 
     cout << "What is you name? ";
     cin >> name;
-    
+
     string greeting = "Hello " + name;
 
     rows = pad * 2 + 3;
     cols = greeting.size() + pad * 2 + 2;
     string first(cols, '*');
-    
-    
+
+
     for(int i = 0; i < rows; i++) {
         if (i == 0 || i == rows - 1) {
             cout << first << endl;
@@ -126,7 +126,7 @@ int t6()
                 cout << ' ';
             }
             cout << '*' << endl;
-            
+
         } else {
             string pads(greeting.size() + pad * 2, ' ');
             cout << '*' << pads << '*' << endl;
@@ -140,10 +140,10 @@ int t7()
 
     int row, col;
 
-    cout << "Enter row ";    
+    cout << "Enter row ";
     cin >> row;
 
-    
+
     for (int i = 0; i < row; i++) {
         int k = row - i + 1;
         int j = i * 2 + 1;
@@ -165,7 +165,7 @@ int t8()
     double midterm, final;
 
     cout << "Enter your midterm grade ";
-    // if I enter non-number, it will 
+    // if I enter non-number, it will
     // be an error. and cin will not work after that, so you probably
     // need to clear the stream.
     cin >> midterm;
@@ -178,7 +178,7 @@ int t8()
 
     int count = 0;
     double sum = 0, x;
-    
+
     while (cin >> x) {
         count++;
         sum += x;
@@ -191,8 +191,8 @@ int t8()
          << 0.2 * midterm + 0.3 * final + 0.5 * sum / count
          << setprecision(prec) << endl;
     return 0;
-    
-    
+
+
 }
 
 /* use appropriate types. Sometimes you need to use double instead of int. */
@@ -214,7 +214,7 @@ int t9()
 
     int x;
     vector<int> xv;
-    
+
     while (cin >> x) {
         xv.push_back(x);
     }
@@ -225,16 +225,16 @@ int t9()
     median = ((xv.size() % 2) == 1)? xv[xv.size()/2] : (xv[xv.size()/2 - 1] + xv[xv.size()/2])/2;
 
     cout << "Meding value is " << median << endl;
-    
+
     streamsize prec = cout.precision();
 
-    
+
     cout << "Your final grade is " << setprecision(3)
          << 0.2 * midterm + 0.3 * final + 0.5 * median
          << setprecision(prec) << endl;
     return 0;
-    
-    
+
+
 }
 
 
@@ -263,7 +263,7 @@ double get_mid(const vector<double> &xv, int i, int j)
     } else {
         return (xv[idx] + xv[idx + 1]) / 2.0; // 2.0
     }
-    
+
 }
 
 
@@ -273,7 +273,7 @@ int t10()
 
     double x;
     vector<double> xv;
-    
+
     while (cin >> x) {
         xv.push_back(x);
     }
@@ -293,15 +293,15 @@ int t10()
     }
 
     cout << " the result is " << median_low << " : " << median << " : " << median_hi << endl;
-    
+
     return 0;
-    
+
 }
 
-int t11() 
+int t11()
 {
     string s;
-    
+
     map<string, int> counter;
 
     while (cin >> s) {
@@ -320,10 +320,10 @@ int t12()
 
     string s;
     vector<string> vs;
-    
+
 
     cout << "Enter strings ";
-    
+
     while (cin >> s) {
         vs.push_back(s);
     }
@@ -332,7 +332,7 @@ int t12()
     int max, min;
 
     max = min = 0;
-    
+
     for (int i = 1; i < vs.size(); i++) {
 
         if (vs[max].size() < vs[i].size()) {
@@ -348,10 +348,10 @@ int t12()
 }
 
 double median(vector<double> vi) // if the vector is used for sort, it should not be defined as const. sort changes data.
-// so we did not used reference, vector<double>& vi 
+// so we did not used reference, vector<double>& vi
 {
     vector<double>::size_type size;
-    
+
     sort(vi.begin(), vi.end());
     size = vi.size();
 
@@ -366,10 +366,10 @@ double median(vector<double> vi) // if the vector is used for sort, it should no
 // list is just for the data randomly deleted as vector incurs too
 // much overheads
 
-double median(list<double>& vi) 
+double median(list<double>& vi)
 {
     list<double>::size_type size, med;
-    
+
     vi.sort();
     size = vi.size();
 
@@ -378,7 +378,7 @@ double median(list<double>& vi)
 
     list<double>::size_type i = 0;
     double t1, t2;
-    
+
     for (list<double>::const_iterator it = vi.begin();
          it != vi.end();
          ++it, ++i) {
@@ -417,7 +417,7 @@ double grade(double midterm,
 
     return grade(midterm, final, median(hw)); // median() takes vector<double> using call by value, so it is ok. It should be problem if it takes
     // the arguments by references.
-    
+
 }
 
 double grade(double midterm,
@@ -429,7 +429,7 @@ double grade(double midterm,
         throw domain_error("student has done no homework");
 
     return grade(midterm, final, median(hw));
-    
+
 }
 
 istream& read_hw(istream& is, vector<double>& hw)
@@ -470,7 +470,7 @@ istream& read_hw(istream& is, list<double>& hw)
     return is;
 }
 
-struct student_info 
+struct student_info
 {
     string name;
     double midterm;
@@ -500,7 +500,7 @@ bool compare(const struct student_info& s1,
     return s1.name < s2.name;
 }
 
-    
+
 //page.64
 
 int t13()
@@ -509,7 +509,7 @@ int t13()
     struct student_info si;
 
     string::size_type maxlen = 0;
-    
+
     while (read(cin, si)) {
 
         vs.push_back(si); // push_back copies contents.
@@ -517,7 +517,7 @@ int t13()
     }
 
     sort(vs.begin(), vs.end(), compare);
-    
+
     for (vector<struct student_info>::size_type i = 0;
          i != vs.size(); ++i) {
 
@@ -548,7 +548,7 @@ static double* f()
 {
 
     double d[3];
-    
+
     d[0] = d[1] = d[2] = 3;
 
     return d; // address of local variable d is returned, which may make system crash.
@@ -564,7 +564,7 @@ int t14()
     }
     double d = f()[2];
     cout << d << endl;
-    
+
 }
 
 int int_width(int x)
@@ -575,7 +575,7 @@ int int_width(int x)
         x = x / 10;
         ++len;
     }
-    
+
     return len;
 }
 
@@ -583,7 +583,7 @@ int int_width(int x)
 int t15()
 {
     int maxlen = 0;
-    
+
     for (int i = 1; i <= 100; i++) {
 
         maxlen = max(maxlen, int_width(i * i));
@@ -599,13 +599,13 @@ int t15()
 
 int double_width(double x, int n)
 {
-    int len = n; // decimal places sosujeom 
+    int len = n; // decimal places sosujeom
 
     while (x >= 1) { // it should not be ' > 0' as double 0.32  > 0.
         x = x / 10;
         ++len;
     }
-    
+
     return len;
 }
 
@@ -620,17 +620,17 @@ int t16()
     cout << "*** : " << max_base_width << " " << max_result_width << endl;
 
     int dd;
-    
+
     cin >> dd;
-    
+
 
     for (double i = 0; i < max_base; i += .1) {
 
         cout << setw(max_base_width + 2) << setprecision(max_base_width) << i <<
                 setw(max_result_width + 2) << setprecision(max_result_width) << i * i << endl;
-        
+
     }
-    
+
 }
 
 int t17()
@@ -642,16 +642,16 @@ int t17()
     while (cin >> s) {
         mc[s]++;
     }
-    
+
 
     for (map<string, int>::const_iterator it = mc.begin();
          it != mc.end(); ++it) {
 
         cout << it->first << " " << it->second << endl;
-        
+
     }
-    
-         
+
+
 }
 
 // find number of words occurences
@@ -682,7 +682,7 @@ int t18()
                     goto out;
                 count++;
             }
-            
+
 
         }
 
@@ -690,7 +690,7 @@ int t18()
 
     out:
         ;
-        
+
 
     }
 
@@ -713,7 +713,7 @@ int t19()
     cout << "the number of words are " << vs.size() << endl;
 
     sort(vs.begin(), vs.end()); // string does not need comparer
-    
+
 
     for (int i = 0; i < vs.size();) {
         int count = 0;
@@ -730,7 +730,7 @@ int t19()
         cout << vs[i] << " : " << count << endl;
         i = j;
     }
-    
+
 }
 
 /*
@@ -766,7 +766,7 @@ vector<student_info> extract_fail_1(vector<student_info>& vs)
     vector<student_info> fail;
     vector<student_info> succ;
     vector<student_info>::size_type i = 0;
-    
+
     while (i != vs.size()) {
         if (fgrade(vs[i]))
             fail.push_back(vs[i]);
@@ -775,7 +775,7 @@ vector<student_info> extract_fail_1(vector<student_info>& vs)
 
         i++;
     }
-    
+
     vs = succ;
 
     return fail;
@@ -788,7 +788,7 @@ vector<student_info> extract_fail_2(vector<student_info>& vs)
     vector<student_info> fail;
 
     vector<student_info>::size_type i = 0;
-    
+
     while (i != vs.size()) {
         if (fgrade(vs[i])) {
             fail.push_back(vs[i]);
@@ -797,7 +797,7 @@ vector<student_info> extract_fail_2(vector<student_info>& vs)
         else
             i++;
     }
-    
+
     return fail;
 
 }
@@ -816,7 +816,7 @@ vector<student_info> extract_fail_3(vector<student_info>& vs)
         else
             ++it;
     }
-    
+
     return fail;
 
 }
@@ -836,7 +836,7 @@ vector<student_info> extract_fail_4(list<student_info>& ls)
         else
             ++it;
     }
-    
+
     return fail;
 
 }
@@ -858,7 +858,7 @@ vector<string> split(const string& s)
         string::size_type j = i;
         while (j != s.size() && !isspace(s[j]) )
             j++;
-                
+
         if (i != j)
             ret.push_back(s.substr(i,  j - i));
 
@@ -866,14 +866,14 @@ vector<string> split(const string& s)
 
     }
     return ret;
-    
+
 }
-    
+
 int t20()
 {
 
     string s;
-    
+
     while (getline(cin, s)) {
 
         vector<string> vs = split(s);
@@ -884,7 +884,7 @@ int t20()
             cout << *it << endl;
 
         }
-        
+
     }
 
 }
@@ -898,13 +898,13 @@ int t21()
 
         cout << s << endl;
     }
-    
+
 }
 
 
 string::size_type width(const vector<string>&);
 
-    
+
 vector<string> hcat(const vector<string>& a, const vector<string>& b)
 {
 
@@ -915,10 +915,10 @@ vector<string> hcat(const vector<string>& a, const vector<string>& b)
 
     max_len = width(a);
     max_len_2 = width(b);
-    
+
     while (! (i == a.size() && j == b.size())) {
         string s;
-        
+
         if (i != a.size()) {
             s = a[i];
             ++i;
@@ -935,7 +935,7 @@ vector<string> hcat(const vector<string>& a, const vector<string>& b)
     return ret;
     // if you finished a function,
     // alway remember that we should return something!!!!
-    
+
 }
 
 vector<string>
@@ -954,7 +954,7 @@ hcat2(const vector<string>& a, const vector<string>& b) //hcat with iterator
 
     while (! (i == a.end() && j == b.end())) {
         string s;
-        
+
         if (i != a.end()) {
             s = *i;
             ++i;
@@ -971,7 +971,7 @@ hcat2(const vector<string>& a, const vector<string>& b) //hcat with iterator
     return ret;
     // if you finished a function,
     // alway remember that we should return something!!!!
-    
+
 }
 
 
@@ -979,11 +979,11 @@ string::size_type width(const vector<string>& s)
 {
 
     string::size_type max_len = 0; // defalt value is not 0
-    
+
     for (vector<string>::size_type i = 0; i != s.size(); ++i) {
 
         max_len = max(max_len, s[i].size());
-        
+
     }
     return max_len;
 }
@@ -993,10 +993,10 @@ int t22()
 {
     vector<string> a;
     vector<string> b;
-    
+
     string line;
     string::size_type max_len;
-    
+
 
     // while (cin >> s) ....
     // while (cin >> s) ....
@@ -1005,7 +1005,7 @@ int t22()
     a = split(line);
 
     /*
-     * test for split works fine 
+     * test for split works fine
     for(vector<string>::size_type i = 0; i != a.size(); ++i)
         cout << a[i];
     */
@@ -1037,7 +1037,7 @@ int t23()
     student_info si;
 
     string::size_type maxlen = 0;
-    
+
     while (read(cin, si)) {
 
         ls.push_back(si);
@@ -1045,7 +1045,7 @@ int t23()
     }
 
     ls.sort(compare);
-    
+
     for (list<student_info>::iterator it = ls.begin(); // it should not be const_iterator as in the grade() function takes non-const argument.
          it != ls.end(); ++it) {
 
@@ -1078,7 +1078,7 @@ int t24()
 
     // typedef seems not be in the if-then-else part.
 
-#ifdef ACC_USE_LIST 
+#ifdef ACC_USE_LIST
     typedef list<student_info> student_list;
 #else
     typedef vector<student_info> student_list;
@@ -1088,7 +1088,7 @@ int t24()
     student_info si;
     string::size_type maxlen = 0;
 
-    
+
     while (read(cin, si)) {
 
         ls.push_back(si);
@@ -1100,7 +1100,7 @@ int t24()
 #else
     sort(ls.begin(), ls.end(), compare);
 #endif
-    
+
     for (student_list::iterator it = ls.begin(); // it should not be const_iterator as in the grade() function takes non-const argument.
          it != ls.end(); ++it) {
 
@@ -1133,7 +1133,7 @@ int t25()
 
     vector<string> vs;
     vector<string> vs2;
-    
+
 
     vs.push_back(string("this"));
     vs.push_back("is");
@@ -1148,7 +1148,7 @@ int t25()
          ++it) {
         cout << *it << endl;
     }
-    
+
 }
 
 // interesting!!
@@ -1206,7 +1206,7 @@ url_begin(string::const_iterator b, string::const_iterator e)
 
     static const string sep = "://";
     typedef string::const_iterator iter;
-    
+
 
     iter i = b;
     while (i != e) {
@@ -1224,7 +1224,7 @@ url_begin(string::const_iterator b, string::const_iterator e)
          }
 
          i += sep.size();
-         
+
     }
 
     return e;
@@ -1246,12 +1246,12 @@ find_url(const string& s)
 
     string::const_iterator b = s.begin();
     string::const_iterator e = s.end();
-    
+
     while (b != e) {
 
         b = url_begin(b, e);
         if (b != e) {
-            
+
             string::const_iterator k = url_end(b, e);
             ret.push_back(string(b, k));
             b = k;
@@ -1266,15 +1266,15 @@ int t26()
     vector<string> urls = find_url("this is the address of amazon http://www.amazon.dom");
 
     vector<string>::const_iterator b = urls.begin();
-    
+
     while (b != urls.end())
         {
             cout << *b;
             b++;
         }
     cout << endl;
-    
-            
+
+
 
 }
 
@@ -1434,7 +1434,7 @@ int t28()
     cout << "The size of vd after resize is " << vd.size() << endl;
 
 }
-    
+
 
 int t29()
 {
@@ -1442,20 +1442,20 @@ int t29()
     vector<string> vs;
     string s;
     string ret;
-    
-    
+
+
     while (cin >> s) {
         vs.push_back(s);
-        
+
     }
-    
+
 
     for (vector<string>::const_iterator it = vs.begin();
          it != vs.end(); it++) {
         remove_copy(it->begin(), it->end(), back_inserter(ret), 0);
-    
+
     }
-    
+
 
     cout << ret << endl;
 }
@@ -1477,13 +1477,13 @@ int t30()
     while(cin >> s) {
         mc[s]++;
     }
-    
+
 
     for(map<string, int>::const_iterator it = mc.begin();
         it != mc.end(); it++) {
         cout << it->first << " : " << it->second << endl;
     }
-    
+
 }
 
 
@@ -1507,7 +1507,7 @@ xref(istream& in, vector<string> find_words(const string&) = split)
         }
     }
     return ret;
-    
+
 }
 
 
@@ -1550,7 +1550,7 @@ bracketed(const string& str)
 
 
 
-// interestng... 
+// interestng...
 int
 nrand(int n)
 {
@@ -1589,9 +1589,9 @@ gen_aux(const Grammar& g, const string& word, vector<string>& ret)
         for (Rule::const_iterator i = r.begin();
              i != r.end(); ++i) {
             gen_aux(g, *i, ret);
-            
+
         }
-        
+
     }
 }
 
@@ -1615,11 +1615,11 @@ int t31()
     map<string, int> mc;
     vector<vector<string> >  mc2;
     int max = 0;
-    
+
     while(cin >> s) {
         mc[s]++;
     }
-    
+
     for(map<string, int>::const_iterator it = mc.begin();
         it != mc.end(); it++) {
         if (max < it->second)
@@ -1627,12 +1627,12 @@ int t31()
     }
 
     mc2.resize(max + 1);
-    
+
     for(map<string, int>::const_iterator it = mc.begin();
         it != mc.end(); it++) {
         mc2[it->second].push_back(it->first);
     }
-    
+
     for (vector<vector<string> >::const_iterator it = mc2.begin();
          it != mc2.end(); it++) {
         cout << endl << "*******" << endl;
@@ -1642,9 +1642,9 @@ int t31()
 
             cout << " " << *iter;
         }
-        
+
     }
-    
+
 }
 
 //7-1 using map
@@ -1653,17 +1653,17 @@ int t32()
     string s;
     map<string, int> mc;
     map<int, vector<string> >  mc2;
-    
+
     while (cin >> s) {
         mc[s]++;
     }
-    
+
     for (map<string, int>::const_iterator it = mc.begin();
         it != mc.end(); it++) {
         mc2[it->second].push_back(it->first);
     }
-    
-    
+
+
     for (map<int, vector<string> >::const_iterator it = mc2.begin();
          it != mc2.end(); it++) {
         cout << endl << "*******" << endl;
@@ -1683,7 +1683,7 @@ int t33()
     vector<struct student_info> vs;
     struct student_info si;
     map<char, int> gmap;
-    
+
     while (read(cin, si)) {
 
         vs.push_back(si);
@@ -1696,7 +1696,7 @@ int t33()
             double final_grade = grade(vs[i]);
             int x =  final_grade / 10;
             cout << "final grade is " << final_grade << " : " << x << endl;
-            
+
             switch (x){
             case 10:
             case 9:
@@ -1705,21 +1705,19 @@ int t33()
             case 8:
                 gmap['B']++;
                 break;
-                
+
             case 7:
                 gmap['C']++;
                 break;
             case 6:
                 gmap['D']++;
                 break;
-                
+
             default:
                 gmap['F']++;
-                
+
                 break;
             }
-            
-                
         }
         catch (domain_error e) {
             cout << e.what();
@@ -1727,11 +1725,9 @@ int t33()
 
     }
 
-    
     for (map<char, int>::const_iterator it = gmap.begin();
          it != gmap.end(); ++it) {
 
-        
         cout << it->first << " : " << it->second << endl;
 
     }
@@ -1757,7 +1753,7 @@ xref2(istream& in, vector<string> find_words(const string&) = split)
         vector<string> words = find_words(line);
         for(vector<string>::iterator it = words.begin();
             it != words.end(); ++it) {
-            
+
             if(find(it + 1, words.end(), *it) != words.end()) /* add line number only once. no duplicate line number. */
                 /* find() does not need const_iterator as its first argument. iterator + 1 should mean next item */
                 ret[*it].push_back(line_number);
@@ -1807,9 +1803,9 @@ gen_aux(const Grammar& g, const string& word, list<string>& ret)
         for (Rule::const_iterator i = r.begin();
              i != r.end(); ++i) {
             gen_aux(g, *i, ret);
-            
+
         }
-        
+
     }
 }
 
@@ -1835,7 +1831,7 @@ gen_aux(const Grammar& g, vector<string>& ret, vector<string>& stk)
             ret.push_back(word);
 
         else {
-            
+
             Grammar::const_iterator it = g.find(word);
 
             if (it == g.end())
@@ -1861,7 +1857,7 @@ gen_sentences_iterative(const Grammar& g)
     vector<string> ret;
     vector<string> stk;
     stk.push_back("<sentence>");
-    
+
     gen_aux(g, ret, stk);
 
     return ret;
@@ -1897,7 +1893,7 @@ int
 nrand2(int n)
 {
     if (n <= RAND_MAX) {
-        // 
+        //
         return nrand(n);
     } else {
         int bucket_number = n / RAND_MAX;
@@ -1907,13 +1903,13 @@ nrand2(int n)
 
         if (bucket_remain > 0)
             ++bucket_number;
-#endif        
+#endif
         int r;
-        
+
         do r = nrand2(bucket_number) * RAND_MAX + nrand2(RAND_MAX);
         while (r >= n);
         return r;
-    }    
+    }
 }
 
 
@@ -1934,7 +1930,7 @@ T medianT(vector<T> v)
     vec_sz mid = size / 2;
 
     return size % 2 == 0 ? (v[mid] + v[mid - 1]) / 2 : v[mid];
-    
+
 }
 
 //p 143.
@@ -1951,7 +1947,7 @@ T max2(const T& left, const T& right)
 int t36()
 {
     string name("myname");
-    
+
     string::size_type maxlen = 0;
     maxlen = max2(maxlen, name.size()); // two arguments should have the same type
 
@@ -1967,30 +1963,30 @@ reverse (BidIt begin, BidIt end)
         if (begin != end)
             swap (*begin++, *end);
     }
-    
+
 }
 
 
 
 //p152, split with template
 template <class Out>
-void split3(const string& s, Out os) 
+void split3(const string& s, Out os)
 {
 
     typedef string::const_iterator iter;
 
     iter beg = s.begin();
-    
+
     while (beg != s.end()) {
 
         beg = find_if(beg, s.end(), not_space);
         iter j = find_if(beg, s.end(), space);
         if (beg != s.end())
             *os++ = string(beg, j);
-        
+
         beg = j;
     }
-    
+
 
 }
 
@@ -2004,7 +2000,7 @@ int t37()
         return 0;
 
     }
-    
+
 }
 
 // 8-1: template can be used not just a class but a function as well.
@@ -2034,12 +2030,12 @@ double plus100(double x)
     return x + 100;
 }
 
-   
+
 int t38()
 {
     double x;
     vector<double> si;
-    
+
     while (cin >> x)
         si.push_back(x);
 
@@ -2126,14 +2122,14 @@ FwdInIter1
 remove(FwdInIter1 first1, FwdInIter1 last1, const T& t)
 {
     FwdInIter1 ret = first1;
-    
+
     while (first1 != last1) {
 
         if (*first1 != t) {
             *ret = *first1;
             ++ret;
         }
-            
+
         ++first1;
     }
     return ret;
@@ -2171,7 +2167,7 @@ search2(FwdInIter1 first1, FwdInIter1 last1, FwdInIter2 first2, FwdInIter2 last2
 
     if (first2 == last2)
         return first1;
-    
+
     while (first1 != last1) {
         FwdInIter1 i = first1;
         FwdInIter2 j = first2;
@@ -2187,7 +2183,7 @@ search2(FwdInIter1 first1, FwdInIter1 last1, FwdInIter2 first2, FwdInIter2 last2
             return first1;
         if (i == last1)
             return last1;
-        
+
         ++first1;
     }
     return first1;
@@ -2228,7 +2224,7 @@ BidInIter partition2 (BidInIter first, BidInIter last, Pred op)
             if (last == first)
                 return first;
         } while (!op(*last));
-        
+
         swap(*first, *last);
         ++first;
     }
@@ -2241,9 +2237,9 @@ BidInIter partition2 (BidInIter first, BidInIter last, Pred op)
 template <class InIter>
 InIter median2(InIter beg, InIter end)
 {
-    
+
     InIter it = beg;
-    
+
     if (beg == end)
         throw domain_error("median of an empty vector");
 
@@ -2258,7 +2254,7 @@ InIter median2(InIter beg, InIter end)
 
     while (beg != end)
         cout << *beg++ << " ";
-        
+
 }
 
 int t49()
@@ -2292,7 +2288,7 @@ int t39()
 {
 
     vector<int> aa;
-    
+
     aa.push_back(1);
     aa.push_back(2);
 
@@ -2303,10 +2299,10 @@ int t39()
     swap2(*a, *b);
 #else
     int c = *b; // we have to know the type of a and b if we want to expand the swap function.
-    *b = *a;    // 
+    *b = *a;    //
     *a = c;
 #endif
-    
+
     cout << "a is " << *a << " and b is " << *b << endl;
 
 }
@@ -2318,7 +2314,7 @@ int t40()
     int c = 10;
 
     while (c-- > 0) {
-        
+
         int k = nrand2(10000);
         cout << " " << k << endl;
     }
@@ -2330,7 +2326,7 @@ int t41()
 {
     map<int, string> ms;
     vector<pair<int, string> > vs;
-    
+
 
     ms[1] = string("new world");
     ms[3] = string(" has come");
@@ -2338,7 +2334,7 @@ int t41()
     copy(ms.begin(), ms.end(), back_inserter(vs));
 
     cout << "first is " << vs[0].second << " and second is " << vs[1].second << endl;
-    
+
 }
 
 //HEADUP
@@ -2354,7 +2350,7 @@ int t42()
 {
     map<int, string> ms;
     vector<pair<int, string> > vs;
-    
+
     // map does not have push_back, so it cannot be used as an argument of back_inserter
     #if 0
     ms.push_back(pair<int, string>(1, string("new world")));
@@ -2405,7 +2401,7 @@ int t43()
     }
 
     return 0;
-    
+
 }
 
 
@@ -2449,7 +2445,7 @@ int t45()
         } else {
             cout << " FAIL " << endl;
         }
-        
+
     }
 
     return 0;
@@ -2477,7 +2473,7 @@ int t46()
     }
 
     partition(students.begin(), students.end(), pass_9_6);
-    
+
 
     for (vector<Student_info>::size_type i = 0;
          i != students.size(); ++i) {
@@ -2489,7 +2485,7 @@ int t46()
         } else {
             cout << " FAIL " << endl;
         }
-        
+
     }
 
     return 0;
@@ -2566,16 +2562,16 @@ median3(T* beg, T* end)
         throw domain_error("median of an empty vector");
 
     T* result = new T[size];
-    
+
     copy(beg, end, result);
-    
+
     sort(result, result + size);
 
     size_t  mid = size / 2;
-    cout << endl << "mid is " << mid << endl; 
+    cout << endl << "mid is " << mid << endl;
 
     return size % 2 == 0 ? (result[mid] + result[mid - 1]) / 2 : result[mid];
-    
+
 }
 
 
@@ -2602,14 +2598,14 @@ int t50()
     vi.push_back(4);
 
     r = medianT(vi);
-    
+
     cout << "the result is " << r << endl;
     cnt = 6;
     for (int j = 0; j < cnt; j++)
         cout << " " << i[j];
     cout << endl;
-    
-    
+
+
 }
 
 // test erase before and after with vector: erased one and elements after that are invalidated, but in real implementation it seems just work.
@@ -2627,9 +2623,9 @@ int t51()
 
     cout << " " << *it << " " << *it2 << endl;
     vi.erase(it); // use it = vi.erase(it) if possible
-    
+
     cout << "after  " << *it << " " << *it2 << endl;
-    
+
 
 }
 
@@ -2639,7 +2635,7 @@ int t51()
 class String_list
 {
 public:
-    void push_back(string s) 
+    void push_back(string s)
     {
         sl.push_back(s);
 
@@ -2650,7 +2646,7 @@ public:
     iterator begin()
     {
         return sl.begin();
-        
+
     }
 
     iterator end()
@@ -2668,8 +2664,8 @@ public:
     {
         return sl.end();
     }
-    
-    
+
+
 private:
     list<string> sl;
 };
@@ -2689,21 +2685,21 @@ int t52()
     iter a = st.begin();
 
     cout << endl;
-    
+
     while (a != st.end()) {
 
         cout << *a++ << " " ;
     }
-    
+
     cout << endl;
-    
+
 
 }
 
 
 int t53()
 {
-    cout << ptrdiff_t(1) << endl; // 1 
+    cout << ptrdiff_t(1) << endl; // 1
 
 }
 
@@ -2712,7 +2708,7 @@ int t53()
 
 template <class T>
 class Vec {
- 
+
 public:
     typedef T* iterator;
     typedef const T* const_iterator;
@@ -2721,12 +2717,12 @@ public:
     typedef T& reference;
     typedef const T& const_reference;
 
-    Vec() 
+    Vec()
     {
         create();
     }
 
-    explicit Vec(size_type n, const T& t = T()) 
+    explicit Vec(size_type n, const T& t = T())
     {
         create(n, t);
     }
@@ -2735,7 +2731,7 @@ public:
         create(v.begin(), v.end());
     }
     Vec& operator=(const Vec&);
-    ~Vec() 
+    ~Vec()
     {
         uncreate();
     }
@@ -2756,7 +2752,7 @@ public:
             grow();
         unchecked_append(t);
     }
-    size_type size() 
+    size_type size()
     {
         return avail - data;
     }
@@ -2764,11 +2760,11 @@ public:
     {
         return avail - data;
     }
-    iterator begin() 
+    iterator begin()
     {
         return data;
     }
-    const_iterator begin () const 
+    const_iterator begin () const
     {
         return data;
 
@@ -2777,14 +2773,14 @@ public:
     {
         return avail;
     }
-    const_iterator end() const 
+    const_iterator end() const
     {
         return avail;
     }
 
     iterator erase(iterator);
     void clear();
-    
+
 
 private:
     iterator data;
@@ -2800,8 +2796,8 @@ private:
     void uncreate();
     void grow();
     void unchecked_append(const T&);
-    
-    
+
+
 };
 
 template <class T>
@@ -2813,7 +2809,7 @@ Vec<T>::create()
 
 template <class T>
 void
-Vec<T>::create(size_type n, const T& val) 
+Vec<T>::create(size_type n, const T& val)
 {
     data = alloc.allocate(n);
     limit = avail = data + n;
@@ -2822,7 +2818,7 @@ Vec<T>::create(size_type n, const T& val)
 
 template <class T>
 void
-Vec<T>::create(const_iterator i, const_iterator j) 
+Vec<T>::create(const_iterator i, const_iterator j)
 {
     data = alloc.allocate(j - i);
     limit = avail = uninitialized_copy(i, j, data);
@@ -2890,11 +2886,11 @@ Vec<T>::operator=(const Vec& rhs)
     if (&rhs != this) {
         uncreate();
         create(rhs.begin(), rhs.end());
-    
+
     }
     return *this;
 }
-    
+
 
 int t54()
 {
@@ -2935,7 +2931,7 @@ int t55()
 
     xv.clear();
     cout << " the size is now " << xv.size() << endl;
-    
+
 }
 
 //11-8
@@ -2943,7 +2939,7 @@ int t55()
 template <class T>
 class List {
 public:
-    
+
     class ListItem
     {
     public:
@@ -2951,10 +2947,10 @@ public:
         {
 
         }
-        
-        ListItem(const T& t): data(t) 
+
+        ListItem(const T& t): data(t)
         {
-            
+
         }
         ListItem* prev;
         ListItem* next;
@@ -2963,14 +2959,14 @@ public:
 
     typedef ListItem ListItemT;
 
-    class Iterator 
+    class Iterator
     {
     public:
-        Iterator(ListItemT* l) : ls(l) 
+        Iterator(ListItemT* l) : ls(l)
         {
         }
 
-        Iterator(const Iterator& x) : ls(x.ls) 
+        Iterator(const Iterator& x) : ls(x.ls)
         {
         }
         Iterator& operator++()
@@ -2982,7 +2978,7 @@ public:
         {
             return ls->data;
         }
-        bool operator!=(const Iterator& x) 
+        bool operator!=(const Iterator& x)
         {
             return (ls != x.ls);
         }
@@ -2990,12 +2986,12 @@ public:
     private:
         ListItemT * ls;
     };
-    
+
     typedef Iterator iterator;
     typedef const Iterator const_iterator;
 
-        
-    void push_back(const T& val) 
+
+    void push_back(const T& val)
     {
         ListItemT* t = new ListItemT(val);
 
@@ -3012,8 +3008,8 @@ public:
             t->next = last;
         }
     }
-    
-    iterator begin() 
+
+    iterator begin()
     {
         return Iterator(first);
     }
@@ -3027,13 +3023,13 @@ public:
     {
         return Iterator(first);
     }
-    
+
     const_iterator end() const
     {
         return Iterator(last);
     }
 
-    List() 
+    List()
     {
         first = last = new ListItemT;
         first->prev = last;
@@ -3051,7 +3047,7 @@ public:
     }
 
 private:
- 
+
     ListItemT* first;
     ListItemT* last;
 };
@@ -3074,7 +3070,7 @@ int t56()
     }
 
     cout << endl;
-    
+
 }
 
 int t57()
@@ -3094,7 +3090,7 @@ class A {
     }
     A(const A& a): k(a.k) {
         cout << "copy" << endl;
-        
+
     }
     A(int x) : k(x) {
         cout << " A(int) is called" << endl;
@@ -3106,7 +3102,7 @@ class A {
         cout << "assign" << endl;
         k = a.k;
     }
-    
+
     int k;
 };
 
@@ -3121,7 +3117,7 @@ public:
     B(int x) : A(x) {
         cout << "B(int) is called" << endl;
     }
-    
+
     ~B() {
         cout << "~B() is called" << endl;
     }
@@ -3229,7 +3225,7 @@ operator>>(istream& is, Str& s)
 
         if (is)
             is.unget();
-        
+
     }
     return is;
 }
@@ -3250,9 +3246,9 @@ int t59()
     Str t(" is new world");
 
     Str n = s + t;
-    
+
     cout << s << t << endl;
-    
+
     //cout << " the size of n is " << n.size() << n.c_str() << endl;
 
     Str greeting = Str("Hello") + n + Str("!");
@@ -3260,7 +3256,7 @@ int t59()
     Str &a = greeting; // reference should be initialised when it is declared.
 
     cout << endl << greeting << endl;
-    
+
 
 }
 
@@ -3349,7 +3345,7 @@ int t60()
         cout << "c is greater than e" << endl;
     else
         cout << "e is greater than c" << endl;
-    
+
 }
 
 // 12 - 6
@@ -3400,7 +3396,7 @@ public:
     Grad* clone() const { return new Grad(*this); }
 private:
     double thesis;
-        
+
 };
 
 string
@@ -3462,7 +3458,7 @@ public:
         else
             throw std::runtime_error("uninitialized student");
     }
-    
+
     double grade() const
     { // don't need to return const type
         if (cp)
@@ -3475,7 +3471,7 @@ public:
     {
         return (s1.name() < s2.name());
     }
-    
+
 private:
     Core *cp;
 };
@@ -3518,7 +3514,7 @@ r.regrade(100, 100); // ok
 
 /* this is becuase overriding */
 r.Core::regrade(100) // ok
-/*  
+/*
 or you should define using virtual function */
 
 virtual void Core::regrade(double d, double = 0) { final = d ;}
@@ -3545,7 +3541,7 @@ public:
 #endif
     }
 private:
-    typedef int ts_int; // this is defined in the private:, so are not inherited by 
+    typedef int ts_int; // this is defined in the private:, so are not inherited by
 };
 
 class ts_derived: public test_static {
@@ -3658,7 +3654,7 @@ public:
     Str2(size_type n, char c): data(new Vec<char>(n, c)) { }
 
     Str2(const char* cp): data(new Vec<char>) {
-        std::copy(cp, cp + std::strlen(cp), std::back_inserter(*data)); 
+        std::copy(cp, cp + std::strlen(cp), std::back_inserter(*data));
     }
 
 
@@ -3941,7 +3937,7 @@ merge(const vector<int>& a, const vector<int>& b)
         copy(ib, b.end(), back_inserter(res));
     else if (ib == b.end())
         copy(ia, a.end(), back_inserter(res));
-    
+
     return res;
 }
 int t65()
@@ -3973,7 +3969,7 @@ void test_vector()
 {
     int a[] = {1, 2, 3};
     vector<int> vi(a, a + 3);
- 
+
     for (int i = 0; i < vi.size(); ++i)
         cout << vi[i] << endl;
 }
