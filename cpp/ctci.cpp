@@ -2409,6 +2409,7 @@ void test_merge_array()
 
 // this method returns the begining index of the character.
 // if there is no such character then it returns the position which it should be exist
+// lower bound
 int find_beg(vector<char>& vc, int i, int j, char t)//jj
 {
     if (i > j)
@@ -4994,6 +4995,25 @@ void test_longest_non_decreasing_sequence()
 void test_alien_language()
 {
     //sol: find partial order then it ends up wit  a graph, then topological sort using dfs
+
+    int n;
+    cin >> n;
+
+    vector<string> vs;
+
+    for (int i = 0; i < n; ++i)
+    {
+        string s;
+        cin >> s;
+
+        vs.emplace_back(s);
+    }
+
+
+    unordered_map<char, char> m;
+
+
+    for (int i)
 }
 
 
