@@ -3190,10 +3190,8 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return v[a];
 
     int mid = a + (e - a) / 2;
-    int min1 = min(v[a], v[mid]);
-    int min2 = min(v[mid + 1], v[e]); // mid + 1, not mid
 
-    if (min1 > min2)
+    if (v[mid] > v[e])
         return find_min_from_sorted_rotated(v, mid + 1, e);
     else
         return find_min_from_sorted_rotated(v, a, mid);
@@ -5009,11 +5007,6 @@ void test_alien_language()
         vs.emplace_back(s);
     }
 
-
-    unordered_map<char, char> m;
-
-
-    for (int i)
 }
 
 
@@ -5325,5 +5318,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_moving_average_of_last_n();
+    test_find_min_from_sorted_rotated_array();
 }
