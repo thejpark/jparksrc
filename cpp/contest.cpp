@@ -2124,8 +2124,22 @@ void largest_sum() //jj
 
     cout << "the result is " << max_x << endl;
 
+    // more simple one
+    int min_sum = 0, sum = 0, max_sum = 0;
+
+    for (int i = 0; i < vi.size(); ++i)
+    {
+        sum += vi[i];
+        min_sum = min(sum, min_sum);
+        max_sum = max(max_sum, sum - min_sum);
+    }
+
+    cout << "the result is " << max_sum << endl;
+
+
     // todo: can we do it with online (or streaming) data?
 }
+
 
 int get_max_path(vector<vector<int>>& v, int i, int j,
                  vector<pair<int, int>> t, vector<pair<int, int>>& r)
@@ -4888,7 +4902,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_remove_unbalanced_par();
+    largest_sum();
 }
 
 
