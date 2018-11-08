@@ -4380,6 +4380,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
 // get max binary sequence
 // linear
 // same problem as longest subarray sum to zero or sum to x
+// similar to largest sum
 pair<int, int> gmbs_linear(vector<int>& v)
 {
     int len = 0;
