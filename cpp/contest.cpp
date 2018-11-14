@@ -1576,13 +1576,8 @@ int dp_post_office(int left, int begin, int count, vector<int>& v, vector<vector
         return dp_sum(left, begin, v, vv);
     }
 
-    if (count == 0)
-    {
-        return dp_sum(left, v.size(), v, vv);
-    }
-
     int a = dp_post_office(left, begin + 1, count, v, vv);
-    int b = (begin == v.size()) ? dp_sum(left, begin, v, vv) : dp_sum(left, begin, v, vv) + dp_post_office(begin, begin + 1, count - 1, v, vv);
+    int b = (count == 0) ? dp_sum(left, v.size(), v, vv) : dp_sum(left, begin, v, vv) + dp_post_office(begin, begin + 1, count - 1, v, vv);
 
     return min(a, b);
 }
@@ -4899,13 +4894,51 @@ void test_find_biggest_plus() //jj
 }
 
 
+// You have N toffee packets, each containing different number of toffees. The number of toffees contained in the ith packet is denoted by ci. You need to put these toffee packets in 5 boxes such that each box contains at least one toffee packet, and the maximum number of toffees in a box is minimum. You can only choose consecutive toffee packets to put in a box.
+
+// int toffee_sum(int left, int right, vector<int>& v, vector<vector<int>>& vv)
+// {
+//     return 0;
+// }
+
+// int toffee(int left, int right, int count, vector<int>& v, vector<vector<int>>& vv)
+// {
+//     if (count == (v.size() - right))
+//     {
+//         auto a = *max_element(v.begin() + right, v.end());
+//         auto b = toffee_sum(left, right, v, vv);
+//         return max(a, b);
+//     }
+
+//     int a = toffee(left, right + 1, count, v, vv);
+//     int b = (count == 0) ? toffee_sum(left, v.size(), v, vv) : max(toffee_sum(left, right, v, vv), toffee(right, right + 1, count - 1, v, vv));
+
+//     return min(a, b);
+// }
+
+// void test_toffee()
+// {
+//     int n, k; // n is size of toffee, k is size of box
+//     cin >> n, k;
+
+//     vector<int> v;
+
+//     for (int i = 0; i < n; ++i)
+//     {
+//         int t;
+//         cin >> t;
+//         v.emplace_back(t);
+//     }
+
+// }
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    largest_sum();
+    post_office_4();
 }
 
 
