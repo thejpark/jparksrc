@@ -4925,7 +4925,7 @@ void test_toffee()
         v.emplace_back(t);
     }
 
-    auto r = toffee(0, 0, k, v);
+    auto r = toffee(0, 0, k - 1, v);
 
     cout << "the result is " << r << endl;
 }
