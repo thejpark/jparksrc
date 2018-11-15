@@ -4896,41 +4896,39 @@ void test_find_biggest_plus() //jj
 
 // You have N toffee packets, each containing different number of toffees. The number of toffees contained in the ith packet is denoted by ci. You need to put these toffee packets in 5 boxes such that each box contains at least one toffee packet, and the maximum number of toffees in a box is minimum. You can only choose consecutive toffee packets to put in a box.
 
-// int toffee_sum(int left, int right, vector<int>& v, vector<vector<int>>& vv)
-// {
-//     return 0;
-// }
+int toffee(int left, int begin, int count, vector<int>& v)
+{
+    if (count == (v.size() - begin))
+    {
+        auto a = *max_element(v.begin() + begin, v.end());
+        auto b = accumulate(v.begin() + left, v.begin() + begin, 0);
+        return max(a, b);
+    }
 
-// int toffee(int left, int right, int count, vector<int>& v, vector<vector<int>>& vv)
-// {
-//     if (count == (v.size() - right))
-//     {
-//         auto a = *max_element(v.begin() + right, v.end());
-//         auto b = toffee_sum(left, right, v, vv);
-//         return max(a, b);
-//     }
+    int a = toffee(left, begin + 1, count, v);
+    int b = (count == 0) ? accumulate(v.begin() + left, v.end(), 0) : max(accumulate(v.begin() + left, v.begin() + begin, 0), toffee(begin, begin + 1, count - 1, v));
 
-//     int a = toffee(left, right + 1, count, v, vv);
-//     int b = (count == 0) ? toffee_sum(left, v.size(), v, vv) : max(toffee_sum(left, right, v, vv), toffee(right, right + 1, count - 1, v, vv));
+    return min(a, b);
+}
 
-//     return min(a, b);
-// }
+void test_toffee()
+{
+    int n, k; // n is size of toffee, k is size of box
+    cin >> n, k;
 
-// void test_toffee()
-// {
-//     int n, k; // n is size of toffee, k is size of box
-//     cin >> n, k;
+    vector<int> v;
 
-//     vector<int> v;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
 
-//     for (int i = 0; i < n; ++i)
-//     {
-//         int t;
-//         cin >> t;
-//         v.emplace_back(t);
-//     }
+    auto r = toffee(0, 0, k, v);
 
-// }
+    cout << "the result is " << r << endl;
+}
 
 int main()
 {
