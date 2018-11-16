@@ -1571,13 +1571,17 @@ int dp_sum(int left, int right, vector<int>& v, vector<vector<int>>& vv)
 
 int dp_post_office(int left, int begin, int count, vector<int>& v, vector<vector<int>>& vv)
 {
+    if (count == 0)
+    {
+        return dp_sum(left, v.size(), v, vv);
+    }
     if (count == (v.size() - begin))
     {
         return dp_sum(left, begin, v, vv);
     }
 
     int a = dp_post_office(left, begin + 1, count, v, vv);
-    int b = (count == 0) ? dp_sum(left, v.size(), v, vv) : dp_sum(left, begin, v, vv) + dp_post_office(begin, begin + 1, count - 1, v, vv);
+    int b = dp_sum(left, begin, v, vv) + dp_post_office(begin, begin + 1, count - 1, v, vv);
 
     return min(a, b);
 }
@@ -4896,17 +4900,21 @@ void test_find_biggest_plus() //jj
 
 // You have N toffee packets, each containing different number of toffees. The number of toffees contained in the ith packet is denoted by ci. You need to put these toffee packets in 5 boxes such that each box contains at least one toffee packet, and the maximum number of toffees in a box is minimum. You can only choose consecutive toffee packets to put in a box.
 
-int toffee(int left, int begin, int count, vector<int>& v)
+int toffee(int sum, int begin, int count, vector<int>& v)
 {
+    if (count == 0)
+    {
+        return sum + accumulate(v.begin() + begin, v.end(), 0);
+    }
+
     if (count == (v.size() - begin))
     {
         auto a = *max_element(v.begin() + begin, v.end());
-        auto b = accumulate(v.begin() + left, v.begin() + begin, 0);
-        return max(a, b);
+        return max(a, sum);
     }
 
-    int a = toffee(left, begin + 1, count, v);
-    int b = (count == 0) ? accumulate(v.begin() + left, v.end(), 0) : max(accumulate(v.begin() + left, v.begin() + begin, 0), toffee(begin, begin + 1, count - 1, v));
+    int a = toffee(sum + v[begin], begin + 1, count, v);
+    int b = max(sum + v[begin], toffee(0, begin + 1, count - 1, v));
 
     return min(a, b);
 }
@@ -4914,7 +4922,7 @@ int toffee(int left, int begin, int count, vector<int>& v)
 void test_toffee()
 {
     int n, k; // n is size of toffee, k is size of box
-    cin >> n, k;
+    cin >> n >> k;
 
     vector<int> v;
 
@@ -4936,7 +4944,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    post_office_4();
+    test_toffee();
 }
 
 
