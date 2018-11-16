@@ -3535,6 +3535,7 @@ void test_swap_bit() //jj
 }
 
 
+// sum to
 // in an array of integer (+, -, 0), find 3 numbers that sums up 0, and
 // return index of them.
 // [0, 2, -2, -2] -> [(0, 1, 2), (0, 1, 3)]
