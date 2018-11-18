@@ -4938,13 +4938,64 @@ void test_toffee()
     cout << "the result is " << r << endl;
 }
 
+
+// Given an array of Integers, find out how many combinations in the array, satisfy the equation x+y+z=w, where x,y,z and w belong to the array and idx(x)<idx(y)<idx(z)<idx(w). Elements are unique.
+// 1 0 1 2 0 -1 4 -> 2
+int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered_map<int, int>& m)
+{
+    if (cnt == 0)
+    {
+        if ((m.find(sum) != m.end()) && (m[sum] >= idx))
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    // this
+    int r = 0;
+    for (int i = idx; i < v.size(); ++i)
+    {
+        r += find_3_numbers_sum_to_w(sum + v[i], i + 1, cnt - 1, v, m);
+    }
+    return r;
+
+    // or this
+    // if (idx == v.size()) return 0;
+    // int a = find_3_numbers_sum_to_w(sum, idx + 1, cnt, v, m);
+    // int b = find_3_numbers_sum_to_w(sum + v[idx], idx + 1, cnt - 1, v, m);
+    // return a + b;
+
+}
+
+void test_find_3_numbers_sum_to_w()
+{
+    int n;
+    vector<int> v;
+    unordered_map<int, int> m;
+
+    cin >> n;
+    for(int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+        m[t] = i;
+    }
+
+
+    int r = find_3_numbers_sum_to_w(0, 0, 3, v, m);
+    cout << " the result is " << r << endl;
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_toffee();
+    test_find_3_numbers_sum_to_w();
 }
 
 
