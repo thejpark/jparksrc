@@ -4943,6 +4943,9 @@ void test_toffee()
 // 1 0 1 2 0 -1 4 -> 2
 int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered_map<int, int>& m)
 {
+    // todo: how to cache?
+    // sol1: 2 dimensional array (sum, idx + cnt*v.size()) -> val)
+    // sol2: map(obj) -> val where obj is a struct of (int, int, int).
     if (cnt == 0)
     {
         if ((m.find(sum) != m.end()) && (m[sum] >= idx))
