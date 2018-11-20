@@ -4972,6 +4972,29 @@ int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered
 
 }
 
+int find_3_numbers_sum_to_w_2(vector<int>& v)
+{
+    int cnt = 0;
+    for (int i = 1; i < v.size() - 2; ++i)
+    {
+        set<int> s1;
+        for (int j = i - 1; j >= 0; --j)
+        {
+            s1.emplace(v[i] + v[j]);
+        }
+
+        for (int j = i + 2; j < v.size(); ++j)
+        {
+            if(s1.count(v[j] - v[i + 1]))
+            {
+                ++cnt;
+            }
+        }
+    }
+
+    return cnt;
+}
+
 void test_find_3_numbers_sum_to_w()
 {
     int n;
@@ -4987,8 +5010,10 @@ void test_find_3_numbers_sum_to_w()
         m[t] = i;
     }
 
-
     int r = find_3_numbers_sum_to_w(0, 0, 3, v, m);
+    cout << " the result is " << r << endl;
+
+    r = find_3_numbers_sum_to_w_2(v);
     cout << " the result is " << r << endl;
 }
 
