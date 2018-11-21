@@ -4307,6 +4307,33 @@ void bin_string_add()
     string r = bin_add(s1, s2);
 
     cout << r << endl;
+
+    // sol2: reverse it first
+    reverse(s1.begin(), s1.end());
+    reverse(s2.begin(), s2.end());
+
+    int carry = 0;
+    string r2;
+
+    auto first1 = s1.begin();
+    auto last1 = s1.end();
+    auto first2 = s2.begin();
+    auto last2 = s2.end();
+
+    while (carry || first1 != last1 || first2 != last2)
+    {
+        int a = (first1 == last1)? 0: *first1++ - '0';
+        int b = (first2 == last2)? 0: *first2++ - '0';
+
+        int sum = carry + a + b;
+        carry = sum / 2;
+        r2 += (sum % 2) + '0';
+    }
+
+
+    reverse(r2.begin(), r2.end());
+    cout << r2 << endl;
+
 }
 
 /*
@@ -5023,7 +5050,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_3_numbers_sum_to_w();
+    bin_string_add();
 }
 
 
