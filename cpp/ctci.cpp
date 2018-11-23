@@ -2875,6 +2875,7 @@ void test_find_best_investment_period_once() //jj
 }
 
 
+// stock share
 // find the best investment period of buying and selling twice //jj
 void test_find_best_investment_period_twice()
 {
@@ -5319,5 +5320,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_min_from_sorted_rotated_array();
+    test_nums_with_no_adjacent_1();
 }
