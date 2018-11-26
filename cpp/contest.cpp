@@ -19,6 +19,7 @@ http://web.stanford.edu/class/cs97si/
 #include <numeric>
 #include <memory>
 #include <queue>
+#include <math.h>
 using namespace std;
 
 
@@ -5044,13 +5045,53 @@ void test_find_3_numbers_sum_to_w()
     cout << " the result is " << r << endl;
 }
 
+
+// find all numbers the sum of cube of each digits is the number itself
+// ex:153=1^3+5^3+3^3
+void test_find_numbers_xyz_equal_cube_of_all_digit()
+{
+    int n;
+    cin >> n;
+
+    vector<int> vvv;
+    for (int i = 0; i < 10; ++i)
+    {
+        vvv.emplace_back(pow(i, 3));
+    }
+
+    auto get_sum = [&](int x) {
+        vector<int> v;
+        while (x > 0)
+        {
+            v.emplace_back(x % 10);
+            x = x / 10;
+        }
+
+        int sum = 0;
+        for (int i = 0; i < v.size(); ++i)
+        {
+            sum += vvv[v[i]];
+        }
+
+        return sum;
+    };
+
+    for (int i = 0; i < n; ++i)
+    {
+        if (i == get_sum(i))
+        {
+            cout << " found at " << i << endl;
+        }
+    }
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    bin_string_add();
+    test_find_numbers_xyz_equal_cube_of_all_digit();
 }
 
 
