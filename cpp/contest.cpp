@@ -5060,17 +5060,13 @@ void test_find_numbers_xyz_equal_cube_of_all_digit()
     }
 
     auto get_sum = [&](int x) {
-        vector<int> v;
+        int sum = 0;
+
         while (x > 0)
         {
-            v.emplace_back(x % 10);
+            int t = x % 10;
             x = x / 10;
-        }
-
-        int sum = 0;
-        for (int i = 0; i < v.size(); ++i)
-        {
-            sum += vvv[v[i]];
+            sum += vvv[t];
         }
 
         return sum;
