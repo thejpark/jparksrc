@@ -5081,7 +5081,111 @@ void test_find_numbers_xyz_equal_cube_of_all_digit()
     }
 }
 
-void test_interpret_using_post()
+vector<char> parse(string& t, unordered_map<char, int>& m)
+{
+    stack<char> rator;
+    vector<char> rand;
+
+    auto CE = [](){ cout << "Compilation Error" << endl; };
+
+    string keyword = "+-/*";
+
+    for (int i = 0; i < t.size(); ++i)
+    {
+        if (isspace(t[i]))
+        {
+            continue;
+        }
+
+        if (m.find(t[i]) == m.end() &&
+            find(keyword.begin(), keyword.end(), t[i]) == keyword.end())
+        {
+            CE(); return {};
+        }
+
+        if (isalpha(t[i]))
+        {
+            if (rator.empty())
+            {
+                if (!rand.empty())
+                {
+                    CE(); return {};
+                }
+                rand.emplace_back(t[i]);
+            }
+            else
+            {
+                if (rator.top() == '*' || rator.top() == '/')
+                {
+                    rand.emplace_back(t[i]);
+                    rand.emplace_back(rator.top());
+                    rator.pop();
+                }
+                else
+                {
+                    rand.emplace_back(t[i]);
+                }
+            }
+        }
+        else
+        {
+            if (rand.empty())
+            {
+                CE(); return {};
+            }
+            else if (t[i] == '*' || t[i] == '/')
+            {
+                rator.push(t[i]);
+            }
+            else
+            {
+                if (!rator.empty() && (rator.top() == '+' || rator.top() == '-'))
+                {
+                    rand.emplace_back(rator.top());
+                    rator.pop();
+                }
+                rator.push(t[i]);
+            }
+        }
+    }
+
+    if (!rator.empty())
+    {
+        rand.emplace_back(rator.top());
+    }
+
+    return rand;
+}
+
+int interpret(vector<char>& v, unordered_map<char, int>& m)
+{
+    stack<int> s;
+
+    auto compute = [](char op, int b, int a){
+        if (op == '+') {return a + b;}
+        else if (op == '-') {return a - b;}
+        else if (op == '*') {return a * b;}
+        else {return a / b;}
+    };
+
+    for(int i = 0; i < v.size(); ++i)
+    {
+        if (isalpha(v[i]))
+        {
+            s.push(m[v[i]]);
+        }
+        else
+        {
+            auto a = s.top(); s.pop();
+            auto b = s.top(); s.pop();
+            s.push(compute(v[i], a, b));
+        }
+    }
+
+    return s.top();
+}
+
+void test_interpret_using_postfix()
 {
 // How to evaluate a mathematical expression by compiler design. The program will ask the user to input a value (say n). Then user will input n lines of input each of which contains an identifier and its corresponding value. Then program will ask the user again to input a value (say m). Then user will input m lines of expressions. Calculate the final value for each of the given expression using first n lines of input. If you can't evaluate any expression from given numbers of identifiers then output 'Compilation Error'. Allowed mathematical operators are +(add), -(subtract), x(multiply), /(divide).
 
@@ -5104,8 +5208,37 @@ void test_interpret_using_post()
 // e + t x t - m output compilation error
 
 
-    // sol1: using operator stack and operand stack, first scan compute x and %, then compute + and - using values in operator stack and operand stack. Finally, operand stack should have 1 value, and operator stack should be empty. When pushing operator + or - onto operator stack, if there is x or %, then it is a compilation error. When computing operator, if there is just one operand, then it is a compilation error too.
-    // sol2: similar to sol1, but instead of compute x and % in first scan, push them in operand stack (i.e., a x b -> a b x), and make operand stack as a postfix expressions, then compute it.
+    // sol1: similar to sol1, but instead of compute x and % in first scan, push them in operand stack (i.e., a x b -> a b x), and make operand stack as a postfix expressions, then compute it.
+
+    // sol2: using operator stack and operand stack, first scan compute x and %, then compute + and - using values in operator stack and operand stack. stack is for char, so the result of * or / should be stored as a temporary var. Finally, operand stack should have 1 value, and operator stack should be empty. When computing operator, if there is just one operand, then it is a compilation error too. But it is hard to maintain temporary var.
+    int n;
+    cin >> n;
+
+    unordered_map<char, int> m;
+    for (int i = 0; i < n; ++i)
+    {
+        char c;
+        int t;
+        cin >> c >> t;
+
+        m[c] = t;
+    }
+
+    string s;
+    cin >> s;
+
+    // most parsing error should be caught by parse
+    vector<char> p = parse(s, m);
+
+    if (!p.empty())
+    {
+        for (int i = 0; i < p.size(); ++i)
+            cout << p[i] << ' ';
+        cout << endl;
+        int r = interpret(p, m);
+        cout << " the result is " << r << endl;
+    }
+
 }
 
 int main()
@@ -5114,7 +5247,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_numbers_xyz_equal_cube_of_all_digit();
+    test_interpret_using_postfix();
 }
 
 
