@@ -5225,7 +5225,8 @@ void test_interpret_using_postfix()
     }
 
     string s;
-    cin >> s;
+    getline(cin, s);
+    getline(cin, s);
 
     // most parsing error should be caught by parse
     vector<char> p = parse(s, m);
