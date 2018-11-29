@@ -5050,6 +5050,7 @@ void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
 }
 
 // find if there is a palindromic decomposition, it always return true as each char is a palindromic.
+// it does not find all.
 bool find_palindrom_dp(string& s)
 {
     vector<int> p;
