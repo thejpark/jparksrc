@@ -5128,12 +5128,12 @@ void test_moving_average_of_last_n()
     int head = 0, tail = 0;
 
     auto put = [&](int t) {
+        v[tail++] = t;
+        sum += t;
         if (tail == n)
         {
             tail = 0;
         }
-        v[tail++] = t;
-        sum += t;
     };
 
 
