@@ -4498,7 +4498,7 @@ void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use
 /*
   Given an array (may have negative num) and an integer(may be negative),
   find the smallest subarray whose sum is >= the given integer.
-  int[] nums2 = {5,4,-8,16};
+  int[] nums2 = {5,4,-10,16};
   int x=10;
   return 1, because 16 >= x
   try to solve it in o(n) time
@@ -4507,15 +4507,17 @@ void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use
 
 void find_min_subarray_bigger_than_x(vector<int>& v, int x)
 {
+    // consider {5, 4, -15, 11}, the answer should be 11
     int begin = -1, end = -1;
     int left = 0, right = 0;
-    int sum = 0;
+    int sum = 0, min_sum = 0;
 
     while (right < v.size())
     {
         sum += v[right];
+        min_sum = min(sum, min_sum);
 
-        if (sum > x)
+        if (sum - min_sum > x)
         {
             int tsum;
             while (left <= right)
@@ -5342,5 +5344,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_longest_non_decreasing_sequence();
+    test_find_min_subarray_bigger_than_x();
 }
