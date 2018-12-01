@@ -4086,6 +4086,11 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
         }
     }
 
+    return true;
+}
+
+map<char, char> update_map(dcpr& a, dcpr&b, map<char, char> cmap)
+{
     // update cmap
     for (int i = 0; i < a.msg.size(); ++i)
     {
@@ -4094,7 +4099,7 @@ bool dcpr_match(dcpr& a, dcpr&b, map<char, char>& cmap)
     }
 
     // cout << "true" << endl;
-    return true;
+    return cmap;
 }
 
 void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va, map<char, char>& cmap)
@@ -4127,7 +4132,8 @@ void proc_dcpr(int i, vector<dcpr>& vb, vector<dcpr>& va, map<char, char>& cmap)
             if (!dcpr_match(e, a, cmap))
                 continue;
             a.visited = true;
-            proc_dcpr(i + 1, vb, va, cmap);
+            auto mmap = update_map(e, a, cmap);
+            proc_dcpr(i + 1, vb, va, mmap);
             a.visited = false;
         }
         e.visited = false;
@@ -5248,7 +5254,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_interpret_using_postfix();
+    decipher();
 }
 
 
