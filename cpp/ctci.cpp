@@ -4018,6 +4018,8 @@ void test_group_with_substrings() //jj
             if (vs[j].find(vs[i]) != std::string::npos)
             {
                 vi[j] = i;
+                // we need to do union operation here, otherwise we need to do search
+                // to find top in the hierarcy. (i.e., bab ab abab)
             }
         }
     }
@@ -4742,16 +4744,8 @@ int knapsack_dp2(int k, vector<int>& v, vector<int>& w)
             vv[cur][j] = max(a, b);
         }
 
-        if (prev == 0)
-        {
-            prev = 1;
-            cur = 0;
-        }
-        else
-        {
-            cur = 1;
-            prev = 0;
-        }
+        prev = (prev == 0)? 1 : 0;
+        cur = (cur == 0)? 1 : 0;
     }
 
     return vv[prev][k];
