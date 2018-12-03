@@ -3133,7 +3133,6 @@ void next_perm(vector<int>* pv) //jj
     {
         if (v[i] < v[i + 1])
         {
-            int min_j = i + 1;
             // need to go back->front or front->back?
 #if 1
             // if we search back->front, then we can just break if (v[i] < v[j])
@@ -3146,6 +3145,7 @@ void next_perm(vector<int>* pv) //jj
                 }
             }
 #else
+            int min_j = i + 1;
             for (int j = i + 2; j < v.size(); ++j)
             {
                 if ((v[j] > v[i]) && (v[j] < v[min_j]))
@@ -5027,6 +5027,11 @@ void test_alien_language()
     }
 
 }
+
+// Implement a fast sorting algorithm for list. It should be stable sort.
+// Merge sort on array is not in-place, but merge sort on array is in-place.
+// 14.9 of EPI
+// sol: use merge sort. you need to have merge_list which merges two sorted list and return merged sorted list.
 
 
 // Given a string, find all possible palindromic partitions of given string.
