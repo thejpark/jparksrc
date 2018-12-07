@@ -2124,17 +2124,15 @@ void largest_sum() //jj
 
     cout << "the result is " << max_x << endl;
 
-    // more simple one, but fail with -1, -2, -3 (all minus)
-    int min_sum = 0, sum = 0, max_sum = 0;
+    int cur_max = vi[0], max_so_far = vi[0];
 
-    for (int i = 0; i < vi.size(); ++i)
+    for (int i = 1; i < vi.size(); ++i)
     {
-        sum += vi[i];
-        min_sum = min(sum, min_sum);
-        max_sum = max(max_sum, sum - min_sum);
+        cur_max= max(vi[i], cur_max + vi[i]);
+        max_so_far = max(cur_max, max_so_far);
     }
 
-    cout << "the result is " << max_sum << endl;
+    cout << "the result is " << max_so_far << endl;
 
 
     // todo: can we do it with online (or streaming) data?
