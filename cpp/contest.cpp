@@ -2125,9 +2125,9 @@ void largest_sum() //jj
     cout << "the result is " << max_x << endl;
 
     // more simple one
-    int min_sum = vi[0], sum = vi[0], max_sum = vi[0];
+    int min_sum = 0, sum = 0, max_sum = 0;
 
-    for (int i = 1; i < vi.size(); ++i)
+    for (int i = 0; i < vi.size(); ++i)
     {
         sum += vi[i];
         min_sum = min(sum, min_sum);
