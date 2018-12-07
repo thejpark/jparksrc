@@ -2124,7 +2124,7 @@ void largest_sum() //jj
 
     cout << "the result is " << max_x << endl;
 
-    // more simple one
+    // more simple one, but fail with -1, -2, -3 (all minus)
     int min_sum = 0, sum = 0, max_sum = 0;
 
     for (int i = 0; i < vi.size(); ++i)
@@ -5254,7 +5254,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    decipher();
+    largest_sum();
 }
 
 
