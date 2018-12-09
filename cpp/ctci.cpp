@@ -2184,6 +2184,7 @@ elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)//jj
 foo (n, a, b)
 {
     vector v;
+    // if (m.find(n) != m.end()) return m[n];
     for (e : n.adj)
     {
         auto x = foo(e, a, b);
@@ -2200,6 +2201,7 @@ foo (n, a, b)
             {
                 if (x != v[0])
                 {
+                    // m[n] =  {2, n};
                     return {2, n};
                 }
             }
