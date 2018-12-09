@@ -2179,27 +2179,50 @@ elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)//jj
     return elem1(r3, (r3 == 2) ? n : nullptr);
 }
 
-// jj : todo
-// similar problem is finding first common ancestor in DAG. how to?
-// foo (n, a, b)
-// {
-//     r = 0;
-//     for (e : n.adj)
-//     {
-//         auto x = foo(e, a, b);
-//         if (x.first == 2)
-//         {
-//             return x;
-//         }
+// jj: todo: firs common ancestor in DAG
+/*
+foo (n, a, b)
+{
+    vector v;
+    for (e : n.adj)
+    {
+        auto x = foo(e, a, b);
+        if (x.first == 2)
+        {
+            return x;
+        }
 
-//         r += x.first;
-//     }
+        if (x.first == 1)
+        {
+            if (v.empty())
+                v.push_back(x);
+            else
+            {
+                if (x != v[0])
+                {
+                    return {2, n};
+                }
+            }
+        }
 
-//     r += (n == a) + (n == b);
+    }
 
-//     return {r, (r == 2)? n, nullprt};
-// }
+    r = 0;
+    ptr = nullptr;
+    if (n == a || n == b)
+    {
+        if (v.size() == 1)
+            return {2, n};
+        else
+        {
+            r = 1;
+            ptr = n;
+        }
+    }
 
+    return {r, prt};
+}
+*/
 
 
 void t46()
