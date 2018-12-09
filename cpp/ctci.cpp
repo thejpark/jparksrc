@@ -2180,6 +2180,10 @@ elem1 find_fca1(bt_node<int>*n, bt_node<int>* a, bt_node<int>* b)//jj
 }
 
 // jj: todo: firs common ancestor in DAG
+// first common ancestor in DAG, by the way, can be done by first finding parent of each node, and search (bfs) and store parents of
+// a and b so that each parents can be mapped depth from a or b to the parent. And use ist intersection. This was done in
+// find common ancestor in Java.
+
 /*
 foo (n, a, b)
 {
