@@ -1165,7 +1165,7 @@ void t132()
 
 // merge to arrays into one, one with N + M size (N filled) and the other is M.//jj
 // Merge into N + M size array.
-void test_merge_array()
+void merge_sorted_array()
 {
 
     vector<int> a(10);
@@ -1296,7 +1296,7 @@ int find_pos(vector<char>& vc, int i, int j, char t)
         return find_pos(vc, mid + 1, j, t);
 }
 
-void test_count_char_in_sorted_array() //jj
+void count_char_in_sorted_array() //jj
 {
     string s;
     cin >> s;
@@ -1320,7 +1320,7 @@ void test_count_char_in_sorted_array() //jj
 // Given a set of intervals such as (10,20), (15,25), (28,40), (50,70), (0,9)
 // (60,90) and build a data structure. Query the data structure for point x,
 // and it find out all the intervals that contain this point x.
-void test_find_interval()//jj
+void find_all_intervals_containing_x()//jj
 {
     // sol1: a point can be represented by pair<int, bool> where int is location
     // and bool means begin or end. All points (including target) are stored in an
@@ -1342,97 +1342,34 @@ void test_find_interval()//jj
     // where k and l are in [0, sizeof(intervals)], so the computation is just
     // binary search for finding k and l, which is O(log(n))
 
-    int n;
-
-    cin >> n;
-
-    using pos = pair<int, int>;
-    vector<pos> v;
-    for (int i = 0; i < n; ++i)
-    {
-        int x, y;
-        cin >> x >> y;
-
-        v.push_back(pos(x, y));
-    }
-
-    int k;
-    cin >> k;
 }
 
 // [-2, 0, 2, 3, 6, 7, 9] -> [2, 3]
-void find_same_index_and_val_in_sorted_array(vector<int>& va, int i, int j, vector<int>& vr)//jj
+void find_same_index_and_val_in_sorted_array(vector<int>& v, int i, int j, vector<int>& vr)//jj
 {
     if (i > j)
         return;
 
-    int mid = i + (j - i) / 2;
+    int m = i + (j - i) / 2;
 
-    // we are happy just one of the indexes
-    #if 1
-    // if there is a duplicate in the array
-    if (mid == va[mid])
+    if (m == v[m])
     {
-        vr.emplace_back(mid);
-        return;
+        vr.push_back(m);
+        find_same_index_and_val_in_sorted_array(v, i, m - 1, vr);
+        find_same_index_and_val_in_sorted_array(v, m + 1, j, vr);
     }
-    if (va[i] <= (mid - 1) && i <= va[mid - 1])
+    else if (m < v[m])
     {
-        find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
-        if (vr.size() > 0)
-            return;
-    }
-    if ((mid + 1) <= va[j] && va[mid + 1] <= j)
-    {
-        find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
-        if (vr.size() > 0)
-            return;
-    }
-    #else
-    // if there is no duplicate in the array
-    if (mid == va[mid])
-    {
-        vr.emplace_back(mid);
-    }
-    else if (mid < va[mid])
-    {
-        find_same_index_and_val_in_sorted_array(va, i, mid - 1, vr);
+        find_same_index_and_val_in_sorted_array(v, i, m - 1, vr);
+        find_same_index_and_val_in_sorted_array(v, v[m] + 1, j, vr);
     }
     else
     {
-        find_same_index_and_val_in_sorted_array(va, mid + 1, j, vr);
+        find_same_index_and_val_in_sorted_array(v, i, v[m] - 1, vr);
+        find_same_index_and_val_in_sorted_array(v, m + 1, j, vr);
     }
-    #endif
 }
 
-
-void test_find_same_index_and_val_in_sorted_array()
-{
-    vector<int> va;
-    int t;
-
-    cin >> t;
-
-    for (int i = 0; i < t; ++i)
-    {
-        int k;
-        cin >> k;
-        va.emplace_back(k);
-    }
-
-    vector<int> vr;
-
-    find_same_index_and_val_in_sorted_array(va, 0, va.size() - 1, vr);
-
-    cout << "the result is" << endl;
-
-    for (auto e : vr)
-    {
-        cout << " " << e;
-    }
-
-    cout << endl;
-}
 
 
 // find a number x in a sorted (left to right, top to down) 2D array//jj
@@ -4055,6 +3992,34 @@ void find_island_from_2_dimensional_array()
 //
 // test functions
 //
+void test_find_same_index_and_val_in_sorted_array()
+{
+    vector<int> va;
+    int t;
+
+    cin >> t;
+
+    for (int i = 0; i < t; ++i)
+    {
+        int k;
+        cin >> k;
+        va.emplace_back(k);
+    }
+
+    vector<int> vr;
+
+    find_same_index_and_val_in_sorted_array(va, 0, va.size() - 1, vr);
+
+    cout << "the result is" << endl;
+
+    for (auto e : vr)
+    {
+        cout << " " << e;
+    }
+
+    cout << endl;
+}
+
 
 void test_pickup_coins_for_maximum_gain()
 {
@@ -4384,5 +4349,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_min_subarray_bigger_than_x();
+    test_find_same_index_and_val_in_sorted_array();
 }
