@@ -81,19 +81,6 @@ bool unique_str2(string &s)
     return true;
 }
 
-
-
-void test_unique_string()
-{
-
-    string a("abcdefg hi");
-    string b("abcdefg hi ");
-    cout << a << " : " << unique_str(a) << endl;
-    cout << b << " : " << unique_str(b) << endl;
-}
-
-
-
 void rotate(string &s, int middle)//jj
 {
     int first = 0;
@@ -114,21 +101,6 @@ void rotate(string &s, int middle)//jj
     }
 }
 
-
-void test_string_rotate()
-{
-    string s;
-    int idx;
-
-    cin >> s >> idx;
-
-    rotate(s, idx);
-
-    cout << "the result is " << s << endl;
-}
-
-
-//1.3
 // using find method in the same place
 void remove_dup2(string &s)//jj
 {
@@ -148,7 +120,6 @@ void remove_dup2(string &s)//jj
     }
 
     s.resize(ret);
-
 }
 
 // using additional info, which char has not unique.
@@ -235,19 +206,9 @@ void replace2(string &s, string r)//jj
     }
 }
 
-void test_replace()
-{
-    string a("this is new world");
-    string b("%20");
-
-    replace2(a, b);
-
-    cout << a << endl;
-}
 
 void set_row(vector<vector<int> > &m, int row)
 {
-
     for(int i = 0; i < m[row].size(); i++)
         m[row][i] = 0;
 }
@@ -257,7 +218,6 @@ void set_col(vector<vector<int> > &m, int col)
 {
     for(int i = 0; i < m.size(); i++)
         m[i][col] = 0;
-
 }
 
 void col_row(vector<vector<int>>& m)//jj
@@ -285,40 +245,6 @@ void col_row(vector<vector<int>>& m)//jj
     for (auto& e: row)
     {
         set_row(m, e);
-    }
-}
-
-void test_set_row_col()
-{
-  vector<vector<int> > m(3, vector<int>(3, 0));
-
-    m[0][0] = 1;
-    m[0][1] = 2;
-    m[0][2] = 1;
-    m[1][0] = 1;
-    m[1][1] = 0;
-    m[1][2] = 7;
-    m[2][0] = 3;
-    m[2][1] = 1;
-    m[2][2] = 0;
-
-    for (int i = 0; i < m.size(); i++) {
-        for (int j = 0; j < m[i].size(); j++) {
-            cout << " " << m[i][j];
-        }
-        cout << endl;
-    }
-
-    vector<vector<int>> n(m);
-    col_row(n);
-
-    cout << endl << " and the result is " << endl;
-
-    for (int i = 0; i < n.size(); i++) {
-        for (int j = 0; j < n[i].size(); j++) {
-            cout << " " << n[i][j];
-        }
-        cout << endl;
     }
 }
 
@@ -445,58 +371,6 @@ node* merge_list(node*a, node*b)//jj
     return ret.next;
 }
 
-void test_reverse_linked_list()
-{
-    node* head = new node(1);
-    node* end = head;
-    end->next = new node(2);
-    end = end->next;
-    end->next = new node(3);
-    end = end->next;
-    end->next = new node(4);
-
-
-    // node* r = reverse_list(head);
-    node* r = reverse_list_every_other2(head);
-
-    while (r)
-    {
-        cout << r->data << " ";
-        r = r-> next;
-    }
-
-    cout << endl;
-}
-
-void test_merge_linked_list()
-{
-    node* head = new node(1);
-    node* end = head;
-    end->next = new node(3);
-    end = end->next;
-    end->next = new node(4);
-    end = end->next;
-    end->next = new node(7);
-
-    node* head2 = new node(2);
-    node* end2 = head2;
-    end2->next = new node(4);
-    end2 = end2->next;
-    end2->next = new node(5);
-    end2 = end2->next;
-    end2->next = new node(6);
-
-    node* r = merge_list(head, head2);
-
-    while (r)
-    {
-        cout << r->data << " ";
-        r = r-> next;
-    }
-
-    cout << endl;
-}
-
 
 pair<node*, node*> skip_zero(node* n)
 {
@@ -551,32 +425,8 @@ node* reverse_word(node* n)
     return head.next;
 }
 
-void test_reverse_word()
-{
-    node* head = new node(0);
-    node* end = head;
-    end->next = new node(1);
-    end = end->next;
-    end->next = new node(2);
-    end = end->next;
-    end->next = new node(0);
-    end = end->next;
-    end->next = new node(3);
-    end = end->next;
-    end->next = new node(4);
 
-    node* r = reverse_word(head);
-    while (r)
-    {
-        cout << r->data << " ";
-        r = r-> next;
-    }
-
-    cout << endl;
-}
-
-
-void test_merge_k_sorted_list()//jj
+void merge_k_sorted_list()//jj
 {
 
     // merge k list of length n
@@ -586,12 +436,6 @@ void test_merge_k_sorted_list()//jj
     // 2) logk means tree, so merge two list of size n, then 2n,..., and at the logk step
     //    merge all
 }
-
-void test_swap_nodes()
-{
-
-}
-
 
 class myq {
 public:
@@ -5020,6 +4864,149 @@ void test_find_island_from_2_dimensional_array()
     cout << "the result is " << r << endl;
 }
 
+//
+// test functions
+//
+void test_reverse_word()
+{
+    node* head = new node(0);
+    node* end = head;
+    end->next = new node(1);
+    end = end->next;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(0);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+
+    node* r = reverse_word(head);
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
+void test_reverse_linked_list()
+{
+    node* head = new node(1);
+    node* end = head;
+    end->next = new node(2);
+    end = end->next;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+
+
+    // node* r = reverse_list(head);
+    node* r = reverse_list_every_other2(head);
+
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
+void test_merge_linked_list()
+{
+    node* head = new node(1);
+    node* end = head;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+    end = end->next;
+    end->next = new node(7);
+
+    node* head2 = new node(2);
+    node* end2 = head2;
+    end2->next = new node(4);
+    end2 = end2->next;
+    end2->next = new node(5);
+    end2 = end2->next;
+    end2->next = new node(6);
+
+    node* r = merge_list(head, head2);
+
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
+void test_set_row_col()
+{
+    vector<vector<int> > m(3, vector<int>(3, 0));
+
+    m[0][0] = 1;
+    m[0][1] = 2;
+    m[0][2] = 1;
+    m[1][0] = 1;
+    m[1][1] = 0;
+    m[1][2] = 7;
+    m[2][0] = 3;
+    m[2][1] = 1;
+    m[2][2] = 0;
+
+    for (int i = 0; i < m.size(); i++) {
+        for (int j = 0; j < m[i].size(); j++) {
+            cout << " " << m[i][j];
+        }
+        cout << endl;
+    }
+
+    vector<vector<int>> n(m);
+    col_row(n);
+
+    cout << endl << " and the result is " << endl;
+
+    for (int i = 0; i < n.size(); i++) {
+        for (int j = 0; j < n[i].size(); j++) {
+            cout << " " << n[i][j];
+        }
+        cout << endl;
+    }
+}
+
+
+void test_replace()
+{
+    string a("this is new world");
+    string b("%20");
+
+    replace2(a, b);
+
+    cout << a << endl;
+}
+
+void test_string_rotate()
+{
+    string s;
+    int idx;
+
+    cin >> s >> idx;
+
+    rotate(s, idx);
+
+    cout << "the result is " << s << endl;
+}
+
+void test_unique_string()
+{
+    string a("abcdefg hi");
+    string b("abcdefg hi ");
+    cout << a << " : " << unique_str(a) << endl;
+    cout << b << " : " << unique_str(b) << endl;
+}
 // reference
 // https://github.com/andreis/interview
 //
