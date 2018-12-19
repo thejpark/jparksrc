@@ -83,7 +83,7 @@ bool unique_str2(string &s)
 
 
 
-void t11()
+void test_unique_string()
 {
 
     string a("abcdefg hi");
@@ -92,23 +92,6 @@ void t11()
     cout << b << " : " << unique_str(b) << endl;
 }
 
-
-
-//1.2
-
-void reverse(string &s)
-{
-    // front - back, going to each other until hit
-    int i = 0;
-    int j = s.size() - 1;
-
-    while (i < j) {
-        swap(s[i], s[j]);
-        ++i;
-        --j;
-    }
-
-}
 
 
 void rotate(string &s, int middle)//jj
@@ -145,78 +128,7 @@ void test_string_rotate()
 }
 
 
-// test for c style string
-void reverse1(char *s)
-{
-    // front - back, going to each other until hit
-    int i = 0;
-
-    int j;
-
-    for (j = 0; s[j] != 0; ++j);
-
-    --j;
-
-    cout << s << " : the size of str is " << j + 1 << endl;
-
-    while (i < j) {
-        swap(s[i], s[j]);
-        ++i;
-        --j;
-    }
-
-}
-
-void t12()
-{
-    string s("this");
-    cout << s << endl;
-
-    reverse(s);
-
-    cout << s << endl;
-
-}
-
-void t12_1()
-{
-
-    char s[] = {'T', 'h', 'i', 's', 0};
-
-    cout << s << " " << strlen(s) << endl;
-
-    reverse1(s);
-
-    cout << s << endl;
-}
-
-
-
-
 //1.3
-// test cases: null str, a, abcd, aaaa, aaabbb, ababab
-// using remove method
-void remove_dup(string &s)
-{
-    int ret;
-
-    int len = s.size();
-
-    // for each char in s
-    for (int i = 0; i != len; i++){
-        // len = remove(s.begin + 1, s.end, c);
-        ret = i + 1;
-        for (int j = i + 1; j != len; j++) {
-            if (s[i] != s[j]) {
-                s[ret++] = s[j];
-            }
-        }
-        // update len
-        len = ret;
-    }
-    s.resize(len);
-}
-
 // using find method in the same place
 void remove_dup2(string &s)//jj
 {
@@ -247,7 +159,6 @@ void remove_dup3(string &s)
 
     if (s.empty())
         return;
-
 
     // do I need to initialize it to false? or automatically initialized to false? YES, otherwise you got problem
     for (int i = 0; i < 256; i++)
@@ -285,118 +196,6 @@ void remove_dup4(string& s)//jj
     }
     s.erase(ret, s.end());
 }
-
-// void remove_dup5(string& s) { use map<char, int> and iterate. it is sorted though..
-
-void resize_test()
-{
-    int myints[] = {10,20,20,20,30,30,20,20,10};           // 10 20 20 20 30 30 20 20 10
-    std::vector<int> myvector (myints,myints+9);
-
-    // using default comparison:
-    std::vector<int>::iterator it;
-    it = std::unique (myvector.begin(), myvector.end());   // 10 20 30 20 10 ?  ?  ?  ?
-    //                ^
-
-    myvector.resize( std::distance(myvector.begin(),it) ); // 10 20 30 20 10
-}
-
-void t13()
-{
-
-    string s("abcdab");
-    cout << "string is " << s << endl;
-    remove_dup(s);
-    cout << "string is " << s << endl;
-}
-
-
-void t13_1()
-{
-
-    string s("abcdaaaabbbb");
-    cout << "string is " << s << endl;
-    remove_dup2(s);
-    cout << "string is " << s << endl;
-
-    string ss("");
-    cout << "string is " << ss << endl;
-    remove_dup2(ss);
-    cout << "string is " << ss << endl;
-
-}
-
-void t13_2()
-{
-
-    string s("abcdaaaabbbb");
-    cout << "string is " << s << endl;
-    remove_dup3(s);
-    cout << "string is " << s << endl;
-
-    string ss("");
-    cout << "string is " << ss << endl;
-    remove_dup3(ss);
-    cout << "string is " << ss << endl;
-
-}
-
-void t13_3()
-{
-
-    string s("abcdaaaabbbb");
-    cout << "string is " << s << endl;
-    remove_dup4(s);
-    cout << "string is " << s << endl;
-
-    string ss("");
-    cout << "string is " << ss << endl;
-    remove_dup4(ss);
-    cout << "string is " << ss << endl;
-
-    string s3("abcdab");
-    cout << "string is " << s3 << endl;
-    remove_dup3(s3);
-    cout << "string is " << s3 << endl;
-}
-
-
-//1.5
-
-// this version needs copying elements for every insert.
-void replace(string &s, string r)
-{
-    // which data structure we are using?
-    // check if we need to reserve first. string needs reserve. so
-    // first step (first scan) would be to find out the size to reserve.
-
-    int i, j;
-    i = j= 0;
-
-    while (i != s.size()) {
-        if (s[i] == ' ')
-            ++j;
-        ++i;
-    }
-
-    s.reserve(s.size() + (r.size() - 1) * j); // resize should be performed before get iterator
-
-    string::iterator it = s.begin();
-
-    while (it != s.end()) {
-        cout << * it << endl;
-
-        if (*it == ' ') {
-            it = s.erase(it); // erase or insert may change iterator. should use iterator returned.
-            s.insert(it, r.begin(), r.end()); // insert may change iterator. So, you have enough space reserved so that insert does not
-            // allocate new memory.
-            it += r.size();
-        }
-        ++it;
-    }
-}
-
-
 
 // this version does not need copying element after replacing.
 void replace2(string &s, string r)//jj
@@ -436,48 +235,7 @@ void replace2(string &s, string r)//jj
     }
 }
 
-
-
-void replace(vector<int> &va, vector<int> vb)
-{
-    int i, j;
-    i = j = 0;
-
-    for (i = 0; i != va.size(); i++){
-
-        if (va[i] == 3)
-            ++j;
-
-    }
-
-    va.reserve(va.size() + (vb.size() - 1) * j);
-
-    vector<int>::iterator it = va.begin();
-
-    while (it != va.end()) {
-        if (*it == 3) {
-            cout << "before " << va.size() << endl;
-            it = va.erase(it);
-            va.insert(it, vb.begin(), vb.end());
-            cout << "after " << va.size() << endl;
-            it += vb.size();
-        }
-        else ++it;
-    }
-}
-
-
-void t15()
-{
-    string a("this is new world");
-    string b("%20");
-
-    replace(a, b);
-
-    cout << a << endl;
-}
-
-void t15_2()
+void test_replace()
 {
     string a("this is new world");
     string b("%20");
@@ -486,42 +244,6 @@ void t15_2()
 
     cout << a << endl;
 }
-
-void t15_1()
-{
-    vector<int> va, vb;
-
-
-    for(int i = 0; i < 10; i++)
-        va.push_back(3);
-
-
-
-
-    vb.push_back(1);
-    vb.push_back(1);
-    vb.push_back(2);
-    vb.push_back(2);
-
-    for (int i = 0; i < va.size(); i++)
-        cout << va[i];
-    cout << endl;
-
-    for (int i = 0; i < vb.size(); i++)
-        cout << vb[i];
-    cout << endl;
-
-    replace(va, vb);
-
-    cout << " result : " << va.size() << endl;
-    for (int i = 0; i < va.size(); i++)
-        cout << va[i];
-    cout << endl;
-
-}
-
-
-
 
 void set_row(vector<vector<int> > &m, int row)
 {
@@ -537,7 +259,6 @@ void set_col(vector<vector<int> > &m, int col)
         m[i][col] = 0;
 
 }
-
 
 void col_row(vector<vector<int>>& m)//jj
 {
@@ -567,14 +288,7 @@ void col_row(vector<vector<int>>& m)//jj
     }
 }
 
-// how to create 2 dimensional vector?
-//
-// vector< vector<int> > vec(4, vector<int>(4));
-//
-//
-
-
-void t17()
+void test_set_row_col()
 {
   vector<vector<int> > m(3, vector<int>(3, 0));
 
@@ -608,77 +322,11 @@ void t17()
     }
 }
 
-// remove duplicate for a linked list and map
 struct node {
     node(int d) : data(d), next(nullptr) {};
     int data;
     node* next;
 };
-
-
-void remove_dup5(node* n)//jj
-{
-    if (n == nullptr)
-        return;
-
-    map<int, int> mc;
-    node* end = n;
-    mc[n->data]++;
-
-    n = n->next;
-    while (n != nullptr)
-    {
-        mc[n->data]++;
-
-        if (mc[n->data] == 1)
-        {
-            end->next = n;
-            end = n;
-        }
-
-        n = n->next;
-    }
-    end->next = nullptr;
-}
-
-// remove duplicate in linked list
-void t21()
-{
-
-    node* head = new node(2);
-    node* end = head;
-    end->next = new node(1);
-    end = end->next;
-    end->next = new node(2);
-    end = end->next;
-    end->next = new node(2);
-    end = end->next;
-    end->next = new node(3);
-    end = end->next;
-    end->next = new node(1);
-    end = end->next;
-    end->next = new node(3);
-    end = end->next;
-
-    node* n = head;
-    while (n)
-    {
-        cout << n->data << endl;
-        n = n ->next;
-    }
-
-    cout << "after" << endl;
-
-    n = head;
-    remove_dup5(n);
-    while (n)
-    {
-        cout << n->data << endl;
-        n = n ->next;
-    }
-
-
-}
 
 node* reverse_list(node* a)
 {
@@ -4560,7 +4208,7 @@ void partition_student_with_same_age(vector<student>& vs) //jj: todo: can we use
 
 void find_min_subarray_bigger_than_x(vector<int>& v, int x)
 {
-    // consider {5, 4, -15, 11}, the answer should be 11
+    // consider {5, 4, -15, 11} and x = 10, the answer should be 11
     int begin = -1, end = -1;
     int left = 0, right = 0;
     int sum = 0, min_sum = 0;
