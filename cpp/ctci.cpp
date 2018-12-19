@@ -878,26 +878,6 @@ pair<bool, int> check_balanced(const bt_node<int>* node)//jj
     return pair<bool, int>(balanced, depth);
 }
 
-void t45()
-{
-    bt_node<int> a(6);
-    bt_node<int> b(3);
-    a.left = &b;
-
-    bt_node<int> d(1);
-    bt_node<int> e(4);
-    b.left = &d;
-    b.right = &e;
-
-    auto r = check_balanced(&a);
-    cout << " the result is " << r.first << " : " << r.second << endl;
-
-    bt_node<int> c(8);
-    a.right = &c;
-    r = check_balanced(&a);
-    cout << " the result is " << r.first << " : " << r.second << endl;
-}
-
 
 bool check_symmetric(bt_node<int>* left, bt_node<int>* right)//jj
 {
@@ -922,21 +902,6 @@ bool check_symmetric(bt_node<int>* left, bt_node<int>* right)//jj
 bool is_symmetric(bt_node<int> * n)
 {
     return (n == nullptr || check_symmetric(n->left, n->right));
-}
-
-void test_check_binary_tree_symmetric()
-{
-    bt_node<int> a(6);
-    bt_node<int> b(3);
-    a.left = &b;
-    bt_node<int> c(3);
-    a.right = &c;
-
-    bt_node<int> d(1);
-    bt_node<int> e(1);
-    b.left = &d;
-    c.left = &e;
-    cout << is_symmetric(&a) << endl;
 }
 
 
@@ -4161,6 +4126,41 @@ void test_find_island_from_2_dimensional_array()
 //
 // test functions
 //
+
+void test_check_binary_tree_symmetric()
+{
+    bt_node<int> a(6);
+    bt_node<int> b(3);
+    a.left = &b;
+    bt_node<int> c(3);
+    a.right = &c;
+
+    bt_node<int> d(1);
+    bt_node<int> e(1);
+    b.left = &d;
+    c.left = &e;
+    cout << is_symmetric(&a) << endl;
+}
+
+void test_check_balanced()
+{
+    bt_node<int> a(6);
+    bt_node<int> b(3);
+    a.left = &b;
+
+    bt_node<int> d(1);
+    bt_node<int> e(4);
+    b.left = &d;
+    b.right = &e;
+
+    auto r = check_balanced(&a);
+    cout << " the result is " << r.first << " : " << r.second << endl;
+
+    bt_node<int> c(8);
+    a.right = &c;
+    r = check_balanced(&a);
+    cout << " the result is " << r.first << " : " << r.second << endl;
+}
 
 void test_mod_fib()
 {
