@@ -3698,27 +3698,6 @@ int get_max_gain_dp(vector<int>& v)
     return vv[0][v.size()];
 }
 
-void test_pickup_coins_for_maximum_gain()
-{
-    int n;
-    vector<int> v;
-
-    cin >> n;
-
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.emplace_back(t);
-    }
-
-    int r = get_max_gain(v, 0, v.size() - 1);
-
-    cout << "the result is " << r << endl;
-    r = get_max_gain_dp(v);
-    cout << "the result is " << r << endl;
-}
-
 // input: 0 8 4 12 2 10 6 14 1 9
 // output: 4 (length of longest non decreasing seqeunce, 0, 4, 10, 14 or 0, 2, 6, 9)
 int non_dec_seq(int idx, vector<int>& v)
@@ -3760,34 +3739,13 @@ int non_dec_seq2(int idx, vector<int>& v)
 
     return max(r, b);
 }
-void test_longest_non_decreasing_sequence()
+
+
+int non_dec_seq_dp(vector<int>& v)
 {
-    int n;
-    vector<int> v;
-    cin >> n;
+    vector<int> vd(v.size(), 1);
 
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.emplace_back(t);
-    }
-
-    int r = 0;
-
-    for (int i = 0; i < n; ++i)
-    {
-        r = max(r, non_dec_seq(i, v));
-    }
-
-    cout << "the result is " << r + 1 << endl;
-    cout << "the result is " << non_dec_seq2(0, v) + 1 << endl;
-
-    // DP
-
-    vector<int> vd(n, 1);
-
-    for (int i = 1; i < n; ++i)
+    for (int i = 1; i < v.size(); ++i)
     {
         for (int j = 0; j < i; ++j)
         {
@@ -3798,9 +3756,7 @@ void test_longest_non_decreasing_sequence()
         }
     }
 
-    r = *max_element(vd.begin(), vd.end());
-
-    cout << "the result is " << r << endl;
+    return *max_element(vd.begin(), vd.end());
 }
 
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
@@ -3811,7 +3767,7 @@ void test_longest_non_decreasing_sequence()
 
 //                                      Input:  words[] = {"caa", "aaa", "aab"}
 // Output: Order of characters is 'c', 'a', 'b'
-void test_alien_language()
+void alien_language()
 {
     //sol: find partial order then it ends up wit  a graph, then topological sort using dfs
 
@@ -3908,36 +3864,9 @@ bool find_palindrom_dp(string& s)
     }
 }
 
-void test_find_all_possible_palindromic_partitions()
-{
-    string s;
-
-    cin >> s;
-
-    vector<int> t;
-    vector<vector<int>> r;
-
-    if (find_palindrom_dp(s))
-    {
-        cout << "found at least one" << endl;
-    }
-
-    find_all_palindrom(0, s, t, r);
-
-    for (int i = 0; i < r.size(); ++i)
-    {
-        cout << endl<< "begin : ";
-        for (int j = 0; j < r[i].size(); ++j)
-        {
-            cout << r[i][j] << " ";
-        }
-        cout << " end" << endl;
-    }
-}
-
 // moving average of last N numbers in a stream
 // For example, if N=3 and the stream S=[2,3,4,1,2,-3,0,…] then moving averages at each each streamed number are = [2.0, 2.5, 3.0, 2.66, 2.33, 0, -0.33,…].
-void test_moving_average_of_last_n()
+void moving_average_of_last_n()
 {
     // sol: similar to circular buffer.
 
@@ -3996,7 +3925,7 @@ void test_moving_average_of_last_n()
 }
 
 
-void test_find_number_of_subarrays_sum_to_k()
+void find_number_of_subarrays_sum_to_k()
 {
     int n;
     vector<int> v;
@@ -4048,7 +3977,7 @@ void test_find_number_of_subarrays_sum_to_k()
 // xxxxx
 // -> 0
 // what if the dimension is too big? who can handle this?
-void test_find_island_from_2_dimensional_array()
+void find_island_from_2_dimensional_array()
 {
     // sol1: dfs or bfs
     // sol2: line by line, for each element look at left and up. If left and up belongs to different area, merge it (union/find?)
@@ -4126,6 +4055,83 @@ void test_find_island_from_2_dimensional_array()
 //
 // test functions
 //
+
+void test_pickup_coins_for_maximum_gain()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    int r = get_max_gain(v, 0, v.size() - 1);
+
+    cout << "the result is " << r << endl;
+    r = get_max_gain_dp(v);
+    cout << "the result is " << r << endl;
+}
+
+
+void test_longest_non_decreasing_sequence()
+{
+    int n;
+    vector<int> v;
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    int r = 0;
+
+    for (int i = 0; i < n; ++i)
+    {
+        r = max(r, non_dec_seq(i, v));
+    }
+
+    cout << "the result is " << r + 1 << endl;
+    cout << "the result is " << non_dec_seq2(0, v) + 1 << endl;
+
+
+    r = non_dec_seq_dp(v);
+    cout << "the result is " << r << endl;
+}
+
+void test_find_all_possible_palindromic_partitions()
+{
+    string s;
+
+    cin >> s;
+
+    vector<int> t;
+    vector<vector<int>> r;
+
+    if (find_palindrom_dp(s))
+    {
+        cout << "found at least one" << endl;
+    }
+
+    find_all_palindrom(0, s, t, r);
+
+    for (int i = 0; i < r.size(); ++i)
+    {
+        cout << endl<< "begin : ";
+        for (int j = 0; j < r[i].size(); ++j)
+        {
+            cout << r[i][j] << " ";
+        }
+        cout << " end" << endl;
+    }
+}
 
 void test_check_binary_tree_symmetric()
 {
