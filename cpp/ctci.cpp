@@ -702,12 +702,6 @@ int rand7()
     return (n % 7) + 1;
 }
 
-// nrand2 in acpp also can be used. But if rand5() is specialized function that does not
-// takes arguement then...
-void t1910()
-{
-}
-
 
 // find int sumed up to a X: with map //jj
 void find_sum_up_to_x()
@@ -765,49 +759,6 @@ void find_sum_up_to_x_1()
 
 // how to partition if the size of data is too big?
 // hash(str) mod r. Get hash value, mod r where r is the number of partitions
-//todo: 1.6, 3.1
-
-
-bool overlap(const vector<int> &A, long long  x, long long y)
-{
-    long long x1 = x - A[x];
-    long long x2 = x + A[x];
-
-    long long y1 = y - A[y];
-    long long y2 = y + A[y];
-
-    if ((x1 <= y1 && y1 <= x2) ||
-            (x1 <= y2 && y2 <= x2) ||
-            (x1 <= y1 && y2 <= x2) ||
-            (x1 >= y1 && y2 >= x2))
-        return true;
-
-    return false;
-}
-
-
-int overlap_solution (const vector<int> &A)
-{
-    int size = A.size();
-
-    int r = 0;
-
-    for (int i = 0; i !=size; ++i) {
-        for (int j = i + 1; j != size; ++j) {
-
-            if (overlap(A, i, j))
-                    ++r;
-        }
-    }
-
-
-    if (r > 10000000)
-        return -1;
-
-    return r;
-
-
-}
 
 bool comp_pair(pair<int, int> s1,
         pair<int, int> s2)
@@ -840,16 +791,6 @@ void merge_pair(vector<int> a)
     cout << endl;
 }
 
-void test_merge_pair()
-{
-
-    int a[] = {1, 3, 2, 6, 4
-    };
-
-    vector<int> va(a, a + 5);
-
-    merge_pair(va);
-}
 
 
 double mod_fib(double n)
@@ -872,51 +813,17 @@ double mod_fib(double n)
 
 }
 
-void test_mod_fib()
-{
-
-    double x = pow(2, 3);
-    cout << endl << mod_fib(x) << endl;
-    //mod_fib(x);
-
-
-    x = pow (4, 7);
-    cout << endl << x << " "  << mod_fib(x) << endl;
-    //mod_fib(x);
-
-}
-
-
- // hash example
-void hashTest ()
-{
-  char nts1[] = "Test";
-  char nts2[] = "Test";
-  std::string str1 (nts1);
-  std::string str2 (nts2);
-
-  std::hash<char*> ptr_hash;
-  std::hash<std::string> str_hash; //jj
-
-  std::cout << "same hashes:\n" << std::boolalpha;
-  std::cout << "nts1 and nts2: " << (ptr_hash(nts1)==ptr_hash(nts2)) << '\n';
-  std::cout << "str1 and str2: " << (str_hash(str1)==str_hash(str2)) << '\n';
-}
-
-
-// given a sorted array, create binary tree with minimal height
-void t43()
-{
-
-
-
-}
-
+template <typename T>
+struct nodeParent {
+    nodeParent(T v) : val(v), left(nullptr), right(nullptr) {}
+    nodeParent* left;
+    nodeParent* right;
+    nodeParent* parent;
+    T val;
+};
 
 // find next node in binary search tree (in order successor) where each node has pointer to its parent //jj
-#if 0
-
-tree* search_min(tree* n)
+nodeParent<int>* search_min(nodeParent<int>* n)
 {
     if (n->left)
         return search_min(n->left);
@@ -924,12 +831,12 @@ tree* search_min(tree* n)
     return n;
 }
 
-tree* search_next(tree* n)
+nodeParent<int>* search_next(nodeParent<int>* n)
 {
     if (n->right)
         return search_min(n->right);
 
-    node* p = n->parent;
+    nodeParent<int>* p = n->parent;
 
     while ((p != nullptr) && (p->right == n))
     {
@@ -940,7 +847,6 @@ tree* search_next(tree* n)
     return p;
 }
 
-#endif
 
 // check whether a binary tree is balanced or not.
 // what is balanced? distance from the root to all the leaf, min and
@@ -4255,6 +4161,32 @@ void test_find_island_from_2_dimensional_array()
 //
 // test functions
 //
+
+void test_mod_fib()
+{
+
+    double x = pow(2, 3);
+    cout << endl << mod_fib(x) << endl;
+    //mod_fib(x);
+
+
+    x = pow (4, 7);
+    cout << endl << x << " "  << mod_fib(x) << endl;
+    //mod_fib(x);
+
+}
+
+
+void test_merge_pair()
+{
+
+    int a[] = {1, 3, 2, 6, 4
+    };
+
+    vector<int> va(a, a + 5);
+
+    merge_pair(va);
+}
 void test_queue_with_max_method()//jj
 {
     int n;
