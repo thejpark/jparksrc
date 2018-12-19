@@ -437,34 +437,6 @@ void merge_k_sorted_list()//jj
     //    merge all
 }
 
-class myq {
-public:
-    void enq(int x)
-    {
-        a.push(x);
-    }
-
-    int deq()
-    {
-        while (!a.empty()) {
-            b.push(a.top());
-            a.pop();
-        }
-        int front = b.top();
-        b.pop();
-
-        while (!b.empty()) { // do we need this? follow the next queue implementation
-            a.push(b.top());
-            b.pop();
-        }
-
-        return front;
-    }
-
-private:
-    stack<int> a, b;
-};
-
 class myq2 { //jj
 public:
     void enq(int x)
@@ -537,52 +509,7 @@ public:
 private:
     // value, min
     vector<pair<int, int>> v;
-    };
-
-void t31()
-{
-    minstack ms;
-    ms.push(3);
-    ms.push(7);
-    ms.push(1);
-    ms.push(4);
-
-    assert(1 == ms.imin());
-    ms.pop();
-    assert(1 == ms.imin());
-    ms.pop();
-    assert(3 == ms.imin());
-    ms.pop();
-    assert(3 == ms.imin());
-}
-
-void t35()
-{
-    myq mq;
-
-    for (int i = 0; i < 10; i++) {
-        mq.enq(i);
-    }
-
-    for (int i = 0; i < 10; i++)
-        cout << mq.deq() << endl;
-
-
-}
-
-void t35_1()
-{
-    myq2 mq;
-
-    for (int i = 0; i < 10; i++) {
-        mq.enq(i);
-    }
-
-    for (int i = 0; i < 10; i++)
-        cout << mq.deq() << endl;
-
-
-}
+};
 
 stack<int>
 sort_stack(stack<int> a) //jj
@@ -607,28 +534,7 @@ sort_stack(stack<int> a) //jj
 
 }
 
-//3.6
-void t36()
-{
-    stack<int> a, b;
-
-    a.push(3);
-    a.push(1);
-    a.push(4);
-
-    b = sort_stack(a);
-
-    cout << endl;
-
-    while (!b.empty()) {
-
-        cout << b.top() << endl;
-        b.pop();
-    }
-
-}
-
-void test_path_normalization() //jj
+void path_normalization() //jj
 {
     string s;
     cin >> s;
@@ -681,7 +587,7 @@ void test_path_normalization() //jj
     cout << " the result is " << r << endl;
 }
 
-void test_sunset_view() //jj
+void sunset_view() //jj
 {
     // input: list of house with hight, east to west
     // out : list of house with sunset view
