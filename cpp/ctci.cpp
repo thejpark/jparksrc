@@ -640,176 +640,35 @@ private:
 };
 
 
-void test_queue_with_max_method()//jj
+void swap_even_odd_bits()//jj
 {
-    int n;
-    vector<int> v;
-
-    cin >> n;
-
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.emplace_back(t);
-    }
-
-    myqueue mq;
-
-    for (int i = 0; i < n; ++i)
-    {
-        mq.enque(v[i]);
-    }
-
-    for (int i = 0; i < n; ++i)
-    {
-        cout << mq.front() << " : " << mq.max() << endl;
-        mq.deque();
-    }
-
-}
-
-
-#include <pthread.h>
-void t_thread_1()
-{
-
-    cout << "before join: " << pthread_self() <<  endl;
-    int err = pthread_join(pthread_self(), NULL);
-    cout << "after join: " << err << endl;
-}
-
-static pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
-static pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-
-struct mythread
-{
-    pthread_t thread;
-    bool term;
-    int idx;
-} *mythread;
-
-static int numTerm = 0;
-
-
-static void *
-threadFunc3(void * args)
-{
-    int err;
-    int i = *(int *)args;
-
-    cout << "thread [" << i << "] is created" << endl;
-
-    err = pthread_mutex_lock(&mtx);
-    if (err)
-        cout << "error in mutex_lock" << endl;
-
-
-
-    numTerm++;
-    mythread[i].term = true;
-
-    err = pthread_mutex_unlock(&mtx);
-    if (err)
-        cout << "error in mutex_unlock" << endl;
-
-    err = pthread_cond_signal(&cond);
-    if (err)
-        cout << "error in cond_signal" << endl;
-
-
-    return NULL;
-}
-
-
-void t_thread_3()
-{
-
-    int err;
-    int numThread = 5;
-
-    mythread = (struct mythread *)calloc(numThread, sizeof(*mythread));
-    if (mythread == NULL)
-        cout << "thread alloc error" << endl;
-
-    int numLive = numThread;
-
-    for (int i = 0; i < numLive; ++i) {
-        mythread[i].idx = i;
-        // if i is given to the last argument of pthread_create, then
-        // the main thread may increase i, which can be seen by other threads.
-        // so we should use local idx for each thread.
-        err = pthread_create(&(mythread[i].thread), NULL, threadFunc3, &(mythread[i].idx));
-        if (err)
-            cout << " error in creating thread 1 " << endl;
-    }
-
-    while (numLive > 0) {
-        err = pthread_mutex_lock(&mtx);
-        if (err)
-            cout << "mutex lock error" << endl;
-
-        while (numTerm == 0) {
-            err = pthread_cond_wait(&cond, &mtx);
-
-            if (err)
-                cout << "cond wait  error" << endl;
-        }
-
-        for (int i = 0; i < numThread; i++) {
-            if (mythread[i].term) {
-                mythread[i].term = false;
-                err = pthread_join(mythread[i].thread, NULL);
-                if (err)
-                    cout << "error in join thread [" << i << "]" << endl;
-                numTerm--;
-                numLive--;
-                cout << "joined thread [" << i << "]" << endl;
-            }
-        }
-
-        err = pthread_mutex_unlock(&mtx);
-        if (err)
-            cout << "mutex unlock error" << endl;
-
-    }
-
-}
-
-void test_swap_even_odd_bits()//jj
-{
-	int a = 54;
-	printf("the value of a is %d\n", a);
-	int a1 = a << 1;
-	int a2 = a >> 1;
-	a = (a1 & 0xAAAAAAAA) |
-        	(a2 & 0x55555555);
-	printf("the value of new a is %d\n", a);
+    int a = 54;
+    printf("the value of a is %d\n", a);
+    int a1 = a << 1;
+    int a2 = a >> 1;
+    a = (a1 & 0xAAAAAAAA) |
+        (a2 & 0x55555555);
+    printf("the value of new a is %d\n", a);
 }
 
 void get_number_of_bits()
 {
-   int a = 54;
-	printf("the value of a is %d\n", a);
-	int i = 0;
-	if (a != 0) i++;
-	while( (a = (a & (a - 1))) != 0) {
-    	i++;
+    int a = 54;
+    printf("the value of a is %d\n", a);
+    int i = 0;
+    if (a != 0) i++;
+    while( (a = (a & (a - 1))) != 0) {
+        i++;
 
-    	printf("[%d]the number of bits are %d\n", a, i);
-	}
-	printf("the number of bits are %d\n", i);
+        printf("[%d]the number of bits are %d\n", a, i);
+    }
+    printf("the number of bits are %d\n", i);
 
 }
 
-
-
 // swap inplace:
-void t191()
+void swap_in_place()
 {
-
-    cout << "swap in place" << endl;
-
     int a, b;
 
     a = 5;
@@ -825,7 +684,6 @@ void t191()
     b = a ^ b;
     a = a ^ b;
     cout << "results:  " << a << " + " << b << endl;
-
 }
 
 int rand5()
@@ -844,22 +702,16 @@ int rand7()
     return (n % 7) + 1;
 }
 
-
-
 // nrand2 in acpp also can be used. But if rand5() is specialized function that does not
 // takes arguement then...
 void t1910()
 {
-
-
-
 }
 
 
 // find int sumed up to a X: with map //jj
-void t1911()
+void find_sum_up_to_x()
 {
-
     vector<int>vi;
 
     for (int i  = 11; i <= 20; i++) {
@@ -882,14 +734,12 @@ void t1911()
             mc[r]++; // to remove duplications
             mc[vi[i]]++; // to remove duplications
         }
-
     }
-
 }
 
 
 // if the data is sorted, then we can do it in place with less then O-square. This is another application of partition //jj
-void t1911_1()
+void find_sum_up_to_x_1()
 {
     vector<int>vi;
 
@@ -913,380 +763,12 @@ void t1911_1()
 
 }
 
-
-// reinterpret_cast
-
-#include <iostream>
-
-class A
-{
-
-public:
-    A() : m_i(0)
-    {
-        cout << "default" << endl;
-    }
-    A(int n) { cout << "arg version" << endl; }
-    A(const A& a) { cout << " copy " << endl; }
-    ~A() { cout << " dest " << endl; }
-
-protected:
-    int m_i;
-
-};
-
-
-class B
-{
-
-public:
-    B() : m_d(0.0)
-    {
-    }
-
-
-protected:
-    double m_d;
-
-};
-
-
-class C
-    : public A
-    , public B
-{
-
-public:
-    C() :  m_c('a') // if you want arg version of A, then add 'A(3)' here (assume arg is 3)
-    {
-    }
-
-
-private:
-    char m_c;
-
-};
-
-
-
-// refer to http://www.cplusplus.com/doc/tutorial/typecasting/ for more information.
-int t_reinterpret_cast()
-{
-
-    C d;
-
-    A *b1 = &d;
-
-    B *b2 = &d;
-
-
-    const int a = (reinterpret_cast<char*>(b1) == reinterpret_cast<char*>(&d)) ? 1 : 2;
-
-    const int b = (b2 == &d) ? 3 : 4;
-    //const int c = (b2 == b1) ? 5 : 6; // we cannot compare two different pointer types here
-
-    const int c = (reinterpret_cast<char*>(b1) == reinterpret_cast<char*>(b2)) ? 5 : 6;
-    const int e = (reinterpret_cast<char*>(b2) == reinterpret_cast<char*>(&d)) ? 7 : 8;
-
-
-    cout << a << b << c << e << endl;
-
-    // result is 1368
-    return 0;
-}
-
-#if 0
-class CBase
-{
-    // in this case, there is no polymorphysim
-};
-
-class CDerived: public CBase
-{
-};
-
-#else
-class CBase { virtual void dummy() {} }; // this case has polymorphism
-
-class CDerived: public CBase { int a; };
-
-#endif
-
-void t_dynamic_cast()
-{
-#if 0
-    CBase b;
-    CDerived d;
-    CDerived* pd;
-
-    pb = dynamic_cast<CBase*>(&d);
-// ok: derived-to-base
-
-    pd = dynamic_cast<CDerived*>(&b); // compiler error. pointer to derived class can be dynamic_cast to its base regardless of its real object. no in the other direction.
-// wrong: base-to-derived
-
-#else
-    CDerived k;
-    CBase * pba = &k;//new CDerived;
-
-    CBase * pbb = new CBase;
-
-    CDerived* pd;
-
-    pd = dynamic_cast<CDerived*>(pba); // if there is no polymorphism, then compile error here
-
-    if (pd==0) cout << "Null pointer on first type-cast" << endl;
-
-
-    pd = dynamic_cast<CDerived*>(pbb); // if there is no polymorphism, then compile error here
-
-    if (pd==0) cout << "Null pointer on second type-cast" << endl;
-
-#endif
-}
-
-#if 0
-void t_static_cast()
-{
-
-    class CBase {};
-    class CDerived: public CBase {};
-    CBase * a = new CBase;
-    CDerived * b = static_cast<CDerived*>(a); // it compiles but maybe runtime error.
-
-    double d=3.14159265;
-    int i = static_cast<int>(d);
-}
-#endif
-
-int t_typeid()
-{
-    int * a,b;
-    a=0; b=0;
-    if (typeid(a) != typeid(b))
-    {
-        cout << "a and b are of different types:\n";
-        cout << "a is: " << typeid(a).name() << '\n';
-        cout << "b is: " << typeid(b).name() << '\n';
-    }
-    return 0;
-
-}
-
-
-int t_stl_test1()
-{
-
-    typedef std::list<int> L;
-
-    L l(5);
-
-
-    typedef L::const_iterator CI;
-
-    CI cb = l.begin(), ce = l.end();
-
-    typedef L::iterator I;
-
-    I b = l.begin();
-
-
-    std::transform(cb, --ce, ++b, std::bind2nd(std::plus<CI::value_type>(), 1));
-
-    std::copy(l.begin(), l.end(), std::ostream_iterator<CI::value_type>(std::cout)); //print
-
-    std::cout << std::endl;
-
-
-    return 0;
-
-}
-
-
-int t_ctor_dtor()
-{
-    A *p = 0;
-    {
-        const A a = 2;
-        cout << "*****1" << endl;
-        p = new A[3];
-        cout << "*****2" << endl;
-        p[0] = a;
-        cout << "*****3" << endl;
-    }
-    cout << "*****4" << endl;
-    p[1] = A(1);
-    cout << "*****5" << endl;
-    p[2] = 2;
-    cout << "*****6" << endl;
-    delete [] p;
-
-
-    return 0;
-}
-
-// this is function object used as a comparer
-struct P
-{
-    bool operator()(const int &n) const
-    {
-        return n % 3 == 0;
-    }
-};
-
-int t_operator()
-{
-    const int a[] = { 5, 2, 6, 1, 13, 9, 19 };
-    const int count = sizeof(a) / sizeof(a[0]);
-    std::list<int> l(a, a+ count);
-    std::cout << l.size();
-    std::remove_if(l.begin(), l.end(), P());
-    std::cout << l.size() << std::endl;
-
-    return 0;
-}
-
-
-class D {
-    D() : x(0) {
-        ;
-        }
-
-private:
-    const int x; // if a member is const, it can only be initialized in the member initialization. if we call 'x == 0' in the body of ctor, it is assignment
-    // so it is compile error. Also, 'const int x = 0;' gives compile error asking to change it 'static const'
-};
-
-
-void t_vector()
-{
-    int a[] = {1, 1, 2, 2};
-    int count = sizeof(a) / sizeof(a[0]);
-    vector<int> va(a, a + count);
-
-    cout << va[0] << va[1] << va[2] << va[3] << endl;
-
-}
-
-
-string
-myreverse(const string& s)
-{
-    if (s.size() <= 1)
-        return s;
-    else {
-        string r = myreverse(string(s.begin() + 1, s.end()));
-        r.push_back(s[0]);
-        return r;
-    }
-
-}
-
-void t_reverse_str()
-{
-
-    string s("abc");
-
-    string r = myreverse(s);
-
-    cout << endl << s << " is reverse of " << r << endl;
-
-
-}
-
-
-struct CC
-{
-
-    bool operator()(const int &a, const int &b) const
-    {
-
-        return a % 10 < b % 10;
-
-    }
-
-};
-
-
-int t_test_set()
-{
-
-    const int a[] = { 4, 2, 7, 11, 12, 14, 17, 2
-    };
-
-    const int count = sizeof(a) / sizeof(a[0]);
-
-    std::set<int> x(a, a + count);
-
-    std::cout << x.size() << std::endl;
-
-    std::set<int, CC> y(x.begin(), x.end());
-
-    std::cout << y.size() << std::endl;
-
-    for (set<int>::iterator it = y.begin(); it != y.end(); ++it) {
-        cout << *it << endl;
-    }
-
-
-
-    return 0;
-
-}
-
-/*
- * other STL
- *
- * count, count_if
- * unique
- * adjacent_find
- *
- * */
-
-
 // how to partition if the size of data is too big?
 // hash(str) mod r. Get hash value, mod r where r is the number of partitions
-
 //todo: 1.6, 3.1
 
-int equil_solution ( const vector<int> &A )
-{
-    unsigned int size = A.size();
 
-    if (size == 0)
-        return -1;
-
-    unsigned int b = 0; // index should be non zero.. but might use int as well
-    unsigned int e = size;
-
-    long long  sum = 0; // it should be signed, and it should be long long if the test cases is too big
-
-    while (b != e) {
-        sum += A[b];
-        ++b;
-    }
-
-    sum -= A[0];
-    long long  sum2 = 0; // check whether it is signed or unsigned
-
-    b = 0;
-
-    do {
-        if (sum == sum2)
-            return b;
-        else {
-            sum2 += A[b];
-            ++b;
-            sum -= A[b];
-        }
-
-    } while (b != e);
-
-    return -1;
-}
-
-bool
-overlap(const vector<int> &A, long long  x, long long y)
+bool overlap(const vector<int> &A, long long  x, long long y)
 {
     long long x1 = x - A[x];
     long long x2 = x + A[x];
@@ -4773,6 +4255,35 @@ void test_find_island_from_2_dimensional_array()
 //
 // test functions
 //
+void test_queue_with_max_method()//jj
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.emplace_back(t);
+    }
+
+    myqueue mq;
+
+    for (int i = 0; i < n; ++i)
+    {
+        mq.enque(v[i]);
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        cout << mq.front() << " : " << mq.max() << endl;
+        mq.deque();
+    }
+
+}
+
 void test_reverse_word()
 {
     node* head = new node(0);
