@@ -1404,6 +1404,94 @@ bool matrix_search(const vector<vector<int>>& va, int x)
 // hits to the max. We only have 1000 element in the map, and later should
 // replace old one with new one.
 
+class lrumap {//jj
+private:
+
+    class node {
+    public:
+      node(string s, int x) : str(s), data(x), prev(NULL), next(NULL) {}
+        int data;
+        string str;
+        shared_ptr<node> prev;
+        shared_ptr<node> next;
+    };
+    shared_ptr<node> head;
+    shared_ptr<node> tail;
+    map<string, shared_ptr<node>> mm;
+    int size;
+
+public:
+    lrumap(int sz) : size(sz) {}
+
+    shared_ptr<node> get(string& s)
+    {
+        if (mm.find(s) != mm.end()) // if (mm.count(s)) // can be used as well
+        {
+            shared_ptr<node> n = mm[s];
+
+            // set the node as the head of the list
+            if (n == head && n == tail)
+            {
+                // do nothing
+            }
+            else if (n == head)
+            {
+                // do nothing
+            }
+            else if (n == tail)
+            {
+                tail = tail->prev;
+                tail->next = nullptr;
+
+                n->next = head;
+                n->prev = nullptr;
+                head = n;
+            }
+            else
+            {
+                n->prev->next = n->next;
+                n->next->prev = n->prev;
+
+                n->next = head;
+                n->prev = nullptr;
+                head = n;
+            }
+
+            return n;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    void put(string& s, int i)
+    {
+        shared_ptr<node> n = get(s);
+
+        if (n)
+        {
+            n->data = i;
+            return;
+        }
+
+        if (mm.size() == size)
+        {
+            shared_ptr<node> prev = tail->prev;
+            tail->prev = nullptr;
+            mm.erase(mm.find(tail->str));
+            tail = prev;
+            tail->next = nullptr;
+        }
+
+        n = shared_ptr<node>(new node(s, i));
+        n->next = head;
+        head = n;
+        mm[s] = n;
+    }
+};
+
+
 class lrumap2 {
 private:
 
