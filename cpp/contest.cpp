@@ -4953,7 +4953,7 @@ int toffee(int sum, int begin, int count, vector<int>& v)
 
 void test_toffee()
 {
-    int n, k; // n is size of toffee, k is size of box
+    int n, k; // n is size of toffee packet, k is size of box
     cin >> n >> k;
 
     vector<int> v;
