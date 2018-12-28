@@ -1750,21 +1750,6 @@ rect intersect(const rect& r1, const rect& r2)
     }
 }
 
-void test_rect_intersect()
-{
-    int x, y, w, h;
-    cin >> x >> y >> w >> h;
-    rect r1{x, y, w, h};
-
-    cin >> x >> y >> w >> h;
-    rect r2{x, y, w, h};
-
-    rect r = intersect(r1, r2);
-
-    cout << "the result is " << r.x << " " << r.y << " " << r.width << " " << r.height << endl;
-
-}
-
 // this implementation assume that we just copy as small as possible do not copy overlapping area
 void acopy(vector<int>* v, int s, int l, int t) //jj
 {
@@ -1796,38 +1781,6 @@ void acopy(vector<int>* v, int s, int l, int t) //jj
     }
 }
 
-// this test is simple but you need to ask questions for the
-// overlapping and edge cases before implement.
-void test_copy_in_array()
-{
-    int n;
-
-    vector<int> v;
-
-    cin >> n;
-
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.push_back(t);
-    }
-
-    int s, t, l;
-    cin >> s >> l >> t;
-
-    acopy(&v, s, l, t);
-
-    cout << "the result is" << endl;
-
-    for (int i = 0; i < v.size(); ++i)
-    {
-        cout << v[i] << " ";
-    }
-    cout << endl;
-}
-
-
 void test_apply_perm() //jj
 {
     string a;
@@ -1857,6 +1810,7 @@ void test_apply_perm() //jj
     cout << "the result is " << a << endl;
 }
 
+// find next permutation without recursive call
 void next_perm(vector<int>* pv) //jj
 {
     vector<int>& v = *pv;
@@ -1897,28 +1851,6 @@ void next_perm(vector<int>* pv) //jj
     return;
 }
 
-
-// find next permutation without recursive call
-void test_next_perm()
-{
-    int n;
-    vector<int> v;
-
-    cin >> n;
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.push_back(t);
-    }
-
-    next_perm(&v);
-    for (int e: v)
-        cout << e << " ";
-    cout << endl;
-}
-
-
 int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
 {
     if (v[a] <= v[e])
@@ -1932,24 +1864,6 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return find_min_from_sorted_rotated(v, a, mid);
 }
 
-
-void test_find_min_from_sorted_rotated_array()
-{
-    int n;
-    vector<int> v;
-
-    cin >> n;
-
-    for (int i = 0; i < n; ++i)
-    {
-        int t;
-        cin >> t;
-        v.push_back(t);
-    }
-
-    cout << "the result is " ;
-    cout <<  find_min_from_sorted_rotated(v, 0, v.size() - 1) << endl;
-}
 
 void test_find_rand_comb() //jj
 {
@@ -2239,6 +2153,25 @@ string ConvertBase(const string& s, int a, int b) //jj
         return "-" + rs;
     else
         return rs;
+}
+
+int convertBase(int x, int y)
+{
+    bool negative = (x < 0);
+
+    x = abs(x);
+
+    int r = 0, k = 1;
+    while (x > 0)
+    {
+        int a = x / y;
+        int b = x % y;
+        r = r + k * b;
+        x = a;
+        k = k * 10;
+    }
+
+    return negative? -r : r;
 }
 
 void test_convert_base()
@@ -3987,6 +3920,90 @@ void find_island_from_2_dimensional_array()
 //
 // test functions
 //
+
+void test_find_min_from_sorted_rotated_array()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    cout << "the result is " ;
+    cout <<  find_min_from_sorted_rotated(v, 0, v.size() - 1) << endl;
+}
+
+void test_next_perm()
+{
+    int n;
+    vector<int> v;
+
+    cin >> n;
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    next_perm(&v);
+    for (int e: v)
+        cout << e << " ";
+    cout << endl;
+}
+
+
+void test_copy_in_array()
+{
+    int n;
+
+    vector<int> v;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int s, t, l;
+    cin >> s >> l >> t;
+
+    acopy(&v, s, l, t);
+
+    cout << "the result is" << endl;
+
+    for (int i = 0; i < v.size(); ++i)
+    {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
+
+void test_rect_intersect()
+{
+    int x, y, w, h;
+    cin >> x >> y >> w >> h;
+    rect r1{x, y, w, h};
+
+    cin >> x >> y >> w >> h;
+    rect r2{x, y, w, h};
+
+    rect r = intersect(r1, r2);
+
+    cout << "the result is " << r.x << " " << r.y << " " << r.width << " " << r.height << endl;
+
+}
+
 void test_find_same_index_and_val_in_sorted_array()
 {
     vector<int> va;
