@@ -4971,7 +4971,7 @@ void test_toffee()
 }
 
 
-int seat_farthest(int sum, int idx, int cnt, int size)
+int seat_farthest(int sum, int idx, int cnt, int size, vector<int>& v)
 {
     if (cnt == 0)
     {
@@ -4979,12 +4979,26 @@ int seat_farthest(int sum, int idx, int cnt, int size)
     }
     if (idx == size - cnt)
     {
-        return 0;
+        v.push_back(idx); // we do not consider case that it returns 0
+        return (cnt > 1)? 0: sum;
     }
 
-    auto a = seat_farthest(sum + 1, idx + 1, cnt, size);
-    auto b = min(sum + 1, seat_farthest(0, idx + 1, cnt - 1, size));
-    return max(a, b);
+    vector<int> va(v), vb(v);
+
+    auto a = seat_farthest(sum + 1, idx + 1, cnt, size, va);
+    vb.push_back(idx);
+    auto b = min(sum, seat_farthest(0, idx + 1, cnt - 1, size, vb));
+
+    if (a > b)
+    {
+        v = va;
+        return a;
+    }
+    else
+    {
+        v = vb;
+        return b;
+    }
 }
 
 void test_seat_farthest()
@@ -4992,9 +5006,15 @@ void test_seat_farthest()
     int n, k; // n is size of bench, k is the number of people, find seat so that each people seat fartest each other
     cin >> n >> k;
 
-    int r = seat_farthest(n, 0, k, n);
+    vector<int> v;
+    int r = seat_farthest(n, 0, k, n, v);
 
     cout << "the result is " << r << endl;
+    for (int i = 0; i < v.size(); ++i)
+    {
+        cout << " " << v[i];
+    }
+    cout << endl;
 }
 
 // Given an array of Integers, find out how many combinations in the array, satisfy the equation x+y+z=w, where x,y,z and w belong to the array and idx(x)<idx(y)<idx(z)<idx(w). Elements are unique.
