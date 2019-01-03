@@ -4971,6 +4971,32 @@ void test_toffee()
 }
 
 
+int seat_farthest(int sum, int idx, int cnt, int size)
+{
+    if (cnt == 0)
+    {
+        return size;
+    }
+    if (idx == size - cnt)
+    {
+        return 0;
+    }
+
+    auto a = seat_farthest(sum + 1, idx + 1, cnt, size);
+    auto b = min(sum + 1, seat_farthest(0, idx + 1, cnt - 1, size));
+    return max(a, b);
+}
+
+void test_seat_farthest()
+{
+    int n, k; // n is size of bench, k is the number of people, find seat so that each people seat fartest each other
+    cin >> n >> k;
+
+    int r = seat_farthest(n, 0, k, n);
+
+    cout << "the result is " << r << endl;
+}
+
 // Given an array of Integers, find out how many combinations in the array, satisfy the equation x+y+z=w, where x,y,z and w belong to the array and idx(x)<idx(y)<idx(z)<idx(w). Elements are unique.
 // 1 0 1 2 0 -1 4 -> 2
 int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered_map<int, int>& m)
@@ -5252,7 +5278,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    largest_sum();
+    test_seat_farthest();
 }
 
 
