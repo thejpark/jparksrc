@@ -5248,7 +5248,7 @@ void test_zig()
 {
     vector<vector<int>> v {{1, 2}, {3, 4, 5, 6}};
     int i = -1;
-    list<int> l;
+    list<int> l; // instead of integer, we can use iterator for each of vector
 
     auto get = [&](int i) {
                    if (v[0].size() > i)
