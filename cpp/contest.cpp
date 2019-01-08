@@ -2997,6 +2997,72 @@ void kth_number()
     cout << endl;
 }
 
+/*
+Input: [3,1,2,4]
+Output: 17
+Explanation: Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4].
+Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.  Sum is 17.
+
+sol: for each number, find the number of subarray that makes the number minimal.
+
+for example, the number of subarray which can make 3 minimal is 1, 1 is 6, 2 is 4, and 4 is 1. so 3 * 1 + 1 * 6 + 2 * 2 + 4 * 1 = 17.
+we also need to consider that, there can be duplicate elements.
+*/
+
+
+class Solution {
+public:
+    int sumSubarrayMins(vector<int>& A) {
+
+        int sum = 0;
+        int r = int(1e9 + 7); //to handle overflow
+
+        unordered_map<int, int> m;
+
+        for (int i = 0; i < A.size(); ++i)
+        {
+            m[i] = A.size();
+        }
+
+        stack<int> s;
+        s.push(0);
+        for (int i = 1; i < A.size(); ++i)
+        {
+            while (s.size() > 0 && A[i] < A[s.top()])
+            {
+                m[s.top()] = i;
+                s.pop();
+            }
+            s.push(i);
+         }
+
+        unordered_map<int, int> m2;
+
+        for (int i = A.size() - 1; i >= 0; --i)
+        {
+            m2[i] = -1;
+        }
+
+        stack<int> s2;
+        s2.push(A.size() - 1);
+        for (int i = A.size() - 2; i >= 0; --i)
+        {
+            while (s2.size() > 0 && A[i] <= A[s2.top()]) // remove duplicate case by using “<=“ instead of <.
+            {
+                m2[s2.top()] = i;
+                s2.pop();
+            }
+            s2.push(i);
+         }
+
+        for (int i = 0; i < A.size(); ++i)
+        {
+            sum = (sum + A[i] * (m[i] - i) * (i - m2[i])) % r;
+        }
+
+        return sum;
+    }
+};
 
 /*
 
@@ -5278,6 +5344,48 @@ void test_zig()
 
     cout << endl;
 }
+
+
+/*
+  Input: [3,3,3,1,2,1,1,2,3,3,4]
+  Output: 5
+  Explanation: We can collect [1,2,1,1,2].
+  If we started at the first tree or the eighth tree, we would only collect 4 fruits.
+ */
+int totalFruit(vector<int>& tree) {
+
+    int prev = tree[0];
+    unordered_map<int, int> m;
+    m[prev] = 0;
+    int begin = 0;
+    int max_t = 1;
+
+    for (int i = 1; i < tree.size(); ++i)
+    {
+        if (m.find(tree[i]) != m.end())
+        {
+            if (prev != tree[i])
+                m[tree[i]] = i;
+        }
+        else
+        {
+            if (m.size() == 2)
+            {
+                max_t = max(max_t, i - begin);
+                begin = m[prev];
+                m.clear();
+                m[prev] = begin;
+            }
+            m[tree[i]] = i;
+        }
+
+        prev = tree[i];
+    }
+
+    max_t = max(max_t, int(tree.size() - begin));
+    return max_t;
+}
+
 
 int main()
 {
