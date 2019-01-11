@@ -3626,7 +3626,7 @@ int non_dec_seq_dp(vector<int>& v)
 
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 // Output: Order of characters is 'b', 'd', 'a', 'c'
-//                                      Note that words are sorted and in the given language "baa" 
+//                                      Note that words are sorted and in the given language "baa"
 //                                      comes before "abcd", therefore 'b' is before 'a' in output.
 //                                      Similarly we can find other orders.
 
@@ -4339,6 +4339,119 @@ void test_unique_string()
     cout << a << " : " << unique_str(a) << endl;
     cout << b << " : " << unique_str(b) << endl;
 }
+
+
+class editor {
+public:
+
+    editor() : cur(0) {}
+
+    void insert(char c)
+    {
+        auto pos = next(l.begin(), cur);
+        l.insert(pos, c);
+        h.push({true, cur, c});
+    }
+
+    void backs()
+    {
+        if (cur == 0)
+            return;
+
+        --cur;
+        auto pos = next(l.begin(), cur);
+        char c = *pos;
+        l.erase(pos);
+        h.push({false, cur, c});
+    }
+
+    void ml()
+    {
+        if (l.size() == 0 || cur == 0)
+            return;
+
+        --cur;
+    }
+
+    void mr()
+    {
+        if (l.size() == 0 || next(l.begin(), cur + 1) == l.end())
+            return;
+
+        ++cur;
+    }
+
+    void undo()
+    {
+        auto e = h.top();
+        h.pop();
+        if (e.type)
+        {
+            // if insert, perform remove
+            l.erase(next(l.begin(), e.loc));
+        }
+        else
+        {
+            l.insert(next(l.begin(), e.loc), e.c);
+        }
+    }
+
+    void print()
+    {
+        for (auto e: l)
+        {
+            cout << " " << e;
+        }
+
+        cout << endl;
+    }
+
+
+private:
+
+    struct record {
+        bool type;
+        int loc;
+        char c;
+    };
+
+    list<char> l;
+    stack<record> h;
+    int cur;
+};
+
+void test_editor_using_list()
+{
+    editor e;
+
+    e.ml();
+    e.mr();
+    e.backs();
+    e.insert('c');
+    e.print();
+    e.insert('b');
+    e.print();
+    e.insert('a');
+    e.print();
+    e.ml();
+    e.mr();
+    e.mr();
+    e.mr();
+    e.mr();
+    e.backs();
+    e.print();
+    e.mr();
+    e.mr();
+    e.mr();
+    e.backs();
+    e.print();
+    e.undo();
+    e.print();
+    e.undo();
+    e.print();
+}
+
+
 // reference
 // https://github.com/andreis/interview
 //
@@ -4361,5 +4474,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_find_same_index_and_val_in_sorted_array();
+    test_editor_using_list();
 }
