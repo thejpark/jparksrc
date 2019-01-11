@@ -4344,30 +4344,28 @@ void test_unique_string()
 class editor {
 public:
 
-    editor() : cur(0) {}
+    editor() : cur(l.begin()) {}
 
     void insert(char c)
     {
-        auto pos = next(l.begin(), cur);
-        l.insert(pos, c);
-        h.push({true, cur, c});
+        cur = l.insert(cur, c);
+        h.push({true, distance(l.begin(), cur), c});
     }
 
     void backs()
     {
-        if (cur == 0)
+        if (cur == l.begin())
             return;
 
         --cur;
-        auto pos = next(l.begin(), cur);
-        char c = *pos;
-        l.erase(pos);
-        h.push({false, cur, c});
+        char c = *cur;
+        h.push({false, distance(l.begin(), cur), c});
+        cur = l.erase(cur);
     }
 
     void ml()
     {
-        if (l.size() == 0 || cur == 0)
+        if (cur == l.begin())
             return;
 
         --cur;
@@ -4375,7 +4373,7 @@ public:
 
     void mr()
     {
-        if (l.size() == 0 || next(l.begin(), cur + 1) == l.end())
+        if (next(cur, 1) == l.end())
             return;
 
         ++cur;
@@ -4411,13 +4409,13 @@ private:
 
     struct record {
         bool type;
-        int loc;
+        long int loc;
         char c;
     };
 
     list<char> l;
     stack<record> h;
-    int cur;
+    list<char>:: iterator cur;
 };
 
 void test_editor_using_list()
