@@ -4350,6 +4350,7 @@ public:
     {
         cur = l.insert(cur, c);
         h.push({true, distance(l.begin(), cur), c});
+        ++cur;
     }
 
     void backs()
@@ -4373,7 +4374,7 @@ public:
 
     void mr()
     {
-        if (next(cur, 1) == l.end())
+        if (cur == l.end())
             return;
 
         ++cur;
