@@ -4381,6 +4381,9 @@ public:
 
     void undo()
     {
+        if (h.empty())
+            return;
+
         auto e = h.top();
         h.pop();
         if (e.type)
@@ -4396,6 +4399,11 @@ public:
 
     void print()
     {
+        if (l.empty())
+        {
+            cout << "empty" << endl;
+        }
+
         for (auto e: l)
         {
             cout << " " << e;
@@ -4442,6 +4450,12 @@ void test_editor_using_list()
     e.mr();
     e.mr();
     e.backs();
+    e.print();
+    e.undo();
+    e.print();
+    e.undo();
+    e.print();
+    e.undo();
     e.print();
     e.undo();
     e.print();
