@@ -4383,7 +4383,10 @@ public:
     void undo()
     {
         if (h.empty())
+        {
+            cout << "no more history" << endl;
             return;
+        }
 
         auto e = h.top();
         h.pop();
@@ -4441,16 +4444,18 @@ void test_editor_using_list()
     e.insert('a');
     e.print();
     e.ml();
-    e.mr();
-    e.mr();
-    e.mr();
-    e.mr();
     e.backs();
     e.print();
     e.mr();
     e.mr();
     e.mr();
     e.backs();
+    e.print();
+    e.backs();
+    e.print();
+    e.undo();
+    e.print();
+    e.undo();
     e.print();
     e.undo();
     e.print();
