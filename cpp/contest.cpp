@@ -5426,6 +5426,64 @@ int subarraysDivByK(vector<int>& A, int K) {
 }
 
 
+class RegexMatcher {
+public:
+    bool isMatch(string s, string p) {
+
+        return isMatch(s, 0, p, 0);
+     }
+
+    bool isMatch(string s, int i, string p, int j)
+    {
+        if (i == s.size())
+        {
+            if(j == p.size())
+            {
+                return true;
+            }
+        }
+
+        if (j == p.size())
+        {
+            if (i < s.size())
+            {
+                return false;
+            }
+        }
+
+        if (p[j] == '.')
+        {
+            if (j + 1 < p.size() && p[j + 1] == '*')
+            {
+                auto a = isMatch(s, i, p, j + 2);
+                auto b = (i >= s.size()) ? false : isMatch(s, i + 1, p, j);
+                return a | b;
+            }
+            else
+            {
+                return isMatch(s, i + 1, p, j + 1);
+            }
+
+        }
+        else if (isalpha(p[j]))
+        {
+            if (j + 1 < p.size() && p[j + 1] == '*')
+            {
+                auto a = isMatch(s, i, p, j + 2);
+                auto b = (i <= s.size() && s[i] == p[j])? isMatch(s, i + 1, p, j) : false;
+                return a | b;
+            }
+            else
+            {
+                return (s[i] == p[j]) && isMatch(s, i + 1, p, j + 1);
+            }
+        }
+
+        return false;
+    }
+
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
