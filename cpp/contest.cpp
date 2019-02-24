@@ -5435,6 +5435,7 @@ public:
 
     bool isMatch(string s, int i, string p, int j)
     {
+        // todo: cleanup this, and implement using DP
         if (i == s.size())
         {
             if(j == p.size())
@@ -5484,6 +5485,15 @@ public:
 
 };
 
+void test_sign()
+{
+    unsigned int x = -2147483648;
+    unsigned int y = -1;
+    int x1 = abs(-2147483648);
+    int y1 = abs(-1);
+    cout << x1 << " " << y1 << endl;
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
@@ -5491,6 +5501,7 @@ int main()
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
     test_zig();
+
 }
 
 
