@@ -5433,9 +5433,34 @@ public:
         return isMatch(s, 0, p, 0);
      }
 
+    bool isMatch(string s, string p) {
+
+        vector<vector<bool>> v(s.size() + 1, vector<bool>(p.size() + 1, false));
+        v.back().back() = true;
+
+        for (int i = s.size(); i >= 0; --i)
+        {
+            for (int j = p.size() - 1; j >= 0; --j)
+            {
+                bool match = (i < s.size() && ((p[j] == s[i]) || (p[j] == '.')));
+                if (j + 1 < p.size() && p[j + 1] == '*')
+                {
+                    auto a = v[i][j + 2];
+                    auto b = match && v[i + 1][j];
+                    v[i][j] =  a | b;
+                }
+                else
+                {
+                    v[i][j] = match && v[i + 1][j + 1];
+                }
+            }
+        }
+
+        return v[0][0];
+    }
+
     bool isMatch(string s, int i, string p, int j)
     {
-        // todo: cleanup this, and implement using DP
         if (i == s.size())
         {
             if(j == p.size())
