@@ -1611,80 +1611,66 @@ void post_office_4()
 // 25114 -> 6
 // 1111111111 -> 89
 // 3333333333 -> 1
-int acode1(string s, int i)
-{
-    if (s.size() == i)
-        return 1;
 
-    if (s[i] == '0')
-    {
-        return 0;
-    }
 
-    // use cache for efficiency
-    if ((s[i] == '1' || s[i] == '2') &&
-        (i + 1 < s.size()))
-    {
-        if (s[i + 1] == '0')
-            return acode1(s, i + 2);
-
-        if (s[i + 1] > '0' && s[i + 1] < '7')
-            return acode1(s, i + 1) + acode1(s, i + 2);
-    }
-
-    return acode1(s, i + 1);
-}
-
-int acode2(string s, int i) //jj
-{
+class acode {
     // I can stick to simple algorithm. And I can go a phase which check if input is healthy or not.
     // for example, if there is more than 1 consecutive 0 in the input, then input is error.
     // So implement happy case, then extend.
+public:
+    int numDecodings(string s) {
 
-    if (i == s.size())
-    {
-        return 1;
+        vector<int> v(s.size() + 1, 0);
+        v[0] = 1;
+
+        for (int i = 1; i <= s.size(); ++i)
+        {
+            int a = 0;
+            if (i <= s.size() &&
+                i > 1 &&
+                ((s[i - 2] == '1' && s[i - 1] >= '0' && s[i - 1] <= '9') ||
+                 (s[i - 2] == '2' && s[i - 1] >= '0' && s[i - 1] <= '6')))
+                a = v[i - 2];
+
+            int b = 0;
+            if (s[i - 1] >= '1' && s[i - 1] <= '9')
+                b =  v[i - 1];
+
+            v[i] = a + b;
+
+        }
+
+        return v.back();
     }
 
-    int a = (s[i] == '0')? 0 : acode2(s, i + 1);
-    int b = ((s[i] == '1' || s[i] == '2') &&
-             (i + 1 < s.size()) &&
-             (s[i + 1] >= '1') &&
-             (s[i + 1] <= '6'))? acode2(s, i + 2) : 0;
-    return a + b;
-}
-
-int acode_dp(string s)
-{
-    vector<int> v(s.size() + 1, 0);
-    v[0] = 1;
-
-    for (int i = 1; i <= v.size(); ++i)
+    int foo(string& s, int i, vector<int>& m)
     {
-        int a = (s[i - 1] == '0')? 0 : v[i - 1];
-        int b = ((i > 1) &&
-                 (s[i - 2] == '1' || s[i - 2] == '2') &&
-                 (s[i - 1] >= '1') &&
-                 (s[i - 1] <= '6'))? v[i - 2] : 0;
-        v[i] = a + b;
+        if (s.size() == i)
+            return 1;
+
+        if (m[i] != 0)
+            return m[i];
+
+        int a = 0;
+        if (s.size() > 1 && ((s[i] == '1' && s[i + 1] >= '0' && s[i + 1] <= '9') ||
+                             (s[i] == '2' && s[i + 1] >= '0' && s[i + 1] <= '6')))
+            a = foo(s, i + 2, m);
+
+        int b = 0;
+        if (s[i] >= '1' && s[i] <= '9')
+            b = foo(s, i + 1, m);
+
+        m[i] = a + b;
+        return a + b;
     }
 
-    return v.back();
-}
+
+};
 
 void alphacode() //j
 {
     string s;
     cin >> s;
-
-    int r = acode1(s, 0);
-    cout << " the result is " << r << endl;
-
-    r = acode2(s, 0);
-    cout << " the result is " << r << endl;
-
-    r = acode_dp(s);
-    cout << " the result is " << r << endl;
 }
 
 
@@ -5428,10 +5414,10 @@ int subarraysDivByK(vector<int>& A, int K) {
 
 class RegexMatcher {
 public:
-    bool isMatch(string s, string p) {
+    // bool isMatch(string s, string p) {
 
-        return isMatch(s, 0, p, 0);
-     }
+    //     return isMatch(s, 0, p, 0);
+    //  }
 
     bool isMatch(string s, string p) {
 
@@ -5519,13 +5505,82 @@ void test_sign()
     cout << x1 << " " << y1 << endl;
 }
 
+
+/*
+  in an array of integer, each number has the number of bigger numbers on the right.
+  For example, [2, 3, 1, 7, 6], 2 has 3, 3 has 2, 1 has 2, 7 has0, 6 has 0.
+  This problem should return the index of the number which has the most, in this case index 0 (for number 2).
+ */
+
+
+struct anode {
+    anode() : left(-1), right(-1) {};
+    int left;
+    int right;
+};
+
+int push_tree(vector<int>& v, vector<anode>& t, int i)
+{
+    int idx = v.size() - 1;
+    if (idx == i)
+    {
+        return 0;
+    }
+
+    int x = 0;
+    while (idx != i)
+    {
+        if (v[idx] > v[i])
+        {
+            if (t[idx].left == -1)
+                t[idx].left = i;
+            x += idx - t[idx].left;
+            idx = t[idx].left;
+        }
+        else
+        {
+            if (t[idx].right == -1)
+                t[idx].right = i;
+            idx = t[idx].right;
+        }
+    }
+
+    return x;
+}
+
+void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
+{
+    int n;
+    cin >> n;
+
+    vector<int> v;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int x = 0;
+    vector<anode> tr(v.size());
+
+    for (int i = v.size() - 1; i >= 0; --i)
+    {
+        int t = push_tree(v, tr, i);
+        x = max(x, t);
+    }
+
+    cout << "the result is " << x << endl;
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_zig();
+    test_find_number_which_has_the_most_bigger_numbers_on_the_right();
 
 }
 
