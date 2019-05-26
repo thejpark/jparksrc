@@ -1655,7 +1655,32 @@ void test_find_best_investment_period_twice()
     cout << "the result is " << m_max << endl;
 }
 
-//
+
+void test_find_best_investment_period_as_many_as_possible()
+{
+    vector<int> v;
+    int n;
+
+    cin >> n;
+
+    for (int i = 0; i < n; ++i)
+    {
+        int t;
+        cin >> t;
+        v.push_back(t);
+    }
+
+    int mmax = 0;
+
+    for (int i = 1; i < v.size(); ++i)
+    {
+        if (v[i] > v[i - 1])
+            mmax += v[i] - v[i - 1];
+    }
+
+    cout << "the result is " << mmax;
+}
+
 // Given a file with a lot of words (10 million) find out the top 10%
 // most frequently occurring words.
 //
