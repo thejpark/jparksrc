@@ -1611,6 +1611,58 @@ void test_find_best_investment_period_once() //jj
 
 // stock share
 // find the best investment period of buying and selling twice //jj
+int maxProfit(vector<int>& prices) {
+    if (prices.size() <= 1)
+        return 0;
+
+    vector<int> v1(prices.size(), 0);
+    int mmin = prices[0];
+    int mmax = 0;
+    v1[0] = 0;
+    for (int i = 1; i < prices.size(); ++i)
+    {
+        mmax = max(mmax, prices[i] - mmin);
+        v1[i] = mmax;
+        mmin = min(mmin, prices[i]);
+    }
+    int mmax1 = mmax;
+
+    vector<int> v2(prices.size(), 0);
+
+ #if 0
+    mmax = 0;
+    int tmax = prices.back();
+    for (int i = prices.size() - 2; i >= 0; --i)
+    {
+        mmax = max(mmax, tmax - prices[i]);
+        v2[i] = mmax;
+        tmax = max(tmax, prices[i]);
+    }
+#else
+    for (int i = prices.size() - 2; i >= 0; --i)
+    {
+        int t = prices[i + 1] - prices[i];
+        v2[i] = max(t, t + v2[i + 1]);
+    }
+    mmax = v2.back();
+    for (int i = prices.size() -2; i >= 0; --i)
+    {
+        mmax = max(v2[i], mmax);
+        v2[i] = mmax;
+    }
+
+#endif
+
+
+    mmax = 0;
+    for (int i = 1; i < prices.size() - 1; ++i)
+    {
+        mmax = max(mmax, v1[i] + v2[i + 1]);
+    }
+
+    return max(mmax1, mmax);
+}
+
 void test_find_best_investment_period_twice()
 {
     vector<int> v;
@@ -1625,34 +1677,9 @@ void test_find_best_investment_period_twice()
         v.push_back(t);
     }
 
-    int end = v.size() - 1;
+    int r = maxProfit(v);
 
-    vector<int> v1(v.size());
-    vector<int> v2(v.size());
-
-    v1[end] = 0;
-    for (int i = v.size() - 2; i >= 0; --i)
-    {
-        int t = v[i + 1] - v[i];
-        v1[i] = max(t, t + v1[i + 1]);
-    }
-
-    v2[0] = 0;
-    int m_min = v[0];
-    for (int i = 1; i < v.size(); ++i)
-    {
-        v2[i] = v[i] - m_min;
-        m_min = min(m_min, v[i]);
-    }
-
-    int m_max = 0;
-    for  (int i = 1; i < v.size() - 1; ++i)
-    {
-        int t = v2[i] + v1[i + 1];
-        m_max = max(m_max, t);
-    }
-
-    cout << "the result is " << m_max << endl;
+    cout << " the result is " << r << endl;
 }
 
 
