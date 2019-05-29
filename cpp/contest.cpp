@@ -5574,6 +5574,56 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     cout << "the result is " << x << endl;
 }
 
+
+/*
+  Given a non-empty binary tree, find the maximum path sum.
+
+  For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
+ */
+class MaxPathSum {
+public:
+    int m{-100000};
+
+    int maxPathSum(TreeNode* root) {
+        if (root == nullptr)
+            return 0;
+
+        foo(root);
+
+        return m;
+    }
+
+    int foo(TreeNode* n)
+    {
+        if (n == nullptr)
+            return 0;
+
+        int l = foo(n->left);
+        int r = foo(n->right);
+
+        if (l < 0 && r < 0)
+        {
+            m = max(m, n->val);
+            return n->val;
+        }
+        else if (l < 0)
+        {
+            m = max(m, n->val + r);
+            return n->val + r;
+        }
+        else if (r < 0)
+        {
+            m = max(m, n->val + l);
+            return n->val + l;
+        }
+        else
+        {
+            m = max(m, n->val + l + r);
+            return n->val + max(l, r);
+        }
+    }
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
