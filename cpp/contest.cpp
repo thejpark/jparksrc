@@ -5580,6 +5580,13 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
 
   For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
  */
+struct TreeNode {
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+};
+
 class MaxPathSum {
 public:
     int m{-100000};
