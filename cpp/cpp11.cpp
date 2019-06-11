@@ -1020,7 +1020,6 @@ class concurrent_stack
 {
 public:
     concurrent_stack() {}
-    top{nullptr};
     void push(T t) {
         node* newHead = new node(t);
         node* oldHead;
@@ -1052,7 +1051,7 @@ private:
         T item;
     };
 
-    node* top;
+    atomic<node*> top{nullptr};
 };
 
 #endif
