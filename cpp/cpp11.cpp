@@ -1011,6 +1011,52 @@ void t22_1()
 
 }
 
+
+#if 0
+
+// concurrent stack without using lock
+template <typename T>
+class concurrent_stack
+{
+public:
+    concurrent_stack() {}
+    top{nullptr};
+    void push(T t) {
+        node* newHead = new node(t);
+        node* oldHead;
+        do {
+            oldHead = top;
+            newHead->next = oldHead;
+        } while (!top->CompareAndSet(oldHead, newHead));
+    }
+
+    T* pop() {
+        node* oldHead;
+        node* newHead;
+        do {
+            oldHead = top;
+            if (oldHead == nullptr)
+                return nullptr;
+            newHead = oldHead->next;
+        } while (!top.compareandset(oldHead, newHead));
+
+        return oldHead->item;
+
+    }
+
+private:
+    class node {
+    public:
+        node (T t) : item(t) {};
+        T* next {nullptr};
+        T item;
+    };
+
+    node* top;
+};
+
+#endif
+
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
