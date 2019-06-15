@@ -63,12 +63,12 @@ void sell(vector<string>& cmd)
 {
     if (cmd.size() != 5)
         return;
-    
+
     int price = stoi(cmd[2]);
-    int size = stoi(cmd[3]);    
+    int size = stoi(cmd[3]);
     if (price <= 0 || size <= 0)
         return;
-    
+
     string& id = cmd[4];
     if (sell_order_map.find(id) != sell_order_map.end() ||
        buy_order_map.find(id) != buy_order_map.end())
@@ -80,7 +80,7 @@ void sell(vector<string>& cmd)
         auto& priceKey = start->first;
         if (priceKey < price || size <= 0)
             break;
-        
+
         auto& sizeLeft = start->second.first;
         auto& itemList = start->second.second;
         while (!(itemList.empty()) && (size > 0))
@@ -88,8 +88,8 @@ void sell(vector<string>& cmd)
             auto& item = itemList.front();
             if (item.m_size > size)
             {
-                resout << "TRADE" << " " << item.m_id << " " << item.m_price << " " << size << " " << 
-                        id << " " << price << " " << size << endl; 
+                resout << "TRADE" << " " << item.m_id << " " << item.m_price << " " << size << " " <<
+                        id << " " << price << " " << size << endl;
 
                 item.m_size -= size;
                 sizeLeft -= size;
@@ -106,18 +106,18 @@ void sell(vector<string>& cmd)
                 itemList.pop_front();
             }
         }
-  
+
         if (sizeLeft == 0)
         {
             buy_price_map.erase(priceKey);
             start = buy_price_map.rbegin();
         }
-        
+
     }
 
     if (size == 0)
         return;
-    
+
     string& type = cmd[1];
     if (type == "GFD")
     {
@@ -135,24 +135,24 @@ void buy(vector<string>& cmd)
 {
     if (cmd.size() != 5)
         return;
-    
+
     int price = stoi(cmd[2]);
     int size = stoi(cmd[3]);
     if (price <= 0 || size <= 0)
         return;
-    
+
     string& id = cmd[4];
     if (sell_order_map.find(id) != sell_order_map.end() ||
        buy_order_map.find(id) != buy_order_map.end())
         return;
-    
+
     auto start = sell_price_map.begin();
     while (start != sell_price_map.end())
     {
         auto& priceKey = start->first;
         if (priceKey > price || size <= 0)
             break;
-        
+
         auto& sizeLeft = start->second.first;
         auto& itemList = start->second.second;
         while (!(itemList.empty()) && (size > 0))
@@ -160,9 +160,9 @@ void buy(vector<string>& cmd)
             auto& item = itemList.front();
             if (item.m_size > size)
             {
-                resout << "TRADE" << " " << item.m_id << " " << item.m_price << " " << size << " " << 
-                        id << " " << price << " " << size << endl; 
- 
+                resout << "TRADE" << " " << item.m_id << " " << item.m_price << " " << size << " " <<
+                        id << " " << price << " " << size << endl;
+
                 item.m_size -= size;
                 sizeLeft -= size;
                 size = 0;
@@ -171,14 +171,14 @@ void buy(vector<string>& cmd)
             {
                 resout << "TRADE" << " " << item.m_id << " " << item.m_price << " " << item.m_size <<
                     " " << id << " " << price << " " << item.m_size << endl;
-                
+
                 size -= item.m_size;
                 sizeLeft -= item.m_size;
                 sell_order_map.erase(item.m_id);
                 itemList.pop_front();
             }
         }
-  
+
         if (sizeLeft == 0)
         {
             sell_price_map.erase(priceKey);
@@ -188,7 +188,7 @@ void buy(vector<string>& cmd)
 
     if (size == 0)
         return;
-    
+
     string& type = cmd[1];
     if (type == "GFD")
     {
@@ -208,7 +208,7 @@ void cancel(vector<string>& cmd)
         return;
 
     string& id = cmd[1];
-       
+
     if (sell_order_map.find(id) != sell_order_map.end())
     {
         auto it = sell_order_map[id];
@@ -249,10 +249,10 @@ void modify(vector<string>& cmd)
 
     if (price <= 0 || size <= 0)
         return;
-       
+
     string type;
     string& id = cmd[1];
-    
+
     if (sell_order_map.find(id) != sell_order_map.end())
     {
         type = sell_order_map[id]->m_type;
@@ -261,7 +261,7 @@ void modify(vector<string>& cmd)
     }
     else if (buy_order_map.find(id) != buy_order_map.end())
     {
-        type = buy_order_map[id]->m_type; 
+        type = buy_order_map[id]->m_type;
         vector<string> newCmd{"CANCEL", id};
         cancel(newCmd);
     }
@@ -269,7 +269,7 @@ void modify(vector<string>& cmd)
     {
         return;
     }
-    
+
     if (cmd[2] == "BUY")
     {
         vector<string> newCmd {"BUY", type, cmd[3], cmd[4], id};
@@ -311,10 +311,10 @@ void process_cmd(vector<string>& cmd)
             break;
     }
 }
-    
+
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
-    
+
     string s;
     vector<string> cmd;
 
