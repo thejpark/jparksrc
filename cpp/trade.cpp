@@ -24,11 +24,10 @@
 using namespace std;
 
 struct order {
-    order(string id, string type, int price, int size) :
-        m_id(id), m_type(type), m_price(price), m_size(size)
+    order(string id, int price, int size) :
+        m_id(id), m_price(price), m_size(size)
         {}
     string m_id;
-    string m_type;
     int m_price;
     int m_size;
 };
@@ -44,7 +43,7 @@ map<int, pair<int, list<order>>> buy_price_map;
 string resultString;
 stringstream resout(resultString);
 
-void print()
+void Print()
 {
     resout << "SELL:" << endl;
     for (auto it = sell_price_map.rbegin(); it != sell_price_map.rend(); ++it)
@@ -59,22 +58,13 @@ void print()
     }
 }
 
-void sell(vector<string>& cmd)
+void Sell(vector<string>& cmd)
 {
-    if (cmd.size() != 5)
-        return;
-
     int price = stoi(cmd[2]);
     int size = stoi(cmd[3]);
-    if (price <= 0 || size <= 0)
-        return;
-
     string& id = cmd[4];
-    if (sell_order_map.find(id) != sell_order_map.end() ||
-       buy_order_map.find(id) != buy_order_map.end())
-        return;
-
     auto start = buy_price_map.rbegin();
+
     while (start != buy_price_map.rend())
     {
         auto& priceKey = start->first;
@@ -121,7 +111,7 @@ void sell(vector<string>& cmd)
     string& type = cmd[1];
     if (type == "GFD")
     {
-        order newOrder(id, type, price, size);
+        order newOrder(id, price, size);
         auto& sellItem = sell_price_map[price];
         sellItem.first += size;
         sellItem.second.emplace_back(newOrder);
@@ -131,22 +121,13 @@ void sell(vector<string>& cmd)
 }
 
 
-void buy(vector<string>& cmd)
+void Buy(vector<string>& cmd)
 {
-    if (cmd.size() != 5)
-        return;
-
     int price = stoi(cmd[2]);
     int size = stoi(cmd[3]);
-    if (price <= 0 || size <= 0)
-        return;
-
     string& id = cmd[4];
-    if (sell_order_map.find(id) != sell_order_map.end() ||
-       buy_order_map.find(id) != buy_order_map.end())
-        return;
-
     auto start = sell_price_map.begin();
+
     while (start != sell_price_map.end())
     {
         auto& priceKey = start->first;
@@ -192,7 +173,7 @@ void buy(vector<string>& cmd)
     string& type = cmd[1];
     if (type == "GFD")
     {
-        order newOrder(id, type, price, size);
+        order newOrder(id, price, size);
         auto& buyItem = buy_price_map[price];
         buyItem.first += size;
         buyItem.second.emplace_back(newOrder);
@@ -202,13 +183,8 @@ void buy(vector<string>& cmd)
 }
 
 
-void cancel(vector<string>& cmd)
+void Cancel(string& id)
 {
-    if (cmd.size() != 2)
-        return;
-
-    string& id = cmd[1];
-
     if (sell_order_map.find(id) != sell_order_map.end())
     {
         auto it = sell_order_map[id];
@@ -239,72 +215,141 @@ void cancel(vector<string>& cmd)
     }
 }
 
-void modify(vector<string>& cmd)
+void Modify(vector<string>& cmd)
 {
-    if (cmd.size() != 5)
-        return;
-
     int price = stoi(cmd[3]);
     int size = stoi(cmd[4]);
-
-    if (price <= 0 || size <= 0)
-        return;
-
-    string type;
     string& id = cmd[1];
 
-    if (sell_order_map.find(id) != sell_order_map.end())
-    {
-        type = sell_order_map[id]->m_type;
-        vector<string> newCmd{"CANCEL", id};
-        cancel(newCmd);
-    }
-    else if (buy_order_map.find(id) != buy_order_map.end())
-    {
-        type = buy_order_map[id]->m_type;
-        vector<string> newCmd{"CANCEL", id};
-        cancel(newCmd);
-    }
-    else
-    {
-        return;
-    }
+    Cancel(id);
 
+    vector<string> newCmd {cmd[2], "GFD", cmd[3], cmd[4], id};
     if (cmd[2] == "BUY")
     {
-        vector<string> newCmd {"BUY", type, cmd[3], cmd[4], id};
-        buy(newCmd);
+        Buy(newCmd);
     }
     else if (cmd[2] == "SELL")
     {
-        vector<string> newCmd {"SELL", type, cmd[3], cmd[4], id};
-        sell(newCmd);
+        Sell(newCmd);
     }
 }
+
+bool IsValidBuyCmd(vector<string>& cmd)
+{
+    if (cmd.size() != 5)
+        return false;
+
+    if (cmd[0] != "BUY")
+        return false;
+
+    int price = stoi(cmd[2]);
+    int size = stoi(cmd[3]);
+    if (price <= 0 || size <= 0)
+        return false;
+
+    string& id = cmd[4];
+    if (sell_order_map.find(id) != sell_order_map.end() ||
+       buy_order_map.find(id) != buy_order_map.end())
+        return false;
+
+    return true;
+}
+
+
+bool IsValidSellCmd(vector<string>& cmd)
+{
+    if (cmd.size() != 5)
+        return false;
+
+    if (cmd[0] != "SELL")
+        return false;
+
+    int price = stoi(cmd[2]);
+    int size = stoi(cmd[3]);
+    if (price <= 0 || size <= 0)
+        return false;
+
+    string& id = cmd[4];
+    if (sell_order_map.find(id) != sell_order_map.end() ||
+       buy_order_map.find(id) != buy_order_map.end())
+        return false;
+
+    return true;
+}
+
+
+bool IsValidModifyCmd(vector<string>& cmd)
+{
+    if (cmd.size() != 5)
+        return false;
+
+    if (cmd[0] != "MODIFY")
+        return false;
+
+    int price = stoi(cmd[3]);
+    int size = stoi(cmd[4]);
+    if (price <= 0 || size <= 0)
+        return false;
+
+    string& id = cmd[1];
+    if (sell_order_map.find(id) == sell_order_map.end() &&
+       buy_order_map.find(id) == buy_order_map.end())
+        return false;
+
+    if (cmd[2] != "BUY" && cmd[2] != "SELL")
+        return false;
+
+    return true;
+}
+
+
+bool IsValidCancelCmd(vector<string>& cmd)
+{
+    if (cmd.size() != 2)
+        return false;
+
+    if (cmd[0] != "CANCEL")
+        return false;
+
+    return true;
+}
+
+
+bool IsValidPrintCmd(vector<string>& cmd)
+{
+    if (cmd.size() != 1)
+        return false;
+
+    if (cmd[0] != "PRINT")
+        return false;
+
+    return true;
+}
+
 
 void process_cmd(vector<string>& cmd)
 {
     switch (cmd[0][0])
     {
         case 'B':
-            if (cmd[0] == "BUY")
-                buy(cmd);
+            if (IsValidBuyCmd(cmd))
+                Buy(cmd);
             break;
         case 'S':
-            if (cmd[0] == "SELL")
-                sell(cmd);
+            if (IsValidSellCmd(cmd))
+                Sell(cmd);
             break;
         case 'M':
-            if (cmd[0] == "MODIFY")
-                modify(cmd);
+            if (IsValidModifyCmd(cmd))
+                Modify(cmd);
             break;
         case 'P':
-            if (cmd[0] == "PRINT")
-                print();
+            if (IsValidPrintCmd(cmd))
+                Print();
             break;
         case 'C':
-            if (cmd[0] == "CANCEL")
-                cancel(cmd);
+            if (IsValidCancelCmd(cmd))
+                Cancel(cmd[1]);
             break;
 
         default:
