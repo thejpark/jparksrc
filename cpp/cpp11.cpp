@@ -742,7 +742,6 @@ template <typename T>
 T my_bounded_blocking_queue<T>::getItem()
 {
     unique_lock<mutex> lck{mmutex};
-    int i = head;
     T r = data[head];
     head = (head + 1) % capacity;
     return r;
