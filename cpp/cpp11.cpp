@@ -725,9 +725,8 @@ template <typename T>
 void my_bounded_blocking_queue<T>::putItem(T t)
 {
     unique_lock<mutex> lck{mmutex};
-    int i = tail;
-    data[i] = t;
-    tail = (++i > capacity)? 0 : i;
+    data[tail] = t;
+    tail = (tail + 1) % capacity;
 }
 
 template<typename T>
@@ -744,11 +743,65 @@ T my_bounded_blocking_queue<T>::getItem()
 {
     unique_lock<mutex> lck{mmutex};
     int i = head;
-    T r = data[i];
-    head = (++i > capacity)? 0 : i;
+    T r = data[head];
+    head = (head + 1) % capacity;
     return r;
 }
 
+#if 0
+
+struct item{
+    int data;
+};
+
+// An array is needed for holding the items.
+// This is the shared place which will be
+// access by both process
+// item shared_buff [ buff_max ];
+
+// Two variables which will keep track of
+// the indexes of the items produced by producer
+// and consumer The free index points to
+// the next free index. The full index points to
+// the first full index.
+
+constexpr int buf_max = 20;
+int free_index = 0;
+int full_index = 0;
+
+item shared_buff[buff_max;]
+
+void produce(item nextProduced)
+{
+    while(1){
+
+        // check if there is no space
+        // for production.
+        // if so keep waiting.
+        while((free_index + 1) mod buff_max == full_index);
+
+        shared_buff[free_index] = nextProduced;
+        free_index = (free_index + 1) mod buff_max;
+    }
+}
+
+
+item consume()
+{
+    while(1){
+
+        // check if there is an available
+        // item  for consumption.
+        // if not keep on waiting for
+        // get them produced.
+        while(free_index == full_index);
+
+        nextConsumed = shared_buff[full_index];
+        full_index = (full_index + 1) mod buff_max;
+    }
+}
+
+#edif
 
 template <typename T>
 class my_blocking_queue { //jj
