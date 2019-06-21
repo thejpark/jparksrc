@@ -3728,6 +3728,53 @@ bool is_palindrom(int i, int j, string&s)
     return true;
 }
 
+/*
+
+  // compute matrix v[i][j] which tells that substring s[i,j] is palindrom.
+    void compute_palindrom_matrix(vector<vector<char>>& v, string& s)
+    {
+        for (int i = 0; i < v.size(); ++i)
+        {
+            v[i][i] = 1;
+        }
+
+        for (int step = 2; step <= v.size(); step += 2)
+        {
+            for (int i = 0; i + step <= v.size(); ++i)
+            {
+                char a = (s[i] == s[i + step - 1]);
+                if (step == 2)
+                {
+                    v[i][i + step - 1] = a;
+                }
+                else
+                {
+                    v[i][i + step - 1] = a && v[i + 1][i + step - 2];
+                }
+            }
+        }
+
+        for (int step = 1; step < v.size(); ++step)
+        {
+            for (int i = step; i + step < v.size(); ++i)
+            {
+                char a = (s[i - step] == s[i + step]);
+                if (step == 1)
+                {
+                    v[i - step][i + step] = a;
+                }
+                else
+                {
+                    v[i - step][i + step] = a && v[i - step + 1][i + step - 1];
+                }
+            }
+        }
+    }
+
+ */
+
+
+
 void find_all_palindrom(int i, string& s, vector<int> t, vector<vector<int>>& r)
 {
     if (i == s.size())
