@@ -753,53 +753,98 @@ struct item{
     int data;
 };
 
-// An array is needed for holding the items.
-// This is the shared place which will be
-// access by both process
-// item shared_buff [ buff_max ];
-
-// Two variables which will keep track of
-// the indexes of the items produced by producer
-// and consumer The free index points to
-// the next free index. The full index points to
-// the first full index.
-
 constexpr int buf_max = 20;
-int free_index = 0;
-int full_index = 0;
+int head = 0;
+int tail = 0;
+
+condition_variable availItem;
+condition_variable availSpace;
+mutex mtx;
 
 item shared_buff[buff_max;]
 
 void produce(item nextProduced)
 {
-    while(1){
+    while ((head + 1) mod buff_max == tail) {};
 
-        // check if there is no space
-        // for production.
-        // if so keep waiting.
-        while((free_index + 1) mod buff_max == full_index);
+    // 1) using cond and mutex
+    // unique_lock<mutex> lck(mtx);
+    // while ((head + 1) % buff_max == tail)
+    //     availSpace.wait(lck);
 
-        shared_buff[free_index] = nextProduced;
-        free_index = (free_index + 1) mod buff_max;
-    }
+    shared_buff[head] = nextProduced;
+    head = (head + 1) mod buff_max;
+    // availItem.notify_one();
 }
 
 
 item consume()
 {
-    while(1){
+    while (head == tail) {};
+    // 1) using cond and mutex
+    // unique_lock<mutex> lck(mtx);
+    // while (head == tail)
+    //     availItem.wait(lck);
 
-        // check if there is an available
-        // item  for consumption.
-        // if not keep on waiting for
-        // get them produced.
-        while(free_index == full_index);
-
-        nextConsumed = shared_buff[full_index];
-        full_index = (full_index + 1) mod buff_max;
-    }
+    nextConsumed = shared_buff[tail];
+    tail = (tail + 1) mod buff_max;
+    // availSpace.notify_one();
 }
 
+// using lockless
+
+void push(T *ptr)
+{
+    thr_pos().head = head_;
+    thr_pos().head = __sync_fetch_and_add(&head_, 1);
+
+    while (__builtin_expect(thr_pos().head >=
+                            last_tail_ + Q_SIZE, 0))
+    {
+        ::sched_yield();
+
+        auto min = tail_;
+        for (size_t i = 0; i < n_consumers_; ++i) {
+            auto tmp_t = thr_p_[i].tail;
+
+            asm volatile("" ::: "memory"); // compiler barrier
+
+            if (tmp_t < min)
+                min = tmp_t;
+        }
+        last_tail_ = min;
+    }
+
+    ptr_array_[thr_pos().head & Q_MASK] = ptr;
+    thr_pos().head = ULONG_MAX;
+}
+
+T *pop()
+{
+    thr_pos().tail = tail_;
+    thr_pos().tail = __sync_fetch_and_add(&tail_, 1);
+
+    while (__builtin_expect(thr_pos().tail >=
+                            last_head_, 0))
+    {
+        ::sched_yield();
+
+        auto min = head_;
+        for (size_t i = 0; i < n_producers_; ++i) {
+            auto tmp_h = thr_p_[i].head;
+
+            asm volatile("" ::: "memory"); // compiler barrier
+
+            if (tmp_h < min)
+                min = tmp_h;
+        }
+        last_head_ = min;
+    }
+
+    T *ret = ptr_array_[thr_pos().tail & Q_MASK];
+    thr_pos().tail = ULONG_MAX;
+    return ret;
+}
 #edif
 
 template <typename T>
