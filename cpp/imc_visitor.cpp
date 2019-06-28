@@ -2,6 +2,15 @@
 #include <string.h>
 #include <stdio.h>
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+struct Point {
+    double x, y;
+};
+
+using Area = double;
+
 class Circle;
 class Rectangle;
 class Triangle;
@@ -22,26 +31,33 @@ public:
 
 class Circle : public Shape {
 public:
-    Circle();
+    Circle(Point point, unsigned int radius) : p(point), r(radius) {};
     void Accept(ShapeVisitor& visitor) override {
         visitor.Visit(*this);
     }
 
-    size_t GetArea() {
-        return 0;
+    Area GetArea() {
+        return r * r * M_PI;
     }
+
+private:
+    Point p;
+    double r;
 };
 
 class Rectangle : public Shape {
 public:
-    Rectangle();
+    Rectangle(Point lowerLeft, Point upperRight) : p1(lowerLeft), p2(upperRight) {}
     void Accept(ShapeVisitor& visitor) override {
         visitor.Visit(*this);
     }
 
-    size_t GetArea() {
-        return 0;
+    Area GetArea() {
+        return (p2.x - p1.x) * (p2.y - p1.y);
     }
+
+private:
+    Point p1, p2;
 };
 
 class Triangle : public Shape{
@@ -51,7 +67,7 @@ public:
         visitor.Visit(*this);
     }
 
-    size_t GetArea() {
+    Area GetArea() {
         return 0;
     }
 };
@@ -59,7 +75,7 @@ public:
 class AreaVisitor : public ShapeVisitor{
 public:
     AreaVisitor(): total(0) {}
-    size_t GetTotalArea() {
+    Area GetTotalArea() {
         return total;
     }
     void Visit(Circle& c) override {
@@ -73,7 +89,7 @@ public:
     }
 
 private:
-    size_t total;
+    Area total;
 };
 
 
