@@ -5,16 +5,14 @@
 
 using namespace std;
 
-struct NewGameAlgo {
-    int operator()(const GamePlayer& g) {
+int NewGameAlgo (const GamePlayer& g) {
         default_random_engine seed((random_device())()); // random num generator
         return uniform_int_distribution<int>{0, 2}(seed);
-    }
-};
+}
 
 int main()
 {
-    GamePlayer gp(NewGameAlgo());
+    GamePlayer gp(NewGameAlgo);
     cout << "result is : " << gp.GetValue() << endl;
 
 }
