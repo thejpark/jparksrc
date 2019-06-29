@@ -19,8 +19,8 @@ int main()
     cout << "Enter how many games to play: ";
     cin >> n;
 
-    NewGameAlgo algo;
-    DefaultComputerPlayer computer("computer1", algo);
+    NewGameAlgo newAlgo;
+    DefaultComputerPlayer computer("computer1", newAlgo);
     DefaultHumanPlayer human("human1");
 
     DefaultGame game(computer, human);
