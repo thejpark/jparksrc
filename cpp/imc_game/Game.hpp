@@ -4,7 +4,6 @@
 enum Kind {rock = 0, paper, scissor};
 
 class GamePlayer;
-
 class Game {
 public:
     virtual ~Game() {}
