@@ -16,7 +16,10 @@ using namespace std;
 
 class DefaultComputerPlayer : public GamePlayer {
 public:
-    DefaultComputerPlayer(string gameId, GameAlgoFunc strategy = DefaultGameAlgo) : algo(strategy) { id = gameId;}
+    DefaultComputerPlayer(string gameId, GameAlgoFunc strategy = DefaultGameAlgo) :
+        algo(strategy) {
+        id = gameId;
+    }
 
     void Play(Game& g) override {
         int res = algo(*this);
