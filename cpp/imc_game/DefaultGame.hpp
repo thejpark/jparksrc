@@ -40,7 +40,7 @@ private:
     int count = 0;
 
     virtual void ShowHowto() {
-        cout << "enter 0, 1, or 2 (0 for rock, 1 for paper, 2 for scissor)" << endl;
+        cout << endl << "Enter 0, 1, or 2 (0 for rock, 1 for paper, 2 for scissor)" << endl;
     }
 
     virtual void ShowResult() {

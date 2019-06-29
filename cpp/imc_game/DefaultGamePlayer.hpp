@@ -42,7 +42,7 @@ public:
 private:
     virtual int GetUserInput()
     {
-        cout << "user: ";
+        cout << "User: ";
         int t;
         cin >> t;
         return t;
