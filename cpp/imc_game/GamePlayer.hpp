@@ -5,18 +5,23 @@
 #include <stdlib.h>
 #include <time.h>
 
-class GamePlayer;
-
-int defaultGameAlgo(const GamePlayer& g) {
-    srand (time(NULL));
-    return rand() % 3;
-}
+enum class Kind {rock, paper, scissor};
 
 class GamePlayer {
 public:
     using GameAlgoFunc = std::function<int(const GamePlayer&)>;
-    explicit GamePlayer(GameAlgoFunc gc = defaultGameAlgo) : gameAlgo(gc) {}
-    int GetValue() { return gameAlgo(*this); }
+    virtual int GetValue() = 0;
+};
+
+int DefaultGameAlgo(const GamePlayer& g) {
+    srand (time(NULL));
+    return rand() % 3;
+}
+
+class DefaultGamePlayer : public GamePlayer {
+public:
+    explicit DefaultGamePlayer(GameAlgoFunc gc = DefaultGameAlgo) : gameAlgo(gc) {}
+    int GetValue() override { return gameAlgo(*this); }
 
 private:
     GameAlgoFunc gameAlgo;
