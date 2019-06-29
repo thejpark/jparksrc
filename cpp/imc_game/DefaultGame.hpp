@@ -15,7 +15,7 @@ public:
         c.Play(*this);
     }
 
-    void SendRequest(GamePlayer& player, Kind k) override {
+    void Notify(GamePlayer& player, Kind k) override {
         if (player.GetId() == h.GetId()) {
             h_result = k;
             count++;

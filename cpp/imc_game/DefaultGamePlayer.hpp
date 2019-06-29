@@ -23,7 +23,7 @@ public:
 
     void Play(Game& g) override {
         int res = algo(*this);
-        g.SendRequest(*this, static_cast<Kind>(res));
+        g.Notify(*this, static_cast<Kind>(res));
     }
 
 private:
@@ -36,7 +36,7 @@ public:
 
     void Play(Game& g) override {
         int t = GetUserInput();
-        g.SendRequest(*this, static_cast<Kind>(t));
+        g.Notify(*this, static_cast<Kind>(t));
     }
 
 private:

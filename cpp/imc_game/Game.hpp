@@ -7,6 +7,6 @@ class GamePlayer;
 class Game {
 public:
     virtual ~Game() {}
-    virtual void SendRequest(GamePlayer&, Kind) = 0;
+    virtual void Notify(GamePlayer&, Kind) = 0;
 };
 #endif
