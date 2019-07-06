@@ -9,20 +9,20 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-class A 
+class A
 {
-    public A () 
+    public A ()
     {
         System.out.println("A is created");
     }
 }
 
-class B extends A 
+class B extends A
 {
     public B ()
     {
         System.out.println("B is created");
-    }   
+    }
 }
 
 
@@ -30,8 +30,8 @@ class C
 {
     String n;
     int x = y; // x can refer y as y is static. If y is not static, then it cause compile error.
-    static int y = 3; 
-    
+    static int y = 3;
+
     {
         n = new String("this is instance initializer");
         System.out.println(n);
@@ -39,20 +39,20 @@ class C
     }
 
     static String name;
-    
-    static 
+
+    static
     {
         name = new String("this is static initializer");
         System.out.println(name);
         System.out.println("y is " + y);
     }
-    
-    C() 
+
+    C()
     {
-        this(0); // this should be the first to come in the constructor 
+        this(0); // this should be the first to come in the constructor
         System.out.println("C is created");
     }
-    C(int a) 
+    C(int a)
     {
         System.out.println("C is created with " + a);
         _a = a;
@@ -62,7 +62,7 @@ class C
         return _a;
     }
 
-    public boolean isConfusing() 
+    public boolean isConfusing()
     {
         try {
 
@@ -89,7 +89,7 @@ class C
  *
  *
  *
- */ 
+ */
 // Nested classes are divided into two categories: static and non-static.
 // Nested classes that are declared static are simply called static nested
 // classes. Non-static nested classes are called inner classes.
@@ -106,7 +106,7 @@ class C
 
 
 // this class cannot be public class, as public class should be in the same file name (Gingleton.java)
-class Gingleton 
+class Gingleton
 {
     private static Gingleton INSTANCE = null;
     public static Gingleton getInstance()
@@ -118,7 +118,7 @@ class Gingleton
 
         return INSTANCE;
     }
-    private Gingleton() 
+    private Gingleton()
     {
     }
 
@@ -127,38 +127,41 @@ class Gingleton
 
 class Outer {
 
-   class Inner {
-       // inner class cannot have static methodd
-	public void bar() {
-	    System.out.println("Inner::foo");
-	    foo();
-	}
+    class Inner {
+        // inner class cannot have static methodd
+        public void bar() {
+            System.out.println("Inner::bar");
+            foo();
+        }
 
-       Inner() {
-	   System.out.println("Inner");
-       }
+        Inner() {
+            System.out.println("Inner");
+        }
     }
-    static {
-	System.out.println("outer static");
-    }
-    public Inner ix = new Inner();
 
     Outer() {
-	System.out.println("outer");
+        System.out.println("outer");
     }
+
+    public Inner ix = new Inner();
+
+    static {
+        System.out.println("outer static");
+    }
+
     static void foo() {
-	System.out.println("Outer::foo");
+        System.out.println("Outer::foo");
     }
 }
 
 
-class test1 
+class test1
 {
     static class StaticNested {
-	public static void foo() {
-	    System.out.println("Inner::foo");
-	    test1();
-	}
+        public static void foo() {
+            System.out.println("StaticNexted Inner::foo");
+            test1();
+        }
     }
     public static void main(String args[])
     {
@@ -173,98 +176,100 @@ class test1
         }
         int[] b = new int[3];
         System.out.println("the size is " + b.length); // java has no size()
-	String ss = new String("Hello World !!!");
-	for (String s: ss.split(" "))
-	    System.out.println(s);
-	argtest(ss);
-	System.out.println(ss);
-	String x[] = {"a", "this", "is", "this", "b"};
-	maptest(x);
-	StaticNested ix = new StaticNested();
-	ix.foo();
-	Outer ox = new Outer();
-	ox.ix.bar();
-	ox = new Outer();
+        String ss = new String("Hello World !!!");
+        for (String s: ss.split(" "))
+            System.out.println(s);
+        argtest(ss);
+        System.out.println(ss);
+        String x[] = {"a", "this", "is", "this", "b"};
+        maptest(x);
+        StaticNested ix = new StaticNested();
+        ix.foo();
+        Outer ox = new Outer();
+        ox.ix.bar();
+        ox = new Outer();
+        ListExample();
+        stringTest();
     }
 
     static void argtest(String s)
     {
-	s = new String("this is old world");
+        s = new String("this is old world");
     }
 
 
     public static void maptest(String args[])
     {
-	Map<String, Integer> m = new HashMap<String, Integer>();
+        Map<String, Integer> m = new HashMap<String, Integer>();
 
-	// Initialize frequency table from command line
-	for (String a : args) {
+        // Initialize frequency table from command line
+        for (String a : args) {
 
-	    Integer freq = m.get(a);
+            Integer freq = m.get(a);
 
-	    m.put(a, (freq == null) ? 1 : freq + 1);
+            m.put(a, (freq == null) ? 1 : freq + 1);
 
-	}
+        }
 
-	System.out.println(m.size() + " distinct words:");
-	System.out.println(m);
+        System.out.println(m.size() + " distinct words:");
+        System.out.println(m);
 
-	for (Map.Entry e : m.entrySet()) // there are keySet() and valueSet() as well.
-	    System.out.println(e.getKey() + " : " + e.getValue());
+        for (Map.Entry e : m.entrySet()) // there are keySet() and valueSet() as well.
+            System.out.println(e.getKey() + " : " + e.getValue());
 
-	// same
-	System.out.println("****************************1");
-            
-	for (Map.Entry<String, Integer> e : m.entrySet()) // Map.Entry<..>
-	    System.out.println(e.getKey() + " : " + e.getValue());
+        // same
+        System.out.println("****************************1");
 
-	System.out.println("****************************2");
+        for (Map.Entry<String, Integer> e : m.entrySet()) // Map.Entry<..>
+            System.out.println(e.getKey() + " : " + e.getValue());
 
-	for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
-	    Map.Entry e = it.next(); // works fine
-	    System.out.println(e.getKey() + " : " + e.getValue());
-	}
+        System.out.println("****************************2");
 
-	System.out.println("****************************3");
+        for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
+            Map.Entry e = it.next(); // works fine
+            System.out.println(e.getKey() + " : " + e.getValue());
+        }
 
-	for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
-	    Map.Entry<String, Integer>  e = it.next(); // works fine a well
-	    System.out.println(e.getKey() + " : " + e.getValue());
-	}
+        System.out.println("****************************3");
 
-	System.out.println("sorted map");
+        for (Iterator<Map.Entry<String, Integer>> it = m.entrySet().iterator(); it.hasNext();) { // Should specify iterator type. Otherwise error.
+            Map.Entry<String, Integer>  e = it.next(); // works fine a well
+            System.out.println(e.getKey() + " : " + e.getValue());
+        }
 
-	Map<String, Integer> sm = new TreeMap<String, Integer>(m);
-	for (Map.Entry<String, Integer> e : sm.entrySet()) {
-	    System.out.println(e.getKey());
-	}
+        System.out.println("sorted map");
 
-	Map<String, Integer> m2 = new HashMap<String, Integer>(m);
+        Map<String, Integer> sm = new TreeMap<String, Integer>(m);
+        for (Map.Entry<String, Integer> e : sm.entrySet()) {
+            System.out.println(e.getKey());
+        }
 
-	m2.put("test", 1);
+        Map<String, Integer> m2 = new HashMap<String, Integer>(m);
 
-	if(m2.keySet().equals(m.keySet()))
-	    System.out.println("m and m2 has same keyset");
-            
+        m2.put("test", 1);
 
-	if(m2.keySet().containsAll(m.keySet()))
-	    System.out.println("m2 contains m");
-            
+        if(m2.keySet().equals(m.keySet()))
+            System.out.println("m and m2 has same keyset");
+
+
+        if(m2.keySet().containsAll(m.keySet()))
+            System.out.println("m2 contains m");
+
     }
-   
+
     // this function is declared as static, as non-static function cannot be called in static function.
-    public static void test2() 
+    public static void test2()
     {
         Gingleton a = Gingleton.getInstance();
         System.out.println(a);
     }
-    
-    public static void test1() 
+
+    public static void test1()
     {
         System.out.println("test 1 started");
 
         A a;
-        
+
         A b = new B();
 
         b = null;
@@ -275,7 +280,7 @@ class test1
 
         if (c instanceof Object)
             System.out.println("C is instance of Object");
-        
+
         System.out.println("c.isConfusing() is " + c.isConfusing());
     }
 
@@ -301,7 +306,7 @@ class test1
      *
      */
 
-    public static void ListExample() 
+    public static void ListExample()
     {
         List<String> ls = new ArrayList<String>();
         ls.add("One");
@@ -320,7 +325,7 @@ class test1
             System.out.println("ls is string arraylist");
         else
             System.out.println("NO!!");
-        
+
         if (ls instanceof List)
             System.out.println("ls is string list");
         else
@@ -330,7 +335,7 @@ class test1
             System.out.println("ls is string arraylist");
         else
             System.out.println("NO!!");
-        
+
         if (ls instanceof List<?>)
             System.out.println("ls is string list");
         else
@@ -346,7 +351,7 @@ class test1
         String c = b.intern();
 
         System.out.println(" " + a + " " + b + " " + c);
-        
+
         if (a.equals(b)) {
 
             if (a == b) {
@@ -360,7 +365,7 @@ class test1
         } else {
             System.out.println("4");
         }
-        
+
         System.out.println("abc");
 
         String cde = "cde";
