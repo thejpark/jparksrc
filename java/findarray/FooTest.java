@@ -23,8 +23,8 @@ public class FooTest {
         };
 
         MyFindArray fa = new MyFindArray();
-	int i = fa.findArray(a, b);
-	org.junit.Assert.assertEquals("failure - not equal", 2, i);
+        int i = fa.findArray(a, b);
+        org.junit.Assert.assertEquals("failure - not equal", 2, i);
     }
 
     @Test
