@@ -15,11 +15,11 @@ class node {
 
 class Trie {
 public:
-    
+
     node* root;
 
     Trie(): root{new node()} {}
-    void add(string& s) 
+    void add(string& s)
     {
         int i = 0;
         int len = s.size();
@@ -49,7 +49,7 @@ public:
 
 class Solution {
 public:
-    
+
     vector<string> wordBreak(string s, vector<string>& wordDict) {
         Trie trie;
 
@@ -57,12 +57,12 @@ public:
         {
             trie.add(e);
         }
-        
+
         unordered_map<int, vector<string>> mm;
         vector<string> r;
 
         foo(trie, s, 0, r, mm);
-        
+
         for (auto& e : mm)
         {
             cout << e.first << ": " << endl;
@@ -74,9 +74,9 @@ public:
         return r;
     }
 
-    
+
     void foo(Trie& trie,
-            string& s, 
+            string& s,
             int idx,
             vector<string>& r,
             unordered_map<int, vector<string>>& mm)
@@ -86,17 +86,17 @@ public:
             r.push_back("");
             return;
         }
-        
+
         // use cache
         if (mm.find(idx) != mm.end())
         {
             r = mm[idx];
             return;
         }
-        
+
         node* n = trie.root;
         int i = 0;
-        
+
         string tt;
         vector<string> rr;
         while (n->ms.find(s[idx + i]) != n->ms.end())
@@ -130,6 +130,6 @@ int main()
 
     for (auto&e : r)
     {
-        cout << e << endl; 
+        cout << e << endl;
     }
 }
