@@ -8,7 +8,7 @@ using namespace std;
 class node {
     public:
         node():complete{false} {}
-        unordered_map<char, shared_ptr<node> > ms;
+        unordered_map<char, node* > ms;
         bool complete;
         ~node() {}
 };
@@ -16,7 +16,7 @@ class node {
 class Trie {
 public:
     
-    shared_ptr<node> root;
+    node* root;
 
     Trie(): root{new node()} {}
     void add(string& s) 
@@ -24,7 +24,7 @@ public:
         int i = 0;
         int len = s.size();
         //
-        shared_ptr<node> n = root;
+        node* n = root;
         while(i < len)
         {
             auto it = n->ms.find(s[i]);
@@ -36,7 +36,7 @@ public:
 
         while(i < len)
         {
-            shared_ptr<node> temp{new node()};
+            node* temp{new node()};
             n->ms[s[i]] = temp;
             n = temp;
             ++i;
@@ -94,7 +94,7 @@ public:
             return;
         }
         
-        shared_ptr<node> n = trie.root;
+        node* n = trie.root;
         int i = 0;
         
         string tt;
