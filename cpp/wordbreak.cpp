@@ -63,14 +63,6 @@ public:
 
         foo(trie, s, 0, r, mm);
 
-        for (auto& e : mm)
-        {
-            cout << e.first << ": " << endl;
-            for (auto&ee : e.second)
-            {
-                cout << ">" << ee << endl;
-            }
-        }
         return r;
     }
 
