@@ -98,6 +98,7 @@ public:
         int i = 0;
         
         string tt;
+        vector<string> rr;
         while (n->ms.find(s[idx + i]) != n->ms.end())
         {
             n = n->ms[s[idx + i]];
@@ -105,7 +106,6 @@ public:
 
             if (n->complete)
             {
-                vector<string> rr;
                 foo(trie, s, idx + i + 1, rr, mm);
                 for (auto& e : rr)
                 {
@@ -114,6 +114,7 @@ public:
                     else
                         r.push_back(tt);
                 }
+                rr.clear();
             }
             ++i;
         }
