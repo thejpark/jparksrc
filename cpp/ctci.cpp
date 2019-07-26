@@ -1419,44 +1419,18 @@ private:
     shared_ptr<node> tail;
     map<string, shared_ptr<node>> mm;
     int size;
+    int cap;
 
 public:
-    lrumap(int sz) : size(sz) {}
+    lrumap(int sz) : cap(sz) {}
 
     shared_ptr<node> get(string& s)
     {
         if (mm.find(s) != mm.end()) // if (mm.count(s)) // can be used as well
         {
             shared_ptr<node> n = mm[s];
-
-            // set the node as the head of the list
-            if (n == head && n == tail)
-            {
-                // do nothing
-            }
-            else if (n == head)
-            {
-                // do nothing
-            }
-            else if (n == tail)
-            {
-                tail = tail->prev;
-                tail->next = nullptr;
-
-                n->next = head;
-                n->prev = nullptr;
-                head = n;
-            }
-            else
-            {
-                n->prev->next = n->next;
-                n->next->prev = n->prev;
-
-                n->next = head;
-                n->prev = nullptr;
-                head = n;
-            }
-
+            remove(n);
+            prepend(n);
             return n;
         }
         else
@@ -1475,19 +1449,58 @@ public:
             return;
         }
 
-        if (mm.size() == size)
+        if (cap == size)
         {
-            shared_ptr<node> prev = tail->prev;
-            tail->prev = nullptr;
+            shared_ptr<node> n = tail;
+            remove(n);
             mm.erase(mm.find(tail->str));
-            tail = prev;
-            tail->next = nullptr;
+        }
+        else
+        {
+            size++;
         }
 
         n = shared_ptr<node>(new node(s, i));
-        n->next = head;
-        head = n;
         mm[s] = n;
+        prepend(n);
+    }
+
+private:
+    void remove(shared_ptr<node>& n)
+    {
+        if (head == n && tail == n)
+        {
+            n->next = n->prev = head = tail = nullptr;
+        }
+        else if (head == n)
+        {
+            head = n->next;
+            n->next = n->prev = nullptr;
+        }
+        else if (tail == n)
+        {
+            tail = n->prev;
+            n->next = n->prev = nullptr;
+        }
+        else
+        {
+            n->next->prev = n->prev;
+            n->prev->next = n->next;
+            n->next = n->prev = nullptr;
+        }
+    }
+    void prepend(shared_ptr<node>& n)
+    {
+        if (head != nullptr)
+        {
+            n->next = head;
+            head->prev = n;
+            head = n;
+        }
+        else
+        {
+            head = tail = n;
+        }
     }
 };
 
