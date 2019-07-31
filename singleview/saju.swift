@@ -14,10 +14,10 @@ let gan = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"]
 let ji = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
 
 // need to addjust for new year
-let yearStart: Int = 2017
-let monthStart: Int = 3
-let ganStartM: Int = 8
-let jiStartM: Int = 2
+let yearStart: Int = 1939
+let monthStart: Int = 12
+let ganStartM: Int = 3
+let jiStartM: Int = 5
 
 // no need to adjust
 let ganStartY: Int = 2
@@ -41,66 +41,66 @@ func IsLeapyear(_ y: Int) -> Bool {
     if ((y % 4) == 0) {
         return true
     }
-    
+
     return false
 }
 
 
 func getDaysInYear(_ year: Int) -> Int {
-    
+
     if IsLeapyear(year) {
         return 366
     }
-    
+
     return 365
 }
 
 func getDaysInMonth(_ month: Int, year: Int) -> Int {
-    
+
     let m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    
+
     var r = m[month - 1]
     if IsLeapyear(year) && (month == 2) {
         r += 1
     }
-    
+
     return r
 }
 
 func getDaysLeft(_ day: Int, month: Int, year: Int) -> Int {
-    
+
     let m = getDaysInMonth(month, year: year)
     var sum = m - day
     var mm = month + 1
-    
+
     while mm <= 12 {
         sum += getDaysInMonth(mm, year: year)
         mm += 1
     }
-    
+
     return sum
 }
 
 
 func getDays(_ y1: Int, m1: Int, d1: Int, y2: Int, m2: Int, d2: Int) -> Int {
-    
+
     let diff_y = y2 - y1
-    
+
     var sum:Int = 0
-    
+
     var y = y1
     var m = m1
     var d = d1
-    
+
     for _ in 0...diff_y {
         sum += getDaysLeft(d, month: m, year: y)
         y = y + 1
         d = 0
         m = 1
     }
-    
+
     sum -=  getDaysLeft(d2, month: m2, year: y2)
-    
+
     return sum
 }
 
@@ -132,58 +132,53 @@ let m = Int (x - Double(h * 60))
 // month, day, hour, minute
 typealias Nalja = (Int, Int, Int, Int)
 
-// 2016 jolgi, from sohan
-/*
-let Jolgi : [Nalja] = [(1, 6, 7, 8), (2,4,18,46), (3,5,12,43),(4,4,17,27), (5, 5, 10, 42), (6, 5, 14, 48),
-                       (7, 7, 1, 3), (8, 7, 10, 53), (9,7,13,51), (10,8,5,33), (11,7,8,48), (12,7,1,41)]
-*/
-
 // 2017 jolgi, from sohan
+
 let Jolgi : [Nalja] = [(1, 5, 12, 56), (2,4,0,34), (3,5,18,33),(4,4,23,17), (5, 5, 16, 31), (6, 5, 20, 36),
     (7, 7, 6, 51), (8, 7, 16, 40), (9,7,19,38), (10,8,11,22), (11,7,14,38), (12,7,7,32)]
 
 func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
-    
+
     if (b.0 > a.0) {
         return true
     }
     else if (b.0 < a.0) {
         return false
     }
-    
+
     if (b.1 > a.1) {
         return true
     }
     else if (b.1 < a.1) {
         return false
     }
-    
+
     if (b.2 > a.2) {
         return true
     }
     else if (b.2 < a.2) {
         return false
     }
-    
+
     if (b.3 > a.3) {
         return true
     }
     else if (b.3 < a.3) {
         return false
     }
-    
+
     return false
 }
 
 let base_year = yearStart
 func getJolgi(_ year: Int) -> [Nalja] {
-    
+
     var r : [Nalja] = Jolgi
 
     if year == base_year {
         return r
     }
-    
+
     for y in base_year + 1...year {
         for i in 0..<Jolgi.count {
             let m = r[i].3 + 48
@@ -191,13 +186,13 @@ func getJolgi(_ year: Int) -> [Nalja] {
                 r[i].2 += 1
             }
             r[i].3 = m % 60
-            
+
             let h = r[i].2 + 5
             if h >= 24 {
                 r[i].1 += 1
             }
             r[i].2 = h % 24
-            
+
             if IsLeapyear(y - 1) && i == 0 {
                 r[i].1 -= 1
             }
@@ -209,35 +204,35 @@ func getJolgi(_ year: Int) -> [Nalja] {
                     r[i].1 -= 1
                 }
             }
-            
+
         }
     }
-    
+
     return r
 }
 
 func getNyonju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String {
-    
+
     let g = gan[(year - 2014) % 10]
     let j = ji[(year - 2008) % 12]
     let g1 = gan[(year - 2015) % 10]
     let j1 = ji[(year - 2009) % 12]
-    
+
     let jg = getJolgi(year)
     let n : Nalja = (month, day, hour, minute)
-    
+
     if compareNalja(n, b:jg[1]) {
-        
+
         return g1 + j1
     }
-    
+
     return g + j
 }
 
 func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String{
     let d: Nalja = (month, day, hour, minute)
     let jolgi = getJolgi(year)
-    
+
     var index = 0 // or 12?
     for i in 0..<jolgi.count {
         if compareNalja(d, b: jolgi[i]) {
@@ -245,7 +240,7 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
             break
         }
     }
-    
+
     var count = 0
     var diff = year - base_year
     while (diff > 0) {
@@ -259,7 +254,7 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
     // not sure, but need to adjust
     let g = gan[(6 + count) % 10]
     let j = ji[(count) % 12]
-    
+
     return g + j
 }
 
@@ -268,20 +263,20 @@ let timeDiffMap = ["해외": 0, "백령도":40, "울릉":16, "김천":27, "서�
 var timeDiff = 30
 
 func getIlju(_ y: Int, m: Int, d: Int, h: Int, mm: Int) -> String {
-    
+
     var i = getDays(yearStart, m1:monthStart, d1:ganStartM, y2:y, m2:m, d2:d)
     if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }
-    
+
     let gan1 = gan[i % 10]
-    
+
     i = getDays(yearStart, m1:monthStart, d1:jiStartM, y2:y, m2:m, d2:d)
     if (h == 0 && timeDiff > 0 && mm < timeDiff) {
         i -= 1
     }
     let ji1 = ji[i % 12]
-    
+
     return gan1 + ji1
 }
 
@@ -294,7 +289,7 @@ func getSiju(_ ilgan: Int, hour: Int, minute: Int) -> String {
         h.append(timeDiff + 60 + i * 120)
     }
     h.append(24 * 60)
-    
+
     var index = 0
     for i in 0...(h.count - 1) {
         if t < h[i] {
@@ -302,12 +297,12 @@ func getSiju(_ ilgan: Int, hour: Int, minute: Int) -> String {
             break
         }
     }
-    
+
     if index == 0 {
         let g = gan[(g1 + index + 2) % 10]
         let j = ji[0]
         return g + j
-        
+
     }
     else {
         let g = gan[(g1 + index - 1) % 10]
@@ -324,7 +319,7 @@ func getGan(_ ilju: String) -> Int {
             return i
         }
     }
-    
+
     return -1
 }
 
@@ -335,7 +330,7 @@ func getSaju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Strin
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
     let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
-    
+
     return siju + ilju + worju + nyonju
 }
 
@@ -357,7 +352,7 @@ func getJi(_ j: String) -> Int {
             return i
         }
     }
-    
+
     return -1
 }
 
@@ -371,7 +366,7 @@ func getGangYag(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
     let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
-    
+
     // clear sajuohang
     for i in 1...5 {
         sajuohang[i] = 0.0
@@ -381,34 +376,34 @@ func getGangYag(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
     let base = ganjiohang[gan[getGan(ilju)]]
     var sum: Double = 1.0
     sajuohang[base!] = sajuohang[base!] + 1.0
-    
+
     if  helpohang[base!]!.contains(ganjiohang[ji[getJi(ilju)]]!) {
         sum += 1.2
     }
     sajuohang[ganjiohang[ji[getJi(ilju)]]!] = sajuohang[ganjiohang[ji[getJi(ilju)]]!] + 1.2
-    
+
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(siju)]]!) {
         sum += 1.2
     }
     sajuohang[ganjiohang[ji[getJi(siju)]]!] = sajuohang[ganjiohang[ji[getJi(siju)]]!] + 1.2
-    
+
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(worju)]]!) {
         sum += 3
     }
     sajuohang[ganjiohang[ji[getJi(worju)]]!] = sajuohang[ganjiohang[ji[getJi(worju)]]!] + 3.0
 
-    
+
     if helpohang[base!]!.contains(ganjiohang[ji[getJi(nyonju)]]!) {
         sum += 1
     }
     sajuohang[ganjiohang[ji[getJi(nyonju)]]!] = sajuohang[ganjiohang[ji[getJi(nyonju)]]!] + 1.0
 
-    
+
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(siju)]]!) {
         sum += 0.8
     }
     sajuohang[ganjiohang[gan[getGan(siju)]]!] = sajuohang[ganjiohang[gan[getGan(siju)]]!] + 0.8
-    
+
     if helpohang[base!]!.contains(ganjiohang[gan[getGan(worju)]]!) {
         sum += 1
     }
@@ -418,7 +413,7 @@ func getGangYag(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Do
         sum += 0.8
     }
     sajuohang[ganjiohang[gan[getGan(nyonju)]]!] = sajuohang[ganjiohang[gan[getGan(nyonju)]]!] + 0.8
-    
+
     return sum
 }
 
@@ -434,38 +429,38 @@ func getAntiIlgan(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> 
     let nyonju = getNyonju(year, month: month, day: day, hour: hour, minute: month)
     let worju = getWorju(year, month: month, day: day, hour: hour, minute: minute)
     let siju = getSiju(getGan(ilju), hour: hour, minute: minute)
-    
+
     let base = ganjiohang[gan[getGan(ilju)]]
     var sum: Double = 0.0
-    
+
     if  antiohang[base!] == ganjiohang[ji[getJi(ilju)]]! {
         sum += 1.2
     }
-    
+
     if antiohang[base!] == ganjiohang[ji[getJi(siju)]]! {
         sum += 1.2
     }
-    
+
     if antiohang[base!] == ganjiohang[ji[getJi(worju)]]! {
         sum += 3
     }
-    
+
     if antiohang[base!] == ganjiohang[ji[getJi(nyonju)]]! {
         sum += 1
     }
-    
+
     if antiohang[base!] == ganjiohang[gan[getGan(siju)]]! {
         sum += 0.8
     }
-    
+
     if antiohang[base!] == ganjiohang[gan[getGan(worju)]]! {
         sum += 1
     }
-    
+
     if antiohang[base!] == ganjiohang[gan[getGan(nyonju)]]! {
         sum += 0.8
     }
-    
+
     return sum
 }
 
@@ -487,9 +482,9 @@ func getHeeYong(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [I
     let base = ganjiohang[gan[getGan(ilju)]]
     let strength = getGangYag(year, month: month, day: day, hour: hour, minute: minute)
     let anti = getAntiIlgan(year, month: month, day: day, hour: hour, minute: minute)
-    
+
     if strength < 5 {
-        
+
         if (anti > 5) {
             var t = base! + 1
             if t > 5 {
@@ -525,12 +520,12 @@ func getHeeYong(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> [I
             else {
                 ll = [1, 2, 4, 5]
             }
-            
+
             ll.sort(by: {sajuohang[$0] < sajuohang[$1]})
-            
+
             return [ll[0], ll[1]]
         }
-        
+
     }
     else {
         if base == 5 {
@@ -571,7 +566,7 @@ func getBarumOhangIndex(_ str: String) -> Int {
     else if barum_5.contains(str) {
         return 5
     }
-    
+
     return 0
 }
 
@@ -584,6 +579,3 @@ let barum_3 = ["아","악","안","알","암","압","앙","애","액","앵","야"
 let barum_4 = ["사","삭","산","살","삼","삽","상","새","색","생","서","석","선","설","섬","섭","성","세","소","속","손","솔","송","쇄","쇠","수","숙","순","술","숭","쉬","슬","습","승","시","식","신","실","심","십","쌍","씨","자","작","잔","잠","잡","장","재","쟁","저","적","전","절","점","접","정","제","조","족","존","졸","종","좌","죄","주","죽","준","줄","중","즉","즐","즙","증","지","직","진","질","짐","집","징","차","착","찬","찰","참","창","채","책","처","척","천","철","첨","첩","청","체","초","촉","촌","총","촬","최","추","축","춘","출","충","췌","취","측","층","치","칙","친","칠","침","칩","칭"]
 
 let barum_5 = ["마","막","만","말","망","매","맥","맹","멱","면","멸","명","몌","모","목","몰","몽","묘","무","묵","문","물","미","민","밀","박","반","발","방","배","백","번","벌","범","법","벽","변","별","병","보","복","본","볼","봉","부","북","분","불","붕","비","빈","빙","파","판","팔","패","팽","퍅","편","폄","평","폐","포","폭","표","품","풍","피","픽","필","핍"]
-
-
-
