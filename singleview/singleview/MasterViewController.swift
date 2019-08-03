@@ -33,7 +33,7 @@ class Elem: NSObject, NSCoding {
     var dob: String
     var ilganGangYag: (Int, Double, Int, Double)
     var hy: [Int]
-    var prio: Int = 0
+    @objc var prio: Int = 0
 
 
     func encode(with aCoder: NSCoder) {
@@ -480,7 +480,7 @@ class MasterViewController: UITableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             objects.remove(at: (indexPath as NSIndexPath).row)
             tableView.deleteRows(at: [indexPath], with: .fade)

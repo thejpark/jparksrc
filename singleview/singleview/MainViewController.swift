@@ -113,7 +113,7 @@ class MainViewController: UIViewController {
         else {
             
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
-            self.addChildViewController(vc)
+            self.addChild(vc)
             self.view.addSubview(vc.view)
             vc.showInView("등록할까요?",  animated: true)
         }
@@ -130,7 +130,7 @@ class MainViewController: UIViewController {
         }
         else {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
-            self.addChildViewController(vc)
+            self.addChild(vc)
             self.view.addSubview(vc.view)
             vc.showInView("개인 정보를 등록하세요",  animated: true)
             
@@ -181,7 +181,7 @@ class MainViewController: UIViewController {
                 if savedElements.count == 0 {
                     let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
-                    self.addChildViewController(vc2)
+                    self.addChild(vc2)
                     self.view.addSubview(vc2.view)
                     vc2.showInView("저장된 이름이 없습니다",  animated: true)
                     return
@@ -223,7 +223,7 @@ class MainViewController: UIViewController {
         }
         else {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
-            self.addChildViewController(vc)
+            self.addChild(vc)
             self.view.addSubview(vc.view)
             vc.showInView("개인 정보를 등록하세요",  animated: true)
             
@@ -271,7 +271,7 @@ class MainViewController: UIViewController {
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             
-            self.addChildViewController(vc2)
+            self.addChild(vc2)
             self.view.addSubview(vc2.view)
             vc2.showInView("찾는 이름이 없습니다",  animated: true)
             return

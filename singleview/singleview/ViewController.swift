@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 else {
                     let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
-                    self.addChildViewController(vc2)
+                    self.addChild(vc2)
                     self.view.addSubview(vc2.view)
                     vc2.showInView("찾는 이름이 없습니다",  animated: true)
                     return
@@ -87,7 +87,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
             
-            self.addChildViewController(vc2)
+            self.addChild(vc2)
             self.view.addSubview(vc2.view)
             vc2.showInView("이름을 입력하세요",  animated: true)
         }

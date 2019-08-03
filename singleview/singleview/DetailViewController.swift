@@ -75,12 +75,12 @@ class DetailViewController: UIViewController {
         self.configureView()
     }
     
-    func saveOne() {
+    @objc func saveOne() {
         if let detail = self.detailItem {
             detail.save()
             
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
-            self.addChildViewController(vc)
+            self.addChild(vc)
             self.view.addSubview(vc.view)
             vc.showInView("저장되었습니다.",  animated: true)
         }
@@ -104,7 +104,7 @@ class DetailViewController: UIViewController {
                 if savedElements.count == 0 {
                     let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                     
-                    self.addChildViewController(vc2)
+                    self.addChild(vc2)
                     self.view.addSubview(vc2.view)
                     vc2.showInView("저장된 이름이 없습니다",  animated: true)
                     return

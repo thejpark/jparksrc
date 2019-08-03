@@ -187,7 +187,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             } else {
                 let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
                 
-                self.addChildViewController(vc2)
+                self.addChild(vc2)
                 self.view.addSubview(vc2.view)
                 vc2.showInView("성을 입력하세요",  animated: true)
                 return
@@ -196,7 +196,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
-            self.addChildViewController(vc2)
+            self.addChild(vc2)
             self.view.addSubview(vc2.view)
             vc2.showInView("성을 입력하세요",  animated: true)
             return
@@ -208,7 +208,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
-            self.addChildViewController(vc2)
+            self.addChild(vc2)
             self.view.addSubview(vc2.view)
             vc2.showInView("성을 입력하세요",  animated: true)
             return
@@ -219,7 +219,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
 
-            self.addChildViewController(vc2)
+            self.addChild(vc2)
             self.view.addSubview(vc2.view)
             vc2.showInView("생일을 입력하세요",  animated: true)
             return
@@ -265,7 +265,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
         
         let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpConfirmView") as! PopUpViewController
-        self.addChildViewController(vc)
+        self.addChild(vc)
         self.view.addSubview(vc.view)
         
         vc.lastName.text = "성: " + sName + "(" + sNameH + ")  성별: " + gender
