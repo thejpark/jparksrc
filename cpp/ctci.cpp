@@ -1929,6 +1929,35 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return find_min_from_sorted_rotated(v, a, mid);
 }
 
+int find_min_from_sorted_rotated_with_duplicate(vector<int>& v, int i, int j)
+{
+    if (i >= j)
+        return v[i];
+    if (v[i] < v[j])
+        return v[i];
+
+    int m = i + (j - i) / 2;
+
+    if (v[i] > v[j])
+    {
+        if (v[i] <= v[m])
+            return f(v, m + 1, j);
+        else
+            return f(v, i, m);
+    }
+
+    else
+    {
+        if (v[i] > v[m])
+            return f(v, i, m);
+        else if (v[i] < v[m])
+            return f(v, m + 1, j);
+        else
+            return min(f(v, i, m - 1),
+                       f(v, m + 1, j));
+    }
+}
+
 
 void test_find_rand_comb() //jj
 {
