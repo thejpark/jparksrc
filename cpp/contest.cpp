@@ -20,6 +20,7 @@ http://web.stanford.edu/class/cs97si/
 #include <memory>
 #include <queue>
 #include <math.h>
+#include <limits.h>
 using namespace std;
 
 
@@ -5589,7 +5590,7 @@ struct TreeNode {
 
 class MaxPathSum {
 public:
-    int m{-100000};
+    int m{INT_MIN};
 
     int maxPathSum(TreeNode* root) {
         if (root == nullptr)

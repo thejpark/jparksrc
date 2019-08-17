@@ -1929,7 +1929,8 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return find_min_from_sorted_rotated(v, a, mid);
 }
 
-int find_min_from_sorted_rotated_with_duplicate(vector<int>& v, int i, int j)
+// int find_min_from_sorted_rotated_with_duplicate(vector<int>& v, int i, int j)
+int f(vector<int>& v, int i, int j)
 {
     if (i >= j)
         return v[i];
