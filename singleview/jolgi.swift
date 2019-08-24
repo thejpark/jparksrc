@@ -1,4 +1,4 @@
-typealias Nalja = (Int, Int, Int, Int)
+//typealias Nalja = (Int, Int, Int, Int)
 typealias JolgiDict = [Int:[Nalja]]
 
 // Jolgi from 1940
