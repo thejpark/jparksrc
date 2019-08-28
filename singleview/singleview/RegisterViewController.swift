@@ -20,7 +20,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
-        self.selectedDate = dateFormatter.string(from: self.myDatePicker.date)
+        self.selectedDate = String(dateFormatter.string(from: self.myDatePicker.date).prefix(11))
+        dateFormatter.dateFormat = "HH mm"
+        self.selectedTime = dateFormatter.string(from: self.myTimePicker.date)
         
         placePicker.selectRow(placePickerData.count - 1, inComponent: 0, animated: true)
     }
@@ -33,11 +35,13 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var myDatePicker: UIDatePicker!
+    @IBOutlet weak var myTimePicker: UIDatePicker!
     @IBOutlet weak var genderPicker: UIPickerView!
     @IBOutlet weak var placePicker: UIPickerView!
     
     
     var selectedDate: String = ""
+    var selectedTime: String = ""
     weak var m_parent: MainViewController?
     
 
@@ -55,9 +59,15 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBAction func datePickerAction(_ sender: AnyObject) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
-        self.selectedDate = dateFormatter.string(from: self.myDatePicker.date)
+        self.selectedDate = String(dateFormatter.string(from: self.myDatePicker.date).prefix(11))
     }
     
+    @IBAction func timePickerAction(_ sender: AnyObject) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH mm"
+        self.selectedTime = dateFormatter.string(from: self.myTimePicker.date)
+    }
+
     // keyboard should disappear
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -214,7 +224,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         if self.selectedDate.characters.count > 0 {
-            dob = self.selectedDate
+            dob = self.selectedDate + self.selectedTime
         }
         else {
             let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
@@ -270,13 +280,14 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         vc.lastName.text = "성: " + sName + "(" + sNameH + ")  성별: " + gender
         // set date and time of birth
-        var str = self.selectedDate.components(separatedBy: " ")
+        let selectedDateTime = self.selectedDate + self.selectedTime
+        var str = selectedDateTime.components(separatedBy: " ")
         vc.dob.text = "생일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
         vc.place.text = "출생지: " + place
         
         vc.surName = sName
         vc.surNameH = sNameH
-        vc.selectedDate = self.selectedDate
+        vc.selectedDate = self.selectedDate + self.selectedTime
         vc.gender = gender
         vc.birthPlace = place
         
