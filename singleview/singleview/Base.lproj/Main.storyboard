@@ -197,7 +197,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                        <rect key="frame" x="18" y="98" width="81" height="31"/>
+                                        <rect key="frame" x="162" y="97" width="81" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="아니요"/>
@@ -213,7 +213,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                        <rect key="frame" x="201" y="99" width="64" height="30"/>
+                                        <rect key="frame" x="54" y="97" width="64" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="예"/>
@@ -320,8 +320,8 @@
                                     <outlet property="delegate" destination="FDT-xE-FeJ" id="6Nc-cb-Ggf"/>
                                 </connections>
                             </pickerView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mbn-d6-HSc" userLabel="My Time Picker">
-                                <rect key="frame" x="229" y="247" width="143" height="108"/>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
+                                <rect key="frame" x="2" y="239" width="229" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
                                     <!--2015-10-24 21:22:00 +0000-->
@@ -329,8 +329,9 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-1925038800">
                                     <!--1940-01-01 11:00:00 +0000-->
                                 </date>
+                                <locale key="locale" localeIdentifier="ko_KR"/>
                                 <connections>
-                                    <action selector="timePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="RJp-ny-3Mx"/>
+                                    <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="KTi-dM-F7G"/>
                                 </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
@@ -379,8 +380,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
-                                <rect key="frame" x="2" y="239" width="219" height="116"/>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mbn-d6-HSc" userLabel="My Time Picker">
+                                <rect key="frame" x="232" y="243" width="143" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
                                     <!--2015-10-24 21:22:00 +0000-->
@@ -388,9 +389,8 @@
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-1925038800">
                                     <!--1940-01-01 11:00:00 +0000-->
                                 </date>
-                                <locale key="locale" localeIdentifier="ko_KR"/>
                                 <connections>
-                                    <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="KTi-dM-F7G"/>
+                                    <action selector="timePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="RJp-ny-3Mx"/>
                                 </connections>
                             </datePicker>
                         </subviews>
@@ -830,7 +830,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="출생 정보" id="jwC-HT-BlC">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="EYj-DY-NBQ">
+                        <barButtonItem key="rightBarButtonItem" title="수정" id="EYj-DY-NBQ">
                             <connections>
                                 <action selector="registerInfo:" destination="8nf-jD-gsN" id="st4-No-U4S"/>
                             </connections>
