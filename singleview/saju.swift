@@ -211,10 +211,10 @@ func getJolgi(_ year: Int) -> [Nalja] {
 
 func getNyonju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> String {
 
-    let g = gan[(year - 2014) % 10]
-    let j = ji[(year - 2008) % 12]
-    let g1 = gan[(year - 2015) % 10]
-    let j1 = ji[(year - 2009) % 12]
+    let g = gan[(year - 1934) % 10]
+    let j = ji[(year - 1936) % 12]
+    let g1 = gan[(year - 1935) % 10]
+    let j1 = ji[(year - 1937) % 12]
 
     let jg = getJolgi(year)
     let n : Nalja = (month, day, hour, minute)
