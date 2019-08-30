@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C00310D422F6F5FA00E3BD55 /* jolgi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00310D322F6F5F900E3BD55 /* jolgi.swift */; };
 		C02398CD1E8A7354003A329B /* saju-labs-logo1.png in Resources */ = {isa = PBXBuildFile; fileRef = C02398CC1E8A7354003A329B /* saju-labs-logo1.png */; };
 		C03338E91CBF86D1009D729C /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03338E81CBF86D1009D729C /* PopUpViewController.swift */; };
 		C03338EB1CC0F141009D729C /* BorderedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03338EA1CC0F141009D729C /* BorderedButton.swift */; };
@@ -24,8 +25,6 @@
 		C0CE11A91BB2A8C00054284B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CE11A71BB2A8C00054284B /* Main.storyboard */; };
 		C0CE11AB1BB2A8C00054284B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0CE11AA1BB2A8C00054284B /* Assets.xcassets */; };
 		C0CE11AE1BB2A8C00054284B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0CE11AC1BB2A8C00054284B /* LaunchScreen.storyboard */; };
-		C0CE11B91BB2A8C10054284B /* singleviewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE11B81BB2A8C10054284B /* singleviewTests.swift */; };
-		C0CE11C41BB2A8C10054284B /* singleviewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE11C31BB2A8C10054284B /* singleviewUITests.swift */; };
 		C0E77B381BDC8EFA0062C410 /* Hanja.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E77B371BDC8EFA0062C410 /* Hanja.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C00310D322F6F5F900E3BD55 /* jolgi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jolgi.swift; sourceTree = SOURCE_ROOT; };
 		C02398CC1E8A7354003A329B /* saju-labs-logo1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "saju-labs-logo1.png"; sourceTree = "<group>"; };
 		C03338E81CBF86D1009D729C /* PopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		C03338EA1CC0F141009D729C /* BorderedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedButton.swift; sourceTree = "<group>"; };
@@ -67,11 +67,7 @@
 		C0CE11AD1BB2A8C00054284B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C0CE11AF1BB2A8C10054284B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CE11B41BB2A8C10054284B /* BabyName.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyName.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CE11B81BB2A8C10054284B /* singleviewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleviewTests.swift; sourceTree = "<group>"; };
-		C0CE11BA1BB2A8C10054284B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0CE11BF1BB2A8C10054284B /* BabyName.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BabyName.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CE11C31BB2A8C10054284B /* singleviewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleviewUITests.swift; sourceTree = "<group>"; };
-		C0CE11C51BB2A8C10054284B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0E77B371BDC8EFA0062C410 /* Hanja.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hanja.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,8 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				C0CE11A21BB2A8C00054284B /* singleview */,
-				C0CE11B71BB2A8C10054284B /* singleviewTests */,
-				C0CE11C21BB2A8C10054284B /* singleviewUITests */,
 				C0CE11A11BB2A8C00054284B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -123,6 +117,7 @@
 		C0CE11A21BB2A8C00054284B /* singleview */ = {
 			isa = PBXGroup;
 			children = (
+				C00310D322F6F5F900E3BD55 /* jolgi.swift */,
 				C02398CC1E8A7354003A329B /* saju-labs-logo1.png */,
 				C0B745DD1CDC976E000881F8 /* RegisterConfirmViewController.swift */,
 				C0B698C01C8C1FC30053B768 /* saju.swift */,
@@ -144,24 +139,6 @@
 				C0E77B371BDC8EFA0062C410 /* Hanja.swift */,
 			);
 			path = singleview;
-			sourceTree = "<group>";
-		};
-		C0CE11B71BB2A8C10054284B /* singleviewTests */ = {
-			isa = PBXGroup;
-			children = (
-				C0CE11B81BB2A8C10054284B /* singleviewTests.swift */,
-				C0CE11BA1BB2A8C10054284B /* Info.plist */,
-			);
-			path = singleviewTests;
-			sourceTree = "<group>";
-		};
-		C0CE11C21BB2A8C10054284B /* singleviewUITests */ = {
-			isa = PBXGroup;
-			children = (
-				C0CE11C31BB2A8C10054284B /* singleviewUITests.swift */,
-				C0CE11C51BB2A8C10054284B /* Info.plist */,
-			);
-			path = singleviewUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +209,7 @@
 					C0CE119F1BB2A8C00054284B = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = WG2VXYJXTP;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1030;
 					};
 					C0CE11B31BB2A8C10054284B = {
 						CreatedOnToolsVersion = 7.0;
@@ -307,6 +284,7 @@
 				C0CE11A61BB2A8C00054284B /* ViewController.swift in Sources */,
 				C050BC871CB8ADE000B2391B /* RegisterViewController.swift in Sources */,
 				C03338EB1CC0F141009D729C /* BorderedButton.swift in Sources */,
+				C00310D422F6F5FA00E3BD55 /* jolgi.swift in Sources */,
 				C08F41151CC4E84900A69F20 /* SavedViewTableController.swift in Sources */,
 				C0CE11A41BB2A8C00054284B /* AppDelegate.swift in Sources */,
 				C07806381CCB3F5700B81015 /* TTSViewController.swift in Sources */,
@@ -320,7 +298,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0CE11B91BB2A8C10054284B /* singleviewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +305,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0CE11C41BB2A8C10054284B /* singleviewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +395,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = "";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -468,7 +444,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_VERSION = "";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -487,8 +463,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.singleview;
 				PRODUCT_NAME = BabyName;
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -507,8 +482,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.singleview;
 				PRODUCT_NAME = BabyName;
 				PROVISIONING_PROFILE = "";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
