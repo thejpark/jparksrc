@@ -47,9 +47,9 @@ class TTSViewController: UIViewController, UITextFieldDelegate, AVSpeechSynthesi
         var str: String = ""
         
         if let fname = firstNameK.text {
-            if fname.characters.count > 0 {
-                for i in  0..<fname.characters.count {
-                    let index = fname.characters.index(fname.startIndex, offsetBy: i)
+            if fname.count > 0 {
+                for i in  0..<fname.count {
+                    let index = fname.index(fname.startIndex, offsetBy: i)
                     let s = String(fname[index])
                     if let k = han_to_eng[s] {
                         str += k

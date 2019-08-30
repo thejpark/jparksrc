@@ -65,7 +65,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             
             givenName = s
             
-            if givenName.characters.count > 0 {
+            if givenName.count > 0 {
                 let vc = self.storyboard!.instantiateViewController(withIdentifier: "CandidateView") as!
                 MasterViewController
 
