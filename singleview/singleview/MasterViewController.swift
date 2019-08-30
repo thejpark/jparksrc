@@ -62,18 +62,18 @@ class Elem: NSObject, NSCoding {
         let sn = aDecoder.decodeObject(forKey: PropertyKey.surNameKey) as! String
         let sn1 = aDecoder.decodeObject(forKey: PropertyKey.surName1Key) as! String
         var snh: [Hanja] = [Hanja]()
-        for i in 0...(sn1.characters.count - 1) {
-            let index = sn.characters.index(sn.startIndex, offsetBy: i)
-            let index1 = sn1.characters.index(sn1.startIndex, offsetBy: i)
+        for i in 0...(sn1.count - 1) {
+            let index = sn.index(sn.startIndex, offsetBy: i)
+            let index1 = sn1.index(sn1.startIndex, offsetBy: i)
             snh.append(getHanjaData(String(sn1[index1]), hanja: String(sn[index])))
         }
 
         let gn = aDecoder.decodeObject(forKey: PropertyKey.givenNameKey) as! String
         let gn1 = aDecoder.decodeObject(forKey: PropertyKey.givenName1Key) as! String
         var gnh: [Hanja] = [Hanja]()
-        for i in 0...(gn1.characters.count - 1) {
-            let index = gn.characters.index(gn.startIndex, offsetBy: i)
-            let index1 = gn1.characters.index(gn1.startIndex, offsetBy: i)
+        for i in 0...(gn1.count - 1) {
+            let index = gn.index(gn.startIndex, offsetBy: i)
+            let index1 = gn1.index(gn1.startIndex, offsetBy: i)
             gnh.append(getHanjaData(String(gn1[index1]), hanja: String(gn[index])))
         }
         let sj = aDecoder.decodeObject(forKey: PropertyKey.sajuKey) as! String
@@ -106,7 +106,7 @@ class Elem: NSObject, NSCoding {
         super.init()
         
         // Initialization should fail if there is no name or if the rating is negative.
-        if surName1.characters.count < 1 || givenName1.characters.count  < 1 {
+        if surName1.count < 1 || givenName1.count  < 1 {
             return nil
         }
     }
@@ -211,8 +211,8 @@ class Elem: NSObject, NSCoding {
 
     func isBarumInHeeYong() -> Bool {
         
-        for i in 0...self.givenName1.characters.count - 1 {
-            let index = self.givenName1.characters.index(self.givenName1.startIndex, offsetBy: i)
+        for i in 0...self.givenName1.count - 1 {
+            let index = self.givenName1.index(self.givenName1.startIndex, offsetBy: i)
             let i = getBarumOhangIndex(String(self.givenName1[index]))
             if hy.contains(i) {
                 return true
@@ -233,8 +233,8 @@ class Elem: NSObject, NSCoding {
     
     func getBarumOhang() -> String {
         var r: String = "참고로 이름 글자의 발음오행은 "
-        for i in 0...self.givenName1.characters.count - 1 {
-            let index = self.givenName1.characters.index(self.givenName1.startIndex, offsetBy: i)
+        for i in 0...self.givenName1.count - 1 {
+            let index = self.givenName1.index(self.givenName1.startIndex, offsetBy: i)
             r += ohangHanja[getBarumOhangIndex(String(self.givenName1[index]))]!
             r += " "
         }
@@ -348,12 +348,12 @@ class MasterViewController: UITableViewController {
         self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)
 
         prio_set = [[Int:Int]]()
-        for _ in 1...givenName.characters.count {
+        for _ in 1...givenName.count {
             self.prio_set.append([:])
         }
         
         
-        let index = givenName.characters.index(givenName.startIndex, offsetBy: 0)
+        let index = givenName.index(givenName.startIndex, offsetBy: 0)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
         var i: Int = 1
@@ -372,13 +372,13 @@ class MasterViewController: UITableViewController {
     
     func findAndInsert(_ name: [Hanja], givenName: String, idx : Int, prio : [Int]) {
         
-        if (idx == givenName.characters.count) {
+        if (idx == givenName.count) {
             insertNewObject(name, prio: prio)
             return
         }
         
         var gname: [Hanja] = [Hanja]()
-        let index = givenName.characters.index(givenName.startIndex, offsetBy: idx)
+        let index = givenName.index(givenName.startIndex, offsetBy: idx)
         gname = getHanjaDataFromHangul(String(givenName[index]))
         
         var i: Int = 1
@@ -400,7 +400,7 @@ class MasterViewController: UITableViewController {
         
         // filter out all even number or all odd number hanja
         var k = name[0].2 % 2
-        if self.surName.characters.count == 2 {
+        if self.surName.count == 2 {
             k = (name[0].2 + name[1].2) % 2
         }
 
@@ -409,7 +409,7 @@ class MasterViewController: UITableViewController {
         for n in name {
             i += 1
             // skip surname
-            if i <= self.surName.characters.count {
+            if i <= self.surName.count {
                 continue
             }
             
@@ -417,14 +417,14 @@ class MasterViewController: UITableViewController {
                 count += 1
             }
         }
-        if count == name.count - self.surName.characters.count + 1 {
+        if count == name.count - self.surName.count + 1 {
             // instead of just return, we may add some big number to get the priority lower.
             return
         }
         
         //filter out by jawon ohang
         
-        for i in self.surName.characters.count ... name.count - 1 {
+        for i in self.surName.count ... name.count - 1 {
             if self.hy.contains(name[i].3) == false {
                 return
             }
@@ -433,7 +433,7 @@ class MasterViewController: UITableViewController {
         // calculate priority. hanja is assumed be sorted from higher proi to lower.
         var priority: Int = 0
         for i in 0..<prio.count {
-            if let k = prio_set[i][prio[i]] {
+            if prio_set[i][prio[i]] != nil {
             } else {
                 let size = prio_set[i].count + 1
                 prio_set[i][prio[i]] = size
@@ -442,7 +442,7 @@ class MasterViewController: UITableViewController {
         }
         
         // add name
-        let elem = Elem(name: name, num:self.surName.characters.count)
+        let elem = Elem(name: name, num:self.surName.count)
         elem.prio = priority
         elem.saju = getSaju(self.year, month:self.month, day:self.day, hour:self.hour, minute:self.minute)
         elem.dob =  self.dob

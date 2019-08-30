@@ -48,10 +48,10 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBAction func textFieldEdited(_ sender: UITextField) {
         let tmp:String = lastName.text!
         // first character only
-        if tmp.characters.count == 0 {
+        if tmp.count == 0 {
             return
         }
-        let index = tmp.characters.index(tmp.startIndex, offsetBy: 0)
+        let index = tmp.index(tmp.startIndex, offsetBy: 0)
         self.pickerData = getLastNameFromHangul(String(tmp[index]))
         self.picker.reloadAllComponents()
     }
@@ -192,7 +192,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         var dob:String = ""
         
         if let s = lastName.text {
-            if s.characters.count > 0 {
+            if s.count > 0 {
                 sName = s
             } else {
                 let vc2 = self.storyboard!.instantiateViewController(withIdentifier: "PopUpEmpty") as! PopUpViewController
@@ -212,7 +212,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         
-        if self.currData.characters.count > 0 {
+        if self.currData.count > 0 {
             sNameH = self.currData
         }
         else {
@@ -223,7 +223,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             vc2.showInView("성을 입력하세요",  animated: true)
             return
         }
-        if self.selectedDate.characters.count > 0 {
+        if self.selectedDate.count > 0 {
             dob = self.selectedDate + self.selectedTime
         }
         else {
@@ -235,7 +235,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             return
         }
         
-        if sName.characters.count == 2 {
+        if sName.count == 2 {
             if sName == "황보" && currData == "皇" {
                 sNameH += "甫"
             }

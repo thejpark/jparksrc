@@ -313,7 +313,7 @@ func getGan(_ ilju: String) -> Int {
     let i1 = ilju.startIndex
     for i in 0 ... gan.count - 1 {
         let i2 = gan[i].startIndex
-        if gan[i].characters[i2] == ilju.characters[i1] {
+        if gan[i][i2] == ilju[i1] {
             return i
         }
     }
@@ -343,10 +343,10 @@ let ohangHanja = [1:"木", 2:"火", 3:"土", 4:"金", 5:"水"]
 
 
 func getJi(_ j: String) -> Int {
-    let j1 = j.characters.index(j.startIndex, offsetBy: 1)
+    let j1 = j.index(j.startIndex, offsetBy: 1)
     for i in 0 ... ji.count - 1 {
         let j2 = ji[i].startIndex
-        if ji[i].characters[j2] == j.characters[j1] {
+        if ji[i][j2] == j[j1] {
             return i
         }
     }
