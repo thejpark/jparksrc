@@ -4014,32 +4014,39 @@ void find_island_from_2_dimensional_array()
                 continue;
             }
 
-            auto a = (i == 0)? -1 : vr[prev][j];
-            auto b = (j == 0)? -1 : vr[cur][j - 1];
+            int a = (i == 0)? 0 : v[i - 1][j] == 'x';
+            int b = (j == 0)? 0 : v[i][j - 1] == 'x';
 
-            if (a == -1 && b == -1)
+            if (a == 0 && b == 0)
             {
                 vi.emplace_back(count);
                 vr[cur][j] = count;
                 ++count;
             }
-            else if (a == -1)
+            else if (a == 0)
             {
-                vr[cur][j] = b;
+                vr[cur][j] = vr[cur][j - 1];
             }
-            else if (b == -1)
+            else if (b == 0)
             {
-                vr[cur][j] = a;
+                vr[cur][j] = vr[prev][j];
             }
-            else if (a == b)
+            else if (vr[cur][j - 1] == vr[prev][j])
             {
-                vr[cur][j] = b;
+                vr[cur][j] = vr[cur][j - 1];
             }
             else
             {
-                vr[cur][j] = b;
-                // merge or union/find
-                vi[a] = vi[b];
+                vr[cur][j] = vr[cur][j - 1];
+                auto x = vr[prev][j];
+                auto y = vr[cur][j];
+                while (vi[x] != x)
+                    x = vi[x];
+
+                while (vi[y] != y)
+                    y = vi[y];
+
+                vi[x] = vi[y];
             }
         }
 
