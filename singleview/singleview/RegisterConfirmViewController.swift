@@ -78,7 +78,7 @@ class RegisterConfirmViewController: UIViewController {
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "PopUpView") as! PopUpViewController
             self.addChild(vc)
             self.view.addSubview(vc.view)
-            vc.showInView("새로 등록 할까요?",  animated: true)
+            vc.showInView("출생 정보를 수정할까요?",  animated: true)
         }
         else
         {
@@ -86,7 +86,7 @@ class RegisterConfirmViewController: UIViewController {
             
             self.addChild(vc2)
             self.view.addSubview(vc2.view)
-            vc2.showInView("한도 초과 입니다",  animated: true)
+            vc2.showInView("수정 한도 초과입니다",  animated: true)
             return
         }
     }
