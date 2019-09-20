@@ -2504,6 +2504,8 @@ element is the largest value, the second element is the smallest,
 the third element is the second largest element and so on.
 [2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3]
 
+sol 0; as shown below
+sol 1: sort in reverse order [5, 4, 3, 2, 1], then take out bottom half and reverse [1, 2], then merge them.
 sol 2: can you do it without using extra space? yes.
        sort the array from big number to small number.
        [5, 4, 3, 2, 1]. From the position of the first small number, rotate right.
