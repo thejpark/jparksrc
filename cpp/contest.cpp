@@ -5515,9 +5515,10 @@ void test_sign()
 
 
 struct anode {
-    anode() : left(-1), right(-1) {};
+    anode() : left(-1), right(-1), cnt_right(0) {};
     int left;
     int right;
+    int cnt_right;
 };
 
 int push_tree(vector<int>& v, vector<anode>& t, int i)
@@ -5535,13 +5536,14 @@ int push_tree(vector<int>& v, vector<anode>& t, int i)
         {
             if (t[idx].left == -1)
                 t[idx].left = i;
-            x += idx - t[idx].left;
+            x += 1 + t[idx].cnt_right;
             idx = t[idx].left;
         }
         else
         {
             if (t[idx].right == -1)
                 t[idx].right = i;
+            t[idx].cnt_right++;
             idx = t[idx].right;
         }
     }
@@ -5566,6 +5568,9 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     int x = 0;
     vector<anode> tr(v.size());
 
+    // sol1: using binary search tree (as shown below)
+    // sol2: using stack. read from right, if top is bigger than the number of bigger numbers on the right are equal the size of stack.
+    // otherwise keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack.
     for (int i = v.size() - 1; i >= 0; --i)
     {
         int t = push_tree(v, tr, i);
