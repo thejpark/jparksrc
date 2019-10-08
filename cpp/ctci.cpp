@@ -1929,36 +1929,23 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return find_min_from_sorted_rotated(v, a, mid);
 }
 
-// int find_min_from_sorted_rotated_with_duplicate(vector<int>& v, int i, int j)
-int f(vector<int>& v, int i, int j)
+int find_min_from_sorted_rotated_with_duplicate(const vector<int>& v, int i, int j) //jj
 {
-    if (i >= j)
-        return v[i];
-    if (v[i] < v[j])
-        return v[i];
 
-    int m = i + (j - i) / 2;
-
-    if (v[i] > v[j])
+    while (i < j)
     {
-        if (v[i] <= v[m])
-            return f(v, m + 1, j);
-        else
-            return f(v, i, m);
+        int mid = i + (j - i) / 2;
+
+        if (v[mid] > v[j])
+            i = mid + 1;
+        else if (v[mid] < v[j])
+            j = mid;
+        else //for handling duplicate. can't make any decision on whether we should go left or right so just remove this from search space
+            j--;
     }
 
-    else
-    {
-        if (v[i] > v[m])
-            return f(v, i, m);
-        else if (v[i] < v[m])
-            return f(v, m + 1, j);
-        else
-            return min(f(v, i, m - 1),
-                       f(v, m + 1, j));
-    }
+    return v[i];
 }
-
 
 void test_find_rand_comb() //jj
 {
