@@ -4894,7 +4894,7 @@ void test_searching_words_in_a_very_big_file() //jj
 // left, right, top, down wing should be same length of '1's. So
 // if left has two '1' and the rest has one '1' then we should take one.
 // also remember this is sparse matrix
-
+// leetcode 764 using DP
 void find_biggest_plus(vector<string>& v)
 {
     using elem = pair<int, int>;
