@@ -5726,37 +5726,45 @@ int maximumGap2(vector<int>& nums)
 // in order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
 //     Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
 
-int CalcMinHealth(vector<vector<int>>& dungeon)
+int CalcMinHealth(vector<vector<int>>& d)
 {
-    int row = dungeon.size();
-    int col = dungeon[0].size();
+    int row = d.size();
+    int col = d[0].size();
     int A[row][col];
+    A[row - 1][col - 1] = d[row - 1][col - 1];
 
-    // 1. when the knight reached the bottom right corner
-    A[row-1][col-1] = (dungeon[row-1][col-1] > 0) ? 1 : (1 - dungeon[row-1][col-1]);
-
-    // 2. in the last column, bottom-up;
-    for(int i = row - 2; i >= 0; --i) {
-        int aboveValue = A[i+1][col-1] - dungeon[i][col-1];
-        A[i][col-1]  = aboveValue > 0 ? aboveValue : 1;
+    for (int i = row - 2; i >= 0; --i)
+    {
+        int x = d[i][col - 1];
+        if (A[i + 1][col - 1] < 0)
+            x = x + A[i + 1][col - 1];
+        A[i][col - 1] = x;
     }
 
-    // 3. in the last row, from right to left
-    for(int j = col - 2; j >= 0; --j) {
-        int leftValue = A[row-1][j+1] - dungeon[row-1][j];
-        A[row-1][j]  = leftValue > 0 ? leftValue : 1;
+    for (int j = col - 2; j >= 0; --j)
+    {
+        int y = d[row - 1][j];
+        if (A[row - 1][j + 1] < 0)
+            y = y + A[row - 1][j + 1];
+        A[row - 1][j] = y;
     }
 
-    // 4. in other areas, from bottom-right to upper-left
-    for(int i = row - 2; i >=0; --i) {
-        for(int j = col - 2; j >= 0; --j) {
-            int rightValue = (A[i][j+1]-dungeon[i][j] > 0) ? A[i][j+1]-dungeon[i][j] : 1;
-            int belowValue = (A[i+1][j]-dungeon[i][j] > 0) ? A[i+1][j]-dungeon[i][j] : 1;
-            A[i][j] = min(rightValue, belowValue);
+    for (int i = row - 2; i >= 0; --i)
+    {
+        for (int j = col - 2; j >= 0; --j)
+        {
+            int x = max(A[i + 1][j], A[i][j + 1]);
+            int y = d[i][j];
+            if (x < 0)
+                y = y + x;
+            A[i][j] = y;
         }
     }
-    return A[0][0];
 
+    if (A[0][0] <= 0)
+        return 1 - A[0][0];
+    else
+        return 1;
 }
 
 
