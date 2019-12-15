@@ -5726,6 +5726,7 @@ int maximumGap2(vector<int>& nums)
 // in order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
 //     Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
 
+//leet code 174, 741
 int CalcMinHealth(vector<vector<int>>& d)
 {
     int row = d.size();
