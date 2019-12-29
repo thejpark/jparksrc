@@ -1400,6 +1400,83 @@ bool matrix_search(const vector<vector<int>>& va, int x)
     return false;
 }
 
+
+class matrix_search_using_lower_bound {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int m = matrix.size();
+        if (m == 0)
+            return 0;
+
+        int n = matrix[0].size();
+        if (n == 0)
+            return 0;
+
+        int i = 0, j = 0;
+
+        do {
+            j = findj(matrix[i], target);
+
+            if (j == n)
+                --j;
+            else if (matrix[i][j] == target)
+                return true;
+            else if (j == 0)
+                return false;
+            else
+                --j;
+
+            i = findi(matrix, j, target);
+            if (i == m)
+                return false;
+            else if (matrix[i][j] == target)
+                return true;
+
+        } while (i < m && j >= 0);
+
+        return false;
+    }
+
+    int findj(vector<int>& mat, int t)
+    {
+        int i = 0, j = mat.size() - 1;
+
+        while (i <= j)
+        {
+            int mid = i + (j - i) / 2;
+            if (mat[mid] == t)
+                j = mid - 1;
+            else if (mat[mid] > t)
+                j = mid - 1;
+            else
+                i = mid + 1;
+        }
+
+        return i;
+    }
+
+    int findi(vector<vector<int>>& mat, int idx, int t)
+    {
+        int i = 0, j = mat.size() - 1;
+
+        while (i <= j)
+        {
+            int mid = i + (j - i) / 2;
+            if (mat[mid][idx] == t)
+                j = mid - 1;
+            else if (mat[mid][idx] > t)
+                j = mid - 1;
+            else
+                i = mid + 1;
+        }
+
+        return i;
+    }
+
+};
+
+
+
 // implement how to find lru map element if the number of element in the map
 // hits to the max. We only have 1000 element in the map, and later should
 // replace old one with new one.
