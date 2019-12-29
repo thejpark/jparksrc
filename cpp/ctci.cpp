@@ -3706,6 +3706,18 @@ int non_dec_seq_dp(vector<int>& v)
     return *max_element(vd.begin(), vd.end());
 }
 
+int non_dec_seq_nlogn(vector<int>& A)
+{
+    //nlog(n)
+    vector<int> arr;
+    for (int i = 0; i < A.size(); i++)
+        if (arr.empty() || A[i] >= arr[arr.size() - 1])
+            arr.push_back(A[i]);
+        else
+            *(lower_bound(arr.begin(), arr.end(), A[i])) = A[i];
+    return arr.size();
+}
+
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 // Output: Order of characters is 'b', 'd', 'a', 'c'
 //                                      Note that words are sorted and in the given language "baa"
@@ -4616,6 +4628,17 @@ void test_editor_using_list()
 // pixel of p percent black pixel, first consider if the number
 // of black pixel is 1. and then 2. If the size is n, then how to
 // handle n + 1?
+
+void test_lower_bound_upper_bound()
+{
+    vector<int> v{1, 2, 3, 5, 6, 7};
+
+    cout << "lower bound " << *lower_bound(v.begin(), v.end(), 4) << " and upper bound " << *upper_bound(v.begin(), v.end(), 4) << endl;
+
+    vector<char> vc{1, 2, 3, 5, 6, 7};
+    cout << "lower bound " << find_beg(vc, 0, vc.size() - 1, 4) << " and upper bound " << find_end(vc, 0, vc.size() - 1, 4) << endl;
+}
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
@@ -4628,5 +4651,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_editor_using_list();
+    test_lower_bound_upper_bound();
 }
