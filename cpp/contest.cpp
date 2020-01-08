@@ -5570,7 +5570,8 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     vector<anode> tr(v.size());
 
     // sol1: using binary search tree (as shown below)
-    // sol2: using stack. read from right, if top is bigger than the number of bigger numbers on the right are equal the size of stack.
+    // sol2: using binary search tree (using lower_bound)
+    // sol3: using stack. read from right, if top is bigger than the number of bigger numbers on the right are equal the size of stack.
     // otherwise keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack.
     for (int i = v.size() - 1; i >= 0; --i)
     {
@@ -5579,6 +5580,9 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     }
 
     cout << "the result is " << x << endl;
+
+
+
 }
 
 
@@ -5845,7 +5849,85 @@ vector<int> diffWaysToCompute(string input) {
     return v[0][size - 1];
 }
 
+/*
+  Input: "2*3-4*5"
+  Output: [-34, -14, -10, -10, 10]
+  Explanation: 
+  (2*(3-(4*5))) = -34 
+  ((2*3)-(4*5)) = -14 
+  ((2*(3-4))*5) = -10 
+  (2*((3-4)*5)) = -10 
+  (((2*3)-4)*5) = 10
+ */
+class diffway{
+public:
+    vector<int> diffWaysToCompute(string input) {
 
+        int idx = 0;
+        vector<int> rand;
+        vector<char> rator;
+
+        while (idx < input.size())
+        {
+            int j = 0;
+            while (isdigit(input[idx + j]))
+            {
+                ++j;
+                if (idx + j == input.size())
+                    break;
+            }
+            rand.push_back(stoi(input.substr(idx, j)));
+            idx = idx + j;
+
+            if (idx < input.size() && (input[idx] == '+' || input[idx] == '*' || input[idx] == '-'))
+            {
+                rator.push_back(input[idx]);
+                idx++;
+            }
+        }
+
+
+        int size = rand.size();
+
+        vector<vector<vector<int>>> v(size, vector<vector<int>>(size, vector<int>()));
+
+        for (int i = 0; i < size; ++i)
+        {
+            v[i][i].push_back(rand[i]);
+        }
+
+        for (int t = 1; t < size; ++t)
+        {
+            for (int i = 0; i + t < size; ++i)
+            {
+                // for each operator
+                for (int j = i; j < i + t; ++j)
+                {
+                    for (auto& e1 : v[i][j])
+                    {
+                        for (auto& e2 : v[j + 1][i + t])
+                        {
+                            int r = compute(rator[j], e1, e2);
+                            v[i][i + t].push_back(r);
+                        }
+                    }
+                }
+            }
+        }
+
+        return v[0][size - 1];
+    }
+
+    int compute(char c, int x, int y)
+    {
+        if (c == '*')
+            return x * y;
+        else if (c == '+')
+            return x + y;
+        else
+            return x - y;
+    }
+};
 int main()
 {
     // when test your algorithm which takes a string,
