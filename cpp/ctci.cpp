@@ -847,6 +847,32 @@ nodeParent<int>* search_next(nodeParent<int>* n)
     return p;
 }
 
+// if there is no parent
+nodeParent<int>* search_next(nodeParent<int>* root, nodeParent<int>* n)
+{
+    nodeParent<int>* next = nullptr;
+    nodeParent<int>* c = root;
+
+    while (c && c != n)
+    {
+        if (c->val > n->val)
+        {
+            next = c;
+            c = c->left;
+        }
+        else
+        {
+            c = c->right;
+        }
+    }
+
+    if (c == nullptr)
+        nullptr;
+    else if (c->right == nullptr)
+        return next;
+
+    return search_min(c->right);
+}
 
 // check whether a binary tree is balanced or not.
 // what is balanced? distance from the root to all the leaf, min and
