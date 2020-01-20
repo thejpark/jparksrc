@@ -331,44 +331,6 @@ void herd_sum2() //jj
 }
 
 
-void test_reverse_sum() //jj
-{
-    string a, b;
-    cin >> a >> b;
-
-    int len = max(a.size(), b.size());
-    string r;
-    int carry = 0;
-
-    for (int i = 0; i < len; ++i)
-    {
-        int x = 0, y = 0;
-
-        if (i < a.size())
-            x = a[i] - '0';
-        if (i < b.size())
-            y = b[i] - '0';
-
-        int sum = x + y + carry;
-        carry = (sum >= 10)? 1 : 0;
-        sum = sum % 10;
-
-        r.push_back('0' + sum);
-    }
-
-    if (carry == 1)
-        r.push_back('1');
-
-    int i;
-    for (i = 0; i < r.size(); ++i)
-    {
-        if (r[i] != '0')
-            break;
-    }
-
-    string t = r.substr(i);
-    cout << " the result is "  << t << endl;
-}
 
 
 void test_reverse_sum_linked_list()
@@ -4327,6 +4289,44 @@ void test_remove_unbalanced_par()
     cout << "the result is " << s << endl;
 }
 
+void test_reverse_sum() //jj
+{
+    string a, b;
+    cin >> a >> b;
+
+    int len = max(a.size(), b.size());
+    string r;
+    int carry = 0;
+
+    for (int i = 0; i < len; ++i)
+    {
+        int x = 0, y = 0;
+
+        if (i < a.size())
+            x = a[i] - '0';
+        if (i < b.size())
+            y = b[i] - '0';
+
+        int sum = x + y + carry;
+        carry = (sum >= 10)? 1 : 0;
+        sum = sum % 10;
+
+        r.push_back('0' + sum);
+    }
+
+    if (carry == 1)
+        r.push_back('1');
+
+    int i;
+    for (i = 0; i < r.size(); ++i)
+    {
+        if (r[i] != '0')
+            break;
+    }
+
+    string t = r.substr(i);
+    cout << " the result is "  << t << endl;
+}
 int gget (string& s, int idx)
 {
     if (idx >= s.size())
@@ -4367,6 +4367,7 @@ void bin_string_add()
     cout << r << endl;
 
     // sol2: reverse it first
+    // search test_reverse_sum
     reverse(s1.begin(), s1.end());
     reverse(s2.begin(), s2.end());
 
