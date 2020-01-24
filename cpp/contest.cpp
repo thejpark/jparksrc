@@ -2026,6 +2026,42 @@ void all_in_all() //jj
 }
 
 
+// leetcode 115
+/*
+// in java
+
+class Solution {
+public int numDistinct(String s, String t) {
+
+int v[][] = new int[s.length() + 1][t.length() + 1];
+
+for (int i = s.length() - 1; i >= 0; --i)
+{
+    v[i][t.length()] = 1;
+}
+
+for (int i = t.length() - 1; i >= 0; --i)
+{
+    v[s.length()][i] = 0;
+}
+
+v[s.length()][t.length()] = 1;
+for (int i = s.length() - 1; i >= 0; --i)
+{
+    for (int j = t.length() - 1; j >= 0; --j)
+    {
+        int a = (s.charAt(i) == t.charAt(j)) ? v[i + 1][j + 1] : 0;
+        int b = v[i + 1][j];
+        v[i][j] = a + b;
+    }
+}
+
+return v[0][0];
+}
+}
+*/
+
+
 int get_large(vector<int> vi, int i)
 {
     if (vi.size() == (i + 1))
@@ -5853,11 +5889,11 @@ vector<int> diffWaysToCompute(string input) {
 /*
   Input: "2*3-4*5"
   Output: [-34, -14, -10, -10, 10]
-  Explanation: 
-  (2*(3-(4*5))) = -34 
-  ((2*3)-(4*5)) = -14 
-  ((2*(3-4))*5) = -10 
-  (2*((3-4)*5)) = -10 
+  Explanation:
+  (2*(3-(4*5))) = -34
+  ((2*3)-(4*5)) = -14
+  ((2*(3-4))*5) = -10
+  (2*((3-4)*5)) = -10
   (((2*3)-4)*5) = 10
  */
 class diffway{
