@@ -2484,20 +2484,6 @@ sol 1: using recursive method.
      so far is same for the same i, and sum[0, i - 1] == x + y, so we do not need to
      take y as a third argument (x and i is enough.)
 
-sol 2: this is not precise, but approximate.
-       sort array, and then from max number to min number, distribute to
-       one of the worker. If the distribution did not make status change
-       then keep adding the next big task to the same worker. Otherwise
-       change the worker and send the new task to the worker. so,
-       first send 7 to worker1, then send 3, 2, 2 to worker2, then send 1 to
-       worker 1. however, consider [7, 3, 2, 2, 2, 2, 2]. Optimal is (10, 10)
-       but it ends with (11, 9). We can enhance this algorithm by scaning the
-       resulting list, swap items to decrease the difference.
-
-sol 3: sort it, sum it, target = sum / 2, then find sequence of numbers
-       (from the first one, which is biggest) that sums closest to the target.
-       Maintain min sum, and if the current sum is bigger than min then go to
-       the next candidate.
 todo: can it be done in O(n)? Is it 2^n?
 */
 
@@ -3465,6 +3451,30 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
 
     return v[1][n - 1];
 }
+
+
+// find the number of longest palindrome substring
+// Given a string s, find the longest palindromic substring in s
+// Example 1:
+
+// Input: "babad"
+// Output: "bab"
+// Note: "aba" is also a valid answer.
+// sol1: DP
+// sol2 : Brute force (scan from left to right, check if it is palindrom (scan left and right).
+
+void test_find_longest_palindromic_substring()
+{
+    // P(i,j)=(P(i+1,j−1) and S[i]​ ==S[j]​)
+
+    // The base cases are:
+
+    // P(i, i) = true
+
+    // P(i, i + 1) = ( S[i] == S[i + 1])
+ }
+
+
 
 void test_find_min_num_char_to_make_palindrome()
 {
@@ -4742,6 +4752,103 @@ void test_lower_bound_upper_bound()
     cout << "lower bound " << find_beg(vc, 0, vc.size() - 1, 4) << " and upper bound " << find_end(vc, 0, vc.size() - 1, 4) << endl;
 }
 
+
+pair<int, int> getnext(int x, int y, int& left, int& right, int& top, int& bottom, int& d)
+{
+    pair<int, int> r;
+    if (d == 1)
+    {
+        if (x == right)
+        {
+            r.first = x;
+            r.second = y + 1;
+            d = 2;
+            ++top;
+        }
+        else
+        {
+            r.first = x + 1;
+            r.second = y;
+        }
+    }
+    else if (d == 2)
+    {
+        if (y == bottom)
+        {
+            r.first = x - 1;
+            r.second = y;
+            d = 3;
+            --right;
+        }
+        else
+        {
+            r.first = x;
+            r.second = y + 1;
+        }
+    }
+    else if (d == 3)
+    {
+        if (x == left)
+        {
+            r.first = x;
+            r.second = y - 1;
+            d = 4;
+            --bottom;
+        }
+        else
+        {
+            r.first = x - 1;
+            r.second = y;
+        }
+    }
+    else
+    {
+        if (y == top)
+        {
+            r.first = x + 1;
+            r.second = y;
+            d = 1;
+            ++left;
+        }
+        else
+        {
+            r.first = x;
+            r.second = y - 1;
+        }
+    }
+
+    return r;
+}
+
+void test_spiral()
+{
+    int n;
+
+    cin >> n;
+
+    int size = n * n;
+    vector<vector<int>> v(n, vector<int>(n, 0));
+    int x = 0, y = 0;
+    int left = 0, right = n - 1, top = 0, bottom = n - 1, d = 1;
+
+    for (int i = 0; i < size; ++i)
+    {
+        v[y][x] = i;
+        auto r = getnext(x, y, left, right, top, bottom, d);
+        x = r.first;
+        y = r.second;
+    }
+
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            cout << v[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
@@ -4754,5 +4861,4 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_lower_bound_upper_bound();
 }
