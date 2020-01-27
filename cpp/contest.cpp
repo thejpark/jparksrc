@@ -825,17 +825,16 @@ int makeMinChange(vector<int>& denom, int idx, int cnt, int n) //jj
     return r;
 }
 
-void test_denom()
-{
-    cout << makeChange(16, 25) << endl;
+void test_denom() {
+    cout << makeChange(100, 25) << endl;
 
     vector<int> a {25, 10,  5, 1};
     vector<int> b {1, 5, 10, 25};
 
-    cout << makeChange(a, 0, 16) << endl;
-    cout << makeChange(b, 0, 16) << endl;
-    cout << makeChangeDP(b, 16) << endl;
-    cout << makeMinChange(a, 0, 0, 16) << endl;
+    cout << makeChange(a, 0, 100) << endl;
+    cout << makeChange(b, 0, 100) << endl;
+    cout << makeChangeDP(b, 100) << endl;
+    cout << makeMinChange(a, 0, 0, 100) << endl;
 }
 
 
@@ -1116,6 +1115,7 @@ void navi() //jj
 
 void test_find_number_of_island()
 {
+    // union/find
 }
 
 int b(int);
@@ -2029,6 +2029,10 @@ void all_in_all() //jj
 // leetcode 115
 /*
 // in java
+Given a string S and a string T, count the number of distinct subsequences of S which equals T.
+Input: S = "rabbbit", T = "rabbit"
+Output: 3
+// DP
 
 class Solution {
 public int numDistinct(String s, String t) {
@@ -4585,24 +4589,6 @@ void get_max_bin_subsequence()
 
 
 // find largest equal binary sequence of two
-int find_lcs(string s1, string s2)
-{
-    int len = s1.size();
-    while (len > 0)
-    {
-        for (int i = 0; i + len <= s1.size(); ++i)
-        {
-            string tmp = s1.substr(i, len);
-            if (s2.find(tmp) != string::npos)
-            {
-                // found
-                return len;
-            }
-        }
-    }
-    return 0;
-}
-
 int find_lcs_dp(string s1, string s2)
 {
     int n = s1.size() + 1;
@@ -5022,6 +5008,7 @@ void test_find_biggest_plus() //jj
 
 // You have N toffee packets, each containing different number of toffees. The number of toffees contained in the ith packet is denoted by ci. You need to put these toffee packets in 5 boxes such that each box contains at least one toffee packet, and the maximum number of toffees in a box is minimum. You can only choose consecutive toffee packets to put in a box.
 
+// using DP?
 int toffee(int sum, int begin, int count, vector<int>& v)
 {
     if (count == 0)
@@ -5140,6 +5127,7 @@ void test_find_3_numbers_sum_to_w()
 
 // find all numbers the sum of cube of each digits is the number itself
 // ex:153=1^3+5^3+3^3
+// todo: from cube of each number, get the combination of numbers and see if it is the number itself? reverse order?
 void test_find_numbers_xyz_equal_cube_of_all_digit()
 {
     int n;
@@ -5372,6 +5360,17 @@ void test_zig()
 
 
 /*
+  In a row of trees, the i-th tree produces fruit with type tree[i].
+  You start at any tree of your choice, then repeatedly perform the following steps:
+
+  1. Add one piece of fruit from this tree to your baskets.  If you cannot, stop.
+  2. Move to the next tree to the right of the current tree.  If there is no tree to the right, stop.
+  Note that you do not have any choice after the initial choice of starting tree: you must perform step 1, then step 2, then back to step 1, then step 2, and so on until you stop.
+
+  You have two baskets, and each basket can carry any quantity of fruit, but you want each basket to only carry one type of fruit each.
+
+  What is the total amount of fruit you can collect with this procedure?
+
   Input: [3,3,3,1,2,1,1,2,3,3,4]
   Output: 5
   Explanation: We can collect [1,2,1,1,2].
@@ -5768,7 +5767,7 @@ int maximumGap2(vector<int>& nums)
 //     Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
 
 //leet code 174, 741
-int CalcMinHealth(vector<vector<int>>& d)
+int CalcMinHealth_DP(vector<vector<int>>& d)
 {
     int row = d.size();
     int col = d[0].size();
@@ -5971,7 +5970,7 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_find_number_which_has_the_most_bigger_numbers_on_the_right();
+    test_denom();
 
 }
 
