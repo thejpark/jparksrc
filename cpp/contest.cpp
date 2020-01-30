@@ -241,9 +241,6 @@ void vertical_histo()
 
   }
 
-
-
-
 }
 
 
@@ -288,6 +285,7 @@ void herd_sum()
 }
 
 
+// sum_to
 // linear time search of the herd sum with some preprocessing
 void herd_sum2() //jj
 {
@@ -5888,6 +5886,44 @@ public:
             return x - y;
     }
 };
+
+/*
+  Write a program to find the nth super ugly number.
+
+  Super ugly numbers are positive numbers whose all prime factors are in the given prime list primes of size k.
+
+  Example:
+
+  Input: n = 12, primes = [2,7,13,19]
+  Output: 32
+  Explanation: [1,2,4,7,8,13,14,16,19,26,28,32] is the sequence of the first 12
+  super ugly numbers given primes = [2,7,13,19] of size 4.
+ */
+int nthSuperUglyNumber(int n, vector<int>& primes) {
+    vector<int> k(primes.size(), 0);
+    vector<int> v(n, 0);
+    v[0] = 1;
+
+    for (int i = 1; i < n; ++i)
+    {
+        int m = INT_MAX;
+        for (int j = 0; j < primes.size(); ++j)
+        {
+            int val = primes[j] * v[k[j]];
+            m = min(val, m);
+        }
+
+        v[i] = m;
+        for (int j = 0; j < primes.size(); ++j)
+        {
+            if (m == primes[j] * v[k[j]])
+                ++k[j];
+        }
+    }
+
+    return v[n - 1];
+    }
+
 int main()
 {
     // when test your algorithm which takes a string,
