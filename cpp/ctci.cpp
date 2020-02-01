@@ -2533,7 +2533,7 @@ int two_workers_n_job_dp(vector<int>& a, int k)
     return v[a.size()][k];
 }
 
-void test_2_workers_n_jobs() //jj todo: DP? using table? 2 machine n job
+void test_2_workers_n_jobs() //jj
 {
     int n;
     vector<int> a;
@@ -2882,7 +2882,6 @@ public int count(int m, int n){
 */
 
 // todo: can we do it with DP? using table?
-
 int no_adj_1(int m, int n, bool prevOne)
 {
     if (m == 0)
@@ -3885,6 +3884,7 @@ bool is_palindrom(int i, int j, string&s)
 
 /*
 
+  // DP palindrom
   // compute matrix v[i][j] which tells that substring s[i,j] is palindrom.
     void compute_palindrom_matrix(vector<vector<char>>& v, string& s)
     {
@@ -4847,6 +4847,46 @@ void test_spiral()
         }
         cout << endl;
     }
+}
+
+/*
+  leetcode 318
+Given a string array words, find the maximum value of length(word[i]) * length(word[j]) where the two words do not share common letters. You may assume that each word will contain only lower case letters. If no such two words exist, return 0.
+
+Example 1:
+
+Input: ["abcw","baz","foo","bar","xtfn","abcdef"]
+Output: 16
+Explanation: The two words can be "abcw", "xtfn".
+*/
+// using bit vector to check letters are unique between two strings
+int maxProduct(vector<string>& words)
+{
+    if(!words.size()) return 0;
+
+    vector<int> hash(words.size(), 0);
+
+    for(int i = 0; i < words.size(); i++)
+    {
+        for(char c: words[i])
+        {
+            hash[i] |= (1 << c - 'a');
+        }
+    }
+
+    int mx = 0;
+
+    for(int i = 0; i < words.size() - 1; i++)
+    {
+        for(int j = i+1; j < words.size(); j++)
+        {
+            if((hash[i] & hash[j]) == 0)
+            {
+                mx = max(mx, (int)words[i].size() * (int)words[j].size());
+            }
+        }
+    }
+    return mx;
 }
 
 int main()
