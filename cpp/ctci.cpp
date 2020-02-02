@@ -2575,21 +2575,33 @@ void test_return_index_to_max_num() //jj
 
 
 /*
-Given an unsorted array, sort it in such a way that the first
-element is the largest value, the second element is the smallest,
-the third element is the second largest element and so on.
-[2, 4, 3, 5, 1] -> [5, 1, 4, 2, 3]
+  Given an unsorted array nums, reorder it such that nums[0] < nums[1] > nums[2] < nums[3]....
 
-sol 0; as shown below
-sol 1: sort in reverse order [5, 4, 3, 2, 1], then take out bottom half and reverse [1, 2], then merge them.
-sol 2: can you do it without using extra space? yes.
-       sort the array from big number to small number.
-       [5, 4, 3, 2, 1]. From the position of the first small number, rotate right.
-       [5, 1, 4, 3, 2]. Then from the position of the next small number, rotate right.
-       [5, 1, 4, 2, 3].
+  Example 1:
+
+  Input: nums = [1, 5, 1, 1, 6, 4]
+  Output: One possible answer is [1, 4, 1, 5, 1, 6].
 */
+void wiggleSort(vector<int>& nums)
+{
+    vector<int> v(nums);
 
-void test_sort_big_small_number() //jj //without extra space? can we do it? find max then swap, find min then swap, ...
+    sort(v.begin(), v.end());
+    for (int i = 0, j = 0; i < nums.size() / 2; ++i, j += 2)
+    {
+        nums[j] = v[(nums.size() - 1)/ 2 - i];
+        nums[j + 1] = v[nums.size() - 1 - i];
+    }
+
+    if (nums.size() % 2)
+    {
+        nums[nums.size() - 1] = v[0];
+    }
+
+    return;
+}
+
+void test_sort_small_big_small_number() //jj //without extra space? can we do it? find max then swap, find min then swap, ...
 {
   int n;
   cin >> n;
@@ -2601,28 +2613,7 @@ void test_sort_big_small_number() //jj //without extra space? can we do it? find
     v.emplace_back(t);
   }
 
-  sort(v.begin(), v.end(), [](int a, int b){ return a > b;});
-
-  vector<int> v2(v.size(), 0);
-  int j = 0;
-  for (int i = 0; i < v.size(); i += 2) {
-    v2[j++] = i;
-  }
-
-  j = v.size() - 1;
-  for (int i = 1; i < v.size(); i += 2) {
-    v2[j--] = i;
-  }
-
-  for (int i = 0; i < v2.size(); ++i) {
-    int idx = i;
-    while (v2[idx] >= 0) {
-      int next = v2[idx];
-      swap(v[i], v[next]);
-      v2[idx] -= v.size(); // just in case we need to restore v
-      idx = next;
-    }
-  }
+  wiggleSort(v);
 
   cout << " the result is " << endl;
   for (int i = 0; i < v.size(); ++i)
