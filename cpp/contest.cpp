@@ -807,6 +807,7 @@ int makeChangeDP(vector<int>& denom, int n) //jj
     return v.back().back();
 }
 
+// leetcode 322, they do not used idx
 int makeMinChange(vector<int>& denom, int idx, int cnt, int n) //jj
 {
     if (n == 0)
@@ -2747,6 +2748,7 @@ void test_find_and_catch() //jj
 }
 
 // https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/
+// leetcode 307
 class BIT
 {
 public:
@@ -2985,6 +2987,10 @@ void kth_number()
 }
 
 /*
+leetcode 907
+Given an array of integers A, find the sum of min(B), where B ranges over every (contiguous) subarray of A.
+Since the answer may be large, return the answer modulo 10^9 + 7
+
 Input: [3,1,2,4]
 Output: 17
 Explanation: Subarrays are [3], [1], [2], [4], [3,1], [1,2], [2,4], [3,1,2], [1,2,4], [3,1,2,4].
@@ -2992,8 +2998,9 @@ Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.  Sum is 17.
 
 sol: for each number, find the number of subarray that makes the number minimal.
 
-for example, the number of subarray which can make 3 minimal is 1, 1 is 6, 2 is 4, and 4 is 1. so 3 * 1 + 1 * 6 + 2 * 2 + 4 * 1 = 17.
+for example, the number of subarray which can make 3 minimal is 1, 1 is 6, 2 is 22 and 4 is 1. so 3 * 1 + 1 * 6 + 2 * 2 + 4 * 1 = 17.
 we also need to consider that, there can be duplicate elements.
+// also see leetcode 316
 */
 
 
@@ -4501,6 +4508,7 @@ pair<int, int> gmbs_iter(vector<int>&vs, int beg, int size)
     return pair<int, int>(0, 0);
 }
 
+// sum_to_k
 // get max binary sequence
 // linear
 // same problem as longest subarray sum to zero or sum to x
@@ -5936,6 +5944,8 @@ int nthSuperUglyNumber(int n, vector<int>& primes) {
   Input: "cbacdcbc"
   Output: "acdb"
  */
+// using stack
+// also see leetcode 907
 string removeDuplicateLetters(string s) {
     string res;
     vector<int>cnt(26,0);   // arr to store cnt of each character
@@ -5961,6 +5971,42 @@ string removeDuplicateLetters(string s) {
     return res;
 }
 
+
+/*
+  Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
+  Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j (i ≤ j), inclusive.
+  Input: nums = [-2,5,-1], lower = -2, upper = 2,
+  Output: 3 
+  Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2
+*/
+class CountOfRangeSum {
+public:
+    int lo, up;
+    vector<long long> s;
+
+    int countSum(int l, int r) {
+        if (l >= r) return 0;
+        if (r - l + 1 == 2) {
+            return (s[r] - s[l] >= lo && s[r] - s[l] <= up);
+        }
+        int m = (l + r) / 2;
+        int ret = countSum(l, m) + countSum(m + 1, r);
+        vector<long long> a;
+        for(int i = l; i <= m; ++i) a.push_back(s[i]);
+        sort(a.begin(), a.end());
+        for(int i = m+1; i <= r; ++i) {
+            ret += distance(lower_bound(a.begin(), a.end(), s[i] - up), upper_bound(a.begin(), a.end(), s[i] - lo));
+        }
+        return ret;
+    }
+    int countRangeSum(vector<int>& a, int lower, int upper) {
+        lo = lower; up = upper;
+        int n = a.size();
+        s.assign(n+1, 0);
+        for(int i = 1; i <= n; ++i) s[i] = s[i-1] + a[i-1];
+        return countSum(0, n);
+    }
+};
 int main()
 {
     // when test your algorithm which takes a string,
