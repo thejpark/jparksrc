@@ -3000,7 +3000,7 @@ sol: for each number, find the number of subarray that makes the number minimal.
 
 for example, the number of subarray which can make 3 minimal is 1, 1 is 6, 2 is 22 and 4 is 1. so 3 * 1 + 1 * 6 + 2 * 2 + 4 * 1 = 17.
 we also need to consider that, there can be duplicate elements.
-// also see leetcode 316
+// also see leetcode 316 and 84
 */
 
 
@@ -3057,6 +3057,52 @@ public:
         return sum;
     }
 };
+
+/*
+  Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+ */
+
+int largestRectangleArea(vector<int>& heights)
+{
+    stack<int> s;
+
+    vector<int> l(heights.size(), heights.size() - 1);
+    vector<int> r(heights.size(), 0);
+
+    for (int i = 0; i < heights.size(); ++i)
+    {
+        while (!s.empty() && heights[s.top()] > heights[i])
+        {
+            l[s.top()] = i - 1;
+            s.pop();
+        }
+        s.push(i);
+    }
+
+
+    while(!s.empty())
+        s.pop();
+
+    for (int i = heights.size() - 1; i >= 0; --i)
+    {
+        while (!s.empty() && heights[s.top()] > heights[i])
+        {
+            r[s.top()] = i + 1;
+            s.pop();
+        }
+        s.push(i);
+    }
+
+    int m = 0;
+
+    for (int i = 0; i < heights.size(); ++i)
+    {
+        int size = heights[i] * (l[i] - r[i] + 1);
+        m = max(m, size);
+    }
+
+    return m;
+}
 
 /*
 
@@ -5976,7 +6022,7 @@ string removeDuplicateLetters(string s) {
   Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
   Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j (i ≤ j), inclusive.
   Input: nums = [-2,5,-1], lower = -2, upper = 2,
-  Output: 3 
+  Output: 3
   Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2
 */
 class CountOfRangeSum {
