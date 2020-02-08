@@ -3821,6 +3821,37 @@ int non_dec_seq_nlogn(vector<int>& A)
     return arr.size();
 }
 
+/*
+  Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
+ */
+bool increasingTriplet(vector<int>& nums) {
+
+    if (nums.size() == 0)
+        return false;
+
+    vector<int> v;
+
+    v.push_back(nums[0]);
+
+    for (int i = 1; i < nums.size(); ++i)
+    {
+        if (nums[i] > v.back())
+        {
+            v.push_back(nums[i]);
+            if (v.size() == 3)
+                return true;
+        }
+        else
+        {
+            *lower_bound(v.begin(), v.end(), nums[i]) = nums[i];
+
+        }
+    }
+
+    return false;
+
+    }
+
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 // Output: Order of characters is 'b', 'd', 'a', 'c'
 //                                      Note that words are sorted and in the given language "baa"
