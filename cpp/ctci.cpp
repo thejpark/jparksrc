@@ -22,6 +22,7 @@
 #include <algorithm>
 #include <functional> // function  object
 #include <math.h>
+#include <climits>
 #include <map>
 #include <unordered_map>
 #include <stack>
@@ -3849,8 +3850,56 @@ bool increasingTriplet(vector<int>& nums) {
     }
 
     return false;
+}
 
+
+class  MaxSumSubMatrix{
+    // Given a non-empty 2D matrix matrix and an integer k, find the max sum of a rectangle in the matrix such that its sum is no larger than k.
+    //     Example:
+    //     Input: matrix = [[1,0,1],[0,-2,3]], k = 2
+    //     Output: 2
+    //     Explanation: Because the sum of rectangle [[0, 1], [-2, 3]] is 2,
+    //     and 2 is the max number no larger than k (k = 2).
+public:
+    // copy from Discuss
+    int maxSumSubmatrix(vector<vector<int>>& matrix, int k) {
+              // Precompute column prefix sums
+        for (int row = 0; row < matrix.size(); ++row) {
+            int currSum = 0;
+            for (int col = 0; col < matrix[row].size(); ++col) {
+                currSum += matrix[row][col];
+                matrix[row][col] = currSum;
+            }
+        }
+
+        int maxSum = INT_MIN;
+        for (int lCol = 0; lCol < matrix[0].size(); ++lCol) {
+            for (int rCol = lCol; rCol < matrix[0].size(); ++rCol) {
+
+                set<int> bst; // RB tree
+                bst.insert(0);
+
+                int rowPrefSum = 0;
+                for (int row = 0; row < matrix.size(); ++row) {
+                    int currSum = matrix[row][rCol] - (lCol == 0 ? 0 : matrix[row][lCol-1]);
+                    rowPrefSum += currSum;
+
+                    auto searchRes = bst.lower_bound(rowPrefSum - k);
+
+                    if (searchRes != bst.end()) {
+                        maxSum = max(maxSum, rowPrefSum - *searchRes);
+                    }
+
+                    bst.insert(rowPrefSum);
+                }
+
+
+            }
+        }
+
+        return maxSum;
     }
+};
 
 // Input:  words[] = {"baa", "abcd", "abca", "cab", "cad"}
 // Output: Order of characters is 'b', 'd', 'a', 'c'
@@ -3858,7 +3907,7 @@ bool increasingTriplet(vector<int>& nums) {
 //                                      comes before "abcd", therefore 'b' is before 'a' in output.
 //                                      Similarly we can find other orders.
 
-//                                      Input:  words[] = {"caa", "aaa", "aab"}
+// Input:  words[] = {"caa", "aaa", "aab"}
 // Output: Order of characters is 'c', 'a', 'b'
 void alien_language()
 {
@@ -4923,4 +4972,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
+    test_lower_bound_upper_bound();
 }
