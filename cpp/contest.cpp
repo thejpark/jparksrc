@@ -4721,7 +4721,7 @@ void add_without_plus() //jj
     int a, b;
     cin >> a >> b;
 
-    int carry = 0;
+    unsigned int carry = 0; // if it is int, then 1 - 1 gives wrong answer
 
     do {
         carry = a & b;
@@ -6061,6 +6061,8 @@ string removeDuplicateLetters(string s) {
   Input: nums = [-2,5,-1], lower = -2, upper = 2,
   Output: 3
   Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2
+
+  leetcode 327 using mergesort
 */
 class CountOfRangeSum {
 public:
@@ -6096,7 +6098,10 @@ int main()
     // consider 'a', 'ab', 'aba', 'aaa'.
     // Consider also the case the loop of your algorithm is not taken.
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
-    test_denom();
+    // test_denom();
+
+    int* a[10];
+    cout << "size of a is " << sizeof(a) << endl;
 
 }
 
