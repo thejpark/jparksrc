@@ -1709,6 +1709,52 @@ public:
     }
 };
 
+
+/*
+ leetcode 381
+insert(val): Inserts an item val to the collection.
+remove(val): Removes an item val from the collection if present.
+getRandom: Returns a random element from current collection of elements. The probability of each element being returned is linearly related to the number of same value the collection contains.
+*/
+
+class RandomizedCollectionWithDuplicate {
+
+    unordered_map<int, unordered_set<int>> m;
+    vector<int> v;
+public:
+    /** Initialize your data structure here. */
+    RandomizedCollectionWithDuplicate() {
+
+    }
+
+    /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
+    bool insert(int val) {
+        v.push_back(val);
+        m[val].insert(v.size() - 1);
+        return m[val].size() == 1;
+    }
+
+    /** Removes a value from the collection. Returns true if the collection contained the specified element. */
+    bool remove(int val) {
+        if (m[val].size() == 0)
+            return false;
+        int idx = *(m[val].begin());
+        m[val].erase(idx);
+        int last = v.back();
+        v[idx] = last;
+        m[last].insert(idx);
+        m[last].erase(v.size() - 1);
+        v.pop_back();
+        return true;
+    }
+
+    /** Get a random element from the collection. */
+    int getRandom() {
+        int r = rand() % v.size();
+        return v[r];
+    }
+};
+
 // partition int array with k, so that k puts together, smaller than k goes left,//jj
 // and bigger than k goes to right.
 void test_partition_using_k()
