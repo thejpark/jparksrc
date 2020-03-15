@@ -6092,6 +6092,55 @@ public:
         return countSum(0, n);
     }
 };
+
+/*
+leetcode 395
+Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
+
+Example 1:
+
+Input:
+s = "aaabb", k = 3
+
+Output:
+3
+
+The longest substring is "aaa", as 'a' is repeated 3 times.
+Example 2:
+
+Input:
+s = "ababbc", k = 2
+
+Output:
+5
+
+The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+ */
+int sub(const string& s, int k, int l, int r) {
+    if (r -l < k) return 0;
+    array<int, 26> a = {};
+    for (int i = l; i < r; ++i) {
+        ++a[s[i]-'a'];
+    }
+    int start = l;
+    int ret = 0;
+    for (int i = l; i < r; ++i) {
+        if (a[s[i]-'a'] < k) {
+            ret = max(ret, sub(s, k, start, i));
+            start = i+1;
+        }
+    }
+    if (start == l) {
+        return r - l;
+    }
+    return max(ret, sub(s, k, start, r));
+}
+
+int longestSubstring(string s, int k) {
+    return sub(s, k , 0, s.size());
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
