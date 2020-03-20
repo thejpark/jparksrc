@@ -151,7 +151,17 @@ def slowconcattest():
 #decorator
 #http://www.jeffknupp.com/blog/2013/11/29/improve-your-python-decorators-explained/
 
+# https://docs.quantifiedcode.com/python-anti-patterns/
+
 def badorgood():
+    # using global is bad
+
+    #using wild card import is bad
+    # from math import *
+
+    # good if import is more specific
+    # from math import ceil
+
     # bad
     my_container = ['Larry', 'Moe', 'Curly']
     index = 0
@@ -164,6 +174,8 @@ def badorgood():
         print ('{} {}'.format(index, element))
 
     foo, bar = (1, 2)
+
+
     # bad
     temp = foo
     foo = bar
@@ -246,6 +258,72 @@ def badorgood():
     my_list = ['Larry', 'Moe', 'Curly']
     for element in my_list:
         print element
+
+    #bad because function returns multiple type
+    def bad_get_secret_code(password):
+        if password != "bicycle":
+            return None
+        else:
+            return "42"
+
+    def get_secret_code(password):
+        if password != "bicycle":
+            raise ValueError
+        else:
+            return "42"
+
+    # bad
+    # Not using else where appropriate in a loop
+    l = [1, 2, 3]
+    magic_number = 4
+    found = False
+
+    for n in l:
+        if n == magic_number:
+            found = True
+            print("Magic number found")
+            break
+
+    if not found:
+        print("Magic number not found")
+
+    #good
+    l = [1, 2, 3]
+    magic_number = 4
+
+    for n in l:
+        if n == magic_number:
+            print("Magic number found")
+            break
+    else:
+        print("Magic number not found")
+
+    #bad
+    #initialise key/val manually
+
+    #good
+    # Use defaultdict() to initialize dict keys
+    from collections import defaultdict
+
+    # every key automatically initializes to 6
+    d = defaultdict(lambda : 6)
+    d["k"] += 1
+
+    print(d["k"])  # 7
+
+    #bad - mutable default argument
+    def append(number, number_list=[]):
+        number_list.append(number)
+        print(number_list)
+        return number_list
+
+    #good the keyword None is the sentinel value representing empty list
+    def append(number, number_list=None):
+        if number_list is None:
+            number_list = []
+        number_list.append(number)
+        print(number_list)
+        return number_list
 
 
 # https://docs.python.org/2/library/subprocess.html
