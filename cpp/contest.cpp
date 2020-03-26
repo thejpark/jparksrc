@@ -4406,7 +4406,7 @@ def removeInvalidParentheses(self, s: str) -> List[str]:
             if temp in visited:
                 continue;
             visited[temp] = True
-            if valid(temp): 
+            if valid(temp):
                 found = True
                 res.append(temp)
             if found: continue
@@ -4415,7 +4415,7 @@ def removeInvalidParentheses(self, s: str) -> List[str]:
                     new = temp[:i] + temp[i+1:]
                     queue.append(new)
         return res
-   return bfs(s) 
+   return bfs(s)
 */
 void test_reverse_sum() //jj
 {
@@ -6054,6 +6054,47 @@ string removeDuplicateLetters(string s) {
     return res;
 }
 
+
+/*
+  leetcode 402
+  Given a non-negative integer num represented as a string, remove k digits from the number so that the new number is the smallest possible.
+
+  Note:
+  The length of num is less than 10002 and will be ≥ k.
+  The given num does not contain any leading zero.
+  Example 1:
+
+  Input: num = "1432219", k = 3
+  Output: "1219"
+  Explanation: Remove the three digits 4, 3, and 2 to form the new number 1219 which is the smallest.
+  Example 2:
+
+  Input: num = "10200", k = 1
+  Output: "200"
+  Explanation: Remove the leading 1 and the number is 200. Note that the output must not contain leading zeroes.
+  Example 3:
+
+  Input: num = "10", k = 2
+  Output: "0"
+  Explanation: Remove all the digits from the number and it is left with nothing which is 0.
+ */
+
+string removeKdigits(string num, int k) {
+    string res;
+    int kinit = k;
+
+    if (k >= num.size()) return "0";
+
+    for (char c : num) {
+        while(k > 0 && !res.empty() && res.back() > c) {
+            res.pop_back();
+            k--;
+        }
+        if (!(res.empty() && c == '0')) res.push_back(c);
+    }
+
+    return res.empty() ? "0" : res.substr(0,num.size()-kinit);
+}
 
 /*
   Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
