@@ -5098,6 +5098,7 @@ void test_find_biggest_plus() //jj
 // You have N toffee packets, each containing different number of toffees. The number of toffees contained in the ith packet is denoted by ci. You need to put these toffee packets in 5 boxes such that each box contains at least one toffee packet, and the maximum number of toffees in a box is minimum. You can only choose consecutive toffee packets to put in a box.
 
 // using DP?
+// leetcode 410
 int toffee(int sum, int begin, int count, vector<int>& v)
 {
     if (count == 0)
