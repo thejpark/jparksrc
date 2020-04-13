@@ -5182,7 +5182,7 @@ int foo(vector<int>& nums, int idx, int m, vector<long long>& v, vector<vector<i
     {
         int a = (idx == 0) ? v[i] : v[i] - v[idx - 1];
         if (a > r)
-            continue;
+            break;
         int b = foo(nums, i + 1, m - 1, v, mm);
         int mmax = max(a, b);
         r = min(mmax, r);
