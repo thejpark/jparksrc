@@ -5136,6 +5136,63 @@ void test_toffee()
 
     cout << "the result is " << r << endl;
 }
+
+
+// leetcode 410, same as toffee above
+// Given an array which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays. Write an algorithm to minimize the largest sum among these m subarrays.
+
+//                                      Input:
+//                                      nums = [7,2,5,10,8]
+//                                      m = 2
+
+//                                      Output:
+//                                      18
+
+int foo(vector<int>& nums, int idx, int m, vector<long long>& v, vector<vector<int>>& mm);
+int splitArray(vector<int>& nums, int m) {
+
+    vector<long long> v(nums.size());
+    v[0] = nums[0];
+    for (int i = 1; i < nums.size(); ++i)
+    {
+        v[i] = nums[i] + v[i - 1];
+    }
+
+    vector<vector<int>> mm(nums.size() + 1, vector<int>(m + 1, -1));
+    return foo(nums, 0, m, v, mm);
+
+}
+
+int foo(vector<int>& nums, int idx, int m, vector<long long>& v, vector<vector<int>>& mm)
+{
+    if (mm[idx][m] != -1)
+        return mm[idx][m];
+
+    if (m == 1)
+    {
+        int res = (idx == 0) ? v[nums.size() - 1] : v[nums.size() - 1] - v[idx - 1];
+        mm[idx][m] = res;
+        return res;
+    }
+
+
+    int r = INT_MAX;
+
+    for (int i = idx; nums.size() - i >= m; ++i)
+    {
+        int a = (idx == 0) ? v[i] : v[i] - v[idx - 1];
+        if (a > r)
+            continue;
+        int b = foo(nums, i + 1, m - 1, v, mm);
+        int mmax = max(a, b);
+        r = min(mmax, r);
+    }
+
+    mm[idx][m] = r;
+    return r;
+}
+
+
 // Given an array of Integers, find out how many combinations in the array, satisfy the equation x+y+z=w, where x,y,z and w belong to the array and idx(x)<idx(y)<idx(z)<idx(w). Elements are unique.
 // 1 0 1 2 0 -1 4 -> 2
 int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered_map<int, int>& m)
