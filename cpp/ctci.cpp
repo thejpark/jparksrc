@@ -697,10 +697,10 @@ int rand7()
 {
     int n;
 
-    do n = 5 * rand5() + rand5();
-    while (n > 21);
+    do n = 5 * rand5() + rand5(); // rand5() returns 0 ~ 4
+    while (n >= 21);
 
-    return (n % 7) + 1;
+    return (n % 7) + 1; // return 1 ~ 7
 }
 
 
