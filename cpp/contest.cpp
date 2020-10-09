@@ -6241,6 +6241,39 @@ int longestSubstring(string s, int k) {
     return sub(s, k , 0, s.size());
 }
 
+//leetcode 480 median of sliding window
+// Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle value.
+//   Examples:
+//   [2,3,4] , the median is 3
+
+//     [2,3], the median is (2 + 3) / 2 = 2.5
+// sol1 : use binary search tree
+// sol2 : binary search tree using lower bound (below)
+vector<double> medianSlidingWindow(vector<int>& nums, int k) {
+
+  vector<double> res;
+  vector<long long> med;
+
+  for(int i= 0; i<k; i++)
+    med.insert(lower_bound(med.begin(),med.end(),nums[i]),nums[i]);
+  if(k%2==0)
+    res.push_back((double)(med[k/2]+med[k/2-1])/2 );
+  else
+    res.push_back((double)med[k/2]);
+
+
+  for(int i=k; i<nums.size(); i++)
+    {
+      med.erase(lower_bound(med.begin(),med.end(),nums[i-k]));
+      med.insert(lower_bound(med.begin(),med.end(),nums[i]),nums[i]);
+      if(k%2==0)
+        res.push_back((double)(med[k/2]+med[k/2-1])/2 );
+      else
+        res.push_back((double)med[k/2]);
+    }
+  return res;
+    }
+
 
 int main()
 {
