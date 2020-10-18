@@ -6276,6 +6276,91 @@ bool canIWin(int maxChoosableInteger, int desiredTotal) {
 
   return dp(desiredTotal, 0);
 }
+
+
+// leetcode 488
+/*
+Think about Zuma Game. You have a row of balls on the table, colored red(R), yellow(Y), blue(B), green(G), and white(W). You also have several balls in your hand.
+
+Each time, you may choose a ball in your hand, and insert it into the row (including the leftmost place and rightmost place). Then, if there is a group of 3 or more balls in the same color touching, remove these balls. Keep doing this until no more balls can be removed.
+
+Find the minimal balls you have to insert to remove all the balls on the table. If you cannot remove all the balls, output -1.
+
+Example 1:
+
+Input: board = "WRRBBW", hand = "RB"
+Output: -1
+Explanation: WRRBBW -> WRR[R]BBW -> WBBW -> WBB[B]W -> WW
+Example 2:
+
+Input: board = "WWRRBBWW", hand = "WRBRW"
+Output: 2
+Explanation: WWRRBBWW -> WWRR[R]BBWW -> WWBBWW -> WWBB[B]WW -> WWWW -> empty
+Example 3:
+
+Input: board = "G", hand = "GGGGG"
+Output: 2
+Explanation: G -> G[G] -> GG[G] -> empty
+Example 4:
+
+Input: board = "RBYYBBRRB", hand = "YRBGB"
+Output: 3
+Explanation: RBYYBBRRB -> RBYY[Y]BBRRB -> RBBBRRB -> RRRB -> B -> B[B] -> BB[B] -> empty
+*/
+
+class zuma_game {
+public:
+    //from discussion
+    unordered_map<char,int> m;
+
+    int findMinStep(string board, string hand) {
+        if(board.size()==0) return 0;
+        vector<int> handcnt(5,0);
+        for(auto& h:hand){
+            if(h=='R') handcnt[0]++;
+            else if(h=='Y') handcnt[1]++;
+            else if(h=='B') handcnt[2]++;
+            else if(h=='G') handcnt[3]++;
+            else if(h=='W') handcnt[4]++;
+        }
+        m['R']=0;
+        m['Y']=1;
+        m['B']=2;
+        m['G']=3;
+        m['W']=4;
+
+        auto res=dfs(board,handcnt,0);
+
+        return res==(INT_MAX>>1)?-1:res;
+    }
+
+    int dfs(const string& board, const vector<int>& hand,int idx){
+        if(idx==board.size()) return 0;
+
+
+        int res=(INT_MAX>>1);
+        //insert on the left
+        for(int i=idx;i<board.size();++i){
+            if(i==0||board[i]!=board[i-1]){
+                int cnt=0,j=i;
+                while(j<board.size()&&board[j]==board[i])cnt++,j++;
+                int need=3-cnt;
+                if(need<0) need=0;
+                if(hand[m[board[i]]]<need) continue;
+
+                vector<int> newhand(hand);
+                newhand[m[board[i]]]-=need;
+                string newboard=board.substr(0,i)+board.substr(j);
+
+                res=min(res,need+dfs(newboard,newhand,0));
+                //cout<<res<<","<<newboard<<"!"<<board<<endl;
+            }
+        }
+
+        return res;
+    }
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
