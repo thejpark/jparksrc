@@ -697,10 +697,10 @@ int rand7()
 {
     int n;
 
-    do n = 5 * rand5() + rand5();
-    while (n > 21);
+    do n = 5 * rand5() + rand5(); // rand5() returns 0 ~ 4
+    while (n >= 21);
 
-    return (n % 7) + 1;
+    return (n % 7) + 1; // return 1 ~ 7
 }
 
 
@@ -5061,6 +5061,175 @@ int maxProduct(vector<string>& words)
     return mx;
 }
 
+class LFUCache {
+    int cap;
+
+  // O(1) algorithm
+    using elem = pair<int, list<pair<int, int>>::iterator>;
+    unordered_map<int, elem> m; // key -> (freq, list_iter)
+    unordered_map<int, list<pair<int, int>>> t; // freq -> list (key/val)
+    unordered_map<int, list<int>::iterator> lm; // freq -> list(freq)
+    list<int> l; // list of frequency
+
+public:
+    LFUCache(int capacity) : cap{capacity} {
+
+    }
+
+    int get(int key) {
+        if (m.count(key) == 0)
+            return -1;
+
+        auto x = m[key];
+        auto freq = x.first;
+        auto b = x.second;
+
+        int data = b->second;
+        t[freq].erase(b);
+
+        auto it = next(lm[freq]);  // next freq
+
+        if (t[freq].empty())
+        {
+            t.erase(freq);
+            l.erase(lm[freq]);
+            lm.erase(freq);
+        }
+
+        if (it == l.end() || *it != (freq + 1))
+        {
+            auto iter = l.insert(it, freq + 1);
+            lm[freq + 1] = iter;
+        }
+
+        t[freq + 1].push_back(pair<int, int>(key, data));
+
+        m[key] = elem(freq + 1, prev(t[freq + 1].end()));
+
+        return data;
+    }
+
+    void putImpl(int key, int value)
+    {
+        int freq = 0;
+        list<int>::iterator it;
+
+        if (m.count(key) != 0)
+        {
+            auto x = m[key];
+            freq = x.first;
+            auto b = x.second;
+
+            t[freq].erase(b);
+
+            it = next(lm[freq]);  // next freq
+
+            if (t[freq].empty())
+            {
+                t.erase(freq);
+                l.erase(lm[freq]);
+                lm.erase(freq);
+            }
+        }
+        else
+        {
+            it = l.begin();
+        }
+
+        if (it == l.end() || *it != (freq + 1))
+        {
+            auto iter = l.insert(it, freq + 1);
+            lm[freq + 1] = iter;
+        }
+
+        t[freq + 1].push_back(pair<int, int>(key, value));
+
+        m[key] = elem(freq + 1, prev(t[freq + 1].end()));
+    }
+
+    void remove()
+    {
+        auto it = l.begin();
+        auto freq = *it;
+        auto x = t[freq].begin();
+        m.erase(x->first);
+        t[freq].erase(x);
+        cout << "remove: " << x-> first << " " << freq << endl;
+
+        if (t[freq].empty())
+        {
+            t.erase(freq);
+            l.erase(it);
+            lm.erase(freq);
+        }
+    }
+
+    void put(int key, int value) {
+        if (cap == 0)
+            return;
+        if (m.size() == cap && m.count(key) == 0)
+        {
+            remove();
+        }
+
+        putImpl(key, value);
+   }
+};
+
+void test_lfu_cache()
+{
+  LFUCache c(10);
+  c.put(10, 13);
+  c.put(3, 17);
+  c.put(6, 11);
+  c.put(10,5);
+  c.put(9,10);
+  c.get(13);
+  c.put(2, 19);
+  c.get(2);
+  c.get(3);
+  c.put(5,25);
+  c.get(8);
+  c.put(9,22);
+  c.put(5,5);
+  c.put(1,30);
+  c.get(11);
+  c.put(9,12);
+  c.get(7);
+  c.get(5);
+  c.get(8);
+  c.get(9);
+  c.put(4,30);
+  c.put(9,3);
+  c.get(9);
+  c.get(10);
+  c.get(10);
+  c.put(6,14);
+  c.put(3,1);
+  c.get(3);
+  c.put(10,11);
+  c.get(8);
+  c.put(2,14);
+  c.get(1);
+  c.get(5);
+  c.get(4);
+  c.put(11,4);
+  c.put(12,24);
+  c.put(5,18);
+  c.get(13);
+  c.put(7,23);
+  c.get(8);
+  c.get(12);
+  c.put(3,27);
+  c.put(2,12);
+  c.get(5);
+  c.put(2,9);
+  c.put(13,4);
+  c.put(8,18);
+  c.put(1,7);
+  c.get(6);
+}
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
@@ -5073,5 +5242,5 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-    test_lower_bound_upper_bound();
+  test_lfu_cache();
 }
