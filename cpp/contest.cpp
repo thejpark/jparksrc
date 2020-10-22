@@ -19,6 +19,7 @@ http://web.stanford.edu/class/cs97si/
 #include <numeric>
 #include <memory>
 #include <queue>
+#include <functional>
 #include <math.h>
 #include <limits.h>
 using namespace std;
@@ -6301,6 +6302,124 @@ vector<double> medianSlidingWindow(vector<int>& nums, int k) {
   return res;
     }
 
+
+// leetcode 464
+// In the "100 game" two players take turns adding, to a running total, any integer from 1 to 10. The player who first causes the running total to reach or exceed 100 wins.
+
+//   What if we change the game so that players cannot re-use integers?
+
+//   For example, two players might take turns drawing from a common pool of numbers from 1 to 15 without replacement until they reach a total >= 100.
+
+//   Given two integers maxChoosableInteger and desiredTotal, return true if the first player to move can force a win, otherwise return false. Assume both players play optimally.
+
+// 10 11 -> false, 10 0 -> true, 10 1 -> true, 10 40 -> false
+bool canIWin(int maxChoosableInteger, int desiredTotal) {
+  if (desiredTotal <= 0) return true;
+
+  const int sum = maxChoosableInteger * (maxChoosableInteger + 1) / 2;
+  if (sum < desiredTotal) return false;
+
+  unordered_map<int, bool> memo;  // true: can win, false: can't win
+
+  // state: record integers that have been chosen
+  function<bool(int, int)> dp = [&](int total, int state) {
+                                  if (total <= 0) return false;
+                                  if (memo.count(state)) return memo[state];
+
+                                  for (int i = 1; i <= maxChoosableInteger; ++i) {
+                                    if (state & (1 << i)) continue;  // integer i is used
+                                    if (!dp(total - i, state | (1 << i))) return true;
+                                  }
+
+                                  return memo[state] = false;
+                                };
+
+  return dp(desiredTotal, 0);
+}
+
+
+// leetcode 488
+/*
+Think about Zuma Game. You have a row of balls on the table, colored red(R), yellow(Y), blue(B), green(G), and white(W). You also have several balls in your hand.
+
+Each time, you may choose a ball in your hand, and insert it into the row (including the leftmost place and rightmost place). Then, if there is a group of 3 or more balls in the same color touching, remove these balls. Keep doing this until no more balls can be removed.
+
+Find the minimal balls you have to insert to remove all the balls on the table. If you cannot remove all the balls, output -1.
+
+Example 1:
+
+Input: board = "WRRBBW", hand = "RB"
+Output: -1
+Explanation: WRRBBW -> WRR[R]BBW -> WBBW -> WBB[B]W -> WW
+Example 2:
+
+Input: board = "WWRRBBWW", hand = "WRBRW"
+Output: 2
+Explanation: WWRRBBWW -> WWRR[R]BBWW -> WWBBWW -> WWBB[B]WW -> WWWW -> empty
+Example 3:
+
+Input: board = "G", hand = "GGGGG"
+Output: 2
+Explanation: G -> G[G] -> GG[G] -> empty
+Example 4:
+
+Input: board = "RBYYBBRRB", hand = "YRBGB"
+Output: 3
+Explanation: RBYYBBRRB -> RBYY[Y]BBRRB -> RBBBRRB -> RRRB -> B -> B[B] -> BB[B] -> empty
+*/
+
+class zuma_game {
+public:
+    //from discussion
+    unordered_map<char,int> m;
+
+    int findMinStep(string board, string hand) {
+        if(board.size()==0) return 0;
+        vector<int> handcnt(5,0);
+        for(auto& h:hand){
+            if(h=='R') handcnt[0]++;
+            else if(h=='Y') handcnt[1]++;
+            else if(h=='B') handcnt[2]++;
+            else if(h=='G') handcnt[3]++;
+            else if(h=='W') handcnt[4]++;
+        }
+        m['R']=0;
+        m['Y']=1;
+        m['B']=2;
+        m['G']=3;
+        m['W']=4;
+
+        auto res=dfs(board,handcnt,0);
+
+        return res==(INT_MAX>>1)?-1:res;
+    }
+
+    int dfs(const string& board, const vector<int>& hand,int idx){
+        if(idx==board.size()) return 0;
+
+
+        int res=(INT_MAX>>1);
+        //insert on the left
+        for(int i=idx;i<board.size();++i){
+            if(i==0||board[i]!=board[i-1]){
+                int cnt=0,j=i;
+                while(j<board.size()&&board[j]==board[i])cnt++,j++;
+                int need=3-cnt;
+                if(need<0) need=0;
+                if(hand[m[board[i]]]<need) continue;
+
+                vector<int> newhand(hand);
+                newhand[m[board[i]]]-=need;
+                string newboard=board.substr(0,i)+board.substr(j);
+
+                res=min(res,need+dfs(newboard,newhand,0));
+                //cout<<res<<","<<newboard<<"!"<<board<<endl;
+            }
+        }
+
+        return res;
+    }
+};
 
 int main()
 {
