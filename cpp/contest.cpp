@@ -5737,6 +5737,36 @@ int push_tree(vector<int>& v, vector<anode>& t, int i)
     return x;
 }
 
+
+// merge a (start), m (middle), e (end)
+void merge(vector<int>& v, int a, int m, int e)
+{
+}
+
+// call find_most_bigger_numbers_right(v, 0, nums.size() - 1, vi)
+// and then find the index of biggest element in vi, return it.
+void find_most_bigger_numbers_right(vector<int>& v, int a, int e)
+{
+  if (a >= e)
+    return;
+
+  int m = (a + b) / 2;
+  find_most_bigger_numbers_right(v, a, m);
+  find_most_bigger_numbers_right(v, m + 1, e);
+
+  for (int i = a; i <= m; ++i)
+    {
+      int cnt = 0;
+      for (j = e; v[i] < v[j] && j > m; --j)
+        {
+          ++cnt;
+        }
+    }
+
+  merge(v, a, e);
+}
+
+
 void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
 {
     int n;
@@ -5754,10 +5784,10 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     int x = 0;
     vector<anode> tr(v.size());
 
-    // sol1: using binary search tree (as shown below)
-    // sol2: using binary search tree (using lower_bound)
-    // sol3: using stack. read from right, if top is bigger than the number of bigger numbers on the right are equal the size of stack.
-    // otherwise keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack.
+    // sol1: using binary search tree (as shown below), but worst time complexity is O(n*n)
+    // sol2: using binary search tree (using lower_bound), keep right side sorted. lower_bound runs in O(log(n)), but you need to shift the rest of the numbers to make it sorted, which is O(n), so using lower_bound is O(n * n) as well.
+    // sol3: using stack. read from right, keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack. O(n * n)
+    // sol4: using merge sort.
     for (int i = v.size() - 1; i >= 0; --i)
     {
         int t = push_tree(v, tr, i);
@@ -5765,9 +5795,6 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     }
 
     cout << "the result is " << x << endl;
-
-
-
 }
 
 
