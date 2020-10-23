@@ -5740,31 +5740,81 @@ int push_tree(vector<int>& v, vector<anode>& t, int i)
 
 
 // merge a (start), m (middle), e (end)
-void merge(vector<int>& v, int a, int m, int e)
+void merge(vector<vector<int>>& v, int a, int m, int e)
 {
+  // cout << "enter merge" << endl;
+  vector<vector<int>> v1{v.begin() + a, v.begin() + m + 1};
+  vector<vector<int>> v2{v.begin() + m + 1, v.begin() + e + 1};
+
+  int a1 = 0, a2 = 0;
+  int e1 = v1.size(), e2 = v2.size();
+
+  // cout << "enter loop" << endl;
+  while (true)
+    {
+      if (a1 == e1)
+      {
+        // cout << "step 1" << endl;
+        copy(v2.begin() + a2, v2.end(), v.begin() + a);
+        break;
+      }
+      if (a2 == e2)
+        {
+          // cout << "step 2" << endl;
+          copy(v1.begin() + a1, v1.end(), v.begin() + a);
+          break;
+        }
+      v[a++] = v1[a1][0] > v2[a2][0] ? v2[a2++] : v1[a1++];
+    }
+
+  // cout << "leave merge" << endl;
 }
 
 // call find_most_bigger_numbers_right(v, 0, nums.size() - 1, vi)
 // and then find the index of biggest element in vi, return it.
-void find_most_bigger_numbers_right(vector<int>& v, int a, int e)
+void find_most_bigger_numbers_right(vector<vector<int>>& v, int a, int e, unordered_map<int, int>& m)
 {
   if (a >= e)
     return;
 
-  int m = (a + b) / 2;
-  find_most_bigger_numbers_right(v, a, m);
-  find_most_bigger_numbers_right(v, m + 1, e);
+  int mid = (a + e) / 2;
+  find_most_bigger_numbers_right(v, a, mid, m);
+  find_most_bigger_numbers_right(v, mid + 1, e, m);
 
-  for (int i = a; i <= m; ++i)
+  for (int i = a; i <= mid; ++i)
     {
       int cnt = 0;
-      for (j = e; v[i] < v[j] && j > m; --j)
+      for (int j = e; j > mid && v[i][0] < v[j][0]; --j)
         {
           ++cnt;
         }
+      m[v[i][1]] += cnt;
+
     }
 
-  merge(v, a, e);
+  merge(v, a, mid, e);
+}
+
+int sol4_find_max_right_idx(vector<int>& v)
+{
+  unordered_map<int, int> m;
+  vector<vector<int>> vi (v.size(), vector<int>(2, 0));
+
+  for (int i = 0; i < v.size(); ++i)
+    {
+      vi[i][0] = v[i];
+      vi[i][1] = i;
+    }
+
+  find_most_bigger_numbers_right(vi, 0, v.size() - 1, m);
+
+  int r = 0;
+  for (auto& e : m)
+    {
+      r = max(r, e.second);
+    }
+
+  return r;
 }
 
 
@@ -5789,13 +5839,17 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     // sol2: using binary search tree (using lower_bound), keep right side sorted. lower_bound runs in O(log(n)), but you need to shift the rest of the numbers to make it sorted, which is O(n), so using lower_bound is O(n * n) as well.
     // sol3: using stack. read from right, keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack. O(n * n)
     // sol4: using merge sort.
+
+
+    // this is sol1
     for (int i = v.size() - 1; i >= 0; --i)
     {
         int t = push_tree(v, tr, i);
         x = max(x, t);
     }
+    cout << "the result of sol1 is " << x << endl;
 
-    cout << "the result is " << x << endl;
+    cout << "the result of sol4 is " << sol4_find_max_right_idx(v) << endl;
 }
 
 
@@ -6429,9 +6483,10 @@ int main()
     // such as, 가장 많이 consecutive한 스트링 찾을 때 'a'가 인풋인 경우.
     // test_denom();
 
-    int* a[10];
-    cout << "size of a is " << sizeof(a) << endl;
+    // int* a[10];
+    // cout << "size of a is " << sizeof(a) << endl;
 
+  test_find_number_which_has_the_most_bigger_numbers_on_the_right();
 }
 
 
