@@ -1708,6 +1708,7 @@ void hay() //jj
 }
 
 
+// leetcode 502
 void hay2() //jj
 {
   int n, m;
@@ -6474,6 +6475,52 @@ public:
         return res;
     }
 };
+
+
+// leetcode 502
+// Suppose LeetCode will start its IPO soon. In order to sell a good price of its shares to Venture Capital, LeetCode would like to work on some projects to increase its capital before the IPO. Since it has limited resources, it can only finish at most k distinct projects before the IPO. Help LeetCode design the best way to maximize its total capital after finishing at most k distinct projects.
+
+// You are given several projects. For each project i, it has a pure profit Pi and a minimum capital of Ci is needed to start the corresponding project. Initially, you have W capital. When you finish a project, you will obtain its pure profit and the profit will be added to your total capital.
+
+// To sum up, pick a list of at most k distinct projects from given projects to maximize your final capital, and output your final maximized capital.
+
+// Example 1:
+// Input: k=2, W=0, Profits=[1,2,3], Capital=[0,1,1].
+
+// Output: 4
+
+
+
+// This is same with hay above (search for hay problem)
+int findMaximizedCapital(int k, int W, vector<int>& Profits, vector<int>& Capital) {
+
+  int n = Profits.size();
+
+  vector<pair<int,int>> v(n);
+  for(int i = 0; i < n; i++){
+    v[i] = {Capital[i], Profits[i]};
+  }
+
+  sort(v.begin(), v.end());
+
+  priority_queue<int> pq;
+
+  int cur = W, i = 0;
+  for(i = 0; i < n && v[i].first <= W; i++){
+    pq.push(v[i].second);
+  }
+
+  while(!pq.empty() && k){
+    cur += pq.top();
+    pq.pop();
+    k--;
+
+    while(i < n && v[i].first <= cur)
+      pq.push(v[i].second), i++;
+  }
+
+  return cur;
+    }
 
 int main()
 {
