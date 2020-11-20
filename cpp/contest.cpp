@@ -6522,6 +6522,71 @@ int findMaximizedCapital(int k, int W, vector<int>& Profits, vector<int>& Capita
   return cur;
     }
 
+
+// leetcode 424
+/*
+  Given a string s that consists of only uppercase English letters, you can perform at most k operations on that string.
+  In one operation, you can choose any character of the string and change it to any other uppercase English character.
+  Find the length of the longest sub-string containing all repeating letters you can get after performing the above operations.
+
+  Note:
+  Both the string's length and k will not exceed 104.
+
+  Example 1:
+
+  Input:
+  s = "ABAB", k = 2
+
+  Output:
+  4
+
+  Explanation:
+  Replace the two 'A's with two 'B's or vice versa.
+*
+ */
+int characterReplacement(string s, int k) {
+
+  vector<vector<int>> v(26, vector<int>());
+
+  for (int i = 0; i < s.size(); ++i)
+    {
+      int idx = s[i] - 'A';
+      v[idx].push_back(i);
+    }
+
+  int mmax = 0;
+  int max_size = s.size();
+
+  for (int i = 0; i < 26; ++i)
+    {
+      if (v[i].empty())
+        continue;
+
+      int l = 0, r = 0;
+
+      while (r < v[i].size())
+        {
+          int cnt = r - l + 1;
+          int size = v[i][r] - v[i][l] + 1;
+          int cap = cnt + k - size;
+
+          if (cap >= 0)
+            {
+              size = min(size + cap, max_size);
+              mmax = max(mmax, size);
+
+              ++r;
+            }
+          else
+            {
+              ++l;
+            }
+        }
+    }
+
+  return mmax;
+}
+
 int main()
 {
     // when test your algorithm which takes a string,
