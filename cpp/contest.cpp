@@ -6587,6 +6587,34 @@ int characterReplacement(string s, int k) {
   return mmax;
 }
 
+
+// leetcode 441
+// You have a total of n coins that you want to form in a staircase shape, where every k-th row must have exactly k coins.
+//   Given n, find the total number of full staircase rows that can be formed.
+//   n is a non-negative integer and fits within the range of a 32-bit signed integer.
+//   Example 1:
+//   n = 5
+
+int arrangeCoins(int n)
+{
+  // from discussion
+  long long low=1,high=n;
+  long long ans=0;
+
+  while(low<=high)
+    {
+      long long mid=low+(high-low)/2;
+      long long s=mid*(mid+1)/2;
+      if(s==n) return mid;
+      else if(s<n) {ans=mid; low=mid+1;}
+      else high=mid-1;
+    }
+
+  return ans;
+
+}
+
+
 int main()
 {
     // when test your algorithm which takes a string,
