@@ -4037,6 +4037,8 @@ vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k
 
 }
 
+// also see leetcode 378
+
 
 // Using min heap. See this!!
 /*
