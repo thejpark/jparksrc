@@ -3992,6 +3992,7 @@ bool increasingTriplet(vector<int>& nums) {
 //                                         [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
 vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
 
+  // todo: this solution is using max heap. There is a solution using min heap. See the submission in the leetcode (python)
   using elem = pair<int, pair<int, int>>;
   vector<elem> v;
 
