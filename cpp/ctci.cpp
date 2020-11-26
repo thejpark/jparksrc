@@ -4036,6 +4036,9 @@ vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k
   return r;
 
 }
+
+
+// Using min heap. See this!!
 /*
 def kSmallestPairs(self, A, B, k):
   """
