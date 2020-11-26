@@ -3992,7 +3992,7 @@ bool increasingTriplet(vector<int>& nums) {
 //                                         [1,2],[1,4],[1,6],[7,2],[7,4],[11,2],[7,6],[11,4],[11,6]
 vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
 
-  // todo: this solution is using max heap. There is a solution using min heap. See the submission in the leetcode (python)
+  // see belowfor python implementation using min heap: this solution is using max heap. There is a solution using min heap. See the submission in the leetcode (python)
   using elem = pair<int, pair<int, int>>;
   vector<elem> v;
 
@@ -4036,7 +4036,35 @@ vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k
   return r;
 
 }
+/*
+def kSmallestPairs(self, A, B, k):
+  """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :type k: int
+        :rtype: List[List[int]]
+        """
+  #
+  La,Lb   = len(A) , len(B)
+  ijvalid = lambda i,j: i<La and j<Lb
+  genkey  = lambda i,j: (A[i]+B[j],i,j)
+  #
+  visited = { (0,0) }
+  C       = [ genkey(0,0) ] if (A and B) else []
+                                   D       = []
+                                   #
+                                   while len(D)<k and C:
+                                                _,i,j = heapq.heappop(C)
+                                                D.append( [ A[i] , B[j] ] )
+                                                #
+                                                for x,y in ((i+1,j),(i,j+1)):
+                                                if  ijvalid(x,y) and not (x,y) in visited:
+                                                heapq.heappush( C , genkey(x,y) )
+                                                visited.add( (x,y) )
+                                                #
+                                                return D
 
+*/
 
 class  MaxSumSubMatrix{
     // Given a non-empty 2D matrix matrix and an integer k, find the max sum of a rectangle in the matrix such that its sum is no larger than k.
