@@ -3287,6 +3287,7 @@ void test_find_largest_contained_intervals()
   pair<int, int> r = find_largest_contained_interval(vi);
   cout << "the result is : " << r.first << " " << r.second << endl;
 }
+// regarding above test, see also leetcode 352.
 
 
 // array monotonic. Space complexity does not count the origial space, just count additional space, so this is
