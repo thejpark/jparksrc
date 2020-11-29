@@ -5863,7 +5863,7 @@ void test_find_number_which_has_the_most_bigger_numbers_on_the_right()
     vector<anode> tr(v.size());
 
     // sol1: using binary search tree (as shown below), but worst time complexity is O(n*n)
-    // sol2: using binary search tree (using lower_bound), keep right side sorted. lower_bound runs in O(log(n)), but you need to shift the rest of the numbers to make it sorted, which is O(n), so using lower_bound is O(n * n) as well.
+    // sol2: using binary search tree (using upper_bound), keep right side sorted. upper_bound runs in O(log(n)), but you need to shift the rest of the numbers to make it sorted, which is O(n), so using upper_bound is O(n * n) as well. We should use upper_bound because lower_bound returns the begining of the same numbers.
     // sol3: using stack. read from right, keep pop stack until top of the stack is bigger number. Then push all the poped numbers on to stack. O(n * n)
     // sol4: using merge sort.
 
