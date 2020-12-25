@@ -3707,7 +3707,6 @@ int knapsack_dp2(int k, vector<int>& v, vector<int>& w)
 }
 
 
-
 // test input
 // 130 16
 // 65 20 35 8 245 60 195 55 65 40 150 70 275 85 155 25 120 30 320 65 75 75 40 10 200 95 100 50 220 40 99 10
@@ -3717,30 +3716,6 @@ void test_knapsack()
     int k;
     vector<int> v;
     vector<int> w;
-    int nthSuperUglyNumber(int n, vector<int>& primes) {
-      vector<int> k(primes.size(), 0);
-      vector<int> v(n, 0);
-      v[0] = 1;
-
-      for (int i = 1; i < n; ++i)
-        {
-          int m = INT_MAX;
-          for (int j = 0; j < primes.size(); ++j)
-            {
-              int val = primes[j] * v[k[j]];
-              m = min(val, m);
-            }
-
-          v[i] = m;
-          for (int j = 0; j < primes.size(); ++j)
-            {
-              if (m == primes[j] * v[k[j]])
-                ++k[j];
-            }
-        }
-
-      return v[n - 1];
-    }
     cin >> k;
 
     int size;
