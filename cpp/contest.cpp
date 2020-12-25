@@ -6328,7 +6328,7 @@ The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated
  */
 int sub(const string& s, int k, int l, int r) {
     if (r -l < k) return 0;
-    array<int, 26> a = {};
+    int a[26] = {0,};
     for (int i = l; i < r; ++i) {
         ++a[s[i]-'a'];
     }
