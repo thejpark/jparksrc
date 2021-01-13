@@ -6384,6 +6384,68 @@ vector<double> medianSlidingWindow(vector<int>& nums, int k) {
     }
 
 
+class leetcode239 {
+public:
+    vector<int> maxSlidingWindow1(vector<int>& nums, int k) {
+        multiset<int> s;
+
+        vector<int> r;
+
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            if (s.size() == k)
+            {
+                s.erase(s.find(nums[i - k]));
+            }
+            s.insert(nums[i]);
+            if (s.size() == k)
+                r.push_back(*s.rbegin());
+        }
+
+        return r;
+    }
+
+    // faster
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> v(nums.size());
+        vector<int> r;
+
+        if (nums.size() == 0)
+            return r;
+
+        v[0] = nums[0];
+        for (int i = 1; i < k; ++i)
+        {
+            v[i] = nums[i];
+            for (int j = i - 1; j >= 0; --j)
+            {
+                if (v[j] >= v[i])
+                    break;
+                else
+                    v[j] = v[i];
+            }
+        }
+
+        r.push_back(v[0]);
+
+        for (int i = k; i < nums.size(); ++i)
+        {
+            v[i] = nums[i];
+            for (int j = i - 1; i - j < k ; --j)
+            {
+                if (v[j] >= nums[i])
+                    break;
+                else
+                    v[j] = nums[i];
+            }
+
+            r.push_back(v[i - k + 1]);
+        }
+
+        return r;
+    }
+};
+
 // leetcode 464
 // In the "100 game" two players take turns adding, to a running total, any integer from 1 to 10. The player who first causes the running total to reach or exceed 100 wins.
 
