@@ -6475,7 +6475,6 @@ int maxProduct(vector& a) {
 
 
   return ans;
-
 }
 
 // leetcode 464
