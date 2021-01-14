@@ -6447,36 +6447,6 @@ public:
 };
 
 
-//leetcode 152
-/*
-  Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
-
-  Example 1:
-
-  Input: [2,3,-2,4]
-  Output: 6
-  Explanation: [2,3] has the largest product 6.
- */
-int maxProduct(vector& a) {
-
-  int n = a.size();
-  int maxi = a[0];
-  int mini = a[0];
-  int ans = a[0];
-
-  for(int i=1;i<n;i++){
-    int c1 = maxi * a[i];
-    int c2 = mini * a[i];
-
-    maxi = max(a[i],max(c1,c2));
-    mini = min(a[i],min(c1,c2));
-    ans = max(maxi,ans);
-  }
-
-
-  return ans;
-}
-
 // leetcode 464
 // In the "100 game" two players take turns adding, to a running total, any integer from 1 to 10. The player who first causes the running total to reach or exceed 100 wins.
 
