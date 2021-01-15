@@ -868,7 +868,7 @@ nodeParent<int>* search_next(nodeParent<int>* root, nodeParent<int>* n)
     }
 
     if (c == nullptr)
-        nullptr;
+        return nullptr;
     else if (c->right == nullptr)
         return next;
 
@@ -2153,6 +2153,7 @@ void next_perm(vector<int>* pv) //jj
     return;
 }
 
+// leetcode 153
 int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
 {
     if (v[a] <= v[e])
@@ -2166,6 +2167,7 @@ int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
         return find_min_from_sorted_rotated(v, a, mid);
 }
 
+// leetcode 154
 int find_min_from_sorted_rotated_with_duplicate(const vector<int>& v, int i, int j) //jj
 {
 
@@ -2183,6 +2185,24 @@ int find_min_from_sorted_rotated_with_duplicate(const vector<int>& v, int i, int
 
     return v[i];
 }
+
+
+// leetcode 162
+int searchPeak(vector<int> nums, int l, int r) {
+  if (l == r)
+    return l;
+  int mid = (l + r) / 2;
+  if (nums[mid] > nums[mid + 1])
+    return searchPeak(nums, l, mid);
+  return searchPeak(nums, mid + 1, r);
+
+}
+
+int findPeakElement(vector<int>& nums) {
+  return searchPeak(nums, 0, nums.size() - 1);
+
+}
+
 
 void test_find_rand_comb() //jj
 {
@@ -5225,7 +5245,7 @@ int maxProduct(vector<string>& words)
     {
         for(char c: words[i])
         {
-            hash[i] |= (1 << c - 'a');
+            hash[i] |= (1 << (c - 'a'));
         }
     }
 
