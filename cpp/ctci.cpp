@@ -3598,6 +3598,7 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
 }
 
 
+// leetcode 5
 // find the number of longest palindrome substring
 // Given a string s, find the longest palindromic substring in s
 // Example 1:
