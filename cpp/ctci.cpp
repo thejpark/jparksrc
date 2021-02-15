@@ -3608,6 +3608,7 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
 // Note: "aba" is also a valid answer.
 // sol1: DP
 // sol2 : Brute force (scan from left to right, check if it is palindrom (scan left and right).
+// sol3: using BFS (start with base case, expand)
 
 void test_find_longest_palindromic_substring()
 {
