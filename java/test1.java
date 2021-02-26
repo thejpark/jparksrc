@@ -380,3 +380,119 @@ class test1
         System.out.println(f);
     }
 }
+
+
+// leetcode 332. Reconstruct Itinerary
+
+// Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+
+// Note:
+
+// If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+// All airports are represented by three capital letters (IATA code).
+// You may assume all tickets form at least one valid itinerary.
+// One must use all the tickets once and only once.
+// Example 1:
+
+// Input: [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
+// Output: ["JFK", "MUC", "LHR", "SFO", "SJC"]
+// Example 2:
+
+// Input: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+// Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
+// Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
+//              But it is larger in lexical order.
+
+class Solution {
+    public List<String> findItinerary(List<List<String>> tickets) {
+        HashMap<String, PriorityQueue<String>> m = new HashMap<>();
+        for (var t : tickets)
+        {
+            var depart = t.get(0);
+            m.putIfAbsent(depart, new PriorityQueue<String>());
+            m.get(depart).add(t.get(1));
+        }
+
+
+        LinkedList<String> r = new LinkedList<>();
+        foo(m, r, "JFK");
+
+        return r;
+
+    }
+
+    void foo(Map<String, PriorityQueue<String>> m, LinkedList<String> r, String depart)
+    {
+        PriorityQueue<String> q = m.get(depart);
+
+        while (q != null && !q.isEmpty())
+        {
+            var newDep = q.poll();
+            foo(m, r, newDep);
+        }
+
+        r.addFirst(depart);
+    }
+}
+
+class Solution2 {
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, List<Integer>> m = new HashMap<>();
+        Collections.sort(tickets, new Comparator<List<String>>() {
+            @Override
+            public int compare(List<String> o1, List<String> o2) {
+                    int r = o1.get(0).compareTo(o2.get(0));
+                    if (r == 0)
+                    {
+                        return o1.get(1).compareTo(o2.get(1));
+                    }
+                    return r;
+            }
+        });
+        int i = 0;
+        for (var t : tickets)
+        {
+            var depart = t.get(0);
+            var l = m.getOrDefault(depart, new LinkedList<Integer>());
+            l.add(i);
+            m.put(depart, l);
+            i += 1;
+        }
+
+        LinkedList<String> r = new LinkedList<>();
+        r.add("JFK");
+        boolean[] visit = new boolean[tickets.size()];
+        foo("JFK", tickets, m, visit, r);
+
+        return r;
+
+    }
+
+    boolean foo(String depart, List<List<String>> t, Map<String, List<Integer>> m, boolean[] v, LinkedList<String> r)
+    {
+        if (r.size() == v.length + 1)
+        {
+            return true;
+        }
+
+        var l = m.get(depart);
+        if (l == null)
+            return false;
+        for (var e: l)
+        {
+            if (!v[e])
+            {
+                v[e] = true;
+                var str = t.get(e).get(1);
+                r.add(str);
+                boolean result = foo(str, t, m, v, r);
+                if (result)
+                    return true;
+                r.removeLast();
+                v[e] = false;
+            }
+        }
+
+        return false;
+    }
+}
