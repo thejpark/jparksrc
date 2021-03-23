@@ -3629,7 +3629,7 @@ string longestPalindromeDP(string s) {
         {
           auto same = s[i] == s[j];
 
-          v[i][j] = j - i > 2 ? same && v[i + 1][j - 1] : same;
+          v[i][j] = j - i >= 2 ? same && v[i + 1][j - 1] : same;
 
           if (v[i][j] && j - i + 1 > len)
             {
