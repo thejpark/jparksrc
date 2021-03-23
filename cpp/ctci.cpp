@@ -3609,17 +3609,42 @@ int find_minimum_number_of_chars_to_remove_to_make_palindrome_dp(string s)
 // sol1: DP
 // sol2 : Brute force (scan from left to right, check if it is palindrom (scan left and right).
 // sol3: using BFS (start with base case, expand)
+string longestPalindromeDP(string s) {
+  // P(i,j)=(P(i+1,j−1) and S[i]​ ==S[j]​)
+  // The base cases are:
+  // P(i, i) = true
+  // P(i, i + 1) = ( S[i] == S[i + 1])
+
+  if (s.empty())
+    return s;
+
+  vector<vector<bool>> v(s.size(), vector<bool>(s.size(), false));
+
+  string ans;
+  int len = 0;
+
+  for (int j = 0; j < s.size(); ++j)
+    {
+      for (int i = 0; i <= j; ++i)
+        {
+          auto same = s[i] == s[j];
+
+          v[i][j] = j - i > 2 ? same && v[i + 1][j - 1] : same;
+
+          if (v[i][j] && j - i + 1 > len)
+            {
+              len = j - i + 1;
+              ans = s.substr(i, len);
+            }
+        }
+    }
+
+  return ans;
+}
 
 void test_find_longest_palindromic_substring()
 {
-    // P(i,j)=(P(i+1,j−1) and S[i]​ ==S[j]​)
-
-    // The base cases are:
-
-    // P(i, i) = true
-
-    // P(i, i + 1) = ( S[i] == S[i + 1])
- }
+}
 
 
 
