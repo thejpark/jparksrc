@@ -5232,6 +5232,7 @@ int find_3_numbers_sum_to_w(int sum, int idx, int cnt, vector<int>& v, unordered
     // sol2: map(obj) -> val where obj is a struct of (int, int, int).
     if (cnt == 0)
     {
+      // todo: delete this sol as this is wrong. are there any duplicate?
         if ((m.find(sum) != m.end()) && (m[sum] >= idx))
         {
             return 1;
