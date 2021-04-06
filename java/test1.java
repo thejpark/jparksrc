@@ -496,3 +496,73 @@ class Solution2 {
         return false;
     }
 }
+
+
+class pair {
+    int k;
+    int v;
+
+    public pair(int key, int value) {
+        this.k = key;
+        this.v = value;
+    }
+}
+
+
+class Skyline {
+    public List<List<Integer>> getSkyline(int[][] buildings) {
+        List<List<Integer>> res = new ArrayList<>();
+
+        pair[] p = new pair[buildings.length * 2];
+
+        for (int i = 0, j = 0; i < buildings.length; ++i, j += 2)
+        {
+            p[j] = new pair(buildings[i][0], -buildings[i][2]);
+            p[j + 1] = new pair(buildings[i][1], buildings[i][2]);
+        }
+
+        Arrays.sort(p, new Comparator<pair>() {
+            @Override public int compare(pair p1, pair p2)
+            {
+                if (p1.k == p2.k)
+                   return p1.v - p2.v;
+                return p1.k - p2.k;
+            }
+        });
+        int prev = 0, cur = 0;
+
+        TreeMap<Integer, Integer> m = new TreeMap<>();
+
+        m.put(0, 1);
+        for (pair e : p) {
+
+            if (e.v < 0)
+            {
+                int h = -e.v;
+                Integer x = m.getOrDefault(h, 0);
+                m.put(h, x + 1);
+            }
+            else
+            {
+                int h = e.v;
+                Integer x = m.get(h);
+                if (x == 1)
+                    m.remove(h);
+                else
+                    m.put(h, x - 1);
+
+            }
+
+            cur = m.lastKey();
+            if (cur != prev) {
+                List<Integer> l = new ArrayList<>();
+                l.add(e.k);
+                l.add(cur);
+                res.add(l);
+                prev = cur;
+            }
+        }
+        return res;
+
+    }
+}
