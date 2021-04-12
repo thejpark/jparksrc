@@ -17,7 +17,9 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         currData = ""
         gender = "여자"
         place = "서울"
-        
+    
+        self.myDatePicker.maximumDate = NSDate() as Date
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MM yyyy HH mm"
         self.selectedDate = String(dateFormatter.string(from: self.myDatePicker.date).prefix(11))
