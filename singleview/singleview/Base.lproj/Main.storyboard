@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LCo-r8-A1y">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LCo-r8-A1y">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,11 +12,11 @@
             <objects>
                 <navigationController toolbarHidden="NO" id="LCo-r8-A1y" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ARI-EM-0T0">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="J05-4g-KXc">
-                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -38,95 +36,88 @@
                         <viewControllerLayoutGuide type="bottom" id="0Tn-mK-eCF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EJG-B4-pIn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="16" y="164" width="167" height="81"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="53" y="503" width="309" height="48"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="셀프 작명">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="셀프 작명" backgroundImage="Rectangle 2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="192" y="83" width="167" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="52" y="561" width="310" height="48"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="추천 작명">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="getRecommendedNames:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="kbO-KJ-0Cw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="192" y="165" width="167" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="영문 이름">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="영문 이름" backgroundImage="Rectangle 2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="XIj-fE-WIr" kind="show" id="b72-0M-der"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="16" y="83" width="167" height="74"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="57" y="98" width="301" height="172"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="출생 정보">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="출생 정보" backgroundImage="Group 2">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcA-VD-A7Y" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="14" y="506" width="345" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcA-VD-A7Y" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="53" y="677" width="309" height="48"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="사주와 작명">
+                                <state key="normal" title="사주와 작명" backgroundImage="Rectangle 2">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="QPU-J0-L6f" kind="show" id="a45-NE-oQ3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-c5-UOa" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="15" y="563" width="345" height="49"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" red="0.41575998040000001" green="0.3535952503" blue="0.30069698500000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-c5-UOa" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="53" y="735" width="309" height="48"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="글로벌 작명법">
+                                <state key="normal" title="글로벌 작명법" backgroundImage="Rectangle 2">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="tGk-4V-klM" kind="show" id="yOQ-PD-RLu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-bz-a7a" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="15" y="453" width="345" height="45"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="52" y="445" width="310" height="48"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="사용 방법">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <state key="normal" title="추천 작명" backgroundImage="Rectangle 2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="getRecommendedNames:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="kbO-KJ-0Cw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-bz-a7a" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                <rect key="frame" x="53" y="619" width="309" height="48"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="사용 방법" backgroundImage="Rectangle 2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="f8w-4a-7dk" kind="show" id="lQq-cO-ZTk"/>
@@ -135,6 +126,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zae-Me-CmE" firstAttribute="top" secondItem="4dl-lP-5Oe" secondAttribute="bottom" constant="10" id="0T6-Ga-ZIQ"/>
+                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="top" secondItem="5vy-yC-o1U" secondAttribute="bottom" constant="10" id="1Wa-TK-RUE"/>
+                            <constraint firstItem="5vy-yC-o1U" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="8rC-BO-iyL"/>
+                            <constraint firstItem="nB0-kB-KhF" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="CJ1-IU-X8M"/>
+                            <constraint firstItem="heJ-bz-a7a" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="CTl-5z-RZO"/>
+                            <constraint firstItem="5vy-yC-o1U" firstAttribute="top" secondItem="nB0-kB-KhF" secondAttribute="bottom" constant="10" id="DOl-Oe-cNe"/>
+                            <constraint firstItem="cBR-c5-UOa" firstAttribute="top" secondItem="KcA-VD-A7Y" secondAttribute="bottom" constant="10" id="QcN-0v-yAC"/>
+                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="VjL-Tt-1P3"/>
+                            <constraint firstItem="0Tn-mK-eCF" firstAttribute="top" secondItem="cBR-c5-UOa" secondAttribute="bottom" constant="30" id="b7p-KF-0p9"/>
+                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="top" secondItem="heJ-bz-a7a" secondAttribute="bottom" constant="10" id="hHP-SP-ZN5"/>
+                            <constraint firstItem="zae-Me-CmE" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="pfC-ge-qIg"/>
+                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="tK6-EV-WQW"/>
+                            <constraint firstItem="cBR-c5-UOa" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="tWz-K4-SW0"/>
+                            <constraint firstItem="heJ-bz-a7a" firstAttribute="top" secondItem="Y2g-5B-Vcw" secondAttribute="bottom" constant="10" id="zjq-H0-SyJ"/>
+                        </constraints>
                     </view>
                     <toolbarItems>
                         <barButtonItem title=" 저장목록" width="79" id="PZf-t1-eln">
@@ -149,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="221.25" y="-1450"/>
+            <point key="canvasLocation" x="220" y="-1450.5247376311845"/>
         </scene>
         <!--작명과 음양오행-->
         <scene sceneID="qFA-0a-Rdx">
@@ -160,11 +167,11 @@
                         <viewControllerLayoutGuide type="bottom" id="9HO-pb-geM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PPC-9H-nDN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIb-8W-oG6">
-                                <rect key="frame" x="8" y="72" width="356" height="604"/>
+                                <rect key="frame" x="9" y="72" width="393" height="833"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">1. 음양과 오행   오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.     오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다.   자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하며, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다.   예를 들어, 在錫(재석) 이라는 이름의 자원 오행은 土와 金이 되며 발음 오행은 金과 金이 됩니다. 사주에서 土와 金이 부족한 경우에 좋은 이름이 될 수 있으나, 반대로 土와 金이 많을 경우에는 좋지 않은 이름입니다.     2. 발음오행   쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다.  
@@ -189,14 +196,14 @@
                         <viewControllerLayoutGuide type="bottom" id="aSQ-4U-V98"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KwR-k7-GlC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
-                                <rect key="frame" x="42" y="213" width="290" height="174"/>
+                                <rect key="frame" x="42" y="213" width="329" height="174"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HhR-ee-xYK" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="152" y="97" width="81" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -212,8 +219,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                        <rect key="frame" x="65" y="98" width="64" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t15-AO-keY" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="104" y="98" width="64" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="예"/>
@@ -245,11 +252,11 @@
                         <viewControllerLayoutGuide type="bottom" id="hkL-N0-GfU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8NA-lx-O4y">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-D7-UHL">
-                                <rect key="frame" x="52" y="197" width="287" height="174"/>
+                                <rect key="frame" x="52" y="197" width="326" height="174"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3SS-Hk-sCV">
@@ -259,7 +266,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-c6-Nzh" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4g-c6-Nzh" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="115" y="96" width="56" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -292,7 +299,7 @@
                         <viewControllerLayoutGuide type="bottom" id="LaT-hc-M1E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rXj-Da-G2D">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성(음)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-pQ-H3h">
@@ -320,12 +327,9 @@
                                     <outlet property="delegate" destination="FDT-xE-FeJ" id="6Nc-cb-Ggf"/>
                                 </connections>
                             </pickerView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="XwB-GO-MWu">
                                 <rect key="frame" x="2" y="239" width="229" height="116"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
-                                    <!--2015-10-24 21:22:00 +0000-->
-                                </date>
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-1925038800">
                                     <!--1940-01-01 11:00:00 +0000-->
                                 </date>
@@ -334,7 +338,7 @@
                                     <action selector="datePickerAction:" destination="FDT-xE-FeJ" eventType="valueChanged" id="KTi-dM-F7G"/>
                                 </connections>
                             </datePicker>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bgD-Q0-X2C" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="146" y="381" width="56" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -383,9 +387,6 @@
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Mbn-d6-HSc" userLabel="My Time Picker">
                                 <rect key="frame" x="232" y="243" width="143" height="108"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="467414520.90500301">
-                                    <!--2015-10-24 21:22:00 +0000-->
-                                </date>
                                 <date key="minimumDate" timeIntervalSinceReferenceDate="-1925038800">
                                     <!--1940-01-01 11:00:00 +0000-->
                                 </date>
@@ -419,7 +420,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OXV-Wi-MVc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xnd-fz-Qda">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9D3-A1-3et">
@@ -440,7 +441,7 @@
                                     <outlet property="delegate" destination="XIj-fE-WIr" id="kTJ-gr-aXt"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z2-Hq-NVx" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9z2-Hq-NVx" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="50" y="209" width="176" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -458,7 +459,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-4J-S3d" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4S-4J-S3d" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="50" y="313" width="101" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -496,7 +497,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDo-j0-h4G">
@@ -529,7 +530,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xcc-Ey-VlO" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                 <rect key="frame" x="125" y="361" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -565,19 +566,19 @@
             <objects>
                 <tableViewController storyboardIdentifier="CandidateView" id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iUI-fF-lSU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="O9p-CA-lkY" style="IBUITableViewCellStyleDefault" id="MQd-vJ-uLX">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MQd-vJ-uLX" id="ipJ-I3-qc8">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="O9p-CA-lkY">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -618,7 +619,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Rq4-dt-vJK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lyH-0t-soD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-fD-aOw">
@@ -681,7 +682,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" red="0.52107352500000004" green="0.43324724580000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" systemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="barumend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qo5-KO-iee">
@@ -765,15 +766,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="SavedNames" id="DPT-ks-VtN" customClass="SavedViewTableController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="39M-z5-5iU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="CyM-9g-i5U">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CyM-9g-i5U" id="p7z-dc-Qj3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -801,7 +802,7 @@
                         <viewControllerLayoutGuide type="bottom" id="zJN-Ff-Kmh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gdF-b3-AkA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poj-tD-aNN">
@@ -867,7 +868,7 @@
                         <viewControllerLayoutGuide type="bottom" id="LJA-5y-jEd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yUA-Jd-j6E">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XhN-pZ-KGi">
@@ -934,7 +935,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.52107352500000004" green="0.43324724580000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" systemColor="darkTextColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="barumend" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRW-Wh-Okx">
@@ -1025,14 +1026,14 @@
                         <viewControllerLayoutGuide type="bottom" id="BWF-6D-bM8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wIB-Z7-hKB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dz-a0-p1L">
-                                <rect key="frame" x="22" y="179" width="337" height="220"/>
+                                <rect key="frame" x="22" y="179" width="376" height="220"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7O-bY-4xI" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r7O-bY-4xI" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                         <rect key="frame" x="181" y="168" width="75" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -1041,8 +1042,8 @@
                                             <action selector="closePopup:" destination="KM7-bg-cyB" eventType="primaryActionTriggered" id="Wdc-ZP-lKD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdM-0Y-Aft" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                        <rect key="frame" x="72" y="168" width="64" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdM-0Y-Aft" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                        <rect key="frame" x="111" y="168" width="64" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <state key="normal" title="예"/>
@@ -1105,11 +1106,11 @@
                         <viewControllerLayoutGuide type="bottom" id="49R-bg-56t"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oOx-Iu-BYh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGx-cr-anc">
-                                <rect key="frame" x="8" y="72" width="356" height="630"/>
+                                <rect key="frame" x="9" y="72" width="393" height="859"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">1. 출생 정보 등록   출생정보에 아이의 성과 생년월일 등의 기본 정보를 등록 하세요.  복성은 성의 음을 한글 (예: 남궁)로 입력 한 후 한자선택은 복성의 첫 번째 한자 (예: 南)를 선택하시면 됩니다.    출생지역은 인근 도시 혹은 경도상 같은 도시이름을 설정해도 됩니다.     태어난 시간은 썸머타임이 아닌 원래의 시간을 사용합니다.      2. 작명   셀프 작명 혹은 추천 작명 메뉴로 이름을 작명하세요. 셀프작명은 원하는 한글 이름을 이용하여 사주에 적합한 한자 이름을 조합해 줍니다.    추천 작명은 요즘 인기있는 한글 이름 중에서 사주에 적합한 한자 이름 조합을 제공합니다. 
@@ -1135,11 +1136,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2lR-nT-0Gf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HJ5-De-iew">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP3-JW-umZ">
-                                <rect key="frame" x="8" y="72" width="356" height="629"/>
+                                <rect key="frame" x="9" y="72" width="393" height="858"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">  한국 이름 중에서는 외국 사람들이 발음하기 힘든 이름들이 있습니다. '수현' 처럼 '현' 자가 들어간 이름은 영어를 사용하는 외국인들이 발음하기 힘듭니다. 현을  Hyun이라서 쓰면 '하이언' 처럼 발음하게 됩니다. '혁'도 마찬가지로 어려운데, 쉽게 '척' 이라고 발음 하기도 합니다. 또한, '재석'의 '석'자는 영어로 발음하기에 매우 조심스러운 글자 입니다. 일본인들은 'ㅁ' 받침을 발음하기 힘들어 합니다. 외국인들이 발음하기에 쉬운 이름은 다음과 같은 특징이 있습니다. 
@@ -1158,4 +1159,11 @@
             <point key="canvasLocation" x="-178" y="-395"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Group 2" width="301" height="172"/>
+        <image name="Rectangle 2" width="309" height="48"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
