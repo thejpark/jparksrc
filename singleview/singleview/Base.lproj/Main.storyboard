@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="LCo-r8-A1y">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -13,11 +13,11 @@
             <objects>
                 <navigationController toolbarHidden="NO" id="LCo-r8-A1y" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ARI-EM-0T0">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="J05-4g-KXc">
-                        <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                        <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
@@ -41,7 +41,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="37" y="98" width="301" height="172"/>
+                                <rect key="frame" x="37" y="54" width="301" height="172"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,13 +53,13 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Group 3" translatesAutoresizingMaskIntoConstraints="NO" id="ecN-Gx-uZN">
-                                <rect key="frame" x="35" y="300" width="305" height="22"/>
+                                <rect key="frame" x="35" y="256" width="305" height="22"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWj-rz-9j4">
-                                <rect key="frame" x="0.0" y="342" width="375" height="276"/>
+                                <rect key="frame" x="0.0" y="298" width="375" height="320"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WM1-gc-w6Z" userLabel="ServiceView">
-                                        <rect key="frame" x="0.0" y="0.0" width="381" height="400"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WM1-gc-w6Z" userLabel="ServiceView">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
                                                 <rect key="frame" x="36" y="10" width="309" height="48"/>
@@ -146,6 +146,7 @@
                                             <constraint firstItem="heJ-bz-a7a" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="jLl-Wd-8JE"/>
                                             <constraint firstItem="heJ-bz-a7a" firstAttribute="top" secondItem="cBR-c5-UOa" secondAttribute="bottom" constant="10" id="jSD-xY-i5P"/>
                                             <constraint firstItem="Y2g-5B-Vcw" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="lbP-55-e5L"/>
+                                            <constraint firstItem="nB0-kB-KhF" firstAttribute="leading" secondItem="WM1-gc-w6Z" secondAttribute="leading" constant="36" id="mtK-Be-hb0"/>
                                             <constraint firstItem="5vy-yC-o1U" firstAttribute="top" secondItem="nB0-kB-KhF" secondAttribute="bottom" constant="10" id="nXi-Pm-VFU"/>
                                             <constraint firstItem="KcA-VD-A7Y" firstAttribute="top" secondItem="Y2g-5B-Vcw" secondAttribute="bottom" constant="10" id="pqz-hN-jF4"/>
                                             <constraint firstItem="5vy-yC-o1U" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="rkW-z6-Wth"/>
@@ -153,10 +154,10 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="WM1-gc-w6Z" secondAttribute="trailing" id="aqd-iW-49b"/>
+                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="top" secondItem="YWj-rz-9j4" secondAttribute="top" id="0iV-Hd-eKu"/>
+                                    <constraint firstAttribute="trailing" secondItem="WM1-gc-w6Z" secondAttribute="trailing" id="6dF-Kq-i62"/>
+                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="leading" secondItem="YWj-rz-9j4" secondAttribute="leading" id="VgJ-nI-IAs"/>
                                     <constraint firstAttribute="bottom" secondItem="WM1-gc-w6Z" secondAttribute="bottom" id="dPZ-qq-Doh"/>
-                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="top" secondItem="YWj-rz-9j4" secondAttribute="top" id="nYX-Xq-0Tv"/>
-                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="leading" secondItem="YWj-rz-9j4" secondAttribute="leading" id="p5q-s6-t5o"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -165,7 +166,6 @@
                         <constraints>
                             <constraint firstItem="zae-Me-CmE" firstAttribute="top" secondItem="4dl-lP-5Oe" secondAttribute="bottom" constant="10" id="0T6-Ga-ZIQ"/>
                             <constraint firstItem="ecN-Gx-uZN" firstAttribute="top" secondItem="zae-Me-CmE" secondAttribute="bottom" constant="30" id="BEI-kj-8LI"/>
-                            <constraint firstItem="WM1-gc-w6Z" firstAttribute="width" secondItem="EJG-B4-pIn" secondAttribute="width" multiplier="1.016" id="Qee-60-VqL"/>
                             <constraint firstItem="0Tn-mK-eCF" firstAttribute="top" secondItem="YWj-rz-9j4" secondAttribute="bottom" id="SPM-EJ-nVG"/>
                             <constraint firstItem="ecN-Gx-uZN" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="TBE-bB-xCn"/>
                             <constraint firstItem="YWj-rz-9j4" firstAttribute="leading" secondItem="EJG-B4-pIn" secondAttribute="leading" id="X28-6w-ACD"/>
@@ -199,11 +199,11 @@
                         <viewControllerLayoutGuide type="bottom" id="9HO-pb-geM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PPC-9H-nDN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MIb-8W-oG6">
-                                <rect key="frame" x="9" y="72" width="393" height="833"/>
+                                <rect key="frame" x="9" y="72" width="393" height="673"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">1. 음양과 오행   오늘날 이름학에서 가장 중요하게 고려하는 내용은 음양과 오행입니다.    음양은 글자 획수의 음양을 고려할 수 있는데, 이름의 획수가 전부 음(짝수)이 되거나 양(홀수)이 되지 않고 조화되어야 합니다. 획수는 원획 (부수의 원획)을 사용합니다.     오행은 글자의 뜻의 오행 (자원오행)과 발음의 오행 (발음오행)을 고려할 수 있는데, 사주에서 부족한 오행을 이름의 뜻이나 발음을 통해서 보충하려는 것입니다.   자원오행은 한자를 그 뜻에 따라서 오행 (木, 火, 土, 金, 水)으로 분류한 후 작명에 사용하며, 발음오행은 한글 자음과 모음으로 오행을 분류하여 작명에 사용합니다.   예를 들어, 在錫(재석) 이라는 이름의 자원 오행은 土와 金이 되며 발음 오행은 金과 金이 됩니다. 사주에서 土와 金이 부족한 경우에 좋은 이름이 될 수 있으나, 반대로 土와 金이 많을 경우에는 좋지 않은 이름입니다.     2. 발음오행   쉬운작명 에서는 음양과 자원오행을 기준으로 작명을 하되, 발음오행은 참고로 사용합니다. 발음이 중요하기는 하나, 순수 한글 이름이 아닌 이상 글자의 뜻 이 더 중요하다는 것이 저자의 견해입니다. 하지만 만약 자원오행을 기준으로 만족할만한 이름을 찾을 수 없다면 발음오행을 고려해 볼 수 있다고 봅니다.  
@@ -229,7 +229,7 @@
                         <viewControllerLayoutGuide type="bottom" id="aSQ-4U-V98"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="KwR-k7-GlC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNR-dl-UfI">
@@ -285,7 +285,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hkL-N0-GfU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8NA-lx-O4y">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BRd-D7-UHL">
@@ -332,7 +332,7 @@
                         <viewControllerLayoutGuide type="bottom" id="LaT-hc-M1E"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rXj-Da-G2D">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성(음)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-pQ-H3h">
@@ -453,7 +453,7 @@
                         <viewControllerLayoutGuide type="bottom" id="OXV-Wi-MVc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xnd-fz-Qda">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9D3-A1-3et">
@@ -530,7 +530,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="성" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDo-j0-h4G">
@@ -599,7 +599,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="CandidateView" id="LCm-aK-E4l" customClass="MasterViewController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iUI-fF-lSU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -652,7 +652,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Rq4-dt-vJK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lyH-0t-soD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-fD-aOw">
@@ -799,7 +799,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="SavedNames" id="DPT-ks-VtN" customClass="SavedViewTableController" customModule="BabyName" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="39M-z5-5iU">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -835,7 +835,7 @@
                         <viewControllerLayoutGuide type="bottom" id="zJN-Ff-Kmh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gdF-b3-AkA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="생일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poj-tD-aNN">
@@ -901,7 +901,7 @@
                         <viewControllerLayoutGuide type="bottom" id="LJA-5y-jEd"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yUA-Jd-j6E">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="716"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XhN-pZ-KGi">
@@ -1059,7 +1059,7 @@
                         <viewControllerLayoutGuide type="bottom" id="BWF-6D-bM8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wIB-Z7-hKB">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dz-a0-p1L">
@@ -1139,11 +1139,11 @@
                         <viewControllerLayoutGuide type="bottom" id="49R-bg-56t"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oOx-Iu-BYh">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGx-cr-anc">
-                                <rect key="frame" x="9" y="72" width="393" height="859"/>
+                                <rect key="frame" x="9" y="72" width="393" height="699"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">1. 출생 정보 등록   출생정보에 아이의 성과 생년월일 등의 기본 정보를 등록 하세요.  복성은 성의 음을 한글 (예: 남궁)로 입력 한 후 한자선택은 복성의 첫 번째 한자 (예: 南)를 선택하시면 됩니다.    출생지역은 인근 도시 혹은 경도상 같은 도시이름을 설정해도 됩니다.     태어난 시간은 썸머타임이 아닌 원래의 시간을 사용합니다.      2. 작명   셀프 작명 혹은 추천 작명 메뉴로 이름을 작명하세요. 셀프작명은 원하는 한글 이름을 이용하여 사주에 적합한 한자 이름을 조합해 줍니다.    추천 작명은 요즘 인기있는 한글 이름 중에서 사주에 적합한 한자 이름 조합을 제공합니다. 
@@ -1170,11 +1170,11 @@
                         <viewControllerLayoutGuide type="bottom" id="2lR-nT-0Gf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HJ5-De-iew">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cP3-JW-umZ">
-                                <rect key="frame" x="9" y="72" width="393" height="858"/>
+                                <rect key="frame" x="9" y="72" width="393" height="698"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">  한국 이름 중에서는 외국 사람들이 발음하기 힘든 이름들이 있습니다. '수현' 처럼 '현' 자가 들어간 이름은 영어를 사용하는 외국인들이 발음하기 힘듭니다. 현을  Hyun이라서 쓰면 '하이언' 처럼 발음하게 됩니다. '혁'도 마찬가지로 어려운데, 쉽게 '척' 이라고 발음 하기도 합니다. 또한, '재석'의 '석'자는 영어로 발음하기에 매우 조심스러운 글자 입니다. 일본인들은 'ㅁ' 받침을 발음하기 힘들어 합니다. 외국인들이 발음하기에 쉬운 이름은 다음과 같은 특징이 있습니다. 
