@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -36,35 +37,11 @@
                         <viewControllerLayoutGuide type="bottom" id="0Tn-mK-eCF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="EJG-B4-pIn">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="53" y="503" width="309" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="셀프 작명" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="52" y="561" width="310" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="영문 이름" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="XIj-fE-WIr" kind="show" id="b72-0M-der"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zae-Me-CmE" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="57" y="98" width="301" height="172"/>
+                                <rect key="frame" x="37" y="98" width="301" height="172"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,72 +52,128 @@
                                     <action selector="enterInfo:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="88K-Gs-UZg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcA-VD-A7Y" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="53" y="677" width="309" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="사주와 작명" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="QPU-J0-L6f" kind="show" id="a45-NE-oQ3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-c5-UOa" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="53" y="735" width="309" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="글로벌 작명법" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="tGk-4V-klM" kind="show" id="yOQ-PD-RLu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="52" y="445" width="310" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="추천 작명" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="getRecommendedNames:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="kbO-KJ-0Cw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-bz-a7a" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
-                                <rect key="frame" x="53" y="619" width="309" height="48"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="사용 방법" backgroundImage="Rectangle 2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="f8w-4a-7dk" kind="show" id="lQq-cO-ZTk"/>
-                                </connections>
-                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YWj-rz-9j4">
+                                <rect key="frame" x="0.0" y="390" width="375" height="228"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WM1-gc-w6Z">
+                                        <rect key="frame" x="0.0" y="0.0" width="381" height="619"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nB0-kB-KhF" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="10" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="추천 작명" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="getRecommendedNames:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="kbO-KJ-0Cw"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y2g-5B-Vcw" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="126" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="영문 이름" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="XIj-fE-WIr" kind="show" id="b72-0M-der"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcA-VD-A7Y" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="184" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="사주와 작명" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="QPU-J0-L6f" kind="show" id="a45-NE-oQ3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-c5-UOa" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="242" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="글로벌 작명법" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="tGk-4V-klM" kind="show" id="yOQ-PD-RLu"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-bz-a7a" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="300" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="사용 방법" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <segue destination="f8w-4a-7dk" kind="show" id="lQq-cO-ZTk"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vy-yC-o1U" customClass="BorderedButton" customModule="BabyName" customModuleProvider="target">
+                                                <rect key="frame" x="36" y="68" width="309" height="48"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="셀프 작명" backgroundImage="Rectangle 2">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="enterName:" destination="sgv-xB-FRN" eventType="primaryActionTriggered" id="mdL-vI-jt9"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="3E5-K1-4aM"/>
+                                            <constraint firstItem="cBR-c5-UOa" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="62E-XN-KhT"/>
+                                            <constraint firstItem="nB0-kB-KhF" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="L3N-Xk-u3U"/>
+                                            <constraint firstItem="nB0-kB-KhF" firstAttribute="top" secondItem="WM1-gc-w6Z" secondAttribute="top" constant="10" id="SWD-Ii-QlH"/>
+                                            <constraint firstAttribute="height" constant="619" id="btu-rA-9ZN"/>
+                                            <constraint firstItem="cBR-c5-UOa" firstAttribute="top" secondItem="KcA-VD-A7Y" secondAttribute="bottom" constant="10" id="dLA-m4-7HW"/>
+                                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="top" secondItem="5vy-yC-o1U" secondAttribute="bottom" constant="10" id="ikW-5Q-7TR"/>
+                                            <constraint firstItem="heJ-bz-a7a" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="jLl-Wd-8JE"/>
+                                            <constraint firstItem="heJ-bz-a7a" firstAttribute="top" secondItem="cBR-c5-UOa" secondAttribute="bottom" constant="10" id="jSD-xY-i5P"/>
+                                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="lbP-55-e5L"/>
+                                            <constraint firstItem="5vy-yC-o1U" firstAttribute="top" secondItem="nB0-kB-KhF" secondAttribute="bottom" constant="10" id="nXi-Pm-VFU"/>
+                                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="top" secondItem="Y2g-5B-Vcw" secondAttribute="bottom" constant="10" id="pqz-hN-jF4"/>
+                                            <constraint firstItem="5vy-yC-o1U" firstAttribute="centerX" secondItem="WM1-gc-w6Z" secondAttribute="centerX" id="rkW-z6-Wth"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyS-wM-YCY">
+                                        <rect key="frame" x="10" y="10" width="42" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="WM1-gc-w6Z" secondAttribute="trailing" id="aqd-iW-49b"/>
+                                    <constraint firstAttribute="bottom" secondItem="WM1-gc-w6Z" secondAttribute="bottom" id="dPZ-qq-Doh"/>
+                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="top" secondItem="YWj-rz-9j4" secondAttribute="top" id="nYX-Xq-0Tv"/>
+                                    <constraint firstItem="WM1-gc-w6Z" firstAttribute="leading" secondItem="YWj-rz-9j4" secondAttribute="leading" id="p5q-s6-t5o"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zae-Me-CmE" firstAttribute="top" secondItem="4dl-lP-5Oe" secondAttribute="bottom" constant="10" id="0T6-Ga-ZIQ"/>
-                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="top" secondItem="5vy-yC-o1U" secondAttribute="bottom" constant="10" id="1Wa-TK-RUE"/>
-                            <constraint firstItem="5vy-yC-o1U" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="8rC-BO-iyL"/>
-                            <constraint firstItem="nB0-kB-KhF" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="CJ1-IU-X8M"/>
-                            <constraint firstItem="heJ-bz-a7a" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="CTl-5z-RZO"/>
-                            <constraint firstItem="5vy-yC-o1U" firstAttribute="top" secondItem="nB0-kB-KhF" secondAttribute="bottom" constant="10" id="DOl-Oe-cNe"/>
-                            <constraint firstItem="cBR-c5-UOa" firstAttribute="top" secondItem="KcA-VD-A7Y" secondAttribute="bottom" constant="10" id="QcN-0v-yAC"/>
-                            <constraint firstItem="Y2g-5B-Vcw" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="VjL-Tt-1P3"/>
-                            <constraint firstItem="0Tn-mK-eCF" firstAttribute="top" secondItem="cBR-c5-UOa" secondAttribute="bottom" constant="30" id="b7p-KF-0p9"/>
-                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="top" secondItem="heJ-bz-a7a" secondAttribute="bottom" constant="10" id="hHP-SP-ZN5"/>
+                            <constraint firstItem="WM1-gc-w6Z" firstAttribute="width" secondItem="EJG-B4-pIn" secondAttribute="width" multiplier="1.016" id="Qee-60-VqL"/>
+                            <constraint firstItem="0Tn-mK-eCF" firstAttribute="top" secondItem="YWj-rz-9j4" secondAttribute="bottom" id="SPM-EJ-nVG"/>
+                            <constraint firstItem="YWj-rz-9j4" firstAttribute="leading" secondItem="EJG-B4-pIn" secondAttribute="leading" id="X28-6w-ACD"/>
+                            <constraint firstAttribute="trailing" secondItem="YWj-rz-9j4" secondAttribute="trailing" id="iVO-MV-4Qd"/>
+                            <constraint firstItem="YWj-rz-9j4" firstAttribute="top" secondItem="zae-Me-CmE" secondAttribute="bottom" constant="120" id="mdB-hM-UWh"/>
                             <constraint firstItem="zae-Me-CmE" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="pfC-ge-qIg"/>
-                            <constraint firstItem="KcA-VD-A7Y" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="tK6-EV-WQW"/>
-                            <constraint firstItem="cBR-c5-UOa" firstAttribute="centerX" secondItem="EJG-B4-pIn" secondAttribute="centerX" id="tWz-K4-SW0"/>
-                            <constraint firstItem="heJ-bz-a7a" firstAttribute="top" secondItem="Y2g-5B-Vcw" secondAttribute="bottom" constant="10" id="zjq-H0-SyJ"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -153,10 +186,11 @@
                     <navigationItem key="navigationItem" title="쉬운 작명 도우미" id="eDg-Gu-2JI">
                         <barButtonItem key="backBarButtonItem" title="Home" id="I8V-oF-CeF"/>
                     </navigationItem>
+                    <size key="freeformSize" width="375" height="667"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZFh-2M-c6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="220" y="-1450.5247376311845"/>
+            <point key="canvasLocation" x="218.40000000000001" y="-1451.4242878560722"/>
         </scene>
         <!--작명과 음양오행-->
         <scene sceneID="qFA-0a-Rdx">
@@ -182,6 +216,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="rTW-Cp-Bwv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="75D-R5-WQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1122,6 +1157,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="3Mu-Zs-enf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G73-4g-i4e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1153,6 +1189,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="8bt-qP-Bda"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aA6-hG-2A7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1164,6 +1201,9 @@
         <image name="Rectangle 2" width="309" height="48"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
