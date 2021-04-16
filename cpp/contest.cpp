@@ -6678,6 +6678,51 @@ int characterReplacement(string s, int k) {
 }
 
 
+// leetcode 352
+// Given a data stream input of non-negative integers a1, a2, ..., an, summarize the numbers seen so far as a list of disjoint intervals.
+//   Implement the SummaryRanges class:
+//   SummaryRanges() Initializes the object with an empty stream.
+//   void addNum(int val) Adds the integer val to the stream.
+//   int[][] getIntervals() Returns a summary of the integers in the stream currently as a list of disjoint intervals [starti, endi].
+
+class SummaryRanges {
+
+  map<int, int> mp;
+public:
+
+  // this can be also solved using find_largest_contained_intervals in the ctci.cpp
+
+  /** Initialize your data structure here. */
+  SummaryRanges() {
+  }
+
+  void addNum(int val) {
+    if(mp.count(val)) {
+      return;
+    }
+    mp[val] = val;
+    int minn = val, maxx = val;
+    if(mp.count(val - 1)) {
+      minn = mp[val - 1];
+    }
+    if(mp.count(val + 1)) {
+      maxx = mp[val + 1];
+    }
+    mp[minn] = maxx;
+    mp[maxx] = minn;
+  }
+
+  vector<vector<int>> getIntervals() {
+    vector<vector<int>>ans;
+    auto it = mp.begin();
+    while(it != mp.end()) {
+      ans.push_back({it -> first, it -> second});
+      it = mp.upper_bound(it -> second);
+    }
+    return ans;
+  }
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
