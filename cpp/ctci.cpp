@@ -33,6 +33,8 @@
 #include <typeinfo>
 #include <random>
 #include <sstream>
+// time_point::time_since_epoch
+#include <chrono>
 
 using namespace std;
 
@@ -5458,6 +5460,20 @@ void test_lfu_cache()
   c.put(8,18);
   c.put(1,7);
   c.get(6);
+}
+
+void test_time()
+{
+  using namespace std::chrono;
+
+  system_clock::time_point tp = system_clock::now();
+  system_clock::duration dtn = tp.time_since_epoch();
+  unsigned long long x = system_clock::now().time_since_epoch().count();
+
+  std::cout << "current time since epoch, expressed in:" << std::endl;
+  std::cout << "periods: " << dtn.count() << " " << x <<  std::endl;
+  std::cout << "seconds: " << dtn.count() * system_clock::period::num / system_clock::period::den;
+  std::cout << std::endl;
 }
 
 int main()
