@@ -825,6 +825,31 @@ int makeMinChange(vector<int>& denom, int idx, int cnt, int n) //jj
     return r;
 }
 
+// this is better solution. c is coins, if there is no matching amount then return maxAmount,
+// cache is for caching. same with leetcode 279 perfect square
+int makeMinChange(vector<int>& c, int amount, int maxAmount, vector<int>& cache)
+{
+  int r = maxAmount + 1;
+
+  if (amount < 0)
+    return r;
+  if (amount == 0)
+    return 0;
+
+  if (cache[amount] != -1)
+    return cache[amount];
+
+  for (int i = 0; i < c.size(); ++i)
+    {
+      int m = 1 + foo2(c, amount - c[i], maxAmount, cache);
+      r = min(r, m);
+    }
+
+  cache[amount] = r;
+  return r;
+}
+
+
 void test_denom() {
     cout << makeChange(100, 25) << endl;
 
