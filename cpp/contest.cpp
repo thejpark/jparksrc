@@ -5590,6 +5590,7 @@ int totalFruit(vector<int>& tree) {
 
 
 /*
+  leetcode 974
 Input: A = [4,5,0,-2,-3,1], K = 5
     Output: 7
     Explanation: There are 7 subarrays with a sum divisible by K = 5:
@@ -6688,13 +6689,9 @@ int characterReplacement(string s, int k) {
 class SummaryRanges {
 
   map<int, int> mp;
-public:
 
-  // this can be also solved using find_largest_contained_intervals in the ctci.cpp
+  // if test is needed, then probably need to take am interface to get the time, as  an  interface.
 
-  /** Initialize your data structure here. */
-  SummaryRanges() {
-  }
 
   void addNum(int val) {
     if(mp.count(val)) {
@@ -6721,6 +6718,86 @@ public:
     }
     return ans;
   }
+};
+
+
+//leetcode 220
+// Given an integer array nums and two integers k and t, return true if there are two distinct indices i and j in the array such that abs(nums[i] - nums[j]) <= t and abs(i - j) <= k.
+//   Input: nums = [1,2,3,1], k = 3, t = 0
+//   Output: true
+
+class ContainsDuplicate3 {
+public:
+    bool containsNearbyAlmostDuplicate1(vector<int>& nums, int k, int t) {
+
+        if (nums.size() <= 1)
+        {
+            return false;
+        }
+
+        vector<pair<int, int>> v(nums.size());
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            v[i] = pair<int, int>(nums[i], i);
+        }
+
+        sort(v.begin(), v.end());
+
+        for (int i = 0; i < nums.size() - 1; ++i)
+        {
+            for (int j = 1; i + j < nums.size(); ++j)
+            {
+                double x = v[i + j].first;
+                double y = v[i].first;
+                if (x - y > t)
+                {
+                    break; // TLE without this break
+                }
+                else if (abs(v[i + j].second - v[i].second) <= k)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        multiset<int> v;
+
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            if (v.size() == k + 1)
+            {
+                v.erase(v.find(nums[i - k - 1]));
+            }
+
+            auto it = v.insert(nums[i]);
+
+            if (next(it) != v.end())
+            {
+                long long a = *next(it);
+                long long b = nums[i];
+                if (t >= abs(a - b))
+                {
+                    return true;
+                }
+            }
+            if (it != v.begin())
+            {
+                long long a = nums[i];
+                long long b = *prev(it);
+                if (t >= abs(a - b))
+                {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+    }
 };
 
 int main()
