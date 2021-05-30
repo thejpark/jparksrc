@@ -5475,6 +5475,47 @@ void test_time()
   std::cout << "seconds: " << dtn.count() * system_clock::period::num / system_clock::period::den;
   std::cout << std::endl;
 }
+class RateLimiter {
+
+public:
+
+  // time is msec
+  bool rateLimit(int customerId,  long long t)
+  {
+    return hit(m[customerId], t);
+  }
+
+private:
+
+  const int MaxReq {2};  // 100 req max
+  const int MaxDur {1000}; // 1 sec == 1000 ms
+
+  unordered_map<int, list<long long>> m;
+
+  // instead of taking t, allowing RateLimit to take time interface and use dependency injection would be better idea.
+  bool hit(list<long long>& l,  long long t)
+  {
+    // delete old timestamp than MaxDur
+    while (!l.empty() && l.front() < t - MaxDur)
+      {
+        cout << "pop :" << l.front() << endl;
+        l.pop_front();
+      }
+
+    cout << "size :" << l.size() << endl;
+
+    if (l.size() < MaxReq)
+      {
+        cout << "push :" << t << endl;
+        l.push_back(t);
+        return true;
+      }
+    else
+      {
+        return false;
+      }
+  }
+};
 
 int main()
 {
@@ -5488,5 +5529,14 @@ int main()
     // 또한, 나는 spacec omplexity를 틀리게 말했음. array monotonic은 O(1) 이지 O(n) 이 아니다.
     // array monotonic할 때는 알고리즘도 막 바꾸고, 인터뷰어와 소통도 하지 않았다.
     // time complexity에서, string 의 경우 find() 가 있다고 하면 이것도 time complexity에 포함할 수 있을 것 (위의 dictionary decomposit)
-  test_lfu_cache();
+  //test_lfu_cache();
+
+  vector<int> a = {1};
+
+  auto it = lower_bound(a.begin(), a.end(), 2);
+  auto jt = lower_bound(a.begin(), a.end(), 0);
+
+  cout << distance(a.begin(), it) << " <<  " << distance(a.begin(), jt) << endl;
+  cout << (a.begin() == it) << " <<  " << (a.begin() == jt) << endl;
+
 }
