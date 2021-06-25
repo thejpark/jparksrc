@@ -16,6 +16,7 @@
 #include <numeric>
 #include <memory>
 #include <queue>
+#include <span>
 
 using namespace std;
 
@@ -845,7 +846,7 @@ T *pop()
     thr_pos().tail = ULONG_MAX;
     return ret;
 }
-#edif
+#endif
 
 template <typename T>
 class my_blocking_queue { //jj
@@ -1153,8 +1154,26 @@ private:
 
 #endif
 
+
+void fs(span<int> p)
+{
+  for (int&x : p)
+    {
+      x = 0;
+    }
+}
+
+void test_span()
+{
+  int a[100];
+  fs(a);
+  fs({a + 10, 100});
+}
+
+
+
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	t22_1();
+	test_span();
 }
