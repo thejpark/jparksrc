@@ -20,10 +20,12 @@ class ReadWriteMap<K, V> { //jj
         }
     }
 
-    r.lock();
-    try {
-        return map.get(key);
-    } finall {
-        r.unlock();
+    public V get(K key) {
+        r.lock();
+        try {
+            return map.get(key);
+        } finall {
+            r.unlock();
+        }
     }
 }
