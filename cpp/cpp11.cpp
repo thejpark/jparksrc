@@ -20,7 +20,7 @@
 
 using namespace std;
 
-// clang++ -std=c++11 -stdlib=libc++ cpp11.cpp
+// clang++ -std=c++20 -stdlib=libc++ cpp11.cpp
 // g++-4.9
 
 int t1()
