@@ -623,7 +623,7 @@ public class RateLimiter {
         public boolean hit(long timestamp) {
             /* when a timestamp hit, we should poll all the timestamp before TIME_LIMIT*/
             while (!queue.isEmpty() && queue.peek() - timestamp >= TIME_LIMIT) queue.poll();
-            if (queue.size() < 500) {
+            if (queue.size() < REQUEST_LIMIT) {
                 queue.add(timestamp); return true;
             }
             return false;
@@ -631,9 +631,12 @@ public class RateLimiter {
     }
     public HashMap<String, HitCounter> clientTimeStampMap = new HashMap<>();
     public boolean isAllow(String clientId) {
+        // if test is needed, then probably need to take am interface to get the time, as  an  interface.
+        // or use another argument for current time.
         long currTime = System.currentTimeMillis();
         if (!clientTimeStampMap.containsKey(clientId)) {
             HitCounter h = new HitCounter();
+            clientTimeStampMap.put(clidneId, h);
             h.hit(currTime); return true;
         } else {
             HitCounter h = clientTimeStampMap.get(clientId);
