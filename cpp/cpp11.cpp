@@ -1135,7 +1135,7 @@ public:
             if (oldHead == nullptr)
                 return nullptr;
             newHead = oldHead->next;
-        } while (!top.compareandset(oldHead, newHead));
+        } while (!top.compareAndSet(oldHead, newHead));
 
         return oldHead->item;
 
