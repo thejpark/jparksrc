@@ -1,8 +1,8 @@
 /**
    Java access privilege
    http://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html
-*
-*/
+   *
+   */
 
 package effectivejava2nd;
 
@@ -15,50 +15,50 @@ class effectivejava2nd {
     private static Person p;
 
     public static void main(String[] args) {
-	System.out.println("Hello World");
-	System.out.println(factory.valueOf(true));
+        System.out.println("Hello World");
+        System.out.println(factory.valueOf(true));
 
-	// finally?
-	if (isConfusing())
-	    System.out.println(factory.valueOf(true));
-	else
-	    System.out.println(factory.valueOf(false));
+        // finally?
+        if (isConfusing())
+            System.out.println(factory.valueOf(true));
+        else
+            System.out.println(factory.valueOf(false));
 
-	// the following creates anonymous subsclas of Person
-	p = new Person() {
-		@Override
-		public boolean isBabyBoomer() {
-		    System.out.println("this is subclass");
-		    return super.isBabyBoomer();
-		}
-	    };
+        // the following creates anonymous subsclas of Person
+        p = new Person() {
+                @Override
+                public boolean isBabyBoomer() {
+                    System.out.println("this is subclass");
+                    return super.isBabyBoomer();
+                }
+            };
 
-	if (p instanceof Object)
-	    System.out.println("Person is Object");
+        if (p instanceof Object)
+            System.out.println("Person is Object");
     }
 
     public static boolean isConfusing() {
-	try {
-	    return true;
-	} finally {
-	    return false;
-	}
+        try {
+            return true;
+        } finally {
+            return false;
+        }
     }
 
     public static void testBuilder()
     {
-	NutritionFacts cocaCola = new NutritionFacts.NBuilder(240, 8).
-	    calories(100).sodium(35).carbohydrate(27).build();
+        NutritionFacts cocaCola = new NutritionFacts.NBuilder(240, 8).
+            calories(100).sodium(35).carbohydrate(27).build();
     }
 }
 
 /*
 
-Integer.parseInt() takes string and returns primitive
-Integer.valueOf() takes primitive type and return object reference
+  Integer.parseInt() takes string and returns primitive
+  Integer.valueOf() takes primitive type and return object reference
 
-a == b compares reference, not value
-a.equals(b) compares value
+  a == b compares reference, not value
+  a.equals(b) compares value
 */
 
 class factory {
@@ -77,7 +77,7 @@ class factory {
     */
 
     public static Boolean valueOf(boolean b) {
-	return b ? Boolean.TRUE : Boolean.FALSE;
+        return b ? Boolean.TRUE : Boolean.FALSE;
     }
 }
 
@@ -102,18 +102,18 @@ class NutritionFacts {
         public NBuilder(int servingSize, int servings) {
             this.servingSize = servingSize;
             this.servings    = servings;
-	}
+        }
         public NBuilder calories(int val)
-            { calories = val;      return this; }
+        { calories = val;      return this; }
         public NBuilder fat(int val)
-            { fat = val;           return this; }
+        { fat = val;           return this; }
         public NBuilder carbohydrate(int val)
-            { carbohydrate = val;  return this; }
+        { carbohydrate = val;  return this; }
         public NBuilder sodium(int val)
-            { sodium = val;        return this; }
+        { sodium = val;        return this; }
         public NutritionFacts build() {
             return new NutritionFacts(this);
-	}
+        }
     }
 
     private NutritionFacts(NBuilder builder) {
@@ -124,7 +124,7 @@ class NutritionFacts {
         sodium       = builder.sodium;
         carbohydrate = builder.carbohydrate;
     }
- }
+}
 
 
 // Singleton with public final field
@@ -143,12 +143,12 @@ class Elvis {
 // instance will be created, leading, in the case of our example, to
 // spurious Elvis sightings. To prevent this, add this readResolve
 // method to the Elvis class:
-   // readResolve method to preserve singleton property
-   // private Object readResolve() {
-   //      // Return the one true Elvis and let the garbage collector
-   //      // take care of the Elvis impersonator.
-   //     return INSTANCE;
-   // }
+// readResolve method to preserve singleton property
+// private Object readResolve() {
+//      // Return the one true Elvis and let the garbage collector
+//      // take care of the Elvis impersonator.
+//     return INSTANCE;
+// }
 
 // Singleton with static factory part 2
 class Elvis2 {
@@ -185,29 +185,29 @@ class Person {
     private static final Date BOOM_END;
 
     static {
-	// avoid creating unnecessary object. Instead of creating it
-	// in the isBabyBoomer method, create it in static
-	Calendar gmtCal =
-	    Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-	gmtCal.set(1946, Calendar.JANUARY, 1, 0, 0, 0);
-	BOOM_START = gmtCal.getTime();
-	gmtCal.set(1965, Calendar.JANUARY, 1, 0, 0, 0);
-	BOOM_END = gmtCal.getTime();
+        // avoid creating unnecessary object. Instead of creating it
+        // in the isBabyBoomer method, create it in static
+        Calendar gmtCal =
+            Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        gmtCal.set(1946, Calendar.JANUARY, 1, 0, 0, 0);
+        BOOM_START = gmtCal.getTime();
+        gmtCal.set(1965, Calendar.JANUARY, 1, 0, 0, 0);
+        BOOM_END = gmtCal.getTime();
     }
 
     private Person(Date date)
     {
-	birthDate = date;
+        birthDate = date;
     }
 
     Person()
     {
-	birthDate = new Date();
+        birthDate = new Date();
     }
 
     public boolean isBabyBoomer() {
-	return birthDate.compareTo(BOOM_START) >= 0 &&
-	    birthDate.compareTo(BOOM_END)   <  0;
+        return birthDate.compareTo(BOOM_START) >= 0 &&
+            birthDate.compareTo(BOOM_END)   <  0;
     }
 }
 
@@ -219,13 +219,13 @@ class Person {
 // 7. Avoid finalizer. If terminating upon exception is required, then
 // do t explicitly.
 // try-finally block guarantees execution of termination method
-   // Foo foo = new Foo(...);
-   // try {
-   //     // Do what must be done with foo
-   //     ...
-   // } finally {
-   //     foo.terminate();  // Explicit termination method
-   // }
+// Foo foo = new Foo(...);
+// try {
+//     // Do what must be done with foo
+//     ...
+// } finally {
+//     foo.terminate();  // Explicit termination method
+// }
 
 // Manual finalizer chaining.
 // It is important to note that finalizer chaining is not performed automatically.
@@ -251,87 +251,87 @@ final class PhoneNumber implements Comparable<PhoneNumber> {
     private final short prefix;
     private final short lineNumber;
     public PhoneNumber(int areaCode, int prefix, int lineNumber) {
-	rangeCheck(areaCode,    999, "area code");
-	rangeCheck(prefix,      999, "prefix");
-	rangeCheck(lineNumber, 9999, "line number");
-	this.areaCode  = (short) areaCode;
-	this.prefix  = (short) prefix;
-	this.lineNumber = (short) lineNumber;
+        rangeCheck(areaCode,    999, "area code");
+        rangeCheck(prefix,      999, "prefix");
+        rangeCheck(lineNumber, 9999, "line number");
+        this.areaCode  = (short) areaCode;
+        this.prefix  = (short) prefix;
+        this.lineNumber = (short) lineNumber;
     }
     private static void rangeCheck(int arg, int max,
-				   String name) {
-	if (arg < 0 || arg > max)
-	    throw new IllegalArgumentException(name +": " + arg);
+                                   String name) {
+        if (arg < 0 || arg > max)
+            throw new IllegalArgumentException(name +": " + arg);
     }
 
     // item 8
     @Override public boolean equals(Object o) { if (o == this)
-	    return true;
-	if (!(o instanceof PhoneNumber))
-	    return false;
-	PhoneNumber pn = (PhoneNumber)o;
-	return pn.lineNumber == lineNumber
-	    && pn.prefix  == prefix
-	    && pn.areaCode  == areaCode;
+            return true;
+        if (!(o instanceof PhoneNumber))
+            return false;
+        PhoneNumber pn = (PhoneNumber)o;
+        return pn.lineNumber == lineNumber
+            && pn.prefix  == prefix
+            && pn.areaCode  == areaCode;
     }
     // item 9
     @Override public int hashCode() {
-	int result = 17;
-	result = 31 * result + areaCode;
-	result = 31 * result + prefix;
-	result = 31 * result + lineNumber;
-	return result;
+        int result = 17;
+        result = 31 * result + areaCode;
+        result = 31 * result + prefix;
+        result = 31 * result + lineNumber;
+        return result;
     }
     // item 10
     @Override public String toString() {
-	return String.format("(%03d) %03d-%04d",
-			     areaCode, prefix, lineNumber);
+        return String.format("(%03d) %03d-%04d",
+                             areaCode, prefix, lineNumber);
     }
     // item 11. clone method
     // never make the client do anything the library can do for the client
     @Override public PhoneNumber clone() {
-	try {
-	    return (PhoneNumber) super.clone();
-	} catch(CloneNotSupportedException e) {
-	    throw new AssertionError();  // Can't happen
-	}
+        try {
+            return (PhoneNumber) super.clone();
+        } catch(CloneNotSupportedException e) {
+            throw new AssertionError();  // Can't happen
+        }
     }
 
     public int compareTo(PhoneNumber pn) {
-	// Compare area codes
-	if (areaCode < pn.areaCode)
-	    return -1;
-	if (areaCode > pn.areaCode)
-	    return 1;
-	// Area codes are equal, compare prefixes
-	if (prefix < pn.prefix)
-	    return -1;
-	if (prefix > pn.prefix)
-	    return 1;
-	// Area codes and prefixes are equal, compare line numbers
-	if (lineNumber < pn.lineNumber)
-	    return -1;
-	if (lineNumber > pn.lineNumber)
-	    return 1;
-	return 0;  // All fields are equal
+        // Compare area codes
+        if (areaCode < pn.areaCode)
+            return -1;
+        if (areaCode > pn.areaCode)
+            return 1;
+        // Area codes are equal, compare prefixes
+        if (prefix < pn.prefix)
+            return -1;
+        if (prefix > pn.prefix)
+            return 1;
+        // Area codes and prefixes are equal, compare line numbers
+        if (lineNumber < pn.lineNumber)
+            return -1;
+        if (lineNumber > pn.lineNumber)
+            return 1;
+        return 0;  // All fields are equal
     }
 
-   // this  version not always work not
-   // enough to hold the difference between two arbitrary signed 32-bit integers. If i is a large
-   // positive int and j is a large negative int, will overflow and return a negative value.
-   // The resulting compareTo method will return incorrect results
-   //  public int compareTo(PhoneNumber pn) {
-   //     // Compare area codes
-   //     int areaCodeDiff = areaCode - pn.areaCode;
-   //     if (areaCodeDiff != 0)
-   //         return areaCodeDiff;
-   //     // Area codes are equal, compare prefixes
-   //     int prefixDiff = prefix - pn.prefix;
-   //     if (prefixDiff != 0)
-   //         return prefixDiff;
-   //     // Area codes and prefixes are equal, compare line numbers
-   //     return lineNumber - pn.lineNumber;
-   // }
+    // this  version not always work not
+    // enough to hold the difference between two arbitrary signed 32-bit integers. If i is a large
+    // positive int and j is a large negative int, will overflow and return a negative value.
+    // The resulting compareTo method will return incorrect results
+    //  public int compareTo(PhoneNumber pn) {
+    //     // Compare area codes
+    //     int areaCodeDiff = areaCode - pn.areaCode;
+    //     if (areaCodeDiff != 0)
+    //         return areaCodeDiff;
+    //     // Area codes are equal, compare prefixes
+    //     int prefixDiff = prefix - pn.prefix;
+    //     if (prefixDiff != 0)
+    //         return prefixDiff;
+    //     // Area codes and prefixes are equal, compare line numbers
+    //     return lineNumber - pn.lineNumber;
+    // }
 }
 
 class Stack {
@@ -339,23 +339,23 @@ class Stack {
     private int size = 0;
     private static final int DEFAULT_INITIAL_CAPACITY = 16;
     public Stack() {
-	this.elements = new Object[DEFAULT_INITIAL_CAPACITY];
+        this.elements = new Object[DEFAULT_INITIAL_CAPACITY];
     }
     public void push(Object e) {
-	ensureCapacity();
-	elements[size++] = e;
+        ensureCapacity();
+        elements[size++] = e;
     }
     public Object pop() {
-	if (size == 0)
-	    return null;
-	Object result = elements[--size];
-	elements[size] = null; // Eliminate obsolete reference
-	return result;
+        if (size == 0)
+            return null;
+        Object result = elements[--size];
+        elements[size] = null; // Eliminate obsolete reference
+        return result;
     }
     // Ensure space for at least one more element.
     private void ensureCapacity() {
-	if (elements.length == size)
-	    elements = Arrays.copyOf(elements, 2 * size + 1);
+        if (elements.length == size)
+            elements = Arrays.copyOf(elements, 2 * size + 1);
     }
 
     // deep clone. otherwise two stack may point to the same element.
@@ -367,13 +367,13 @@ class Stack {
     //
     // so, don't use clone (or provide clone) except array copy
     @Override public Stack clone() {
-	try {
-	    Stack result = (Stack) super.clone();
-	    // if elements have references, then each element should be deep copied as well.
-	    result.elements = elements.clone();
-	    return result;
-	} catch (CloneNotSupportedException e) {
-	    throw new AssertionError();
-	}
+        try {
+            Stack result = (Stack) super.clone();
+            // if elements have references, then each element should be deep copied as well.
+            result.elements = elements.clone();
+            return result;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
