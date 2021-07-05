@@ -5538,5 +5538,8 @@ int main()
 
   cout << distance(a.begin(), it) << " <<  " << distance(a.begin(), jt) << endl;
   cout << (a.begin() == it) << " <<  " << (a.begin() == jt) << endl;
-
+  if (int x = a[0]; x == 1)
+    {
+      cout << "x is " << x << endl;
+    }
 }
