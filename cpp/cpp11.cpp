@@ -272,6 +272,10 @@ void t5()
         y = std::move(x);
         // move at return statement
         // return z;
+
+        vector<unique_ptr<string>> tvs;
+        tvs.push_back(make_unique<string>("this is test"));
+
     } catch (length_error e) {
         cout << "length error" << endl;
     } catch (...) { //jj
