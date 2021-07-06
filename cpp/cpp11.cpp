@@ -276,6 +276,11 @@ void t5()
         vector<unique_ptr<string>> tvs;
         tvs.push_back(make_unique<string>("this is test"));
 
+        for (auto& s :  tvs)
+          {
+            cout << *s << endl;
+          }
+
     } catch (length_error e) {
         cout << "length error" << endl;
     } catch (...) { //jj
@@ -1179,5 +1184,5 @@ void test_span()
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-	test_span();
+	t5();
 }
