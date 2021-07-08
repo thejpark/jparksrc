@@ -242,6 +242,7 @@ enum class TrafficLight {green, yellow, red};
 // allow adding new method
 TrafficLight& operator++(TrafficLight & t)
 {
+
     switch(t) {
     case TrafficLight::green: return t=TrafficLight::yellow;
     case TrafficLight::yellow: return t=TrafficLight::red;
@@ -276,6 +277,8 @@ void t5()
 
         vector<unique_ptr<string>> tvs;
         tvs.push_back(make_unique<string>("this is test"));
+        unique_ptr<string> us = make_unique<string>("another");
+        tvs.push_back(move(us)); // unique_ptr only moved not copied
 
         for (auto& s :  tvs)
           {
@@ -1183,4 +1186,5 @@ void test_span()
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
+  t5();
 }
