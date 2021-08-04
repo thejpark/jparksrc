@@ -1183,8 +1183,68 @@ void test_span()
     fs({a + 10, 100});
 }
 
+
+void foo()
+{
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+}
+
+int test_joinable()
+{
+  std::thread t;
+  std::cout << "this_thread: " << this_thread::get_id() << endl; 
+  std::cout << "thread: " << thread::id() << endl; 
+  std::cout << "before starting, joinable: " << std::boolalpha << t.joinable()
+            << t.get_id()
+            << '\n';
+
+  t = std::thread(foo);
+  std::cout << "after starting, joinable: " << t.joinable()
+            << t.get_id()
+            << '\n';
+
+  t.join();
+  std::cout << "after joining, joinable: " << t.joinable()
+            << t.get_id()
+            << '\n';
+}
+
+struct Foo {
+  Foo(int n = 0) noexcept : bar(n) {
+    std::cout << "Foo: constructor, bar = " << bar << " -- " << this << '\n';
+  }
+  Foo(const Foo& f) noexcept : bar(f.bar) {
+    std::cout << "Foo: copy constructor, bar = " << bar << " -- " << this << '\n';
+  }
+  Foo(Foo&& f) noexcept : bar(f.bar) {
+    std::cout << "Foo: move constructor, bar = " << bar << " -- " << this << '\n';
+  }
+  ~Foo() {
+    std::cout << "Foo: destructor, bar = " << bar << " -- " << this << '\n';
+  }
+  int getBar() const noexcept { return bar; }
+private:
+  int bar;
+};
+
+int test_makeshared()
+{
+  std::shared_ptr<Foo> sptr = std::make_shared<Foo>(Foo(1));
+  std::cout << "The first Foo's bar is " << sptr->getBar() << "\n";
+
+  sptr = std::make_shared<Foo>(Foo(2));
+  std::cout << "The second Foo's bar is " << sptr->getBar() << "\n";
+
+  // reset the shared_ptr, hand it a fresh instance of Foo
+  // (the old instance will be destroyed after this call)
+  sptr.reset(new Foo);
+  std::cout << "The third Foo's bar is " << sptr->getBar() << "\n";
+
+
+  sptr.reset();
+}
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-  t5();
+  test_makeshared();
 }
