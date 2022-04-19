@@ -5499,6 +5499,7 @@ private:
     while (!l.empty() && l.front() < t - MaxDur)
       {
         cout << "pop :" << l.front() << endl;
+// todo: use circular buffer for better memory management
         l.pop_front();
       }
 
