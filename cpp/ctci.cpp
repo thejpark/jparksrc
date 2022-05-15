@@ -5539,8 +5539,14 @@ int main()
 
   cout << distance(a.begin(), it) << " <<  " << distance(a.begin(), jt) << endl;
   cout << (a.begin() == it) << " <<  " << (a.begin() == jt) << endl;
-  if (int x = a[0]; x == 1)
-    {
-      cout << "x is " << x << endl;
-    }
+  if (int x = a[0]; x == 1) {
+    cout << "x is " << x << endl;
+  }
+
+  vector<pair<int, int>> p = {{1, 2}, {1, 3}, {1,1}, {2, 1}, {2, 4}, {2, 2}};
+  sort(p.begin(), p.end());
+
+  for (auto& x : p) {
+    cout << x.first << " " << x.second << endl;
+  }
 }
