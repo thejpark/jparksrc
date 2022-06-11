@@ -5518,6 +5518,83 @@ private:
   }
 };
 
+
+// leetcode 353
+class snake_game {
+    public:
+
+    snake_game(int w, int h, const vector<vector<int>>& f) : width(w), height(h), food(f) {
+        // initial position.
+        snake.push_back(make_pair(0, 0));
+    }
+
+    int move(const string& direction) {
+
+        // get next position.
+        auto [new_x, new_y] = snake.back(); // back is the head, front is the tail
+
+        if (direction == "D") {
+                new_y++;
+        }
+        else if (direction == "U") {
+                new_y--;
+        }
+        else if (direction == "R") {
+                new_x++;
+        }
+        else if (direction == "L") {
+                new_x--;
+        }
+
+        if (new_x < 0 || new_x >= width || new_y < 0 || new_y >= height) {
+            return -1;
+        }
+
+        if (cur_food < food.size() && food[cur_food][0] == new_x && food[cur_food][1] == new_y) {
+            snake.push_back(make_pair(new_x, new_y));
+            ++cur_food;
+            ++score;
+        }
+        else {
+            snake.pop_front(); // moving, so previous tail is removed
+            if (find(snake.begin(), snake.end(), make_pair(new_x, new_y)) != snake.end()) {
+                return -1;
+            } else {
+                snake.push_back(make_pair(new_x, new_y));
+            }
+        }
+
+        return score;
+    }
+
+    private:
+
+    int width;
+    int height;
+    int score{0};
+    vector<vector<int>> food;
+    int cur_food {0};
+    deque<pair<int, int>> snake; // queue has no iterator, so search is impossible. same with stack.
+};
+
+void test_snake_game()
+{
+    int w, h;
+    cin >> w >> h;
+    int k;
+    vector<vector<int>> f;
+    cin >> k;
+    for (int i = 0; i < k; i++) {
+        int x, y;
+        cin >> x >> y;
+        f.push_back({x, y});
+    }
+
+
+
+
+
+}
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
