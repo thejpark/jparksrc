@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
+  "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/ctci.cpp",
+  "file": "/Users/junggyupark/wrk/junggyupark/cpp/ctci.cpp"
+}
+]
+
