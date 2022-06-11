@@ -5520,10 +5520,10 @@ private:
 
 
 // leetcode 353
-class snake_game {
+class SnakeGame {
     public:
 
-    snake_game(int w, int h, const vector<vector<int>>& f) : width(w), height(h), food(f) {
+    SnakeGame(int w, int h, const vector<vector<int>>& f) : width(w), height(h), food(f) {
         // initial position.
         snake.push_back(make_pair(0, 0));
         snake_set.insert(make_pair(0, 0));
@@ -5583,24 +5583,49 @@ class snake_game {
     set<pair<int, int>> snake_set;
 };
 
-void test_snake_game()
-{
-    int w, h;
-    cin >> w >> h;
-    int k;
-    vector<vector<int>> f;
-    cin >> k;
-    for (int i = 0; i < k; i++) {
-        int x, y;
-        cin >> x >> y;
-        f.push_back({x, y});
+
+// Given a list of files with multiple tags associated with them, group the files based on tags and return a list of top tags based on total file size.
+class FileTagging {
+public:
+
+vector<string> GetTopTags(vector<tuple<string, int, vector<string>>> file_list, int k) {
+    map<string, vector<string>> tag_map;
+    map<string, int> tag_map_size;
+    for (auto& [file, size, tags] : file_list) {
+        for (auto& tag : tags) {
+            tag_map[tag].push_back(file);
+            tag_map_size[tag] += size;
+        }
     }
 
+    using elem = pair<string, int>;
+    auto comp = [](elem &a, elem& b) {
+        return a.second > b.second;
+    };
 
+    priority_queue<elem, vector<elem>, decltype(comp)> pq(comp);
+    for (auto& [tag, size] : tag_map_size) {
+        if (size < pq.top().second) {
+            continue;
+        }
+        pq.push(make_pair(tag, size));
+        if (pq.size() > k) {
+            pq.pop();
+        }
+    }
 
+    vector<string> r;
+    while (!pq.empty()) {
+        r.push_back(pq.top().first);
+        pq.pop();
+    }
 
-
+    return r;
 }
+
+};
+
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
