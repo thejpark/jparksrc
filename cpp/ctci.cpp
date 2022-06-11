@@ -5526,6 +5526,7 @@ class snake_game {
     snake_game(int w, int h, const vector<vector<int>>& f) : width(w), height(h), food(f) {
         // initial position.
         snake.push_back(make_pair(0, 0));
+        snake_set.insert(make_pair(0, 0));
     }
 
     int move(const string& direction) {
@@ -5556,12 +5557,15 @@ class snake_game {
             ++score;
         }
         else {
+            snake_set.erase(snake.front());
             snake.pop_front(); // moving, so previous tail is removed
-            // optimise: use hashmap for faster lookup
-            if (find(snake.begin(), snake.end(), make_pair(new_x, new_y)) != snake.end()) {
+            // optimise: use map for faster lookup
+            // if (find(snake.begin(), snake.end(), make_pair(new_x, new_y)) != snake.end()) {
+            if (snake_set.find(make_pair(new_x, new_y)) != snake_set.end()) {
                 return -1;
             } else {
                 snake.push_back(make_pair(new_x, new_y));
+                snake_set.insert(make_pair(new_x, new_y));
             }
         }
 
@@ -5576,6 +5580,7 @@ class snake_game {
     vector<vector<int>> food;
     int cur_food {0};
     deque<pair<int, int>> snake; // queue has no iterator, so search is impossible. same with stack.
+    set<pair<int, int>> snake_set;
 };
 
 void test_snake_game()
