@@ -3,6 +3,28 @@
   "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
   "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/ctci.cpp",
   "file": "/Users/junggyupark/wrk/junggyupark/cpp/ctci.cpp"
+},
+{
+  "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
+  "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/contest.cpp",
+  "file": "/Users/junggyupark/wrk/junggyupark/cpp/contest.cpp"
+},
+{
+  "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
+  "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/acpp.cpp",
+  "file": "/Users/junggyupark/wrk/junggyupark/cpp/acpp.cpp"
+},
+
+{
+  "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
+  "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/cpp11.cpp",
+  "file": "/Users/junggyupark/wrk/junggyupark/cpp/cpp11.cpp"
+},
+
+{
+  "directory": "/Users/junggyupark/wrk/jparksrc/cpp",
+  "command": "/usr/local/opt/ccache/libexec/clang++ -std=c++20 -stdlib=libc++  /Users/junggyupark/wrk/jparksrc/cpp/test.cpp",
+  "file": "/Users/junggyupark/wrk/junggyupark/cpp/test.cpp"
 }
 ]
 

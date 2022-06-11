@@ -5557,6 +5557,7 @@ class snake_game {
         }
         else {
             snake.pop_front(); // moving, so previous tail is removed
+            // optimise: use hashmap for faster lookup
             if (find(snake.begin(), snake.end(), make_pair(new_x, new_y)) != snake.end()) {
                 return -1;
             } else {
