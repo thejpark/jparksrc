@@ -26,6 +26,71 @@ struct TextEditingView: View {
   }
 }
 
+enum Gender: String, CaseIterable, Identifiable {
+    case male, female
+    var id: Self { self }
+}
+
+
+private let base: CGFloat = 4.0
+
+struct FamilynameComponent: View {
+  @State private var familyName: String = ""
+  var body: some View {
+    VStack {
+      Button {
+//        viewModel.editPressed(action: item.action)
+      } label: {
+        HStack(spacing: base * 3) {
+//          Image(image)
+//            .frame(width: base * 6, height: base * 6)
+//          Text("성")
+//            .lineLimit(1).foregroundColor(.black)
+          TextField("성을 한글로 입력하세요", text: $familyName)
+//          Spacer()
+          Picker("성", selection: $familyName) {
+            Text("여").tag(Gender.female)
+            Text("남").tag(Gender.male)
+          }
+        }
+        .frame(height: base * 14)
+        .padding(.horizontal, base * 3)
+      }
+    }
+  }
+
+//  var text: String
+//  var image: String
+}
+
+struct GenderComponent: View {
+  @State private var selectedGender: Gender = .male
+  var body: some View {
+    VStack {
+      Button {
+//        viewModel.editPressed(action: item.action)
+      } label: {
+        HStack(spacing: base * 3) {
+//          Image(image)
+//            .frame(width: base * 6, height: base * 6)
+          Text("성별")
+            .lineLimit(1).foregroundColor(.black)
+//          Spacer()
+          Picker("성별", selection: $selectedGender) {
+            Text("여").tag(Gender.female)
+            Text("남").tag(Gender.male)
+          }
+        }
+        .frame(height: base * 14)
+        .padding(.horizontal, base * 3)
+      }
+    }
+  }
+
+//  var text: String
+//  var image: String
+}
+
 struct RegisterView: View {
 
   var body: some View {
@@ -38,15 +103,23 @@ struct RegisterView: View {
 
           Spacer(minLength: 40)
 
-          Text("출생정보등록")
-            .font(.title)
-            .bold()
-            .multilineTextAlignment(.leading)
+//          Text("출생정보등록")
+//            .font(.title)
+//            .bold()
+//            .multilineTextAlignment(.leading)
 
           Divider()
             .background(.black)
           TextEditingView()
 
+          Divider()
+            .background(.black)
+
+          FamilynameComponent()
+          Divider()
+            .background(.black)
+
+          GenderComponent()
           Divider()
             .background(.black)
 
