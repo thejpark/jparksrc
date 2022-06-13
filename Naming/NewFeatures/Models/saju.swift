@@ -114,8 +114,8 @@ let m = Int (x - Double(h * 60))
 // month, day, hour, minute
 typealias Nalja = (Int, Int, Int, Int)
 
-// 2017 jolgi, from sohan
-let DefaultJolgi : [Nalja] = [(1, 6, 0, 39), (2,4,12,14), (3,6,6,10),(4,5,10,51), (5, 6, 4, 3), (6, 6, 8, 6), (7, 7, 18, 20), (8, 8, 4, 13), (9,8,7,17), (10,8,23,5), (11,8,2,24), (12,7,19,18)]
+// 2022 jolgi, from sohan
+let DefaultJolgi = Jolgi[2022]
 
 func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
     if (b.0 > a.0) {
@@ -156,9 +156,9 @@ func getJolgi(_ year: Int) -> [Nalja] {
     }
 
     // calculate year if not defined in jolgi
-    var r : [Nalja] = DefaultJolgi
+  var r : [Nalja] = DefaultJolgi!
     for y in yearStart + 1...year {
-        for i in 0..<DefaultJolgi.count {
+      for i in 0..<DefaultJolgi!.count {
             let m = r[i].3 + 48
             if m >= 60 {
                 r[i].2 += 1

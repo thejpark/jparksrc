@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDC2855C0340023DC08 /* saju.swift */; };
 		9BEFFFDF2855C0340023DC08 /* jolgi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDD2855C0340023DC08 /* jolgi.swift */; };
+		9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFE52856B7B20023DC08 /* RegisterView.swift */; };
 		E10D3CC1283ED1120086DF59 /* DeeplinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D3CC0283ED1120086DF59 /* DeeplinkManager.swift */; };
 		E10D3CC4283EDCA90086DF59 /* HeadsUpCarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D3CC3283EDCA90086DF59 /* HeadsUpCarView.swift */; };
 		E10D3CC6283EDD470086DF59 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D3CC5283EDD470086DF59 /* HomeView.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		9BEFFFDC2855C0340023DC08 /* saju.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = saju.swift; sourceTree = "<group>"; };
 		9BEFFFDD2855C0340023DC08 /* jolgi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jolgi.swift; sourceTree = "<group>"; };
+		9BEFFFE52856B7B20023DC08 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		E10D3CC0283ED1120086DF59 /* DeeplinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkManager.swift; sourceTree = "<group>"; };
 		E10D3CC2283ED7A00086DF59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E10D3CC3283EDCA90086DF59 /* HeadsUpCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsUpCarView.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				E10D3CC5283EDD470086DF59 /* HomeView.swift */,
 				E10D3CC7283EF6A10086DF59 /* HeadsUpDetailView.swift */,
 				E10D3CC9283EF8E00086DF59 /* AssetsView.swift */,
+				9BEFFFE52856B7B20023DC08 /* RegisterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				E193BEEA283DB4210076133B /* APIClient.swift in Sources */,
 				E193BEF7283DBEF20076133B /* EmptyView.swift in Sources */,
 				E193BEEF283DB4E40076133B /* FeaturesResponse.swift in Sources */,
+				9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */,
 				9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */,
 				E193BEF9283DC1430076133B /* FeatureCellView.swift in Sources */,
 				E193BEFD283DCF6C0076133B /* FeatureDetailView.swift in Sources */,

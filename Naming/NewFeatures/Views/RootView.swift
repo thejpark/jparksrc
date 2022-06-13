@@ -50,7 +50,7 @@ struct RootView: View {
       }.tag(2)
 
       NavigationView {
-        EmptyView()
+        RegisterView()
           .navigationTitle("등록")
       }.tabItem {
         if selection == 3 {
