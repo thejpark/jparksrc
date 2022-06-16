@@ -5605,12 +5605,11 @@ vector<string> GetTopTags(vector<tuple<string, int, vector<string>>> file_list, 
 
     priority_queue<elem, vector<elem>, decltype(comp)> pq(comp);
     for (auto& [tag, size] : tag_map_size) {
-        if (size < pq.top().second) {
-            continue;
-        }
-        pq.push(make_pair(tag, size));
-        if (pq.size() > k) {
+        if(pq.size() < k) {
+            pq.push(make_pair(tag, size));
+        } else if (size > pq.top().second) {
             pq.pop();
+            pq.push(make_pair(tag, size));
         }
     }
 

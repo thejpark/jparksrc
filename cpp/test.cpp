@@ -26,7 +26,24 @@
 
 using namespace std;
 
+class A {
+ public:
+  static std::shared_ptr<A> Start() {
+    return std::shared_ptr<A>();  // build error on this line
+  }
+ private:
+  A(){};
+};
 
 int main() {
 
+    string a = "000111";
+    int x = 111;
+    x += atoi(a.c_str());
+    cout << x << endl;
+
+    ofstream tf("");
+    tf << "test " << endl;
+
+    auto r = A::Start();
 }
