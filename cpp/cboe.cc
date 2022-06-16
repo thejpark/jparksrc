@@ -1,11 +1,8 @@
 #include <string>
 #include <vector>
-#include <stack>
 #include <queue>
 #include <iostream>
-#include <algorithm>
 #include <unordered_map>
-#include <string.h>
 #include <sstream>
 #include <fstream>
 #include <chrono>
@@ -62,7 +59,7 @@ enum FORMAT : int {
 } // namespace MESSAGE
 
 // todo:
-// 1. getline bulk read, 2. use partition instead of pq?  
+// 1. getline bulk read, 2. use partition instead of pq?  3. stoi order id? 4. use trie instead of map for symbol search?
 class Solution {
 public:
 void PrintTopK(std::istream& in, int k) {
