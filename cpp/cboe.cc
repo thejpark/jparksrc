@@ -65,14 +65,13 @@ enum FORMAT : int {
 // 1. getline bulk read, 2. use partition instead of pq?  
 class Solution {
 public:
-void PrintTopK(int k) {
+void PrintTopK(std::istream& in, int k) {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
-    // auto fin = std::ifstream("pitch_example_data.txt");
     std::string str;
-    while (getline(std::cin, str))
+    while (getline(in, str))
     {
         int index = 0;
         switch(str[ADD::MESSAGE_TYPE_OFS]) {
@@ -168,30 +167,30 @@ int ParseNumber(const std::string& str, int i, int n) {
 
 class Solution2 {
 public:
-void PrintTopK(int k) {
+void PrintTopK(std::istream& in, int k) {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
     std::string str;
-    while (getline(std::cin, str))
+    while (getline(in, str))
     {
         switch(str[9]) {
             case 'A':
                 // order added
-                order_to_symbol[std::string(std::string_view(&str[ADD::ORDER_ID_OFS], ADD::ORDER_ID_LEN))] = std::string_view(&str[ADD::SYMBOL_OFS], ADD::SYMBOL_LEN);
+                order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = str.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
                 break;
 
             case 'P':
                 // trade
-                symbol_trade_volume[std::string(std::string_view(&str[TRD::SYMBOL_OFS], TRD::SYMBOL_LEN))] += std::stoi(std::string(std::string_view(&str[TRD::SHARES_OFS], TRD::SHARES_LEN))); 
+                symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN)); 
                 break;
 
             case 'E':
                 // order executed
             {
-                const std::string& symbol = order_to_symbol[std::string(std::string_view(&str[EXE::ORDER_ID_OFS], EXE::ORDER_ID_LEN))];
-                symbol_trade_volume[symbol] += std::stoi(std::string(std::string_view(&str[EXE::SHARES_OFS], EXE::SHARES_LEN))); 
+                const std::string& symbol = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
+                symbol_trade_volume[symbol] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN)); 
             }
                 break;
 
@@ -246,9 +245,9 @@ int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(0);
-    // auto fin = std::ifstream("pitch_example_data.txt");
     PITCH_CBOE::Solution2 sol;
-    sol.PrintTopK(10);
+    // auto fin = std::ifstream("pitch_example_data.txt");
+    sol.PrintTopK(std::cin, 10);
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
