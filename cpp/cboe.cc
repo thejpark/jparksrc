@@ -5,19 +5,34 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_map>
+#include <unordered_set>
 #include <string.h>
 #include <sstream>
 #include <fstream>
 // time_point::time_since_epoch
 #include <chrono>
 
+std::unordered_map<std::string, int> order_to_symbol;
+std::vector<std::string> symbols;
+std::unordered_map<std::string, int> symbols_map;
+std::unordered_map<std::string, int> symbol_trade_volume;
+
+
+int GetIndexToSymbol(const std::string_view& sv) {
+    std::string str(sv);
+    if (auto it = symbols_map.find(str); it != symbols_map.end()) {
+        return it->second;
+    } else {
+        symbols.push_back(move(str));
+        symbols_map[str] = symbols.size() - 1;
+        return symbols.size() - 1;
+    }
+}
+
 
 int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     
-    std::unordered_map<std::string, std::string> order_to_symbol;
-    std::unordered_map<std::string, int> symbol_trade_volume;
-
     std::string str;
     int x_cnt = 0;
     int a_cnt = 0;
@@ -34,7 +49,7 @@ int main() {
 
             case 'A':
                 // order added
-                order_to_symbol[std::string(std::string_view(&str[10], 12))] = std::string_view(&str[29], 6);
+                order_to_symbol[std::string(std::string_view(&str[10], 12))] = GetIndexToSymbol(std::string_view(&str[29], 6));
                 a_cnt++;
                 break;
 
@@ -47,8 +62,8 @@ int main() {
             case 'E':
                 // order executed
             {
-                const std::string& symbol = order_to_symbol[std::string(std::string_view(&str[10], 12))];
-                symbol_trade_volume[symbol] += std::stoi(std::string(std::string_view(&str[22], 6))); 
+                int index = order_to_symbol[std::string(std::string_view(&str[10], 12))];
+                symbol_trade_volume[symbols[index]] += std::stoi(std::string(std::string_view(&str[22], 6))); 
                 e_cnt++;
             }
                 break;
