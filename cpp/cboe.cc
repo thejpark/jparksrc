@@ -15,8 +15,8 @@ class Solution {
 
 private:
 std::unordered_map<std::string, int> order_to_symbol;
-std::vector<std::string> symbols;
 std::unordered_map<std::string, int> symbols_map;
+std::vector<std::string> symbols;
 std::vector<int> symbol_trade_volume;
 
 
@@ -30,6 +30,16 @@ int GetIndexToSymbol(const std::string_view& sv) {
         symbol_trade_volume.push_back(0);
         return symbols.size() - 1;
     }
+}
+
+int ParseNumber(const std::string& str, int i, int n) {
+    // this makes the performance worse. why?
+    int r = 0;
+    for (int j = i; j < n + i; ++j) { 
+        r = r * 10 + str[j] - '0';
+    }
+
+    return r;
 }
 
 public:
@@ -51,21 +61,23 @@ void PrintTop10() {
 
             case 'A':
                 // order added
-                order_to_symbol[std::string(std::string_view(&str[10], 12))] = GetIndexToSymbol(std::string_view(&str[29], 6));
+                order_to_symbol[str.substr(10, 12)] = GetIndexToSymbol(std::string_view(&str[29], 6));
                 a_cnt++;
                 break;
 
             case 'P':
                 // trade
                 index = GetIndexToSymbol(std::string_view(&str[29], 6));
-                symbol_trade_volume[index] += std::stoi(std::string(std::string_view(&str[23], 6)));
+                symbol_trade_volume[index] += std::stoi(str.substr(23, 6));
+
                 p_cnt++;
                 break;
 
             case 'E':
                 // order executed
-                index = order_to_symbol[std::string(std::string_view(&str[10], 12))];
-                symbol_trade_volume[index] += std::stoi(std::string(std::string_view(&str[22], 6)));
+                index = order_to_symbol[str.substr(10, 12)];
+                symbol_trade_volume[index] += std::stoi(str.substr(22, 6));
+
                 e_cnt++;
                 break;
 
