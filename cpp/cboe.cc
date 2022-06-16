@@ -106,13 +106,13 @@ int main() {
         min_heap.pop();
     }
 
-    // todo:: use stringstream to print the result
+    std::stringstream ss;
     while (!result.empty()) {
         auto& a = result.top();
-        std::cout << symbols[a.first] << ", " << a.second << std::endl;
+        ss << symbols[a.first] << ", " << a.second << std::endl;
         result.pop();
     }
+    std::cout << ss.str();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
-
 }
