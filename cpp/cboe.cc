@@ -5,7 +5,6 @@
 #include <iostream>
 #include <algorithm>
 #include <unordered_map>
-#include <unordered_set>
 #include <string.h>
 #include <sstream>
 #include <fstream>
@@ -15,7 +14,7 @@
 std::unordered_map<std::string, int> order_to_symbol;
 std::vector<std::string> symbols;
 std::unordered_map<std::string, int> symbols_map;
-std::unordered_map<std::string, int> symbol_trade_volume;
+std::vector<int> symbol_trade_volume;
 
 
 int GetIndexToSymbol(const std::string_view& sv) {
@@ -23,16 +22,16 @@ int GetIndexToSymbol(const std::string_view& sv) {
     if (auto it = symbols_map.find(str); it != symbols_map.end()) {
         return it->second;
     } else {
+        symbols_map[str] = symbols.size();
         symbols.push_back(move(str));
-        symbols_map[str] = symbols.size() - 1;
+        symbol_trade_volume.push_back(0);
         return symbols.size() - 1;
     }
 }
 
-
 int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    
+
     std::string str;
     int x_cnt = 0;
     int a_cnt = 0;
@@ -42,6 +41,7 @@ int main() {
     auto fin = std::ifstream("pitch_example_data.txt");
     while (getline(fin, str))
     {
+        int index = 0;
         switch(str[9]) {
             case 's':
                 // symbol_trade_volume.erase(std::string(std::string_view(&str[10], 8)));
@@ -55,17 +55,16 @@ int main() {
 
             case 'P':
                 // trade
-                symbol_trade_volume[std::string(std::string_view(&str[29], 6))] += std::stoi(std::string(std::string_view(&str[23], 6))); 
+                index = GetIndexToSymbol(std::string_view(&str[29], 6));
+                symbol_trade_volume[index] += std::stoi(std::string(std::string_view(&str[23], 6)));
                 p_cnt++;
                 break;
 
             case 'E':
                 // order executed
-            {
-                int index = order_to_symbol[std::string(std::string_view(&str[10], 12))];
-                symbol_trade_volume[symbols[index]] += std::stoi(std::string(std::string_view(&str[22], 6))); 
+                index = order_to_symbol[std::string(std::string_view(&str[10], 12))];
+                symbol_trade_volume[index] += std::stoi(std::string(std::string_view(&str[22], 6)));
                 e_cnt++;
-            }
                 break;
 
             case 'X':
@@ -84,19 +83,19 @@ int main() {
     // std::cout << "a_cnt: " << a_cnt << std::endl;
     // std::cout << "e_cnt: " << e_cnt << std::endl;
     // std::cout << "p_cnt: " << p_cnt << std::endl;
-    using elem = std::pair<std::string, int>;
+    using elem = std::pair<int, int>;
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
     };
 
     std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
-    for (auto& [symbol, size] : symbol_trade_volume) {
+    for (int i = 0; i < symbol_trade_volume.size(); ++i) {
         if (min_heap.size() < 10) {
-            min_heap.push({symbol, size});
+            min_heap.push({i, symbol_trade_volume[i]});
         } else {
-            if (min_heap.top().second < size) {
+            if (min_heap.top().second < symbol_trade_volume[i]) {
                 min_heap.pop();
-                min_heap.push({symbol, size});
+                min_heap.push({i, symbol_trade_volume[i]});
             }
         }
     }
@@ -107,9 +106,10 @@ int main() {
         min_heap.pop();
     }
 
+    // todo:: use stringstream to print the result
     while (!result.empty()) {
         auto& a = result.top();
-        std::cout << a.first << ", " << a.second << std::endl;
+        std::cout << symbols[a.first] << ", " << a.second << std::endl;
         result.pop();
     }
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
