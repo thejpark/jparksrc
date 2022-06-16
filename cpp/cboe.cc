@@ -11,6 +11,9 @@
 // time_point::time_since_epoch
 #include <chrono>
 
+class Solution {
+
+private:
 std::unordered_map<std::string, int> order_to_symbol;
 std::vector<std::string> symbols;
 std::unordered_map<std::string, int> symbols_map;
@@ -29,9 +32,8 @@ int GetIndexToSymbol(const std::string_view& sv) {
     }
 }
 
-int main() {
-    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
+public:
+void PrintTop10() {
     std::string str;
     int x_cnt = 0;
     int a_cnt = 0;
@@ -100,19 +102,25 @@ int main() {
         }
     }
 
-    std::stack<elem> result;
+    std::vector<elem> result;
     while (!min_heap.empty()) {
-        result.push(min_heap.top());
+        result.push_back(min_heap.top());
         min_heap.pop();
     }
 
     std::stringstream ss;
-    while (!result.empty()) {
-        auto& a = result.top();
-        ss << symbols[a.first] << ", " << a.second << std::endl;
-        result.pop();
+    for (int i = result.size() - 1; i >= 0; --i) {
+        ss << symbols[result[i].first] << " " << result[i].second << std::endl;
     }
+
     std::cout << ss.str();
+}
+};
+
+int main() {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    Solution sol;
+    sol.PrintTop10();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
