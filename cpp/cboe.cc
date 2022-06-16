@@ -73,108 +73,6 @@ void PrintTopK(std::istream& in, int k) {
     std::string str;
     while (getline(in, str))
     {
-        int index = 0;
-        switch(str[ADD::MESSAGE_TYPE_OFS]) {
-            case 'A':
-                // order added
-                order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] =
-                    GetIndexToSymbol(std::string_view(&str[ADD::SYMBOL_OFS], ADD::SYMBOL_LEN));
-                break;
-
-            case 'P':
-                // trade
-                index = GetIndexToSymbol(std::string_view(&str[TRD::SYMBOL_OFS], TRD::SYMBOL_LEN));
-                symbol_trade_volume[index] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
-                break;
-
-            case 'E':
-                // order executed
-                index = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
-                symbol_trade_volume[index] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
-                break;
-
-            case 'X':
-            default:
-                break;
-
-        }
-    }
-
-    // use min heap to store top k
-    using elem = std::pair<int, int>;
-    auto comp = [](const elem &a, const elem& b) {
-        return a.second > b.second;
-    };
-
-    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
-    for (int i = 0; i < symbol_trade_volume.size(); ++i) {
-        if (min_heap.size() < k) {
-            min_heap.push({i, symbol_trade_volume[i]});
-        } else {
-            if (min_heap.top().second < symbol_trade_volume[i]) {
-                min_heap.pop();
-                min_heap.push({i, symbol_trade_volume[i]});
-            }
-        }
-    }
-
-    // take top k out of min heap
-    std::vector<elem> result;
-    while (!min_heap.empty()) {
-        result.push_back(min_heap.top());
-        min_heap.pop();
-    }
-
-    // print top k from result
-    std::stringstream ss;
-    for (int i = result.size() - 1; i >= 0; --i) {
-        ss << symbols[result[i].first] << " " << result[i].second << std::endl;
-    }
-
-    std::cout << ss.str();
-}
-
-private:
-std::unordered_map<std::string, int> order_to_symbol;
-std::unordered_map<std::string, int> symbols_map;
-std::vector<std::string> symbols;
-std::vector<int> symbol_trade_volume;
-
-
-int GetIndexToSymbol(const std::string_view& sv) {
-    std::string str(sv);
-    if (auto it = symbols_map.find(str); it != symbols_map.end()) {
-        return it->second;
-    } else {
-        symbols_map[str] = symbols.size();
-        symbols.push_back(move(str));
-        symbol_trade_volume.push_back(0);
-        return symbols.size() - 1;
-    }
-}
-
-int ParseNumber(const std::string& str, int i, int n) {
-    // this makes the performance worse. why?
-    int r = 0;
-    for (int j = i; j < n + i; ++j) {
-        r = r * 10 + str[j] - '0';
-    }
-
-    return r;
-}
-
-};
-
-class Solution2 {
-public:
-void PrintTopK(std::istream& in, int k) {
-    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
-    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-
-    std::string str;
-    while (getline(in, str))
-    {
         switch(str[9]) {
             case 'A':
                 // order added
@@ -235,9 +133,108 @@ void PrintTopK(std::istream& in, int k) {
 }
 
 private:
+    // a map from order id to symbol name
     std::unordered_map<std::string, std::string> order_to_symbol;
+    // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
 };
+
+class Solution2 {
+public:
+void PrintTopK(std::istream& in, int k) {
+    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
+    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
+    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
+
+    std::string str;
+    while (getline(in, str))
+    {
+        int index = 0;
+        switch(str[ADD::MESSAGE_TYPE_OFS]) {
+            case 'A':
+                // order added
+                order_to_symbol_index[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] =
+                    GetIndexToSymbol(std::string_view(&str[ADD::SYMBOL_OFS], ADD::SYMBOL_LEN));
+                break;
+
+            case 'P':
+                // trade
+                index = GetIndexToSymbol(std::string_view(&str[TRD::SYMBOL_OFS], TRD::SYMBOL_LEN));
+                symbol_trade_volume[index] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
+                break;
+
+            case 'E':
+                // order executed
+                index = order_to_symbol_index[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
+                symbol_trade_volume[index] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
+                break;
+
+            case 'X':
+            default:
+                break;
+
+        }
+    }
+
+    // use min heap to store top k
+    using elem = std::pair<int, int>;
+    auto comp = [](const elem &a, const elem& b) {
+        return a.second > b.second;
+    };
+
+    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
+    for (int i = 0; i < symbol_trade_volume.size(); ++i) {
+        if (min_heap.size() < k) {
+            min_heap.push({i, symbol_trade_volume[i]});
+        } else {
+            if (min_heap.top().second < symbol_trade_volume[i]) {
+                min_heap.pop();
+                min_heap.push({i, symbol_trade_volume[i]});
+            }
+        }
+    }
+
+    // take top k out of min heap
+    std::vector<elem> result;
+    while (!min_heap.empty()) {
+        result.push_back(min_heap.top());
+        min_heap.pop();
+    }
+
+    // print top k from result
+    std::stringstream ss;
+    for (int i = result.size() - 1; i >= 0; --i) {
+        ss << symbols[result[i].first] << " " << result[i].second << std::endl;
+    }
+
+    std::cout << ss.str();
+}
+
+private:
+// a vector of symbol names
+std::vector<std::string> symbols;
+// a vector of trade volumes. symbol_trade_volume[i] is the trade volume of symbol symbols[i].
+std::vector<int> symbol_trade_volume;
+// a map from symbol name to the index in symbols (and symbol_trade_volume)
+std::unordered_map<std::string, int> symbols_map;
+// a map from order id to symbol index
+std::unordered_map<std::string, int> order_to_symbol_index;
+
+
+int GetIndexToSymbol(const std::string_view& sv) {
+    std::string str(sv);
+    if (auto it = symbols_map.find(str); it != symbols_map.end()) {
+        return it->second;
+    } else {
+        symbols_map[str] = symbols.size();
+        symbols.push_back(move(str));
+        symbol_trade_volume.push_back(0);
+        return symbols.size() - 1;
+    }
+}
+
+};
+
 
 } // namespace PITCH_CBOE
 
