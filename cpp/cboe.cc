@@ -61,9 +61,11 @@ enum FORMAT : int {
 }
 } // namespace MESSAGE
 
+// todo:
+// 1. getline bulk read, 2. remove string from map, id from string to int?
 class Solution {
 public:
-void PrintTop10() {
+void PrintTopK(int k) {
     std::string str;
     int x_cnt = 0;
     int a_cnt = 0;
@@ -74,12 +76,14 @@ void PrintTop10() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
+    // std::ios_base::sync_with_stdio(false);
     // std::ios::sync_with_stdio(false);
+    // std::cin.tie(0);
     auto fin = std::ifstream("pitch_example_data.txt");
     while (getline(fin, str))
     {
         int index = 0;
-        switch(str[9]) {
+        switch(str[ADD::MESSAGE_TYPE_OFS]) {
             case 's':
                 // symbol_trade_volume.erase(std::string(std::string_view(&str[10], 8)));
                 // order_to_symbol.erase(std::string(std::string_view(&str[10], 8)));
@@ -130,7 +134,7 @@ void PrintTop10() {
 
     std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
     for (int i = 0; i < symbol_trade_volume.size(); ++i) {
-        if (min_heap.size() < 10) {
+        if (min_heap.size() < k) {
             min_heap.push({i, symbol_trade_volume[i]});
         } else {
             if (min_heap.top().second < symbol_trade_volume[i]) {
@@ -189,7 +193,7 @@ int ParseNumber(const std::string& str, int i, int n) {
 int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     PITCH_CBOE::Solution sol;
-    sol.PrintTop10();
+    sol.PrintTopK(10);
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
