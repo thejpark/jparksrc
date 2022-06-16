@@ -62,71 +62,49 @@ enum FORMAT : int {
 } // namespace MESSAGE
 
 // todo:
-// 1. getline bulk read, 2. remove string from map, id from string to int?
+// 1. getline bulk read, 2. use partition instead of pq?  
 class Solution {
 public:
 void PrintTopK(int k) {
-    std::string str;
-    int x_cnt = 0;
-    int a_cnt = 0;
-    int e_cnt = 0;
-    int p_cnt = 0;
-
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
-    // std::ios_base::sync_with_stdio(false);
+    std::ios_base::sync_with_stdio(false);
     // std::ios::sync_with_stdio(false);
-    // std::cin.tie(0);
-    auto fin = std::ifstream("pitch_example_data.txt");
-    while (getline(fin, str))
+    std::cin.tie(0);
+    // auto fin = std::ifstream("pitch_example_data.txt");
+    std::string str;
+    while (getline(std::cin, str))
     {
         int index = 0;
         switch(str[ADD::MESSAGE_TYPE_OFS]) {
-            case 's':
-                // symbol_trade_volume.erase(std::string(std::string_view(&str[10], 8)));
-                // order_to_symbol.erase(std::string(std::string_view(&str[10], 8)));
-
             case 'A':
                 // order added
                 order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] =
                     GetIndexToSymbol(std::string_view(&str[ADD::SYMBOL_OFS], ADD::SYMBOL_LEN));
-                a_cnt++;
                 break;
 
             case 'P':
                 // trade
                 index = GetIndexToSymbol(std::string_view(&str[TRD::SYMBOL_OFS], TRD::SYMBOL_LEN));
                 symbol_trade_volume[index] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
-
-                p_cnt++;
                 break;
 
             case 'E':
                 // order executed
                 index = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
                 symbol_trade_volume[index] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
-
-                e_cnt++;
                 break;
 
             case 'X':
-                // order cancelled
-                x_cnt++;
-                break;
-
             default:
-                // std::cout << "unknown message type : " << str[9] << std::endl;
                 break;
 
         }
     }
 
-    // std::cout << "x_cnt: " << x_cnt << std::endl;
-    // std::cout << "a_cnt: " << a_cnt << std::endl;
-    // std::cout << "e_cnt: " << e_cnt << std::endl;
-    // std::cout << "p_cnt: " << p_cnt << std::endl;
+    // use min heap to store top k
     using elem = std::pair<int, int>;
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
@@ -144,12 +122,14 @@ void PrintTopK(int k) {
         }
     }
 
+    // take top k out of min heap
     std::vector<elem> result;
     while (!min_heap.empty()) {
         result.push_back(min_heap.top());
         min_heap.pop();
     }
 
+    // print top k from result
     std::stringstream ss;
     for (int i = result.size() - 1; i >= 0; --i) {
         ss << symbols[result[i].first] << " " << result[i].second << std::endl;
