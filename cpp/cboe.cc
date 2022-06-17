@@ -58,7 +58,7 @@ enum FORMAT : int {
 }
 } // namespace MESSAGE
 
-// PITCH message wrapper. 
+// PITCH message wrapper.
 // The user should call HasNext() and Next() method call to get the next message.
 class Message {
 private:
@@ -124,7 +124,7 @@ public:
 std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     Message message(in);
 
-    // compute the volume of each symbol and store in the symbol_trade_volume.
+    // step 1: Compute the volume of each symbol and store in the symbol_trade_volume.
     while (message.HasNext())
     {
       message.Next();
@@ -159,14 +159,14 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         return a.second > b.second;
     };
      #if 1
-    // Partition the symbols so that first k elements are the top k. Time complexity is O(n).
+    // step 2: Partition the symbols so that first k elements are the top k. Time complexity is O(n).
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
       result.resize(k);
     }
 
-    // Then sort based on the volume size.
+    // Then sort the k elements based on the volume size. Skip this if we do not want the result sorted.
     sort(result.begin(), result.end(), comp);
     return result;
     // Tested with the minimum heap implementation below, and this one is slightly faster.
