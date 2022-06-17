@@ -69,7 +69,6 @@ private:
 
 public:
     Message(std::istream& in) : mIn(in) {
-        message.reserve(128);
     }
     bool HasNext() {
         return std::getline(mIn, message).good();
