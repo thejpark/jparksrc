@@ -93,7 +93,6 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
             case 'X':
             default:
                 break;
-
         }
     }
 
@@ -330,11 +329,26 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
       case 'X':
       default:
         break;
-
-        }
+      }
     }
 
-     #if 0
+     #if 1
+    // Partition the symbols so that first k elements are the top k.
+    using elem = std::pair<std::string, int>;
+    auto comp = [](const elem &a, const elem& b) {
+        return a.second > b.second;
+    };
+    std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
+    if (result.size() > k) {
+      std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
+      result.resize(k);
+    }
+    // Then sort based on the volume size.
+    sort(result.begin(), result.end(), comp);
+    return result;
+    // Tested with the minimum heap implementation below, and this one is about 1.5 times faster.
+
+     #else
     // use min heap to store top k. The size of heap is k where k is 10.
     // Time complexity is O(n logk) where k is 10, so it is almsot O(n).
     using elem = std::pair<std::string, int>;
@@ -363,24 +377,8 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         min_heap.pop();
     }
     reverse(result.begin(), result.end());
-    #else
-
-    // partition the symbols so that first k elements are the top k.
-    using elem = std::pair<std::string, int>;
-    auto comp = [](const elem &a, const elem& b) {
-        return a.second > b.second;
-    };
-    std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
-    if (result.size() > k) {
-      std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
-      result.resize(k);
-    }
-    // Then sort based on the volume size.
-    sort(result.begin(), result.end(), comp);
-    #endif
-
     return result;
-
+    #endif
 }
 
 private:
@@ -397,7 +395,7 @@ int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    PITCH_CBOE::Solution3 sol;
+    PITCH_CBOE::Solution sol;
     // auto fin = std::ifstream("pitch_example_data.txt");
     auto result = sol.CollectTopK(std::cin, 10);
 
