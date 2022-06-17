@@ -124,7 +124,7 @@ public:
 std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     Message message(in);
 
-    // step 1: Compute the volume of each symbol and store in the symbol_trade_volume.
+    // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
     while (message.HasNext())
     {
       message.Next();
