@@ -75,6 +75,7 @@ public:
     }
 
     void Next() {
+        // do nothing at the moment.
     }
 
     char Type() {
