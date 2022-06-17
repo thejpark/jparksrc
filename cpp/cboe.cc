@@ -143,12 +143,12 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
       }
     }
 
-     #if 1
-    // Partition the symbols so that first k elements are the top k. O(n).
     using elem = std::pair<std::string, int>;
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
     };
+     #if 1
+    // Partition the symbols so that first k elements are the top k. O(n).
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
@@ -158,16 +158,11 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     // Then sort based on the volume size.
     sort(result.begin(), result.end(), comp);
     return result;
-    // Tested with the minimum heap implementation below, and this one is about 1.5 times faster.
+    // Tested with the minimum heap implementation below, and this one is slightly faster.
 
      #else
     // use min heap to store top k. The size of heap is k where k is 10.
     // Time complexity is O(n logk) where k is 10, so it is also O(n).
-    using elem = std::pair<std::string, int>;
-    auto comp = [](const elem &a, const elem& b) {
-        return a.second > b.second;
-    };
-
     std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
     for (auto& [symbol, size] : symbol_trade_volume) {
         if (min_heap.size() < k) {
@@ -181,7 +176,6 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
             }
         }
     }
-
     // take top k out of min heap
     std::vector<elem> result;
     while (!min_heap.empty()) {
@@ -199,100 +193,6 @@ private:
     // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
 };
-
-class Solution2 {
-public:
-std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
-    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
-    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-
-    std::string str;
-    str.reserve(1024);
-    while (std::getline(in, str))
-    {
-        int index = 0;
-        switch(str[ADD::MESSAGE_TYPE_OFS]) {
-            case 'A':
-                // order added
-                order_to_symbol_index[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] =
-                    GetIndexToSymbol(std::string_view(&str[ADD::SYMBOL_OFS], ADD::SYMBOL_LEN));
-                break;
-
-            case 'P':
-                // trade
-                index = GetIndexToSymbol(std::string_view(&str[TRD::SYMBOL_OFS], TRD::SYMBOL_LEN));
-                symbol_trade_volume[index] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
-                break;
-
-            case 'E':
-                // order executed
-                index = order_to_symbol_index[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
-                symbol_trade_volume[index] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
-                break;
-
-            case 'X':
-            default:
-                break;
-
-        }
-    }
-
-    // use min heap to store top k
-    using elem = std::pair<int, int>;
-    auto comp = [](const elem &a, const elem& b) {
-        return a.second > b.second;
-    };
-
-    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
-    for (int i = 0; i < symbol_trade_volume.size(); ++i) {
-        if (min_heap.size() < k) {
-            min_heap.push({i, symbol_trade_volume[i]});
-        } else {
-            if (min_heap.top().second < symbol_trade_volume[i]) {
-                min_heap.pop();
-                min_heap.push({i, symbol_trade_volume[i]});
-            }
-        }
-    }
-
-    // take top k out of min heap
-    std::vector<std::pair<std::string, int>> result;
-    while (!min_heap.empty()) {
-        result.push_back({symbols[min_heap.top().first], min_heap.top().second});
-        min_heap.pop();
-    }
-
-    reverse(result.begin(), result.end());
-    return result;
-}
-
-private:
-// a vector of symbol names
-std::vector<std::string> symbols;
-// a vector of trade volumes. symbol_trade_volume[i] is the trade volume of symbol symbols[i].
-std::vector<int> symbol_trade_volume;
-// a map from symbol name to the index in symbols (and symbol_trade_volume)
-std::unordered_map<std::string, int> symbols_map;
-// a map from order id to symbol index
-std::unordered_map<std::string, int> order_to_symbol_index;
-
-
-// If symbol is not in symbols, add it to symbols and return its index. otherwise return its index.
-int GetIndexToSymbol(const std::string_view& sv) {
-    std::string str(sv);
-    if (auto it = symbols_map.find(str); it != symbols_map.end()) {
-        return it->second;
-    } else {
-        symbols_map[str] = symbols.size();
-        symbols.push_back(move(str));
-        symbol_trade_volume.push_back(0);
-        return symbols.size() - 1;
-    }
-}
-
-};
-
 
 } // namespace PITCH_CBOE
 
