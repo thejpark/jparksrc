@@ -70,7 +70,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     std::string str;
     while (getline(in, str))
     {
-        switch(str[9]) {
+        switch(str[ADD::MESSAGE_TYPE_OFS]) {
             case 'A':
                 // order added
                 order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = str.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
@@ -78,14 +78,14 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
             case 'P':
                 // trade
-                symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN)); 
+                symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
                 break;
 
             case 'E':
                 // order executed
             {
                 const std::string& symbol = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
-                symbol_trade_volume[symbol] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN)); 
+                symbol_trade_volume[symbol] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
             }
                 break;
 
@@ -223,13 +223,84 @@ int GetIndexToSymbol(const std::string_view& sv) {
 
 };
 
+class Solution3 {
+public:
+std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
+    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
+    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
+    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
+
+    std::string str;
+    while (getline(in, str))
+    {
+        switch(str[ADD::MESSAGE_TYPE_OFS]) {
+            case 'A':
+                // order added
+                order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = str.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
+                break;
+
+            case 'P':
+                // trade
+                symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
+                break;
+
+            case 'E':
+                // order executed
+            {
+                const std::string& symbol = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
+                symbol_trade_volume[symbol] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
+            }
+                break;
+
+            case 'X':
+            default:
+                break;
+
+        }
+    }
+
+    // use min heap to store top k
+    using elem = std::pair<std::string, int>;
+    auto comp = [](const elem &a, const elem& b) {
+        return a.second > b.second;
+    };
+
+    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
+    for (auto& [symbol, size] : symbol_trade_volume) {
+        if (min_heap.size() < 10) {
+            min_heap.push({symbol, size});
+        } else {
+            if (min_heap.top().second < size) {
+                min_heap.pop();
+                min_heap.push({symbol, size});
+            }
+        }
+    }
+
+    // take top k out of min heap
+    std::vector<elem> result;
+    while (!min_heap.empty()) {
+        result.push_back(min_heap.top());
+        min_heap.pop();
+    }
+
+    return result;
+
+}
+
+private:
+    // a map from order id to symbol name
+    std::unordered_map<std::string, std::string> order_to_symbol;
+    // for each symbol, the trade volume
+    std::unordered_map<std::string, int> symbol_trade_volume;
+};
+
 
 } // namespace PITCH_CBOE
 
 int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     std::ios_base::sync_with_stdio(false);
-    std::cin.tie(0);
     PITCH_CBOE::Solution sol;
     // auto fin = std::ifstream("pitch_example_data.txt");
     auto result = sol.CollectTopK(std::cin, 10);
