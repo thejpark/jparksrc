@@ -62,7 +62,7 @@ enum FORMAT : int {
 class Message {
 private:
     std::istream& mIn;
-    std::string message;
+    std::string mMessage;
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
@@ -71,37 +71,37 @@ public:
     Message(std::istream& in) : mIn(in) {
     }
     bool HasNext() {
-        return std::getline(mIn, message).good();
+        return std::getline(mIn, mMessage).good();
     }
 
     void Next() {
     }
 
     char Type() {
-        return message[ADD::MESSAGE_TYPE_OFS];
+        return mMessage[ADD::MESSAGE_TYPE_OFS];
     }
 
     std::string OrderId() {
-        if (message[ADD::MESSAGE_TYPE_OFS] == 'A') {
-            return message.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
+        if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
+            return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
         } else {
-            return message.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
+            return mMessage.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
         }
     }
 
     std::string Symbol() {
-        if (message[ADD::MESSAGE_TYPE_OFS] == 'A') {
-            return message.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
+        if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
+            return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
         } else {
-            return message.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN);
+            return mMessage.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN);
         }
     }
 
     int Share() {
-        if (message[ADD::MESSAGE_TYPE_OFS] == 'P') {
-            return std::stoi(message.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
+        if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'P') {
+            return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
         } else {
-            return std::stoi(message.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
+            return std::stoi(mMessage.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
         }
     }
 };
