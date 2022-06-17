@@ -25,6 +25,7 @@ enum FORMAT {
     SYMBOL_OFS = SHARES_OFS + SHARES_LEN,
     SYMBOL_LEN = 6
 };
+constexpr char TYPE = 'A';
 }
 
 namespace ORDER_EXECUTED {
@@ -38,6 +39,7 @@ enum FORMAT : int {
     SHARES_OFS = ORDER_ID_OFS + ORDER_ID_LEN,
     SHARES_LEN = 6
 };
+constexpr char TYPE = 'E';
 }
 
 namespace TRADE {
@@ -55,12 +57,25 @@ enum FORMAT : int {
     SYMBOL_OFS = SHARES_OFS + SHARES_LEN,
     SYMBOL_LEN = 6
 };
+constexpr char TYPE = 'P';
 }
 } // namespace MESSAGE
 
-// PITCH message wrapper.
+// PITCH message wrapper interface.
 // The user should call HasNext() and Next() method call to get the next message.
-class Message {
+
+class MessageInterface {
+public:
+     ~MessageInterface() {}
+    virtual bool HasNext() = 0;
+    virtual void Next() = 0;
+    virtual char Type() = 0;
+    virtual std::string OrderId() = 0;
+    virtual std::string Symbol() = 0;
+    virtual int Share() = 0;
+};
+
+class Message : public MessageInterface {
 private:
     // The input stream to read the message from.
     std::istream& mIn;
@@ -73,20 +88,21 @@ private:
 public:
     Message(std::istream& in) : mIn(in) {
     }
-    bool HasNext() {
+    bool HasNext() override {
         return std::getline(mIn, mMessage).good();
     }
 
-    void Next() {
+    void Next() override {
         // do nothing at the moment.
     }
 
-    char Type() {
+    char Type() override {
+        // All message has same offset for the message type.
         return mMessage[ADD::MESSAGE_TYPE_OFS];
     }
 
     // return order id of the message.
-    std::string OrderId() {
+    std::string OrderId() override {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
             return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
         } else {
@@ -95,7 +111,7 @@ public:
     }
 
     // return the symbol of the message.
-    std::string Symbol() {
+    std::string Symbol() override {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
             return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
         } else {
@@ -104,7 +120,7 @@ public:
     }
 
     // return executed or traded shares.
-    int Share() {
+    int Share() override {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'P') {
             return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
         } else {
@@ -119,32 +135,38 @@ private:
     std::unordered_map<std::string, std::string> order_to_symbol;
     // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
+    // message wrapper
+    MessageInterface& mMsg;
 
 public:
+Solution(MessageInterface& message) : mMsg(message) {
+}
+
 std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
-    Message message(in);
-
+    namespace ADD_ORDER = PITCH_CBOE::MESSAGE::ADD_ORDER;
+    namespace ORDER_EXECUTED = PITCH_CBOE::MESSAGE::ORDER_EXECUTED;
+    namespace TRADE = PITCH_CBOE::MESSAGE::TRADE;
     // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
-    while (message.HasNext())
+    while (mMsg.HasNext())
     {
-      message.Next();
+      mMsg.Next();
 
-      switch (message.Type()) {
-      case 'A':
+      switch (mMsg.Type()) {
+      case ADD_ORDER::TYPE:
         // order added
-        order_to_symbol[message.OrderId()] = message.Symbol();
+        order_to_symbol[mMsg.OrderId()] = mMsg.Symbol();
         break;
 
-      case 'P':
+      case TRADE::TYPE:
         // trade
-        symbol_trade_volume[message.Symbol()] += message.Share();
+        symbol_trade_volume[mMsg.Symbol()] += mMsg.Share();
         break;
 
-      case 'E':
+      case ORDER_EXECUTED::TYPE:
         // order executed
         {
-          const std::string& symbol = order_to_symbol[message.OrderId()];
-          symbol_trade_volume[symbol] += message.Share();
+          const std::string& symbol = order_to_symbol[mMsg.OrderId()];
+          symbol_trade_volume[symbol] += mMsg.Share();
         }
         break;
 
@@ -205,7 +227,8 @@ int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(NULL);
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    PITCH_CBOE::Solution sol;
+    PITCH_CBOE::Message message(std::cin);
+    PITCH_CBOE::Solution sol(message);
     // auto fin = std::ifstream("pitch_example_data.txt");
     auto result = sol.CollectTopK(std::cin, 10);
 
