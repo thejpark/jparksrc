@@ -58,10 +58,13 @@ enum FORMAT : int {
 }
 } // namespace MESSAGE
 
-// PITCH message wrapper
+// PITCH message wrapper. 
+// The user should call HasNext() and Next() method call to get the next message.
 class Message {
 private:
+    // The input stream to read the message from.
     std::istream& mIn;
+    // current message instance.
     std::string mMessage;
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
@@ -82,6 +85,7 @@ public:
         return mMessage[ADD::MESSAGE_TYPE_OFS];
     }
 
+    // return order id of the message.
     std::string OrderId() {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
             return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
@@ -90,6 +94,7 @@ public:
         }
     }
 
+    // return the symbol of the message.
     std::string Symbol() {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'A') {
             return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
@@ -98,6 +103,7 @@ public:
         }
     }
 
+    // return executed or traded shares.
     int Share() {
         if (mMessage[ADD::MESSAGE_TYPE_OFS] == 'P') {
             return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
@@ -153,7 +159,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         return a.second > b.second;
     };
      #if 1
-    // Partition the symbols so that first k elements are the top k. O(n).
+    // Partition the symbols so that first k elements are the top k. Time complexity is O(n).
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
@@ -167,7 +173,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
      #else
     // use min heap to store top k. The size of heap is k where k is 10.
-    // Time complexity is O(n logk) where k is 10, so it is also O(n).
+    // Time complexity is O(n logk) where k is 10, so the time complexity is O(n).
     std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
     for (auto& [symbol, size] : symbol_trade_volume) {
         if (min_heap.size() < k) {
