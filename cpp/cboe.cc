@@ -62,7 +62,7 @@ enum FORMAT : int {
 // 1. getline bulk read, 2. use partition instead of pq?  3. stoi order id? 4. use trie instead of map for symbol search?
 class Solution {
 public:
-void PrintTopK(std::istream& in, int k) {
+std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
@@ -96,6 +96,7 @@ void PrintTopK(std::istream& in, int k) {
         }
     }
 
+    // use min heap to store top k
     using elem = std::pair<std::string, int>;
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
@@ -120,13 +121,8 @@ void PrintTopK(std::istream& in, int k) {
         min_heap.pop();
     }
 
-    // print top k from result
-    std::stringstream ss;
-    for (int i = result.size() - 1; i >= 0; --i) {
-        ss << result[i].first << " " << result[i].second << std::endl;
-    }
+    return result;
 
-    std::cout << ss.str();
 }
 
 private:
@@ -138,7 +134,7 @@ private:
 
 class Solution2 {
 public:
-void PrintTopK(std::istream& in, int k) {
+std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
@@ -192,19 +188,13 @@ void PrintTopK(std::istream& in, int k) {
     }
 
     // take top k out of min heap
-    std::vector<elem> result;
+    std::vector<std::pair<std::string, int>> result;
     while (!min_heap.empty()) {
-        result.push_back(min_heap.top());
+        result.push_back({symbols[min_heap.top().first], min_heap.top().second});
         min_heap.pop();
     }
 
-    // print top k from result
-    std::stringstream ss;
-    for (int i = result.size() - 1; i >= 0; --i) {
-        ss << symbols[result[i].first] << " " << result[i].second << std::endl;
-    }
-
-    std::cout << ss.str();
+    return result;
 }
 
 private:
@@ -218,6 +208,7 @@ std::unordered_map<std::string, int> symbols_map;
 std::unordered_map<std::string, int> order_to_symbol_index;
 
 
+// If symbol is not in symbols, add it to symbols and return its index. otherwise return its index.
 int GetIndexToSymbol(const std::string_view& sv) {
     std::string str(sv);
     if (auto it = symbols_map.find(str); it != symbols_map.end()) {
@@ -239,9 +230,17 @@ int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(0);
-    PITCH_CBOE::Solution2 sol;
+    PITCH_CBOE::Solution sol;
     // auto fin = std::ifstream("pitch_example_data.txt");
-    sol.PrintTopK(std::cin, 10);
+    auto result = sol.CollectTopK(std::cin, 10);
+
+    // print top k from result, biggest to smallest.
+    std::stringstream ss;
+    for (int i = result.size() - 1; i >= 0; --i) {
+        ss << result[i].first << " " << result[i].second << std::endl;
+    }
+
+    std::cout << ss.str();
     std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
     std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
