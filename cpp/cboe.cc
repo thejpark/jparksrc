@@ -108,8 +108,13 @@ public:
 };
 
 class Solution {
-public:
+private:
+    // a map from order id to symbol name
+    std::unordered_map<std::string, std::string> order_to_symbol;
+    // for each symbol, the trade volume
+    std::unordered_map<std::string, int> symbol_trade_volume;
 
+public:
 std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     Message message(in);
 
@@ -186,12 +191,6 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     return result;
     #endif
 }
-
-private:
-    // a map from order id to symbol name
-    std::unordered_map<std::string, std::string> order_to_symbol;
-    // for each symbol, the trade volume
-    std::unordered_map<std::string, int> symbol_trade_volume;
 };
 
 } // namespace PITCH_CBOE
