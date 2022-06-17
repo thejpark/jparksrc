@@ -6,7 +6,11 @@
 #include <sstream>
 #include <fstream>
 #include <chrono>
-
+#include <ranges>
+#include <algorithm>
+#include <array>
+#include <functional>
+#include <string_view>
 namespace PITCH_CBOE {
 namespace MESSAGE {
     constexpr int PREFIX_LEN = 1; // Prefix 'S' in the message
@@ -68,6 +72,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
     std::string str;
+    str.reserve(1024);
     while (getline(in, str))
     {
         switch(str[ADD::MESSAGE_TYPE_OFS]) {
@@ -96,7 +101,11 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         }
     }
 
-    // use min heap to store top k
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+    #if 0
+    // use min heap to store top k. The size of heap is k where k is 10.
+    // Time complexity is O(n logk) where k is 10, so it is almsot O(n).
     using elem = std::pair<std::string, int>;
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
@@ -104,9 +113,11 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
     std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
     for (auto& [symbol, size] : symbol_trade_volume) {
-        if (min_heap.size() < 10) {
+        if (min_heap.size() < k) {
             min_heap.push({symbol, size});
         } else {
+            // if the size of heap is 10, then the top element is the smallest one.
+            // For optimisation, only consider adding to heap if the new element is larger than the top element.
             if (min_heap.top().second < size) {
                 min_heap.pop();
                 min_heap.push({symbol, size});
@@ -120,7 +131,23 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         result.push_back(min_heap.top());
         min_heap.pop();
     }
+    reverse(result.begin(), result.end());
+    #else
 
+    using elem = std::pair<std::string, int>;
+    auto comp = [](const elem &a, const elem& b) {
+        return a.second > b.second;
+    };
+    std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
+    if (result.size() > k) {
+      std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
+      result.resize(k);
+    }
+    sort(result.begin(), result.end(), comp);
+    #endif
+
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
     return result;
 
 }
@@ -194,6 +221,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
         min_heap.pop();
     }
 
+    reverse(result.begin(), result.end());
     return result;
 }
 
@@ -230,59 +258,67 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
 
-    std::string str;
-    while (getline(in, str))
+    std::vector<char> v(4096);
+
+    while (in)
     {
-        switch(str[ADD::MESSAGE_TYPE_OFS]) {
-            case 'A':
-                // order added
-                order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = str.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
-                break;
+      in.read(&v[0], v.size());
+      std::cin.read(&v[0], v.size());
 
-            case 'P':
-                // trade
-                symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
-                break;
+      switch (str[ADD::MESSAGE_TYPE_OFS]) {
+      case 'A':
+        // order added
+        // order_to_symbol[str.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] =
+        // str.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
+        break;
 
-            case 'E':
-                // order executed
-            {
-                const std::string& symbol = order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
-                symbol_trade_volume[symbol] += std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
-            }
-                break;
+      case 'P':
+        // trade
+        // symbol_trade_volume[str.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] +=
+        // std::stoi(str.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
+        break;
 
-            case 'X':
-            default:
-                break;
+      case 'E':
+        // order executed
+        {
+          // const std::string& symbol =
+          // order_to_symbol[str.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN)];
+          // symbol_trade_volume[symbol] +=
+          // std::stoi(str.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
+        }
+        break;
+
+      case 'X':
+      default:
+        break;
 
         }
     }
 
     // use min heap to store top k
     using elem = std::pair<std::string, int>;
-    auto comp = [](const elem &a, const elem& b) {
-        return a.second > b.second;
-    };
+    // auto comp = [](const elem &a, const elem& b) {
+    //     return a.second > b.second;
+    // };
 
-    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
-    for (auto& [symbol, size] : symbol_trade_volume) {
-        if (min_heap.size() < 10) {
-            min_heap.push({symbol, size});
-        } else {
-            if (min_heap.top().second < size) {
-                min_heap.pop();
-                min_heap.push({symbol, size});
-            }
-        }
-    }
+    // std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
+    // for (auto& [symbol, size] : symbol_trade_volume) {
+    //     if (min_heap.size() < 10) {
+    //         min_heap.push({symbol, size});
+    //     } else {
+    //         if (min_heap.top().second < size) {
+    //             min_heap.pop();
+    //             min_heap.push({symbol, size});
+    //         }
+    //     }
+    // }
 
     // take top k out of min heap
     std::vector<elem> result;
-    while (!min_heap.empty()) {
-        result.push_back(min_heap.top());
-        min_heap.pop();
-    }
+    // while (!min_heap.empty()) {
+    //     result.push_back(min_heap.top());
+    //     min_heap.pop();
+    // }
 
     return result;
 
@@ -299,16 +335,17 @@ private:
 } // namespace PITCH_CBOE
 
 int main() {
-    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     std::ios_base::sync_with_stdio(false);
+    std::cin.tie(NULL);
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     PITCH_CBOE::Solution sol;
     // auto fin = std::ifstream("pitch_example_data.txt");
     auto result = sol.CollectTopK(std::cin, 10);
 
     // print top k from result, biggest to smallest.
     std::stringstream ss;
-    for (int i = result.size() - 1; i >= 0; --i) {
-        ss << result[i].first << " " << result[i].second << std::endl;
+    for (auto &[symbol, size] : result) {
+        ss << symbol << " " << size << std::endl;
     }
 
     std::cout << ss.str();
