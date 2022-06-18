@@ -91,7 +91,7 @@ public:
     }
 
     char Type() {
-        // All message has same offset for the message type.
+        // All messages have the same offset for the message type.
         return mMessage[ADD::MESSAGE_TYPE_OFS];
     }
 
