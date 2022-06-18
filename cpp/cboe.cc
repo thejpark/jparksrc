@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <queue>
 #include <iostream>
 #include <unordered_map>
 #include <sstream>
@@ -132,21 +131,25 @@ public:
 
 class Solution {
 private:
-    // a map from order id to symbol name
-    std::unordered_map<std::string, std::string> order_to_symbol;
-    // for each symbol, the trade volume
-    std::unordered_map<std::string, int> symbol_trade_volume;
     // message wrapper
     MessageInterface& mMsg;
+
+    using elem = std::pair<std::string, int>;
 
 public:
 Solution(MessageInterface& message) : mMsg(message) {
 }
 
-std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
+std::vector<elem>  CollectTopK(std::istream& in, int k) {
     namespace ADD_ORDER = PITCH_CBOE::MESSAGE::ADD_ORDER;
     namespace ORDER_EXECUTED = PITCH_CBOE::MESSAGE::ORDER_EXECUTED;
     namespace TRADE = PITCH_CBOE::MESSAGE::TRADE;
+    // a map from order id to symbol name
+    std::unordered_map<std::string, std::string> order_to_symbol;
+    // for each symbol, the trade volume
+    std::unordered_map<std::string, int> symbol_trade_volume;
+    
+
     // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
     while (mMsg.HasNext())
     {
@@ -172,21 +175,23 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
       default:
         // not handled in this coding test.
         break;
-      }
+     }
     }
 
-    using elem = std::pair<std::string, int>;
+    // step 2: Find the top k elements in the symbol_trade_volume.
+    return TopK(k, symbol_trade_volume);
+}
+
+std::vector<elem> TopK(int k, const std::unordered_map<std::string, int>& symbol_trade_volume) {
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
     };
 
-    // step 2: Partition the symbols using std::nth_element so that first k elements
+    // Partition the symbols using std::nth_element so that first k elements
     // are the top k. Time complexity is O(n).
     // Altinatively, implemented and tested with the minimum heap implementation
-    // with the heap size of k (in this case, 10), but std::nth_element is slightly faster.
-    // The time complexity for min heap is O(n logk) where k is 10, so the time complexity is almost O(n).
-    // For optimisation, only considered adding to heap if the new element is larger than the top element.
-    #if 1
+    // with the heap size of k (in this case, 10, so time complexity O(n) as well),
+    // but std::nth_element is slightly little bit faster, so I choosed std::nth_element.
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
@@ -196,34 +201,8 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     // Then sort the k elements based on the volume size. Skip this if we do not want the result sorted.
     sort(result.begin(), result.end(), comp);
     return result;
-    // Tested with the minimum heap implementation below, and this one is slightly faster.
-
-     #else
-    // use min heap to store top k. The size of heap is k where k is 10.
-    // Time complexity is O(n logk) where k is 10, so the time complexity is O(n).
-    std::priority_queue<elem, std::vector<elem>, decltype(comp)> min_heap(comp);
-    for (auto& [symbol, size] : symbol_trade_volume) {
-        if (min_heap.size() < k) {
-            min_heap.push({symbol, size});
-        } else {
-            // if the size of heap is 10, then the top element is the smallest one.
-            // For optimisation, only consider adding to heap if the new element is larger than the top element.
-            if (min_heap.top().second < size) {
-                min_heap.pop();
-                min_heap.push({symbol, size});
-            }
-        }
-    }
-    // take top k out of min heap
-    std::vector<elem> result;
-    while (!min_heap.empty()) {
-        result.push_back(min_heap.top());
-        min_heap.pop();
-    }
-    reverse(result.begin(), result.end());
-    return result;
-    #endif
 }
+
 };
 
 } // namespace PITCH_CBOE
@@ -231,8 +210,8 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 int main() {
     std::ios_base::sync_with_stdio(false);
     // std::cin.tie(NULL);
-    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-    PITCH_CBOE::Message message(std::cin);
+    std::ifstream is("out");
+    PITCH_CBOE::Message message(is);
     PITCH_CBOE::Solution sol(message);
     auto result = sol.CollectTopK(std::cin, 10);
 
@@ -243,6 +222,4 @@ int main() {
     }
 
     std::cout << ss.str();
-    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
