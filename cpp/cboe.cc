@@ -62,7 +62,7 @@ constexpr char TYPE = 'P';
 } // namespace MESSAGE
 
 // PITCH message wrapper base, introduced for dependency injection (instead of using interface class).
-// The user should call Next() method call to get the next message.
+// The user should call Next() method to get the next message.
 template<typename Derived>
 class MessageBase {
 public:
