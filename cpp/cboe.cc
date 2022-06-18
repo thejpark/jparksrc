@@ -207,6 +207,7 @@ std::vector<elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
 int main() {
     std::ios_base::sync_with_stdio(false);
     // std::cin.tie(NULL);
+    // std::ifstream is("example_data.txt");
     PITCH_CBOE::Message message(std::cin);
     PITCH_CBOE::Solution sol(message);
     auto result = sol.CollectTopK(10);
