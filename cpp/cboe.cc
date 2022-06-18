@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 #include <chrono>
 
 namespace PITCH_CBOE {
@@ -153,17 +154,14 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
       switch (mMsg.Type()) {
       case ADD_ORDER::TYPE:
-        // order added
         order_to_symbol[mMsg.OrderId()] = mMsg.Symbol();
         break;
 
       case TRADE::TYPE:
-        // trade
         symbol_trade_volume[mMsg.Symbol()] += mMsg.Share();
         break;
 
       case ORDER_EXECUTED::TYPE:
-        // order executed
         {
           const std::string& symbol = order_to_symbol[mMsg.OrderId()];
           symbol_trade_volume[symbol] += mMsg.Share();
@@ -172,6 +170,7 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
       case 'X':
       default:
+        // not handled in this coding test.
         break;
       }
     }
@@ -180,8 +179,14 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
     };
-     #if 1
-    // step 2: Partition the symbols so that first k elements are the top k. Time complexity is O(n).
+
+    // step 2: Partition the symbols using std::nth_element so that first k elements
+    // are the top k. Time complexity is O(n).
+    // Altinatively, implemented and tested with the minimum heap implementation
+    // with the heap size of k (in this case, 10), but std::nth_element is slightly faster.
+    // The time complexity for min heap is O(n logk) where k is 10, so the time complexity is almost O(n).
+    // For optimisation, only considered adding to heap if the new element is larger than the top element.
+    #if 1
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
@@ -225,8 +230,8 @@ std::vector<std::pair<std::string, int>>  CollectTopK(std::istream& in, int k) {
 
 int main() {
     std::ios_base::sync_with_stdio(false);
-    std::cin.tie(NULL);
-    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+    // std::cin.tie(NULL);
+    // std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     PITCH_CBOE::Message message(std::cin);
     PITCH_CBOE::Solution sol(message);
     auto result = sol.CollectTopK(std::cin, 10);
@@ -238,6 +243,6 @@ int main() {
     }
 
     std::cout << ss.str();
-    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-    std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
+    // std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    // std::cout << "Time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count() << "[µs]" << std::endl;
 }
