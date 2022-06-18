@@ -61,21 +61,20 @@ constexpr char TYPE = 'P';
 }
 } // namespace MESSAGE
 
-// PITCH message wrapper interface.
+// PITCH message wrapper base, introduced for dependency injection (instead of using interface class).
 // The user should call HasNext() and Next() method call to get the next message.
-
-class MessageInterface {
+template<typename Derived>
+class MessageBase {
 public:
-     ~MessageInterface() {}
-    virtual bool HasNext() = 0;
-    virtual void Next() = 0;
-    virtual char Type() = 0;
-    virtual std::string OrderId() = 0;
-    virtual std::string Symbol() = 0;
-    virtual int Share() = 0;
+    bool HasNext() { return (static_cast<Derived*>(this))->HasNext(); }
+    void Next() { return (static_cast<Derived*>(this))->Next(); }
+    char Type() { return (static_cast<Derived*>(this))->Type(); };
+    std::string OrderId() { return (static_cast<Derived*>(this))->OrderId(); };
+    std::string Symbol() { return (static_cast<Derived*>(this))->Symbol(); };
+    int Share() { return (static_cast<Derived*>(this))->Share(); };
 };
 
-class Message : public MessageInterface {
+class Message : public MessageBase<Message> {
 private:
     // The input stream to read the message from.
     std::istream& mIn;
@@ -88,21 +87,21 @@ private:
 public:
     Message(std::istream& in) : mIn(in) {
     }
-    bool HasNext() override {
+    bool HasNext() {
         return std::getline(mIn, mMessage).good();
     }
 
-    void Next() override {
+    void Next() {
         // do nothing at the moment.
     }
 
-    char Type() override {
+    char Type() {
         // All message has same offset for the message type.
         return mMessage[ADD::MESSAGE_TYPE_OFS];
     }
 
     // return order id of the message.
-    std::string OrderId() override {
+    std::string OrderId() {
         if (Type() == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
             return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
         } else {
@@ -111,7 +110,7 @@ public:
     }
 
     // return the symbol of the message.
-    std::string Symbol() override {
+    std::string Symbol() {
         if (Type() == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
             return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
         } else {
@@ -120,7 +119,7 @@ public:
     }
 
     // return executed or traded shares.
-    int Share() override {
+    int Share() {
         if (Type() == PITCH_CBOE::MESSAGE::TRADE::TYPE) {
             return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
         } else {
@@ -129,15 +128,16 @@ public:
     }
 };
 
+// T must be derived from MessageBase. For testing, need Mock class for the message. 
+template<typename T>
 class Solution {
 private:
     // message wrapper
-    MessageInterface& mMsg;
-
+    MessageBase<T>& mMsg;
     using elem = std::pair<std::string, int>;
 
 public:
-Solution(MessageInterface& message) : mMsg(message) {
+Solution(MessageBase<T>& message) : mMsg(message) {
 }
 
 std::vector<elem>  CollectTopK(int k) {
@@ -146,7 +146,6 @@ std::vector<elem>  CollectTopK(int k) {
     // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
     
-
     // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
     while (mMsg.HasNext())
     {
@@ -209,7 +208,7 @@ int main() {
     // std::cin.tie(NULL);
     // std::ifstream is("example_data.txt");
     PITCH_CBOE::Message message(std::cin);
-    PITCH_CBOE::Solution sol(message);
+    PITCH_CBOE::Solution<PITCH_CBOE::Message> sol(message);
     auto result = sol.CollectTopK(10);
 
     // print top k from result, biggest to smallest.
