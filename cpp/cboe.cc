@@ -171,7 +171,6 @@ std::vector<elem>  CollectTopK(int k) {
         }
         break;
 
-      case 'X':
       default:
         // not handled in this coding test.
         break;
