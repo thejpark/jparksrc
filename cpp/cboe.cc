@@ -190,7 +190,7 @@ std::vector<elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
     // Partition the symbols using std::nth_element so that first k elements
     // are the top k. Time complexity is O(n).
     // Altinatively, implemented and tested with the minimum heap implementation
-    // with the heap size of k (in this case, 10, so time complexity O(n) as well),
+    // with the heap size of k (in this case, 10, so time complexity is O(n) as well),
     // but std::nth_element is slightly little bit faster, so I choosed std::nth_element.
     std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
