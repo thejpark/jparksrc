@@ -229,7 +229,6 @@ int main() {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
     PITCH_CBOE::Message message(std::cin);
     PITCH_CBOE::Solution sol(message);
-    // auto fin = std::ifstream("pitch_example_data.txt");
     auto result = sol.CollectTopK(std::cin, 10);
 
     // print top k from result, biggest to smallest.
