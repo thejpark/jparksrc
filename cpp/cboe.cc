@@ -140,7 +140,7 @@ public:
 Solution(MessageInterface& message) : mMsg(message) {
 }
 
-std::vector<elem>  CollectTopK(std::istream& in, int k) {
+std::vector<elem>  CollectTopK(int k) {
     namespace ADD_ORDER = PITCH_CBOE::MESSAGE::ADD_ORDER;
     namespace ORDER_EXECUTED = PITCH_CBOE::MESSAGE::ORDER_EXECUTED;
     namespace TRADE = PITCH_CBOE::MESSAGE::TRADE;
@@ -213,7 +213,7 @@ int main() {
     std::ifstream is("out");
     PITCH_CBOE::Message message(is);
     PITCH_CBOE::Solution sol(message);
-    auto result = sol.CollectTopK(std::cin, 10);
+    auto result = sol.CollectTopK(10);
 
     // print top k from result, biggest to smallest.
     std::stringstream ss;
