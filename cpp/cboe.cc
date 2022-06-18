@@ -182,6 +182,7 @@ std::vector<elem>  CollectTopK(int k) {
     return TopK(k, symbol_trade_volume);
 }
 
+private:
 std::vector<elem> TopK(int k, const std::unordered_map<std::string, int>& symbol_trade_volume) {
     auto comp = [](const elem &a, const elem& b) {
         return a.second > b.second;
