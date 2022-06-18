@@ -141,9 +141,6 @@ Solution(MessageInterface& message) : mMsg(message) {
 }
 
 std::vector<elem>  CollectTopK(int k) {
-    namespace ADD_ORDER = PITCH_CBOE::MESSAGE::ADD_ORDER;
-    namespace ORDER_EXECUTED = PITCH_CBOE::MESSAGE::ORDER_EXECUTED;
-    namespace TRADE = PITCH_CBOE::MESSAGE::TRADE;
     // a map from order id to symbol name
     std::unordered_map<std::string, std::string> order_to_symbol;
     // for each symbol, the trade volume
@@ -156,15 +153,15 @@ std::vector<elem>  CollectTopK(int k) {
       mMsg.Next();
 
       switch (mMsg.Type()) {
-      case ADD_ORDER::TYPE:
+      case PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE:
         order_to_symbol[mMsg.OrderId()] = mMsg.Symbol();
         break;
 
-      case TRADE::TYPE:
+      case PITCH_CBOE::MESSAGE::TRADE::TYPE:
         symbol_trade_volume[mMsg.Symbol()] += mMsg.Share();
         break;
 
-      case ORDER_EXECUTED::TYPE:
+      case PITCH_CBOE::MESSAGE::ORDER_EXECUTED::TYPE:
         {
           const std::string& symbol = order_to_symbol[mMsg.OrderId()];
           symbol_trade_volume[symbol] += mMsg.Share();
