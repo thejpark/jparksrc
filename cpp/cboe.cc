@@ -103,7 +103,7 @@ public:
 
     // return order id of the message.
     std::string OrderId() override {
-        if (mMessage[ADD::MESSAGE_TYPE_OFS] == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
+        if (Type() == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
             return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
         } else {
             return mMessage.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
@@ -112,7 +112,7 @@ public:
 
     // return the symbol of the message.
     std::string Symbol() override {
-        if (mMessage[ADD::MESSAGE_TYPE_OFS] == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
+        if (Type() == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
             return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
         } else {
             return mMessage.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN);
@@ -121,7 +121,7 @@ public:
 
     // return executed or traded shares.
     int Share() override {
-        if (mMessage[ADD::MESSAGE_TYPE_OFS] == PITCH_CBOE::MESSAGE::TRADE::TYPE) {
+        if (Type() == PITCH_CBOE::MESSAGE::TRADE::TYPE) {
             return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
         } else {
             return std::stoi(mMessage.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
