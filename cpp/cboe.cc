@@ -5,13 +5,13 @@
 #include <sstream>
 #include <fstream>
 #include <algorithm>
-#include <chrono>
+// #include <chrono>
 
 namespace PITCH_CBOE {
 namespace MESSAGE {
     constexpr int PREFIX_LEN = 1; // Prefix 'S' in the message
 namespace ADD_ORDER {
-enum FORMAT : int {
+enum FORMAT {
     TIME_STAMP_OFS = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
     MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
@@ -29,7 +29,7 @@ constexpr char TYPE = 'A';
 }
 
 namespace ORDER_EXECUTED {
-enum FORMAT : int {
+enum FORMAT {
     TIME_STAMP_OFS = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
     MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
@@ -43,7 +43,7 @@ constexpr char TYPE = 'E';
 }
 
 namespace TRADE {
-enum FORMAT : int {
+enum FORMAT {
     TIME_STAMP_OFS = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
     MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
@@ -62,12 +62,11 @@ constexpr char TYPE = 'P';
 } // namespace MESSAGE
 
 // PITCH message wrapper base, introduced for dependency injection (instead of using interface class).
-// The user should call HasNext() and Next() method call to get the next message.
+// The user should call Next() method call to get the next message.
 template<typename Derived>
 class MessageBase {
 public:
-    bool HasNext() { return (static_cast<Derived*>(this))->HasNext(); }
-    void Next() { return (static_cast<Derived*>(this))->Next(); }
+    bool Next() { return (static_cast<Derived*>(this))->Next(); }
     char Type() { return (static_cast<Derived*>(this))->Type(); };
     std::string OrderId() { return (static_cast<Derived*>(this))->OrderId(); };
     std::string Symbol() { return (static_cast<Derived*>(this))->Symbol(); };
@@ -87,12 +86,8 @@ private:
 public:
     Message(std::istream& in) : mIn(in) {
     }
-    bool HasNext() {
+    bool Next() {
         return std::getline(mIn, mMessage).good();
-    }
-
-    void Next() {
-        // do nothing at the moment.
     }
 
     char Type() {
@@ -134,23 +129,21 @@ class Solution {
 private:
     // message wrapper
     MessageBase<T>& mMsg;
-    using elem = std::pair<std::string, int>;
+    using Elem = std::pair<std::string, int>;
 
 public:
 Solution(MessageBase<T>& message) : mMsg(message) {
 }
 
-std::vector<elem>  CollectTopK(int k) {
+std::vector<Elem>  CollectTopK(int k) {
     // a map from order id to symbol name
     std::unordered_map<std::string, std::string> order_to_symbol;
     // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
     
     // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
-    while (mMsg.HasNext())
+    while (mMsg.Next())
     {
-      mMsg.Next();
-
       switch (mMsg.Type()) {
       case PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE:
         order_to_symbol[mMsg.OrderId()] = mMsg.Symbol();
@@ -178,17 +171,17 @@ std::vector<elem>  CollectTopK(int k) {
 }
 
 private:
-std::vector<elem> TopK(int k, const std::unordered_map<std::string, int>& symbol_trade_volume) {
-    auto comp = [](const elem &a, const elem& b) {
+std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol_trade_volume) {
+    auto comp = [](const Elem &a, const Elem& b) {
         return a.second > b.second;
     };
 
     // Partition the symbols using std::nth_element so that first k elements
     // are the top k. Time complexity is O(n).
-    // Altinatively, implemented and tested with the minimum heap implementation
+    // As an altinative, implemented and tested with the minimum heap implementation
     // with the heap size of k (in this case, 10, so time complexity is O(n) as well),
     // but std::nth_element is slightly little bit faster, so I choosed std::nth_element.
-    std::vector<elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
+    std::vector<Elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
       result.resize(k);
@@ -212,10 +205,7 @@ int main() {
     auto result = sol.CollectTopK(10);
 
     // print top k from result, biggest to smallest.
-    std::stringstream ss;
-    for (auto &[symbol, size] : result) {
-        ss << symbol << " " << size << std::endl;
+    for (const auto &[symbol, size] : result) {
+        std::cout << symbol << " " << size << std::endl;
     }
-
-    std::cout << ss.str();
 }
