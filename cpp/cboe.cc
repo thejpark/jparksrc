@@ -149,9 +149,9 @@ std::vector<Elem>  CollectTopK(int k) {
         break;
       case PITCH_CBOE::MESSAGE::TRADE::TYPE: Trade();
         break;
-      case PITCH_CBOE::MESSAGE::ORDER_EXECUTED::TYPE: Executed();
+      case PITCH_CBOE::MESSAGE::ORDER_EXECUTED::TYPE: Execute();
         break;
-      case PITCH_CBOE::MESSAGE::CANCEL_ORDER::TYPE: Cancel();
+      case PITCH_CBOE::MESSAGE::CANCEL_ORDER::TYPE: CancelOrder();
         break;
 
       default:
@@ -198,7 +198,7 @@ void Trade() {
         mMsg.Share(TRD::SHARES_OFS, TRD::SHARES_LEN);
 }
 
-void Executed() {
+void Execute() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
     int executed_share = mMsg.Share(EXE::SHARES_OFS, EXE::SHARES_LEN);
@@ -211,7 +211,7 @@ void Executed() {
     }
 }
 
-void Cancel() {
+void CancelOrder() {
     using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
     const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS, CCL::ORDER_ID_LEN);
     int cancelled_share = mMsg.Share(CCL::SHARES_OFS, CCL::SHARES_LEN);

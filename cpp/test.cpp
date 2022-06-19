@@ -52,7 +52,10 @@ int main() {
 
     auto& [x, y] = mm["a"];
     y = 100;
-    auto& r = mm["a"];
-    std::cout << r.first << " " << r.second << std::endl;
+    auto& [_, r] = mm["a"];
+    std::cout << r << std::endl;
 
+    r = 30;
+
+    std::cout << mm["a"].first << " " << mm["a"].second << std::endl;
 }
