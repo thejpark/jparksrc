@@ -83,9 +83,9 @@ class MessageBase {
 public:
     bool Next() { return (static_cast<Derived*>(this))->Next(); }
     char Type() { return (static_cast<Derived*>(this))->Type(); };
-    std::string OrderId(int ofs, int len) { return (static_cast<Derived*>(this))->OrderId(ofs, len); };
-    std::string Symbol(int ofs, int len) { return (static_cast<Derived*>(this))->Symbol(ofs, len); };
-    int Share(int ofs, int len) { return (static_cast<Derived*>(this))->Share(ofs, len); };
+    std::string OrderId(int ofs) { return (static_cast<Derived*>(this))->OrderId(ofs); };
+    std::string Symbol(int ofs) { return (static_cast<Derived*>(this))->Symbol(ofs); };
+    int Share(int ofs) { return (static_cast<Derived*>(this))->Share(ofs); };
 };
 
 class Message : public MessageBase<Message> {
@@ -108,22 +108,25 @@ public:
     }
 
     // return order id of the message.
-    std::string OrderId(int ofs, int len) {
-        return mMessage.substr(ofs, len);
+    std::string OrderId(int ofs) {
+        // All messages have the same order id length.
+        return mMessage.substr(ofs, PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::ORDER_ID_LEN);
     }
 
     // return the symbol of the message.
-    std::string Symbol(int ofs, int len) {
-      return mMessage.substr(ofs, len);
+    std::string Symbol(int ofs) {
+        // All messages have the same symbol length.
+        return mMessage.substr(ofs, PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::SYMBOL_LEN);
     }
 
     // return executed or traded shares.
-    int Share(int ofs, int len) {
-      return std::stoi(mMessage.substr(ofs, len));
+    int Share(int ofs) {
+        // All messages have the same share length.
+        return std::stoi(mMessage.substr(ofs, PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::SHARES_LEN));
     }
 };
 
-// T must be derived from MessageBase. For testing, need Mock class for the message. 
+// T must be derived from MessageBase. For testing, need Mock class for the message.
 template<typename T>
 class Solution {
 private:
@@ -133,7 +136,7 @@ private:
     std::unordered_map<std::string, std::pair<std::string, int>> order_to_symbol_share;
     // for each symbol, the trade volume
     std::unordered_map<std::string, int> symbol_trade_volume;
-    
+
     using Elem = std::pair<std::string, int>;
 
 public:
@@ -188,20 +191,19 @@ std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
 
 void AddOrder() {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = 
-        { mMsg.Symbol(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN), mMsg.Share(ADD::SHARES_OFS, ADD::SHARES_LEN) };
+    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID_OFS)] =
+        { mMsg.Symbol(ADD::SYMBOL_OFS), mMsg.Share(ADD::SHARES_OFS) };
 }
 
 void Trade() {
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += 
-        mMsg.Share(TRD::SHARES_OFS, TRD::SHARES_LEN);
+    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL_OFS)] += mMsg.Share(TRD::SHARES_OFS);
 }
 
 void Execute() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
-    const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
-    int executed_share = mMsg.Share(EXE::SHARES_OFS, EXE::SHARES_LEN);
+    const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS);
+    int executed_share = mMsg.Share(EXE::SHARES_OFS);
     auto& [symbol, share] = order_to_symbol_share[order_id];
     symbol_trade_volume[symbol] += executed_share;
     share -= executed_share;
@@ -213,8 +215,8 @@ void Execute() {
 
 void CancelOrder() {
     using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
-    const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS, CCL::ORDER_ID_LEN);
-    int cancelled_share = mMsg.Share(CCL::SHARES_OFS, CCL::SHARES_LEN);
+    const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS);
+    int cancelled_share = mMsg.Share(CCL::SHARES_OFS);
     auto& [_, share] = order_to_symbol_share[order_id];
     share -= cancelled_share;
     // if the remaining share is 0, remove the order from the map.
