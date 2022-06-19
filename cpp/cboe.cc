@@ -135,9 +135,9 @@ private:
     // message wrapper
     MessageBase<T>& mMsg;
     // a map from order id to the pair of (symbol name, share)
-    std::unordered_map<std::string, std::pair<std::string, int>> order_to_symbol_share;
+    std::unordered_map<std::string, std::pair<std::string, int>> mOrderToSymbolShare;
     // for each symbol, the trade volume
-    std::unordered_map<std::string, int> symbol_trade_volume;
+    std::unordered_map<std::string, int> mSymbolTradeVolume;
 
     using Elem = std::pair<std::string, int>;
 
@@ -145,7 +145,7 @@ public:
 Solution(MessageBase<T>& message) : mMsg(message) {}
 
 std::vector<Elem>  CollectTopK(int k) {
-    // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
+    // step 1: Compute the volume of each symbol, and store it in the mSymbolTradeVolume.
     while (mMsg.Next())
     {
       switch (mMsg.Type()) {
@@ -164,12 +164,12 @@ std::vector<Elem>  CollectTopK(int k) {
      }
     }
 
-    // step 2: Find the top k elements in the symbol_trade_volume.
-    return TopK(k, symbol_trade_volume);
+    // step 2: Find the top k elements in the mSymbolTradeVolume.
+    return TopK(k, mSymbolTradeVolume);
 }
 
 private:
-std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol_trade_volume) {
+std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& mSymbolTradeVolume) {
     auto comp = [](const Elem &a, const Elem& b) {
         return a.second > b.second;
     };
@@ -179,7 +179,7 @@ std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
     // As an altinative, implemented and tested with the minimum heap implementation
     // with the heap size of k (in this case, 10, so time complexity is O(n) as well),
     // but std::nth_element is slightly little bit faster, so I choosed std::nth_element.
-    std::vector<Elem> result{symbol_trade_volume.begin(), symbol_trade_volume.end()};
+    std::vector<Elem> result{mSymbolTradeVolume.begin(), mSymbolTradeVolume.end()};
     if (result.size() > k) {
       std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
       result.resize(k);
@@ -192,25 +192,25 @@ std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
 
 void AddOrder() {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID)] =
+    mOrderToSymbolShare[mMsg.OrderId(ADD::ORDER_ID)] =
         { mMsg.Symbol(ADD::SYMBOL), mMsg.Share(ADD::SHARES) };
 }
 
 void Trade() {
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL)] += mMsg.Share(TRD::SHARES);
+    mSymbolTradeVolume[mMsg.Symbol(TRD::SYMBOL)] += mMsg.Share(TRD::SHARES);
 }
 
 void Execute() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     const auto order_id = mMsg.OrderId(EXE::ORDER_ID);
     int executed_share = mMsg.Share(EXE::SHARES);
-    auto& [symbol, share] = order_to_symbol_share[order_id];
-    symbol_trade_volume[symbol] += executed_share;
+    auto& [symbol, share] = mOrderToSymbolShare[order_id];
+    mSymbolTradeVolume[symbol] += executed_share;
     share -= executed_share;
     // if the remaining share is 0, remove the order from the map.
     if (share == 0) {
-      order_to_symbol_share.erase(order_id);
+      mOrderToSymbolShare.erase(order_id);
     }
 }
 
@@ -218,11 +218,11 @@ void CancelOrder() {
     using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
     const auto order_id = mMsg.OrderId(CCL::ORDER_ID);
     int cancelled_share = mMsg.Share(CCL::SHARES);
-    auto& [_, share] = order_to_symbol_share[order_id];
+    auto& [_, share] = mOrderToSymbolShare[order_id];
     share -= cancelled_share;
     // if the remaining share is 0, remove the order from the map.
     if (share == 0) {
-      order_to_symbol_share.erase(order_id);
+      mOrderToSymbolShare.erase(order_id);
     }
 }
 
