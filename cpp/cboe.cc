@@ -83,9 +83,9 @@ class MessageBase {
 public:
     bool Next() { return (static_cast<Derived*>(this))->Next(); }
     char Type() { return (static_cast<Derived*>(this))->Type(); };
-    std::string OrderId() { return (static_cast<Derived*>(this))->OrderId(); };
-    std::string Symbol() { return (static_cast<Derived*>(this))->Symbol(); };
-    int Share() { return (static_cast<Derived*>(this))->Share(); };
+    std::string OrderId(int ofs, int len) { return (static_cast<Derived*>(this))->OrderId(ofs, len); };
+    std::string Symbol(int ofs, int len) { return (static_cast<Derived*>(this))->Symbol(ofs, len); };
+    int Share(int ofs, int len) { return (static_cast<Derived*>(this))->Share(ofs, len); };
 };
 
 class Message : public MessageBase<Message> {
@@ -94,10 +94,6 @@ private:
     std::istream& mIn;
     // current message instance.
     std::string mMessage;
-    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
-    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-    using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
 
 public:
     Message(std::istream& in) : mIn(in) {
@@ -108,46 +104,22 @@ public:
 
     char Type() {
         // All messages have the same offset for the message type.
-        return mMessage[ADD::MESSAGE_TYPE_OFS];
+        return mMessage[PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::MESSAGE_TYPE_OFS];
     }
 
     // return order id of the message.
-    std::string OrderId() {
-        switch (Type()) {
-          case PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE:
-            return mMessage.substr(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN);
-          case PITCH_CBOE::MESSAGE::ORDER_EXECUTED::TYPE:
-            return mMessage.substr(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
-          case PITCH_CBOE::MESSAGE::CANCEL_ORDER::TYPE:
-            return mMessage.substr(CCL::ORDER_ID_OFS, CCL::ORDER_ID_LEN);
-          default:
-            return "";
-        }
+    std::string OrderId(int ofs, int len) {
+        return mMessage.substr(ofs, len);
     }
 
     // return the symbol of the message.
-    std::string Symbol() {
-        if (Type() == PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE) {
-            return mMessage.substr(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN);
-        } else {
-            return mMessage.substr(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN);
-        }
+    std::string Symbol(int ofs, int len) {
+      return mMessage.substr(ofs, len);
     }
 
     // return executed or traded shares.
-    int Share() {
-        switch (Type()) {
-          case PITCH_CBOE::MESSAGE::ADD_ORDER::TYPE:
-            return std::stoi(mMessage.substr(ADD::SHARES_OFS, ADD::SHARES_LEN));
-          case PITCH_CBOE::MESSAGE::TRADE::TYPE:
-            return std::stoi(mMessage.substr(TRD::SHARES_OFS, TRD::SHARES_LEN));
-          case PITCH_CBOE::MESSAGE::ORDER_EXECUTED::TYPE:
-            return std::stoi(mMessage.substr(EXE::SHARES_OFS, EXE::SHARES_LEN));
-          case PITCH_CBOE::MESSAGE::CANCEL_ORDER::TYPE:
-            return std::stoi(mMessage.substr(CCL::SHARES_OFS, CCL::SHARES_LEN));
-          default:
-            return 0;
-        }
+    int Share(int ofs, int len) {
+      return std::stoi(mMessage.substr(ofs, len));
     }
 };
 
@@ -215,16 +187,21 @@ std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
 }
 
 void AddOrder() {
-    order_to_symbol_share[mMsg.OrderId()] = { mMsg.Symbol(), mMsg.Share() };
+    using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
+    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID_OFS, ADD::ORDER_ID_LEN)] = 
+        { mMsg.Symbol(ADD::SYMBOL_OFS, ADD::SYMBOL_LEN), mMsg.Share(ADD::SHARES_OFS, ADD::SHARES_LEN) };
 }
 
 void Trade() {
-    symbol_trade_volume[mMsg.Symbol()] += mMsg.Share();
+    using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
+    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL_OFS, TRD::SYMBOL_LEN)] += 
+        mMsg.Share(TRD::SHARES_OFS, TRD::SHARES_LEN);
 }
 
 void Executed() {
-    const auto order_id = mMsg.OrderId();
-    int share = mMsg.Share();
+    using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
+    const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
+    int share = mMsg.Share(EXE::SHARES_OFS, EXE::SHARES_LEN);
     auto& symbol_share = order_to_symbol_share[order_id];
     symbol_trade_volume[symbol_share.first] += share;
     symbol_share.second -= share;
@@ -235,8 +212,9 @@ void Executed() {
 }
 
 void Cancel() {
-    const auto order_id = mMsg.OrderId();
-    int share = mMsg.Share();
+    using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
+    const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS, CCL::ORDER_ID_LEN);
+    int share = mMsg.Share(CCL::SHARES_OFS, CCL::SHARES_LEN);
     auto& symbol_share = order_to_symbol_share[order_id];
     symbol_share.second -= share;
     // if the remaining share is 0, remove the order from the map.
