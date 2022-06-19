@@ -12,17 +12,17 @@ namespace MESSAGE {
     constexpr int PREFIX_LEN = 1; // Prefix 'S' in the message
 namespace ADD_ORDER {
 enum FORMAT {
-    TIME_STAMP_OFS = PREFIX_LEN,
+    TIME_STAMP = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
-    MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
+    MESSAGE_TYPE = TIME_STAMP + TIME_STAMP_LEN,
     MESSAGE_TYPE_LEN = 1,
-    ORDER_ID_OFS = MESSAGE_TYPE_OFS + MESSAGE_TYPE_LEN,
+    ORDER_ID = MESSAGE_TYPE + MESSAGE_TYPE_LEN,
     ORDER_ID_LEN = 12,
-    SIDE_INDICATOR_OFS = ORDER_ID_OFS + ORDER_ID_LEN,
+    SIDE_INDICATOR = ORDER_ID + ORDER_ID_LEN,
     SIDE_INDICATOR_LEN = 1,
-    SHARES_OFS = SIDE_INDICATOR_OFS + SIDE_INDICATOR_LEN,
+    SHARES = SIDE_INDICATOR + SIDE_INDICATOR_LEN,
     SHARES_LEN = 6,
-    SYMBOL_OFS = SHARES_OFS + SHARES_LEN,
+    SYMBOL = SHARES + SHARES_LEN,
     SYMBOL_LEN = 6
 };
 constexpr char TYPE = 'A';
@@ -30,13 +30,13 @@ constexpr char TYPE = 'A';
 
 namespace ORDER_EXECUTED {
 enum FORMAT {
-    TIME_STAMP_OFS = PREFIX_LEN,
+    TIME_STAMP = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
-    MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
+    MESSAGE_TYPE = TIME_STAMP + TIME_STAMP_LEN,
     MESSAGE_TYPE_LEN = 1,
-    ORDER_ID_OFS = MESSAGE_TYPE_OFS + MESSAGE_TYPE_LEN,
+    ORDER_ID = MESSAGE_TYPE + MESSAGE_TYPE_LEN,
     ORDER_ID_LEN = 12,
-    SHARES_OFS = ORDER_ID_OFS + ORDER_ID_LEN,
+    SHARES = ORDER_ID + ORDER_ID_LEN,
     SHARES_LEN = 6
 };
 constexpr char TYPE = 'E';
@@ -44,17 +44,17 @@ constexpr char TYPE = 'E';
 
 namespace TRADE {
 enum FORMAT {
-    TIME_STAMP_OFS = PREFIX_LEN,
+    TIME_STAMP = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
-    MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
+    MESSAGE_TYPE = TIME_STAMP + TIME_STAMP_LEN,
     MESSAGE_TYPE_LEN = 1,
-    ORDER_ID_OFS = MESSAGE_TYPE_OFS + MESSAGE_TYPE_LEN,
+    ORDER_ID = MESSAGE_TYPE + MESSAGE_TYPE_LEN,
     ORDER_ID_LEN = 12,
-    SIDE_INDICATOR_OFS = ORDER_ID_OFS + ORDER_ID_LEN,
+    SIDE_INDICATOR = ORDER_ID + ORDER_ID_LEN,
     SIDE_INDICATOR_LEN = 1,
-    SHARES_OFS = SIDE_INDICATOR_OFS + SIDE_INDICATOR_LEN,
+    SHARES = SIDE_INDICATOR + SIDE_INDICATOR_LEN,
     SHARES_LEN = 6,
-    SYMBOL_OFS = SHARES_OFS + SHARES_LEN,
+    SYMBOL = SHARES + SHARES_LEN,
     SYMBOL_LEN = 6
 };
 constexpr char TYPE = 'P';
@@ -62,13 +62,13 @@ constexpr char TYPE = 'P';
 
 namespace CANCEL_ORDER {
 enum FORMAT {
-    TIME_STAMP_OFS = PREFIX_LEN,
+    TIME_STAMP = PREFIX_LEN,
     TIME_STAMP_LEN = 8,
-    MESSAGE_TYPE_OFS = TIME_STAMP_OFS + TIME_STAMP_LEN,
+    MESSAGE_TYPE = TIME_STAMP + TIME_STAMP_LEN,
     MESSAGE_TYPE_LEN = 1,
-    ORDER_ID_OFS = MESSAGE_TYPE_OFS + MESSAGE_TYPE_LEN,
+    ORDER_ID = MESSAGE_TYPE + MESSAGE_TYPE_LEN,
     ORDER_ID_LEN = 12,
-    SHARES_OFS = ORDER_ID_OFS + ORDER_ID_LEN,
+    SHARES = ORDER_ID + ORDER_ID_LEN,
     SHARES_LEN = 6,
 };
 constexpr char TYPE = 'X';
@@ -104,7 +104,7 @@ public:
 
     char Type() {
         // All messages have the same offset for the message type.
-        return mMessage[PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::MESSAGE_TYPE_OFS];
+        return mMessage[PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::MESSAGE_TYPE];
     }
 
     // return order id of the message.
@@ -191,19 +191,19 @@ std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& symbol
 
 void AddOrder() {
     using ADD = PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT;
-    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID_OFS)] =
-        { mMsg.Symbol(ADD::SYMBOL_OFS), mMsg.Share(ADD::SHARES_OFS) };
+    order_to_symbol_share[mMsg.OrderId(ADD::ORDER_ID)] =
+        { mMsg.Symbol(ADD::SYMBOL), mMsg.Share(ADD::SHARES) };
 }
 
 void Trade() {
     using TRD = PITCH_CBOE::MESSAGE::TRADE::FORMAT;
-    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL_OFS)] += mMsg.Share(TRD::SHARES_OFS);
+    symbol_trade_volume[mMsg.Symbol(TRD::SYMBOL)] += mMsg.Share(TRD::SHARES);
 }
 
 void Execute() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
-    const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS);
-    int executed_share = mMsg.Share(EXE::SHARES_OFS);
+    const auto order_id = mMsg.OrderId(EXE::ORDER_ID);
+    int executed_share = mMsg.Share(EXE::SHARES);
     auto& [symbol, share] = order_to_symbol_share[order_id];
     symbol_trade_volume[symbol] += executed_share;
     share -= executed_share;
@@ -215,8 +215,8 @@ void Execute() {
 
 void CancelOrder() {
     using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
-    const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS);
-    int cancelled_share = mMsg.Share(CCL::SHARES_OFS);
+    const auto order_id = mMsg.OrderId(CCL::ORDER_ID);
+    int cancelled_share = mMsg.Share(CCL::SHARES);
     auto& [_, share] = order_to_symbol_share[order_id];
     share -= cancelled_share;
     // if the remaining share is 0, remove the order from the map.
