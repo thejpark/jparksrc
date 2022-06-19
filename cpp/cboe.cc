@@ -165,11 +165,11 @@ std::vector<Elem>  CollectTopK(int k) {
     }
 
     // step 2: Find the top k elements in the mSymbolTradeVolume.
-    return TopK(k, mSymbolTradeVolume);
+    return TopK(k);
 }
 
 private:
-std::vector<Elem> TopK(int k, const std::unordered_map<std::string, int>& mSymbolTradeVolume) {
+std::vector<Elem> TopK(int k) {
     auto comp = [](const Elem &a, const Elem& b) {
         return a.second > b.second;
     };
