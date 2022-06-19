@@ -201,12 +201,12 @@ void Trade() {
 void Executed() {
     using EXE = PITCH_CBOE::MESSAGE::ORDER_EXECUTED::FORMAT;
     const auto order_id = mMsg.OrderId(EXE::ORDER_ID_OFS, EXE::ORDER_ID_LEN);
-    int share = mMsg.Share(EXE::SHARES_OFS, EXE::SHARES_LEN);
-    auto& symbol_share = order_to_symbol_share[order_id];
-    symbol_trade_volume[symbol_share.first] += share;
-    symbol_share.second -= share;
+    int executed_share = mMsg.Share(EXE::SHARES_OFS, EXE::SHARES_LEN);
+    auto& [symbol, share] = order_to_symbol_share[order_id];
+    symbol_trade_volume[symbol] += executed_share;
+    share -= executed_share;
     // if the remaining share is 0, remove the order from the map.
-    if (symbol_share.second == 0) {
+    if (share == 0) {
       order_to_symbol_share.erase(order_id);
     }
 }
@@ -214,15 +214,14 @@ void Executed() {
 void Cancel() {
     using CCL = PITCH_CBOE::MESSAGE::CANCEL_ORDER::FORMAT;
     const auto order_id = mMsg.OrderId(CCL::ORDER_ID_OFS, CCL::ORDER_ID_LEN);
-    int share = mMsg.Share(CCL::SHARES_OFS, CCL::SHARES_LEN);
-    auto& symbol_share = order_to_symbol_share[order_id];
-    symbol_share.second -= share;
+    int cancelled_share = mMsg.Share(CCL::SHARES_OFS, CCL::SHARES_LEN);
+    auto& [_, share] = order_to_symbol_share[order_id];
+    share -= cancelled_share;
     // if the remaining share is 0, remove the order from the map.
-    if (symbol_share.second == 0) {
+    if (share == 0) {
       order_to_symbol_share.erase(order_id);
     }
 }
-
 
 };
 
