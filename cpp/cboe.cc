@@ -26,7 +26,7 @@ enum FORMAT {
     SYMBOL_LEN = 6
 };
 constexpr char TYPE = 'A';
-}
+} // namespace ADD_ORDER
 
 namespace ORDER_EXECUTED {
 enum FORMAT {
@@ -40,7 +40,7 @@ enum FORMAT {
     SHARES_LEN = 6
 };
 constexpr char TYPE = 'E';
-}
+} // namespace ORDER_EXECUTED
 
 namespace TRADE {
 enum FORMAT {
@@ -58,7 +58,7 @@ enum FORMAT {
     SYMBOL_LEN = 6
 };
 constexpr char TYPE = 'P';
-}
+} // namespace TRADE
 
 namespace CANCEL_ORDER {
 enum FORMAT {
@@ -72,9 +72,10 @@ enum FORMAT {
     SHARES_LEN = 6,
 };
 constexpr char TYPE = 'X';
-}
+} // namespace CANCEL_ORDER
 
 } // namespace MESSAGE
+
 
 // PITCH message wrapper base, introduced for dependency injection (instead of using interface class).
 // The user should call Next() method to get the next message.
@@ -86,7 +87,7 @@ public:
     std::string OrderId(int ofs) { return (static_cast<Derived*>(this))->OrderId(ofs); };
     std::string Symbol(int ofs) { return (static_cast<Derived*>(this))->Symbol(ofs); };
     int Share(int ofs) { return (static_cast<Derived*>(this))->Share(ofs); };
-};
+}; // class MessageBase
 
 class Message : public MessageBase<Message> {
 private:
@@ -124,7 +125,8 @@ public:
         // All messages have the same share length.
         return std::stoi(mMessage.substr(ofs, PITCH_CBOE::MESSAGE::ADD_ORDER::FORMAT::SHARES_LEN));
     }
-};
+}; // class Message
+
 
 // T must be derived from MessageBase. For testing, need Mock class for the message.
 template<typename T>
@@ -140,8 +142,7 @@ private:
     using Elem = std::pair<std::string, int>;
 
 public:
-Solution(MessageBase<T>& message) : mMsg(message) {
-}
+Solution(MessageBase<T>& message) : mMsg(message) {}
 
 std::vector<Elem>  CollectTopK(int k) {
     // step 1: Compute the volume of each symbol, and store it in the symbol_trade_volume.
@@ -225,7 +226,7 @@ void CancelOrder() {
     }
 }
 
-};
+}; // class Solution
 
 } // namespace PITCH_CBOE
 
