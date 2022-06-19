@@ -174,19 +174,15 @@ std::vector<Elem> TopK(int k) {
         return a.second > b.second;
     };
 
-    // Partition the symbols using std::nth_element so that first k elements
-    // are the top k. Time complexity is O(n).
-    // As an altinative, implemented and tested with the minimum heap implementation
-    // with the heap size of k (in this case, 10, so time complexity is O(n) as well),
-    // but std::nth_element is slightly little bit faster, so I choosed std::nth_element.
     std::vector<Elem> result{mSymbolTradeVolume.begin(), mSymbolTradeVolume.end()};
+
     if (result.size() > k) {
-      std::nth_element(result.begin(), result.begin() + k - 1, result.end(), comp);
-      result.resize(k);
+        std::partial_sort(result.begin(), result.begin() + k, result.end(), comp);
+        result.resize(k);
+    } else {
+        sort(result.begin(), result.end(), comp);
     }
 
-    // Then sort the k elements based on the volume size. Skip this if we do not want the result sorted.
-    sort(result.begin(), result.end(), comp);
     return result;
 }
 
