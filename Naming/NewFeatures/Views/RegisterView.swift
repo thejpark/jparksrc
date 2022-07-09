@@ -36,6 +36,8 @@ private let base: CGFloat = 4.0
 
 struct FamilynameComponent: View {
   @State private var familyName: String = ""
+  @State private var selectedSurnameIndex = 0
+
   var body: some View {
     VStack {
       Button {
@@ -44,13 +46,21 @@ struct FamilynameComponent: View {
         HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
-//          Text("성")
-//            .lineLimit(1).foregroundColor(.black)
+          Text("성")
+            .lineLimit(1).foregroundColor(.black)
           TextField("성을 한글로 입력하세요", text: $familyName)
 //          Spacer()
-          Picker("성", selection: $familyName) {
-            Text("여").tag(Gender.female)
-            Text("남").tag(Gender.male)
+          let pickerData = getLastNameFromHangul(familyName)
+          if pickerData.count == 1 {
+              Text(pickerData[selectedSurnameIndex])
+          }
+          else if pickerData.count > 1 {
+            Picker("성", selection: $selectedSurnameIndex, content: {
+              ForEach(0..<pickerData.count, content: {index in //
+                Text(pickerData[index])
+              })
+            })
+//            Text("Selected Surname: \(pickerData[selectedSurnameIndex])")
           }
         }
         .frame(height: base * 14)
