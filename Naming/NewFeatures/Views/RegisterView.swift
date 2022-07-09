@@ -56,7 +56,7 @@ struct FamilynameComponent: View {
         HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
-          Text("성")
+          Text("성씨")
             .lineLimit(1).foregroundColor(.black)
           Spacer()
           Spacer()
@@ -72,7 +72,7 @@ struct FamilynameComponent: View {
 
           }
           else if pickerData.count > 1 {
-            Picker("성", selection: $selectedSurnameIndex, content: {
+            Picker("", selection: $selectedSurnameIndex, content: {
               ForEach(0..<pickerData.count, content: {index in //
                 Text(pickerData[index])
               })
@@ -149,6 +149,7 @@ struct DobComponent: View {
                in: dateRange,
                displayedComponents: [.date, .hourAndMinute]
           )
+          Spacer()
         }
         .frame(height: base * 14)
         .padding(.horizontal, base * 3)
@@ -175,8 +176,9 @@ struct PlaceComponent: View {
           Text("출생지")
             .lineLimit(1).foregroundColor(.black)
           Spacer()
-          List {
+//          List {
           Picker("", selection: $selectedPlace) {
+            Group {
             Text("서울").tag(Place.서울)
             Text("부산").tag(Place.부산)
             Text("대구").tag(Place.대구)
@@ -187,22 +189,26 @@ struct PlaceComponent: View {
             Text("강릉").tag(Place.강릉)
             Text("울산").tag(Place.울산)
             Text("제주").tag(Place.제주)
-//            Text("전주").tag(Place.전주)
-//            Text("목포").tag(Place.목포)
-//            Text("춘천").tag(Place.춘천)
-//            Text("수원").tag(Place.수원)
-//            Text("평택").tag(Place.평택)
-//            Text("경주").tag(Place.경주)
-//            Text("통영").tag(Place.통영)
-//            Text("청주").tag(Place.청주)
-//            Text("원주").tag(Place.원주)
-//            Text("여수").tag(Place.여수)
-//            Text("군산").tag(Place.군산)
-//            Text("서산").tag(Place.서산)
-//            Text("김천").tag(Place.김천)
-//            Text("울릉").tag(Place.울릉)
-//            Text("백령도").tag(Place.백령도)
-//            Text("해외").tag(Place.해외)
+            }
+            Group {
+            Text("전주").tag(Place.전주)
+            Text("목포").tag(Place.목포)
+            Text("춘천").tag(Place.춘천)
+            Text("수원").tag(Place.수원)
+            Text("평택").tag(Place.평택)
+            Text("경주").tag(Place.경주)
+            Text("통영").tag(Place.통영)
+            Text("청주").tag(Place.청주)
+            Text("원주").tag(Place.원주)
+            Text("여수").tag(Place.여수)
+            }
+            Group {
+            Text("군산").tag(Place.군산)
+            Text("서산").tag(Place.서산)
+            Text("김천").tag(Place.김천)
+            Text("울릉").tag(Place.울릉)
+            Text("백령도").tag(Place.백령도)
+            Text("해외").tag(Place.해외)
           }
           }
 
