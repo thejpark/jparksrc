@@ -41,7 +41,6 @@ enum Gender: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-
 private let base: CGFloat = 4.0
 
 struct FamilynameComponent: View {
@@ -53,7 +52,8 @@ struct FamilynameComponent: View {
 //      Button {
 //        viewModel.editPressed(action: item.action)
 //      } label: {
-        HStack(spacing: base * 3) {
+
+      HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
           Text("성씨")
@@ -66,7 +66,7 @@ struct FamilynameComponent: View {
           //          Spacer()
           let pickerData = getLastNameFromHangul(familyName)
           if pickerData.count == 1 {
-            Text(pickerData[0])
+            Text(onChangeLastName(n: pickerData[0]))
             Spacer()
             Spacer()
 
@@ -74,7 +74,7 @@ struct FamilynameComponent: View {
           else if pickerData.count > 1 {
             Picker("", selection: $selectedSurnameIndex, content: {
               ForEach(0..<pickerData.count, content: {index in //
-                Text(pickerData[index])
+                Text(onChangeLastName(n: pickerData[0]))
               })
             })
 //            Text("Selected Surname: \(pickerData[selectedSurnameIndex])")
@@ -91,34 +91,56 @@ struct FamilynameComponent: View {
 //  var text: String
 //  var image: String
 }
+var pendingRegisterInfo = RegisterInfo(lastName: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+
+func onChangeGender(g: Gender) {
+  pendingRegisterInfo.gender = g
+}
+
+func onChangeDate(d: Date) {
+  pendingRegisterInfo.datetime = d
+}
+
+func onChangePlace(p: Place) {
+  pendingRegisterInfo.birthPlace = p
+}
+
+func onChangeLastName(n: String) -> String {
+  pendingRegisterInfo.lastName = n
+  return n
+}
 
 struct GenderComponent: View {
   @State private var selectedGender: Gender = .male
+//  @State var selectedGender: Gender
   var body: some View {
 //    VStack {
 //      Button {
 ////        viewModel.editPressed(action: item.action)
 //      } label: {
+        let binding = Binding(
+          get: { self.selectedGender },
+          set: { self.selectedGender = $0
+            onChangeGender(g: $0)
+          }
+         )
         HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
           Text("성별")
             .lineLimit(1).foregroundColor(.black)
           Spacer()
-          Picker("성별", selection: $selectedGender) {
+          Picker("성별", selection: binding) {
             Text("여").tag(Gender.female)
             Text("남").tag(Gender.male)
           }
+
           Spacer()
           Spacer()
         }
         .frame(height: base * 14)
         .padding(.horizontal, base * 3)
     }
-//  }
-
-  //  var text: String
-//  var image: String
 }
 
 
@@ -137,7 +159,15 @@ struct DobComponent: View {
 //      Button {
 ////        viewModel.editPressed(action: item.action)
 //      } label: {
-        HStack(spacing: base * 3) {
+
+        let binding = Binding(
+          get: { self.date },
+          set: { self.date = $0
+            onChangeDate(d: $0)
+          }
+         )
+
+    HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
           Text("생일")
@@ -145,7 +175,7 @@ struct DobComponent: View {
 //          Spacer()
           DatePicker(
               "",
-               selection: $date,
+               selection: binding,
                in: dateRange,
                displayedComponents: [.date, .hourAndMinute]
           )
@@ -153,15 +183,17 @@ struct DobComponent: View {
         }
         .frame(height: base * 14)
         .padding(.horizontal, base * 3)
-    }
+
+  }
 //  }
 
 }
 
 enum Place: String, CaseIterable, Identifiable {
-  case  강릉, 경주, 고양, 광주, 구미, 군산, 남양주, 김천, 김해, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
+  case  강릉, 경주, 고양, 광주, 구미, 군산, 김천, 김해, 남양주, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
   var id: Self { self }
 }
+
 
 struct PlaceComponent: View {
   @State private var selectedPlace: Place = .서울
@@ -170,6 +202,13 @@ struct PlaceComponent: View {
 //      Button {
 ////        viewModel.editPressed(action: item.action)
 //      } label: {
+
+        let binding = Binding(
+          get: { self.selectedPlace },
+          set: { self.selectedPlace = $0
+            onChangePlace(p: $0)
+          }
+         )
         HStack(spacing: base * 3) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
@@ -177,7 +216,7 @@ struct PlaceComponent: View {
             .lineLimit(1).foregroundColor(.black)
           Spacer()
 //          List {
-          Picker("", selection: $selectedPlace) {
+          Picker("", selection: binding) {
             Group {
             Text("강릉").tag(Place.강릉)
             Text("경주").tag(Place.경주)
@@ -296,7 +335,9 @@ struct RegisterView: View {
   }
 }
 
-func register() {}
+func register() {
+  registerInfo = pendingRegisterInfo
+}
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
