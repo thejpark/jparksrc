@@ -323,7 +323,7 @@ struct RegisterView: View {
       }
     }
     .navigationBarItems(
-      leading: Button("취소", action: register),
+      leading: Button("취소", action: cancelRegister),
 //        .foregroundColor(Colors.Accent.Content.primary),
       trailing: Button("등록", action: register)
 //        .foregroundColor(
@@ -337,6 +337,11 @@ struct RegisterView: View {
 
 func register() {
   registerInfo = pendingRegisterInfo
+  UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
+}
+
+func cancelRegister() {
+  UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
 
 struct RegisterView_Previews: PreviewProvider {
