@@ -5661,10 +5661,40 @@ int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx,
     return r;
 }
 
+int bar(const vector<int>& d, const vector<int>& prices) {
+
+    vector<vector<int>> v(d.size() + 1, vector<int>(51, INT_MAX));
+
+    v[d.size()][0] = 0;
+
+    for (int i = d.size() - 1; i >= 0; --i) {
+        for (int j = 0; j <= 50; ++j) { // fule tank
+            int r = INT_MAX;
+            for (int k = 0; k <= 50; ++k) { // petrol station
+                // int a = (j >= d[i])? v[i + 1][j - d[i]] : INT_MAX;
+                int b = (j + k <= 50) ? k : (50 - j);
+                if (j + b < d[i]) {
+                    continue;
+                }
+                if (v[i + 1][j + b - d[i]] == INT_MAX) {
+                    continue;
+                }
+
+                r = min(r, b * prices[i] + v[i + 1][j + b - d[i]]);
+            }
+            v[i][j] = r;
+        }
+    }
+
+    return v[0][0];
+}
+
+public:
 int calculate(vector<int> distances, vector<int> prices) {
 
 vector<vector<int>> v(50, vector<int>(distances.size(), -1));
-return  foo(distances, prices, 0, 0, v);
+//    return  foo(distances, prices, 0, 0, v);
+   return  bar(distances, prices);
 }
 };
 int main()
@@ -5698,4 +5728,9 @@ int main()
   for (auto& x : p) {
     cout << x.first << " " << x.second << endl;
   }
+
+
+optiver test;
+cout << test.calculate({10, 20, 5, 20}, {3, 4, 2, 3}) << endl;
+
 }
