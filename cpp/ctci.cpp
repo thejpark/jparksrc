@@ -5624,7 +5624,49 @@ vector<string> GetTopTags(vector<tuple<string, int, vector<string>>> file_list, 
 
 };
 
+class optiver {
+// driving to byron bay:
+// find minimum petrol pay along the path. 1km/l for the car. petrol prices are different among the
+// petrol station. each station is at most 50 km distance. car has empty tank, at station 0, and tank capacity is 50 liter.
+// input is a list of petrol station distance and petrol prices. At the end, tank should be empty. if distance[0] is 30, means
+// station 0 and station 1 is 30 km away. price[0] is 3 means that price at station 0 is 3/l.
+//ex: [10, 20, 5, 20] and [3, 4, 2, 3] -> 140. 30 * 3 + 25 * 2.
+int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx, vector<vector<int>>& v) {
+    
+    if (idx == d.size()) {
+        if (fuel_tank == 0) {
+            return 0;
+        } else {
+            return INT_MAX;
+        }
+    }
+    
+    if (v[fuel_tank][idx] != -1) {
+        return v[fuel_tank][idx];
+    }
+    
+    int start = fuel_tank >= d[idx] ? 0 : d[idx] - fuel_tank;
+    
+    int r = INT_MAX;
+    for (int i = start; i <= 50 - fuel_tank; ++i) {
+        int money = i * prices[idx]; 
+        int x = foo(d, prices, fuel_tank + i - d[idx], idx + 1, v);
+        if (x == INT_MAX) {
+            continue;
+        }
+        r = min(x + money, r); 
+    }
+    v[fuel_tank][idx] = r;
+    
+    return r;
+}
 
+int calculate(vector<int> distances, vector<int> prices) {
+
+vector<vector<int>> v(50, vector<int>(distances.size(), -1));
+return  foo(distances, prices, 0, 0, v);
+}
+};
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
