@@ -5697,6 +5697,59 @@ vector<vector<int>> v(50, vector<int>(distances.size(), -1));
    return  bar(distances, prices);
 }
 };
+
+
+// leetcode 978, longest turbelent subarray
+// 9, 4, 2, 10, 7, 8, 8, 1, 9 -> 5.  because 4, 2, 10, 7, 8 are turbelent.
+// 4, 8, 12, 16 -> 2. b
+class turbulent {
+    int test_turbulence(const vector<int>& input) {
+
+        int d = 0;
+        int cnt = 1;
+        int max_cnt = 1;
+        for (int i = 1; i < input.size(); ++i) {
+            if (input[i] > input[i - 1]) {
+                if (d <= 0) {
+                    ++cnt;
+                    if (cnt > max_cnt) {
+                        max_cnt = cnt;
+                    }
+                } else {
+                    cnt = 2;
+                }
+                d = 1;
+
+            } else if (input[i] < input[i - 1]) {
+                if (d >= 0) {
+                    ++cnt;
+                    if (cnt > max_cnt) {
+                        max_cnt = cnt;
+                    }
+                } else {
+                    cnt = 2;
+                }
+                d = -1;
+
+            } else {
+                d = 0;
+                cnt = 1;
+            }
+        }
+        if (cnt > max_cnt) {
+            max_cnt = cnt;
+        }
+
+        return max_cnt;
+    }
+
+    public:
+    void test() {
+       cout << test_turbulence({9, 4, 2, 10, 7, 8, 8, 1, 9}) << "shout be 5" << endl; 
+       cout << test_turbulence({4, 8, 12, 16}) << "should be 2 " << endl; 
+    }
+};
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
@@ -5730,7 +5783,7 @@ int main()
   }
 
 
-optiver test;
-cout << test.calculate({10, 20, 5, 20}, {3, 4, 2, 3}) << endl;
+turbulent t;
+t.test();
 
 }
