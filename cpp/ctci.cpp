@@ -5475,46 +5475,46 @@ void test_time()
   std::cout << "seconds: " << dtn.count() * system_clock::period::num / system_clock::period::den;
   std::cout << std::endl;
 }
+
+class TimeInterface {
+public:
+    virtual long long GetTime() = 0;
+};
+
 class RateLimiter {
 
 public:
-
+  RateLimiter(TimeInterface& ti) : mTime(ti) {}
   // time is msec
-  bool rateLimit(int customerId,  long long t)
+  bool rateLimit(int customerId)
   {
-    return hit(m[customerId], t);
+    return hit(m[customerId], mTime.GetTime());
   }
 
 private:
 
-  const int MaxReq {2};  // 100 req max
+  TimeInterface& mTime;
+  mutex mtx;
+  const int MaxReq {2};  // 2 req max
   const int MaxDur {1000}; // 1 sec == 1000 ms
 
-  unordered_map<int, list<long long>> m;
+  unordered_map<int, deque<long long>> m;
 
   // instead of taking t, allowing RateLimit to take time interface and use dependency injection would be better idea.
-  bool hit(list<long long>& l,  long long t)
+  bool hit(deque<long long>& l, long long t)
   {
     // delete old timestamp than MaxDur
-    while (!l.empty() && l.front() < t - MaxDur)
-      {
-        cout << "pop :" << l.front() << endl;
-// todo: use circular buffer for better memory management
+    scoped_lock<mutex> lck{mtx};
+    while (!l.empty() && l.front() < t - MaxDur) {
         l.pop_front();
-      }
+    }
 
-    cout << "size :" << l.size() << endl;
-
-    if (l.size() < MaxReq)
-      {
-        cout << "push :" << t << endl;
+    if (l.size() < MaxReq) {
         l.push_back(t);
         return true;
-      }
-    else
-      {
-        return false;
-      }
+    } else {
+      return false;
+    }
   }
 };
 
