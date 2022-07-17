@@ -5501,7 +5501,8 @@ private:
   bool hit(deque<long long>& l, long long t)
   {
     // delete old timestamp than MaxDur
-    scoped_lock<mutex> lck{mtx};
+    // lock should be per client not for all of them
+    // scoped_lock<mutex> lck{mtx};
     while (!l.empty() && l.front() < t - MaxDur) {
         l.pop_front();
     }
