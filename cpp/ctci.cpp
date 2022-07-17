@@ -5480,7 +5480,6 @@ class TimeInterface {
 public:
     virtual long long GetTime() = 0;
 };
-
 class RateLimiter {
 
 public:
@@ -5497,10 +5496,8 @@ private:
   mutex mtx;
   const int MaxReq {2};  // 2 req max
   const int MaxDur {1000}; // 1 sec == 1000 ms
-
   unordered_map<int, deque<long long>> m;
 
-  // instead of taking t, allowing RateLimit to take time interface and use dependency injection would be better idea.
   bool hit(deque<long long>& l, long long t)
   {
     // delete old timestamp than MaxDur
@@ -5516,6 +5513,55 @@ private:
       return false;
     }
   }
+};
+
+class TokenInterface {
+public:
+    virtual void Inc(int) = 0;
+    virtual void Dec(int) = 0;
+    virtual int Get(int) = 0;
+};
+
+class Token : public TokenInterface {
+public:
+  void Inc(int customer_id) override {
+    if (m[customer_id] == MaxReq) {
+        return;
+    }
+    m[customer_id]++;
+  }
+
+  void Dec(int customer_id) override {
+    if (m[customer_id] == 0) {
+        return;
+    }
+    m[customer_id]--;
+  }
+
+  int Get(int customer_id) override {
+    return m[customer_id];
+  }
+ 
+private:
+  unordered_map<int, atomic<int>> m;
+  const int MaxReq {2};  // 2 req max
+};
+
+class RateLimiter2 {
+
+public:
+  RateLimiter2(TokenInterface& token) : mToken(token) {}
+  bool rateLimit(int customer_id) {
+    if (mToken.Get(customer_id) > 0) {
+       mToken.Dec(customer_id);
+       return true;
+    }
+
+    return false;
+  }
+
+private:
+  TokenInterface& mToken;
 };
 
 
