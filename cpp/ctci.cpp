@@ -5515,17 +5515,18 @@ private:
   }
 };
 
-class TokenInterface {
+class BucketInterface {
 public:
     virtual void Inc(int) = 0;
     virtual void Dec(int) = 0;
     virtual int Get(int) = 0;
 };
 
-class Token : public TokenInterface {
+class Bucket : public BucketInterface {
 public:
+  Bucket(int size) : mSize(size) {}
   void Inc(int customer_id) override {
-    if (m[customer_id] == MaxReq) {
+    if (m[customer_id] == mSize) {
         return;
     }
     m[customer_id]++;
@@ -5544,16 +5545,16 @@ public:
  
 private:
   unordered_map<int, atomic<int>> m;
-  const int MaxReq {2};  // 2 req max
+  int mSize;
 };
 
 class RateLimiter2 {
 
 public:
-  RateLimiter2(TokenInterface& token) : mToken(token) {}
+  RateLimiter2(BucketInterface& bucket) : mBucket(bucket) {}
   bool rateLimit(int customer_id) {
-    if (mToken.Get(customer_id) > 0) {
-       mToken.Dec(customer_id);
+    if (mBucket.Get(customer_id) > 0) {
+       mBucket.Dec(customer_id);
        return true;
     }
 
@@ -5561,7 +5562,7 @@ public:
   }
 
 private:
-  TokenInterface& mToken;
+  BucketInterface& mBucket;
 };
 
 
