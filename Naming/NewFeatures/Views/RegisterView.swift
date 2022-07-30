@@ -74,7 +74,7 @@ struct FamilynameComponent: View {
           else if pickerData.count > 1 {
             Picker("", selection: $selectedSurnameIndex, content: {
               ForEach(0..<pickerData.count, content: {index in //
-                Text(onChangeLastName(n: pickerData[0]))
+                Text(onChangeLastName(n: pickerData[index]))
               })
             })
 //            Text("Selected Surname: \(pickerData[selectedSurnameIndex])")
@@ -190,7 +190,7 @@ struct DobComponent: View {
 }
 
 enum Place: String, CaseIterable, Identifiable {
-  case  강릉, 경주, 고양, 광주, 구미, 군산, 김천, 김해, 남양주, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
+  case  강릉, 경주, 고양, 광주, 구미, 군산, 김천, 김해, 남양주, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 성남, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
   var id: Self { self }
 }
 
@@ -238,10 +238,11 @@ struct PlaceComponent: View {
             Text("서울").tag(Place.서울)
             Text("서산").tag(Place.서산)
             Text("서귀포").tag(Place.서귀포)
+            Text("성남").tag(Place.성남)
             Text("세종").tag(Place.세종)
-            Text("수원").tag(Place.수원)
             }
             Group {
+            Text("수원").tag(Place.수원)
             Text("순천").tag(Place.순천)
             Text("여수").tag(Place.여수)
             Text("용인").tag(Place.용인)
@@ -251,9 +252,9 @@ struct PlaceComponent: View {
             Text("익산").tag(Place.익산)
             Text("인천").tag(Place.인천)
             Text("전주").tag(Place.전주)
-            Text("제주").tag(Place.제주)
             }
             Group {
+            Text("제주").tag(Place.제주)
             Text("창원").tag(Place.창원)
             Text("춘천").tag(Place.춘천)
             Text("파주").tag(Place.파주)
@@ -263,8 +264,10 @@ struct PlaceComponent: View {
             Text("통영").tag(Place.통영)
             Text("청주").tag(Place.청주)
             Text("홍천").tag(Place.홍천)
+            }
+            Group {
             Text("해외").tag(Place.해외)
-          }
+            }
           }
 
           Spacer()

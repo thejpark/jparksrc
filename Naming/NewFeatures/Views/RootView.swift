@@ -27,12 +27,12 @@ struct RootView: View {
 
       NavigationView {
         EmptyView()
-          .navigationTitle("추천작명")
+          .navigationTitle("추천이름")
       }.tabItem {
         if selection == 1 {
-          Label("추천작명", image: "inspections_tab_selected")
+          Label("추천이름", image: "inspections_tab_selected")
         } else {
-          Label("추천작명", image: "inspections_tab")
+          Label("추천이름", image: "inspections_tab")
         }
 
       }.tag(1)
@@ -44,7 +44,7 @@ struct RootView: View {
         if selection == 2 {
           Label("셀프작명", image: "actions_tab_selected")
         } else {
-          Label("셀프장명", image: "actions_tab")
+          Label("셀프작명", image: "actions_tab")
         }
 
       }.tag(2)
