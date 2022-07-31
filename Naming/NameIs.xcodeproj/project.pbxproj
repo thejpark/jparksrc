@@ -63,7 +63,7 @@
 		E10D3CC5283EDD470086DF59 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E10D3CC7283EF6A10086DF59 /* HeadsUpDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsUpDetailView.swift; sourceTree = "<group>"; };
 		E10D3CC9283EF8E00086DF59 /* AssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };
-		E193BEBA283DB3D50076133B /* NewFeatures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewFeatures.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E193BEBA283DB3D50076133B /* NameIs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NameIs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E193BEBD283DB3D50076133B /* NewFeaturesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFeaturesApp.swift; sourceTree = "<group>"; };
 		E193BEC1283DB3D60076133B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E193BEC4283DB3D60076133B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		E193BEB1283DB3D50076133B = {
 			isa = PBXGroup;
 			children = (
-				E193BEBC283DB3D50076133B /* NewFeatures */,
+				E193BEBC283DB3D50076133B /* NameIs */,
 				E193BECD283DB3D60076133B /* NewFeaturesTests */,
 				E193BED7283DB3D60076133B /* NewFeaturesUITests */,
 				E193BEBB283DB3D50076133B /* Products */,
@@ -129,14 +129,14 @@
 		E193BEBB283DB3D50076133B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E193BEBA283DB3D50076133B /* NewFeatures.app */,
+				E193BEBA283DB3D50076133B /* NameIs.app */,
 				E193BECA283DB3D60076133B /* NewFeaturesTests.xctest */,
 				E193BED4283DB3D60076133B /* NewFeaturesUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E193BEBC283DB3D50076133B /* NewFeatures */ = {
+		E193BEBC283DB3D50076133B /* NameIs */ = {
 			isa = PBXGroup;
 			children = (
 				E10D3CC2283ED7A00086DF59 /* Info.plist */,
@@ -148,7 +148,7 @@
 				E193BEC1283DB3D60076133B /* Assets.xcassets */,
 				E193BEC3283DB3D60076133B /* Preview Content */,
 			);
-			path = NewFeatures;
+			path = NameIs;
 			sourceTree = "<group>";
 		};
 		E193BEC3283DB3D60076133B /* Preview Content */ = {
@@ -218,9 +218,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E193BEB9283DB3D50076133B /* NewFeatures */ = {
+		E193BEB9283DB3D50076133B /* NameIs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E193BEDE283DB3D60076133B /* Build configuration list for PBXNativeTarget "NewFeatures" */;
+			buildConfigurationList = E193BEDE283DB3D60076133B /* Build configuration list for PBXNativeTarget "NameIs" */;
 			buildPhases = (
 				E193BEB6283DB3D50076133B /* Sources */,
 				E193BEB7283DB3D50076133B /* Frameworks */,
@@ -230,9 +230,9 @@
 			);
 			dependencies = (
 			);
-			name = NewFeatures;
+			name = NameIs;
 			productName = NewFeatures;
-			productReference = E193BEBA283DB3D50076133B /* NewFeatures.app */;
+			productReference = E193BEBA283DB3D50076133B /* NameIs.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E193BEC9283DB3D60076133B /* NewFeaturesTests */ = {
@@ -294,7 +294,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E193BEB5283DB3D50076133B /* Build configuration list for PBXProject "Naming" */;
+			buildConfigurationList = E193BEB5283DB3D50076133B /* Build configuration list for PBXProject "NameIs" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -307,7 +307,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E193BEB9283DB3D50076133B /* NewFeatures */,
+				E193BEB9283DB3D50076133B /* NameIs */,
 				E193BEC9283DB3D60076133B /* NewFeaturesTests */,
 				E193BED3283DB3D60076133B /* NewFeaturesUITests */,
 			);
@@ -390,12 +390,12 @@
 /* Begin PBXTargetDependency section */
 		E193BECC283DB3D60076133B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E193BEB9283DB3D50076133B /* NewFeatures */;
+			target = E193BEB9283DB3D50076133B /* NameIs */;
 			targetProxy = E193BECB283DB3D60076133B /* PBXContainerItemProxy */;
 		};
 		E193BED6283DB3D60076133B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E193BEB9283DB3D50076133B /* NewFeatures */;
+			target = E193BEB9283DB3D50076133B /* NameIs */;
 			targetProxy = E193BED5283DB3D60076133B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -522,11 +522,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NewFeatures/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NameIs/Preview Content\"";
 				DEVELOPMENT_TEAM = DDRNWB6VN3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewFeatures/Info.plist;
+				INFOPLIST_FILE = NameIs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "쉬운작명";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -553,11 +553,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"NewFeatures/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"NameIs/Preview Content\"";
 				DEVELOPMENT_TEAM = DDRNWB6VN3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NewFeatures/Info.plist;
+				INFOPLIST_FILE = NameIs/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "쉬운작명";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -656,7 +656,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E193BEB5283DB3D50076133B /* Build configuration list for PBXProject "Naming" */ = {
+		E193BEB5283DB3D50076133B /* Build configuration list for PBXProject "NameIs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E193BEDC283DB3D60076133B /* Debug */,
@@ -665,7 +665,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E193BEDE283DB3D60076133B /* Build configuration list for PBXNativeTarget "NewFeatures" */ = {
+		E193BEDE283DB3D60076133B /* Build configuration list for PBXNativeTarget "NameIs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E193BEDF283DB3D60076133B /* Debug */,
