@@ -5709,6 +5709,36 @@ int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx,
     return r;
 }
 
+// given a list of exchange rate, find the maximum amount of money you can get.
+// input: {"USDAUD@1.4", "AUDNZD@1.1"}, "USD", "NZD", 1.0
+// output: 1.4 * 1.1 * 1 = 1.6
+// if no possible exchange rate, return -1.
+// there would be a cycle, so use a visited array to avoid infinite loop. 
+double dfs(unordered_map<string, vector<pair<string, double>>>& graph, const string& from, const string& end, double money, unordered_set<string>& visited) {
+    if (from == end) {
+        return money;
+    }
+    if (visited.find(from) != visited.end()) {
+        return -1.0;
+    }
+    visited.insert(from);
+    double r = -1;
+    for (auto& [to, rate] : graph[from]) {
+        double x = dfs(graph, to, end, money * rate, visited);
+        r = max(r, x);
+    }
+    visited.erase(from);
+    return r;
+}
+double GetMaxExchangeRate(const vector<string>& exchange_rate, const string& from, const string& to, double money) {
+    // step1: graph structure
+    unordered_map<string, vector<pair<string, double>>> graph;
+    // setup graph structure
+    unordered_set<string> visited;
+    // step2: dfs with visited array. find the max result.
+    return dfs(graph, "USD", "NZD",  money, visited);
+}
+
 int bar(const vector<int>& d, const vector<int>& prices) {
 
     vector<vector<int>> v(d.size() + 1, vector<int>(51, INT_MAX));
@@ -5718,7 +5748,7 @@ int bar(const vector<int>& d, const vector<int>& prices) {
     for (int i = d.size() - 1; i >= 0; --i) {
         for (int j = 0; j <= 50; ++j) { // fule tank
             int r = INT_MAX;
-            for (int k = 0; k <= 50; ++k) { // petrol station
+            for (int k = 0; k <= 50; ++k) { // petrol station fuel add
                 // int a = (j >= d[i])? v[i + 1][j - d[i]] : INT_MAX;
                 int b = (j + k <= 50) ? k : (50 - j);
                 if (j + b < d[i]) {
