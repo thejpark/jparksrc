@@ -336,7 +336,7 @@ final class Search: NSObject {
 
       // set date and time of birth
       let dateFormatter : DateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy MM dd HH mm ss"
+      dateFormatter.dateFormat = "yyyy M d H m s"
       let dateString = dateFormatter.string(from: selectedDate)
       self.dob = dateString
       self.surName = surName
