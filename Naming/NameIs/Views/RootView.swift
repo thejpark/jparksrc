@@ -38,7 +38,7 @@ struct RootView: View {
       }.tag(1)
 
       NavigationView {
-        EmptyView()
+        SelfNameInputView()
           .navigationTitle("셀프작명")
       }.tabItem {
         if selection == 2 {
