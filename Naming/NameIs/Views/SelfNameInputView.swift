@@ -69,6 +69,7 @@ struct HangulNameComponent: View {
 //  var text: String
 //  var image: String
 }
+
 var pendingHangulName = ""
 
 func onChangeHangulName(n: String) -> String {
@@ -111,8 +112,13 @@ struct SelfNameInputView: View {
     .navigationBarItems(
       leading: Button("취소", action: cancelSearch),
 //        .foregroundColor(Colors.Accent.Content.primary),
-      trailing: Button("등록", action: search)
-//        .foregroundColor(
+      trailing: NavigationLink("찾기", destination: SelfNameResultView()) //{
+//      }.simultaneousGesture { search() } //.onAppear {search()})
+//        Text("찾기").onTapGesture { search() }
+//      }
+
+//      }.onTapGesture { search() } //.onAppear {search()})
+      //        .foregroundColor(
 //          viewModel.canCreate
 //            ? Colors.Accent.Content.primary
 //            : Colors.Neutral.Content.disabled)
@@ -121,8 +127,13 @@ struct SelfNameInputView: View {
   }
 }
 
-func search() {
-  registerInfo = pendingRegisterInfo
+fileprivate func search() {
+//  Search.obj.search(surName: RegisterInfo.obj.lastName,
+//                          surNameH: RegisterInfo.obj.lastNameHanja,
+//                          givenName: pendingHangulName,
+//                          selectedDate: RegisterInfo.obj.datetime,
+//                          birthPlace: RegisterInfo.obj.birthPlace)
+   Search.obj.getNames()
 }
 
 func cancelSearch() {

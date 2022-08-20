@@ -66,7 +66,7 @@ struct FamilynameComponent: View {
           //          Spacer()
           let pickerData = getLastNameFromHangul(familyName)
           if pickerData.count == 1 {
-            Text(onChangeLastName(n: pickerData[0]))
+            Text(onChangeLastName(n: familyName, h: pickerData[0]))
             Spacer()
             Spacer()
 
@@ -74,7 +74,7 @@ struct FamilynameComponent: View {
           else if pickerData.count > 1 {
             Picker("", selection: $selectedSurnameIndex, content: {
               ForEach(0..<pickerData.count, content: {index in //
-                Text(onChangeLastName(n: pickerData[index]))
+                Text(onChangeLastName(n: familyName, h: pickerData[index]))
               })
             })
 //            Text("Selected Surname: \(pickerData[selectedSurnameIndex])")
@@ -91,7 +91,7 @@ struct FamilynameComponent: View {
 //  var text: String
 //  var image: String
 }
-var pendingRegisterInfo = RegisterInfo(lastName: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+var pendingRegisterInfo = RegisterInfo(lastName: "", lastNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
 
 func onChangeGender(g: Gender) {
   pendingRegisterInfo.gender = g
@@ -105,9 +105,10 @@ func onChangePlace(p: Place) {
   pendingRegisterInfo.birthPlace = p
 }
 
-func onChangeLastName(n: String) -> String {
+func onChangeLastName(n: String, h: String) -> String {
   pendingRegisterInfo.lastName = n
-  return n
+  pendingRegisterInfo.lastNameHanja = h
+  return h
 }
 
 struct GenderComponent: View {
@@ -339,7 +340,7 @@ struct RegisterView: View {
 }
 
 func register() {
-  registerInfo = pendingRegisterInfo
+  RegisterInfo.obj = pendingRegisterInfo
   UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
 

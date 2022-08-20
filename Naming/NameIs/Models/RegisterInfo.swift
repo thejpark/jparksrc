@@ -9,10 +9,11 @@ import Foundation
 
 struct RegisterInfo {
   var lastName: String
+  var lastNameHanja: String
   var gender: Gender
   var datetime: Date
   var birthPlace: Place
+  static var obj = RegisterInfo(lastName: "", lastNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
 }
 
 
-var registerInfo = RegisterInfo(lastName: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)

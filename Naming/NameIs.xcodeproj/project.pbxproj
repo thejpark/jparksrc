@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B117ED528A65DB6001812FF /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B117ED428A65DB6001812FF /* Search.swift */; };
+		9B117EDD28A7316E001812FF /* SelfNameResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B117EDC28A7316E001812FF /* SelfNameResultView.swift */; };
+		9B117EDF28A74D74001812FF /* NameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B117EDE28A74D74001812FF /* NameDetailView.swift */; };
 		9B1BFC232878F90A00EA8573 /* Hanja.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC222878F90A00EA8573 /* Hanja.swift */; };
 		9B1BFC252879699300EA8573 /* RegisterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC242879699300EA8573 /* RegisterInfo.swift */; };
+		9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7F841C289610D40095F776 /* SelfNameInputView.swift */; };
 		9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDC2855C0340023DC08 /* saju.swift */; };
 		9BEFFFDF2855C0340023DC08 /* jolgi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDD2855C0340023DC08 /* jolgi.swift */; };
 		9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFE52856B7B20023DC08 /* RegisterView.swift */; };
@@ -52,8 +56,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9B117ED428A65DB6001812FF /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		9B117EDC28A7316E001812FF /* SelfNameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameResultView.swift; sourceTree = "<group>"; };
+		9B117EDE28A74D74001812FF /* NameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameDetailView.swift; sourceTree = "<group>"; };
 		9B1BFC222878F90A00EA8573 /* Hanja.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hanja.swift; sourceTree = "<group>"; };
 		9B1BFC242879699300EA8573 /* RegisterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInfo.swift; sourceTree = "<group>"; };
+		9B7F841C289610D40095F776 /* SelfNameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameInputView.swift; sourceTree = "<group>"; };
 		9BEFFFDC2855C0340023DC08 /* saju.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = saju.swift; sourceTree = "<group>"; };
 		9BEFFFDD2855C0340023DC08 /* jolgi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jolgi.swift; sourceTree = "<group>"; };
 		9BEFFFE52856B7B20023DC08 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -190,6 +198,9 @@
 				E10D3CC7283EF6A10086DF59 /* HeadsUpDetailView.swift */,
 				E10D3CC9283EF8E00086DF59 /* AssetsView.swift */,
 				9BEFFFE52856B7B20023DC08 /* RegisterView.swift */,
+				9B7F841C289610D40095F776 /* SelfNameInputView.swift */,
+				9B117EDC28A7316E001812FF /* SelfNameResultView.swift */,
+				9B117EDE28A74D74001812FF /* NameDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +222,7 @@
 				9BEFFFDC2855C0340023DC08 /* saju.swift */,
 				E193BEF0283DB56A0076133B /* Feature.swift */,
 				9B1BFC242879699300EA8573 /* RegisterInfo.swift */,
+				9B117ED428A65DB6001812FF /* Search.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -351,15 +363,19 @@
 				9BEFFFDF2855C0340023DC08 /* jolgi.swift in Sources */,
 				E10D3CC6283EDD470086DF59 /* HomeView.swift in Sources */,
 				E193BEF3283DBE690076133B /* RootView.swift in Sources */,
+				9B117EDF28A74D74001812FF /* NameDetailView.swift in Sources */,
 				E193BEF1283DB56A0076133B /* Feature.swift in Sources */,
 				E193BEEA283DB4210076133B /* APIClient.swift in Sources */,
 				E193BEF7283DBEF20076133B /* EmptyView.swift in Sources */,
 				E193BEEF283DB4E40076133B /* FeaturesResponse.swift in Sources */,
 				9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */,
+				9B117ED528A65DB6001812FF /* Search.swift in Sources */,
 				9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */,
+				9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */,
 				E193BEF9283DC1430076133B /* FeatureCellView.swift in Sources */,
 				9B1BFC232878F90A00EA8573 /* Hanja.swift in Sources */,
 				E193BEFD283DCF6C0076133B /* FeatureDetailView.swift in Sources */,
+				9B117EDD28A7316E001812FF /* SelfNameResultView.swift in Sources */,
 				E193BEFB283DC9E10076133B /* FeaturesView.swift in Sources */,
 				E10D3CCA283EF8E00086DF59 /* AssetsView.swift in Sources */,
 				E10D3CC4283EDCA90086DF59 /* HeadsUpCarView.swift in Sources */,

@@ -23,7 +23,7 @@ struct PropertyKey {
 
 
 
-class Elem: NSObject, NSCoding {
+class Elem: NSObject, NSCoding, Identifiable {
     var surName : [Hanja]
     var surName1: String // hangul
     var givenName : [Hanja]
@@ -147,6 +147,10 @@ class Elem: NSObject, NSCoding {
 
         return r
     }
+
+  func detail() -> String {
+    return ""
+  }
 
     func getSaju() -> String {
         var r: String = "사주: "
@@ -309,8 +313,8 @@ func loadElem() -> [Elem]? {
 
 final class Search: NSObject {
 
-    var objects = [AnyObject]()
-    var numSelected: Int = 0
+    var objects = [Elem]()
+    private var numSelected: Int = 0
     private var day: Int = 0
     private var month: Int = 0
     private var year: Int = 0
@@ -320,11 +324,23 @@ final class Search: NSObject {
     private var dob : String = ""
     private var surName: String = ""
     private var givenName: String = ""
+    private var birthPlace: String=""
     private var prio_set:[[Int:Int]] = [[Int:Int]]()
 
-  func search(_ surName: String, surNameH: String, givenName: String, selectedDate: Date) {
+    static let obj = Search()
+
+  func getNames() -> [Elem] {
+    Search.obj.search(surName: RegisterInfo.obj.lastName,
+                      surNameH: RegisterInfo.obj.lastNameHanja,
+                      givenName: "정", // pendingHangulName,
+                      selectedDate: RegisterInfo.obj.datetime,
+                      birthPlace: RegisterInfo.obj.birthPlace)
+    return objects
+  }
+
+  func search(surName: String, surNameH: String, givenName: String, selectedDate: Date, birthPlace:Place) {
       var gname: [Hanja] = [Hanja]()
-      self.objects = [AnyObject]()
+      self.objects = [Elem]()
       self.numSelected = 0
 
       //  for var i = 0; i < givenName.characters.count; ++i {
@@ -341,11 +357,12 @@ final class Search: NSObject {
       self.dob = dateString
       self.surName = surName
       self.givenName = givenName
+    timeDiff = timeDiffMap[birthPlace.rawValue]!
       let str = dateString.components(separatedBy: " ")
 
-      self.day = Int(str[0])!
+      self.day = Int(str[2])!
       self.month = Int(str[1])!
-      self.year = Int(str[2])!
+      self.year = Int(str[0])!
       self.hour = Int(str[3])!
       self.minute = Int(str[4])!
       self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)
