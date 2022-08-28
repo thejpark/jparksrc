@@ -57,6 +57,9 @@ struct HangulNameComponent: View {
           Spacer()
           TextField("이름을 한글로 입력하세요", text: $hangulName)
             .lineLimit(1).foregroundColor(.blue)
+            .onChange(of: hangulName) {
+              onChangeHangulName(n: $0)
+            }
 
           Spacer()
         }
@@ -70,10 +73,8 @@ struct HangulNameComponent: View {
 //  var image: String
 }
 
-var pendingHangulName = ""
-
 func onChangeHangulName(n: String) -> String {
-  pendingHangulName = n
+  Search.obj.setName(name: n)
   return n
 }
 
@@ -125,15 +126,6 @@ struct SelfNameInputView: View {
 //        .disabled(!viewModel.canCreate))
    )
   }
-}
-
-fileprivate func search() {
-//  Search.obj.search(surName: RegisterInfo.obj.lastName,
-//                          surNameH: RegisterInfo.obj.lastNameHanja,
-//                          givenName: pendingHangulName,
-//                          selectedDate: RegisterInfo.obj.datetime,
-//                          birthPlace: RegisterInfo.obj.birthPlace)
-   Search.obj.getNames()
 }
 
 func cancelSearch() {

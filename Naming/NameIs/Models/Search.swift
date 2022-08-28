@@ -368,13 +368,18 @@ final class Search: NSObject {
     private var givenName: String = ""
     private var birthPlace: String=""
     private var prio_set:[[Int:Int]] = [[Int:Int]]()
+    private var hangulName: String = ""
 
     static let obj = Search()
+
+  func setName(name: String) {
+    hangulName = name
+  }
 
   func getNames() -> [Elem] {
     Search.obj.search(surName: RegisterInfo.obj.surName,
                       surNameH: RegisterInfo.obj.surNameHanja,
-                      givenName: "정", // pendingHangulName,
+                      givenName: hangulName,
                       selectedDate: RegisterInfo.obj.datetime,
                       birthPlace: RegisterInfo.obj.birthPlace)
     return objects
