@@ -36,10 +36,6 @@ import SwiftUI
 //  }
 //}
 
-enum Gender: String, CaseIterable, Identifiable {
-    case male, female
-    var id: Self { self }
-}
 
 private let base: CGFloat = 4.0
 
@@ -52,6 +48,11 @@ struct FamilynameComponent: View {
 //      Button {
 //        viewModel.editPressed(action: item.action)
 //      } label: {
+      let binding = Binding(
+        get: { self.selectedSurnameIndex },
+        set: { self.selectedSurnameIndex = $0
+        }
+       )
 
       HStack(spacing: base * 3) {
 //          Image(image)
@@ -65,16 +66,18 @@ struct FamilynameComponent: View {
 
           //          Spacer()
           let pickerData = getLastNameFromHangul(familyName)
+//          hanjaSurname = pickerData
           if pickerData.count == 1 {
-            Text(onChangeLastName(n: familyName, h: pickerData[0]))
+            Text(onChangeLastName(n: familyName, h: pickerData[0], s: pickerData[0]))
             Spacer()
             Spacer()
 
           }
           else if pickerData.count > 1 {
-            Picker("", selection: $selectedSurnameIndex, content: {
+            Picker("", selection: binding, content: {
               ForEach(0..<pickerData.count, content: {index in //
-                Text(onChangeLastName(n: familyName, h: pickerData[index]))
+                Text(onChangeLastName(n: familyName, h: pickerData[index], s: pickerData[selectedSurnameIndex]))
+//                Text(pickerData[index])
               })
             })
 //            Text("Selected Surname: \(pickerData[selectedSurnameIndex])")
@@ -91,7 +94,7 @@ struct FamilynameComponent: View {
 //  var text: String
 //  var image: String
 }
-var pendingRegisterInfo = RegisterInfo(lastName: "", lastNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+var pendingRegisterInfo = RegisterInfo(surName: "", surNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
 
 func onChangeGender(g: Gender) {
   pendingRegisterInfo.gender = g
@@ -105,9 +108,9 @@ func onChangePlace(p: Place) {
   pendingRegisterInfo.birthPlace = p
 }
 
-func onChangeLastName(n: String, h: String) -> String {
-  pendingRegisterInfo.lastName = n
-  pendingRegisterInfo.lastNameHanja = h
+func onChangeLastName(n: String, h: String, s: String) -> String {
+  pendingRegisterInfo.surName = n
+  pendingRegisterInfo.surNameHanja = s
   return h
 }
 
@@ -188,11 +191,6 @@ struct DobComponent: View {
   }
 //  }
 
-}
-
-enum Place: String, CaseIterable, Identifiable {
-  case  강릉, 경주, 고양, 광주, 구미, 군산, 김천, 김해, 남양주, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 성남, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
-  var id: Self { self }
 }
 
 
@@ -341,6 +339,23 @@ struct RegisterView: View {
 
 func register() {
   RegisterInfo.obj = pendingRegisterInfo
+
+  // store info
+  let defaults = UserDefaults.standard
+  defaults.setValue(RegisterInfo.obj.surName, forKey: RegisterInfoKeys.surName)
+  defaults.setValue(RegisterInfo.obj.surNameHanja, forKey: RegisterInfoKeys.surNameH)
+  defaults.setValue(RegisterInfo.obj.datetime, forKey: RegisterInfoKeys.dob)
+  defaults.setValue(RegisterInfo.obj.gender.rawValue, forKey: RegisterInfoKeys.gender)
+  defaults.setValue(RegisterInfo.obj.birthPlace.rawValue, forKey: RegisterInfoKeys.place)
+  gEditCount -= 1
+  defaults.setValue(String(gEditCount), forKey: RegisterInfoKeys.editCount)
+
+  defaults.synchronize()
+
+  // clear previously stored names
+//  clearElem()
+
+
   UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
 

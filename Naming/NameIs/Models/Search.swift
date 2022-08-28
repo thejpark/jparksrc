@@ -149,8 +149,50 @@ class Elem: NSObject, NSCoding, Identifiable {
     }
 
   func detail() -> String {
-    return ""
-  }
+    return self.desc()
+
+    // Update the user interface for the detail item.
+//        if let detail = self.detailItem {
+//            if let label = self.detailDescriptionLabel {
+//                label.text = detail.desc()
+//            }
+//            if let name = self.name {
+//                name.text = detail.desc()
+//            }
+//            if let saju = self.saju {
+//                saju.text = detail.getSaju()
+//            }
+//            if let dob = self.dob {
+//                dob.text = detail.getDob()
+//            }
+//            if let ilgangangyag = self.ilgangangyag {
+//                ilgangangyag.text = detail.getIlganGangYag()
+//            }
+//            if let jawonohang = self.jawonohang {
+//                jawonohang.text = detail.getJaWonOHang()
+//                jawonohangend.text = "사주의 부족한 오행을 보충합니다"
+//            }
+//            if let umyang = self.umyang {
+//                umyang.text = detail.getUmYang()
+//                umyangend.text = "음(짝수) 양(홀수) 조화를 이룹니다"
+//            }
+//            if let heeyong = self.heeyong {
+//                heeyong.text = detail.getHeeYong()
+//            }
+//            if let barum = self.barum {
+//                barum.text = detail.getBarumOhang()
+//                if (detail.isBarumInHeeYong()) {
+//                    barumend.text = "이며 사주에 부족한 오행을 보충합니다"
+//                }
+//                else {
+//                    barumend.text = "입니다"
+//                }
+//            }
+//        }
+    }
+
+
+
 
     func getSaju() -> String {
         var r: String = "사주: "
@@ -330,8 +372,8 @@ final class Search: NSObject {
     static let obj = Search()
 
   func getNames() -> [Elem] {
-    Search.obj.search(surName: RegisterInfo.obj.lastName,
-                      surNameH: RegisterInfo.obj.lastNameHanja,
+    Search.obj.search(surName: RegisterInfo.obj.surName,
+                      surNameH: RegisterInfo.obj.surNameHanja,
                       givenName: "정", // pendingHangulName,
                       selectedDate: RegisterInfo.obj.datetime,
                       birthPlace: RegisterInfo.obj.birthPlace)
