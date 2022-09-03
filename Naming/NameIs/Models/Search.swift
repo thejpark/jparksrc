@@ -148,52 +148,6 @@ class Elem: NSObject, NSCoding, Identifiable {
         return r
     }
 
-  func detail() -> String {
-    return self.desc()
-
-    // Update the user interface for the detail item.
-//        if let detail = self.detailItem {
-//            if let label = self.detailDescriptionLabel {
-//                label.text = detail.desc()
-//            }
-//            if let name = self.name {
-//                name.text = detail.desc()
-//            }
-//            if let saju = self.saju {
-//                saju.text = detail.getSaju()
-//            }
-//            if let dob = self.dob {
-//                dob.text = detail.getDob()
-//            }
-//            if let ilgangangyag = self.ilgangangyag {
-//                ilgangangyag.text = detail.getIlganGangYag()
-//            }
-//            if let jawonohang = self.jawonohang {
-//                jawonohang.text = detail.getJaWonOHang()
-//                jawonohangend.text = "사주의 부족한 오행을 보충합니다"
-//            }
-//            if let umyang = self.umyang {
-//                umyang.text = detail.getUmYang()
-//                umyangend.text = "음(짝수) 양(홀수) 조화를 이룹니다"
-//            }
-//            if let heeyong = self.heeyong {
-//                heeyong.text = detail.getHeeYong()
-//            }
-//            if let barum = self.barum {
-//                barum.text = detail.getBarumOhang()
-//                if (detail.isBarumInHeeYong()) {
-//                    barumend.text = "이며 사주에 부족한 오행을 보충합니다"
-//                }
-//                else {
-//                    barumend.text = "입니다"
-//                }
-//            }
-//        }
-    }
-
-
-
-
     func getSaju() -> String {
         var r: String = "사주: "
         r += saju
@@ -202,7 +156,7 @@ class Elem: NSObject, NSCoding, Identifiable {
 
     func getDob() -> String {
         let str = self.dob.components(separatedBy: " ")
-        return "생년월일: " + str[2] + "년" + str[1] + "월" + str[0] + "일 " + str[3] + ":" + str[4]
+        return "생년월일: " + str[0] + "년" + str[1] + "월" + str[2] + "일 " + str[3] + ":" + str[4]
     }
 
     func getJaWonOHang() -> String {

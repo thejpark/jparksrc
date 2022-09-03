@@ -21,7 +21,7 @@ struct SelfNameResultView: View {
   var body: some View {
     List(Search.obj.getNames()) { name in
       NavigationLink {
-        NameDetailView(detail: name.detail())
+        NameDetailView(elem: name)
       } label: {
         FeatureCellView(title: name.desc())
       }
