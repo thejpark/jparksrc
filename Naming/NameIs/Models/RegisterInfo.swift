@@ -8,7 +8,8 @@
 import Foundation
 
 enum Gender: String, CaseIterable, Identifiable {
-    case male, female
+    case male = "남"
+    case female = "여"
     var id: Self { self }
 }
 
@@ -24,6 +25,12 @@ struct RegisterInfo {
   var datetime: Date
   var birthPlace: Place
   static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+}
+
+func getStringFromDate(_ date: Date) -> String {
+  let dateFormatter : DateFormatter = DateFormatter()
+  dateFormatter.dateFormat = "yyyy M d HH mm"
+  return dateFormatter.string(from: date)
 }
 
 struct RegisterInfoKeys {

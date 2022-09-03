@@ -350,16 +350,11 @@ final class Search: NSObject {
       //      gname.append(hanja[0])
       //  }
 
-
-      // set date and time of birth
-      let dateFormatter : DateFormatter = DateFormatter()
-      dateFormatter.dateFormat = "yyyy M d H m s"
-      let dateString = dateFormatter.string(from: selectedDate)
-      self.dob = dateString
+      self.dob = getStringFromDate(selectedDate)
       self.surName = surName
       self.givenName = givenName
-    timeDiff = timeDiffMap[birthPlace.rawValue]!
-      let str = dateString.components(separatedBy: " ")
+      timeDiff = timeDiffMap[birthPlace.rawValue]!
+      let str = self.dob.components(separatedBy: " ")
 
       self.day = Int(str[2])!
       self.month = Int(str[1])!
