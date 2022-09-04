@@ -12,15 +12,24 @@ struct SuggestedNamesView: View {
   @State var names: [Elem] = [Elem]()
 
   var body: some View {
-    List(names) { name in
+    List {
+      ForEach(names) {name in
       NavigationLink {
         NameDetailView(elem: name)
       } label: {
         FeatureCellView(title: name.desc())
       }
     }
+    .onDelete(perform: delete)
+    }
       .onAppear() {
         names = savedElements
       }
+  }
+
+  func delete(at offsets: IndexSet) {
+    names.remove(atOffsets: offsets)
+    savedElements.remove(atOffsets: offsets)
+    saveElem()
   }
 }
