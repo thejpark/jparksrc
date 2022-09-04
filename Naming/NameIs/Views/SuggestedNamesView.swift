@@ -15,7 +15,7 @@ struct SuggestedNamesView: View {
     List {
       ForEach(names) {name in
       NavigationLink {
-        NameDetailView(elem: name)
+        SavedNamesView(elem: name)
       } label: {
         FeatureCellView(title: name.desc())
       }
