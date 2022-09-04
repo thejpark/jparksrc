@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-fileprivate func search() {
-//  Search.obj.search(surName: RegisterInfo.obj.lastName,
-//                          surNameH: RegisterInfo.obj.lastNameHanja,
-//                          givenName: pendingHangulName,
-//                          selectedDate: RegisterInfo.obj.datetime,
-//                          birthPlace: RegisterInfo.obj.birthPlace)
-}
 
 struct SelfNameResultView: View {
 //  var names: [Elem] = Search.obj.getNames()

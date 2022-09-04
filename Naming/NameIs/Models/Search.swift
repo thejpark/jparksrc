@@ -267,7 +267,7 @@ class Elem: NSObject, NSCoding, Identifiable {
 }
 
 // saved elements
-fileprivate var savedElements: [Elem] = [Elem]()
+var savedElements: [Elem] = [Elem]()
 fileprivate let fileName: String =  "elemStorage"
 
 func saveElem() {
@@ -288,7 +288,7 @@ func clearElem() {
 }
 
 
-func loadElem() -> [Elem]? {
+func loadElem() -> [Elem] {
 //  if let nsData = NSData(contentsOf: Elem.ArchiveURL) {
 //    do {
 //      let data = Data(referencing:nsData)
@@ -301,10 +301,12 @@ func loadElem() -> [Elem]? {
 //    }
 //  }
 //  return nil
-  guard let data = UserDefaults.standard.data(forKey: fileName) else { return nil }
-  guard let elemData = (try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)) as? [Elem] else { return nil }
+  let emptyData = [Elem]()
+  guard let data = UserDefaults.standard.data(forKey: fileName) else { return emptyData }
+  guard let elemData = (try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data)) as? [Elem] else { return emptyData }
 
-  return elemData
+  savedElements = elemData
+  return savedElements
 }
 
 final class Search: NSObject {
@@ -356,9 +358,9 @@ final class Search: NSObject {
       timeDiff = timeDiffMap[birthPlace.rawValue]!
       let str = self.dob.components(separatedBy: " ")
 
-      self.day = Int(str[2])!
-      self.month = Int(str[1])!
       self.year = Int(str[0])!
+      self.month = Int(str[1])!
+      self.day = Int(str[2])!
       self.hour = Int(str[3])!
       self.minute = Int(str[4])!
       self.hy = getHeeYong(self.year, month: self.month, day: self.day, hour: self.hour, minute: self.minute)

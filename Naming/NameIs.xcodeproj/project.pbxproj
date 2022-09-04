@@ -13,6 +13,7 @@
 		9B1BFC232878F90A00EA8573 /* Hanja.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC222878F90A00EA8573 /* Hanja.swift */; };
 		9B1BFC252879699300EA8573 /* RegisterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC242879699300EA8573 /* RegisterInfo.swift */; };
 		9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7F841C289610D40095F776 /* SelfNameInputView.swift */; };
+		9BC462B028C42831008C2683 /* SuggestedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */; };
 		9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDC2855C0340023DC08 /* saju.swift */; };
 		9BEFFFDF2855C0340023DC08 /* jolgi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDD2855C0340023DC08 /* jolgi.swift */; };
 		9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFE52856B7B20023DC08 /* RegisterView.swift */; };
@@ -62,6 +63,7 @@
 		9B1BFC222878F90A00EA8573 /* Hanja.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hanja.swift; sourceTree = "<group>"; };
 		9B1BFC242879699300EA8573 /* RegisterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInfo.swift; sourceTree = "<group>"; };
 		9B7F841C289610D40095F776 /* SelfNameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameInputView.swift; sourceTree = "<group>"; };
+		9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedNamesView.swift; sourceTree = "<group>"; };
 		9BEFFFDC2855C0340023DC08 /* saju.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = saju.swift; sourceTree = "<group>"; };
 		9BEFFFDD2855C0340023DC08 /* jolgi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jolgi.swift; sourceTree = "<group>"; };
 		9BEFFFE52856B7B20023DC08 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				9B7F841C289610D40095F776 /* SelfNameInputView.swift */,
 				9B117EDC28A7316E001812FF /* SelfNameResultView.swift */,
 				9B117EDE28A74D74001812FF /* NameDetailView.swift */,
+				9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				E193BEF5283DBEB90076133B /* MoreView.swift in Sources */,
 				9B1BFC252879699300EA8573 /* RegisterInfo.swift in Sources */,
 				9BEFFFDF2855C0340023DC08 /* jolgi.swift in Sources */,
+				9BC462B028C42831008C2683 /* SuggestedNamesView.swift in Sources */,
 				E10D3CC6283EDD470086DF59 /* HomeView.swift in Sources */,
 				E193BEF3283DBE690076133B /* RootView.swift in Sources */,
 				9B117EDF28A74D74001812FF /* NameDetailView.swift in Sources */,

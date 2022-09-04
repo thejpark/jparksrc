@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HeadsUpCarView: View {
   @State private var surName: String = ""
-  @State private var surNameHanja: String = ""
   @State private var gender: String = ""
   @State private var birthPlace: String = ""
   @State private var dob: String = ""
@@ -22,10 +21,13 @@ struct HeadsUpCarView: View {
           .padding(.all, 0)
         Spacer(minLength: 40)
         VStack(alignment: .leading) {
-          Text(surName)
-          .font(.body)
+        Text("출생등록정보")
+          .font(.title)
+          .bold()
           .multilineTextAlignment(.leading)
-          Text(surNameHanja)
+
+        Spacer(minLength: 20)
+          Text(surName)
           .font(.body)
           .multilineTextAlignment(.leading)
           Text(gender)
@@ -44,11 +46,10 @@ struct HeadsUpCarView: View {
 //            .font(.caption)
         }.padding()
         .onAppear() {
-          self.surName = RegisterInfo.obj.surName
-          self.surNameHanja = RegisterInfo.obj.surNameHanja
-          self.gender = RegisterInfo.obj.gender.rawValue
-          self.birthPlace = RegisterInfo.obj.birthPlace.rawValue
-          self.dob = getStringFromDate(RegisterInfo.obj.datetime)
+          self.surName = "성: " + RegisterInfo.obj.surName + "(" + RegisterInfo.obj.surNameHanja + ")"
+          self.gender = "성별: " + RegisterInfo.obj.gender.rawValue
+          self.birthPlace = "출생지: " + RegisterInfo.obj.birthPlace.rawValue
+          self.dob = "시간 : " + getStringFromDate(RegisterInfo.obj.datetime)
         }
 
       }

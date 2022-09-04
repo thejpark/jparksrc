@@ -8,15 +8,31 @@
 import SwiftUI
 
 struct HomeView: View {
+//  @State var names: [Elem] = [Elem]()
+
     var body: some View {
-      List {
+      ScrollView {
         HeadsUpCarView()
           .fixedSize(
             horizontal: false,
             vertical: true)
-          .frame(height: 180)
+          .frame(height: 220)
           .listRowInsets(EdgeInsets())
+          //todo: text saju info
       }
+//        Text("Names")
+//          .font(.title)
+//          .bold()
+//          .multilineTextAlignment(.leading)
+//        List(names) { name in
+//          NavigationLink {
+//            NameDetailView(elem: name)
+//          } label: {
+//            FeatureCellView(title: name.desc())
+//          }
+//        }.onAppear() {
+//            names = savedElements
+//          }
     }
 }
 

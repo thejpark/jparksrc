@@ -11,6 +11,7 @@ struct NameDetailView: View {
   var elem: Elem
 
   var body: some View {
+    Group {
     ScrollView {
       VStack(alignment: .leading) {
 //        Image(detail.image ?? "")
@@ -70,5 +71,9 @@ struct NameDetailView: View {
       .padding(.trailing, 20)
       .padding(.bottom, 40)
     }
-  }
+    }
+    .navigationBarItems(
+      trailing: Button("저장", action: elem.save)
+   )
+}
 }

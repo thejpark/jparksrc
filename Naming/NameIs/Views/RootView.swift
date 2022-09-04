@@ -11,11 +11,13 @@ struct RootView: View {
   @Binding var deeplinkTarget: DeeplinkTarget?
   @State private var showingSheet: Bool = false
 
+  let loadedElem = loadElem()
+
   var body: some View {
     TabView(selection: $selection) {
       NavigationView {
         HomeView()
-          .navigationTitle("출생정보")
+//          .navigationTitle("출생정보")
       }.tabItem {
         if selection == 0 {
           Label("Home", image: "overview_tab_selected")
@@ -26,7 +28,7 @@ struct RootView: View {
 
 
       NavigationView {
-        EmptyView()
+        SuggestedNamesView()
           .navigationTitle("추천이름")
       }.tabItem {
         if selection == 1 {
