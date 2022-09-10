@@ -332,14 +332,35 @@ final class Search: NSObject {
     hangulName = name
   }
 
+  let male: [String] = ["민준","서준","주원","하준","예준","준우","도윤","지후","준서","지호","서진"]
+  let female: [String] = ["서윤","서연","민서","지우","지민","서진","지아","지우","지유","하윤","하은","서현","지원"]
+
   func getNames() -> [Elem] {
-    Search.obj.search(surName: RegisterInfo.obj.surName,
-                      surNameH: RegisterInfo.obj.surNameHanja,
-                      givenName: hangulName,
-                      selectedDate: RegisterInfo.obj.datetime,
-                      birthPlace: RegisterInfo.obj.birthPlace)
-    return objects
+    var suggested: [Elem] = []
+    if hangulName == "" {
+      let names = RegisterInfo.obj.gender == .male ? male : female
+      for name in names {
+        Search.obj.search(surName: RegisterInfo.obj.surName,
+                        surNameH: RegisterInfo.obj.surNameHanja,
+                        givenName: name,
+                        selectedDate: RegisterInfo.obj.datetime,
+                        birthPlace: RegisterInfo.obj.birthPlace)
+        if objects.count > 0 {
+          suggested.append(objects[0])
+        }
+      }
+
+      return suggested
+    } else {
+      Search.obj.search(surName: RegisterInfo.obj.surName,
+                        surNameH: RegisterInfo.obj.surNameHanja,
+                        givenName: hangulName,
+                        selectedDate: RegisterInfo.obj.datetime,
+                        birthPlace: RegisterInfo.obj.birthPlace)
+      return objects
+    }
   }
+
 
   func search(surName: String, surNameH: String, givenName: String, selectedDate: Date, birthPlace:Place) {
       var gname: [Hanja] = [Hanja]()

@@ -73,6 +73,7 @@ struct HangulNameComponent: View {
 //  var image: String
 }
 
+var pendingGivenName: String = ""
 func onChangeHangulName(n: String) -> String {
   Search.obj.setName(name: n)
   return n
