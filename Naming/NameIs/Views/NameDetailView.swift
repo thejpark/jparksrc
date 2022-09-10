@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NameDetailView: View {
+  @State private var showingPopover = false
   var elem: Elem
 
   var body: some View {
@@ -70,10 +71,18 @@ struct NameDetailView: View {
       .padding(.leading, 20)
       .padding(.trailing, 20)
       .padding(.bottom, 40)
+
     }
     }
     .navigationBarItems(
-      trailing: Button("저장", action: elem.save)
-   )
+      trailing: Button("저장") {
+        elem.save()
+        showingPopover = true
+      }
+      .alert("저장되었습니다", isPresented: $showingPopover) {
+        Button("OK", role: .cancel){}
+      }
+    )
 }
 }
+

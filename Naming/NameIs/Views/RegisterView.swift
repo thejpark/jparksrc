@@ -284,6 +284,7 @@ struct PlaceComponent: View {
 
 
 struct RegisterView: View {
+  @State private var showingPopover = false
 
   var body: some View {
     Group {
@@ -327,7 +328,17 @@ struct RegisterView: View {
     .navigationBarItems(
       leading: Button("취소", action: cancelRegister),
 //        .foregroundColor(Colors.Accent.Content.primary),
-      trailing: Button("등록", action: register)
+      trailing: Button("등록") {
+        if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "") {
+          showingPopover = true
+        } else {
+          register()
+        }
+      }
+      .alert("성을 확인해 주세요", isPresented: $showingPopover) {
+        Button("OK", role: .cancel){}
+      }
+
 //        .foregroundColor(
 //          viewModel.canCreate
 //            ? Colors.Accent.Content.primary

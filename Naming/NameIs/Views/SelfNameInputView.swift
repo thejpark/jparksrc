@@ -80,7 +80,7 @@ func onChangeHangulName(n: String) -> String {
 
 
 struct SelfNameInputView: View {
-
+  @State private var showingPopover = false
   var body: some View {
     Group {
       ScrollView {
@@ -108,10 +108,15 @@ struct SelfNameInputView: View {
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, 40)
+        .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
+            Button("OK", role: .cancel){}
+        }
+      }.onAppear() {
+        showingPopover = RegisterInfo.obj.surName == "" || RegisterInfo.obj.surNameHanja == ""
       }
     }
     .navigationBarItems(
-      leading: Button("취소", action: cancelSearch),
+//      leading: Button("취소", action: cancelSearch),
 //        .foregroundColor(Colors.Accent.Content.primary),
       trailing: NavigationLink("찾기", destination: SelfNameResultView()) //{
 //      }.simultaneousGesture { search() } //.onAppear {search()})
@@ -128,8 +133,8 @@ struct SelfNameInputView: View {
   }
 }
 
-func cancelSearch() {
-}
+//func cancelSearch() {
+//}
 
 struct SelfNameInputView_Previews: PreviewProvider {
     static var previews: some View {

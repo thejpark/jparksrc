@@ -20,9 +20,13 @@ struct RootView: View {
 //          .navigationTitle("출생정보")
       }.tabItem {
         if selection == 0 {
-          Label("Home", image: "overview_tab_selected")
+//          Image("overview_tab_selected")
+//          Text("Home").font(.system(size:120))
+                    Label("Home", image: "overview_tab_selected")
         } else {
           Label("Home", image: "overview_tab")
+//          Image("overview_tab")
+//          Text("Home").font(.system(size:120))
         }
       }.tag(0)
 

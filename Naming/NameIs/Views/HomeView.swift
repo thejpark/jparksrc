@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-//  @State var names: [Elem] = [Elem]()
+  @State private var showingPopover = false
 
     var body: some View {
       ScrollView {
@@ -18,7 +18,12 @@ struct HomeView: View {
             vertical: true)
           .frame(height: 220)
           .listRowInsets(EdgeInsets())
+          .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
+            Button("OK", role: .cancel){}
+          }
           //todo: text saju info
+      }.onAppear() {
+        showingPopover = RegisterInfo.obj.surName == "" || RegisterInfo.obj.surNameHanja == ""
       }
 //        Text("Names")
 //          .font(.title)
