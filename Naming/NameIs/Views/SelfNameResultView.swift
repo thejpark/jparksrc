@@ -9,15 +9,23 @@ import SwiftUI
 
 
 struct SelfNameResultView: View {
-//  var names: [Elem] = Search.obj.getNames()
+  @State private var showingPopover = false
+  @State var names: [Elem] = [Elem]()
 
   var body: some View {
-    List(Search.obj.getNames()) { name in
+    List(names) { name in
       NavigationLink {
         NameDetailView(elem: name)
       } label: {
         FeatureCellView(title: name.desc())
       }
     }.navigationTitle("Names")
+      .onAppear() {
+        names = Search.obj.getNames()
+        showingPopover = names.isEmpty
+      }
+      .alert("찾는 이름이 없습니다", isPresented: $showingPopover) {
+        Button("OK", role: .cancel){}
+      }
   }
 }

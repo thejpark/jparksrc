@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SuggestedNamesView: View {
   @State var names: [Elem] = [Elem]()
+  @State private var showingPopover = false
 
   var body: some View {
     List {
@@ -22,9 +23,13 @@ struct SuggestedNamesView: View {
     }
     .onDelete(perform: delete)
     }
-      .onAppear() {
-        names = savedElements
-      }
+    .onAppear() {
+      names = savedElements
+      showingPopover = names.isEmpty
+    }
+    .alert("저장된 이름이 없습니다", isPresented: $showingPopover) {
+      Button("OK", role: .cancel){}
+    }
   }
 
   func delete(at offsets: IndexSet) {
