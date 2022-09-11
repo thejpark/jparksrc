@@ -73,7 +73,7 @@
 		9BFA33E828CCBA2A00F55AB4 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
 		E10D3CC0283ED1120086DF59 /* DeeplinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkManager.swift; sourceTree = "<group>"; };
 		E10D3CC2283ED7A00086DF59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		E10D3CC3283EDCA90086DF59 /* HeadsUpCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsUpCarView.swift; sourceTree = "<group>"; };
+		E10D3CC3283EDCA90086DF59 /* HeadsUpCarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HeadsUpCarView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E10D3CC5283EDD470086DF59 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E10D3CC7283EF6A10086DF59 /* HeadsUpDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsUpDetailView.swift; sourceTree = "<group>"; };
 		E10D3CC9283EF8E00086DF59 /* AssetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsView.swift; sourceTree = "<group>"; };

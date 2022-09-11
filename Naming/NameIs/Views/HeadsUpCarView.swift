@@ -14,16 +14,17 @@ struct HeadsUpCarView: View {
   @State private var dob: String = ""
     var body: some View {
       VStack(alignment: .leading) {
-        Image("hawaii")
+        Image("chanmin")
           .resizable()
           .aspectRatio(contentMode: .fill)
           .frame(height: 70)
           .padding(.all, 0)
         Spacer(minLength: 40)
         VStack(alignment: .leading) {
-        Text("출생등록정보")
+        Spacer(minLength: 40)
+        Text("출생정보")
           .font(.title)
-          .bold()
+          .foregroundColor(.black)
           .multilineTextAlignment(.leading)
 
         Spacer(minLength: 20)

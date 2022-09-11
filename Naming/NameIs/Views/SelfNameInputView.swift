@@ -86,7 +86,7 @@ struct SelfNameInputView: View {
     Group {
       ScrollView {
         VStack(alignment: .leading) {
-          Image("hawaii")
+          Image("chanmin")
             .resizable()
             .aspectRatio(contentMode: .fit)
 
