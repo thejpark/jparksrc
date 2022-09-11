@@ -59,12 +59,29 @@ struct NameDetailView: View {
           .font(.body)
           .multilineTextAlignment(.leading)
 
-        Spacer(minLength: 40)
+//        Spacer(minLength: 40)
 
 //        Link("Tap to see ↗", destination: detail.link!)
 //            .font(.title)
 //
-//        Spacer(minLength: 80)
+//      Spacer(minLength: 40)
+      VStack(alignment: .leading) {
+        let englishName = TranslateEng(fname: elem.givenName1)
+        let englishNameTitle = "참고로 표준 영어 이름은 " + englishName + "입니다"
+        let tapToListen = "Tap to listen"
+
+        Spacer(minLength: 40)
+        Text(englishNameTitle)
+          .font(.body)
+          .multilineTextAlignment(.leading)
+        Text(tapToListen)
+          .font(.body)
+          .foregroundColor(.blue)
+          .multilineTextAlignment(.leading)
+          .onTapGesture {
+            SayName(name: englishName)
+          }
+      }
 
       }
       .padding(.top, 10)
@@ -73,6 +90,7 @@ struct NameDetailView: View {
       .padding(.bottom, 40)
 
     }
+
     }
     .navigationBarItems(
       trailing: Button("저장") {
