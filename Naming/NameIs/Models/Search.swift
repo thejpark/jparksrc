@@ -186,15 +186,27 @@ class Elem: NSObject, NSCoding, Identifiable {
         return r + "으로"
     }
 
+    func getSingangSinyag() -> String
+    {
+      let strength = self.ilganGangYag.1
+      if strength < 5 {
+        return "사주가 신약한 편입니다"
+      } else if strength > 5 {
+        return "사주가 신강한 편입니다"
+      } else {
+        return "사주가 강하지도 약하지도 않은 균형잡힌 중화사주 입니다"
+      }
+    }
 
     func getIlganGangYag() -> String {
         var r: String = "사주의 기준 오행은 "
         r += ohangHanja[self.ilganGangYag.0]!
-        r += " 입니다" // + String(self.ilganGangYag.1)
+        r += " 입니다. " // + String(self.ilganGangYag.1)
 //        r += " 극: "
 //        r += ohangHanja[self.ilganGangYag.2]!
 //        r += " " + String(self.ilganGangYag.3)
-        return r
+        r += getSingangSinyag()
+      return r
     }
 
     func getHeeYong() -> String {

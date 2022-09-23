@@ -19,7 +19,9 @@ struct HomeView: View {
           .frame(height: 220)
           .listRowInsets(EdgeInsets())
           .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
-            Button("OK", role: .cancel){}
+            Button("OK"){
+              gotoRegister()
+            }
           }
           //todo: text saju info
       }.onAppear() {
@@ -39,6 +41,10 @@ struct HomeView: View {
 //            names = savedElements
 //          }
     }
+}
+
+func gotoRegister() {
+  UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/actions")!)
 }
 
 struct HomeView_Previews: PreviewProvider {

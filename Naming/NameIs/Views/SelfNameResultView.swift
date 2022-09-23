@@ -19,7 +19,7 @@ struct SelfNameResultView: View {
       } label: {
         FeatureCellView(title: name.desc())
       }
-    }.navigationTitle("Names")
+    }.navigationTitle("Search Results")
       .onAppear() {
         names = Search.obj.getNames()
         showingPopover = names.isEmpty
