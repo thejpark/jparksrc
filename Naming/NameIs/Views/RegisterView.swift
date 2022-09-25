@@ -239,10 +239,10 @@ struct PlaceComponent: View {
         self.currentLocation = suburb
       }
     } else {
-      let currentLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
+      let currentGeoLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
                                         longitude: pendingRegisterInfo.longitude,
                                         accuracy: kCLLocationAccuracyBest)
-      ReverseGeocoder.reverseGeocodeLocation(withCoordinate: currentLocation) { location in
+      ReverseGeocoder.reverseGeocodeLocation(withCoordinate: currentGeoLocation) { location in
           guard let suburb = location
           else { return }
           self.currentLocation = suburb

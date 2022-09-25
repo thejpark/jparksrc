@@ -26,6 +26,9 @@ struct CoordinateInputView: View {
           Spacer()
         TextField("37.5665", text: $latitude)
         .lineLimit(1).foregroundColor(.blue)
+        .onChange(of: latitude) { newValue in
+          pendingRegisterInfo.latitude = Double(newValue) ?? 0
+        }
       }
 
       HStack {
@@ -35,13 +38,13 @@ struct CoordinateInputView: View {
           Spacer()
         Spacer()
         TextField("126.9780", text: $longitude)
-          .lineLimit(1).foregroundColor(.blue)
+        .lineLimit(1).foregroundColor(.blue)
+        .onChange(of: longitude) { newValue in
+          pendingRegisterInfo.longitude = Double(newValue) ?? 0
+        }
       }
       Spacer()
       Spacer()
-    }.onDisappear() {
-      pendingRegisterInfo.latitude = Double(latitude) ?? 0
-      pendingRegisterInfo.longitude = Double(longitude) ?? 0
     }
   }
 }
