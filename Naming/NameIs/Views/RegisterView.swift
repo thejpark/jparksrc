@@ -196,6 +196,8 @@ struct DobComponent: View {
 
 struct PlaceComponent: View {
   @State private var selectedPlace: Place = .서울
+  @State private var currentLocation: String = "?"
+  let locationProvider: ProvidesCurrentLocationProvider = CurrentLocationProvider()
   var body: some View {
     VStack {
 //      Button {
@@ -214,6 +216,8 @@ struct PlaceComponent: View {
           Text("출생지")
             .lineLimit(1).foregroundColor(.black)
           Spacer()
+          Text(currentLocation)
+            .lineLimit(1).foregroundColor(.black)
 //          List {
           Picker("", selection: binding) {
             Group {
@@ -274,12 +278,40 @@ struct PlaceComponent: View {
         }
         .frame(height: base * 14)
         .padding(.horizontal, base * 3)
+    }.onAppear() {
+      populateLocation()
     }
   }
 
   //  var text: String
-//  var image: String
+  //  var image: String
+  private func populateLocation() {
+    getCurrentLocation { location in
+      guard let suburb = location
+      else { return }
+      self.currentLocation = suburb
+    }
+  }
+
+  func getCurrentLocation(_ completion: @escaping (String?) -> Void) {
+    locationProvider.getCurrentLocation { result in
+      switch result {
+      case .updatedLocation(let currentLocation):
+        guard let currentLocation = currentLocation else {
+          completion(nil)
+          return
+        }
+        ReverseGeocoder.reverseGeocodeLocation(withCoordinate: currentLocation) { location in
+          completion(location)
+        }
+      case .deniedAccess, .error:
+        completion(nil)
+      }
+    }
+  }
+
 }
+
 
 
 
