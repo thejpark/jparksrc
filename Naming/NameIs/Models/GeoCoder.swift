@@ -7,7 +7,7 @@
 import CoreLocation
 import Foundation
 
-typealias ReverseGeocoderCompletionHandler = (_ location: String?) -> Void
+typealias ReverseGeocoderCompletionHandler = (_ location: GeoLocation?) -> Void
 
 class ReverseGeocoder: NSObject {
 
@@ -34,12 +34,16 @@ class ReverseGeocoder: NSObject {
             })
 
             let placemarkGeoLocation = sorted.first!
-            var result = placemarkGeoLocation.locality
+            var name = placemarkGeoLocation.locality
             if let country = placemarkGeoLocation.country {
-              result! += ", " + country
+              name! += ", " + country
             }
 
-            completion(result)
+          var result = geoLocation
+          if let name = name {
+            result.name = name
+          }
+          completion(result)
         }
     }
 }

@@ -195,6 +195,8 @@ struct DobComponent: View {
 struct PlaceComponent: View {
   @State private var selectedPlace: Place = .서울
   @State private var currentLocation: String = ""
+  @State private var latitude: Double = 0
+  @State private var longitude: Double = 0
   let locationProvider: ProvidesCurrentLocationProvider = CurrentLocationProvider()
   var body: some View {
     VStack {
@@ -210,8 +212,6 @@ struct PlaceComponent: View {
           Spacer()
           Text(currentLocation)
             .lineLimit(1).foregroundColor(.black)
-//          List {
-
 
           Spacer()
           Spacer()
@@ -229,28 +229,28 @@ struct PlaceComponent: View {
     }
   }
 
-  //  var text: String
-  //  var image: String
   private func populateLocation() {
     if pendingRegisterInfo.latitude == 0 && pendingRegisterInfo.longitude == 0 {
       getCurrentLocation { location in
-        guard let suburb = location
+        guard let location = location
         else { return }
-        self.currentLocation = suburb
+        self.currentLocation = location.name
+        self.latitude = location.latitude
+        self.longitude = location.longitude
       }
     } else {
-      let currentGeoLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
+      let geoLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
                                         longitude: pendingRegisterInfo.longitude,
                                         accuracy: kCLLocationAccuracyBest)
-      ReverseGeocoder.reverseGeocodeLocation(withCoordinate: currentGeoLocation) { location in
-          guard let suburb = location
+      ReverseGeocoder.reverseGeocodeLocation(withCoordinate: geoLocation) { location in
+          guard let location = location
           else { return }
-          self.currentLocation = suburb
+          self.currentLocation = location.name
         }
     }
   }
 
-  func getCurrentLocation(_ completion: @escaping (String?) -> Void) {
+  func getCurrentLocation(_ completion: @escaping (GeoLocation?) -> Void) {
     locationProvider.getCurrentLocation { result in
       switch result {
       case .updatedLocation(let currentLocation):

@@ -12,6 +12,7 @@ struct GeoLocation: Equatable {
   let latitude: CLLocationDegrees
   let longitude: CLLocationDegrees
   let accuracy: CLLocationAccuracy
+  var name: String = ""
 }
 
 protocol ProvidesCurrentLocationProvider: AnyObject {
