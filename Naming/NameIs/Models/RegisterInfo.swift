@@ -24,6 +24,8 @@ struct RegisterInfo {
   var gender: Gender
   var datetime: Date
   var birthPlace: Place
+  var latitude: Double = 0
+  var longitude: Double = 0
   static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
 }
 

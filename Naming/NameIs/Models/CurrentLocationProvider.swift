@@ -53,11 +53,10 @@ final class CurrentLocationProvider: NSObject, ProvidesCurrentLocationProvider {
   }
 
   func getCurrentLocation(_ handler: @escaping (Result) -> Void) {
-    // todo
-    //    DispatchQueue.main.async {
+    DispatchQueue.main.async {
       self.completionHandler = handler
       self.start()
-//    }
+    }
   }
 
   func start() {

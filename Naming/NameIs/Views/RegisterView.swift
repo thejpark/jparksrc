@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreLocation
+
 
 //struct TextEditingView: View {
 //  @State private var fullText: String = ""
@@ -104,10 +106,6 @@ func onChangeDate(d: Date) {
   pendingRegisterInfo.datetime = d
 }
 
-func onChangePlace(p: Place) {
-  pendingRegisterInfo.birthPlace = p
-}
-
 func onChangeLastName(n: String, h: String, s: String) -> String {
   pendingRegisterInfo.surName = n
   pendingRegisterInfo.surNameHanja = s
@@ -196,7 +194,7 @@ struct DobComponent: View {
 
 struct PlaceComponent: View {
   @State private var selectedPlace: Place = .서울
-  @State private var currentLocation: String = "?"
+  @State private var currentLocation: String = ""
   let locationProvider: ProvidesCurrentLocationProvider = CurrentLocationProvider()
   var body: some View {
     VStack {
@@ -204,13 +202,7 @@ struct PlaceComponent: View {
 ////        viewModel.editPressed(action: item.action)
 //      } label: {
 
-        let binding = Binding(
-          get: { self.selectedPlace },
-          set: { self.selectedPlace = $0
-            onChangePlace(p: $0)
-          }
-         )
-        HStack(spacing: base * 3) {
+        HStack(spacing: base * 2) {
 //          Image(image)
 //            .frame(width: base * 6, height: base * 6)
           Text("출생지")
@@ -219,65 +211,19 @@ struct PlaceComponent: View {
           Text(currentLocation)
             .lineLimit(1).foregroundColor(.black)
 //          List {
-          Picker("", selection: binding) {
-            Group {
-            Text("강릉").tag(Place.강릉)
-            Text("경주").tag(Place.경주)
-            Text("고양").tag(Place.고양)
-            Text("광주").tag(Place.광주)
-            Text("구미").tag(Place.구미)
-            Text("군산").tag(Place.군산)
-            Text("김천").tag(Place.김천)
-            Text("김해").tag(Place.김해)
-            Text("남양주").tag(Place.남양주)
-            Text("대구").tag(Place.대구)
-            }
-            Group {
-            Text("대전").tag(Place.대전)
-            Text("동해").tag(Place.동해)
-            Text("목포").tag(Place.목포)
-            Text("부산").tag(Place.부산)
-            Text("백령도").tag(Place.백령도)
-            Text("서울").tag(Place.서울)
-            Text("서산").tag(Place.서산)
-            Text("서귀포").tag(Place.서귀포)
-            Text("성남").tag(Place.성남)
-            Text("세종").tag(Place.세종)
-            }
-            Group {
-            Text("수원").tag(Place.수원)
-            Text("순천").tag(Place.순천)
-            Text("여수").tag(Place.여수)
-            Text("용인").tag(Place.용인)
-            Text("원주").tag(Place.원주)
-            Text("울릉").tag(Place.울릉)
-            Text("울산").tag(Place.울산)
-            Text("익산").tag(Place.익산)
-            Text("인천").tag(Place.인천)
-            Text("전주").tag(Place.전주)
-            }
-            Group {
-            Text("제주").tag(Place.제주)
-            Text("창원").tag(Place.창원)
-            Text("춘천").tag(Place.춘천)
-            Text("파주").tag(Place.파주)
-            Text("평택").tag(Place.평택)
-            Text("포항").tag(Place.포항)
-            Text("포천").tag(Place.포천)
-            Text("통영").tag(Place.통영)
-            Text("청주").tag(Place.청주)
-            Text("홍천").tag(Place.홍천)
-            }
-            Group {
-            Text("해외").tag(Place.해외)
-            }
-          }
+
 
           Spacer()
           Spacer()
         }
         .frame(height: base * 14)
         .padding(.horizontal, base * 3)
+
+        NavigationLink {
+          CoordinateInputView()
+        } label: {
+          Text("출생지 변경")
+        }
     }.onAppear() {
       populateLocation()
     }
@@ -286,10 +232,21 @@ struct PlaceComponent: View {
   //  var text: String
   //  var image: String
   private func populateLocation() {
-    getCurrentLocation { location in
-      guard let suburb = location
-      else { return }
-      self.currentLocation = suburb
+    if pendingRegisterInfo.latitude == 0 && pendingRegisterInfo.longitude == 0 {
+      getCurrentLocation { location in
+        guard let suburb = location
+        else { return }
+        self.currentLocation = suburb
+      }
+    } else {
+      let currentLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
+                                        longitude: pendingRegisterInfo.longitude,
+                                        accuracy: kCLLocationAccuracyBest)
+      ReverseGeocoder.reverseGeocodeLocation(withCoordinate: currentLocation) { location in
+          guard let suburb = location
+          else { return }
+          self.currentLocation = suburb
+        }
     }
   }
 
@@ -311,9 +268,6 @@ struct PlaceComponent: View {
   }
 
 }
-
-
-
 
 struct RegisterView: View {
   @State private var showingPopover = false
@@ -395,14 +349,19 @@ func register() {
 
   defaults.synchronize()
 
+  pendingRegisterInfo.longitude = 0
+  pendingRegisterInfo.latitude = 0
   // clear previously stored names
-//  clearElem()
+  //  clearElem()
 
 
   UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
 
 func cancelRegister() {
+  pendingRegisterInfo.longitude = 0
+  pendingRegisterInfo.latitude = 0
+
   UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
 

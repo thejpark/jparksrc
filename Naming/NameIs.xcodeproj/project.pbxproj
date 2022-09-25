@@ -15,6 +15,7 @@
 		9B3438BF28DEA52C00E5E8CE /* CurrentLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438BE28DEA52C00E5E8CE /* CurrentLocationProvider.swift */; };
 		9B3438C128DEC42A00E5E8CE /* Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438C028DEC42A00E5E8CE /* Permission.swift */; };
 		9B3438C328DF0A4500E5E8CE /* GeoCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438C228DF0A4500E5E8CE /* GeoCoder.swift */; };
+		9B3438C528DFE75800E5E8CE /* CoordinateInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */; };
 		9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7F841C289610D40095F776 /* SelfNameInputView.swift */; };
 		9BC462B028C42831008C2683 /* SuggestedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */; };
 		9BC462B228C4C221008C2683 /* SavedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC462B128C4C221008C2683 /* SavedNamesView.swift */; };
@@ -70,6 +71,7 @@
 		9B3438BE28DEA52C00E5E8CE /* CurrentLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationProvider.swift; sourceTree = "<group>"; };
 		9B3438C028DEC42A00E5E8CE /* Permission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Permission.swift; sourceTree = "<group>"; };
 		9B3438C228DF0A4500E5E8CE /* GeoCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoder.swift; sourceTree = "<group>"; };
+		9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateInputView.swift; sourceTree = "<group>"; };
 		9B7F841C289610D40095F776 /* SelfNameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameInputView.swift; sourceTree = "<group>"; };
 		9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedNamesView.swift; sourceTree = "<group>"; };
 		9BC462B128C4C221008C2683 /* SavedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNamesView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				9B117EDE28A74D74001812FF /* NameDetailView.swift */,
 				9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */,
 				9BC462B128C4C221008C2683 /* SavedNamesView.swift */,
+				9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				9B117EDF28A74D74001812FF /* NameDetailView.swift in Sources */,
 				E193BEF1283DB56A0076133B /* Feature.swift in Sources */,
 				E193BEEA283DB4210076133B /* APIClient.swift in Sources */,
+				9B3438C528DFE75800E5E8CE /* CoordinateInputView.swift in Sources */,
 				E193BEF7283DBEF20076133B /* EmptyView.swift in Sources */,
 				E193BEEF283DB4E40076133B /* FeaturesResponse.swift in Sources */,
 				9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */,
