@@ -273,15 +273,24 @@ struct PlaceComponent: View {
 struct RegisterView: View {
   @State private var showingPopover = false
   @State private var selectedItem: PhotosPickerItem?
-  @State private var selectedImage: Image?
+  @State private var selectedImage: Image = getRegisteredImage()
 
   var body: some View {
     Group {
       ScrollView {
         VStack(alignment: .leading) {
-          Image("chanmin")
+          selectedImage
             .resizable()
             .aspectRatio(contentMode: .fit)
+          //          if let selectedImage {
+//            selectedImage
+//              .resizable()
+//              .aspectRatio(contentMode: .fit)
+//          } else {
+//            Image("chanmin")
+//              .resizable()
+//              .aspectRatio(contentMode: .fit)
+//          }
 
           HStack() {
             Spacer()
@@ -295,6 +304,7 @@ struct RegisterView: View {
               Task {
                 if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                   selectedImage = Image(uiImage: image)
+                  setRegisteredImage(selectedImage)
                 }
               }
             }
@@ -346,6 +356,16 @@ struct RegisterView: View {
 //        .disabled(!viewModel.canCreate))
    )
   }
+}
+
+
+var registeredImage : Image = Image("chanmin")
+func setRegisteredImage(_ newImage: Image) {
+  registeredImage = newImage
+}
+
+func getRegisteredImage() -> Image {
+  return registeredImage
 }
 
 func register() {

@@ -82,12 +82,12 @@ func onChangeHangulName(n: String) -> String {
 
 struct SelfNameInputView: View {
   @State private var showingPopover = false
+  @State private var pic: Image = getRegisteredImage()
   var body: some View {
     Group {
       ScrollView {
         VStack(alignment: .leading) {
-          Image("chanmin")
-            .resizable()
+          pic.resizable()
             .aspectRatio(contentMode: .fit)
 
           Spacer(minLength: 40)
@@ -114,6 +114,7 @@ struct SelfNameInputView: View {
         }
       }.onAppear() {
         showingPopover = RegisterInfo.obj.surName == "" || RegisterInfo.obj.surNameHanja == ""
+        self.pic = getRegisteredImage()
       }
     }
     .navigationBarItems(

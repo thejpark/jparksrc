@@ -13,11 +13,12 @@ struct HeadsUpCarView: View {
   @State private var birthPlace: String = ""
   @State private var dob: String = ""
   @State private var saju: String = ""
+  @State private var pic: Image = getRegisteredImage()
 
     var body: some View {
       VStack(alignment: .leading) {
-        Image("chanmin")
-          .resizable()
+        //        Image("chanmin")
+        pic.resizable()
           .aspectRatio(contentMode: .fit)
 //          .frame(height: 70)
 //          .padding(.all, 0)
@@ -66,6 +67,7 @@ struct HeadsUpCarView: View {
           let minute = Int(str[4])!
 
           self.saju = "사주: " + getSaju(year, month: month, day: day, hour: hour, minute: minute);
+          self.pic = getRegisteredImage()
           }
         }
 
