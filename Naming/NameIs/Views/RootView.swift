@@ -17,7 +17,7 @@ struct RootView: View {
     TabView(selection: $selection) {
       NavigationView {
         HomeView()
-//          .navigationTitle("출생정보")
+          .navigationTitle("Home")
       }.tabItem {
         if selection == 0 {
 //          Image("overview_tab_selected")

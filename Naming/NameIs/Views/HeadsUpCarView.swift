@@ -50,8 +50,8 @@ struct HeadsUpCarView: View {
 //            .font(.subheadline)
 //          Text("1 week ago")
 //            .font(.caption)
-        }.padding()
-        .onAppear() {
+        } 
+          .onAppear() {
           if RegisterInfo.obj.surName !=  ""  {
           self.surName = "성: " + RegisterInfo.obj.surName + "(" + RegisterInfo.obj.surNameHanja + ")"
           self.gender = "성별: " + RegisterInfo.obj.gender.rawValue

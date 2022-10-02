@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 import CoreLocation
 
 
@@ -271,6 +272,8 @@ struct PlaceComponent: View {
 
 struct RegisterView: View {
   @State private var showingPopover = false
+  @State private var selectedItem: PhotosPickerItem?
+  @State private var selectedImage: Image?
 
   var body: some View {
     Group {
@@ -280,12 +283,23 @@ struct RegisterView: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
 
-          Spacer(minLength: 40)
-
-//          Text("출생정보등록")
-//            .font(.title)
-//            .bold()
-//            .multilineTextAlignment(.leading)
+          HStack() {
+            Spacer()
+            PhotosPicker(selection: $selectedItem, matching: .images) {
+              Label("사진 변경", systemImage: "photo")
+            }
+            .tint(.purple)
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .onChange(of: selectedItem) { newValue in
+              Task {
+                if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+                  selectedImage = Image(uiImage: image)
+                }
+              }
+            }
+            Spacer()
+          }
 
           Divider()
             .background(.black)
