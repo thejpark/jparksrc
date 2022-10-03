@@ -305,6 +305,7 @@ struct RegisterView: View {
                 if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
                   selectedImage = Image(uiImage: image)
                   setRegisteredImage(selectedImage)
+                  pendingRegisterInfo.image = imageData
                 }
               }
             }
@@ -359,13 +360,20 @@ struct RegisterView: View {
 }
 
 
-var registeredImage : Image = Image("chanmin")
+var registeredImage : Image?
 func setRegisteredImage(_ newImage: Image) {
   registeredImage = newImage
 }
 
 func getRegisteredImage() -> Image {
-  return registeredImage
+  if registeredImage == nil {
+    if let image = RegisterInfo.obj.image {
+      registeredImage = Image(uiImage: UIImage(data: image)!)
+    } else {
+      registeredImage = Image("chanmin")
+    }
+  }
+  return registeredImage!
 }
 
 func register() {
@@ -378,6 +386,7 @@ func register() {
   defaults.setValue(RegisterInfo.obj.datetime, forKey: RegisterInfoKeys.dob)
   defaults.setValue(RegisterInfo.obj.gender.rawValue, forKey: RegisterInfoKeys.gender)
   defaults.setValue(RegisterInfo.obj.birthPlace.rawValue, forKey: RegisterInfoKeys.place)
+  defaults.setValue(RegisterInfo.obj.image, forKey: RegisterInfoKeys.image)
   gEditCount -= 1
   defaults.setValue(String(gEditCount), forKey: RegisterInfoKeys.editCount)
 

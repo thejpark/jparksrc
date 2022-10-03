@@ -26,6 +26,7 @@ struct RegisterInfo {
   var birthPlace: Place
   var latitude: Double = 0
   var longitude: Double = 0
+  var image: Data?
   static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
 }
 
@@ -41,6 +42,7 @@ struct RegisterInfoKeys {
     static let dob = "dob"
     static let gender = "gender"
     static let place = "place"
+    static let image = "image"
     static let editCount = "editCount"
 }
 
@@ -65,8 +67,9 @@ func loadUserInfo() -> Bool {
   }
   if let place = defaults.string(forKey: RegisterInfoKeys.place) {
     RegisterInfo.obj.birthPlace = Place(rawValue: place)!
-      // set timediff
-//          timeDiff = timeDiffMap[RegisterInfo.obj.birthPlace]!
+  }
+  if let image = defaults.object(forKey: RegisterInfoKeys.image) as? Data {
+    RegisterInfo.obj.image = image
   }
   if let str2 = defaults.string(forKey: RegisterInfoKeys.editCount) {
       gEditCount = Int(str2)!
