@@ -13,21 +13,16 @@ enum Gender: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-enum Place: String, CaseIterable, Identifiable {
-  case  강릉, 경주, 고양, 광주, 구미, 군산, 김천, 김해, 남양주, 대구, 대전, 동해, 목포, 부산, 백령도, 서울, 서산, 서귀포, 성남, 세종, 수원, 순천, 여수, 용인, 원주, 울산, 울릉, 인천, 익산, 전주, 제주, 창원, 청주, 춘천, 통영, 파주, 평택, 포항, 포천, 홍천, 해외
-  var id: Self { self }
-}
-
 struct RegisterInfo {
   var surName: String
   var surNameHanja: String
   var gender: Gender
   var datetime: Date
-  var birthPlace: Place
+  var birthPlace: String
   var latitude: Double = 0
   var longitude: Double = 0
   var image: Data?
-  static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+  static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: "서울")
 }
 
 func getStringFromDate(_ date: Date) -> String {
@@ -42,6 +37,8 @@ struct RegisterInfoKeys {
     static let dob = "dob"
     static let gender = "gender"
     static let place = "place"
+    static let latitude = "latitude"
+    static let longitude = "longitude"
     static let image = "image"
     static let editCount = "editCount"
 }
@@ -66,8 +63,12 @@ func loadUserInfo() -> Bool {
     RegisterInfo.obj.gender = Gender(rawValue: gender)!
   }
   if let place = defaults.string(forKey: RegisterInfoKeys.place) {
-    RegisterInfo.obj.birthPlace = Place(rawValue: place)!
+    RegisterInfo.obj.birthPlace = place
   }
+
+  RegisterInfo.obj.latitude = defaults.double(forKey: RegisterInfoKeys.latitude)
+  RegisterInfo.obj.longitude = defaults.double(forKey: RegisterInfoKeys.longitude)
+
   if let image = defaults.object(forKey: RegisterInfoKeys.image) as? Data {
     RegisterInfo.obj.image = image
   }

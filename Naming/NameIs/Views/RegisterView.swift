@@ -88,7 +88,7 @@ struct FamilynameComponent: View {
             Spacer()
           }
         }
-        .frame(height: base * 14)
+        .frame(height: base * 10)
         .padding(.horizontal, base * 3)
 //      }
 //    }
@@ -97,7 +97,7 @@ struct FamilynameComponent: View {
 //  var text: String
 //  var image: String
 }
-var pendingRegisterInfo = RegisterInfo(surName: "", surNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: Place.서울)
+var pendingRegisterInfo = RegisterInfo(surName: "", surNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: "서울")
 
 func onChangeGender(g: Gender) {
   pendingRegisterInfo.gender = g
@@ -141,7 +141,7 @@ struct GenderComponent: View {
           Spacer()
           Spacer()
         }
-        .frame(height: base * 14)
+        .frame(height: base * 10)
         .padding(.horizontal, base * 3)
     }
 }
@@ -184,7 +184,7 @@ struct DobComponent: View {
           )
           Spacer()
         }
-        .frame(height: base * 14)
+        .frame(height: base * 10)
         .padding(.horizontal, base * 3)
 
   }
@@ -192,12 +192,8 @@ struct DobComponent: View {
 
 }
 
-
 struct PlaceComponent: View {
-  @State private var selectedPlace: Place = .서울
   @State private var currentLocation: String = ""
-  @State private var latitude: Double = 0
-  @State private var longitude: Double = 0
   let locationProvider: ProvidesCurrentLocationProvider = CurrentLocationProvider()
   var body: some View {
     VStack {
@@ -217,7 +213,7 @@ struct PlaceComponent: View {
           Spacer()
           Spacer()
         }
-        .frame(height: base * 14)
+        .frame(height: base * 10)
         .padding(.horizontal, base * 3)
 
         NavigationLink {
@@ -236,8 +232,9 @@ struct PlaceComponent: View {
         guard let location = location
         else { return }
         self.currentLocation = location.name
-        self.latitude = location.latitude
-        self.longitude = location.longitude
+        pendingRegisterInfo.birthPlace = location.name
+        pendingRegisterInfo.latitude = location.latitude
+        pendingRegisterInfo.longitude = location.longitude
       }
     } else {
       let geoLocation = GeoLocation(latitude: pendingRegisterInfo.latitude,
@@ -247,6 +244,7 @@ struct PlaceComponent: View {
           guard let location = location
           else { return }
           self.currentLocation = location.name
+          pendingRegisterInfo.birthPlace = location.name
         }
     }
   }
@@ -287,7 +285,7 @@ struct RegisterView: View {
 //              .resizable()
 //              .aspectRatio(contentMode: .fit)
 //          } else {
-//            Image("chanmin")
+//            Image("sunny")
 //              .resizable()
 //              .aspectRatio(contentMode: .fit)
 //          }
@@ -370,7 +368,7 @@ func getRegisteredImage() -> Image {
     if let image = RegisterInfo.obj.image {
       registeredImage = Image(uiImage: UIImage(data: image)!)
     } else {
-      registeredImage = Image("chanmin")
+      registeredImage = Image("sunny")
     }
   }
   return registeredImage!
@@ -385,7 +383,9 @@ func register() {
   defaults.setValue(RegisterInfo.obj.surNameHanja, forKey: RegisterInfoKeys.surNameH)
   defaults.setValue(RegisterInfo.obj.datetime, forKey: RegisterInfoKeys.dob)
   defaults.setValue(RegisterInfo.obj.gender.rawValue, forKey: RegisterInfoKeys.gender)
-  defaults.setValue(RegisterInfo.obj.birthPlace.rawValue, forKey: RegisterInfoKeys.place)
+  defaults.setValue(RegisterInfo.obj.birthPlace, forKey: RegisterInfoKeys.place)
+  defaults.setValue(RegisterInfo.obj.latitude, forKey: RegisterInfoKeys.latitude)
+  defaults.setValue(RegisterInfo.obj.longitude, forKey: RegisterInfoKeys.longitude)
   defaults.setValue(RegisterInfo.obj.image, forKey: RegisterInfoKeys.image)
   gEditCount -= 1
   defaults.setValue(String(gEditCount), forKey: RegisterInfoKeys.editCount)

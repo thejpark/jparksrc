@@ -17,7 +17,7 @@ struct HeadsUpCarView: View {
 
     var body: some View {
       VStack(alignment: .leading) {
-        //        Image("chanmin")
+        //        Image("sunny")
         pic.resizable()
           .aspectRatio(contentMode: .fit)
 //          .frame(height: 70)
@@ -56,7 +56,7 @@ struct HeadsUpCarView: View {
           if RegisterInfo.obj.surName !=  ""  {
           self.surName = "성: " + RegisterInfo.obj.surName + "(" + RegisterInfo.obj.surNameHanja + ")"
           self.gender = "성별: " + RegisterInfo.obj.gender.rawValue
-          self.birthPlace = "출생지: " + RegisterInfo.obj.birthPlace.rawValue
+          self.birthPlace = "출생지: " + RegisterInfo.obj.birthPlace
           let dob = getStringFromDate(RegisterInfo.obj.datetime)
           let str = dob.components(separatedBy: " ")
           self.dob = "시간 : " + str[0] + "년 " + str[1] + "월 " + str[2] + "일 " + str[3] + "시 " + str[4] + "분"

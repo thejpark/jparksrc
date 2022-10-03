@@ -334,7 +334,6 @@ final class Search: NSObject {
     private var dob : String = ""
     private var surName: String = ""
     private var givenName: String = ""
-    private var birthPlace: String=""
     private var prio_set:[[Int:Int]] = [[Int:Int]]()
     private var hangulName: String = ""
 
@@ -355,8 +354,7 @@ final class Search: NSObject {
         Search.obj.search(surName: RegisterInfo.obj.surName,
                         surNameH: RegisterInfo.obj.surNameHanja,
                         givenName: name,
-                        selectedDate: RegisterInfo.obj.datetime,
-                        birthPlace: RegisterInfo.obj.birthPlace)
+                        selectedDate: RegisterInfo.obj.datetime)
         if objects.count > 0 {
           suggested.append(objects[0])
         }
@@ -367,14 +365,13 @@ final class Search: NSObject {
       Search.obj.search(surName: RegisterInfo.obj.surName,
                         surNameH: RegisterInfo.obj.surNameHanja,
                         givenName: hangulName,
-                        selectedDate: RegisterInfo.obj.datetime,
-                        birthPlace: RegisterInfo.obj.birthPlace)
+                        selectedDate: RegisterInfo.obj.datetime)
       return objects
     }
   }
 
 
-  func search(surName: String, surNameH: String, givenName: String, selectedDate: Date, birthPlace:Place) {
+  func search(surName: String, surNameH: String, givenName: String, selectedDate: Date) {
       var gname: [Hanja] = [Hanja]()
       self.objects = [Elem]()
       self.numSelected = 0
@@ -388,7 +385,6 @@ final class Search: NSObject {
       self.dob = getStringFromDate(selectedDate)
       self.surName = surName
       self.givenName = givenName
-      timeDiff = timeDiffMap[birthPlace.rawValue]!
       let str = self.dob.components(separatedBy: " ")
 
       self.year = Int(str[0])!

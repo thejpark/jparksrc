@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "chanmin.png",
+      "filename" : "sunny.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chanmin-1.png",
+      "filename" : "sunny 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chanmin-2.png",
+      "filename" : "sunny 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
