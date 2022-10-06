@@ -4500,6 +4500,7 @@ void find_number_of_subarrays_sum_to_k()
 // xxxxx
 // -> 0
 // what if the dimension is too big? who can handle this?
+// also see Leetcode 547.
 void find_island_from_2_dimensional_array()
 {
     // sol1: dfs or bfs
