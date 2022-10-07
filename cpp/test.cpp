@@ -30,8 +30,6 @@ constexpr double foo(double x) { return x * x;}
 
 
 int main() {
-
-
     std::unordered_map<std::string, std::pair<std::string, int>> mm;
     mm["a"] = std::make_pair("b", 1);
     auto& e = mm["a"];
