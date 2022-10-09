@@ -5561,7 +5561,11 @@ private:
   atomic<int> mCnt;
 };
 
-class RateLimiter2 {
+class TimerObserverInterface {
+    virtual void Observe() = 0;
+};
+
+class RateLimiter2: public TimerObserverInterface {
 public:
   RateLimiter2() {}
   bool RateLimit(int customer_id) {
@@ -5576,6 +5580,12 @@ public:
 
   void Refill(int customer_id) {
     m.at(customer_id)->Refill();
+  }
+
+  void Observe() override {
+    for (auto& e: m) {
+        e.second->Refill();
+    }
   }
 
 private:
