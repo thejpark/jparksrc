@@ -5495,7 +5495,7 @@ public:
 
 private:
 
-  class customer {
+  class Customer {
     public:
         deque<long long> queue;
         mutex  mtx;
@@ -5507,21 +5507,32 @@ private:
   TimeInterface& mTime;
   const int MaxReq {2};  // 2 req max
   const int MaxDur {1000}; // 1 sec == 1000 ms
-  unordered_map<int, customer> m;
+  unordered_map<int, unique_ptr<Customer>> m;
+  mutex mtx;
 
   bool hit(int customerID, long long t)
   {
-    auto& c = m[customerID];
+    if (!m.contains(customerID)) {
+        scoped_lock<mutex> lck(mtx);
+        if (!m.contains(customerID)) {
+            m.emplace(make_pair(customerID, unique_ptr<Customer>()));
+        }
+    }
+
+    unique_lock<mutex> ulck(mtx);
+    auto& c = m.at(customerID);
+    ulck.unlock();
+
     // delete old timestamp than MaxDur
     // lock should be per client not for all of them
     // or can we use spinlock?
-    scoped_lock<mutex> lck{c.mtx};
-    while (!c.queue.empty() && c.queue.front() < t - MaxDur) {
-        c.queue.pop_front();
+    scoped_lock<mutex> lck{c->mtx};
+    while (!c->queue.empty() && c->queue.front() < t - MaxDur) {
+        c->queue.pop_front();
     }
 
-    if (c.queue.size() < MaxReq) {
-        c.queue.push_back(t);
+    if (c->queue.size() < MaxReq) {
+        c->queue.push_back(t);
         return true;
     } else {
       return false;
@@ -5575,14 +5586,21 @@ public:
             m.emplace(make_pair(customer_id, make_unique<Bucket>(10, 2))); 
         }
     }
-    return m.at(customer_id)->Dec();
+    unique_lock<mutex> lck(mtx);
+    auto& c =  m.at(customer_id);
+    lck.unlock();
+    return c->Dec();
   }
 
   void Refill(int customer_id) {
-    m.at(customer_id)->Refill();
+    unique_lock<mutex> lck(mtx);
+    auto& c =  m.at(customer_id);
+    lck.unlock();
+    c->Refill();
   }
 
   void Observe() override {
+    scoped_lock<mutex> lck(mtx);
     for (auto& e: m) {
         e.second->Refill();
     }
