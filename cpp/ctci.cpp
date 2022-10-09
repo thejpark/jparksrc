@@ -5481,6 +5481,8 @@ class TimeInterface {
 public:
     virtual long long GetTime() = 0;
 };
+
+
 class RateLimiter {
 
 public:
@@ -5488,28 +5490,38 @@ public:
   // time is msec
   bool rateLimit(int customerId)
   {
-    return hit(m[customerId], mTime.GetTime());
+    return hit(customerId, mTime.GetTime());
   }
 
 private:
 
+  class customer {
+    public:
+        deque<long long> queue;
+        mutex  mtx;
+        // these should be per customer as well?
+        // int duration{1000};
+        // int requests{2};
+  };
+
   TimeInterface& mTime;
-  mutex mtx;
   const int MaxReq {2};  // 2 req max
   const int MaxDur {1000}; // 1 sec == 1000 ms
-  unordered_map<int, deque<long long>> m;
+  unordered_map<int, customer> m;
 
-  bool hit(deque<long long>& l, long long t)
+  bool hit(int customerID, long long t)
   {
+    auto& c = m[customerID];
     // delete old timestamp than MaxDur
     // lock should be per client not for all of them
-    // scoped_lock<mutex> lck{mtx};
-    while (!l.empty() && l.front() < t - MaxDur) {
-        l.pop_front();
+    // or can we use spinlock?
+    scoped_lock<mutex> lck{c.mtx};
+    while (!c.queue.empty() && c.queue.front() < t - MaxDur) {
+        c.queue.pop_front();
     }
 
-    if (l.size() < MaxReq) {
-        l.push_back(t);
+    if (c.queue.size() < MaxReq) {
+        c.queue.push_back(t);
         return true;
     } else {
       return false;
@@ -5517,56 +5529,59 @@ private:
   }
 };
 
-class BucketInterface {
+class Bucket {
 public:
-    virtual void Inc(int) = 0;
-    virtual void Dec(int) = 0;
-    virtual int Get(int) = 0;
-};
-
-class Bucket : public BucketInterface {
-public:
-  Bucket(int size) : mSize(size) {}
-  void Inc(int customer_id) override {
-    if (m[customer_id] == mSize) {
-        return;
+  explicit Bucket(int size, int refill) : mRefill(refill), mSize(size), mCnt(refill) {}
+  void Refill() {
+    auto cnt = mCnt.load();
+    auto expected = min(mSize, cnt + mRefill);
+    
+    while(!mCnt.compare_exchange_strong(cnt, expected)) {
+      expected = min(mSize, cnt + mRefill);
     }
-    m[customer_id]++;
   }
 
-  void Dec(int customer_id) override {
-    if (m[customer_id] == 0) {
-        return;
+  bool Dec() {
+    auto cnt = mCnt.load();
+    if (cnt == 0) {
+        return false;
     }
-    m[customer_id]--;
+    while(!mCnt.compare_exchange_strong(cnt, cnt - 1)) {
+        if (cnt == 0) {
+            return false;
+        }
+    }
+
+    return true;
   }
 
-  int Get(int customer_id) override {
-    return m[customer_id];
-  }
- 
 private:
-  unordered_map<int, atomic<int>> m;
+  int mRefill;
   int mSize;
+  atomic<int> mCnt;
 };
 
 class RateLimiter2 {
-
 public:
-  RateLimiter2(BucketInterface& bucket) : mBucket(bucket) {}
-  bool rateLimit(int customer_id) {
-    if (mBucket.Get(customer_id) > 0) {
-       mBucket.Dec(customer_id);
-       return true;
+  RateLimiter2() {}
+  bool RateLimit(int customer_id) {
+    if (!m.contains(customer_id)) {
+        scoped_lock<mutex> lck(mtx); // should use spinlock here?
+        if (!m.contains(customer_id)) {
+            m.emplace(make_pair(customer_id, make_unique<Bucket>(10, 2))); 
+        }
     }
+    return m.at(customer_id)->Dec();
+  }
 
-    return false;
+  void Refill(int customer_id) {
+    m.at(customer_id)->Refill();
   }
 
 private:
-  BucketInterface& mBucket;
+  map<int, unique_ptr<Bucket>> m;
+  mutex mtx;
 };
-
 
 // leetcode 353
 class SnakeGame {
