@@ -5820,6 +5820,65 @@ vector<vector<int>> v(50, vector<int>(distances.size(), -1));
 }
 };
 
+class ghost {
+    // binary tree with int value. The value is either 1 or 0. The value of a node is 1 if and only if both of its child (left and right) are 1. 
+    // You are given TREE_DEPTH as a global variable, and ClearNode(int level, int offset), bool GetNode(int level, int offset), SetNode(int level, int offset).
+    // Implement ClearRanges(int offset, int range) and SetRanges(int offset, int range) that either clear or sets a range in the leaf nodes.
+    // You should consider the invariants that a parent node should be 1 if and only if all if its child are 1. If one of the child became 0 then parent should be 0 as well.
+    // The binary tree is full (all of its leaf nodes are full.)
+
+    // offset is in range [0, size of all leaf nodes)
+    // range is in range [1, size of all leaf nodes).
+    // This tree has 3 levels (level 0, level 1, level 2). To clear the second node of the leaf level, ClearNode(2, 1).
+    // 0
+    // 0   1
+    // 0 1 1 1
+    int TREE_DEPTH = 3; // depth is 3
+    void ClearNode(int level, int offset) {}
+    void SetNode(int level, int offset) {}
+    bool GetNode(int level, int offset) { return true;}
+    void ClearRanges(int offset, int range) {
+        int first = offset;
+        int last = offset + range - 1;
+        int level = TREE_DEPTH - 1;
+
+        while (level >= 0) {
+            for (int i = first; i <= last; ++i) {
+                ClearNode(level, i);
+            }
+            first = first / 2;
+            last = last / 2;
+            level -= 1;
+        }
+    }
+
+    void SetRanges(int offset, int range) {
+        int first = offset;
+        int last = offset + range - 1;
+        int level = TREE_DEPTH - 1;
+
+        while (level >= 0) {
+            for (int i = first; i <= last; ++i) {
+                SetNode(level, i);
+            }
+            first = first / 2;
+            last = last / 2;
+            level -= 1;
+
+            if (!GetNode(level, first * 2)) {
+                first++;
+            }
+            if (!GetNode(level, last * 2 + 1)) {
+                last--;
+            }
+            if (first > last) {
+                return;
+            }
+        }
+    }
+
+};
+
 
 // leetcode 978, longest turbelent subarray
 // 9, 4, 2, 10, 7, 8, 8, 1, 9 -> 5.  because 4, 2, 10, 7, 8 are turbelent.
