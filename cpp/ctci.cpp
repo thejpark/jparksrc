@@ -5482,6 +5482,7 @@ public:
     virtual long long GetTime() = 0;
 };
 
+// which entity needed? RateLimiter, Rule, and Counter?
 
 class RateLimiter {
 
@@ -5495,6 +5496,7 @@ public:
 
 private:
 
+  // need to be private? or exernal entity? if we want to scale then what?
   class Customer {
     public:
         deque<long long> queue;
@@ -5838,6 +5840,13 @@ class ghost {
     void SetNode(int level, int offset) {}
     bool GetNode(int level, int offset) { return true;}
     void ClearRanges(int offset, int range) {
+        if (offset < 0 || offset >= (1 << TREE_DEPTH)) {
+            return;
+        }
+        if (range <= 0 || range > (1 << TREE_DEPTH)) {
+            return;
+        }
+
         int first = offset;
         int last = offset + range - 1;
         int level = TREE_DEPTH - 1;
