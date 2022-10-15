@@ -4485,7 +4485,6 @@ void find_number_of_subarrays_sum_to_k()
     cout << "the result is " << count << endl;
 }
 
-
 // find island
 // input
 // xxx00
@@ -5502,13 +5501,11 @@ private:
         deque<long long> queue;
         mutex  mtx;
         // these should be per customer as well?
-        // int duration{1000};
-        // int requests{2};
+        int MaxDur{1000}; // 1sec == 1000ms
+        int MaxReq{2};
   };
 
   TimeInterface& mTime;
-  const int MaxReq {2};  // 2 req max
-  const int MaxDur {1000}; // 1 sec == 1000 ms
   unordered_map<int, unique_ptr<Customer>> m;
   mutex mtx;
 
@@ -5529,11 +5526,11 @@ private:
     // lock should be per client not for all of them
     // or can we use spinlock?
     scoped_lock<mutex> lck{c->mtx};
-    while (!c->queue.empty() && c->queue.front() < t - MaxDur) {
+    while (!c->queue.empty() && c->queue.front() < t - c->MaxDur) {
         c->queue.pop_front();
     }
 
-    if (c->queue.size() < MaxReq) {
+    if (c->queue.size() < c->MaxReq) {
         c->queue.push_back(t);
         return true;
     } else {
@@ -5547,9 +5544,11 @@ public:
   explicit Bucket(int size, int refill) : mRefill(refill), mSize(size), mCnt(refill) {}
   void Refill() {
     auto cnt = mCnt.load();
+    if (cnt == mSize) { return; }
     auto expected = min(mSize, cnt + mRefill);
     
     while(!mCnt.compare_exchange_strong(cnt, expected)) {
+      if (cnt == mSize) { return; }
       expected = min(mSize, cnt + mRefill);
     }
   }
@@ -5560,9 +5559,7 @@ public:
         return false;
     }
     while(!mCnt.compare_exchange_strong(cnt, cnt - 1)) {
-        if (cnt == 0) {
-            return false;
-        }
+        if (cnt == 0) { return false; }
     }
 
     return true;
@@ -5596,6 +5593,7 @@ public:
 
   void Refill(int customer_id) {
     unique_lock<mutex> lck(mtx);
+    if (!m.contains((customer_id))) { return; }
     auto& c =  m.at(customer_id);
     lck.unlock();
     c->Refill();
@@ -5647,6 +5645,7 @@ class SnakeGame {
 
         if (cur_food < food.size() && food[cur_food][0] == new_x && food[cur_food][1] == new_y) {
             snake.push_back(make_pair(new_x, new_y));
+            snake_set.insert(make_pair(new_x, new_y));
             ++cur_food;
             ++score;
         }

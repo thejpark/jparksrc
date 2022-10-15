@@ -1732,8 +1732,6 @@ void hay() //jj
     cout << "to " << i << " is " << d[i];
 }
 
-
-// leetcode 502
 void hay2() //jj
 {
   int n, m;
@@ -6411,7 +6409,13 @@ vector<double> medianSlidingWindow(vector<int>& nums, int k) {
   return res;
     }
 
-
+/**
+You are given an array of integers nums, 
+there is a sliding window of size k which is moving from the very left of the array to the very right. 
+You can only see the k numbers in the window. 
+Each time the sliding window moves right by one position.
+Return the max sliding window.
+*/
 class leetcode239 {
 public:
     vector<int> maxSlidingWindow1(vector<int>& nums, int k) {
@@ -6606,9 +6610,6 @@ public:
 
 // Output: 4
 
-
-
-// This is same with hay above (search for hay problem)
 int findMaximizedCapital(int k, int W, vector<int>& Profits, vector<int>& Capital) {
 
   int n = Profits.size();
