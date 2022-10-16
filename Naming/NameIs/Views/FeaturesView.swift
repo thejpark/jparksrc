@@ -17,7 +17,7 @@ struct FeaturesView: View {
       } label: {
         FeatureCellView(title: feat.title)
       }
-    }.navigationTitle("New Features")
+    }.navigationTitle("도움말")
   }
 }
 

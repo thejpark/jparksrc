@@ -15,21 +15,21 @@ struct MoreView: View {
             NavigationLink {
               FeaturesView()
             } label: {
-              Label("New Features", image: "red-new")
+              Label("도움말", image: "more_menu_public_library_icon")
             }
-            Label("Sensors", image: "more_menu_sensors_icon")
-            Label("Assets", image: "more_menu_assets_icon")
-            Label("Analytics", image: "more_menu_analytics_icon")
-            Label("Public template library", image: "more_menu_public_library_icon")
-            Label("Refer iAuditor", image: "more_menu_refer_iauditor_icon")
-            Label("Heads Up", image: "more_menu_heads_up_icon")
+//            Label("Sensors", image: "more_menu_sensors_icon")
+//            Label("Assets", image: "more_menu_assets_icon")
+//            Label("Analytics", image: "more_menu_analytics_icon")
+//            Label("Public template library", image: "more_menu_public_library_icon")
+//            Label("Refer iAuditor", image: "more_menu_refer_iauditor_icon")
+//            Label("Heads Up", image: "more_menu_heads_up_icon")
 
           }
 
-          Section("Account") {
-            Text("Settings")
-            Text("Logout")
-          }
+//          Section("Account") {
+//            Text("Settings")
+//            Text("Logout")
+//          }
         }
         .listStyle(.grouped)
       }

@@ -69,12 +69,12 @@ struct RootView: View {
 
       NavigationView {
         MoreView()
-          .navigationTitle("도움말")
+          .navigationTitle("More")
       }.tabItem {
         if selection == 4 {
-          Label("도움말", image: "more_tab_selected")
+          Label("More", image: "more_tab_selected")
         } else {
-          Label("도움말", image: "more_tab")
+          Label("More", image: "more_tab")
         }
 
       }.tag(4)
