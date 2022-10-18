@@ -977,10 +977,12 @@ void test_bfs_pair()
 
 void test_find_dependency() //jj
 {
-    // sol: 1. get dependency of each node, and get a set of root
-    //      2. from node in root set, use dfs algorithm to find a set of nodes which forms cycle
-    //      3. bfs from node in root set, excluding nodes in cycle set.
+    // sol: 1. get dependency of each node, and get a set of root. For each node, maintain an integer to count the number of incomming edges. root node has 0 incomming edges.
+    //      2. from node in root set, use dfs algorithm to find a set of nodes which forms cycle -> but need to ask if there is cycle beforehand. topological sort는 cycle이 업는 경우만 가능.
+    //      3. bfs from node in root set, excluding nodes in cycle set. 
+    //      4. for each node in the root set, decrease the number of incomming edges of all its adjacent nodes. find next possible root nodes (which has 0 incomming edge), add it to the list to process BFS.
     //      # topology sort 는 BFS 는 괜찮음. DFS는 이름에 맞게 leaf를 먼저 print해야함. 따라서 2번에서 동시에 할 수는 없음. 2번에서 다 마치고 싶으면, 2번 한 다음에 reversei the result 하면 될듯.
+    // a ->b, a->c, b->c 의 경우 a가 root set, 그 다음이 b, 그 다음이 c가 됨.
 
 }
 
