@@ -1738,16 +1738,14 @@ void hay2() //jj
   cin >> n >> m;
 
   using elem = pair<int, int>;
-  auto min_comp = [](elem& a, elem& b)
-      {
-          return a.second > b.second;
-      };
+  auto min_comp = [](elem& a, elem& b) {
+    return a.second > b.second;
+  };
 
   map<int, list<elem>> mm;
   set<int> s, v;
 
   for (int i = 0; i < m; i++) {
-
     int a, b, len;
     cin >> a >> b >> len;
 
@@ -1764,9 +1762,8 @@ void hay2() //jj
   v.erase(x);
 
   priority_queue<elem, vector<elem>, decltype(min_comp)> pq(min_comp);
-  for (auto e: mm[x])
-  {
-      pq.emplace(e);
+  for (auto e: mm[x]) {
+    pq.emplace(e);
   }
 
   int t_max = -1;
@@ -1780,9 +1777,8 @@ void hay2() //jj
       t_max = max(t_max, w.second);
       pq.pop();
 
-      for (auto e: mm[w.first])
-      {
-          if (s.find(e.first) != s.end())
+      for (auto e: mm[w.first]) {
+          if (s.contains(e.first))
               continue;
           pq.emplace(e);
       }
