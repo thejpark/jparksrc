@@ -1658,6 +1658,7 @@ public:
 class lrumap3 {
 private:
 
+  // removing an element from the deque (not the begin or end) is O(n). So, do we need this?
   deque<pair<string, int>> l;
   map<string, deque<pair<string,int>>::iterator> mm;
   int size;
@@ -5998,6 +5999,51 @@ class turbulent {
        cout << test_turbulence({4, 8, 12, 16}) << "should be 2 " << endl; 
     }
 };
+
+/**
+// Ghost Automotive 2022 coding interview.
+// register callback
+
+// void register(void(*callback)(void));
+// void fire();
+
+// void lock()
+// void unlock()
+
+typedef struct callbacks {
+  void* ptr;
+  void* next;
+}  callbacks;
+
+int cas(void **ptr, void *expected, void *new_value) {
+        int ret = (*ptr == expected);
+        if (ret) *ptr = new_value;
+        return ret;
+}
+
+
+volatile callbacks* head = NULL;
+
+// keep a list of callbacks
+void register(void(*callback)(void)) {
+    callbacks* tmp = malloc(sizeof(callbacks));
+    tmp->ptr = callback;
+    tmp->next = head;
+    
+    while (!cas(&(head), tmp->next, tmp)) {
+       tmp->next = head;
+    }
+}
+
+// iterate the list to fire each callbakcs 
+void fire() {
+  callbacks* it = head;
+  while (!it) {
+    it->ptr();
+    it = it->next;
+  }
+}
+**/
 
 int main()
 {
