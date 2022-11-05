@@ -2,8 +2,6 @@
 //  HomeView.swift
 //  NewFeatures
 //
-//  Created by Kaushal on 25/5/2022.
-//
 
 import SwiftUI
 
@@ -18,10 +16,10 @@ struct HomeView: View {
             vertical: true)
 //          .frame(height: 220)
 //          .listRowInsets(EdgeInsets())
-          .padding(.top, 10)
-          .padding(.leading, 20)
-          .padding(.trailing, 20)
-          .padding(.bottom, 40)
+          .padding(.top, 40)
+          .padding(.leading, 60)
+          .padding(.trailing, 60)
+          .padding(.bottom, 60)
           .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
             Button("OK"){
               gotoRegister()

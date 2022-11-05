@@ -59,6 +59,7 @@ struct HangulNameComponent: View {
             .lineLimit(1).foregroundColor(.blue)
             .onChange(of: hangulName) {
               onChangeHangulName(n: $0)
+
             }
 
           Spacer()
@@ -89,6 +90,7 @@ struct SelfNameInputView: View {
         VStack(alignment: .leading) {
           pic.resizable()
             .aspectRatio(contentMode: .fit)
+            .padding(/*@START_MENU_TOKEN@*/.all, 40.0/*@END_MENU_TOKEN@*/)
 
           Spacer(minLength: 40)
 
@@ -105,7 +107,7 @@ struct SelfNameInputView: View {
             .background(.black)
 
         }
-        .padding(.top, 10)
+//        .padding(.top, 10)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, 40)
@@ -118,8 +120,7 @@ struct SelfNameInputView: View {
       }
     }
     .navigationBarItems(
-//      leading: Button("취소", action: cancelSearch),
-//        .foregroundColor(Colors.Accent.Content.primary),
+      leading: NavigationLink("도움말", destination: FeaturesView()),
       trailing: NavigationLink("찾기", destination: SelfNameResultView()) //{
 //      }.simultaneousGesture { search() } //.onAppear {search()})
 //        Text("찾기").onTapGesture { search() }

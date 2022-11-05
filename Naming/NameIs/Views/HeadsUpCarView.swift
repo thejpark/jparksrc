@@ -31,7 +31,7 @@ struct HeadsUpCarView: View {
           .multilineTextAlignment(.leading)
 
         Spacer(minLength: 20)
-          Text(surName)
+        Text(surName)
           .font(.body)
           .multilineTextAlignment(.leading)
           Text(gender)
@@ -46,7 +46,7 @@ struct HeadsUpCarView: View {
           Text(saju)
           .font(.body)
           .multilineTextAlignment(.leading)
-          Spacer(minLength: 40)
+        Spacer(minLength: 40)
 //          Text("Sydney shipit flights info ✈️")
 //            .font(.subheadline)
 //          Text("1 week ago")

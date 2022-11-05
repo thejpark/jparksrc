@@ -280,6 +280,8 @@ struct RegisterView: View {
           selectedImage
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .padding([.top, .leading, .trailing], 40.0)
+            .padding(.bottom, 20.0)
           //          if let selectedImage {
 //            selectedImage
 //              .resizable()
@@ -328,15 +330,16 @@ struct RegisterView: View {
 
           PlaceComponent()
         }
-        .padding(.top, 10)
+//        .padding(.top, 10)
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, 40)
       }
     }
     .navigationBarItems(
-      leading: Button("취소", action: cancelRegister),
+//      leading: Button("취소", action: cancelRegister),
 //        .foregroundColor(Colors.Accent.Content.primary),
+      leading: NavigationLink("도움말", destination: FeaturesView()),
       trailing: Button("등록") {
         if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "") {
           showingPopover = true

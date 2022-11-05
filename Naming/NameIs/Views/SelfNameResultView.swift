@@ -29,3 +29,9 @@ struct SelfNameResultView: View {
       }
   }
 }
+
+struct SelfNameResultView_Previews: PreviewProvider {
+    static var previews: some View {
+        SelfNameResultView()
+    }
+}
