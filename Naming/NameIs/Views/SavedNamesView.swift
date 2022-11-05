@@ -24,9 +24,9 @@ struct SavedNamesView: View {
         let dob = elem.getDob()
         let ilgangangyag = elem.getIlganGangYag()
         let heeyong = elem.getHeeYong()
-        let jawonohang = elem.getJaWonOHang() + "사주의 부족한 오행을 보충합니다"
-        let umyang = elem.getUmYang() + "음(짝수) 양(홀수) 조화를 이룹니다"
-        let barumEnd = elem.isBarumInHeeYong() ? "이며 사주에 부족한 오행을 보충합니다" : "입니다"
+        let jawonohang = elem.getJaWonOHang() + "사주의 부족한 오행을 보충합니다."
+        let umyang = elem.getUmYang() + "음(짝수) 양(홀수) 조화를 이룹니다."
+        let barumEnd = elem.isBarumInHeeYong() ? "이며 사주에 부족한 오행을 보충합니다." : "입니다."
         let barum = elem.getBarumOhang() + barumEnd
 
         Text(title)

@@ -24,7 +24,7 @@ struct SelfNameResultView: View {
         names = Search.obj.getNames()
         showingPopover = names.isEmpty
       }
-      .alert("찾는 이름이 없습니다", isPresented: $showingPopover) {
+      .alert("찾는 이름이 없습니다.", isPresented: $showingPopover) {
         Button("OK", role: .cancel){}
       }
   }

@@ -190,11 +190,11 @@ class Elem: NSObject, NSCoding, Identifiable {
     {
       let strength = self.ilganGangYag.1
       if strength < 5 {
-        return "사주가 신약한 편입니다"
+        return "사주가 신약한 편입니다."
       } else if strength > 5 {
-        return "사주가 신강한 편입니다"
+        return "사주가 신강한 편입니다."
       } else {
-        return "사주가 강하지도 약하지도 않은 균형잡힌 중화사주 입니다"
+        return "사주가 강하지도 약하지도 않은 균형잡힌 중화사주 입니다."
       }
     }
 
@@ -216,7 +216,7 @@ class Elem: NSObject, NSCoding, Identifiable {
             r += ohangHanja[e]!
             r += " "
         }
-        r += "입니다"
+        r += "입니다."
         return r
     }
 

@@ -43,7 +43,7 @@ import CoreLocation
 private let base: CGFloat = 4.0
 
 struct FamilynameComponent: View {
-  @State private var familyName: String = ""
+  @State private var familyName: String = RegisterInfo.obj.surName
   @State private var selectedSurnameIndex = 0
 
   var body: some View {
@@ -97,8 +97,19 @@ struct FamilynameComponent: View {
 //  var text: String
 //  var image: String
 }
-var pendingRegisterInfo = RegisterInfo(surName: "", surNameHanja:"", gender: Gender.male, datetime: Date(), birthPlace: "서울")
 
+var pendingRegisterInfo = RegisterInfo.obj
+//var pendingRegisterInfo = RegisterInfo(
+//  surName: RegisterInfo.obj.surName,
+//  surNameHanja: RegisterInfo.obj.surNameHanja,
+//  gender: RegisterInfo.obj.gender,
+//  datetime: RegisterInfo.obj.datetime,
+//  birthPlace: RegisterInfo.obj.birthPlace,
+//  latitude: RegisterInfo.obj.latitude,
+//  longitude: RegisterInfo.obj.longitude,
+//  image: RegisterInfo.obj.image)
+
+//
 func onChangeGender(g: Gender) {
   pendingRegisterInfo.gender = g
 }
@@ -114,7 +125,7 @@ func onChangeLastName(n: String, h: String, s: String) -> String {
 }
 
 struct GenderComponent: View {
-  @State private var selectedGender: Gender = .male
+  @State private var selectedGender: Gender = RegisterInfo.obj.gender
 //  @State var selectedGender: Gender
   var body: some View {
 //    VStack {
@@ -148,7 +159,7 @@ struct GenderComponent: View {
 
 
 struct DobComponent: View {
-  @State private var date = Date()
+  @State private var date = RegisterInfo.obj.datetime
   let dateRange: ClosedRange<Date> = {
       let calendar = Calendar.current
       let startComponents = DateComponents(year: 1940, month: 1, day: 1)
@@ -193,7 +204,7 @@ struct DobComponent: View {
 }
 
 struct PlaceComponent: View {
-  @State private var currentLocation: String = ""
+  @State private var currentLocation: String = RegisterInfo.obj.birthPlace
   let locationProvider: ProvidesCurrentLocationProvider = CurrentLocationProvider()
   var body: some View {
     VStack {

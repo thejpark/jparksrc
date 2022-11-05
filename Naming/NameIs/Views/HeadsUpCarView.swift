@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+//import PhotosUI
 
 struct HeadsUpCarView: View {
   @State private var surName: String = ""
@@ -13,24 +14,52 @@ struct HeadsUpCarView: View {
   @State private var birthPlace: String = ""
   @State private var dob: String = ""
   @State private var saju: String = ""
-  @State private var pic: Image = getRegisteredImage()
+//  @State private var selectedItem: PhotosPickerItem?
+  @State private var selectedImage: Image = getRegisteredImage()
 
     var body: some View {
       VStack(alignment: .leading) {
         //        Image("sunny")
-        pic.resizable()
+        selectedImage.resizable()
           .aspectRatio(contentMode: .fit)
 //          .frame(height: 70)
 //          .padding(.all, 0)
 //        Spacer(minLength: 40)
+
+//        HStack() {
+//          Spacer()
+//          PhotosPicker(selection: $selectedItem, matching: .images) {
+//            Label("사진 변경", systemImage: "photo")
+//          }
+//          .tint(.purple)
+//          .controlSize(.large)
+//          .buttonStyle(.borderedProminent)
+//          .onChange(of: selectedItem) { newValue in
+//            Task {
+//              if let imageData = try? await newValue?.loadTransferable(type: Data.self), let image = UIImage(data: imageData) {
+//                selectedImage = Image(uiImage: image)
+//                setRegisteredImage(selectedImage)
+//                pendingRegisterInfo.image = imageData
+//              }
+//            }
+//          }
+//          Spacer()
+//        }
+//
+
+
         VStack(alignment: .leading) {
         Spacer(minLength: 40)
+        Divider()
+          .background(.black)
         Text("출생정보")
           .font(.title)
           .foregroundColor(.black)
           .multilineTextAlignment(.leading)
+        Divider()
+          .background(.black)
 
-        Spacer(minLength: 20)
+//        Spacer(minLength: 20)
         Text(surName)
           .font(.body)
           .multilineTextAlignment(.leading)
@@ -67,7 +96,7 @@ struct HeadsUpCarView: View {
           let minute = Int(str[4])!
 
           self.saju = "사주: " + getSaju(year, month: month, day: day, hour: hour, minute: minute);
-          self.pic = getRegisteredImage()
+          self.selectedImage = getRegisteredImage()
           }
         }
 

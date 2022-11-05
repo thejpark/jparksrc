@@ -27,7 +27,7 @@ struct SuggestedNamesView: View {
       names = savedElements
       showingPopover = names.isEmpty
     }
-    .alert("저장된 이름이 없습니다", isPresented: $showingPopover) {
+    .alert("저장된 이름이 없습니다.", isPresented: $showingPopover) {
       Button("OK", role: .cancel){}
     }
   }

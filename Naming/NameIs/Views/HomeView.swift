@@ -20,7 +20,7 @@ struct HomeView: View {
           .padding(.leading, 60)
           .padding(.trailing, 60)
           .padding(.bottom, 60)
-          .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
+          .alert("출생정보를 등록하세요!", isPresented: $showingPopover) {
             Button("OK"){
               gotoRegister()
             }
