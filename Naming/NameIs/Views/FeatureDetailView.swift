@@ -13,9 +13,10 @@ struct FeatureDetailView: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
-        Image(detail.image ?? "")
-          .resizable()
-          .aspectRatio(contentMode: .fit)
+        // todo: display image
+//        Image(detail.image ?? "")
+//          .resizable()
+//          .aspectRatio(contentMode: .fit)
 
         Spacer(minLength: 40)
 
@@ -23,6 +24,8 @@ struct FeatureDetailView: View {
           .font(.title)
           .bold()
           .multilineTextAlignment(.leading)
+
+        Divider()
 
         Spacer(minLength: 20)
 
@@ -32,8 +35,9 @@ struct FeatureDetailView: View {
 
         Spacer(minLength: 40)
 
-        Link("Tap to see ↗", destination: detail.link!)
-            .font(.title)
+        // todo: link
+        //        Link("Tap to see ↗", destination: detail.link!)
+        //            .font(.title)
 
         Spacer(minLength: 80)
 
