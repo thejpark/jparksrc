@@ -30,10 +30,13 @@ struct NameDetailView: View {
         let barumEnd = elem.isBarumInHeeYong() ? "이며 사주에 부족한 오행을 보충합니다." : "입니다."
         let barum = elem.getBarumOhang() + barumEnd
 
-        Text(title)
-          .font(.title)
-          .bold()
-          .multilineTextAlignment(.leading)
+        VStack {
+          Text(title)
+            .font(.title)
+            .bold()
+            .multilineTextAlignment(.leading)
+          Divider()
+        }
 
         Spacer(minLength: 20)
 

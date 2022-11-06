@@ -29,10 +29,13 @@ struct SavedNamesView: View {
         let barumEnd = elem.isBarumInHeeYong() ? "이며 사주에 부족한 오행을 보충합니다." : "입니다."
         let barum = elem.getBarumOhang() + barumEnd
 
-        Text(title)
-          .font(.title)
-          .bold()
-          .multilineTextAlignment(.leading)
+        VStack {
+          Text(title)
+            .font(.title)
+            .bold()
+            .multilineTextAlignment(.leading)
+          Divider()
+        }
 
         Spacer(minLength: 20)
 
@@ -58,7 +61,24 @@ struct SavedNamesView: View {
           .font(.body)
           .multilineTextAlignment(.leading)
 
-        Spacer(minLength: 40)
+//        Spacer(minLength: 40)
+        VStack(alignment: .leading) {
+          let englishName = TranslateEng(fname: elem.givenName1)
+          let englishNameTitle = "참고로 표준 영어 이름은 " + englishName + "입니다."
+          let tapToListen = "Tap to listen"
+
+          Spacer(minLength: 40)
+          Text(englishNameTitle)
+            .font(.body)
+            .multilineTextAlignment(.leading)
+          Text(tapToListen)
+            .font(.body)
+            .foregroundColor(.blue)
+            .multilineTextAlignment(.leading)
+            .onTapGesture {
+              SayName(name: englishName)
+            }
+        }
 
 //        Link("Tap to see ↗", destination: detail.link!)
 //            .font(.title)

@@ -160,13 +160,17 @@ class Elem: NSObject, NSCoding, Identifiable {
     }
 
     func getJaWonOHang() -> String {
-        var r: String = "이름 글자의 자원오행이 "
+      var tmp: String = ""
+      for e in givenName {
+        tmp += e.0
+      }
 
+      var r: String = "이름(" + tmp + ")의 자원오행이 "
         for i  in 0...(givenName.count - 1) {
             r += " " + ohangHanja[givenName[i].3]!
         }
 
-        r += " 으로"
+        r += " 으로 "
         return r
     }
 
@@ -183,7 +187,7 @@ class Elem: NSObject, NSCoding, Identifiable {
             r += String(givenName[i].2) + "획 "
         }
 
-        return r + "으로"
+        return r + "으로 "
     }
 
     func getSingangSinyag() -> String
