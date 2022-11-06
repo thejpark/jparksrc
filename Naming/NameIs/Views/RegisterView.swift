@@ -237,7 +237,7 @@ struct PlaceComponent: View {
     }
   }
 
-  private func populateLocation() {
+  func populateLocation() {
     if pendingRegisterInfo.latitude == 0 && pendingRegisterInfo.longitude == 0 {
       getCurrentLocation { location in
         guard let location = location
@@ -406,8 +406,8 @@ func register() {
 
   defaults.synchronize()
 
-  pendingRegisterInfo.longitude = 0
-  pendingRegisterInfo.latitude = 0
+//  pendingRegisterInfo.longitude = 0
+//  pendingRegisterInfo.latitude = 0
   // clear previously stored names
   //  clearElem()
 
