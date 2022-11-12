@@ -71,6 +71,16 @@ let featuresData =
       "link": "featuresApp://hackathon.com/assets"
     }
   },
+{
+    "id": 7,
+    "title": "영어 이름 듣기",
+    "detail": {
+      "title": "영어 이름 듣기",
+      "description": "영어 이름 듣기 (Tap to listen)를 선택해도 아무 소리가 나오지 않으면, 진동 모두 (silent mode)를 해제한 후 다시 선택해 보세요.",
+      "image": "asset_image",
+      "link": "featuresApp://hackathon.com/assets"
+    }
+  },
 ]
 
 """.data(using: .utf8)
