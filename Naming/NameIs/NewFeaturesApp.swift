@@ -12,7 +12,8 @@ struct NewFeaturesApp: App {
   @State var deeplinkTarget: DeeplinkTarget?
 
   var body: some Scene {
-    let result = loadUserInfo()
+    let res1 = loadUserInfo()
+    let res2 = initSynthesizer()
     WindowGroup {
       RootView(deeplinkTarget: $deeplinkTarget)
 //        .onOpenURL { url in

@@ -8,15 +8,22 @@
 import Foundation
 import AVFoundation
 
+var synthesizer: AVSpeechSynthesizer?
+
+func initSynthesizer() -> Bool {
+  synthesizer = AVSpeechSynthesizer() // moved to rootview after iOS 16
+  return synthesizer != nil
+}
+
 func SayName(name: String)
 {
-    let utterance = AVSpeechUtterance(string: name)
-    //utterance.rate = 0.3
-    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+  let utterance = AVSpeechUtterance(string: name)
+  utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+  utterance.rate = 0.5
 
-    let synthesizer = AVSpeechSynthesizer()
-//    synthesizer.delegate = self
-    synthesizer.speak(utterance)
+//  let synthesizer = AVSpeechSynthesizer() // moved to outside of this function
+// https://stackoverflow.com/questions/73706115/avspeechsynthesizer-isnt-working-under-ios16-anymore
+  synthesizer?.speak(utterance)
 }
 
 func TranslateEng(fname: String) -> String
