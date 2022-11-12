@@ -115,7 +115,7 @@ let m = Int (x - Double(h * 60))
 typealias Nalja = (Int, Int, Int, Int)
 
 // 2022 jolgi, from sohan
-let DefaultJolgi = Jolgi[2022]
+let DefaultJolgi = Jolgi[2023]
 
 func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
     if (b.0 > a.0) {
