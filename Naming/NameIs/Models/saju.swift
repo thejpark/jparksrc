@@ -146,7 +146,7 @@ func compareNalja(_ a:Nalja, b:Nalja) -> Bool {
         return false
     }
 
-    return false
+    return true
 }
 
 
