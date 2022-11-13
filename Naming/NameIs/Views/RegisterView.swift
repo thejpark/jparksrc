@@ -163,7 +163,7 @@ struct DobComponent: View {
   let dateRange: ClosedRange<Date> = {
       let calendar = Calendar.current
       let startComponents = DateComponents(year: 1940, month: 1, day: 1)
-      let endComponents = DateComponents(year: 2022, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+      let endComponents = DateComponents(year: 2023, month: 12, day: 31, hour: 23, minute: 59, second: 59)
       return calendar.date(from:startComponents)!
           ...
           calendar.date(from:endComponents)!
@@ -281,6 +281,7 @@ struct PlaceComponent: View {
 
 struct RegisterView: View {
   @State private var showingPopover = false
+  @State private var showingReinstall = false
   @State private var selectedItem: PhotosPickerItem?
   @State private var selectedImage: Image = getRegisteredImage()
 
@@ -352,13 +353,26 @@ struct RegisterView: View {
 //        .foregroundColor(Colors.Accent.Content.primary),
       leading: NavigationLink("도움말", destination: FeaturesView()),
       trailing: Button("등록") {
+        let urlToDocumentsFolder: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+        let installDate = try? FileManager.default.attributesOfItem(atPath: (urlToDocumentsFolder?.path)!)[.creationDate] as? Date
+        let currentDate = Date()
+        var timeInterval: TimeInterval = 0
+        if installDate != nil {
+          timeInterval = currentDate.timeIntervalSince(installDate!)
+        }
+
         if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "") {
           showingPopover = true
+        } else if timeInterval > 60 * 60 * 24 * 30 {
+          showingReinstall = true
         } else {
           register()
         }
       }
       .alert("성을 확인해 주세요", isPresented: $showingPopover) {
+        Button("OK", role: .cancel){}
+      }
+      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
         Button("OK", role: .cancel){}
       }
 
