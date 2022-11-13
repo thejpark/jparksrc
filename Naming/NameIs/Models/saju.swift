@@ -212,8 +212,9 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
     var index = 0 // or 12?
     for i in 0..<jolgi.count {
         if compareNalja(d, b: jolgi[i]) {
-            index = i
             break
+        } else {
+          index += 1
         }
     }
 
@@ -228,7 +229,12 @@ func getWorju(_ year: Int, month: Int, day: Int, hour: Int, minute: Int) -> Stri
     // 2016.1.5 乙未년 戊子월
     // 2017/1 ( 丙申년 辛丑월 )
     // not sure, but need to adjust
-    let g = gan[(6 + count) % 10]
+    if count < 0 {
+      // just in case
+      count = 0
+    }
+
+    let g = gan[(count) % 10]
     let j = ji[(count) % 12]
 
     return g + j
