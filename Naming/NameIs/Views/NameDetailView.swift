@@ -40,12 +40,16 @@ struct NameDetailView: View {
 
         Spacer(minLength: 20)
 
-        Text(saju)
-          .font(.body)
-          .multilineTextAlignment(.leading)
-        Text(dob)
-          .font(.body)
-          .multilineTextAlignment(.leading)
+        VStack(alignment: .leading) {
+          Text(saju)
+            .font(.body)
+            .multilineTextAlignment(.leading)
+          Text(dob)
+            .font(.body)
+            .multilineTextAlignment(.leading)
+          Divider()
+        }
+
         Text(ilgangangyag)
           .font(.body)
           .multilineTextAlignment(.leading)
