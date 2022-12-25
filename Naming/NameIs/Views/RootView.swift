@@ -15,7 +15,7 @@ struct RootView: View {
 
   var body: some View {
     TabView(selection: $selection) {
-      NavigationView {
+      NavigationStack {
         HomeView()
           .navigationTitle("Home")
       }.tabItem {
@@ -31,7 +31,7 @@ struct RootView: View {
       }.tag(0)
 
 
-      NavigationView {
+      NavigationStack {
         SuggestedNamesView()
           .navigationTitle("이름목록")
       }.tabItem {
@@ -43,7 +43,7 @@ struct RootView: View {
 
       }.tag(1)
 
-      NavigationView {
+      NavigationStack {
         SelfNameInputView()
           .navigationTitle("셀프작명")
       }.tabItem {
@@ -55,7 +55,7 @@ struct RootView: View {
 
       }.tag(2)
 
-      NavigationView {
+      NavigationStack {
         RegisterView()
           .navigationTitle("출생정보등록")
       }.tabItem {
@@ -67,7 +67,7 @@ struct RootView: View {
 
       }.tag(3)
 
-      NavigationView {
+      NavigationStack {
         MoreView()
           .navigationTitle("More")
       }.tabItem {
