@@ -22,7 +22,7 @@ struct RegisterInfo {
   var latitude: Double = 0
   var longitude: Double = 0
   var image: Data?
-  static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: "서울")
+  static var obj = RegisterInfo(surName: "", surNameHanja: "", gender: Gender.male, datetime: Date(), birthPlace: "")
 }
 
 func getStringFromDate(_ date: Date) -> String {
