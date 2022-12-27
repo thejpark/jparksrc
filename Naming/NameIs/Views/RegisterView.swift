@@ -349,22 +349,22 @@ struct RegisterView: View {
       }
     }
     .navigationBarItems(
-//      leading: Button("취소", action: cancelRegister),
+//      leading: Button("취소", action: cancelRegister)kkk
 //        .foregroundColor(Colors.Accent.Content.primary),
       leading: NavigationLink("도움말", destination: FeaturesView()),
       trailing: Button("등록") {
-        let urlToDocumentsFolder: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
-        let installDate = try? FileManager.default.attributesOfItem(atPath: (urlToDocumentsFolder?.path)!)[.creationDate] as? Date
-        let currentDate = Date()
-        var timeInterval: TimeInterval = 0
-        if installDate != nil {
-          timeInterval = currentDate.timeIntervalSince(installDate!)
-        }
+//        let urlToDocumentsFolder: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
+//        let installDate = try? FileManager.default.attributesOfItem(atPath: (urlToDocumentsFolder?.path)!)[.creationDate] as? Date
+//        let currentDate = Date()
+//        var timeInterval: TimeInterval = 0
+//        if installDate != nil {
+//          timeInterval = currentDate.timeIntervalSince(installDate!)
+//        }
 
         if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "") {
           showingPopover = true
-        } else if timeInterval > 60 * 60 * 24 * 30 {
-          showingReinstall = true
+//        } else if timeInterval > 60 * 60 * 24 * 30 {
+//          showingReinstall = true
         } else {
           register()
         }
@@ -372,9 +372,9 @@ struct RegisterView: View {
       .alert("성을 확인해 주세요", isPresented: $showingPopover) {
         Button("OK", role: .cancel){}
       }
-      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
-        Button("OK", role: .cancel){}
-      }
+//      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
+//        Button("OK", role: .cancel){}
+//      }
 
 //        .foregroundColor(
 //          viewModel.canCreate
