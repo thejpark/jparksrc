@@ -64,6 +64,9 @@ struct FamilynameComponent: View {
             .lineLimit(1).foregroundColor(.black)
           Spacer()
           Spacer()
+          Spacer()
+          Spacer()
+          Spacer()
           TextField("성을 한글로 입력하세요", text: $familyName)
             .lineLimit(1).foregroundColor(.blue)
 
