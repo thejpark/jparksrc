@@ -15,6 +15,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     print("application is starting up. ApplicationDelegate didFinishLaunchingWithOptions.")
     FirebaseApp.configure()
     GADMobileAds.sharedInstance().start(completionHandler: nil)
+    let res1 = loadUserInfo()
+    let res2 = initSynthesizer()
+    if (res1 && res2) == false {
+      print("fail to load or init synthesizer")
+    }
     return true
   }
 }
