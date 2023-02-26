@@ -42,14 +42,15 @@ struct BannerView: UIViewControllerRepresentable {
   @State private var viewWidth: CGFloat = .zero
   private let bannerView = GADBannerView(adSize: GADAdSizeBanner)
   // this is for production
-//  private let adUnitID = "ca-app-pub-3867377628219243/3496030873"
+  private let adUnitID = "ca-app-pub-3867377628219243/3496030873"
   // this is for testing
-  private let adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//  private let adUnitID = "ca-app-pub-3940256099942544/2934735716"
 
   func makeUIViewController(context: Context) -> some UIViewController {
     let bannerViewController = BannerViewController()
     bannerView.adUnitID = adUnitID
     bannerView.rootViewController = bannerViewController
+    bannerView.delegate = context.coordinator
     bannerViewController.view.addSubview(bannerView)
 
     // Tell the bannerViewController to update our Coordinator when the ad
@@ -63,7 +64,7 @@ struct BannerView: UIViewControllerRepresentable {
     Coordinator(self)
   }
 
-  internal class Coordinator: NSObject, BannerViewControllerWidthDelegate {
+  internal class Coordinator: NSObject, BannerViewControllerWidthDelegate, GADBannerViewDelegate {
     let parent: BannerView
 
     init(_ parent: BannerView) {
@@ -75,6 +76,14 @@ struct BannerView: UIViewControllerRepresentable {
     func bannerViewController(_ bannerViewController: BannerViewController, didUpdate width: CGFloat) {
       // Pass the viewWidth from Coordinator to BannerView.
       parent.viewWidth = width
+    }
+    // MARK: - GADBannerViewDelegate methods
+    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+      print("DID RECEIVE AD")
+    }
+
+    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+      print("DID NOT RECEIVE AD: \(error.localizedDescription)")
     }
   }
 
