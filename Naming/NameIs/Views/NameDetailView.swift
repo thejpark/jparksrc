@@ -88,6 +88,9 @@ struct NameDetailView: View {
           .onTapGesture {
             SayName(name: englishName)
           }
+
+        Spacer(minLength: 40)
+        AdBannerView()
       }
 
       }

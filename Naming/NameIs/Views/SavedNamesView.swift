@@ -83,6 +83,9 @@ struct SavedNamesView: View {
             .onTapGesture {
               SayName(name: englishName)
             }
+
+          Spacer(minLength: 40)
+          AdBannerView()
         }
 
 //        Link("Tap to see ↗", destination: detail.link!)

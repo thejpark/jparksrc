@@ -16,6 +16,7 @@
 		9B144C7E29AA1808002EDA0E /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9B144C7D29AA1808002EDA0E /* FirebaseCrashlytics */; };
 		9B144C8029AA1808002EDA0E /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9B144C7F29AA1808002EDA0E /* FirebaseFirestore */; };
 		9B144C8329AA1997002EDA0E /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 9B144C8229AA1997002EDA0E /* GoogleMobileAds */; };
+		9B144C8529AAE223002EDA0E /* AdBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B144C8429AAE223002EDA0E /* AdBannerView.swift */; };
 		9B1BFC232878F90A00EA8573 /* Hanja.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC222878F90A00EA8573 /* Hanja.swift */; };
 		9B1BFC252879699300EA8573 /* RegisterInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1BFC242879699300EA8573 /* RegisterInfo.swift */; };
 		9B3438BF28DEA52C00E5E8CE /* CurrentLocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438BE28DEA52C00E5E8CE /* CurrentLocationProvider.swift */; };
@@ -73,6 +74,7 @@
 		9B117EDC28A7316E001812FF /* SelfNameResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameResultView.swift; sourceTree = "<group>"; };
 		9B117EDE28A74D74001812FF /* NameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameDetailView.swift; sourceTree = "<group>"; };
 		9B144C7629AA15AD002EDA0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9B144C8429AAE223002EDA0E /* AdBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBannerView.swift; sourceTree = "<group>"; };
 		9B1BFC222878F90A00EA8573 /* Hanja.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hanja.swift; sourceTree = "<group>"; };
 		9B1BFC242879699300EA8573 /* RegisterInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterInfo.swift; sourceTree = "<group>"; };
 		9B3438BE28DEA52C00E5E8CE /* CurrentLocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationProvider.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */,
 				9BC462B128C4C221008C2683 /* SavedNamesView.swift */,
 				9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */,
+				9B144C8429AAE223002EDA0E /* AdBannerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				E193BEF1283DB56A0076133B /* Feature.swift in Sources */,
 				E193BEEA283DB4210076133B /* APIClient.swift in Sources */,
 				9B3438C528DFE75800E5E8CE /* CoordinateInputView.swift in Sources */,
+				9B144C8529AAE223002EDA0E /* AdBannerView.swift in Sources */,
 				E193BEF7283DBEF20076133B /* EmptyView.swift in Sources */,
 				E193BEEF283DB4E40076133B /* FeaturesResponse.swift in Sources */,
 				9BEFFFE62856B7B20023DC08 /* RegisterView.swift in Sources */,
