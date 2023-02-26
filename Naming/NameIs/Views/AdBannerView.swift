@@ -41,6 +41,9 @@ class BannerViewController: UIViewController {
 struct BannerView: UIViewControllerRepresentable {
   @State private var viewWidth: CGFloat = .zero
   private let bannerView = GADBannerView(adSize: GADAdSizeBanner)
+  // this is for production
+//  private let adUnitID = "ca-app-pub-3867377628219243/3496030873"
+  // this is for testing
   private let adUnitID = "ca-app-pub-3940256099942544/2934735716"
 
   func makeUIViewController(context: Context) -> some UIViewController {
@@ -49,7 +52,30 @@ struct BannerView: UIViewControllerRepresentable {
     bannerView.rootViewController = bannerViewController
     bannerViewController.view.addSubview(bannerView)
 
+    // Tell the bannerViewController to update our Coordinator when the ad
+    // width changes.
+    bannerViewController.delegate = context.coordinator
+
     return bannerViewController
+  }
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(self)
+  }
+
+  internal class Coordinator: NSObject, BannerViewControllerWidthDelegate {
+    let parent: BannerView
+
+    init(_ parent: BannerView) {
+      self.parent = parent
+    }
+
+    // MARK: - BannerViewControllerWidthDelegate methods
+
+    func bannerViewController(_ bannerViewController: BannerViewController, didUpdate width: CGFloat) {
+      // Pass the viewWidth from Coordinator to BannerView.
+      parent.viewWidth = width
+    }
   }
 
   func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
