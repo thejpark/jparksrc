@@ -42,9 +42,9 @@ struct BannerView: UIViewControllerRepresentable {
   @State private var viewWidth: CGFloat = .zero
   private let bannerView = GADBannerView(adSize: GADAdSizeBanner)
   // this is for production
-//  private let adUnitID = "ca-app-pub-3867377628219243/3496030873"
+  private let adUnitID = "ca-app-pub-3867377628219243/3496030873"
   // this is for testing
-  private let adUnitID = "ca-app-pub-3940256099942544/2934735716"
+//  private let adUnitID = "ca-app-pub-3940256099942544/2934735716"
 
   func makeUIViewController(context: Context) -> some UIViewController {
     let bannerViewController = BannerViewController()
