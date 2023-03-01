@@ -85,7 +85,6 @@ struct SavedNamesView: View {
             }
 
           Spacer(minLength: 40)
-          AdBannerView()
         }
 
 //        Link("Tap to see ↗", destination: detail.link!)
@@ -100,6 +99,7 @@ struct SavedNamesView: View {
       .padding(.bottom, 40)
     }
     }
+          AdBannerView()
 }
 }
 

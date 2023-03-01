@@ -90,7 +90,6 @@ struct NameDetailView: View {
           }
 
         Spacer(minLength: 40)
-        AdBannerView()
       }
 
       }
@@ -111,6 +110,7 @@ struct NameDetailView: View {
         Button("OK", role: .cancel){}
       }
     )
+        AdBannerView()
 }
 }
 
