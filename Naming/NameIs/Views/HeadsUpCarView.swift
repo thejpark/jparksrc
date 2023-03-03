@@ -22,7 +22,7 @@ struct HeadsUpCarView: View {
         //        Image("sunny")
         selectedImage.resizable()
           .aspectRatio(contentMode: .fit)
-//          .frame(height: 70)
+          .frame(height: 300)
 //          .padding(.all, 0)
 //        Spacer(minLength: 40)
 

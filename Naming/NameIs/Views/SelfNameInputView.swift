@@ -90,6 +90,7 @@ struct SelfNameInputView: View {
         VStack(alignment: .leading) {
           pic.resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(height: 300)
             .padding(/*@START_MENU_TOKEN@*/.all, 40.0/*@END_MENU_TOKEN@*/)
 
           Spacer(minLength: 40)

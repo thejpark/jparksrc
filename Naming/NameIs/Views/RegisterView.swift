@@ -295,6 +295,7 @@ struct RegisterView: View {
           selectedImage
             .resizable()
             .aspectRatio(contentMode: .fit)
+            .frame(height: 300)
             .padding([.top, .leading, .trailing], 40.0)
             .padding(.bottom, 20.0)
           //          if let selectedImage {
@@ -402,6 +403,7 @@ func getRegisteredImage() -> Image {
       registeredImage = Image("sunny")
     }
   }
+
   return registeredImage!
 }
 
