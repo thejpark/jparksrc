@@ -98,8 +98,8 @@ struct SavedNamesView: View {
       .padding(.trailing, 20)
       .padding(.bottom, 40)
     }
-    }
-          AdBannerView()
+    }.frame(height:430)  // limit spacer size by applying a frame
+    BannerView()
 }
 }
 

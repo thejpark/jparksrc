@@ -110,7 +110,8 @@ struct NameDetailView: View {
         Button("OK", role: .cancel){}
       }
     )
-        AdBannerView()
+    .frame(height:430)  // limit spacer size by applying a frame
+    BannerView()
 }
 }
 
