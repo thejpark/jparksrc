@@ -92,7 +92,9 @@ struct BannerView: UIViewControllerRepresentable {
     if viewWidth != .zero {
       bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
     }
-    bannerView.load(GADRequest())
+    let request = GADRequest()
+    request.scene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+    bannerView.load(request)
   }
 }
 
