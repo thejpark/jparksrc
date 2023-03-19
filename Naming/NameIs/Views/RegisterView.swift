@@ -365,7 +365,7 @@ struct RegisterView: View {
 //          timeInterval = currentDate.timeIntervalSince(installDate!)
 //        }
 
-        if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "") {
+        if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "" || pendingRegisterInfo.birthPlace == "") {
           showingPopover = true
 //        } else if timeInterval > 60 * 60 * 24 * 30 {
 //          showingReinstall = true
@@ -373,7 +373,7 @@ struct RegisterView: View {
           register()
         }
       }
-      .alert("성을 확인해 주세요", isPresented: $showingPopover) {
+      .alert("성과 출생지를 확인해 주세요", isPresented: $showingPopover) {
         Button("OK", role: .cancel){}
       }
 //      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
