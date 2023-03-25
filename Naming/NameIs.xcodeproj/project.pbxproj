@@ -24,6 +24,7 @@
 		9B3438C328DF0A4500E5E8CE /* GeoCoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438C228DF0A4500E5E8CE /* GeoCoder.swift */; };
 		9B3438C528DFE75800E5E8CE /* CoordinateInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */; };
 		9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7F841C289610D40095F776 /* SelfNameInputView.swift */; };
+		9BBDECEA29C718EC008797F6 /* AdInterstitialContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBDECE929C718EC008797F6 /* AdInterstitialContentView.swift */; };
 		9BC462B028C42831008C2683 /* SuggestedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */; };
 		9BC462B228C4C221008C2683 /* SavedNamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC462B128C4C221008C2683 /* SavedNamesView.swift */; };
 		9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEFFFDC2855C0340023DC08 /* saju.swift */; };
@@ -82,6 +83,7 @@
 		9B3438C228DF0A4500E5E8CE /* GeoCoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoder.swift; sourceTree = "<group>"; };
 		9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateInputView.swift; sourceTree = "<group>"; };
 		9B7F841C289610D40095F776 /* SelfNameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfNameInputView.swift; sourceTree = "<group>"; };
+		9BBDECE929C718EC008797F6 /* AdInterstitialContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdInterstitialContentView.swift; sourceTree = "<group>"; };
 		9BC462AF28C42831008C2683 /* SuggestedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedNamesView.swift; sourceTree = "<group>"; };
 		9BC462B128C4C221008C2683 /* SavedNamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNamesView.swift; sourceTree = "<group>"; };
 		9BEFFFDC2855C0340023DC08 /* saju.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = saju.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				9BC462B128C4C221008C2683 /* SavedNamesView.swift */,
 				9B3438C428DFE75800E5E8CE /* CoordinateInputView.swift */,
 				9B144C8429AAE223002EDA0E /* AdBannerView.swift */,
+				9BBDECE929C718EC008797F6 /* AdInterstitialContentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				9BEFFFDE2855C0340023DC08 /* saju.swift in Sources */,
 				9B3438C128DEC42A00E5E8CE /* Permission.swift in Sources */,
 				9B7F841D289610D40095F776 /* SelfNameInputView.swift in Sources */,
+				9BBDECEA29C718EC008797F6 /* AdInterstitialContentView.swift in Sources */,
 				E193BEF9283DC1430076133B /* FeatureCellView.swift in Sources */,
 				9B1BFC232878F90A00EA8573 /* Hanja.swift in Sources */,
 				E193BEFD283DCF6C0076133B /* FeatureDetailView.swift in Sources */,
@@ -615,7 +619,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.9;
+				MARKETING_VERSION = 2.0.10;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.singleview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -652,7 +656,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.9;
+				MARKETING_VERSION = 2.0.10;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pyfamily.singleview;
 				PRODUCT_NAME = "$(TARGET_NAME)";

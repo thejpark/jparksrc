@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 import CoreLocation
-
+import GoogleMobileAds
 
 //struct TextEditingView: View {
 //  @State private var fullText: String = ""
@@ -284,9 +284,18 @@ struct PlaceComponent: View {
 
 struct RegisterView: View {
   @State private var showingPopover = false
+  @State private var showingOk = false
   @State private var showingReinstall = false
   @State private var selectedItem: PhotosPickerItem?
   @State private var selectedImage: Image = getRegisteredImage()
+
+  private let coordinator = InterstitialAdCoordinator()
+  private let adViewControllerRepresentable = AdViewControllerRepresentable()
+
+  var adViewControllerRepresentableView: some View {
+    adViewControllerRepresentable
+      .frame(width: .zero, height: .zero)
+  }
 
   var body: some View {
     Group {
@@ -352,6 +361,7 @@ struct RegisterView: View {
         .padding(.bottom, 40)
       }
     }
+    .background(adViewControllerRepresentableView)
     .navigationBarItems(
 //      leading: Button("취소", action: cancelRegister)kkk
 //        .foregroundColor(Colors.Accent.Content.primary),
@@ -370,11 +380,22 @@ struct RegisterView: View {
 //        } else if timeInterval > 60 * 60 * 24 * 30 {
 //          showingReinstall = true
         } else {
-          register()
+          showingOk = true
+//          register()
+//          coordinator.showAd(from: adViewControllerRepresentable.viewController)
         }
       }
       .alert("성과 출생지를 확인해 주세요", isPresented: $showingPopover) {
-        Button("OK", role: .cancel){}
+        Button("OK", role: .cancel){
+          showingPopover = false
+        }
+      }
+      .alert("등록되었습니다", isPresented:  $showingOk) {
+        Button("OK"){
+          register()
+          coordinator.showAd(from: adViewControllerRepresentable.viewController)
+          showingOk = false
+        }
       }
 //      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
 //        Button("OK", role: .cancel){}
@@ -385,7 +406,9 @@ struct RegisterView: View {
 //            ? Colors.Accent.Content.primary
 //            : Colors.Neutral.Content.disabled)
 //        .disabled(!viewModel.canCreate))
-   )
+    ).onAppear() {
+      coordinator.loadAd()
+    }
   }
 }
 
