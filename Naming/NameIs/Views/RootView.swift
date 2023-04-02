@@ -57,12 +57,12 @@ struct RootView: View {
 
       NavigationStack {
         RegisterView()
-          .navigationTitle("출생정보등록")
+          .navigationTitle("출생정보입력")
       }.tabItem {
         if selection == 3 {
-          Label("출생정보등록", image: "incidents_tab_selected")
+          Label("출생정보입력", image: "incidents_tab_selected")
         } else {
-          Label("출생정보등록", image: "incidents_tab")
+          Label("출생정보입력", image: "incidents_tab")
         }
 
       }.tag(3)

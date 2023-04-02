@@ -112,7 +112,7 @@ struct SelfNameInputView: View {
         .padding(.leading, 20)
         .padding(.trailing, 20)
         .padding(.bottom, 40)
-        .alert("출생정보를 등록하세요", isPresented: $showingPopover) {
+        .alert("출생정보를 입력하세요", isPresented: $showingPopover) {
             Button("OK", role: .cancel){}
         }
       }.onAppear() {

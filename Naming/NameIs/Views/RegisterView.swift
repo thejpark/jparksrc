@@ -366,7 +366,7 @@ struct RegisterView: View {
 //      leading: Button("취소", action: cancelRegister)kkk
 //        .foregroundColor(Colors.Accent.Content.primary),
       leading: NavigationLink("도움말", destination: FeaturesView()),
-      trailing: Button("등록") {
+      trailing: Button("저장") {
 //        let urlToDocumentsFolder: URL? = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last
 //        let installDate = try? FileManager.default.attributesOfItem(atPath: (urlToDocumentsFolder?.path)!)[.creationDate] as? Date
 //        let currentDate = Date()
@@ -390,7 +390,7 @@ struct RegisterView: View {
           showingPopover = false
         }
       }
-      .alert("등록되었습니다", isPresented:  $showingOk) {
+      .alert("저장되었습니다", isPresented:  $showingOk) {
         Button("OK"){
           register()
           coordinator.showAd(from: adViewControllerRepresentable.viewController)
