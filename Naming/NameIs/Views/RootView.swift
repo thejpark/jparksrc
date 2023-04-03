@@ -33,12 +33,12 @@ struct RootView: View {
 
       NavigationStack {
         SuggestedNamesView()
-          .navigationTitle("이름목록")
+          .navigationTitle("작명목록")
       }.tabItem {
         if selection == 1 {
-          Label("이름목록", image: "inspections_tab_selected")
+          Label("작명목록", image: "inspections_tab_selected")
         } else {
-          Label("이름목록", image: "inspections_tab")
+          Label("작명목록", image: "inspections_tab")
         }
 
       }.tag(1)
