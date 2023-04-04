@@ -106,6 +106,19 @@ struct SelfNameInputView: View {
           HangulNameComponent()
           Divider()
             .background(.black)
+          HStack {
+            Spacer()
+            Button(action: {}, label: {
+              NavigationLink(destination: SelfNameResultView()){
+                Text("Search")
+              }
+            })
+            .padding()
+            .background(Color(red: 0, green: 0, blue: 0.5))
+            .foregroundColor(.white)
+            .clipShape(Capsule())
+            Spacer()
+          }
 
         }
 //        .padding(.top, 10)
@@ -121,8 +134,8 @@ struct SelfNameInputView: View {
       }
     }
     .navigationBarItems(
-      leading: NavigationLink("도움말", destination: FeaturesView()),
-      trailing: NavigationLink("찾기", destination: SelfNameResultView()) //{
+      leading: NavigationLink("도움말", destination: FeaturesView())
+//      trailing: NavigationLink("찾기", destination: SelfNameResultView()) //{
 //      }.simultaneousGesture { search() } //.onAppear {search()})
 //        Text("찾기").onTapGesture { search() }
 //      }
