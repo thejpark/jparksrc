@@ -27,6 +27,20 @@
 
 using namespace std;
 
+class A {
+public:
+    A(int a, int b): x(a), y(b) {}
+    int x;
+    int y;
+};
+
 int main() {
+    unordered_map<int, A> m;
+    A a(2, 2);
+    m.insert({2, a});
+    auto& r = m.at(2);
+    r.x = 1;
+    r.y = 1;
+    std::cout << "the result is " << m.at(2).x << " " << m.at(2).y << std::endl;
 }
 
