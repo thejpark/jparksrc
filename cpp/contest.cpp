@@ -6752,41 +6752,6 @@ class SummaryRanges {
 
 class ContainsDuplicate3 {
 public:
-    bool containsNearbyAlmostDuplicate1(vector<int>& nums, int k, int t) {
-
-        if (nums.size() <= 1)
-        {
-            return false;
-        }
-
-        vector<pair<int, int>> v(nums.size());
-        for (int i = 0; i < nums.size(); ++i)
-        {
-            v[i] = pair<int, int>(nums[i], i);
-        }
-
-        sort(v.begin(), v.end());
-
-        for (int i = 0; i < nums.size() - 1; ++i)
-        {
-            for (int j = 1; i + j < nums.size(); ++j)
-            {
-                double x = v[i + j].first;
-                double y = v[i].first;
-                if (x - y > t)
-                {
-                    break; // TLE without this break
-                }
-                else if (abs(v[i + j].second - v[i].second) <= k)
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
         multiset<int> v;
 
