@@ -22,6 +22,7 @@ http://web.stanford.edu/class/cs97si/
 #include <functional>
 #include <math.h>
 #include <limits.h>
+#include <ranges>
 using namespace std;
 
 
@@ -6822,6 +6823,82 @@ public:
         return false;
     }
 };
+
+// leetcode 546
+// You are given several boxes with different colors represented by different positive numbers.
+// You may experience several rounds to remove boxes until there is no box left. Each time you can choose some continuous boxes with the same color (i.e., composed of k boxes, k >= 1), remove them and get k * k points.
+// Return the maximum points you can get.
+
+
+class leetcode546 {
+    // time limit exceeded
+    int removeBoxes(vector<int>& boxes) {
+        vector <pair<int, int>>  v;
+        
+        int prev = boxes[0];
+        int cnt = 1;
+        for (int i = 1; i < boxes.size(); ++i) {
+           if (prev == boxes[i])  {
+               ++cnt;
+           } else {
+               v.push_back({prev, cnt});
+               prev = boxes[i];
+               cnt = 1;
+           }
+        }
+        v.push_back({prev, cnt});
+        return foo(v);
+    }
+    
+    int foo(vector<pair<int, int>>& v) {
+        int r = 0;
+        
+        for (int i = 0; i < v.size(); ++i) {
+            auto vv = v;
+            vv.erase(vv.begin() + i);
+            if (i != 0 && (i != (v.size() - 1))) {
+               if (vv[i - 1].first == vv[i].first) {
+                  // merge if the color is the same
+                  vv[i - 1].second = vv[i - 1].second + vv[i].second; 
+                  vv.erase(vv.begin() + i);
+               }
+            }
+            
+            int x = v[i].second * v[i].second + foo(vv);
+            r = max(r, x);
+        }
+        
+        return r;
+    } 
+
+    int solve(int l, int r,int mx, vector<int>& b ,vector<vector<vector<int>>> &dp)
+    {
+        if(l>r)
+            return 0;
+        if(dp[l][r][mx]!=-1)
+            return dp[l][r][mx];
+                  
+        int val = solve(l+1,r,0,b,dp) + (mx+1) * (mx+1) ;
+        for(int i=l+1;i<=r;i++)
+        {
+            if(b[l]==b[i])
+            {
+                val = max({val,solve(l+1,i-1,0,b,dp)+solve(i,r,mx+1,b,dp)});
+            }
+        }
+        
+        return dp[l][r][mx] = val;
+    }
+    // from discussion using DP
+    int removeBoxes1(vector<int>& b) {
+        int n  = b.size();
+        vector<vector<vector<int>>> dp(n,vector<vector<int>>(n,vector<int>(n, -1)));
+        int ans  = solve(0,n-1,0,b,dp);
+        return ans;
+    }
+        
+};
+
 
 int main()
 {
