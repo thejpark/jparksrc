@@ -5815,6 +5815,7 @@ int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx,
     return r;
 }
 
+// leetcode 399 is the same problem.
 // given a list of exchange rate, find the maximum amount of money you can get.
 // input: {"USDAUD@1.4", "AUDNZD@1.1"}, "USD", "NZD", 1.0
 // output: 1.4 * 1.1 * 1 = 1.6
