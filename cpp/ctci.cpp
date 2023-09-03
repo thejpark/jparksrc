@@ -1888,6 +1888,7 @@ void test_find_best_investment_period_once() //jj
 }
 
 
+// leetcode 123
 // stock share
 // find the best investment period of buying and selling twice //jj
 int maxProfit(vector<int>& prices) {
@@ -1908,7 +1909,7 @@ int maxProfit(vector<int>& prices) {
 
     vector<int> v2(prices.size(), 0);
 
- #if 0
+ #if 1
     mmax = 0;
     int tmax = prices.back();
     for (int i = prices.size() - 2; i >= 0; --i)
