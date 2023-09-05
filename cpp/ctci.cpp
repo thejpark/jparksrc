@@ -6060,7 +6060,7 @@ class turbulent {
 
 typedef struct callbacks {
   void* ptr;
-  void* next;
+  callbacks* next;
 }  callbacks;
 
 int cas(void **ptr, void *expected, void *new_value) {
