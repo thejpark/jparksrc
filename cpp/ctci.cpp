@@ -5942,9 +5942,6 @@ class ghost {
             if (!GetNode(level, last * 2 + 1)) {
                 last--;
             }
-            if (first > last) {
-                return;
-            }
         }
     }
 
