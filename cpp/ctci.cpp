@@ -5984,13 +5984,12 @@ class ghost {
             {
                 long diff = A[j];
                 diff -= A[i];
+                m[j][diff]++;
 
                 if (m[i].count(diff)) {
                     cnt += m[i][diff];
                     m[j][diff] += m[i][diff];
                 }
-
-                m[j][diff]++;
             }
         }
         return cnt;
@@ -6060,7 +6059,7 @@ class turbulent {
 
 typedef struct callbacks {
   void* ptr;
-  callbacks* next;
+  struct callbacks* next;
 }  callbacks;
 
 int cas(void **ptr, void *expected, void *new_value) {
