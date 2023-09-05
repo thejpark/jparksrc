@@ -5913,7 +5913,7 @@ class ghost {
         int last = offset + range - 1;
         int level = TREE_DEPTH - 1;
 
-        while (level >= 0) {
+        while (first <= last) {
             for (int i = first; i <= last; ++i) {
                 ClearNode(level, i);
             }
@@ -5928,7 +5928,7 @@ class ghost {
         int last = offset + range - 1;
         int level = TREE_DEPTH - 1;
 
-        while (level >= 0) {
+        while (first <= last) {
             for (int i = first; i <= last; ++i) {
                 SetNode(level, i);
             }
