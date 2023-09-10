@@ -289,13 +289,15 @@ struct RegisterView: View {
   @State private var selectedItem: PhotosPickerItem?
   @State private var selectedImage: Image = getRegisteredImage()
 
-  private let coordinator = InterstitialAdCoordinator()
-  private let adViewControllerRepresentable = AdViewControllerRepresentable()
-
-  var adViewControllerRepresentableView: some View {
-    adViewControllerRepresentable
-      .frame(width: .zero, height: .zero)
-  }
+  // begin comment out the showing add when registe
+  //  private let coordinator = InterstitialAdCoordinator()
+  //  private let adViewControllerRepresentable = AdViewControllerRepresentable()
+  //
+  //  var adViewControllerRepresentableView: some View {
+  //    adViewControllerRepresentable
+  //      .frame(width: .zero, height: .zero)
+  //  }
+  //end
 
   var body: some View {
     Group {
@@ -361,7 +363,9 @@ struct RegisterView: View {
         .padding(.bottom, 40)
       }
     }
-    .background(adViewControllerRepresentableView)
+    // begin comment out the showing add when registe
+    //    .background(adViewControllerRepresentableView)
+    // end
     .navigationBarItems(
 //      leading: Button("취소", action: cancelRegister)kkk
 //        .foregroundColor(Colors.Accent.Content.primary),
@@ -389,12 +393,16 @@ struct RegisterView: View {
       .alert("저장되었습니다", isPresented:  $showingOk) {
         Button("OK"){
           register()
-          coordinator.showAd(from: adViewControllerRepresentable.viewController)
+          // begin comment out the showing add when registe
+          //          coordinator.showAd(from: adViewControllerRepresentable.viewController)
+          // end
           showingOk = false
         }
       }
     ).onAppear() {
-      coordinator.loadAd()
+      // begin comment out the showing add when registe
+      //      coordinator.loadAd()
+      // end
     }
   }
 }
