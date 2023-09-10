@@ -377,12 +377,8 @@ struct RegisterView: View {
 
         if (pendingRegisterInfo.surName == "" || pendingRegisterInfo.surNameHanja == "" || pendingRegisterInfo.birthPlace == "") {
           showingPopover = true
-//        } else if timeInterval > 60 * 60 * 24 * 30 {
-//          showingReinstall = true
         } else {
           showingOk = true
-//          register()
-//          coordinator.showAd(from: adViewControllerRepresentable.viewController)
         }
       }
       .alert("성과 출생지를 확인해 주세요", isPresented: $showingPopover) {
@@ -397,15 +393,6 @@ struct RegisterView: View {
           showingOk = false
         }
       }
-//      .alert("설치 후 한 달 안에 등록해야 합니다.", isPresented: $showingReinstall) {
-//        Button("OK", role: .cancel){}
-//      }
-
-//        .foregroundColor(
-//          viewModel.canCreate
-//            ? Colors.Accent.Content.primary
-//            : Colors.Neutral.Content.disabled)
-//        .disabled(!viewModel.canCreate))
     ).onAppear() {
       coordinator.loadAd()
     }
@@ -447,12 +434,6 @@ func register() {
   defaults.setValue(String(gEditCount), forKey: RegisterInfoKeys.editCount)
 
   defaults.synchronize()
-
-//  pendingRegisterInfo.longitude = 0
-//  pendingRegisterInfo.latitude = 0
-  // clear previously stored names
-  //  clearElem()
-
 
   UIApplication.shared.open(URL(string: "featuresApp://hackathon.com/headsup")!)
 }
