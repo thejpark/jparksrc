@@ -6865,6 +6865,40 @@ class leetcode546 {
 };
 
 
+// leetcode 97
+// Given strings s1, s2, and s3, find whether s3 is formed by an interleaving of s1 and s2.
+class Interleave {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+
+        int size1 = s1.size();
+        int size2 = s2.size();
+        if (size1 + size2 != s3.size())
+            return false;
+        
+        vector<vector<bool>> v(size1 + 1, vector<bool>(size2 + 1, false));
+        
+        for (int i = size1 ; i >= 0; --i)
+        {
+            for (int j = size2 ; j >= 0; --j)
+            {
+                if (i == size1 && j == size2) {
+                    v[i][j] = true;
+                } else if (i == size1) {
+                    v[i][j] = s2[j] == s3[i + j] && v[i][j + 1];
+                } else if (j == size2) {
+                    v[i][j] = s1[i] == s3[i + j] && v[i + 1][j];
+                } else {
+                    auto a = v[i + 1][j] && (s1[i] == s3[i + j]);
+                    auto b = v[i][j + 1] && (s2[j] == s3[i + j]);
+                    v[i][j] = a || b;
+                }
+            }
+        }
+        
+        return v[0][0];
+     }
+};
 int main()
 {
     // when test your algorithm which takes a string,
