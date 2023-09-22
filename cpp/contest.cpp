@@ -6936,6 +6936,86 @@ public:
     }
 };
 
+// leetcode 132
+// Given a string s, partition s such that every substring of the partition is a palindrome.
+// Return the minimum cuts needed for a palindrome partitioning of s.
+class Mincut {
+public:
+
+    int minCut(string s) {
+        vector<vector<char>> v(s.size(), vector<char>(s.size(), 0));
+        vector<int> c(s.size(), -1);
+        compute(v, s);
+        // return part(s, 0, v, c) - 1;
+        return part3(s, v);
+    }
+
+    void compute(vector<vector<char>>& v, string& s)
+    {
+        for (int j = 0; j < v.size(); ++j)
+        {
+            for (int i = 0; i <= j; ++i)
+            {
+                bool same = s[i] == s[j];
+                v[i][j] = (j - i) >= 2 ? same && v[i + 1][j - 1] : same;
+            }
+        }
+    }
+    
+    int part(string& s, int idx, vector<vector<char>>& v, vector<int>& c)
+    {
+        if (idx == s.size())
+        {
+            return 0;
+        }
+        
+        if (c[idx] != -1)
+            return c[idx];
+        
+        int r = s.size();
+        for (int i = idx; i < s.size(); ++i)
+        {
+            if (v[idx][i])
+            {
+                int t = 1 + part(s, i + 1, v, c);
+                r = min(r, t);
+            }
+        }
+        
+        c[idx] = r;
+        return r;
+    }
+
+    int part3(string& s, vector<vector<char>>& v)
+    {
+        vector<int> vi(s.size(), 0);
+        
+        
+        for (int i = 1; i < s.size(); ++i)
+        {
+
+            if (v[0][i])
+            {
+                vi[i] = 0;
+            }
+            else
+            {
+                int t = i;
+                for (int j = 1; j <= i; ++j)
+                {
+                    if (v[j][i])
+                    {
+                        t = min(vi[j - 1] + 1, t);
+                    }
+                }
+                vi[i] = t;
+            }
+        }
+        
+        return vi.back();
+    }
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
