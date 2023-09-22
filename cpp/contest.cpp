@@ -6899,6 +6899,43 @@ public:
         return v[0][0];
      }
 };
+
+// leetcode 115
+// Given two strings s and t, return the number of distinct subsequences of s which equals t.
+class Distinct {
+public:
+    int numDistinct(string s, string t) {
+        return foo3(s, t);
+    }
+    
+    int foo3(string& s, string& t)
+    {
+        int sz1 = s.size();
+        int sz2 = t.size();
+        
+        vector<vector<double>> v(sz1 + 1, vector<double>(sz2 + 1, 0));
+        
+        for (int i = sz1; i >= 0; --i)
+        {
+            for (int j = sz2; j >= 0; --j)
+            {
+                if (j == sz2)
+                    v[i][j] = 1;
+                else if (i == sz1)
+                    v[i][j] = 0;
+                else
+                {
+                    double a = (s[i] == t[j]) ? v[i + 1][j + 1] : 0;
+                    double b = v[i + 1][j];
+                    v[i][j] = a + b;
+                }
+            }
+        }
+        
+        return v.front().front();
+    }
+};
+
 int main()
 {
     // when test your algorithm which takes a string,
