@@ -2248,6 +2248,37 @@ int find_min_from_sorted_rotated_with_duplicate(const vector<int>& v, int i, int
     return v[i];
 }
 
+// leetcode 81
+// input: [1, 1, 1, 1, 1, 2, 1, 1, 1] output: 6
+int find_start_index_of_min_values_from_sorted_rotated_with_duplicate(vector<int>& nums, int a, int e)
+{
+    while (a < e) {
+        if (nums[a] < nums[e]) {
+            break;
+        }
+
+        if (nums[a] == nums[e]) {
+            a++;
+            continue;
+        }
+        int mid = (a + e) / 2;
+        
+        if (nums[a] < nums[mid])
+        {
+            a = mid + 1;
+        }
+        else if (nums[a] > nums[mid])
+        {
+            e = mid;
+        }
+        else
+        {
+            a++;
+        }
+    }
+    return a;
+}
+
 
 // leetcode 162
 int searchPeak(vector<int> nums, int l, int r) {
