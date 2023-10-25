@@ -5149,6 +5149,7 @@ void test_find_biggest_plus() //jj
 // leetcode 410
 // toffee in the below implementation is not optimal. Please take a look at splitarray implementation below which is
 // actually same as toffee problem
+// also same with Optiver interview question
 int toffee(int sum, int begin, int count, vector<int>& v)
 {
     if (count == 0)

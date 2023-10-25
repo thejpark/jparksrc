@@ -5817,6 +5817,7 @@ class optiver {
 // input is a list of petrol station distance and petrol prices. At the end, tank should be empty. if distance[0] is 30, means
 // station 0 and station 1 is 30 km away. price[0] is 3 means that price at station 0 is 3/l.
 //ex: [10, 20, 5, 20] and [3, 4, 2, 3] -> 140. 30 * 3 + 25 * 2.
+// leetcode 410
 int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx, vector<vector<int>>& v) {
     
     if (idx == d.size()) {
