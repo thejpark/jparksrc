@@ -7031,7 +7031,36 @@ int main()
   test_find_number_which_has_the_most_bigger_numbers_on_the_right();
 }
 
+// leetcode 435
+//Given an array of intervals intervals where intervals[i] = [starti, endi], 
+// return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+class EraseOverlapIntervals {
+public:
+  // also look at longest increasing subsequence
+  int eraseOverlapIntervals(vector<vector<int>> &intervals) {
+    if (intervals.empty())
+      return 0;
 
+    vector<vector<int>> v;
+    sort(intervals.begin(), intervals.end(),
+         [](vector<int> &a, vector<int> &b) {
+           if (a[0] < b[0])
+             return true;
+           return false;
+         });
+    v.push_back(intervals[0]);
+
+    for (int i = 1; i < intervals.size(); ++i) {
+      int end = v.size() - 1;
+      if (v[end][1] <= intervals[i][0]) {
+        v.push_back(intervals[i]);
+      } else if (v[end][1] >= intervals[i][1]) {
+        v[end] = intervals[i];
+      }
+    }
+    return intervals.size() - v.size();
+  }
+};
 /*
 start: get an idea by examples, design, implement next, optimize or debug last
 end: if there is a loop, then check end condition - what happens at the end of
