@@ -6121,6 +6121,98 @@ void fire() {
 }
 **/
 
+
+// leetcode 209 minimum size subarray sum
+// Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no such subarray, return 0 instead.
+// Example 1:
+// Input: target = 7, nums = [2,3,1,2,4,3]
+// Output: 2
+// Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+#ifdef java
+class Solution {
+  // O(nlog(n))
+  public int minSubArrayLen1(int s, int[] nums) {
+      int[] v = new int[nums.length + 1];
+      v[0] = 0;
+      for (int i = 1; i < v.length; ++i)
+      {
+          v[i] = v[i - 1] + nums[i - 1];
+      }
+      
+      int r = 0;
+      for (int i = 1; i < v.length; ++i)
+      {
+          int x = lowerBound(s + v[i - 1], v, i);
+          //System.out.println("x is " + x  + " and i is " + i);
+
+          if (x < v.length)
+          {
+              if (r == 0)
+                  r = x - i + 1;
+              else
+                  r = Math.min(r, x - i + 1);
+              
+          }
+      }
+       
+      return r;
+  }
+  
+  int lowerBound(int s, int[] v, int a)
+  {
+      int e = v.length - 1;
+      while (a <= e)
+      {
+          int m = (a + e) / 2;
+          
+          if (s > v[m])
+          {
+              a = m + 1;
+          }
+          else
+          {
+              e = m - 1;
+          }
+      }
+      return a;
+  }
+  
+  // O(n)
+  public int minSubArrayLen(int s, int[] nums) {
+      int beg = -1, end = -1;
+      int left = 0, right = 0;
+      int sum = 0;
+      int r = 0;
+      
+      while (right < nums.length)
+      {
+          sum += nums[right];
+
+          // System.out.println("sum is " + sum);
+          
+          while (sum >= s)
+          {
+              if ((beg == -1 && end == -1) ||
+                  (end - beg > right - left))
+              {
+                  r = right - left + 1;
+                  end = right;
+                  beg = left;
+              }
+              
+              sum -= nums[left];
+              left += 1;
+          }
+          
+          right += 1;
+      }
+      
+      return r;
+      
+  }
+}
+#endif
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
