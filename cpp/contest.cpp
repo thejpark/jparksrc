@@ -7061,6 +7061,93 @@ public:
     return intervals.size() - v.size();
   }
 };
+
+//leetcode 355 design twitter
+class Twitter {
+
+  unordered_map<int, vector<pair<int, int>>> m;
+  unordered_map<int, set<int>> f;
+  int counter {0}; // counter is better because it is easy and fast to compare
+public:
+  /** Initialize your data structure here. */
+  Twitter() {
+      
+  }
+  
+  /** Compose a new tweet. */
+  void postTweet(int userId, int tweetId) {
+      m[userId].push_back({tweetId, counter++});
+  }
+  
+  /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
+  vector<int> getNewsFeed(int userId) {
+
+
+      auto comp = [](pair<int, int>& a, pair<int, int>& b) {
+                  return a.second > b.second;
+              };
+      priority_queue<pair<int,int>, vector<pair<int, int>>, decltype(comp)> pq(comp);
+
+
+      for (auto e = m[userId].rbegin(); e != m[userId].rend(); ++e)
+      {
+          pq.push(*e);
+          if (pq.size() == 10)
+              break;
+      }
+
+      // which sort is best if sub area is already sorted?
+      for (auto&e : f[userId])
+      {
+          for (auto ee = m[e].rbegin(); ee != m[e].rend(); ++ee)
+          {
+              if ((pq.size() == 10) && (ee->second < pq.top().second))
+                  break;
+              pq.push(*ee);
+              if (pq.size() > 10)
+                  pq.pop();
+              
+          }
+      }
+     
+      int size = min(10, int(pq.size()));
+      vector<int> res(size);
+
+      for (int i = 0; i < size; ++i)
+      {
+          res[i] = pq.top().first;
+          pq.pop();
+      }
+      
+      reverse(res.begin(), res.end());
+      return res;
+      
+  }
+  
+  /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
+  void follow(int followerId, int followeeId) {
+      if (followerId == followeeId)
+          return;
+      f[followerId].insert(followeeId);
+  }
+  
+  /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
+  void unfollow(int followerId, int followeeId) {
+      if (followerId == followeeId)
+          return;
+      f[followerId].erase(followeeId);
+  }
+};
+/**
+* Your Twitter object will be instantiated and called as such:
+* Twitter* obj = new Twitter();
+* obj->postTweet(userId,tweetId);
+* vector<int> param_2 = obj->getNewsFeed(userId);
+* obj->follow(followerId,followeeId);
+* obj->unfollow(followerId,followeeId);
+*/
+
+
 /*
 start: get an idea by examples, design, implement next, optimize or debug last
 end: if there is a loop, then check end condition - what happens at the end of
