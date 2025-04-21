@@ -1048,41 +1048,38 @@ void t47()
 
 }
 
-
-void faps(int k, int t, vector<int> vt, vector<vector<int>>& rt, bt_node<int>* n)
-{
-  if (n == nullptr) {
-      return;
-  }
-
-  if (t == k) {
-      rt.emplace_back(vt);
-  }
-
-  vector<int> vtt;
-  vtt.emplace_back(n->val);
-  faps(k, n->val, vtt, rt, n->left);
-  faps(k, n->val, vtt, rt, n->right);
-
-
-  t += n->val;
-  vt.emplace_back(n->val);
-  faps(k, t, vt, rt, n->left);
-  faps(k, t, vt, rt, n->right);
-}
-
-vector<vector<int>> find_all_paths_sum_up(int k, bt_node<int>* n)
-{
-  vector<vector<int>> rt;
-  vector<int> vt;
-
-  // assume that n is not nullprt
-  vt.emplace_back(n->val);
-  faps(k, n->val, vt, rt, n->left);
-  faps(k, n->val, vt, rt, n->right);
-
-  return rt;
-}
+// leetcode 437 PathSum III
+class PathSumSolution {
+  public:
+      int pathSum(bt_node<int>* root, int sum) {
+          
+          unordered_map<int, int> m;
+          m[0] = 1;
+          foo(root, 0, sum, m);
+          
+          return cnt;
+      }
+      
+      int cnt {0};
+      
+      void foo(bt_node<int>* n, int t, int sum, unordered_map<int, int>& m)
+      {
+          if (n == nullptr)
+              return;
+          
+          t += n->val;
+          
+          //if (m.count(t - sum))
+          //{
+              cnt += m[t - sum]; // returns 0 by default
+          //}
+          
+          m[t]++;
+          foo(n->left, t, sum, m);
+          foo(n->right, t, sum, m);
+          m[t]--;
+      }
+  };
 
 // given a binary tree in which each node contains a value Design an
 // algorithm to print all paths which sum up to that value Note that //jj: todo test this code
