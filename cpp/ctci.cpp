@@ -3817,6 +3817,8 @@ void test_find_lcs()
 
 // DP
 // post office is the same problem?
+// knapsack problem. Each item has a value and a weight.
+//  Given a knapsack with a maximum weight capacity, find the maximum value of items that can be put in the knapsack.
 int knapsack(int k, vector<int>& v, vector<int>& w, int i, vector<vector<int>>& vv)
 {
     if (i == w.size())
