@@ -12,6 +12,7 @@
 #include <future>
 #include <thread>
 #include <mutex>
+#include <shared_mutex>
 #include <stdexcept>
 #include <numeric>
 #include <memory>

@@ -35,6 +35,7 @@
 #include <sstream>
 // time_point::time_since_epoch
 #include <chrono>
+#include <shared_mutex>
 
 using namespace std;
 
@@ -5669,20 +5670,20 @@ public:
   RateLimiter2() {}
   bool RateLimit(int customer_id) {
     if (!m.contains(customer_id)) {
-        scoped_lock<mutex> lck(mtx); // should use spinlock here?
+        unique_lock lck(mtx); // should use spinlock here?
         if (!m.contains(customer_id)) {
             // mutex or atomic made me to use unique_ptr.
             m.emplace(make_pair(customer_id, make_unique<Bucket>(10, 2))); 
         }
     }
-    unique_lock<mutex> lck(mtx);
+    shared_lock lck(mtx);
     auto& c =  m.at(customer_id);
     lck.unlock();
     return c->Dec();
   }
 
   void Refill(int customer_id) {
-    unique_lock<mutex> lck(mtx);
+    shared_lock lck(mtx);
     if (!m.contains((customer_id))) { return; }
     auto& c =  m.at(customer_id);
     lck.unlock();
@@ -5690,7 +5691,7 @@ public:
   }
 
   void Observe() override {
-    scoped_lock<mutex> lck(mtx);
+    shared_lock lck(mtx);
     for (auto& e: m) {
         e.second->Refill();
     }
@@ -5698,7 +5699,7 @@ public:
 
 private:
   unordered_map<int, unique_ptr<Bucket>> m;
-  mutex mtx;
+  shared_mutex mtx;
 };
 
 // leetcode 353
