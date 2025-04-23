@@ -6048,7 +6048,7 @@ int maximumGap2(vector<int>& nums)
 // in order to reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
 //     Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
 
-//leet code 174, 741
+//leetcode 174, 741
 int CalcMinHealth_DP(vector<vector<int>>& d)
 {
     int row = d.size();
@@ -6170,43 +6170,6 @@ public:
             return x - y;
     }
 };
-
-/*
-  Write a program to find the nth super ugly number.
-
-  Super ugly numbers are positive numbers whose all prime factors are in the given prime list primes of size k.
-
-  Example:
-
-  Input: n = 12, primes = [2,7,13,19]
-  Output: 32
-  Explanation: [1,2,4,7,8,13,14,16,19,26,28,32] is the sequence of the first 12
-  super ugly numbers given primes = [2,7,13,19] of size 4.
- */
-int nthSuperUglyNumber(int n, vector<int>& primes) {
-    vector<int> k(primes.size(), 0);
-    vector<int> v(n, 0);
-    v[0] = 1;
-
-    for (int i = 1; i < n; ++i)
-    {
-        int m = INT_MAX;
-        for (int j = 0; j < primes.size(); ++j)
-        {
-            int val = primes[j] * v[k[j]];
-            m = min(val, m);
-        }
-
-        v[i] = m;
-        for (int j = 0; j < primes.size(); ++j)
-        {
-            if (m == primes[j] * v[k[j]])
-                ++k[j];
-        }
-    }
-
-    return v[n - 1];
-    }
 
 /* leetcode 316
   Given a string which contains only lowercase letters, remove duplicate letters so that every letter appears once and only once. You must make sure your result is the smallest in lexicographical order among all possible results.
