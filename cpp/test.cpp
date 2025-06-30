@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <exception>
 #include <vector>
 #include <list>
 #include <set>
@@ -29,18 +30,45 @@ using namespace std;
 
 class A {
 public:
-    A(int a, int b): x(a), y(b) {}
+    A(int a, int b): x(a), y(b) 
+{
+	std::cout << "A is created" << std::endl;
+}
+    A(const A& a) {
+      std::cout << "A is copied" << std::endl;
+      x = a.x;
+      y = a.y;  
+    }
+
+
     int x;
     int y;
 };
 
+void foo() {
+    try {
+        throw std::exception();
+    } catch(std::exception& e) {
+        std::cout << "catch exception" << std::endl;
+    }
+
+    std::cout << "after catch" << std::endl;
+}
+
+struct st {
+    int a;
+    char *b;
+};  
+
+void bar(const A& a) {
+  [a] {
+    std::cout << "a.x = " << a.x << std::endl;
+  }();
+}
+
 int main() {
-    unordered_map<int, A> m;
-    A a(2, 2);
-    m.insert({2, a});
-    auto& r = m.at(2);
-    r.x = 1;
-    r.y = 1;
-    std::cout << "the result is " << m.at(2).x << " " << m.at(2).y << std::endl;
+    std::cout << "test for lambda" << std::endl;
+    A a1(1, 2);
+    bar(a1);
 }
 

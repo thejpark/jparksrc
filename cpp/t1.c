@@ -20,6 +20,8 @@ enum  xxx {
     a, b, c, 
 };
 
+void spiral(int n);
+
 int main ()
 {
     /* int len = sizeof(str[0]); */
@@ -36,11 +38,35 @@ int main ()
     /* sprintf(str, "%2.1f", zzz); */
     /* printf("%s\n",str); */
     /* printf("------\n"); */
-    char str[31];
-    sprintf(str, "%04X%28X", 12345, -1);
-    printf("%s\n", str);
-
 }
+
+void spiral(int n) {
+  int left = 0;
+  int right = n - 1;
+  int top = 0;
+  int bottom = n - 1;
+  int direction = 1;
+  
+  for (int i = 0; i < n; ++i) {
+    if (i == top) {
+      // print until left
+      // print left to rigt
+      // print after right
+      top += 2; 
+      if (left + 1 == right) {
+        direction = -1;
+      }
+
+      right -= 2;
+    } else if (i < top) {
+      // print until left
+      // print left to rigt
+      // print after right
+      left += 1;
+    }
+  }
+}
+
 
 
 

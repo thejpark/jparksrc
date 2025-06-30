@@ -2212,6 +2212,46 @@ void next_perm(vector<int>* pv) //jj
     v.clear();
     return;
 }
+class Solution_leetcode_53 {
+    // leetcode 53
+    // Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+    // A subarray is a contiguous part of an array.
+    // Example:
+    // Input: [-2,1,-3,4,-1,2,1,-5,4], Output: 6
+    // Explanation: [4,-1,2,1] has the largest sum = 6. 
+public:
+    int maxSubArray(vector<int>& nums) {
+        
+        if (nums.size() == 0)
+            return 0;
+        
+        int cur_sum = nums[0];
+        int max_sum = nums[0];
+
+        for (int i = 1; i < nums.size(); ++i)
+        {
+            cur_sum = max(nums[i], cur_sum + nums[i]);
+            max_sum = max(max_sum, cur_sum);
+        }
+
+        return max_sum;
+    }
+
+   int maxSubArray2(vector<int>& nums) {
+        int maxsofar = nums[0];
+        int res = nums[0];
+        for (int i = 1; i < nums.size(); ++i) {
+            if (maxsofar <= 0) {
+                maxsofar = nums[i];
+            } else {
+                maxsofar += nums[i];
+            }
+            res = max(res, maxsofar);
+        }
+
+        return res;
+    }
+};
 
 // leetcode 153
 int find_min_from_sorted_rotated(const vector<int>& v, int a, int e) //jj
@@ -4118,8 +4158,58 @@ int wiggleMaxLength(vector<int>& nums) {
     }
   }
   return max_wiggle;
+}
+
+// leetcode 978, longest turbelent subarray
+// 9, 4, 2, 10, 7, 8, 8, 1, 9 -> 5.  because 4, 2, 10, 7, 8 are turbelent.
+// 4, 8, 12, 16 -> 2. b
+class turbulent {
+    int test_turbulence(const vector<int>& input) {
+
+        int d = 0;
+        int cnt = 1;
+        int max_cnt = 1;
+        for (int i = 1; i < input.size(); ++i) {
+            if (input[i] > input[i - 1]) {
+                if (d <= 0) {
+                    ++cnt;
+                    if (cnt > max_cnt) {
+                        max_cnt = cnt;
+                    }
+                } else {
+                    cnt = 2;
+                }
+                d = 1;
+
+            } else if (input[i] < input[i - 1]) {
+                if (d >= 0) {
+                    ++cnt;
+                    if (cnt > max_cnt) {
+                        max_cnt = cnt;
+                    }
+                } else {
+                    cnt = 2;
+                }
+                d = -1;
+
+            } else {
+                d = 0;
+                cnt = 1;
+            }
+        }
+        if (cnt > max_cnt) {
+            max_cnt = cnt;
+        }
+
+        return max_cnt;
     }
 
+    public:
+    void test() {
+       cout << test_turbulence({9, 4, 2, 10, 7, 8, 8, 1, 9}) << "shout be 5" << endl; 
+       cout << test_turbulence({4, 8, 12, 16}) << "should be 2 " << endl; 
+    }
+};
 /*
   Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the array.
  */
@@ -4206,8 +4296,7 @@ vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k
 
   return r;
 
-}
-
+ 
 // also see leetcode 378
 
 
@@ -5817,7 +5906,7 @@ class optiver {
 // input is a list of petrol station distance and petrol prices. At the end, tank should be empty. if distance[0] is 30, means
 // station 0 and station 1 is 30 km away. price[0] is 3 means that price at station 0 is 3/l.
 //ex: [10, 20, 5, 20] and [3, 4, 2, 3] -> 140. 30 * 3 + 25 * 2.
-// leetcode 410
+// leetcode 410, 514
 int foo(const vector<int>& d, const vector<int>& prices, int fuel_tank, int idx, vector<vector<int>>& v) {
     
     if (idx == d.size()) {
@@ -6023,58 +6112,6 @@ class ghost {
         }
         return cnt;
     }
-
-
-// leetcode 978, longest turbelent subarray
-// 9, 4, 2, 10, 7, 8, 8, 1, 9 -> 5.  because 4, 2, 10, 7, 8 are turbelent.
-// 4, 8, 12, 16 -> 2. b
-class turbulent {
-    int test_turbulence(const vector<int>& input) {
-
-        int d = 0;
-        int cnt = 1;
-        int max_cnt = 1;
-        for (int i = 1; i < input.size(); ++i) {
-            if (input[i] > input[i - 1]) {
-                if (d <= 0) {
-                    ++cnt;
-                    if (cnt > max_cnt) {
-                        max_cnt = cnt;
-                    }
-                } else {
-                    cnt = 2;
-                }
-                d = 1;
-
-            } else if (input[i] < input[i - 1]) {
-                if (d >= 0) {
-                    ++cnt;
-                    if (cnt > max_cnt) {
-                        max_cnt = cnt;
-                    }
-                } else {
-                    cnt = 2;
-                }
-                d = -1;
-
-            } else {
-                d = 0;
-                cnt = 1;
-            }
-        }
-        if (cnt > max_cnt) {
-            max_cnt = cnt;
-        }
-
-        return max_cnt;
-    }
-
-    public:
-    void test() {
-       cout << test_turbulence({9, 4, 2, 10, 7, 8, 8, 1, 9}) << "shout be 5" << endl; 
-       cout << test_turbulence({4, 8, 12, 16}) << "should be 2 " << endl; 
-    }
-};
 
 /**
 // Ghost Automotive 2022 coding interview.

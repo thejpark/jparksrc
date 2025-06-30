@@ -14,6 +14,7 @@ http://web.stanford.edu/class/cs97si/
 #include <unordered_map>
 #include <list>
 #include <set>
+#include <unordered_set>
 #include <stack>
 #include <algorithm>
 #include <numeric>
@@ -2771,114 +2772,47 @@ void test_find_and_catch() //jj
 
 // https://www.topcoder.com/community/data-science/data-science-tutorials/binary-indexed-trees/
 // leetcode 307
-class BIT
-{
+class NumArray {
+
+    vector<int> leaf;
+    vector<int> inner;
+    
 public:
-    BIT()
-    {
-    }
-
-    void push_back(int x)
-    {
-        leaf.push_back(x);
-
-        // x -= (x & -x); // clear right most 1
-        // so, (x & -x) is right most bit
-
-
-        int size = leaf.size();
-#if 0
-        int ssum = 0;
-
-        for (int i = size - (size & -size); i < size; ++i)
-        {
-            ssum += leaf[i];
+    NumArray(vector<int>& nums) {
+        // let inner index start from 1.
+        inner = std::vector<int>(nums.size() + 1, 0);
+        leaf = std::vector<int>(nums.size(), 0);
+        for (int i = 0; i < nums.size(); ++i) {
+            update(i, nums[i]);
         }
-
-
-#endif
-#if 0
-        int ssum = sum(leaf.size() - 1) + x;
-        ssum -= sum(size - (size & -size));
-#endif
-#if 1
-        int i = 1;
-        int ssum = x;
-        while ((size & i) == 0)
-        {
-            ssum += inner[size - i - 1];
-            i = i * 2;
-        }
-#endif
-        inner.push_back(ssum);
     }
-
-    void update(int i, int x)
-    {
-        int diff = x - leaf[i - 1];
-        leaf[i - 1] = x;
-
+    
+    void update(int idx, int x) {
+        int diff = x - leaf[idx];
+        leaf[idx] = x;
+        int i = idx + 1;
         int size = leaf.size();
         while (i <= size){
-            inner[i - 1] += diff;
+            inner[i] += diff;
             i += (i & -i);
         }
     }
-
-    int sum(int i)
+    
+    int sumRange(int i, int j) {
+        return (sum(j) - sum(i - 1));
+    }
+    
+    int sum(int idx)
     {
         int ssum = 0;
+        int i = idx + 1; 
         while (i > 0){
-            ssum += inner[i - 1];
+            ssum += inner[i];
             i -= (i & -i);
         }
         return ssum;
     }
-
-    int sum(int i, int j)
-    {
-        return (sum(j) - sum(i - 1));
-    }
-
-    void print()
-    {
-        for (int i = 0; i < inner.size(); ++i)
-        {
-            cout << inner[i] << ",";
-        }
-        cout << endl;
-
-        for (int i = 0; i < leaf.size(); ++i)
-        {
-            cout << leaf[i] << ",";
-        }
-        cout << endl;
-
-    }
-
-private:
-    vector<int> leaf;
-    vector<int> inner;
 };
-
-
-void test_bit() //jj
-{
-    BIT b;
-    for (int i = 1; i <= 10; ++i)
-        b.push_back(i);
-
-    b.print();
-    assert(b.sum(10) == 55);
-    b.update(3, 2);
-
-    for (int i = 1; i <= 10; ++i)
-    {
-        cout << "sum " << i << " is " << b.sum(i) << endl;
-    }
-    b.print();
-}
-
 /*
 
 N friends are playing a game. Each of them has a list of numbers in front of himself.
@@ -5749,7 +5683,7 @@ void test_sign()
   For example, [2, 3, 1, 7, 6], 2 has 3, 3 has 2, 1 has 2, 7 has0, 6 has 0.
   This problem should return the index of the number which has the most, in this case index 0 (for number 2).
  */
- // leetcode 315
+ // leetcode 315. Count of Smaller Numbers After Self
 
 
 struct anode {
@@ -7025,7 +6959,120 @@ public:
   }
 };
 
+// 332. Reconstruct Itinerary
+// Topics
+// premium lock icon
+// Companies
+// You are given a list of airline tickets where tickets[i] = [fromi, toi] represent the departure and the arrival airports of one flight. Reconstruct the itinerary in order and return it.
+// All of the tickets belong to a man who departs from "JFK", thus, the itinerary must begin with "JFK". If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string.
+
+// For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+// You may assume all tickets form at least one valid itinerary. You must use all the tickets once and only once.
+
+// Example 1:
+// Input: tickets = [["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]
+// Output: ["JFK","MUC","LHR","SFO","SJC"]
+
+class SolutionReconstructItinerary {
+public:
+    vector<string> findItinerary(vector<vector<string>>& tickets) {
+        sort(tickets.begin(), tickets.end(), [](vector<string>& a, vector<string>& b)
+             {
+                 if (a[0] < b[0])
+                     return true;
+                 else if (a[0] > b[0])
+                     return false;
+                 else
+                 {
+                     if (a[1] < b[1])
+                         return true;
+                     return false;
+                 }
+             });
+        
+        unordered_map<string, list<int>> m;
+        for (int i = 0; i < tickets.size(); ++i)
+        {
+            m[tickets[i][0]].push_back(i);
+        }
+        
+        vector<bool> vb(tickets.size(), false);
+        vector<string> r;
+
+        r.push_back("JFK");
+        foo("JFK", m, tickets, vb, r);
+        
+        return r;
+
+    }
+    
+    bool foo(string str, unordered_map<string, list<int>>& m, vector<vector<string>>& t, vector<bool>& b, vector<string>& r)
+    {
+        if (r.size() == b.size() + 1)
+            return true;
+
+        for (auto e : m[str])
+        {
+            if (!b[e])
+            {
+                b[e] = true;
+                r.push_back(t[e][1]);
+                bool result = foo(t[e][1], m, t, b, r);
+                if (result)
+                    return true;
+                r.pop_back();
+                b[e] = false;
+            }
+        }
+        
+        return false;
+    }
+};
+// using java
+/*
+class Solution {
+    
+    public List<String> findItinerary(List<List<String>> tickets) {
+        HashMap<String, PriorityQueue<String>> m = new HashMap<>();
+        for (var t : tickets)
+        {
+            var depart = t.get(0);
+            m.putIfAbsent(depart, new PriorityQueue<String>());
+            m.get(depart).add(t.get(1));
+        }
+                
+        LinkedList<String> r = new LinkedList<>();
+        foo(m, r, "JFK");
+        
+        return r;
+        
+    }
+    
+    void foo(Map<String, PriorityQueue<String>> m, LinkedList<String> r, String depart)
+    {
+        PriorityQueue<String> q = m.get(depart);
+
+        while (q != null && !q.isEmpty())
+        {
+            var newDep = q.poll();
+            foo(m, r, newDep); // if the first one ends without finish up all the nodes then try with the second one. the second one is added before the first one so that the list 'r' can end up iternary list.
+        }
+        
+        r.addFirst(depart);
+    }
+}
+*/
+
+
 //leetcode 355 design twitter
+/**
+* Your Twitter object will be instantiated and called as such:
+* Twitter* obj = new Twitter();
+* obj->postTweet(userId,tweetId);
+* vector<int> param_2 = obj->getNewsFeed(userId);
+* obj->follow(followerId,followeeId);
+* obj->unfollow(followerId,followeeId);
+*/
 class Twitter {
 
   unordered_map<int, vector<pair<int, int>>> m;
@@ -7101,14 +7148,56 @@ public:
       f[followerId].erase(followeeId);
   }
 };
-/**
-* Your Twitter object will be instantiated and called as such:
-* Twitter* obj = new Twitter();
-* obj->postTweet(userId,tweetId);
-* vector<int> param_2 = obj->getNewsFeed(userId);
-* obj->follow(followerId,followeeId);
-* obj->unfollow(followerId,followeeId);
-*/
+
+
+// we have buses and busstops. Given first and the last stops, find the minimum number of stops
+// using buses available.
+
+class SolutionBusStop {
+public:
+int MinBusStop(const std::vector<std::vector<std::string>>& bus_stops, const std::string& start, const std::string& end) {
+
+  std::unordered_map<std::string, std::vector<std::string>> nextStop;
+
+  for (const auto& route : bus_stops) {
+    for (int i = 0; i < route.size() - 1; ++i) {
+      nextStop[route[i]].push_back(route[i + 1]);
+    }
+  }
+
+  std::unordered_set<std::string> ss;
+  std::deque<std::string> l;
+  l.push_back(std::string());
+  l.push_back(start);
+  ss.insert(start);
+
+  int depth = 0;
+  while (!l.empty()) {
+    auto busstop = l.front();
+    l.pop_front();
+    if (busstop.empty()) {
+      if (l.empty()) {
+        return -1;
+      }
+      l.push_back(busstop);
+      depth++;
+    } else {
+      if (busstop == end) {
+        return depth;
+      }
+      for (const auto &str : nextStop[busstop]) {
+        if (!ss.contains(str)) {
+          l.push_back(str);
+          ss.insert(str);
+        }
+      }
+    }
+  }
+  // if the time/distance between stops are same, normal bfs should be fine.
+  // otherwise, priority_queue can be used (how)?
+  return depth;
+}
+};
 
 
 /*
