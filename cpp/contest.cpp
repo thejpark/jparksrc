@@ -7151,8 +7151,7 @@ public:
 
 
 // we have buses and busstops. Given first and the last stops, find the minimum number of stops
-// using buses available.
-
+// using buses available. Return -1 if its not possible.
 class SolutionBusStop {
 public:
 int MinBusStop(const std::vector<std::vector<std::string>>& bus_stops, const std::string& start, const std::string& end) {

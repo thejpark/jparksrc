@@ -1341,6 +1341,7 @@ void test_format() {
   double d = 1000.0123;
   double e = 1000.016;
   std::array<double, 3> x = {1.0, 2.0, 3.0};
+  std::array y{1.0, 2.0, 3.0};
   std::cout << format("The value is {:.2f}", d) << endl;
   std::cout << format("The value is {:.2f}", e) << endl;
 }

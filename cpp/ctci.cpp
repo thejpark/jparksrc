@@ -6250,6 +6250,79 @@ class Solution {
 }
 #endif
 
+// leetcode 207. Course Schedule
+// There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+// Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+// Example 1:
+// Input: numCourses = 2, prerequisites = [[1,0]]
+// Output: true
+// Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0. So it is possible.
+// Example 2:
+// Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+// Output: false
+// Explanation: There are a total of 2 courses to take. To take course 1 you should have finished course 0, and to take course 0 you should also have finished course
+
+
+// * BFS solution: Initialize a queue with all courses that have an in-degree of 0 (no prerequisites).
+//  While the queue is not empty:
+//      Dequeue a course.
+//      For each of its direct dependent courses (neighbors), decrement their in-degree.
+//      If a dependent course's in-degree becomes 0, enqueue it.
+//  After the process, if the total number of courses processed (dequeued) equals numCourses, then a topological sort was possible, and thus no cycle exists. Otherwise, a cycle exists.
+
+// * DFS solution: use visited array to detect cycle
+class CourseScheduleUsingDFS {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        unordered_set<int> s;
+        unordered_map<int, vector<int>> m;
+
+        for (int i = 0; i < numCourses; ++i) {
+            s.insert(i);
+        }
+
+        for (auto& p : prerequisites) {
+            m[p[1]].push_back(p[0]);
+            s.erase(p[0]);
+        }
+
+        vector<int> visit(numCourses, 0);
+        for (auto i : s) {
+            if (!search(m, i, visit)) {
+                return false;
+            }
+        }
+
+        for (auto v : visit) {
+            if (v != 2) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    bool search(unordered_map<int, vector<int>>& m, int i, vector<int>& visit) {
+        // cycle found
+        if (visit[i] == 1) {
+            return false;
+        }
+
+        visit[i] = 1;
+        for (auto n : m[i]) {
+            if (visit[n] != 2) {
+                if (!search(m, n, visit)) {
+                    return false;
+                }
+            }
+        }
+
+        visit[i] = 2;
+        return true;
+    }
+
+};
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
