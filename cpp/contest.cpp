@@ -1700,7 +1700,7 @@ void hay() //jj
     vt[a][b] = len;
   }
 
-  /* shortest path algorithm by Dikstra */
+  /* shortest path algorithm by Dijkstra */
 
   vector<int> d(vt[1].size(), 10000000);
 
@@ -7198,6 +7198,70 @@ int MinBusStop(const std::vector<std::vector<std::string>>& bus_stops, const std
 }
 };
 
+
+// leetcode 787
+// There are n cities connected by some number of flights. You are given an array flights where
+// flights[i] = [fromi, toi, pricei] indicates that there is a flight from city fromi to city toi with cost pricei.
+// You are also given three integers src, dst, and k, return the cheapest price from src to dst with at most k stops. If there is no such route, return -1.
+// Example 1:
+// Input: n = 3, flights = [[0,1,100],[1,2,100],[0,2,500]], src = 0, dst = 2, k = 1
+// Output: 200
+class FindCheapestPrice {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+        unordered_map<int, vector<pair<int, int>>> m;
+        vector<int> cost(n, INT_MAX);
+
+        for (auto& f: flights) {
+            m[f[0]].push_back({f[1], f[2]});
+        }
+
+        queue<int> l;
+        l.push(src);
+        l.push(-1); // marking the end of the list
+        cost[src] = 0;
+
+        unordered_set<int> visited;
+
+        // bfs until k + 1 iteration. if dst is found then get the min value.
+        // for each iteration, a stop can be visited once
+        // but the stop can be visited multiple times over iterations
+        auto new_cost = cost;
+        while (k >= 0 && !l.empty()) {
+            auto data = l.front();
+            l.pop();
+
+            if (data == -1) {
+                if (l.empty()) {
+                    break;
+                }
+                l.push(-1);
+                --k;
+                visited.clear();
+                cost = new_cost;
+            } else {
+                for (auto &[to, price]: m[data]) {
+                    if (cost[to] <= price + cost[data]) {
+                        // previous visit was faster
+                        continue;
+                    }
+                    if (!visited.count(to)) {
+                        visited.insert(to);
+                        l.push(to);
+                    }
+                    // we need new_cost here as changing cost here may affect
+                    // the cost of the upper level nodes in the queue.
+                    // new_cost[to] = min(new_cost[to], cost[data]) needed here so that
+                    // if a node can be visited by a different parent, then
+                    // we need smaller one.
+                    new_cost[to] = min(new_cost[to], price + cost[data]);
+                }
+            }
+        }
+
+        return cost[dst] == INT_MAX ? -1 : cost[dst];
+    }
+};
 
 /*
 start: get an idea by examples, design, implement next, optimize or debug last

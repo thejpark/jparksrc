@@ -1346,9 +1346,50 @@ void test_format() {
   std::cout << format("The value is {:.2f}", e) << endl;
 }
 
+// leetcode 105. Construct Binary Tree from Preorder and Inorder Traversal
+// Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+// Output: [3,9,20,null,null,15,7]
+class ConstructBinaryTree {
+ struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  };
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        return buildT(span<int>(preorder), span<int>(inorder));
+    }
+    
+    TreeNode* buildT(span<int> p, span<int> i) {
+        if (p.empty())
+            return nullptr;
+
+        int k = 0;
+        while (i[k] != p[0]) {
+            ++k;
+        }
+        TreeNode* root = new TreeNode(p[0]);
+        root->left = buildT(span<int>(p.begin() + 1, k), span<int>(i.begin(), k));
+        root->right = buildT(span<int>(p.begin() + k + 1, p.end()), span<int>(i.begin() + k + 1, i.end()));
+        
+        return root;
+    }
+};
+
+
+void test_construct_binary_tree()
+{
+  auto cbt = ConstructBinaryTree();
+  vector<int> preorder = {3, 9, 20, 15, 7};
+  vector<int> inorder = {9, 3, 15, 20, 7};
+  auto root = cbt.buildTree(preorder, inorder);
+  cout << "Root value: " << root->val << endl;
+  cout << "Left child value: " << root->left->val << endl
+       << "Right child value: " << root->right->val << endl;
+}
 
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {
-  test_format();
 }
