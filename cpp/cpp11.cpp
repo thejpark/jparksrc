@@ -1389,6 +1389,27 @@ void test_construct_binary_tree()
        << "Right child value: " << root->right->val << endl;
 }
 
+
+// test constexpr, consteval, constinit
+const int var_test_constexpr = 10; //jj: const or constexpr is fine.
+consteval int get_value(int x) {
+    return var_test_constexpr + 42 + x;
+}
+constexpr int get_value2(int x) {
+    return var_test_constexpr + 42 + x;
+}
+constinit int sq = get_value(2);
+int square_4_gen()
+{
+    static constinit int pow = get_value(4);
+ 
+    // constinit int prev = pow; // Error: constinit can only be applied to a
+                                 // variable with static or thread storage duration
+    int prev = pow;
+    pow = pow * pow;
+    return prev;
+}
+
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {

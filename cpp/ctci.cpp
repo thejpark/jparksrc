@@ -5729,6 +5729,7 @@ public:
     auto expected = min(mSize, cnt + mRefill);
     
     while(!mCnt.compare_exchange_strong(cnt, expected)) {
+      cnt = mCnt.load();
       if (cnt == mSize) { return; }
       expected = min(mSize, cnt + mRefill);
     }
@@ -5740,7 +5741,10 @@ public:
         return false;
     }
     while(!mCnt.compare_exchange_strong(cnt, cnt - 1)) {
-        if (cnt == 0) { return false; }
+      cnt = mCnt.load();
+      if (cnt == 0) {
+        return false;
+      }
     }
 
     return true;
