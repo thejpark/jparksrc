@@ -6327,6 +6327,18 @@ public:
 
 };
 
+// snap
+// 1) leetcode 205. Isomorphic Strings
+// 2) read line (i.e., "this is a test of the emergency broadcast system this is only a test") and print the number of words in the line. 
+//     more frequent words should be printed first, and if two words have the same frequency, then they should be sorted by their length.
+//     you should ask: order of print, do we to consider case, and what is the max length of a word.
+// 3) in a string, () and words exist. words or ( or ) inside a () should be indented by 2 spaces. 
+//   (hi) ->
+//   (
+//     hi
+//   )
+
+
 int main()
 {
     // lesson from fb 2017: I knew 3 of 4 problems, and I solved the other 1 well.
