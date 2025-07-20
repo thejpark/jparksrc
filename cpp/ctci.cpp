@@ -343,6 +343,7 @@ node* merge_list(node*a, node*b)//jj
     node ret(0);
     node* prev = &ret;
 
+    // need to check like this? while (a || b)? or does not matter?
     while (true)
     {
         if (!a)
@@ -375,6 +376,32 @@ node* merge_list(node*a, node*b)//jj
     return ret.next;
 }
 
+// this is a generic merge function from c++ ref, which can be used to merge two sorted iterators
+// returns an output iterator to element past the last element copied.
+
+template<class InputIt1, class InputIt2, class OutputIt>
+OutputIt merge_impl(InputIt1 first1, InputIt1 last1,
+               InputIt2 first2, InputIt2 last2,
+               OutputIt d_first)
+{
+    for (; first1 != last1; ++d_first)
+    {
+        if (first2 == last2)
+            return std::copy(first1, last1, d_first);
+ 
+        if (*first2 < *first1)
+        {
+            *d_first = *first2;
+            ++first2;
+        }
+        else
+        {
+            *d_first = *first1;
+            ++first1;
+        }
+    }
+    return std::copy(first2, last2, d_first);
+}
 
 pair<node*, node*> skip_zero(node* n)
 {
@@ -3475,59 +3502,67 @@ void test_find_largest_contained_intervals()
 
 // array monotonic. Space complexity does not count the origial space, just count additional space, so this is
 // O(N) time complexity, and O(1) space complexity.
-bool check_array_is_keep_increasing_decreasing(vector<int>& a) //jj
+class MonotonicArrayChecker // jj
 {
-  int direction = a.back() > a.front() ? 1 : -1;
-
-  for (int i = 0; i < a.size() - 1; ++i) {
-    int tempd;
-
-    if (direction == 1) {
-      tempd = a[i + 1] >= a[i] ? 1 : -1;
+public:
+  bool check_array_is_keep_increasing_decreasing(vector<int> &a) // jj
+  {
+    if (a.size() < 2) {
+      return true;
     }
-    else {
-      tempd = a[i + 1] <= a[i]? -1 : 1;
-    }
+    int d = 0;
 
-    if (tempd != direction)
-      return false;
-  }
-
-  return true;
-}
-
-// Usually I can think of using prev variable.
-bool array_monotonic_2(vector<int>& a)
-{
-    if (a.size() < 3)
-        return true;
-
-    auto cd = [](int a, int b) {
-        if (b > a)
-            return 1;
-        else if (a > b)
-            return -1;
-        else return 0;
-    };
-
-    int prev = cd(a[1], a[0]);
-
-    for (int i = 2; i < a.size(); ++i)
-    {
-        int tmp = cd(a[i], a[i - 1]);
-
-        if (tmp == 0)
-            continue;
-
-        if (tmp != prev && prev != 0)
-            return false;
-
-        prev = tmp;
+    for (int i = 1; i < a.size(); ++i) {
+      if (a[i] > a[i - 1]) {
+        if (d == -1) {
+          return false;
+        }
+        d = 1;
+      } else if (a[i] < a[i - 1]) {
+        if (d == 1) {
+          return false;
+        }
+        d = -1;
+      } else {
+        // do nothing, just continue
+        // do not need to change d, just keep it as is.
+        continue;
+      }
     }
 
     return true;
-}
+  }
 
+  bool check_array_is_keep_increasing_decreasing_2(vector<int> &a) // jj
+  {
+    if (a.size() < 2) {
+      return true;
+    }
+
+    int i = 1;
+    while (i < a.size() && a[i] == a[i - 1]) {
+      ++i;
+    }
+
+    if (i == a.size()) {
+      return true;
+    }
+
+    int d = a[i] - a[i - 1];
+    ++i;
+
+    for (; i < a.size(); ++i) {
+      if (a[i] == a[i - 1]) {
+        continue;
+      }
+      if ((a[i] - a[i - 1]) * d < 0) {
+        return false;
+      }
+    }
+
+    return true;
+  } 
+};
 
 int get_top_three_scores_sum(priority_queue<int, vector<int>, greater<int>> scores) //jj
 {
@@ -5793,7 +5828,7 @@ public:
   }
 
 private:
-  unordered_map<int, unique_ptr<Bucket>> m;
+  unordered_map<int, shared_ptr<Bucket>> m;
   shared_mutex mtx;
 };
 
@@ -6332,6 +6367,8 @@ public:
 // 2) read line (i.e., "this is a test of the emergency broadcast system this is only a test") and print the number of words in the line. 
 //     more frequent words should be printed first, and if two words have the same frequency, then they should be sorted by their length.
 //     you should ask: order of print, do we to consider case, and what is the max length of a word.
+//     Refer to leetcode 692. Top K Frequent Words.
+//     Also consider Sorted Set in Redis.
 // 3) in a string, () and words exist. words or ( or ) inside a () should be indented by 2 spaces. 
 //   (hi) ->
 //   (

@@ -6975,94 +6975,81 @@ public:
 
 class SolutionReconstructItinerary {
 public:
+    // using priority queue
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        sort(tickets.begin(), tickets.end(), [](vector<string>& a, vector<string>& b)
-             {
-                 if (a[0] < b[0])
-                     return true;
-                 else if (a[0] > b[0])
-                     return false;
-                 else
-                 {
-                     if (a[1] < b[1])
-                         return true;
-                     return false;
-                 }
-             });
-        
-        unordered_map<string, list<int>> m;
-        for (int i = 0; i < tickets.size(); ++i)
-        {
-            m[tickets[i][0]].push_back(i);
+        auto comp = [](const string& a, const string& b) { return a > b; };
+        unordered_map<string, priority_queue<string, vector<string>, decltype(comp)>> m;
+
+        for (int i = 0; i < tickets.size(); ++i) {
+            m[tickets[i][0]].push(tickets[i][1]);
         }
-        
-        vector<bool> vb(tickets.size(), false);
-        vector<string> r;
 
-        r.push_back("JFK");
-        foo("JFK", m, tickets, vb, r);
-        
-        return r;
+        deque<string> r;
 
+        foo(r, tickets, "JFK", m);
+
+        return vector<string>(r.begin(), r.end()); 
+    }
+
+    template<typename E_T, typename CON_T, typename COM_T>
+    void foo(deque<string>& r, vector<vector<string>>& tickets, const string& src, 
+        unordered_map<string, priority_queue<E_T, CON_T, COM_T>>& m) {
+        auto& pq = m[src];
+        while (!pq.empty()) {
+            auto dst = pq.top();
+            pq.pop();
+            foo(r, tickets, dst, m);
+        }
+
+        r.push_front(src);
     }
     
-    bool foo(string str, unordered_map<string, list<int>>& m, vector<vector<string>>& t, vector<bool>& b, vector<string>& r)
-    {
-        if (r.size() == b.size() + 1)
-            return true;
-
-        for (auto e : m[str])
-        {
-            if (!b[e])
-            {
-                b[e] = true;
-                r.push_back(t[e][1]);
-                bool result = foo(t[e][1], m, t, b, r);
-                if (result)
-                    return true;
-                r.pop_back();
-                b[e] = false;
-            }
+    // using dfs
+    vector<string> findItinerary1(vector<vector<string>>& tickets) {
+        unordered_map<string, vector<int>> m;
+        for (int i = 0; i < tickets.size(); ++i) {
+            m[tickets[i][0]].push_back(i);
         }
-        
+
+        for (auto& [_, v]: m) {
+            sort(v.begin(), v.end(), [&tickets](int i, int j){
+                return tickets[i][1] < tickets[j][1];
+            });
+        }
+
+        vector<int> visited(tickets.size(), 0);
+        vector<string> r{"JFK"};
+        vector<string> res;
+
+        foo(r, res, tickets, "JFK", m, visited);
+
+        return res; 
+    }
+
+    bool foo(vector<string>& r, vector<string>& res, vector<vector<string>>& tickets, const string& src, 
+        unordered_map<string, vector<int>>& m,  vector<int>& visited) {
+        if (r.size() == tickets.size() + 1) {
+            res = r;
+            return true;
+        }
+
+        for (auto idx:  m[src]) {
+            if (visited[idx]) {
+                continue;
+            }
+            visited[idx] = true;
+            r.push_back(tickets[idx][1]);
+            if (foo(r, res, tickets, tickets[idx][1], m, visited)) {
+                // we should do this to stop proceeding. If we proceed then it
+                // ends up solution whic is bigger lexical order.
+                return true;
+            }
+            r.pop_back();
+            visited[idx] = false;
+        }
         return false;
     }
 };
-// using java
-/*
-class Solution {
-    
-    public List<String> findItinerary(List<List<String>> tickets) {
-        HashMap<String, PriorityQueue<String>> m = new HashMap<>();
-        for (var t : tickets)
-        {
-            var depart = t.get(0);
-            m.putIfAbsent(depart, new PriorityQueue<String>());
-            m.get(depart).add(t.get(1));
-        }
-                
-        LinkedList<String> r = new LinkedList<>();
-        foo(m, r, "JFK");
-        
-        return r;
-        
-    }
-    
-    void foo(Map<String, PriorityQueue<String>> m, LinkedList<String> r, String depart)
-    {
-        PriorityQueue<String> q = m.get(depart);
-
-        while (q != null && !q.isEmpty())
-        {
-            var newDep = q.poll();
-            foo(m, r, newDep); // if the first one ends without finish up all the nodes then try with the second one. the second one is added before the first one so that the list 'r' can end up iternary list.
-        }
-        
-        r.addFirst(depart);
-    }
-}
-*/
-
 
 //leetcode 355 design twitter
 /**
