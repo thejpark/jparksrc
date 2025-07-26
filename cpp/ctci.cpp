@@ -23,6 +23,7 @@
 #include <functional> // function  object
 #include <math.h>
 #include <climits>
+#include <limits>
 #include <map>
 #include <unordered_map>
 #include <stack>
@@ -6375,6 +6376,13 @@ public:
 //     hi
 //   )
 // lesson learned: ask cleaning questions. do not just jump into coding.
+
+// snap refactoring
+// question about type erasure. snap uses third party library for filters. They want to use it seemingly in a type safe way.
+// there were two filters provided. Both filters return slightly different result, but basically image vector.
+// I suggested to use a common interface for filters and images, and wrapper for the filters, basically a type erasure. 
+// For the images I also suggested to use a common interface, and then use a wrapper for the images.
+
 
 
 int main()

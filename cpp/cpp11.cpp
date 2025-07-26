@@ -1410,6 +1410,80 @@ int square_4_gen()
     return prev;
 }
 
+// This code demonstrates type erasure in C++ using a simple callable interface.
+// 1. The Concept (Interface)
+// Defines the common operation we want to perform (e.g., call a function with no arguments)
+class CallableConcept {
+public:
+    virtual ~CallableConcept() = default;
+    virtual void call() const = 0;
+};
+// 2. The Model (Wrapper) Template
+// A concrete implementation of CallableConcept that wraps a specific callable type
+template <typename Callable>
+class CallableModel : public CallableConcept {
+private:
+    Callable callable_; // Holds the concrete callable object
+public:
+    // Constructor takes any callable type
+    CallableModel(Callable c) : callable_(std::move(c)) {}
+    // Forwards the call to the wrapped callable
+    void call() const override {
+        callable_();
+    }
+};
+// 3. The Container/Manager Class
+// The public-facing class that uses type erasure
+class MyFunction {
+private:
+    // Holds a pointer to the abstract concept, hiding the concrete type
+    std::unique_ptr<CallableConcept> callable_impl_;
+public:
+    // Templated constructor allows constructing from any callable type
+    template <typename Callable>
+    MyFunction(Callable c)
+        : callable_impl_(std::make_unique<CallableModel<Callable>>(std::move(c))) {}
+    // Overload the function call operator to enable calling the wrapped callable
+    void operator()() const {
+        if (callable_impl_) {
+            callable_impl_->call();
+        }
+    }
+};
+// --- Usage Examples ---
+void free_function() {
+    std::cout << "Hello from a free function!\n";
+}
+struct Functor {
+    void operator()() const {
+        std::cout << "Hello from a functor!\n";
+    }
+};
+int test_type_erasure() {
+    // Erasing the type of a free function
+    MyFunction f1 = free_function;
+    f1();
+    // Erasing the type of a lambda
+    MyFunction f2 = []() {
+        std::cout << "Hello from a lambda!\n";
+    };
+    f2();
+    // Erasing the type of a functor
+    MyFunction f3 = Functor();
+    f3();
+    // We can even put them in a container, which is where true polymorphism shines
+    std::vector<MyFunction> functions;
+    functions.push_back(free_function);
+    functions.push_back([]() { std::cout << "Another lambda!\n"; });
+    functions.push_back(Functor());
+    std::cout << "\nCalling functions from a vector:\n";
+    for (const auto& func : functions) {
+        func();
+    }
+    return 0;
+}
+
+
 // Write a program that returns top 1000 frequent search terms out of 256 x 1 GB log files using 8 x quad-core processor machines with 8 GB RAM.
 int main(int argc, char * argv[])
 {

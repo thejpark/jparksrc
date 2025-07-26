@@ -1916,6 +1916,7 @@ void knight_move() //jj
 
 // perfect stall
 // http://poj.org/problem?id=1274
+// Time Limit Exceeded
 int find_perfect_stall(map<int, int>& allocated, map<int, int>& visited, map<int, list<int>>& cow) //jj
 {
     int m = 0;
@@ -1968,6 +1969,236 @@ void perfect_stall()
 
     cout << r;
 }
+
+
+// This is a solution for Perfect Stall or Max Matching of two teams problem.
+// 0 ms, optimal solution using DFS and augmenting paths.
+class SolutionForPerfectStallOrMatMatch {
+  // Time Complexity is O(V*E) = O(N^2M)
+private:
+    // Adjacency list representation of the bipartite graph
+    // adj[i] contains a list of players from Team B that player A_i can play against.
+    std::vector<std::vector<int>> adj;
+    int N; // Number of players in Team A
+    int M; // Number of players in Team B
+    // matchB[j] stores the player from Team A that player B_j is currently matched with.
+    // -1 means B_j is unmatched.
+    std::vector<int> matchB;
+    // visited[i] tracks if player A_i has been visited in the current DFS traversal.
+    // Reset for each new top-level DFS call.
+    std::vector<bool> visited;
+    // DFS function to find an augmenting path
+    // Returns true if an augmenting path is found starting from player A_u,
+    // and updates the matching accordingly.
+    bool dfs(int u) {
+        visited[u] = true; // Mark player A_u as visited in this DFS path
+        // Iterate through all players B_v that player A_u can play against
+        for (int v : adj[u]) {
+            // If player B_v is unmatched (matchB[v] == -1)
+            // OR if B_v is matched with some A_prev_u, AND we can recursively find
+            // an alternative match for A_prev_u (by calling dfs(A_prev_u)),
+            // then we can use B_v for A_u.
+            // Note: !visited[matchB[v]] is crucial to avoid infinite loops when dfs is called recursively
+            // on an already visited A_player in the current augmenting path search.
+            if (matchB[v] == -1 || (!visited[matchB[v]] && dfs(matchB[v]))) {
+                matchB[v] = u; // Match A_u with B_v
+                return true;   // An augmenting path is found
+            }
+        }
+        return false; // No augmenting path found from A_u
+    }
+public:
+    int maxNonConflictingMatches(int n_players_A, int m_players_B, const std::vector<std::vector<int>>& possibleMatches) {
+        N = n_players_A;
+        M = m_players_B;
+        adj.assign(N, std::vector<int>()); // Initialize adjacency list for N players of Team A
+        matchB.assign(M, -1);             // Initialize matchB array for M players of Team B (all -1 means unmatched)
+        // Build the graph from the possible matches
+        for (const auto& match_pair : possibleMatches) {
+            int u = match_pair[0]; // Player from Team A
+            int v = match_pair[1]; // Player from Team B
+            adj[u].push_back(v);
+        }
+        int matches = 0; // Counter for the total number of matches
+        // Try to find a match for each player in Team A
+        for (int i = 0; i < N; ++i) {
+            visited.assign(N, false); // Reset visited array for each new DFS attempt
+                                     // This is important because the path finding for each 'i' is independent.
+            if (dfs(i)) {
+                matches++; // If dfs finds an augmenting path, it means we increased the matching size by 1
+            }
+        }
+        return matches; // Return the maximum number of matches
+    }
+};
+
+/*
+The Edmonds-Karp algorithm works by repeatedly finding augmenting paths from the
+source to the sink in the residual graph using a Breadth-First Search (BFS). An
+augmenting path is a path where each edge has available "residual capacity"
+(i.e., it can carry more flow).
+
+Steps:
+
+1. Initialize Flow: Start with an initial flow of 0 on all edges.
+2.Repeatedly Find Augmenting Paths:
+
+Use BFS to search for a path from the source s to the sink t in the residual
+graph.
+
+The residual graph represents the remaining capacity of edges. For every
+original edge u -> v with capacity c and current flow f, there's a forward edge
+u -> v with residual capacity c - f, and a backward edge v -> u with residual
+capacity f.
+
+3.Calculate Bottleneck: If a path is found, determine the bottleneck capacity of
+this path, which is the minimum residual capacity of any edge along that path.
+This is the maximum amount of flow that can be pushed along this specific path.
+
+4. Augment Flow: Add the bottleneck capacity to the total flow. Then, update the
+flows in the original graph (and thus the residual capacities in the residual
+graph):
+
+For every forward edge u -> v on the path: flow(u, v) += bottleneck.
+
+For every backward edge v -> u (corresponding to an edge u -> v in the original
+graph with existing flow): flow(v, u) -= bottleneck.
+
+5. Repeat: Continue steps 2-4 until no more augmenting paths can be found using
+BFS.
+
+Complexity:
+
+Time Complexity: O(V * E^2), where V is the number of vertices and E is the
+number of edges. This can be more efficient for graphs with unit capacities.
+
+Space Complexity: O(V + E) for storing the graph (adjacency list), parent
+pointers, and path flow.
+
+*/
+
+class MaxFlow {
+// Represents an edge in the residual graph.
+// We use adjacency list where each entry is an Edge object.
+struct Edge {
+    int to;          // Destination vertex of this edge
+    int capacity;    // Current residual capacity of this edge
+    int reverse_edge; // Index of the corresponding reverse edge in adj[to]'s list
+};
+// Global adjacency list to represent the graph.
+// adj[u] contains all outgoing edges from vertex u.
+std::vector<std::vector<Edge>> adj;
+int num_vertices;
+// Function to add a directed edge (u -> v) with given capacity to the graph.
+// It also implicitly adds the reverse edge (v -> u) with 0 initial residual capacity,
+// which is used for pushing flow back.
+void add_edge(int u, int v, int capacity) {
+    // Add the forward edge u -> v
+    adj[u].push_back({v, capacity, static_cast<int>(adj[v].size())});
+    // Add the reverse edge v -> u
+    // Its capacity is 0 initially because no flow can be pushed "back" yet.
+    // Its reverse_edge points back to the forward edge.
+    adj[v].push_back({u, 0, static_cast<int>(adj[u].size()) - 1});
+}
+// BFS (Breadth-First Search) to find an augmenting path in the residual graph.
+// It returns the bottleneck capacity of the path found, or 0 if no path exists.
+int bfs(int s, int t, std::vector<int>& parent_edge_idx, std::vector<int>& parent_node) {
+    // parent_node[i] stores the node from which we reached 'i'.
+    // parent_edge_idx[i] stores the index of the edge in parent_node[i]'s adjacency list
+    // that was used to reach 'i'. This is needed to easily find the reverse edge.
+    parent_node.assign(num_vertices, -1);      // -1 means not visited
+    parent_edge_idx.assign(num_vertices, -1); // -1 means no edge used
+    // path_flow[i] stores the minimum residual capacity on the path from 's' to 'i'.
+    std::vector<int> path_flow(num_vertices, 0);
+    std::queue<int> q;
+    q.push(s);
+    parent_node[s] = s; // Mark source as visited (by setting its parent to itself)
+    path_flow[s] = std::numeric_limits<int>::max(); // Start with infinite flow to source
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        // Explore all outgoing edges from the current node 'u'
+        for (int i = 0; i < adj[u].size(); ++i) {
+            Edge& edge = adj[u][i]; // Get the current edge
+            // If the destination node 'edge.to' has not been visited yet,
+            // AND there is residual capacity on this edge:
+            if (parent_node[edge.to] == -1 && edge.capacity > 0) {
+                parent_node[edge.to] = u;                 // Set 'u' as parent of 'edge.to'
+                parent_edge_idx[edge.to] = i;             // Store the index of this edge in adj[u]
+                path_flow[edge.to] = std::min(path_flow[u], edge.capacity); // Update bottleneck path flow
+                q.push(edge.to); // Add destination to queue
+                if (edge.to == t) { // If we reached the sink, we found an augmenting path
+                    return path_flow[t]; // Return the bottleneck capacity of this path
+                }
+            }
+        }
+    }
+    return 0; // No augmenting path found from source to sink
+}
+// Edmonds-Karp algorithm for finding the maximum flow.
+int max_flow(int s, int t) {
+    int total_flow = 0; // Stores the total maximum flow
+    // parent_node and parent_edge_idx are used by BFS and then to reconstruct the path
+    std::vector<int> parent_node(num_vertices);
+    std::vector<int> parent_edge_idx(num_vertices);
+    // Loop until no more augmenting paths can be found
+    while (true) {
+        int path_bottleneck = bfs(s, t, parent_edge_idx, parent_node);
+        if (path_bottleneck == 0) { // If BFS found no path, we've reached max flow
+            break;
+        }
+        total_flow += path_bottleneck; // Add the flow found in this path to total
+        // Augment flow along the path found by BFS
+        // Traverse back from sink to source using parent pointers
+        int current_node = t;
+        while (current_node != s) {
+            int prev_node = parent_node[current_node];
+            int edge_idx_from_prev = parent_edge_idx[current_node];
+            // Decrease capacity of the forward edge on the path
+            adj[prev_node][edge_idx_from_prev].capacity -= path_bottleneck;
+            // Increase capacity of the corresponding reverse edge
+            // (This allows "pushing back" flow if needed for another path)
+            adj[current_node][adj[prev_node][edge_idx_from_prev].reverse_edge].capacity += path_bottleneck;
+            current_node = prev_node; // Move to the previous node in the path
+        }
+    }
+    return total_flow; // Return the maximum flow
+}
+int test() {
+    // Example Graph for Max Flow
+    // 6 vertices (0 to 5), s=0, t=5
+    // Graph based on a common network flow problem example.
+    // Expected Max Flow: 23
+    num_vertices = 6;
+    adj.assign(num_vertices, std::vector<Edge>()); // Clear and resize adjacency list
+    // Add edges with capacities
+    add_edge(0, 1, 16); add_edge(0, 2, 13);
+    add_edge(1, 2, 10); add_edge(1, 3, 12);
+    add_edge(2, 1, 4); add_edge(2, 4, 14);
+    add_edge(3, 2, 9); add_edge(3, 5, 20);
+    add_edge(4, 3, 7); add_edge(4, 5, 4);
+    int source = 0;
+    int sink = 5;
+    int max_f = max_flow(source, sink);
+    std::cout << "Maximum flow from " << source << " to " << sink << " is: " << max_f << std::endl; // Expected: 23
+    // --- Another simple example ---
+    // 4 vertices (0 to 3), s=0, t=3
+    // Edges: 0->1 (10), 0->2 (10), 1->3 (10), 2->3 (10)
+    // Expected Max Flow: 20
+    num_vertices = 4;
+    adj.assign(num_vertices, std::vector<Edge>()); // Clear and resize adj list
+    add_edge(0, 1, 10);
+    add_edge(0, 2, 10);
+    add_edge(1, 3, 10);
+    add_edge(2, 3, 10);
+    source = 0;
+    sink = 3;
+    max_f = max_flow(source, sink);
+    std::cout << "\nMaximum flow from " << source << " to " << sink << " (simple graph) is: " << max_f << std::endl; // Expected: 20
+    return 0;
+}
+};
+
 
 // Given two strings s and t, you have to decide whether s is a subsequence of t, i.e. if you can remove characters from t such that the concatenation of the remaining characters is s.
 
@@ -6975,7 +7206,7 @@ public:
 
 class SolutionReconstructItinerary {
 public:
-    // using priority queue
+    // using dfs with priority queue
     vector<string> findItinerary(vector<vector<string>>& tickets) {
         auto comp = [](const string& a, const string& b) { return a > b; };
         unordered_map<string, priority_queue<string, vector<string>, decltype(comp)>> m;
