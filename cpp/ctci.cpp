@@ -465,6 +465,21 @@ OutputIt merge_impl(InputIt1 first1, InputIt1 last1,
     return std::copy(first2, last2, d_first);
 }
 
+std::pair<node*, node*> reverse_one_word(node* n) {
+  // reverse one word
+  auto p = n;
+  auto old_next = n;
+  n = n->next;
+  while (n && n->data != 0) {
+    auto next = n->next;
+    n->next = p;
+    p = n;
+    n = next;
+  }
+  old_next->next = n; // set up next
+  return std::make_pair(p, old_next);
+}
+
 node* reverse_word(node* n)
 {
     node head(0);
@@ -488,18 +503,18 @@ node* reverse_word(node* n)
         auto p = n;
         auto old_next = n;
         n = n->next;
-        p->next = nullptr;
         while (n && n->data != 0) {
           auto next = n->next;
           n->next = p;
           p = n;
           n = next;
         }
+        old_next->next = n; // set up next
 
         //set up prev
         prev->next = p;
         prev = old_next; 
-        prev->next = n;
+        n = prev->next;
     }
 
     return head.next;
