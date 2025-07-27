@@ -465,53 +465,41 @@ OutputIt merge_impl(InputIt1 first1, InputIt1 last1,
     return std::copy(first2, last2, d_first);
 }
 
-pair<node*, node*> skip_zero(node* n)
-{
-    node* prev = nullptr;
-
-    while (n && n->data == 0)
-    {
-        prev = n;
-        n = n->next;
-    }
-
-    return pair<node*, node*>(prev, n);
-}
-
-pair<node*, node*> reverse_one_word(node* a)//jj
-{
-    if (!a)
-        return pair<node*, node*>(a, a);
-
-    node* prev = a;
-    node* head = a;
-    a = a->next;
-
-    while (a && a->data != 0)
-    {
-        node* next = a->next;
-        a->next = prev;
-        prev = a;
-        a = next;
-    }
-
-    head->next = a;
-    return pair<node*, node*>(prev, a);
-}
-
-
 node* reverse_word(node* n)
 {
     node head(0);
+    node* prev = &head;
     head.next = n;
 
     while (n)
     {
-        pair<node*, node*> a = skip_zero(n);
-        pair<node*, node*> b = reverse_one_word(a.second);
+        // skip zero
+        while (n && n->data == 0)
+        {
+          prev = n;
+          n = n->next;
+        }
 
-        a.first->next = b.first;
-        n = b.second;
+        if (!n) {
+            break;
+        }
+
+        // reverse one word
+        auto p = n;
+        auto old_next = n;
+        n = n->next;
+        p->next = nullptr;
+        while (n && n->data != 0) {
+          auto next = n->next;
+          n->next = p;
+          p = n;
+          n = next;
+        }
+
+        //set up prev
+        prev->next = p;
+        prev = old_next; 
+        prev->next = n;
     }
 
     return head.next;
@@ -5158,6 +5146,15 @@ void test_reverse_word()
     end->next = new node(0);
 
     node* r = reverse_word(head);
+    node* r2 = r;
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    std::cout << std::endl;
+    r = reverse_word(r2->next);
     while (r)
     {
         cout << r->data << " ";
