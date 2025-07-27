@@ -377,6 +377,67 @@ node* merge_list(node*a, node*b)//jj
     return ret.next;
 }
 
+// merge list and return unique elements
+node* merge_list_unique(node*a, node*b)//jj
+{
+// merge two list into one
+
+    node ret(0);
+    node* prev = &ret;
+
+    while (true)
+    {
+        if (!a)
+        {
+            prev->next = b;
+            break;
+        }
+        else if (!b)
+        {
+            prev->next = a;
+            break;
+        }
+        else
+        {
+            if (a->data < b->data)
+            {
+                prev->next = a;
+                a = a->next;
+            }
+            else
+            {
+                prev->next = b;
+                b = b->next;
+            }
+
+            if (prev->next->data == prev->data)
+            {
+                // remove duplicate
+                auto next = prev->next;
+                prev->next = next->next;
+                delete next; // or just skip it
+            }
+            else
+            {
+                prev = prev->next;
+            }
+        }
+    }
+
+    while (prev->next) {
+      if (prev->next->data == prev->data) {
+        auto next = prev->next;
+        prev->next = next->next;
+        delete next; // or just skip it
+      } else {
+        prev = prev->next;
+      }
+    }
+
+    return ret.next;
+}
+
+
 // this is a generic merge function from c++ ref, which can be used to merge two sorted iterators
 // returns an output iterator to element past the last element copied.
 
@@ -444,7 +505,6 @@ node* reverse_word(node* n)
     node head(0);
     head.next = n;
 
-    n = &head;
     while (n)
     {
         pair<node*, node*> a = skip_zero(n);
@@ -4331,6 +4391,7 @@ vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k
     }
 
   return r;
+}
 
  
 // also see leetcode 378
@@ -5093,6 +5154,8 @@ void test_reverse_word()
     end->next = new node(3);
     end = end->next;
     end->next = new node(4);
+    end = end->next;
+    end->next = new node(0);
 
     node* r = reverse_word(head);
     while (r)
@@ -5146,6 +5209,40 @@ void test_merge_linked_list()
     end2->next = new node(6);
 
     node* r = merge_list(head, head2);
+
+    while (r)
+    {
+        cout << r->data << " ";
+        r = r-> next;
+    }
+
+    cout << endl;
+}
+
+void test_merge_linked_list_unique()
+{
+  std::cout << "test merge list unique" << std::endl;
+    node* head = new node(1);
+    node* end = head;
+    end->next = new node(3);
+    end = end->next;
+    end->next = new node(4);
+    end = end->next;
+    end->next = new node(7);
+    end = end->next;
+    end->next = new node(7);
+
+    node* head2 = new node(2);
+    node* end2 = head2;
+    end2->next = new node(4);
+    end2 = end2->next;
+    end2->next = new node(5);
+    end2 = end2->next;
+    end2->next = new node(5);
+    end2 = end2->next;
+    end2->next = new node(6);
+
+    node* r = merge_list_unique(head, head2);
 
     while (r)
     {
@@ -6418,7 +6515,6 @@ int main()
   }
 
 
-turbulent t;
-t.test();
-
+test_merge_linked_list_unique();
+test_reverse_word();
 }
